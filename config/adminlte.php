@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'title' => 'Admission',
+    'title' => 'Collège ENK',
     'title_prefix' => '',
     'title_postfix' => '',
 
