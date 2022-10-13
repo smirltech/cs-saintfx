@@ -1,0 +1,23 @@
+version: '3.9'
+services:
+    admission-app:
+        image: jkaninda/nginx-php-fpm:latest
+        container_name: admission-app
+        restart: unless-stopped
+        volumes:
+            #Project root
+            - ./:/var/www/html
+            - admission-storage:/var/www/html/storage/app
+        ports:
+            - "9004:80"
+        networks:
+            - sagenet
+
+volumes:
+    admission-storage:
+        name: admission-storage
+
+networks:
+    sagenet:
+        name: sagenet
+        external: true
