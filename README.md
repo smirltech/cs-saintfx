@@ -1,8 +1,8 @@
-# Admission
+# SCOLARITE
 
 > This project runs with Laravel version 9 and PHP 8.1
 
-[Data Modeling](https://drawsql.app/teams/smirltech/diagrams/bheti-connect)
+[Data Modeling](https://drawsql.app/teams/smirltech/diagrams/college-enk)
 
 ## Getting started
 
