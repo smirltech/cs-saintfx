@@ -8,7 +8,7 @@ if (mix.inProduction()) {
     mix.version();
 }
 
-mix.browserSync('http://upladmission.test');
+mix.browserSync('http://cenk-scolarite.test');
 
 
 
