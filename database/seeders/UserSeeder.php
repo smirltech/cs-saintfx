@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
     public function run()
     {
 
-        $user = User::updateOrCreate(['email' => "admin@upl-univ.ac"], [
+        $user = User::updateOrCreate(['email' => "admin@cenk.cd"], [
             'name' => "Admin",
             'email_verified_at' => now(),
             //'password' => Hash::make('Sfh9V3kPSQ'),
@@ -26,6 +26,6 @@ class UserSeeder extends Seeder
             'remember_token' => Str::random(10),
         ]);
 
-        $user->syncRoles(UserRole::admin->name);
+        $user->syncRoles(UserRole::super_admin->name);
     }
 }
