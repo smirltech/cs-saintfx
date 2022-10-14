@@ -29,13 +29,13 @@ class OptionIndexComponent extends Component
     public function deleteOption($id)
     {
         $option = Option::find($id);
-        if (count($option->options) == 0) {
+       // if (count($option->options) == 0) {
             if ($option->delete()) {
                 $this->loadData();
                 $this->alert('success', "Option supprimée avec succès !");
             }
-        } else {
-            $this->alert('warning', "Section n'a pas été supprimée, il y a des filières attachées !");
-        }
+//        } else {
+//            $this->alert('warning', "Section n'a pas été supprimée, il y a des filières attachées !");
+//        }
     }
 }

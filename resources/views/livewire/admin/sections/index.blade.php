@@ -24,7 +24,7 @@
                                 <tr>
                                     <th>SECTION</th>
 
-                                    <th style="width: 100px">CODE</th>
+                                    <th>CODE</th>
 
                                     <th style="width: 100px"></th>
                                 </tr>

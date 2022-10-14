@@ -35,7 +35,7 @@ class SectionIndexComponent extends Component
                 $this->alert('success', "Section supprimée avec succès !");
             }
         } else {
-            $this->alert('warning', "Section n'a pas été supprimée, il y a des filières attachées !");
+            $this->alert('warning', "Section n'a pas été supprimée, il y a des options attachées !");
         }
     }
 }
