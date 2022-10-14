@@ -1,10 +1,29 @@
-<div class="">
+@section('title')
+    {{Str::upper('cenk')}} - ajouter option
+@endsection
+@section('content_header')
+    <div class="row">
+        <div class="col-6">
+            <h1 class="ms-3">Ajouter option</h1>
+        </div>
 
+        <div class="col-6">
+            <ol class="breadcrumb float-right">
+                <li class="breadcrumb-item"><a href="{{ route('admin') }}">Accueil</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.options') }}">Options</a></li>
+                <li class="breadcrumb-item active">Nouvelle Option</li>
+            </ol>
+        </div>
+    </div>
+
+@stop
+<div class="">
     <div class="content mt-3">
         <div class="container-fluid">
             <div class="card">
 
                 <div class="card-body">
+                    <x-validation-errors class="mb-4" :errors="$errors"/>
                      <form wire:submit.prevent="submit">
                 <div class="row">
                     <div class="form-group col-5">
@@ -22,7 +41,7 @@
                     @enderror
                     </div>
                     <div class="form-group col-5">
-                        <label for="">Section</label>
+                        <label for="">Section <i class="text-red">*</i></label>
                         <select wire:model="section_id" class="form-control  @error('section_id') is-invalid @enderror">
                             <option value="-1">Choisir section</option>
                             @foreach ($sections as $section )

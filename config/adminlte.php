@@ -323,12 +323,12 @@ return [
            // 'can' => RolePermission::create_faculte->name,
             'submenu' => [
                 [
-                    'text' => 'Liste de sections',
-                    'url' => 'admin/sections',
-                ],
-                [
                     'text' => 'Liste d\'options',
                     'url' => 'admin/options',
+                ],
+                [
+                    'text' => 'Liste de sections',
+                    'url' => 'admin/sections',
                 ],
             ],
         ],

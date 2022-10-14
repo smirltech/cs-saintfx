@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin\Option;
 
+use App\Models\Option;
 use App\Models\Section;
 use App\View\Components\AdminLayout;
 use Illuminate\Validation\Rule;
@@ -13,50 +14,55 @@ class OptionEditComponent extends ModalComponent
 {
     use LivewireAlert;
 
-    public $section;
-    protected $messages = [
-        'section.nom.required' => 'Ce nom est obligatoire !',
-        'section.nom.unique' => 'Ce nom est déjà pris, cherchez-en un autre !',
+    public $option;
+    public $sections = [];
 
-        'section.code.required' => 'Ce code est obligatoire !',
-        'section.code.unique' => 'Ce code est déjà pris, cherchez-en un autre !',
+    protected $messages = [
+        'option.nom.required' => 'Ce nom est obligatoire !',
+        'option.nom.unique' => 'Ce nom est déjà pris, cherchez-en un autre !',
+
+        'option.code.required' => 'Ce code est obligatoire !',
+        'option.code.unique' => 'Ce code est déjà pris, cherchez-en un autre !',
+        'option.section_id.required' => 'La section est obligatoire !',
     ];
 
-    public function mount(Section $section)
+    public function mount(Option $option)
     {
-        $this->section = $section;
+        $this->option = $option;
+        $this->sections = Section::orderBy('nom')->get();
     }
 
     public function submit()
     {
         $this->validate();
-        $done = $this->section->save();
+        $done = $this->option->save();
         if ($done) {
-            $this->flash('success', 'Section modifiée avec succès', [], route('admin.sections'));
+            $this->flash('success', 'Option modifiée avec succès', [], route('admin.options'));
         } else {
-            $this->alert('warning', "Echec de modofication de section !");
+            $this->alert('warning', "Echec de modification d'option !");
         }
 
     }
 
     public function render()
     {
-        return view('livewire.admin.sections.edit')
-            ->layout(AdminLayout::class, ['title' => 'Modification de section']);
+        return view('livewire.admin.options.edit')
+            ->layout(AdminLayout::class, ['title' => 'Modification d\'option']);
     }
 
     protected function rules()
     {
         return [
-            'section.nom' => [
+            'option.nom' => [
                 "required",
-                Rule::unique((new Section)->getTable(), "nom")->ignore($this->section->id)
-
+                Rule::unique((new Option)->getTable(), "nom")->ignore($this->option->id)
             ],
-            'section.code' => [
+            'option.code' => [
                 "required",
-                Rule::unique((new Section)->getTable(), "code")->ignore($this->section->id)
-
+                Rule::unique((new Option)->getTable(), "code")->ignore($this->option->id)
+            ],
+            'option.section_id' => [
+                "required",
             ],
 
         ];

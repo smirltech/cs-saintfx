@@ -39,6 +39,8 @@ class OptionCreateComponent extends Component
 
         'code.required' => 'Ce code est obligatoire !',
         'code.unique' => 'Ce code est déjà pris, cherchez-en un autre !',
+
+        'section_id.required' => 'La section est obligatoire !',
     ];
 
     public function submit()

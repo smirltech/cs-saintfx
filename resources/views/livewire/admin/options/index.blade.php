@@ -1,7 +1,25 @@
-<div class="">
+@section('title')
+    {{Str::upper('cenk')}} - options
+@endsection
+@section('content_header')
+    <div class="row">
+        <div class="col-6">
+            <h1 class="ms-3">Liste d'options</h1>
+        </div>
 
+        <div class="col-6">
+            <ol class="breadcrumb float-right">
+                <li class="breadcrumb-item"><a href="{{ route('admin') }}">Accueil</a></li>
+                <li class="breadcrumb-item active">Options</li>
+            </ol>
+        </div>
+    </div>
+
+@stop
+<div class="">
     <div class="content mt-3">
         <div class="container-fluid">
+            <x-validation-errors class="mb-4" :errors="$errors"/>
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
