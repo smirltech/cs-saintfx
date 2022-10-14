@@ -1,5 +1,23 @@
-<div class="">
+@section('title')
+    {{Str::upper('cenk')}} - filière - {{$filiere->nom}}
+@endsection
+@section('content_header')
+    <div class="row">
+        <div class="col-6">
+            <h1 class="ms-3">{{$filiere->nom}}</h1>
+        </div>
 
+        <div class="col-6">
+            <ol class="breadcrumb float-right">
+                <li class="breadcrumb-item"><a href="{{ route('admin') }}">Accueil</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.filieres') }}">Filières</a></li>
+                <li class="breadcrumb-item active">{{$filiere->nom}}</li>
+            </ol>
+        </div>
+    </div>
+
+@stop
+<div class="">
     <div class="content mt-3">
         <div class="container-fluid">
             <div class="card">
@@ -23,8 +41,13 @@
                             {{ $filiere->code }}
                         </div>
                         <div class="col">
-                            <label>Faculté : </label>
-                            <a href="/admin/facultes/{{ $filiere->faculte->id }}">{{ $filiere->faculte->nom }}</a>
+                            <label>Option : </label>
+                            <a href="/admin/options/{{ $filiere->option->id }}">{{ $filiere->option->nom }}</a>
+
+                        </div>
+                        <div class="col">
+                            <label>Section : </label>
+                            <a href="/admin/sections/{{ $filiere->option->section->id }}">{{ $filiere->option->section->nom }}</a>
 
                         </div>
                     </div>
@@ -40,12 +63,12 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-title">
-                        <h3 class="m-0">Promotions</h3>
+                        <h3 class="m-0">Classes</h3>
                     </div>
                     <div class="card-tools d-flex my-auto">
-                        <a href="{{ route('admin.promotions.create') }}" title="ajouter"
+                        {{--<a href="{{ route('admin.promotions.create') }}" title="ajouter"
                            class="btn btn-primary mr-2"><span
-                                class="fa fa-plus"></span></a>
+                                class="fa fa-plus"></span></a>--}}
                     </div>
                 </div>
 
@@ -53,33 +76,13 @@
                     <table class="table">
                         <thead>
                         <tr>
-                            <th>PROMOTION</th>
-                            <th style="width: 200px">CODE</th>
+                            <th>CLASSE</th>
+                            <th >CODE</th>
                             <th style="width: 100px"></th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach ($filiere->promotions as $promotion)
-                            <tr>
-                                <td>
-                                    <a href="/admin/promotions/{{ $promotion->id }}" class="">
-                                        {{ $promotion->grade->label() }}
-                                    </a>
 
-                                </td>
-
-                                <td>{{ $promotion->code }}</td>
-                                <td>
-                                    <div class="d-flex float-right">
-                                        <a href="/admin/promotions/{{ $promotion->id }}" title="Voir"
-                                           class="btn btn-warning">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
-
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
                         </tbody>
                     </table>
                 </div>

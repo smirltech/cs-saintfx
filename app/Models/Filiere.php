@@ -10,12 +10,11 @@ class Filiere extends Model
     use HasFactory;
 
     public $guarded = [];
-    protected $fillable = ["nom", "description", "code", "faculte_id"];
 
     /**
      * Get the user that owns the phone.
      */
-    public function faculte()
+    public function option()
     {
         return $this->belongsTo(Option::class);
     }
@@ -23,8 +22,8 @@ class Filiere extends Model
     /**
      * Get the comments for the blog post.
      */
-    public function promotions()
+   /* public function promotions()
     {
         return $this->hasMany(Promotion::class);
-    }
+    }*/
 }

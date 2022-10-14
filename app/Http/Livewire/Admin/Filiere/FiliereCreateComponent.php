@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin\Filiere;
 
 use App\Models\Filiere;
 use App\Models\Option;
+use App\Models\Section;
 use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
@@ -12,19 +13,35 @@ class FiliereCreateComponent extends Component
 {
     use LivewireAlert;
 
-    public $facultes = [];
+    public $options = [];
+    public $sections = [];
+
 
     public $nom;
     public $description;
     public $code;
-    public $faculte_id;
+    public $option_id;
+    public $section_id;
 
+    public function mount()
+    {
+        if(request()->has('option_id')){
+            $this->option_id = request()->option_id;
+            $this->section_id = Option::find($this->option_id)->section_id;
+            $this->options = Option::orderBy('nom')->get();
+            $this->sections = Section::orderBy('nom')->get();
+        }
+        else {
+            $this->options = [];
+            $this->sections = Section::orderBy('nom')->get();
+        }
+    }
 
     protected $rules = [
         'nom' => 'required|unique:filieres',
         'code' => 'required|unique:filieres',
-        'description' => 'required',
-        'faculte_id' => 'required',
+        'description' => 'nullable',
+        'option_id' => 'required|numeric',
 
     ];
 
@@ -35,9 +52,7 @@ class FiliereCreateComponent extends Component
         'code.required' => 'Ce code est obligatoire !',
         'code.unique' => 'Ce code est déjà pris, cherchez-en un autre !',
 
-        'description.required' => 'Cette description est obligatoire !',
-
-        'faculte_id.required' => 'La faculté est obligatoire !',
+        'option_id.required' => 'L\'option est obligatoire !',
     ];
 
     public function submit()
@@ -47,7 +62,7 @@ class FiliereCreateComponent extends Component
             'nom' => $this->nom,
             'description' => $this->description,
             'code' => $this->code,
-            'faculte_id' => $this->faculte_id,
+            'option_id' => $this->option_id,
 
         ]);
         // return redirect()->to(route('admin.filieres'));
@@ -57,13 +72,33 @@ class FiliereCreateComponent extends Component
 
     public function render()
     {
-        $this->loadFacultesData();
-        return view('livewire.admin.filiere-academique.create')
+      //  $this->loadOptionsData();
+        return view('livewire.admin.filieres.create')
             ->layout(AdminLayout::class, ['title' => 'Ajout de filière']);
     }
 
-    public function loadFacultesData()
+   // public function loadOptionsData()
+   // {
+//        $this->options = Option::/* orderBy('encours', 'DESC')-> */ orderBy('nom', 'ASC')->get();
+//    }
+
+    public function changeSection()
     {
-        $this->facultes = Option::/* orderBy('encours', 'DESC')-> */ orderBy('nom', 'ASC')->get();
+        if ($this->section_id > 0) {
+            $section = Section::find($this->section_id);
+            $this->options = $section->options;
+            if (count($this->options) > 0) {
+                $option = $this->options[0];
+                $this->option_id = $option->id;
+
+            } else {
+                $this->option_id = null;
+                $this->options = [];
+            }
+        } else {
+            $this->option_id = null;
+            $this->options = [];
+        }
     }
+
 }

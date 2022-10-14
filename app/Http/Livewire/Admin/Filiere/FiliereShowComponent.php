@@ -19,7 +19,7 @@ class FiliereShowComponent extends Component
 
     public function render()
     {
-        return view('livewire.admin.filiere-academique.show')
+        return view('livewire.admin.filieres.show')
             ->layout(AdminLayout::class, ['title' => 'Détail sur la filière']);
     }
 }

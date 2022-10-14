@@ -1,5 +1,22 @@
-<div class="">
+@section('title')
+    {{Str::upper('cenk')}} - filières
+@endsection
+@section('content_header')
+    <div class="row">
+        <div class="col-6">
+            <h1 class="ms-3">Liste de filières</h1>
+        </div>
 
+        <div class="col-6">
+            <ol class="breadcrumb float-right">
+                <li class="breadcrumb-item"><a href="{{ route('admin') }}">Accueil</a></li>
+                <li class="breadcrumb-item active">Filières</li>
+            </ol>
+        </div>
+    </div>
+
+@stop
+<div class="">
     <div class="content mt-3">
         <div class="container-fluid">
             <div class="row">
@@ -23,9 +40,8 @@
                                 <thead>
                                     <tr>
                                         <th>FILIERE</th>
-
-                                        <th style="width: 300px">FACULTE</th>
-                                        <th style="width: 100px">CODE</th>
+                                        <th >CODE</th>
+                                        <th >OPTION</th>
                                         <th style="width: 100px"></th>
                                     </tr>
                                 </thead>
@@ -33,9 +49,9 @@
                                     @foreach ($filieres as $filiere)
                                         <tr>
                                             <td>{{ $filiere->nom }}</td>
-                                            <td><a href="/admin/facultes/{{ $filiere->faculte->id }}">{{ $filiere->faculte->nom }}</a></td>
-
                                             <td>{{ $filiere->code }}</td>
+                                            <td><a href="/admin/options/{{ $filiere->option->id }}">{{ $filiere->option->nom }}</a></td>
+
                                             <td>
                                                 <div class="d-flex float-right">
                                                     <a href="/admin/filieres/{{ $filiere->id }}" title="Voir" class="btn btn-warning">

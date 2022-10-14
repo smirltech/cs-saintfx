@@ -2,23 +2,24 @@
 
 namespace App\Http\Livewire\Admin\Option;
 
+use App\Models\Option;
 use App\Models\Section;
 use App\View\Components\AdminLayout;
 use Livewire\Component;
 
 class OptionShowComponent extends Component
 {
-    public $section;
+    public $option;
 
 
-    public function mount(Section $section)
+    public function mount(Option $option)
     {
-        $this->section = $section;
+        $this->option = $option;
     }
 
     public function render()
     {
-        return view('livewire.admin.sections.show')
-            ->layout(AdminLayout::class, ['title' => 'Détail sur la section']);
+        return view('livewire.admin.options.show')
+            ->layout(AdminLayout::class, ['title' => 'Détail sur l\'option']);
     }
 }
