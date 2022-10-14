@@ -11,4 +11,9 @@ class Section extends Model
     use HasFactory;
 
     public $guarded = [];
+
+    public function options()
+    {
+        return $this->hasMany(Option::class);
+    }
 }
