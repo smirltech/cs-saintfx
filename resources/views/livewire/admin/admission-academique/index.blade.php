@@ -1,6 +1,6 @@
 @php
-    use App\Enum\AdmissionStatus;
-    use App\Models\Annee;
+    use App\Enum\InscriptionStatus;
+    use App\Helpers\Helpers;use App\Models\Annee;
     $heads = [
             'NO.',
             'ETUDIANT',
@@ -24,7 +24,7 @@
                                                 <i class="fas fa-trash"></i>
                                             </button>';
 
-            $badgeColor = \App\Helpers\Helpers::admissionStatusColor($admission->status);
+            $badgeColor = Helpers::admissionStatusColor($admission->status);
 
             $data[] = [
                  $admission->code,

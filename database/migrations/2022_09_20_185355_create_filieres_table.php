@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Faculte;
+use App\Models\Option;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -10,7 +10,7 @@ return new class extends Migration {
     {
         Schema::create('filieres', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Faculte::class)->constrained()->restrictOnDelete();
+            $table->foreignIdFor(Option::class)->constrained()->restrictOnDelete();
             $table->string('nom')->unique();
             $table->mediumText('description')->nullable();
             $table->string('code')->unique();

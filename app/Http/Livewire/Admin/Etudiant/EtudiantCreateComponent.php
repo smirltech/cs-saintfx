@@ -2,10 +2,10 @@
 
 namespace App\Http\Livewire\Admin\Etudiant;
 
-use App\Enum\AdmissionStatus;
 use App\Enum\EtatCivil;
 use App\Enum\EtudiantSexe;
 use App\Enum\EtudiantStep;
+use App\Enum\InscriptionStatus;
 use App\Enum\MediaType;
 use App\Models\Admission;
 use App\Models\Annee;
@@ -206,7 +206,7 @@ class EtudiantCreateComponent extends Component
             'promotion_id' => $this->promotion_id,
             'promotion2_id' => $this->promotion2_id,
             'annee_id' => $this->annee_courante->id,
-            'status' => AdmissionStatus::pending->value,
+            'status' => InscriptionStatus::pending->value,
         ]);
 
         return $done;

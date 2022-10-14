@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Admin\Promotion;
 
-use App\Enum\AdmissionStatus;
+use App\Enum\InscriptionStatus;
 use App\Models\Promotion;
 use App\View\Components\AdminLayout;
 use Livewire\Component;
@@ -32,10 +32,10 @@ class PromotionShowComponent extends Component
         $this->rejectedCount = 0;
         $this->canceledCount = 0;
         foreach ($this->admissions as $admission) {
-            if ($admission->status == AdmissionStatus::pending) $this->pendingCount++;
-            if ($admission->status == AdmissionStatus::approved) $this->approvedCount++;
-            if ($admission->status == AdmissionStatus::rejected) $this->rejectedCount++;
-            if ($admission->status == AdmissionStatus::canceled) $this->canceledCount++;
+            if ($admission->status == InscriptionStatus::pending) $this->pendingCount++;
+            if ($admission->status == InscriptionStatus::approved) $this->approvedCount++;
+            if ($admission->status == InscriptionStatus::rejected) $this->rejectedCount++;
+            if ($admission->status == InscriptionStatus::canceled) $this->canceledCount++;
         }
         return view('livewire.admin.promotion-academique.show')
             ->layout(AdminLayout::class, ['title' => 'Détail sur la promotion']);

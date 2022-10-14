@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use App\Enum\AdmissionStatus;
 use App\Enum\AdmissionType;
+use App\Enum\InscriptionStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -17,7 +17,7 @@ class Admission extends Model
 
     protected $casts = [
         'type' => AdmissionType::class,
-        'status' => AdmissionStatus::class,
+        'status' => InscriptionStatus::class,
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];

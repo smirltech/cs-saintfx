@@ -1,6 +1,6 @@
 @php use App\Enum\EtudiantSexe; @endphp
 @php use App\Enum\EtatCivil; @endphp
-@php use App\Enum\AdmissionStatus; @endphp
+@php use App\Enum\InscriptionStatus; @endphp
 <div class="">
 
 
@@ -379,7 +379,7 @@
                             <div class="form-group col-sm-12 col-md-6 col-lg-3">
                                 <label for="">Status d'admission</label>
                                 <select wire:model="admission.status" class="form-control">
-                                    @foreach (AdmissionStatus::cases() as $es )
+                                    @foreach (InscriptionStatus::cases() as $es )
                                         <option value="{{ $es->value}}">{{ $es->label() }}</option>
                                     @endforeach
                                 </select>

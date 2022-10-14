@@ -1,5 +1,5 @@
 @php
-    use App\Enum\AdmissionStatus;
+    use App\Enum\InscriptionStatus;use App\Helpers\Helpers;
 
     $heads = [
             'NO.',
@@ -21,7 +21,7 @@
                                                 <i class="fas fa-trash"></i>
                                             </button>';
 
-            $badgeColor = \App\Helpers\Helpers::admissionStatusColor($admission->status);
+            $badgeColor = Helpers::admissionStatusColor($admission->status);
 
             $data[] = [
                  $admission->code,
@@ -84,7 +84,7 @@
                                 <div class="bg-info rounded p-2"><i
                                         class="fa fa-users align-middle"></i></div>
                                 <div class="ml-1 d-flex flex-column">
-                                    <span class="">{{AdmissionStatus::pending->label()}}</span>
+                                    <span class="">{{InscriptionStatus::pending->label()}}</span>
                                     <span class=""><strong>{{$pendingCount}}/{{count($admissions)}}</strong></span>
                                 </div>
                             </div>
@@ -94,7 +94,7 @@
                                 <div class="bg-success rounded p-2"><i
                                         class="fa fa-users align-middle"></i></div>
                                 <div class="ml-1 d-flex flex-column">
-                                    <span class="">{{AdmissionStatus::approved->label()}}</span>
+                                    <span class="">{{InscriptionStatus::approved->label()}}</span>
                                     <span class=""><strong>{{$approvedCount}}/{{count($admissions)}}</strong></span>
                                 </div>
                             </div>
@@ -104,7 +104,7 @@
                                 <div class="bg-danger rounded p-2"><i
                                         class="fa fa-users align-middle"></i></div>
                                 <div class="ml-1 d-flex flex-column">
-                                    <span class="">{{AdmissionStatus::rejected->label()}}</span>
+                                    <span class="">{{InscriptionStatus::rejected->label()}}</span>
                                     <span class=""><strong>{{$rejectedCount}}/{{count($admissions)}}</strong></span>
                                 </div>
                             </div>
@@ -114,7 +114,7 @@
                                 <div class="bg-warning rounded p-2"><i
                                         class="fa fa-users align-middle"></i></div>
                                 <div class="ml-1 d-flex flex-column">
-                                    <span class="">{{AdmissionStatus::canceled->label()}}</span>
+                                    <span class="">{{InscriptionStatus::canceled->label()}}</span>
                                     <span class=""><strong>{{$canceledCount}}/{{count($admissions)}}</strong></span>
                                 </div>
                             </div>

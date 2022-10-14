@@ -1,6 +1,6 @@
 <?php
 
-use App\Enum\AdmissionStatus;
+use App\Enum\InscriptionStatus;
 use App\Models\Annee;
 use App\Models\Etudiant;
 use App\Models\Promotion;
@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->foreignIdFor(Promotion::class)->constrained()->restrictOnDelete();
             $table->foreignIdFor(Promotion::class, 'promotion2_id')->nullable();
             $table->foreignIdFor(Annee::class)->constrained()->restrictOnDelete();
-            $table->string('status')->default(AdmissionStatus::pending->value);
+            $table->string('status')->default(InscriptionStatus::pending->value);
             $table->string('code')->unique();
             $table->timestamps();
             $table->softDeletes();

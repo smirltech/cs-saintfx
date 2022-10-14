@@ -2,7 +2,7 @@
 
 namespace App\Enum;
 
-enum AdmissionStatus: string
+enum InscriptionStatus: string
 {
     case pending = 'pending';
     case approved = 'approved';

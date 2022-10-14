@@ -2,7 +2,7 @@
 
 namespace App\Helpers;
 
-use App\Enum\AdmissionStatus;
+use App\Enum\InscriptionStatus;
 use App\Mail\SendMail;
 use phpseclib3\Math\PrimeField\Integer;
 
@@ -44,13 +44,13 @@ class Helpers
     {
 
         switch ($admissionStatus) {
-            case AdmissionStatus::pending:
+            case InscriptionStatus::pending:
                 return "info";
-            case AdmissionStatus::approved:
+            case InscriptionStatus::approved:
                 return "success";
-            case AdmissionStatus::rejected:
+            case InscriptionStatus::rejected:
                 return "danger";
-            case AdmissionStatus::canceled:
+            case InscriptionStatus::canceled:
                 return "secondary";
             default :
                 return "primary";
