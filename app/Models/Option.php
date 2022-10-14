@@ -24,4 +24,8 @@ class Option extends Model
     {
         return $this->hasMany(Filiere::class);
     }
+
+    public function classes(){
+        return $this->morphMany(Classe::class, 'filierable');
+    }
 }

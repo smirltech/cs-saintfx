@@ -16,4 +16,8 @@ class Section extends Model
     {
         return $this->hasMany(Option::class);
     }
+
+    public function classes(){
+        return $this->morphMany(Classe::class, 'filierable');
+    }
 }

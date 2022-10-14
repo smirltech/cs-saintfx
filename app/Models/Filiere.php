@@ -19,6 +19,10 @@ class Filiere extends Model
         return $this->belongsTo(Option::class);
     }
 
+    public function classes(){
+        return $this->morphMany(Classe::class, 'filierable');
+    }
+
     /**
      * Get the comments for the blog post.
      */
