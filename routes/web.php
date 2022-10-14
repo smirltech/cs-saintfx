@@ -10,16 +10,22 @@ use App\Http\Livewire\Admin\Classe;
 use App\Http\Livewire\Admin\DashboardComponent;
 use App\Http\Livewire\Admin\Etudiant\EtudiantCreateComponent;
 use App\Http\Livewire\Admin\Etudiant\EtudiantShowComponent;
-use App\Http\Livewire\Admin\Faculte\FaculteCreateComponent;
-use App\Http\Livewire\Admin\Faculte\FaculteEditComponent;
-use App\Http\Livewire\Admin\Faculte\FaculteIndexComponent;
-use App\Http\Livewire\Admin\Faculte\FaculteShowComponent;
+
 use App\Http\Livewire\Admin\Filiere\FiliereCreateComponent;
 use App\Http\Livewire\Admin\Filiere\FiliereEditComponent;
 use App\Http\Livewire\Admin\Filiere\FiliereIndexComponent;
 use App\Http\Livewire\Admin\Filiere\FiliereShowComponent;
 use App\Http\Livewire\Admin\Inscription\InscriptionEditComponent;
 use App\Http\Livewire\Admin\Inscription\InscriptionIndexComponent;
+
+use App\Http\Livewire\Admin\Option\OptionCreateComponent;
+use App\Http\Livewire\Admin\Option\OptionEditComponent;
+use App\Http\Livewire\Admin\Option\OptionIndexComponent;
+use App\Http\Livewire\Admin\Option\OptionShowComponent;
+use App\Http\Livewire\Admin\Section\SectionCreateComponent;
+use App\Http\Livewire\Admin\Section\SectionEditComponent;
+use App\Http\Livewire\Admin\Section\SectionIndexComponent;
+use App\Http\Livewire\Admin\Section\SectionShowComponent;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
@@ -35,7 +41,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::redirect('/', 'admin')->name('home');
+Route::redirect('/', 'admin')->name('admin');
 
 
 Route::get('auth/{user}', [OtpController::class, 'showVerifyOtp'])->name('auth.verify');
@@ -51,11 +57,18 @@ Route::redirect('dashboard', 'admin')->name('dashboard');
 
 Route::prefix('admin')->middleware(['auth:web'])->as('admin.')->group(function () {
 
-//Faculté
-    Route::get('facultes/create', FaculteCreateComponent::class)->name('facultes.create');
-    Route::get('facultes/{faculte}/edit', FaculteEditComponent::class)->name('facultes.edit');
-    Route::get('facultes/{faculte}', FaculteShowComponent::class)->name('facultes.show');
-    Route::get('facultes', FaculteIndexComponent::class)->name('facultes');
+//Section
+    Route::get('sections/create', SectionCreateComponent::class)->name('sections.create');
+    Route::get('sections/{section}/edit', SectionEditComponent::class)->name('sections.edit');
+    Route::get('sections/{section}', SectionShowComponent::class)->name('sections.show');
+    Route::get('sections', SectionIndexComponent::class)->name('sections');
+
+    //Option
+    Route::get('options/create', OptionCreateComponent::class)->name('options.create');
+    Route::get('options/{option}/edit', OptionEditComponent::class)->name('options.edit');
+    Route::get('options/{option}', OptionShowComponent::class)->name('options.show');
+    Route::get('options', OptionIndexComponent::class)->name('options');
+
 
 //Filiere
     Route::get('filieres/create', FiliereCreateComponent::class)->name('filieres.create');

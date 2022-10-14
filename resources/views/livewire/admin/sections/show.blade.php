@@ -1,6 +1,23 @@
+@section('title')
+    {{Str::upper('cenk')}} - section - {{$section->nom}}
+@endsection
+@section('content_header')
+    <div class="row">
+        <div class="col-6">
+            <h1 class="ms-3">{{$section->nom}}</h1>
+        </div>
+
+        <div class="col-6">
+            <ol class="breadcrumb float-right">
+                <li class="breadcrumb-item"><a href="{{ route('admin') }}">Accueil</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.sections') }}">Sections</a></li>
+                <li class="breadcrumb-item active">{{$section->nom}}</li>
+            </ol>
+        </div>
+    </div>
+
+@stop
 <div class="">
-
-
     <div class="content mt-3">
         <div class="container-fluid">
             <div class="card">
@@ -34,7 +51,7 @@
                     </div>
                     <div class="card-tools d-flex my-auto">
 
-                        <a href="{{ route('admin.options.create') }}" title="ajouter"
+                        <a href="{{ route('admin.options.create',["section_id"=>$section->id]) }}" title="ajouter"
                            class="btn btn-primary mr-2"><span
                                 class="fa fa-plus"></span></a>
 
@@ -55,7 +72,7 @@
                         <tbody>
                         @foreach ($section->options as $option)
                             <tr>
-                                <td><a href="/admin/filieres/{{ $option->id }}">{{ $option->nom }}</a></td>
+                                <td><a href="/admin/options/{{ $option->id }}">{{ $option->nom }}</a></td>
 
                                 <td>{{ $option->code }}</td>
 

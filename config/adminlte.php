@@ -312,12 +312,27 @@ return [
                     'url' => 'admin/promotions',
                 ],
                 [
-                    'text' => "Liste d'années académiques",
+                    'text' => "Liste d'années scolaires",
                     'url' => 'admin/annees',
                 ],
             ],
         ],
         [
+            'text' => 'Sections',
+            'icon' => 'fas fa-fw fa-university',
+           // 'can' => RolePermission::create_faculte->name,
+            'submenu' => [
+                [
+                    'text' => 'Liste d\'options',
+                    'url' => 'admin/options',
+                ],
+                [
+                    'text' => 'Liste de sections',
+                    'url' => 'admin/sections',
+                ],
+            ],
+        ],
+      /*  [
             'text' => 'Facultés',
             'icon' => 'fas fa-fw fa-university',
             'can' => RolePermission::create_faculte->name,
@@ -331,7 +346,7 @@ return [
                     'url' => 'admin/filieres',
                 ],
             ],
-        ],
+        ],*/
 
         /*  [
               'text' => 'Sites',

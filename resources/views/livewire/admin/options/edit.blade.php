@@ -1,55 +1,59 @@
-<div class="">
+@section('title')
+    {{Str::upper('cenk')}} - modifier option - {{$option->nom}}
+@endsection
+@section('content_header')
+    <div class="row">
+        <div class="col-6">
+            <h1 class="ms-3">Modifier option - {{$option->nom}}</h1>
+        </div>
 
+        <div class="col-6">
+            <ol class="breadcrumb float-right">
+                <li class="breadcrumb-item"><a href="{{ route('admin') }}">Accueil</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.options') }}">Options</a></li>
+                <li class="breadcrumb-item active">{{$option->nom}}</li>
+            </ol>
+        </div>
+    </div>
+
+@stop
+<div class="">
     <div class="content mt-3">
         <div class="container-fluid">
             <div class="card">
 
                 <div class="card-body">
+                    <x-validation-errors class="mb-4" :errors="$errors"/>
                     <form wire:submit.prevent="submit">
-                <div class="row">
-                    <div class="form-group col-10">
-                        <label for="">Nom</label>
-                        <input type="text" wire:model="faculte.nom" class="form-control @error('faculte.nom') is-invalid @enderror">
-                        @error('faculte.nom')
-                            <span class="text-red">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <div class="form-group col-2">
-                        <label for="">Code</label>
-                        <input type="text" wire:model="faculte.code" class="form-control @error('faculte.code') is-invalid @enderror"">
-                        @error('faculte.code')
-                        <span class="text-red">{{ $message }}</span>
-                    @enderror
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-4">
-                        <label for="">Email</label>
-                        <input type="email" wire:model="faculte.email" class="form-control  @error('faculte.email') is-invalid @enderror"">
-                        @error('faculte.email')
-                        <span class="text-red">{{ $message }}</span>
-                    @enderror
-                    </div>
-                    <div class="form-group col-4">
-                        <label for="">Phone</label>
-                        <input type="tel" wire:model="faculte.phone" class="form-control">
-                    </div>
-                    <div class="form-group col-4">
-                        <label for="">Coordonnées</label>
-                        <input type="text" wire:model="faculte.latlng" class="form-control">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="">Doyen</label>
-                    <input type="text" wire:model="faculte.doyen" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="">Description</label>
-                    <textarea wire:model="faculte.description" rows="5" class="form-control"></textarea>
-
-                </div>
-
-                <button type="submit" class="btn btn-primary">Soumettre</button>
+                        <div class="row">
+                            <div class="form-group col-5">
+                                <label for="">Nom <i class="text-red">*</i></label>
+                                <input type="text" wire:model="option.nom" class="form-control @error('option.nom') is-invalid @enderror">
+                                @error('option.nom')
+                                <span class="text-red">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="form-group col-2">
+                                <label for="">Code <i class="text-red">*</i></label>
+                                <input type="text" wire:model="option.code" class="form-control @error('option.code') is-invalid @enderror">
+                                @error('option.code')
+                                <span class="text-red">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="form-group col-5">
+                                <label for="">Section <i class="text-red">*</i></label>
+                                <select wire:model="option.section_id" class="form-control  @error('option.section_id') is-invalid @enderror">
+                                    <option value="-1">Choisir section</option>
+                                    @foreach ($sections as $section )
+                                        <option value="{{ $section->id }}">{{ $section->nom }}</option>
+                                    @endforeach
+                                    @error('option.section_id')
+                                    <span class="text-red">{{ $message }}</span>
+                                    @enderror
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Soumettre</button>
             </form>
                 </div>
             </div>
