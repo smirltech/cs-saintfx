@@ -44,7 +44,7 @@ class Etudiant extends Model
 
     public function admissions(): HasMany
     {
-        return $this->hasMany(Admission::class);
+        return $this->hasMany(Inscription::class);
     }
 
     // full_name

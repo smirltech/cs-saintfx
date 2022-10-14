@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreFaculteRequest;
 use App\Http\Requests\UpdateFaculteRequest;
 use App\Http\Resources\FaculteResource;
-use App\Models\Faculte;
+use App\Models\Option;
 use Illuminate\Http\Response;
 
 class FaculteController extends Controller
@@ -45,10 +44,10 @@ class FaculteController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Faculte $faculte
+     * @param Option $faculte
      * @return Response
      */
-    public function show(Faculte $faculte)
+    public function show(Option $faculte)
     {
 
         return FaculteResource::make($faculte);
@@ -57,10 +56,10 @@ class FaculteController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Faculte $faculte
+     * @param Option $faculte
      * @return Response
      */
-    public function edit(Faculte $faculte)
+    public function edit(Option $faculte)
     {
         //
     }
@@ -69,10 +68,10 @@ class FaculteController extends Controller
      * Update the specified resource in storage.
      *
      * @param UpdateFaculteRequest $request
-     * @param Faculte $faculte
+     * @param Option $faculte
      * @return Response
      */
-    public function update(UpdateFaculteRequest $request, Faculte $faculte)
+    public function update(UpdateFaculteRequest $request, Option $faculte)
     {
         //
     }
@@ -80,10 +79,10 @@ class FaculteController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Faculte $faculte
+     * @param Option $faculte
      * @return Response
      */
-    public function destroy(Faculte $faculte)
+    public function destroy(Option $faculte)
     {
         //
     }

@@ -13,7 +13,7 @@ class EtudiantAcademique extends Component
     public function render()
     {
         $this->loadData();
-        return view('livewire.etudiant-academique.etudiant-academique');
+        return view('livewire.eleves.eleves');
     }
 
 

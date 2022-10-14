@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Admin\Faculte;
 
-use App\Models\Faculte;
+use App\Models\Option;
 use App\View\Components\AdminLayout;
 use Livewire\Component;
 
@@ -11,7 +11,7 @@ class FaculteShowComponent extends Component
     public $faculte;
 
 
-    public function mount(Faculte $faculte)
+    public function mount(Option $faculte)
     {
         $this->faculte = $faculte;
     }

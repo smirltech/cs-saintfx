@@ -2,8 +2,7 @@
 
 namespace App\Http\Livewire\Admin\Faculte;
 
-use App\Helpers\Helpers;
-use App\Models\Faculte;
+use App\Models\Option;
 use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
@@ -11,6 +10,7 @@ use Livewire\Component;
 class FaculteIndexComponent extends Component
 {
     use LivewireAlert;
+
     public $facultes = [];
 
     public function render()
@@ -22,19 +22,19 @@ class FaculteIndexComponent extends Component
 
     public function loadData()
     {
-        $this->facultes = Faculte::/* orderBy('encours', 'DESC')-> */ orderBy('nom', 'ASC')->get();
+        $this->facultes = Option::/* orderBy('encours', 'DESC')-> */ orderBy('nom', 'ASC')->get();
     }
 
     public function deleteFaculte($id)
     {
-        $fa = Faculte::find($id);
+        $fa = Option::find($id);
         if (count($fa->filieres) == 0) {
             if ($fa->delete()) {
                 $this->loadData();
                 $this->alert('success', "Faculté supprimée avec succès !");
             }
         } else {
-            $this->alert('warning',  "Faculté n'a pas été supprimée, il y a des filières attachées !");
+            $this->alert('warning', "Faculté n'a pas été supprimée, il y a des filières attachées !");
         }
     }
 }

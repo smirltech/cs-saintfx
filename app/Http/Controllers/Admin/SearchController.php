@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Demande;
 use App\Services\Sagenet\SagenetService;
 use Illuminate\Http\Request;

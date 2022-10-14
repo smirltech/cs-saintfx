@@ -2,9 +2,9 @@
 
 namespace App\Http\Livewire\Admin;
 
-use App\Enum\AdmissionStatus;
-use App\Models\Admission;
+use App\Enum\InscriptionStatus;
 use App\Models\Annee;
+use App\Models\Inscription;
 use App\View\Components\AdminLayout;
 use Auth;
 use Carbon\Carbon;
@@ -27,15 +27,15 @@ class DashboardComponent extends Component
 
 
         $this->annee_courante = Annee::where('encours', true)->first();
-        $this->inscrits = Admission::where('annee_id', $this->annee_courante->id)->get();
-        $inscritsValid = Admission::where('annee_id', $this->annee_courante->id)->where('status', AdmissionStatus::approved->name)->get();
-        $inscritsReject = Admission::where('annee_id', $this->annee_courante->id)->where('status', AdmissionStatus::rejected->name)->get();
-        $inscritsPending = Admission::where('annee_id', $this->annee_courante->id)->where('status', AdmissionStatus::pending->name)->get();
+        $this->inscrits = Inscription::where('annee_id', $this->annee_courante->id)->get();
+        $inscritsValid = Inscription::where('annee_id', $this->annee_courante->id)->where('status', InscriptionStatus::approved->name)->get();
+        $inscritsReject = Inscription::where('annee_id', $this->annee_courante->id)->where('status', InscriptionStatus::rejected->name)->get();
+        $inscritsPending = Inscription::where('annee_id', $this->annee_courante->id)->where('status', InscriptionStatus::pending->name)->get();
 
-        $moisInscrits = Admission::where('annee_id', $this->annee_courante->id)->where('created_at', '>', $moisCourrant)->get();
-        $moisInscritsValid = Admission::where('annee_id', $this->annee_courante->id)->where('status', AdmissionStatus::approved->name)->where('created_at', '>', $moisCourrant)->get();
-        $moisInscritsReject = Admission::where('annee_id', $this->annee_courante->id)->where('status', AdmissionStatus::rejected->name)->where('created_at', '>', $moisCourrant)->get();
-        $moisInscritspending = Admission::where('annee_id', $this->annee_courante->id)->where('status', AdmissionStatus::pending->name)->where('created_at', '>', $moisCourrant)->get();
+        $moisInscrits = Inscription::where('annee_id', $this->annee_courante->id)->where('created_at', '>', $moisCourrant)->get();
+        $moisInscritsValid = Inscription::where('annee_id', $this->annee_courante->id)->where('status', InscriptionStatus::approved->name)->where('created_at', '>', $moisCourrant)->get();
+        $moisInscritsReject = Inscription::where('annee_id', $this->annee_courante->id)->where('status', InscriptionStatus::rejected->name)->where('created_at', '>', $moisCourrant)->get();
+        $moisInscritspending = Inscription::where('annee_id', $this->annee_courante->id)->where('status', InscriptionStatus::pending->name)->where('created_at', '>', $moisCourrant)->get();
 
 
         $rateInscritsMois = $moisInscrits->count() > 0 ? ($moisInscrits->count() / $moisInscrits->count()) * 100 : 0;

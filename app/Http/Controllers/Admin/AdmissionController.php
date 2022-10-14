@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Admission;
+use App\Models\Inscription;
 use Illuminate\Http\Request;
 
 class AdmissionController
@@ -19,19 +19,19 @@ class AdmissionController
     {
     }
 
-    public function show(Admission $admission)
+    public function show(Inscription $admission)
     {
     }
 
-    public function edit(Admission $admission)
+    public function edit(Inscription $admission)
     {
     }
 
-    public function update(Request $request, Admission $admission)
+    public function update(Request $request, Inscription $admission)
     {
     }
 
-    public function destroy(Admission $admission)
+    public function destroy(Inscription $admission)
     {
     }
 }
