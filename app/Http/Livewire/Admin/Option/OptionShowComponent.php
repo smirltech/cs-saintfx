@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Livewire\Admin\Section;
+namespace App\Http\Livewire\Admin\Option;
 
 use App\Models\Section;
 use App\View\Components\AdminLayout;
 use Livewire\Component;
 
-class SectionShowComponent extends Component
+class OptionShowComponent extends Component
 {
     public $section;
 

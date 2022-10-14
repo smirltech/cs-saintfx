@@ -6,7 +6,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-tools">
-                        <a href="/admin/sections/{{ $section->id }}/edit" title="modifier"
+                        <a href="/admin/facultes/{{ $faculte->id }}/edit" title="modifier"
                            class="btn btn-primary btn-sm ml-2">
                             <i class="fas fa-pen"></i>
                         </a>
@@ -16,25 +16,45 @@
                     <div class="row">
                         <div class="col">
                             <label>Nom : </label>
-                            {{ $section->nom }}
+                            {{ $faculte->nom }}
                         </div>
                         <div class="col">
                             <label>Code : </label>
-                            {{ $section->code }}
+                            {{ $faculte->code }}
                         </div>
-
+                        <div class="col">
+                            <label>Doyen : </label>
+                            {{ $faculte->doyen }}
+                        </div>
                     </div>
-
+                    <div class="row mt-4">
+                        <div class="col">
+                            <label>Email : </label>
+                            {{ $faculte->email }}
+                        </div>
+                        <div class="col">
+                            <label>Phone : </label>
+                            {{ $faculte->phone }}
+                        </div>
+                        <div class="col">
+                            <label>Coordonnées : </label>
+                            {{ $faculte->latlng }}
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <label>Description : </label>
+                        {{ $faculte->description }}
+                    </div>
                 </div>
             </div>
             <div class="card">
                 <div class="card-header">
                     <div class="card-title">
-                        <h4 class="m-0">Options de la section</h4>
+                        <h4 class="m-0">Filières de la faculté</h4>
                     </div>
                     <div class="card-tools d-flex my-auto">
 
-                        <a href="{{ route('admin.options.create',["section_id"=>$section->id]) }}" title="ajouter"
+                        <a href="{{ route('admin.filieres.create') }}" title="ajouter"
                            class="btn btn-primary mr-2"><span
                                 class="fa fa-plus"></span></a>
 
@@ -46,22 +66,22 @@
                     <table class="table">
                         <thead>
                         <tr>
-                            <th>OPTION</th>
+                            <th>FILIERE</th>
                             <th style="width: 100px">CODE</th>
-
+                            <th>DESCRIPTION</th>
                             <th style="width: 100px"></th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach ($section->options as $option)
+                        @foreach ($faculte->filieres as $filiere)
                             <tr>
-                                <td><a href="/admin/options/{{ $option->id }}">{{ $option->nom }}</a></td>
+                                <td><a href="/admin/filieres/{{ $filiere->id }}">{{ $filiere->nom }}</a></td>
 
-                                <td>{{ $option->code }}</td>
-
+                                <td>{{ $filiere->code }}</td>
+                                <td>{{ $filiere->description }}</td>
                                 <td>
                                     <div class="d-flex float-right">
-                                        <a href="/admin/options/{{ $option->id }}" title="Voir"
+                                        <a href="/admin/filieres/{{ $filiere->id }}" title="Voir"
                                            class="btn btn-warning">
                                             <i class="fas fa-eye"></i>
                                         </a>
