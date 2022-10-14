@@ -5,9 +5,11 @@ use App\Http\Controllers\Admin\AuditController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\OtpController;
-use App\Http\Livewire\Admin\Admission\AdmissionEditComponent;
-use App\Http\Livewire\Admin\Admission\AdmissionIndexComponent;
 use App\Http\Livewire\Admin\Annee\AnneeComponent;
+use App\Http\Livewire\Admin\Classe\ClasseCreateComponent;
+use App\Http\Livewire\Admin\Classe\ClasseEditComponent;
+use App\Http\Livewire\Admin\Classe\ClasseIndexComponent;
+use App\Http\Livewire\Admin\Classe\ClasseShowComponent;
 use App\Http\Livewire\Admin\DashboardComponent;
 use App\Http\Livewire\Admin\Etudiant\EtudiantCreateComponent;
 use App\Http\Livewire\Admin\Etudiant\EtudiantShowComponent;
@@ -19,10 +21,8 @@ use App\Http\Livewire\Admin\Filiere\FiliereCreateComponent;
 use App\Http\Livewire\Admin\Filiere\FiliereEditComponent;
 use App\Http\Livewire\Admin\Filiere\FiliereIndexComponent;
 use App\Http\Livewire\Admin\Filiere\FiliereShowComponent;
-use App\Http\Livewire\Admin\Promotion\PromotionCreateComponent;
-use App\Http\Livewire\Admin\Promotion\PromotionEditComponent;
-use App\Http\Livewire\Admin\Promotion\PromotionIndexComponent;
-use App\Http\Livewire\Admin\Promotion\PromotionShowComponent;
+use App\Http\Livewire\Admin\Inscription\InscriptionEditComponent;
+use App\Http\Livewire\Admin\Inscription\InscriptionIndexComponent;
 use App\Http\Livewire\Etudiant\InscriptionComponent;
 use App\Http\Livewire\Etudiant\InscriptionEtudiant;
 use Illuminate\Support\Facades\Auth;
@@ -69,10 +69,10 @@ Route::prefix('admin')->middleware(['auth:web'])->as('admin.')->group(function (
     Route::get('filieres', FiliereIndexComponent::class)->name('filieres');
 
 // Promotion
-    Route::get('promotions/create', PromotionCreateComponent::class)->name('promotions.create');
-    Route::get('promotions/{promotion}/edit', PromotionEditComponent::class)->name('promotions.edit');
-    Route::get('promotions/{promotion}', PromotionShowComponent::class)->name('promotions.show');
-    Route::get('promotions', PromotionIndexComponent::class)->name('promotions');
+    Route::get('promotions/create', ClasseCreateComponent::class)->name('promotions.create');
+    Route::get('promotions/{promotion}/edit', ClasseEditComponent::class)->name('promotions.edit');
+    Route::get('promotions/{promotion}', ClasseShowComponent::class)->name('promotions.show');
+    Route::get('promotions', ClasseIndexComponent::class)->name('promotions');
 
 // Année
     Route::get('annees', AnneeComponent::class)->name('annees');
@@ -83,9 +83,9 @@ Route::prefix('admin')->middleware(['auth:web'])->as('admin.')->group(function (
     Route::get('admissions/create', EtudiantCreateComponent::class)->name('admissions.create');
 
     // Admission
-    Route::get('admissions/{admission}/edit', AdmissionEditComponent::class)->name('admissions.edit');
-    Route::get('admissions/tous', AdmissionIndexComponent::class)->name('admissions.index');
-    Route::get('admissions', AdmissionIndexComponent::class)->name('admissions');
+    Route::get('admissions/{admission}/edit', InscriptionEditComponent::class)->name('admissions.edit');
+    Route::get('admissions/tous', InscriptionIndexComponent::class)->name('admissions.index');
+    Route::get('admissions', InscriptionIndexComponent::class)->name('admissions');
 
 
     Route::get('/', DashboardComponent::class)->name('admin');

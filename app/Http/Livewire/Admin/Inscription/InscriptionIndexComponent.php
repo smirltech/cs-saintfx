@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Admin\Admission;
+namespace App\Http\Livewire\Admin\Inscription;
 
 use App\Models\Annee;
 use App\Models\Inscription;
@@ -9,7 +9,7 @@ use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class AdmissionIndexComponent extends Component
+class InscriptionIndexComponent extends Component
 {
     use LivewireAlert;
     use WithPagination;

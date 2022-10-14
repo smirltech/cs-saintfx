@@ -243,7 +243,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Helpers' => App\Helpers\Helpers::class,
-        'Controller' => App\Http\Controllers\Controller::class,
+        'Controller' => \App\Http\Controllers\Admin\Controller::class,
         'Image' => Intervention\Image\Facades\Image::class,
 
 

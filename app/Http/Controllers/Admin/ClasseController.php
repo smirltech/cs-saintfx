@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Diplome;
+use App\Models\Classe;
 use Illuminate\Http\Request;
 
-class DiplomeController
+class ClasseController
 {
     public function index()
     {
@@ -19,19 +19,19 @@ class DiplomeController
     {
     }
 
-    public function show(Diplome $diplome)
+    public function show(Classe $classe)
     {
     }
 
-    public function edit(Diplome $diplome)
+    public function edit(Classe $classe)
     {
     }
 
-    public function update(Request $request, Diplome $diplome)
+    public function update(Request $request, Classe $classe)
     {
     }
 
-    public function destroy(Diplome $diplome)
+    public function destroy(Classe $classe)
     {
     }
 }

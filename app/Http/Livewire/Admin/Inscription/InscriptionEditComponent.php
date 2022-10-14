@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Admin\Admission;
+namespace App\Http\Livewire\Admin\Inscription;
 
 use App\Enum\MediaType;
 use App\Models\Annee;
@@ -13,7 +13,7 @@ use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
-class AdmissionEditComponent extends Component
+class InscriptionEditComponent extends Component
 {
     use WithFileUploads;
     use LivewireAlert;

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Enum\DemandeStatus;
-use App\Http\Controllers\Controller;
 use App\Models\Demande;
 use App\Notifications\DemandeApprovedNotification;
 use App\Services\Sagenet\SagenetService;

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Livewire\Admin\Promotion;
+namespace App\Http\Livewire\Admin\Classe;
 
 use App\Models\Promotion;
 use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
-class PromotionIndexComponent extends Component
+class ClasseIndexComponent extends Component
 {
     use LivewireAlert;
 

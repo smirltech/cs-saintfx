@@ -34,7 +34,7 @@ class EditerEtudiant extends Component
 
     public function render()
     {
-        return view('livewire.etudiant-academique.editer-etudiant');
+        return view('livewire.eleves.editer-etudiant');
     }
 
     protected function rules()

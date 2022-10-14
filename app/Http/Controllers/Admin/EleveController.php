@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Promotion;
+use App\Models\Eleve;
 use Illuminate\Http\Request;
 
-class PromotionController
+class EleveController
 {
     public function index()
     {
@@ -19,19 +19,19 @@ class PromotionController
     {
     }
 
-    public function show(Promotion $promotion)
+    public function show(Eleve $eleve)
     {
     }
 
-    public function edit(Promotion $promotion)
+    public function edit(Eleve $eleve)
     {
     }
 
-    public function update(Request $request, Promotion $promotion)
+    public function update(Request $request, Eleve $eleve)
     {
     }
 
-    public function destroy(Promotion $promotion)
+    public function destroy(Eleve $eleve)
     {
     }
 }

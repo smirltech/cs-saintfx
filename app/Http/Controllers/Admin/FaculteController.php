@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreFaculteRequest;
 use App\Http\Requests\UpdateFaculteRequest;
 use App\Http\Resources\FaculteResource;

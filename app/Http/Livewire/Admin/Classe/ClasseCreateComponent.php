@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Admin\Promotion;
+namespace App\Http\Livewire\Admin\Classe;
 
 use App\Models\Filiere;
 use App\Models\Promotion;
@@ -9,7 +9,7 @@ use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
-class PromotionCreateComponent extends Component
+class ClasseCreateComponent extends Component
 {
     use LivewireAlert;
     use PomotionCode;
@@ -48,7 +48,7 @@ class PromotionCreateComponent extends Component
 
         ]);
 
-        $this->flash('success', 'Promotion ajoutée avec succès',[],route('admin.promotions'));
+        $this->flash('success', 'Promotion ajoutée avec succès', [], route('admin.promotions'));
         //return redirect()->to(route('admin.promotions'));
     }
 

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Livewire\Admin\Promotion;
+namespace App\Http\Livewire\Admin\Classe;
 
 use App\Enum\InscriptionStatus;
 use App\Models\Promotion;
 use App\View\Components\AdminLayout;
 use Livewire\Component;
 
-class PromotionShowComponent extends Component
+class ClasseShowComponent extends Component
 {
     public $promotion;
     public $admissions;
