@@ -7,12 +7,12 @@ use App\Enum\EtudiantSexe;
 use App\Enum\EtudiantStep;
 use App\Enum\InscriptionStatus;
 use App\Enum\MediaType;
-use App\Models\Admission;
 use App\Models\Annee;
 use App\Models\Diplome;
 use App\Models\Etudiant;
-use App\Models\Faculte;
 use App\Models\Filiere;
+use App\Models\Inscription;
+use App\Models\Option;
 use App\Traits\WithFileUploads;
 use App\View\Components\AdminLayout;
 use Carbon\Carbon;
@@ -115,8 +115,8 @@ class EtudiantCreateComponent extends Component
         $this->annee_courante = Annee::where('encours', true)->first();
         $this->date_naissance = Carbon::today()->subYears(16)->toDateString();
         //$this->date_delivrance = Carbon::today()->subYears(1)->toDateString();
-        $this->facultes = Faculte::orderBy('nom')->get();
-        $this->facultes2 = Faculte::orderBy('nom')->get();
+        $this->facultes = Option::orderBy('nom')->get();
+        $this->facultes2 = Option::orderBy('nom')->get();
         $this->sexe = EtudiantSexe::m->value;
 
         $this->etat_civil = EtatCivil::single->value;
@@ -201,7 +201,7 @@ class EtudiantCreateComponent extends Component
 
     private function submitAdmission($etudiant_id)
     {
-        $done = Admission::create([
+        $done = Inscription::create([
             'etudiant_id' => $etudiant_id,
             'promotion_id' => $this->promotion_id,
             'promotion2_id' => $this->promotion2_id,
@@ -234,7 +234,7 @@ class EtudiantCreateComponent extends Component
     public function changeFaculte()
     {
         if ($this->faculte_id > 0) {
-            $faculte = Faculte::find($this->faculte_id);
+            $faculte = Option::find($this->faculte_id);
             $this->filieres = $faculte->filieres;
             if (count($this->filieres) > 0) {
                 $filiere = $this->filieres[0];
@@ -296,7 +296,7 @@ class EtudiantCreateComponent extends Component
     public function changeFaculte2()
     {
         if ($this->faculte2_id > 0) {
-            $faculte = Faculte::find($this->faculte2_id);
+            $faculte = Option::find($this->faculte2_id);
             $this->filieres2 = $faculte->filieres;
             if (count($this->filieres2) > 0) {
                 $filiere = $this->filieres2[0];

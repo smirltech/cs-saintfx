@@ -22,6 +22,6 @@ class Promotion extends Model
 
     public function admissions()
     {
-        return $this->hasMany(Admission::class);
+        return $this->hasMany(Inscription::class);
     }
 }

@@ -2,8 +2,8 @@
 
 namespace App\Http\Livewire\Admin\Admission;
 
-use App\Models\Admission;
 use App\Models\Annee;
+use App\Models\Inscription;
 use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
@@ -36,7 +36,7 @@ class AdmissionIndexComponent extends Component
 
     public function loadData()
     {
-        $query = Admission::query();
+        $query = Inscription::query();
 
         if ($this->search) {
             $query->whereHas('etudiant', function ($q) {

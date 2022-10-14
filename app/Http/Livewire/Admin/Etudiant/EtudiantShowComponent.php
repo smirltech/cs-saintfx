@@ -2,9 +2,9 @@
 
 namespace App\Http\Livewire\Admin\Etudiant;
 
-use App\Models\Admission;
 use App\Models\Annee;
 use App\Models\Etudiant;
+use App\Models\Inscription;
 use App\View\Components\AdminLayout;
 use Livewire\Component;
 
@@ -19,7 +19,7 @@ class EtudiantShowComponent extends Component
     {
         $this->annee_courante = Annee::where('encours', true)->first();
         $this->etudiant = $etudiant;
-        $this->admission = Admission::where(["etudiant_id"=>$etudiant->id])->orderBy('created_at', 'DESC')->first();
+        $this->admission = Inscription::where(["etudiant_id" => $etudiant->id])->orderBy('created_at', 'DESC')->first();
     }
 
 

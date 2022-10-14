@@ -23,9 +23,8 @@ class DatabaseSeeder extends Seeder
             PermissionSeeder::class,
             UserSeeder::class,
             AnneeSeeder::class,
-            FaculteSeeder::class,
-            FiliereSeeder::class,
-            PromotionSeeder::class,
+            // FiliereSeeder::class,
+            // PromotionSeeder::class,
         ]);
 
         Schema::enableForeignKeyConstraints();

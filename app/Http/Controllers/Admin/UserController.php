@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
-use App\Models\Faculte;
+use App\Models\Option;
 use App\Models\Role;
 use App\Models\User;
 use App\Notifications\PasswordResettedNotification;
@@ -90,7 +90,7 @@ class UserController extends Controller
         //  get alls roles except super admin
 
         $roles = Role::where('name', '!=', 'super-admin')->get();
-        $facultes = Faculte::all();
+        $facultes = Option::all();
 
         return view('admin.users.create', compact('roles', 'facultes'))->with('title', __('Ajouter un utilisateur'));
     }
@@ -115,7 +115,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $roles = Role::where('name', '!=', 'super-admin')->get();
-        $facultes = Faculte::all();
+        $facultes = Option::all();
 
         return view('admin.users.edit', compact('user', 'roles', 'facultes'))->with('title', $user->name);
     }

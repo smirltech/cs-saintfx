@@ -2,8 +2,7 @@
 
 namespace App\Http\Livewire\Admin\Faculte;
 
-use App\Helpers\Helpers;
-use App\Models\Faculte;
+use App\Models\Option;
 use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
@@ -38,7 +37,7 @@ class FaculteCreateComponent extends Component
     public function submit()
     {
         $this->validate();
-        Faculte::create([
+        Option::create([
             'nom' => $this->nom,
             'description' => $this->description,
             'code' => $this->code,
@@ -48,7 +47,7 @@ class FaculteCreateComponent extends Component
             'doyen' => $this->doyen,
         ]);
 
-        $this->flash('success', 'Faculté ajoutée avec succès',[],route('admin.facultes'));
+        $this->flash('success', 'Faculté ajoutée avec succès', [], route('admin.facultes'));
 
     }
 

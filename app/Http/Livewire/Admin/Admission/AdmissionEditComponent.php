@@ -3,10 +3,10 @@
 namespace App\Http\Livewire\Admin\Admission;
 
 use App\Enum\MediaType;
-use App\Models\Admission;
 use App\Models\Annee;
-use App\Models\Faculte;
 use App\Models\Filiere;
+use App\Models\Inscription;
+use App\Models\Option;
 use App\Traits\WithFileUploads;
 use App\View\Components\AdminLayout;
 use Illuminate\Validation\Rule;
@@ -48,7 +48,7 @@ class AdmissionEditComponent extends Component
     protected $messages = [
     ];
 
-    public function mount(Admission $admission)
+    public function mount(Inscription $admission)
     {
         // dd($admission->etudiant);
         $this->annee_courante = Annee::where('encours', true)->first();
@@ -59,9 +59,9 @@ class AdmissionEditComponent extends Component
 
         $this->filiere_id = $this->admission->promotion->filiere_id;
         $this->faculte_id = $this->admission->promotion->filiere->faculte_id;
-        $this->facultes = Faculte::orderBy('nom')->get();
+        $this->facultes = Option::orderBy('nom')->get();
         if ($this->faculte_id > 0) {
-            $faculte = Faculte::find($this->faculte_id);
+            $faculte = Option::find($this->faculte_id);
             $this->filieres = $faculte->filieres;
             if (count($this->filieres) > 0) {
                 $filiere = $this->filieres[0];
@@ -86,9 +86,9 @@ class AdmissionEditComponent extends Component
 
         $this->filiere2_id = $this->admission->promotion2->filiere_id ?? -1;
         $this->faculte2_id = $this->admission->promotion2->filiere->faculte_id ?? -1;
-        $this->facultes2 = Faculte::orderBy('nom')->get();
+        $this->facultes2 = Option::orderBy('nom')->get();
         if ($this->faculte2_id > 0) {
-            $faculte = Faculte::find($this->faculte_id);
+            $faculte = Option::find($this->faculte_id);
             $this->filieres2 = $faculte->filieres;
             if (count($this->filieres2) > 0) {
                 $filiere = $this->filieres2[0];
@@ -160,7 +160,7 @@ class AdmissionEditComponent extends Component
     public function changeFaculte()
     {
         if ($this->faculte_id > 0) {
-            $faculte = Faculte::find($this->faculte_id);
+            $faculte = Option::find($this->faculte_id);
             $this->filieres = $faculte->filieres;
             if (count($this->filieres) > 0) {
                 $filiere = $this->filieres[0];
@@ -217,7 +217,7 @@ class AdmissionEditComponent extends Component
     public function changeFaculte2()
     {
         if ($this->faculte2_id > 0) {
-            $faculte = Faculte::find($this->faculte2_id);
+            $faculte = Option::find($this->faculte2_id);
             $this->filieres2 = $faculte->filieres;
             if (count($this->filieres2) > 0) {
                 $filiere = $this->filieres2[0];

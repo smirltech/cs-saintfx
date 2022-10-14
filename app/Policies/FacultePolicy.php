@@ -2,9 +2,10 @@
 
 namespace App\Policies;
 
-use App\Models\Faculte;
+use App\Models\Option;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 class FacultePolicy
 {
@@ -13,8 +14,8 @@ class FacultePolicy
     /**
      * Determine whether the user can view any models.
      *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param User $user
+     * @return Response|bool
      */
     public function viewAny(User $user)
     {
@@ -24,11 +25,11 @@ class FacultePolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Faculte  $faculte
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param User $user
+     * @param Option $faculte
+     * @return Response|bool
      */
-    public function view(User $user, Faculte $faculte)
+    public function view(User $user, Option $faculte)
     {
         //
     }
@@ -36,8 +37,8 @@ class FacultePolicy
     /**
      * Determine whether the user can create models.
      *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param User $user
+     * @return Response|bool
      */
     public function create(User $user)
     {
@@ -47,11 +48,11 @@ class FacultePolicy
     /**
      * Determine whether the user can update the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Faculte  $faculte
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param User $user
+     * @param Option $faculte
+     * @return Response|bool
      */
-    public function update(User $user, Faculte $faculte)
+    public function update(User $user, Option $faculte)
     {
         //
     }
@@ -59,11 +60,11 @@ class FacultePolicy
     /**
      * Determine whether the user can delete the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Faculte  $faculte
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param User $user
+     * @param Option $faculte
+     * @return Response|bool
      */
-    public function delete(User $user, Faculte $faculte)
+    public function delete(User $user, Option $faculte)
     {
         //
     }
@@ -71,11 +72,11 @@ class FacultePolicy
     /**
      * Determine whether the user can restore the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Faculte  $faculte
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param User $user
+     * @param Option $faculte
+     * @return Response|bool
      */
-    public function restore(User $user, Faculte $faculte)
+    public function restore(User $user, Option $faculte)
     {
         //
     }
@@ -83,11 +84,11 @@ class FacultePolicy
     /**
      * Determine whether the user can permanently delete the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Faculte  $faculte
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param User $user
+     * @param Option $faculte
+     * @return Response|bool
      */
-    public function forceDelete(User $user, Faculte $faculte)
+    public function forceDelete(User $user, Option $faculte)
     {
         //
     }

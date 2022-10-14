@@ -2,16 +2,15 @@
 
 namespace Database\Factories;
 
-use App\Models\Faculte;
+use App\Models\Option;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 /**
- * @extends Factory<Faculte>
+ * @extends Factory<Option>
  */
 class FaculteFactory extends Factory
 {
-    protected $model = Faculte::class;
+    protected $model = Option::class;
 
     public function definition()
     {

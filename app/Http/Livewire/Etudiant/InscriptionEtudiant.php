@@ -9,8 +9,8 @@ use App\Enum\PromotionGrade;
 use App\Models\Annee;
 use App\Models\Diplome;
 use App\Models\Etudiant;
-use App\Models\Faculte;
 use App\Models\Filiere;
+use App\Models\Option;
 use App\Models\Otp;
 use App\Models\Promotion;
 use App\Traits\HandleOtp;
@@ -57,7 +57,7 @@ class InscriptionEtudiant extends Component
             $this->title = $this->etudiant->step->label();
 
 
-            $this->facultes = Faculte::all();
+            $this->facultes = Option::all();
         }
 
         $this->diplome = $this->etudiant->diplome ?? new Diplome();
