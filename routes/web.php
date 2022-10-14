@@ -47,7 +47,7 @@ Route::post('auth/otp-verify', [OtpController::class, 'verifyOtp'])->name('auth.
 
 Route::redirect('dashboard', 'admin')->name('dashboard');
 
-Route::get('inscription', InscriptionEtudiant::class)->name('inscription');
+//Route::get('inscription', InscriptionEtudiant::class)->name('inscription');
 
 Route::prefix('admin')->middleware(['auth:web'])->as('admin.')->group(function () {
 
