@@ -6,10 +6,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\OtpController;
 use App\Http\Livewire\Admin\Annee\AnneeComponent;
-use App\Http\Livewire\Admin\Classe\ClasseCreateComponent;
-use App\Http\Livewire\Admin\Classe\ClasseEditComponent;
-use App\Http\Livewire\Admin\Classe\ClasseIndexComponent;
-use App\Http\Livewire\Admin\Classe\ClasseShowComponent;
+use App\Http\Livewire\Admin\Classe;
 use App\Http\Livewire\Admin\DashboardComponent;
 use App\Http\Livewire\Admin\Etudiant\EtudiantCreateComponent;
 use App\Http\Livewire\Admin\Etudiant\EtudiantShowComponent;
@@ -23,8 +20,6 @@ use App\Http\Livewire\Admin\Filiere\FiliereIndexComponent;
 use App\Http\Livewire\Admin\Filiere\FiliereShowComponent;
 use App\Http\Livewire\Admin\Inscription\InscriptionEditComponent;
 use App\Http\Livewire\Admin\Inscription\InscriptionIndexComponent;
-use App\Http\Livewire\Etudiant\InscriptionComponent;
-use App\Http\Livewire\Etudiant\InscriptionEtudiant;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
@@ -69,10 +64,10 @@ Route::prefix('admin')->middleware(['auth:web'])->as('admin.')->group(function (
     Route::get('filieres', FiliereIndexComponent::class)->name('filieres');
 
 // Promotion
-    Route::get('promotions/create', ClasseCreateComponent::class)->name('promotions.create');
-    Route::get('promotions/{promotion}/edit', ClasseEditComponent::class)->name('promotions.edit');
-    Route::get('promotions/{promotion}', ClasseShowComponent::class)->name('promotions.show');
-    Route::get('promotions', ClasseIndexComponent::class)->name('promotions');
+    Route::get('promotions/create', Classe\ClasseCreateComponent::class)->name('promotions.create');
+    Route::get('promotions/{promotion}/edit', Classe\ClasseEditComponent::class)->name('promotions.edit');
+    Route::get('promotions/{promotion}', Classe\ClasseShowComponent::class)->name('promotions.show');
+    Route::get('promotions', Classe\ClasseIndexComponent::class)->name('promotions');
 
 // Année
     Route::get('annees', AnneeComponent::class)->name('annees');
