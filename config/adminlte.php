@@ -303,13 +303,13 @@ return [
             ],
         ],
         [
-            'text' => 'Promotions',
+            'text' => 'Filières',
             'icon' => 'fas fa-fw fa-graduation-cap',
-            'can' => RolePermission::create_promotion->name,
+           // 'can' => RolePermission::create_promotion->name,
             'submenu' => [
                 [
-                    'text' => 'Liste de promotions',
-                    'url' => 'admin/promotions',
+                    'text' => 'Liste de filières',
+                    'url' => 'admin/filieres',
                 ],
                 [
                     'text' => "Liste d'années scolaires",

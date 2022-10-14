@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Admin\Filiere;
 
-use App\Helpers\Helpers;
 use App\Models\Filiere;
 use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -17,7 +16,7 @@ class FiliereIndexComponent extends Component
     public function render()
     {
         $this->loadData();
-        return view('livewire.admin.filiere-academique.index')
+        return view('livewire.admin.filieres.index')
             ->layout(AdminLayout::class, ['title' => 'Liste de Filières']);
     }
 
@@ -31,13 +30,13 @@ class FiliereIndexComponent extends Component
     {
 
         $fa = Filiere::find($id);
-        if (count($fa->promotions) == 0) {
+      //  if (count($fa->promotions) == 0) {
             if ($fa->delete()) {
                 $this->loadData();
                 $this->alert('success', "Filière supprimée avec succès !");
             }
-        } else {
-            $this->alert('warning', "Filière n'a pas été supprimée, il y a des promotions attachées !");
-        }
+//        } else {
+//            $this->alert('warning', "Filière n'a pas été supprimée, il y a des promotions attachées !");
+//        }
     }
 }
