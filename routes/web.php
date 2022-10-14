@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin;
 use App\Http\Controllers\Admin\AuditController;
-use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\OtpController;
@@ -114,4 +114,4 @@ Route::get('sagenet/{resource}', function ($resource) {
 
 Auth::routes();
 
-Route::get('home', [HomeController::class, 'index'])->name('home');
+Route::get('home', [Admin\HomeController::class, 'index'])->name('home');
