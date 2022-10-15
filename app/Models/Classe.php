@@ -4,8 +4,8 @@ namespace App\Models;
 
 use App\Enum\ClasseGrade;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Classe extends Model
 {
@@ -21,7 +21,8 @@ class Classe extends Model
     /*
      * Get parents that can be Section, Option or Filiere
      * */
-    public function filierable(){
+    public function filierable(): MorphTo
+    {
         return $this->morphTo();
     }
 }

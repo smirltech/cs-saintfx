@@ -16,7 +16,7 @@ class ResponsableFactory extends Factory
     public function definition()
     {
         return [
-            'nom' => $this->faker->nom,
+            'nom' => $this->faker->name,
             'sexe' => $this->faker->randomElement(array_column(Sexe::cases(), 'value')),
             'adresse' => $this->faker->address,
             'telephone' => $this->faker->phoneNumber,
