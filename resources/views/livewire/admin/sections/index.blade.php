@@ -28,11 +28,7 @@
 
                             </div>
                             <div class="card-tools d-flex my-auto">
-
-                                <a href="{{ route('admin.sections.create') }}" title="ajouter"
-                                   class="btn btn-primary mr-2"><span class="fa fa-plus"></span></a>
-
-
+                                <livewire:admin.section.section-create-component/>
                             </div>
                         </div>
 
@@ -58,10 +54,11 @@
                                                    class="btn btn-warning">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
-                                               <a href="/admin/sections/{{ $section->id }}/edit" title="modifier"
+                                                {{--<a href="/admin/sections/{{ $section->id }}/edit" title="modifier"
                                                    class="btn btn-info  ml-2">
                                                     <i class="fas fa-pen"></i>
-                                                </a>
+                                                </a>--}}
+                                                <livewire:admin.section.section-edit-component :section="$section" :wire:key="'section-edit-component-'.$section->id"/>
 
                                                 <button wire:click="deleteSection({{ $section->id }})"
                                                         title="supprimer" class="btn btn-danger ml-2">

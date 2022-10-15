@@ -20,7 +20,6 @@ use App\Http\Livewire\Admin\Option\OptionCreateComponent;
 use App\Http\Livewire\Admin\Option\OptionEditComponent;
 use App\Http\Livewire\Admin\Option\OptionIndexComponent;
 use App\Http\Livewire\Admin\Option\OptionShowComponent;
-use App\Http\Livewire\Admin\Section\SectionCreateComponent;
 use App\Http\Livewire\Admin\Section\SectionEditComponent;
 use App\Http\Livewire\Admin\Section\SectionIndexComponent;
 use App\Http\Livewire\Admin\Section\SectionShowComponent;
@@ -55,8 +54,8 @@ Route::redirect('dashboard', 'admin')->name('dashboard');
 Route::prefix('admin')->middleware(['auth:web'])->as('admin.')->group(function () {
 
 //Section
-    Route::get('sections/create', SectionCreateComponent::class)->name('sections.create');
-    Route::get('sections/{section}/edit', SectionEditComponent::class)->name('sections.edit');
+   // Route::get('sections/create', SectionCreateComponent::class)->name('sections.create');
+   // Route::get('sections/{section}/edit', SectionEditComponent::class)->name('sections.edit');
     Route::get('sections/{section}', SectionShowComponent::class)->name('sections.show');
     Route::get('sections', SectionIndexComponent::class)->name('sections');
 

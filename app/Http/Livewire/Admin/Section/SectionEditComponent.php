@@ -15,8 +15,8 @@ class SectionEditComponent extends ModalComponent
     use LivewireAlert;
     use SectionCode;
 
-
     public $section;
+
 
     protected $messages = [
         'section.nom.required' => 'Ce nom est obligatoire !',
@@ -28,6 +28,7 @@ class SectionEditComponent extends ModalComponent
 
     public function mount(Section $section)
     {
+       // dd($section);
         $this->section = $section;
     }
 
@@ -36,18 +37,29 @@ class SectionEditComponent extends ModalComponent
         $this->validate();
         $done = $this->section->save();
         if ($done) {
-            $this->flash('success', 'Section modifiée avec succès', [], route('admin.sections'));
+            $this->emit('onUpdated');
+            $this->alert('success', "Section modifiée avec succès !");
+
+            $this->reset(['section']);
+
+            // close the modal by specifying the id of the modal
+            $this->dispatchBrowserEvent('closeModal', ['modal' => 'edit-section-modal']);
+            //$this->flash('success', 'Section modifiée avec succès', [], route('admin.sections'));
         } else {
-            $this->alert('warning', "Echec de modofication de section !");
+            $this->alert('warning', "Echec de modification de section !");
         }
+
 
     }
 
     public function render()
     {
+
         return view('livewire.admin.sections.edit')
             ->layout(AdminLayout::class, ['title' => 'Modification de section']);
     }
+
+    protected $listeners = ['refreshComponent' => '$refresh'];
 
     protected function rules()
     {
@@ -65,4 +77,5 @@ class SectionEditComponent extends ModalComponent
 
         ];
     }
+
 }

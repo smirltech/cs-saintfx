@@ -1,30 +1,21 @@
-@section('title')
-    {{Str::upper('cenk')}} - modifier section - {{$section->nom}}
-@endsection
-@section('content_header')
-    <div class="row">
-        <div class="col-6">
-            <h1 class="ms-3">Modifier section - {{$section->nom}}</h1>
-        </div>
 
-        <div class="col-6">
-            <ol class="breadcrumb float-right">
-                <li class="breadcrumb-item"><a href="{{ route('admin') }}">Accueil</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('admin.sections') }}">Sections</a></li>
-                <li class="breadcrumb-item active">{{$section->nom}}</li>
-            </ol>
-        </div>
-    </div>
-
-@stop
 <div class="">
-    <div class="content mt-3">
-        <div class="container-fluid">
-            <div class="card">
+    <button wire:click="$emit('refreshComponent')" type="button" class="btn btn-info  ml-2" data-toggle="modal" data-target="#edit-section-modal">
+                                    <span
+                                        class="fa fa-pen"></span></button>
 
-                <div class="card-body">
+    <div wire:ignore.self class="modal fade" id="edit-section-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Modifier Section</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
                     <x-validation-errors class="mb-4" :errors="$errors"/>
-                    <form wire:submit.prevent="submit">
+                    <form id="f2" wire:submit.prevent="submit">
                         <div class="row">
                             <div class="form-group col-10">
                                 <label for="">Nom <i class="text-red">*</i></label>
@@ -41,12 +32,15 @@
                                 @enderror
                             </div>
                         </div>
-
-                        <button type="submit" class="btn btn-primary">Soumettre</button>
-            </form>
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                    <button form="f2" type="submit" class="btn btn-primary">Soumettre</button>
                 </div>
             </div>
 
         </div>
+
     </div>
 </div>

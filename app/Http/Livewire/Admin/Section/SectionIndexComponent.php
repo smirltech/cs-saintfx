@@ -14,6 +14,20 @@ class SectionIndexComponent extends Component
 
     public $sections = [];
 
+    protected $listeners = ['onSaved', 'onUpdated', 'onDeleted'];
+
+    public function onSaved(){
+        $this->loadData();
+    }
+
+    public function onUpdated(){
+        $this->loadData();
+    }
+
+    public function onDeleted(){
+        $this->loadData();
+    }
+
     public function render()
     {
         $this->loadData();

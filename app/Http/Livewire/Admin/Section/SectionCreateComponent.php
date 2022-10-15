@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Admin\Section;
 
-use App\Models\Option;
 use App\Models\Section;
 use App\Traits\SectionCode;
 use App\View\Components\AdminLayout;
@@ -33,14 +32,19 @@ class SectionCreateComponent extends Component
 
     public function submit()
     {
+        // dd($this->nom);
         $this->validate();
         Section::create([
             'nom' => $this->nom,
             'code' => $this->code,
         ]);
+        $this->emit('onSaved');
+        $this->alert('success', "Section ajoutée avec succès !");
 
-        $this->flash('success', 'Section ajoutée avec succès', [], route('admin.sections'));
+        $this->reset(['nom', 'code']);
 
+        // close the modal by specifying the id of the modal
+        $this->dispatchBrowserEvent('closeModal', ['modal' => 'add-section-modal']);
     }
 
     public function render()
