@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin\Section;
 
 use App\Models\Option;
 use App\Models\Section;
+use App\Traits\SectionCode;
 use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
@@ -12,6 +13,7 @@ use Livewire\Component;
 class SectionCreateComponent extends Component
 {
     use LivewireAlert;
+    use SectionCode;
 
     public $nom;
     public $code;
@@ -46,4 +48,5 @@ class SectionCreateComponent extends Component
         return view('livewire.admin.sections.create')
             ->layout(AdminLayout::class, ['title' => 'Ajout de Section']);
     }
+
 }

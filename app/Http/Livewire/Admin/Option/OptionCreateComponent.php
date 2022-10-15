@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin\Option;
 
 use App\Models\Option;
 use App\Models\Section;
+use App\Traits\OptionCode;
 use App\View\Components\AdminLayout;
 use Illuminate\Support\Facades\Request;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -13,6 +14,7 @@ use Livewire\Component;
 class OptionCreateComponent extends Component
 {
     use LivewireAlert;
+    use OptionCode;
 
     public $nom;
     public $code;

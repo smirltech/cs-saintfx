@@ -11,7 +11,7 @@ return new class extends Migration {
             $table->id();
             $table->string('grade');
             $table->morphs('filierable');
-            $table->string('code');
+            $table->string('code')->nullable();
             $table->timestamps();
         });
     }

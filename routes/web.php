@@ -88,6 +88,7 @@ Route::prefix('admin')->middleware(['auth:web'])->as('admin.')->group(function (
 
 // Etudiant
     Route::get('eleves/{eleve}', EtudiantShowComponent::class)->name('eleves.show');
+    Route::get('eleves', EtudiantShowComponent::class)->name('eleves');
 
     // Inscription
     Route::get('inscriptions/create', InscriptionCreateComponent::class)->name('inscriptions.create');

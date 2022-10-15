@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin\Inscription;
 
+use App\Enum\EleveCategorie;
 use App\Enum\EleveSexe;
 use App\Enum\EtudiantStep;
 use App\Enum\InscriptionStatus;
@@ -72,18 +73,22 @@ class InscriptionCreateComponent extends Component
         'lieu_naissance' => 'nullable',
         'date_naissance' => 'nullable|date',
         'sexe' => 'nullable',
-        'telephone' => 'nullable|string|unique:etudiants',
-        'email' => 'required|unique:etudiants',
+        'telephone' => 'nullable|string',
+        'email' => 'nullable',
 
         'classe_id' => 'required|numeric|min:1|not_in:0',
         'filiere_id' => 'nullable|numeric|min:1|not_in:0',
         'option_id' => 'nullable|numeric|min:1|not_in:0',
         'section_id' => 'required|numeric|min:1|not_in:0',
 
+        'categorie' => 'required|string',
     ];
     protected $messages = [
         'nom.required' => 'Ce nom est obligatoire !',
         'postnom.required' => 'Ce postnom est obligatoire !',
+        'section_id.required' => 'La section est obligatoire !',
+        'classe_id.required' => 'La classe est obligatoire !',
+        'categorie.required' => 'La categorie est obligatoire !',
 
     ];
 
@@ -91,10 +96,9 @@ class InscriptionCreateComponent extends Component
     {
         $this->annee_courante = Annee::where('encours', true)->first();
         $this->date_naissance = Carbon::today()->subYears(3)->toDateString();
-        //$this->date_delivrance = Carbon::today()->subYears(1)->toDateString();
         $this->sections = Section::orderBy('nom')->get();
-
         $this->sexe = EleveSexe::m->value;
+        $this->categorie = EleveCategorie::normal->value;
     }
 
     public function submit()
@@ -103,9 +107,9 @@ class InscriptionCreateComponent extends Component
 
         $resp = $this->submitResponsable();
         $ele = $this->submitEleve($resp);
-        $res_ele = $this->submitResponsableEleve($resp, $ele);
+       if($resp !=null) $res_ele = $this->submitResponsableEleve($resp, $ele);
         $insc = $this->submitInscription($ele);
-        $this->flash('success', 'Élève inscrit avec succès', [], route('admin.eleves'));
+        $this->flash('success', 'Élève inscrit avec succès', [], route('admin.inscriptions'));
 
 
         //  $this->alert('error', "L'enregistrement de l'étudiant n'a pas aboutis, veuillez reéssayer !");
@@ -136,7 +140,7 @@ class InscriptionCreateComponent extends Component
             'lieu_naissance' => $this->lieu_naissance,
             'date_naissance' => $this->date_naissance,
             'matricule' => $this->matricule,
-            'responsable_id' => $responsable->id,
+            'responsable_id' => $responsable?->id??'',
         ]);
     }
 

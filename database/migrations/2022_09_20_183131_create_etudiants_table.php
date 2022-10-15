@@ -23,8 +23,8 @@ return new class extends Migration {
 
             $table->string('sexe')->nullable();
             $table->string('etat_civil')->default(EtatCivil::single->value)->nullable();
-            $table->date('date_naissance');
-            $table->string('lieu_naissance');
+            $table->date('date_naissance')->nullable();
+            $table->string('lieu_naissance')->nullable();
             $table->string('adresse')->nullable();
 
             $table->string('mere')->nullable();

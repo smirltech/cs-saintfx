@@ -25,34 +25,34 @@ class InscriptionIndexComponent extends Component
         $this->annee_courante = Annee::where('encours', true)->first();
 
         #TODO: move this to mount()
-        $admissions = $this->loadData();
+        $inscriptions = $this->loadData();
 
 
-        return view('livewire.admin.admission-academique.index', [
-            'admissions' => $admissions->paginate(10),
+        return view('livewire.admin.inscriptions.index', [
+            'inscriptions' => $inscriptions->paginate(10),
         ])
-            ->layout(AdminLayout::class, ['title' => "Liste d'admissions"]);
+            ->layout(AdminLayout::class, ['title' => "Liste d'inscriptions"]);
     }
 
     public function loadData()
     {
         $query = Inscription::query();
 
-        if ($this->search) {
+       /* if ($this->search) {
             $query->whereHas('etudiant', function ($q) {
                 $q->where('nom', 'like', "%{$this->search}%")
                     ->orWhere('postnom', 'like', "%{$this->search}%")
                     ->orWhere('prenom', 'like', "%{$this->search}%");
 
             });
-        }
+        }*/
 
         $query->orderBy('status', 'ASC');
 
         return $query;
     }
 
-    public function deleteAdmission($id)
+    public function deleteInscription($id)
     {
         $this->alert('info', "Cette fonctionnalité n'est pas encore implémentée !");
 

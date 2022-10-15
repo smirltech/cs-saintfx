@@ -36,21 +36,17 @@ class Inscription extends Model
     }
 
 
-    public function etudiant()
+    public function eleve()
     {
-        return $this->belongsTo(Etudiant::class);
+        return $this->belongsTo(Eleve::class);
     }
 
 
-    public function promotion()
+    public function classe()
     {
-        return $this->belongsTo(Promotion::class);
+        return $this->belongsTo(Classe::class);
     }
 
-    public function promotion2()
-    {
-        return $this->belongsTo(Promotion::class, 'promotion2_id');
-    }
 
 
     public function annee()
