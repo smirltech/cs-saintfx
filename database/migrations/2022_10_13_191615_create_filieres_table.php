@@ -13,7 +13,7 @@ return new class extends Migration {
             $table->foreignIdFor(Option::class)->constrained();
             $table->string('nom')->unique();
             $table->mediumText('description')->nullable();
-            $table->string('code')->unique();
+            $table->string('code')->unique()->nullable();
             $table->timestamps();
         });
     }

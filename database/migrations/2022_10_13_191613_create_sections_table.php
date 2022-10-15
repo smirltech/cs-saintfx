@@ -10,7 +10,7 @@ return new class extends Migration {
         Schema::create('sections', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
-            $table->string('code');
+            $table->string('code')->nullable();
             $table->timestamps();
         });
     }
