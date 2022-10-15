@@ -23,6 +23,12 @@ class Filiere extends Model
         return $this->morphMany(Classe::class, 'filierable');
     }
 
+    // full_name
+    public function getFullNameAttribute(): string
+    {
+        return "{$this->option->fullName} {$this->nom}";
+    }
+
     /**
      * Get the comments for the blog post.
      */
