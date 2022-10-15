@@ -36,7 +36,6 @@ class ClasseCreateComponent extends Component
 
     protected $messages = [
         'grade.required' => 'Cette grade est obligatoire !',
-        'grade.unique' => 'Cette grade est déjà pris, cherchez-en un autre !',
 
         'code.required' => 'Ce code est obligatoire !',
         'code.unique' => 'Ce code est déjà pris, cherchez-en un autre !',

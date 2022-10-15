@@ -22,8 +22,8 @@
         <div class="container-fluid">
             <div class="card">
                 <div class="card-body">
+                    <x-validation-errors class="mb-4" :errors="$errors"/>
                     <form wire:submit.prevent="submit">
-
                         <div class="row">
                             <div class="form-group col">
                                 <label for="">Grade <i class="text-red">*</i></label>
@@ -83,9 +83,6 @@
                                 </select>
                             </div>
                         </div>
-
-
-
                         <button type="submit" class="btn btn-primary">Soumettre</button>
                     </form>
                 </div>
