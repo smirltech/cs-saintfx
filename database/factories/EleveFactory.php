@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Enum\EleveSexe;
+use App\Enum\Sexe;
 use App\Models\Eleve;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -19,7 +19,7 @@ class EleveFactory extends Factory
             'nom' => $this->faker->firstName,
             'prenom' => $this->faker->firstName,
             'postnom' => $this->faker->lastName,
-            'sexe' => $this->faker->randomElement(array_column(EleveSexe::cases(), 'value')),
+            'sexe' => $this->faker->randomElement(array_column(Sexe::cases(), 'value')),
             'date_naissance' => $this->faker->date(),
             'lieu_naissance' => $this->faker->city,
             'adresse' => $this->faker->address,

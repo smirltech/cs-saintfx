@@ -2,9 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Enum\Sexe;
 use App\Models\Responsable;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 /**
  * @extends Factory<Responsable>
@@ -16,7 +16,11 @@ class ResponsableFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'nom' => $this->faker->nom,
+            'sexe' => $this->faker->randomElement(array_column(Sexe::cases(), 'value')),
+            'adresse' => $this->faker->address,
+            'telephone' => $this->faker->phoneNumber,
+            'email' => $this->faker->email,
         ];
     }
 }

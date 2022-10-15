@@ -5,6 +5,8 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Eleve;
 use App\Models\Inscription;
+use App\Models\Responsable;
+use App\Models\ResponsableEleve;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Schema;
@@ -37,6 +39,9 @@ class DatabaseSeeder extends Seeder
 
             Eleve::factory(10)->create();
             Inscription::factory(10)->create();
+
+            Responsable::factory(10)->create();
+            ResponsableEleve::factory(10)->create();
         }
 
         Schema::enableForeignKeyConstraints();

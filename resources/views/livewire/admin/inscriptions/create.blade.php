@@ -1,4 +1,4 @@
-@php use App\Enum\EleveSexe;use App\Enum\EtudiantSexe; @endphp
+@php use App\Enum\Sexe;use App\Enum\EtudiantSexe; @endphp
 @php use App\Enum\EtatCivil;use App\Enum\InscriptionCategorie;use App\Enum\ResponsableRelation; @endphp
 @section('title')
     {{Str::upper('cenk')}} - inscrire élève
@@ -71,7 +71,7 @@
                                 <label for="">Sexe <i class="text-red">*</i></label>
                                 <select wire:model="sexe" class="form-control  @error('sexe') is-invalid @enderror">
                                     <option value="" disabled>Choisir sexe...</option>
-                                    @foreach (EleveSexe::cases() as $es )
+                                    @foreach (Sexe::cases() as $es )
                                         <option value="{{ strtoupper($es->value)}}">{{ $es->label() }}</option>
                                     @endforeach
                                     @error('sexe')
@@ -119,7 +119,7 @@
                                 <select wire:model="responsable_sexe"
                                         class="form-control  @error('responsable_sexe') is-invalid @enderror">
                                     <option value="" disabled>Choisir sexe...</option>
-                                    @foreach (EleveSexe::cases() as $es )
+                                    @foreach (Sexe::cases() as $es )
                                         <option value="{{ strtoupper($es->value)}}">{{ $es->label() }}</option>
                                     @endforeach
                                     @error('responsable_sexe')

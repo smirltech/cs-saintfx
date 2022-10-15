@@ -2,9 +2,8 @@
 
 namespace App\Models;
 
-use App\Enum\EleveSexe;
+use App\Enum\Sexe;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -15,7 +14,7 @@ class Eleve extends Model
     public $guarded = [];
 
     protected $casts = [
-        'sexe' => EleveSexe::class,
+        'sexe' => Sexe::class,
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];

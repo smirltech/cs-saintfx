@@ -2,9 +2,9 @@
 
 namespace App\Http\Livewire\Admin\Inscription;
 
-use App\Enum\EleveSexe;
 use App\Enum\InscriptionCategorie;
 use App\Enum\InscriptionStatus;
+use App\Enum\Sexe;
 use App\Models\Annee;
 use App\Models\Eleve;
 use App\Models\Filiere;
@@ -95,7 +95,7 @@ class InscriptionCreateComponent extends Component
         $this->annee_courante = Annee::where('encours', true)->first();
         $this->date_naissance = Carbon::today()->subYears(3)->toDateString();
         $this->sections = Section::orderBy('nom')->get();
-        $this->sexe = EleveSexe::m->value;
+        $this->sexe = Sexe::m->value;
         $this->categorie = InscriptionCategorie::normal->value;
     }
 
