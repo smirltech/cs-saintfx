@@ -2,8 +2,17 @@
 
 namespace App\Enum;
 
-enum EleveCategorie
+enum EleveCategorie: string
 {
-    case enfant_enseignant;
-    case normal;
+    case normal="normal";
+    case enfant_enseignant='enfant_enseignant';
+
+    // label() is a method that a string value
+    public function label(): string
+    {
+        return match ($this) {
+            self::normal => 'Normal',
+            self::enfant_enseignant => 'Enfant d\'enseignant',
+        };
+    }
 }
