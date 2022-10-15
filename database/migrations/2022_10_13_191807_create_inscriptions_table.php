@@ -1,6 +1,6 @@
 <?php
 
-use App\Enum\EleveCategorie;
+use App\Enum\InscriptionCategorie;
 use App\Enum\InscriptionStatus;
 use App\Models\Annee;
 use App\Models\Classe;
@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->foreignIdFor(Eleve::class)->constrained();
             $table->foreignIdFor(Classe::class)->constrained();
             $table->foreignIdFor(Annee::class)->constrained()->restrictOnDelete();
-            $table->string('categorie')->default(EleveCategorie::normal->name);
+            $table->string('categorie')->default(InscriptionCategorie::normal->name);
             $table->integer('montant')->nullable();
             $table->string('status')->default(InscriptionStatus::pending->value);
             $table->string('code')->unique();

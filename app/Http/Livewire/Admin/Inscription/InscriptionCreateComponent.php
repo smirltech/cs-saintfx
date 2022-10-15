@@ -2,11 +2,9 @@
 
 namespace App\Http\Livewire\Admin\Inscription;
 
-use App\Enum\EleveCategorie;
 use App\Enum\EleveSexe;
-use App\Enum\EtudiantStep;
+use App\Enum\InscriptionCategorie;
 use App\Enum\InscriptionStatus;
-use App\Enum\MediaType;
 use App\Models\Annee;
 use App\Models\Eleve;
 use App\Models\Filiere;
@@ -98,18 +96,19 @@ class InscriptionCreateComponent extends Component
         $this->date_naissance = Carbon::today()->subYears(3)->toDateString();
         $this->sections = Section::orderBy('nom')->get();
         $this->sexe = EleveSexe::m->value;
-        $this->categorie = EleveCategorie::normal->value;
+        $this->categorie = InscriptionCategorie::normal->value;
     }
 
     public function submit()
     {
         $this->validate();
-$resp = null;
-        try{
+        $resp = null;
+        try {
             $resp = $this->submitResponsable();
-        }catch (_){}
+        } catch (_) {
+        }
         $ele = $this->submitEleve($resp);
-       if($resp !=null) $res_ele = $this->submitResponsableEleve($resp, $ele);
+        if ($resp != null) $res_ele = $this->submitResponsableEleve($resp, $ele);
         $insc = $this->submitInscription($ele);
         $this->flash('success', 'Élève inscrit avec succès', [], route('admin.inscriptions'));
 
@@ -120,14 +119,14 @@ $resp = null;
 
     public function submitResponsable()
     {
-        if(isset($this->responsable_nom))
-        return Responsable::create([
-            'nom' => $this->responsable_nom,
-            'sexe' => $this->responsable_sexe,
-            'telephone' => $this->responsable_telephone,
-            'email' => $this->responsable_email,
-            'adresse' => $this->responsable_adresse,
-        ]);
+        if (isset($this->responsable_nom))
+            return Responsable::create([
+                'nom' => $this->responsable_nom,
+                'sexe' => $this->responsable_sexe,
+                'telephone' => $this->responsable_telephone,
+                'email' => $this->responsable_email,
+                'adresse' => $this->responsable_adresse,
+            ]);
     }
 
     public function submitEleve($responsable)
@@ -143,7 +142,7 @@ $resp = null;
             'lieu_naissance' => $this->lieu_naissance,
             'date_naissance' => $this->date_naissance,
             'matricule' => $this->matricule,
-            'responsable_id' => $responsable?->id??'',
+            'responsable_id' => $responsable?->id ?? '',
         ]);
     }
 
@@ -202,6 +201,20 @@ $resp = null;
         $this->loadAvailableClasses();
     }
 
+    private function loadAvailableClasses()
+    {
+        if ($this->filiere_id > 0) {
+            $filiere = Filiere::find($this->filiere_id);
+            $this->classes = $filiere->classes;
+        } else if ($this->option_id > 0) {
+            $option = Option::find($this->option_id);
+            $this->classes = $option->classes;
+        } else if ($this->section_id > 0) {
+            $section = Section::find($this->section_id);
+            $this->classes = $section->classes;
+        }
+    }
+
     public function changeOption()
     {
         if ($this->option_id > 0) {
@@ -223,20 +236,6 @@ $resp = null;
     public function changeFiliere()
     {
         $this->loadAvailableClasses();
-    }
-
-    private function loadAvailableClasses()
-    {
-        if ($this->filiere_id > 0) {
-            $filiere = Filiere::find($this->filiere_id);
-            $this->classes = $filiere->classes;
-        } else if ($this->option_id > 0) {
-            $option = Option::find($this->option_id);
-            $this->classes = $option->classes;
-        } else if ($this->section_id > 0) {
-            $section = Section::find($this->section_id);
-            $this->classes = $section->classes;
-        }
     }
 
 }

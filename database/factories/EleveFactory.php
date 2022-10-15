@@ -16,7 +16,7 @@ class EleveFactory extends Factory
     public function definition()
     {
         return [
-            'nom' => $this->faker->name,
+            'nom' => $this->faker->firstName,
             'prenom' => $this->faker->firstName,
             'postnom' => $this->faker->lastName,
             'sexe' => $this->faker->randomElement(array_column(EleveSexe::cases(), 'value')),

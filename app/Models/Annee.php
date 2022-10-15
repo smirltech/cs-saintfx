@@ -12,7 +12,7 @@ class Annee extends Model
 
     public $guarded = [];
 
-    public static function encours()
+    public static function encours(): Annee
     {
         return self::where('encours', true)->latest()->first();
 

@@ -2,10 +2,10 @@
 
 namespace App\Enum;
 
-enum EleveCategorie: string
+enum InscriptionCategorie: string
 {
-    case normal="normal";
-    case enfant_enseignant='enfant_enseignant';
+    case normal = "normal";
+    case enfant_enseignant = 'enfant_enseignant';
 
     // label() is a method that a string value
     public function label(): string

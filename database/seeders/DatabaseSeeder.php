@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Eleve;
+use App\Models\Inscription;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Schema;
@@ -35,6 +36,7 @@ class DatabaseSeeder extends Seeder
             User::factory(10)->create();
 
             Eleve::factory(10)->create();
+            Inscription::factory(10)->create();
         }
 
         Schema::enableForeignKeyConstraints();
