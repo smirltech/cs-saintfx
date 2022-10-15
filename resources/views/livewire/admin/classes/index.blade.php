@@ -40,8 +40,8 @@
                             <table class="table">
                                 <thead>
                                 <tr>
-                                    <th>CLASSE</th>
                                     <th>CODE</th>
+                                    <th>CLASSE</th>
                                     <th>SECTION/OPTION/FILIERE</th>
                                     <th></th>
                                 </tr>
@@ -60,8 +60,8 @@
                                             }
                                     @endphp
                                     <tr>
-                                        <td>{{ $classe->grade }}</td>
                                         <td>{{ $classe->code }}</td>
+                                        <td>{{ $classe->grade->label() }}</td>
 
                                         <td>
                                             <a href="{{$parent_url}}">{{ $classe->filierable->fullName }}</a>
