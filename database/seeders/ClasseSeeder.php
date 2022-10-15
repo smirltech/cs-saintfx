@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Enum\ClasseGrade;
 use App\Models\Classe;
+use App\Models\Filiere;
 use App\Models\Section;
 use Illuminate\Database\Seeder;
 
@@ -23,6 +24,11 @@ class ClasseSeeder extends Seeder
                 'grade' => ClasseGrade::g1,
                 'filierable_id' => 1,
                 'filierable_type' => Section::class,
+            ],
+            [
+                'grade' => ClasseGrade::g6,
+                'filierable_id' => 2,
+                'filierable_type' => Filiere::class,
             ]
         ];
     }
