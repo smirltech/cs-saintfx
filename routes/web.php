@@ -8,9 +8,7 @@ use App\Http\Controllers\Auth\OtpController;
 use App\Http\Livewire\Admin\Annee\AnneeComponent;
 use App\Http\Livewire\Admin\Classe;
 use App\Http\Livewire\Admin\DashboardComponent;
-use App\Http\Livewire\Admin\Etudiant\EtudiantCreateComponent;
 use App\Http\Livewire\Admin\Etudiant\EtudiantShowComponent;
-
 use App\Http\Livewire\Admin\Filiere\FiliereCreateComponent;
 use App\Http\Livewire\Admin\Filiere\FiliereEditComponent;
 use App\Http\Livewire\Admin\Filiere\FiliereIndexComponent;
@@ -18,7 +16,6 @@ use App\Http\Livewire\Admin\Filiere\FiliereShowComponent;
 use App\Http\Livewire\Admin\Inscription\InscriptionCreateComponent;
 use App\Http\Livewire\Admin\Inscription\InscriptionEditComponent;
 use App\Http\Livewire\Admin\Inscription\InscriptionIndexComponent;
-
 use App\Http\Livewire\Admin\Option\OptionCreateComponent;
 use App\Http\Livewire\Admin\Option\OptionEditComponent;
 use App\Http\Livewire\Admin\Option\OptionIndexComponent;
@@ -28,7 +25,6 @@ use App\Http\Livewire\Admin\Section\SectionEditComponent;
 use App\Http\Livewire\Admin\Section\SectionIndexComponent;
 use App\Http\Livewire\Admin\Section\SectionShowComponent;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -110,12 +106,6 @@ Route::prefix('admin')->middleware(['auth:web'])->as('admin.')->group(function (
 
     Route::get('users/{user}/reset-password', [UserController::class, 'resetPassword'])->name('users.password.autoreset');
     Route::resource('users', UserController::class);
-});
-
-
-// sagenet test
-Route::get('sagenet/{resource}', function ($resource) {
-    return Http::get(config('services.sagenet.url') . "/{$resource}")->body();
 });
 
 

@@ -2,7 +2,7 @@
 
 namespace App\Enum;
 
-enum EleveSexe: string
+enum Sexe: string
 {
     case f = 'F';
     case m = 'M';

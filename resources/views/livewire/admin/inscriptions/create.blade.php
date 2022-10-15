@@ -1,5 +1,5 @@
-@php use App\Enum\EtudiantSexe; @endphp
-@php use App\Enum\EtatCivil; @endphp
+@php use App\Enum\Sexe;use App\Enum\EtudiantSexe; @endphp
+@php use App\Enum\EtatCivil;use App\Enum\InscriptionCategorie;use App\Enum\ResponsableRelation; @endphp
 @section('title')
     {{Str::upper('cenk')}} - inscrire élève
 @endsection
@@ -71,7 +71,7 @@
                                 <label for="">Sexe <i class="text-red">*</i></label>
                                 <select wire:model="sexe" class="form-control  @error('sexe') is-invalid @enderror">
                                     <option value="" disabled>Choisir sexe...</option>
-                                    @foreach (\App\Enum\EleveSexe::cases() as $es )
+                                    @foreach (Sexe::cases() as $es )
                                         <option value="{{ strtoupper($es->value)}}">{{ $es->label() }}</option>
                                     @endforeach
                                     @error('sexe')
@@ -110,14 +110,16 @@
                         <div class="row">
                             <div class="form-group col-md-4 col-sm-12">
                                 <label for="">Nom</label>
-                                <input placeholder="Saisir le nom du responsable" type="text" wire:model="responsable_nom"
+                                <input placeholder="Saisir le nom du responsable" type="text"
+                                       wire:model="responsable_nom"
                                        class="form-control">
                             </div>
                             <div class="form-group col-md-4 col-sm-12">
                                 <label for="">Sexe <i class="text-red">*</i></label>
-                                <select wire:model="responsable_sexe" class="form-control  @error('responsable_sexe') is-invalid @enderror">
+                                <select wire:model="responsable_sexe"
+                                        class="form-control  @error('responsable_sexe') is-invalid @enderror">
                                     <option value="" disabled>Choisir sexe...</option>
-                                    @foreach (\App\Enum\EleveSexe::cases() as $es )
+                                    @foreach (Sexe::cases() as $es )
                                         <option value="{{ strtoupper($es->value)}}">{{ $es->label() }}</option>
                                     @endforeach
                                     @error('responsable_sexe')
@@ -127,9 +129,10 @@
                             </div>
                             <div class="form-group col-md-4 col-sm-12">
                                 <label for="">Relation</label>
-                                <select wire:model="responsable_relation" class="form-control  @error('responsable_relation') is-invalid @enderror">
+                                <select wire:model="responsable_relation"
+                                        class="form-control  @error('responsable_relation') is-invalid @enderror">
                                     <option value="" disabled>Choisir genre de relation...</option>
-                                    @foreach (\App\Enum\ResponsableRelation::cases() as $es )
+                                    @foreach (ResponsableRelation::cases() as $es )
                                         <option value="{{ strtoupper($es->value)}}">{{ $es->label() }}</option>
                                     @endforeach
                                     @error('responsable_relation')
@@ -141,7 +144,8 @@
                         <div class="row">
                             <div class="form-group col-md-4 col-sm-12">
                                 <label for="">Téléphone</label>
-                                <input placeholder="Saisir le numéro de téléphone" type="tel" wire:model="responsable_telephone"
+                                <input placeholder="Saisir le numéro de téléphone" type="tel"
+                                       wire:model="responsable_telephone"
                                        class="form-control">
                             </div>
                             <div class="form-group col-md-4 col-sm-12">
@@ -151,7 +155,8 @@
                             </div>
                             <div class="form-group col-md-4 col-sm-12">
                                 <label for="">Adresse </label>
-                                <textarea placeholder="Saisir l'adresse du domicile" wire:model="responsable_adresse" rows="1"
+                                <textarea placeholder="Saisir l'adresse du domicile" wire:model="responsable_adresse"
+                                          rows="1"
                                           class="form-control"></textarea>
                             </div>
 
@@ -160,22 +165,27 @@
 
                         <h4 class="font-weight-bold"><u>Choix de classe</u></h4>
                         <p>Procédez à l'inscription de ce candidat pour l'année scolaire <span
-                                class="text-red">{{$annee_courante->nom}}</span>, dans la classe que vous sélectionnerez ici-dessous.
-                            Pour choisir la classe, vous devez commencer par sélectionner la section, puis l'option, ensuite la filière et finalement la classe.</p>
-<p>Il y a des sections sans options ni filières, dans ce cas choisir seulement la section, puis la classe.</p>
-<p>Il y a des options sans filières, dans ce cas choisir seulement la section, puis l'option, et enfin la classe.</p>
+                                class="text-red">{{$annee_courante->nom}}</span>, dans la classe que vous
+                            sélectionnerez ici-dessous.
+                            Pour choisir la classe, vous devez commencer par sélectionner la section, puis l'option,
+                            ensuite la filière et finalement la classe.</p>
+                        <p>Il y a des sections sans options ni filières, dans ce cas choisir seulement la section, puis
+                            la classe.</p>
+                        <p>Il y a des options sans filières, dans ce cas choisir seulement la section, puis l'option, et
+                            enfin la classe.</p>
                         <div class="row">
                             <div class="form-group col-3">
                                 <label for="">Section <i class="text-red">*</i></label>
-                                <select wire:model="section_id"  wire:change="changeSection" class="form-control  @error('section_id') is-invalid @enderror">
+                                <select wire:model="section_id" wire:change="changeSection"
+                                        class="form-control  @error('section_id') is-invalid @enderror">
                                     <option value="">Choisir section</option>
                                     @foreach ($sections as $section )
                                         <option value="{{ $section->id }}">{{ $section->nom }}</option>
                                     @endforeach
                                 </select>
-                                    @error('section_id')
-                                    <span class="text-red">{{ $message }}</span>
-                                    @enderror
+                                @error('section_id')
+                                <span class="text-red">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="form-group col-3">
                                 <label for="">Option</label>
@@ -190,7 +200,7 @@
                             <div class="form-group col-3">
                                 <label for="">Filière</label>
                                 <select wire:model="filiere_id"
-                                        wire:change="changeFiliere"    class="form-control">
+                                        wire:change="changeFiliere" class="form-control">
                                     <option value="">Choisir filière</option>
                                     @foreach ($filieres as $filiere )
                                         <option value="{{ $filiere->id }}">{{ $filiere->nom }}</option>
@@ -199,7 +209,7 @@
                             </div>
                             <div class="form-group col-3">
                                 <label for="">Classe <i class="text-red">*</i></label>
-                                <select  wire:model="classe_id"
+                                <select wire:model="classe_id"
                                         class="form-control">
                                     <option value="">Choisir classe</option>
                                     @foreach ($classes as $classe )
@@ -214,9 +224,10 @@
                         <div class="row">
                             <div class="form-group col-md-6 col-sm-12">
                                 <label for="">Categorie <i class="text-red">*</i></label>
-                                <select wire:model="categorie" class="form-control  @error('categorie') is-invalid @enderror">
+                                <select wire:model="categorie"
+                                        class="form-control  @error('categorie') is-invalid @enderror">
                                     <option value="" disabled>Choisir categorie...</option>
-                                    @foreach (\App\Enum\EleveCategorie::cases() as $es )
+                                    @foreach (InscriptionCategorie::cases() as $es )
                                         <option value="{{ strtoupper($es->value)}}">{{ $es->label() }}</option>
                                     @endforeach
                                     @error('categorie')

@@ -19,20 +19,15 @@ class FiliereSeeder extends Seeder
     {
         return [
             [
-                'nom' => 'Ingenierie des Systemes Informatiques',
-                'code' => 'ISI',
-                'faculte_id' => 2,
+                'nom' => 'Biologie Chimie',
+                'code' => 'BC',
+                'option_id' => 1,
             ],
             [
-                'nom' => 'Réseaux et Telecommunication',
-                'code' => 'RT',
-                'faculte_id' => 2,
+                'nom' => 'Mathematique Physique',
+                'code' => 'MP',
+                'option_id' => 1,
             ],
-            [
-                'nom' => 'Informatique de Gestion',
-                'code' => 'IG',
-                'faculte_id' => 2,
-            ]
 
         ];
     }
