@@ -308,6 +308,10 @@ return [
            // 'can' => RolePermission::create_promotion->name,
             'submenu' => [
                 [
+                    'text' => 'Liste de classes',
+                    'url' => 'admin/classes',
+                ],
+                [
                     'text' => 'Liste de filières',
                     'url' => 'admin/filieres',
                 ],

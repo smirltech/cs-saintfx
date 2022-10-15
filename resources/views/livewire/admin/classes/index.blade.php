@@ -1,5 +1,22 @@
-<div class="">
+@section('title')
+    {{Str::upper('cenk')}} - classes
+@endsection
+@section('content_header')
+    <div class="row">
+        <div class="col-6">
+            <h1 class="ms-3">Liste de classes</h1>
+        </div>
 
+        <div class="col-6">
+            <ol class="breadcrumb float-right">
+                <li class="breadcrumb-item"><a href="{{ route('admin') }}">Accueil</a></li>
+                <li class="breadcrumb-item active">Classes</li>
+            </ol>
+        </div>
+    </div>
+
+@stop
+<div class="">
     <div class="content mt-3">
         <div class="container-fluid">
             <div class="row">
@@ -11,7 +28,7 @@
                             </div>
                             <div class="card-tools d-flex my-auto">
 
-                                <a href="{{ route('admin.promotions.create') }}" title="ajouter"
+                                <a href="{{ route('admin.classes.create') }}" title="ajouter"
                                    class="btn btn-primary mr-2"><span
                                         class="fa fa-plus"></span></a>
 
@@ -23,34 +40,44 @@
                             <table class="table">
                                 <thead>
                                 <tr>
-                                    <th>PROMOTION</th>
-                                    <th>FILIERE</th>
-                                    <th>FACULTE</th>
+                                    <th>CLASSE</th>
+                                    <th>CODE</th>
+                                    <th>SECTION/OPTION/FILIERE</th>
                                     <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ($promotions as $promotion)
+                                @foreach ($classes as $classe)
+                                    @php
+                                        $parent_url = "";
+                                            $classable = $classe->filierable;
+                                            if($classable instanceof \App\Models\Filiere){
+                                                $parent_url = "/admin/filieres/$classe->filierable_id";
+                                            }else  if($classable instanceof \App\Models\Option){
+                                                $parent_url = "/admin/options/$classe->filierable_id";
+                                            }else  if($classable instanceof \App\Models\Section){
+                                                $parent_url = "/admin/sections/$classe->filierable_id";
+                                            }
+                                    @endphp
                                     <tr>
-                                        <td>{{ $promotion->code }}</td>
+                                        <td>{{ $classe->grade }}</td>
+                                        <td>{{ $classe->code }}</td>
+
                                         <td>
-                                            <a href="/admin/filieres/{{ $promotion->filiere->id }}">{{ $promotion->filiere->nom }}</a>
-                                        </td>
-                                        <td>
-                                            <a href="/admin/facultes/{{ $promotion->filiere->faculte->id }}">{{ $promotion->filiere->faculte->nom }}</a>
+                                            <a href="{{$parent_url}}">{{ $classe->filierable->fullName }}</a>
                                         </td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                <a href="/admin/promotions/{{ $promotion->id }}" title="Voir"
+                                                <a href="/admin/classes/{{ $classe->id }}" title="Voir"
                                                    class="btn btn-warning">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
-                                                <a href="/admin/promotions/{{ $promotion->id }}/edit" title="modifier"
+                                                <a href="/admin/classes/{{ $classe->id }}/edit" title="modifier"
                                                    class="btn btn-info  ml-2">
                                                     <i class="fas fa-pen"></i>
                                                 </a>
 
-                                                <button wire:click="deletePromotion({{ $promotion->id }})"
+                                                <button wire:click="deleteClasse({{ $classe->id }})"
                                                         title="supprimer" class="btn btn-danger ml-2">
                                                     <i class="fas fa-trash"></i>
                                                 </button>

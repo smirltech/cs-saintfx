@@ -1,7 +1,7 @@
 @php
     use App\Enum\InscriptionStatus;use App\Helpers\Helpers;
 
-    $heads = [
+ /*   $heads = [
             'NO.',
             'ETUDIANT',
             'SEXE',
@@ -10,9 +10,9 @@
             'STATUS',
             'DEPUIS LE',
             ['Actions', 'no-export' => true, 'width' => 5],
-        ];
+        ];*/
 
-    foreach ($admissions->sortBy(fn ($q) => $q->etudiant->fullname) as $admission){
+    /*foreach ($admissions->sortBy(fn ($q) => $q->etudiant->fullname) as $admission){
 
             $btn1 = '<a href="' . "/admin/etudiants/{$admission->etudiant_id}" . '" class="btn btn-success btn-sm m-1" title="Voir Étudiant"><i class="fa fa-eye"></i></a>';
             $btn2 = '<a href="' . "/admin/admissions/{$admission->id}/edit" . '" class="btn btn-warning btn-sm m-1" title="Edit"><i class="fa fa-edit"></i></a>';
@@ -35,18 +35,34 @@
                 '<nobr>' . $btn1 . $btn2. $btn3 . '</nobr>',
             ];
 
-        }
+        }*/
 
-        $config = [
+       /* $config = [
             'data' => $data ?? [],
             'order' => [[1, 'asc']],
             'columns' => [['orderable' => true], null, null, null, null, null, null,['orderable' => false]],
-        ];
+        ];*/
 
 @endphp
 @section('title')
-    {{Str::upper('UPL admissions')}} - {{ $promotion->code }} - {{date('d-m-Y')}}
+    {{Str::upper('cenk')}} - classe - {{$classe->code}}
 @endsection
+@section('content_header')
+    <div class="row">
+        <div class="col-6">
+            <h1 class="ms-3">{{$classe->grade->label()}}</h1>
+        </div>
+
+        <div class="col-6">
+            <ol class="breadcrumb float-right">
+                <li class="breadcrumb-item"><a href="{{ route('admin') }}">Accueil</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.classes') }}">Classes</a></li>
+                <li class="breadcrumb-item active">{{$classe->grade}}</li>
+            </ol>
+        </div>
+    </div>
+
+@stop
 <div class="">
 
     <div class="content mt-3">
@@ -54,7 +70,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-tools">
-                        <a href="/admin/promotions/{{ $promotion->id }}/edit" title="modifier"
+                        <a href="/admin/classes/{{ $classe->id }}/edit" title="modifier"
                            class="btn btn-primary btn-sm ml-2">
                             <i class="fas fa-pen"></i>
                         </a>
@@ -64,16 +80,16 @@
                     <div class="row">
                         <div class="col-md-4 col-sm-6 col-6">
                             <label>Grade : </label>
-                            {{ $promotion->grade->label() }}
+                            {{ $classe->grade->label() }}
                         </div>
                         <div class="col-md-4 col-sm-6 col-6">
                             <label>Code : </label>
-                            {{ $promotion->code }}
+                            {{ $classe->code }}
                         </div>
                         <div class="col-md-4 col-sm-12 col-12">
                             <label>Filière : </label>
-                            <a href="/admin/filieres/{{ $promotion->filiere->id }}">{{  $promotion->filiere->nom }}</a>
-
+                           {{-- <a href="/admin/filieres/{{ $classe->filiere->id }}">{{  $promotion->filiere->nom }}</a>
+--}}
                         </div>
                     </div>
 
@@ -84,8 +100,8 @@
                                 <div class="bg-info rounded p-2"><i
                                         class="fa fa-users align-middle"></i></div>
                                 <div class="ml-1 d-flex flex-column">
-                                    <span class="">{{InscriptionStatus::pending->label()}}</span>
-                                    <span class=""><strong>{{$pendingCount}}/{{count($admissions)}}</strong></span>
+                                    <span class=""></span>
+                                    <span class=""><strong></strong></span>
                                 </div>
                             </div>
                         </div>
@@ -94,8 +110,8 @@
                                 <div class="bg-success rounded p-2"><i
                                         class="fa fa-users align-middle"></i></div>
                                 <div class="ml-1 d-flex flex-column">
-                                    <span class="">{{InscriptionStatus::approved->label()}}</span>
-                                    <span class=""><strong>{{$approvedCount}}/{{count($admissions)}}</strong></span>
+                                    <span class=""></span>
+                                    <span class=""><strong></strong></span>
                                 </div>
                             </div>
                         </div>
@@ -104,8 +120,8 @@
                                 <div class="bg-danger rounded p-2"><i
                                         class="fa fa-users align-middle"></i></div>
                                 <div class="ml-1 d-flex flex-column">
-                                    <span class="">{{InscriptionStatus::rejected->label()}}</span>
-                                    <span class=""><strong>{{$rejectedCount}}/{{count($admissions)}}</strong></span>
+                                    <span class=""></span>
+                                    <span class=""><strong></strong></span>
                                 </div>
                             </div>
                         </div>
@@ -114,8 +130,8 @@
                                 <div class="bg-warning rounded p-2"><i
                                         class="fa fa-users align-middle"></i></div>
                                 <div class="ml-1 d-flex flex-column">
-                                    <span class="">{{InscriptionStatus::canceled->label()}}</span>
-                                    <span class=""><strong>{{$canceledCount}}/{{count($admissions)}}</strong></span>
+                                    <span class=""></span>
+                                    <span class=""><strong></strong></span>
                                 </div>
                             </div>
                         </div>
@@ -126,20 +142,20 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-title">
-                        <h4 class="m-0">Liste d'admissions</h4>
+                        <h4 class="m-0">Liste d'inscriptions</h4>
                     </div>
                     <div class="card-tools d-flex my-auto">
 
-                        <a href="{{ route('admin.admissions.create') }}" title="ajouter"
-                           class="btn btn-primary mr-2"><span class="fa fa-plus"></span></a>
+                       {{-- <a href="{{ route('admin.admissions.create') }}" title="ajouter"
+                           class="btn btn-primary mr-2"><span class="fa fa-plus"></span></a>--}}
 
 
                     </div>
                 </div>
 
                 <div class="card-body p-0 table-responsive">
-                    <x-adminlte-datatable id="table7" :heads="$heads" theme="light" :config="$config" striped
-                                          hoverable with-buttons/>
+                   {{-- <x-adminlte-datatable id="table7" :heads="$heads" theme="light" :config="$config" striped
+                                          hoverable with-buttons/>--}}
                 </div>
             </div>
         </div>

@@ -76,11 +76,11 @@ Route::prefix('admin')->middleware(['auth:web'])->as('admin.')->group(function (
     Route::get('filieres/{filiere}', FiliereShowComponent::class)->name('filieres.show');
     Route::get('filieres', FiliereIndexComponent::class)->name('filieres');
 
-// Promotion
-    Route::get('promotions/create', Classe\ClasseCreateComponent::class)->name('promotions.create');
-    Route::get('promotions/{promotion}/edit', Classe\ClasseEditComponent::class)->name('promotions.edit');
-    Route::get('promotions/{promotion}', Classe\ClasseShowComponent::class)->name('promotions.show');
-    Route::get('promotions', Classe\ClasseIndexComponent::class)->name('promotions');
+// Classe
+    Route::get('classes/create', Classe\ClasseCreateComponent::class)->name('classes.create');
+    Route::get('classes/{classe}/edit', Classe\ClasseEditComponent::class)->name('classes.edit');
+    Route::get('classes/{classe}', Classe\ClasseShowComponent::class)->name('classes.show');
+    Route::get('classes', Classe\ClasseIndexComponent::class)->name('classes');
 
 // Année
     Route::get('annees', AnneeComponent::class)->name('annees');

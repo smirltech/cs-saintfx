@@ -20,4 +20,10 @@ class Section extends Model
     public function classes(){
         return $this->morphMany(Classe::class, 'filierable');
     }
+
+    // full_name
+    public function getFullNameAttribute(): string
+    {
+        return "{$this->nom}";
+    }
 }
