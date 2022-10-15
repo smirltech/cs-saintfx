@@ -22,8 +22,8 @@
                                             wire:click="toggleIsAdding"><span
                                             class="fa fa-times"></span></button>
                                 @else
-                                    <button title="ajouter" class="btn btn-primary mr-2"
-                                            wire:click="toggleIsAdding"><span
+                                    <button onclick="Livewire.emit('openModal', 'annee-modal-component')" title="ajouter" class="btn btn-primary mr-2"
+                                            {{--wire:click="toggleIsAdding"--}}><span
                                             class="fa fa-plus"></span></button>
                                 @endif
 

@@ -73,7 +73,7 @@
         <meta name="msapplication-TileColor" content="#ffffff">
         <meta name="msapplication-TileImage" content="{{ asset('favicon/ms-icon-144x144.png') }}">
     @endif
-    <!-- Alpine v3 -->
+
 
 </head>
 
@@ -81,6 +81,7 @@
 
 {{-- Body Content --}}
 @yield('body')
+
 
 {{-- Base Scripts --}}
 @if(!config('adminlte.enabled_laravel_mix'))
@@ -95,7 +96,7 @@
 
 @endif
 
-
+@livewire('livewire-ui-modal')
 {{-- Livewire Script --}}
 @if(config('adminlte.livewire'))
 
