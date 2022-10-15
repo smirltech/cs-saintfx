@@ -15,6 +15,7 @@ use App\Http\Livewire\Admin\Filiere\FiliereCreateComponent;
 use App\Http\Livewire\Admin\Filiere\FiliereEditComponent;
 use App\Http\Livewire\Admin\Filiere\FiliereIndexComponent;
 use App\Http\Livewire\Admin\Filiere\FiliereShowComponent;
+use App\Http\Livewire\Admin\Inscription\InscriptionCreateComponent;
 use App\Http\Livewire\Admin\Inscription\InscriptionEditComponent;
 use App\Http\Livewire\Admin\Inscription\InscriptionIndexComponent;
 
@@ -86,14 +87,14 @@ Route::prefix('admin')->middleware(['auth:web'])->as('admin.')->group(function (
     Route::get('annees', AnneeComponent::class)->name('annees');
 
 // Etudiant
-    Route::get('etudiants/{etudiant}', EtudiantShowComponent::class)->name('etudiants.show');
+    Route::get('eleves/{eleve}', EtudiantShowComponent::class)->name('eleves.show');
+    Route::get('eleves', EtudiantShowComponent::class)->name('eleves');
 
-    Route::get('admissions/create', EtudiantCreateComponent::class)->name('admissions.create');
-
-    // Admission
-    Route::get('admissions/{admission}/edit', InscriptionEditComponent::class)->name('admissions.edit');
-    Route::get('admissions/tous', InscriptionIndexComponent::class)->name('admissions.index');
-    Route::get('admissions', InscriptionIndexComponent::class)->name('admissions');
+    // Inscription
+    Route::get('inscriptions/create', InscriptionCreateComponent::class)->name('inscriptions.create');
+    Route::get('inscriptions/{inscription}/edit', InscriptionEditComponent::class)->name('inscriptions.edit');
+    Route::get('inscriptions/tous', InscriptionIndexComponent::class)->name('inscriptions.index');
+    Route::get('inscriptions', InscriptionIndexComponent::class)->name('inscriptions');
 
 
     Route::get('/', DashboardComponent::class)->name('admin');

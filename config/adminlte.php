@@ -292,12 +292,12 @@ return [
             'submenu' => [
                 [
                     'text' => 'Inscrire un élève',
-                    'url' => 'admin/admissions/create',
+                    'url' => 'admin/inscriptions/create',
               //      'can' => RolePermission::create_etudiant->name,
                 ],
                 [
                     'text' => 'Liste d\'inscriptions',
-                    'url' => 'admin/admissions/tous',
+                    'url' => 'admin/inscriptions',
                 ],
 
             ],

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin\Section;
 
 use App\Models\Section;
+use App\Traits\SectionCode;
 use App\View\Components\AdminLayout;
 use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -12,8 +13,11 @@ use LivewireUI\Modal\ModalComponent;
 class SectionEditComponent extends ModalComponent
 {
     use LivewireAlert;
+    use SectionCode;
+
 
     public $section;
+
     protected $messages = [
         'section.nom.required' => 'Ce nom est obligatoire !',
         'section.nom.unique' => 'Ce nom est déjà pris, cherchez-en un autre !',
