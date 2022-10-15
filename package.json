@@ -30,6 +30,7 @@
         "@popperjs/core": "^2.11.6",
         "bootstrap": "^5.2.1",
         "popper": "^1.0.1",
+        "print-js": "^1.6.0",
         "sweetalert2": "^11.4.35"
     }
 }

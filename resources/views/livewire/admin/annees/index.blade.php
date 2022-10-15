@@ -24,26 +24,11 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="card-title">
-
                             </div>
                             <div class="card-tools d-flex my-auto">
-
-                                @if ($isAdding)
-
-                                    <input class="form-control" type="number" wire:model="nom"
-                                           placeholder="Année debut">
-
-                                    <button title="ajouter" wire:click="addAnnee" class="btn btn-default ml-2"><span
-                                            class="fa fa-arrow-right"></span></button>
-                                    <button title="annuler" class="btn btn-default ml-2"
-                                            wire:click="toggleIsAdding"><span
-                                            class="fa fa-times"></span></button>
-                                @else
-                                    <button  title="ajouter" class="btn btn-primary mr-2"
-                                            wire:click="toggleIsAdding"><span
-                                            class="fa fa-plus"></span></button>
-                                @endif
-
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add-annee-modal">
+                                    <span
+                                        class="fa fa-plus"></span></button>
                             </div>
                         </div>
 
@@ -60,48 +45,27 @@
                                 @foreach ($annees as $annee)
                                     <tr>
                                         <td>
-                                            <div class="d-flex">
-                                                @if ($annee_id == $annee->id)
-
-                                                    <input class="form-control" type="number" wire:model="nom"
-                                                           placeholder="Année debut">
-
-                                                    <button title="modifier" wire:click="updateAnnee"
-                                                            class="btn btn-default ml-2"><span
-                                                            class="fa fa-arrow-right"></span></button>
-                                                    <button title="annuler" class="btn btn-default ml-2"
-                                                            wire:click="resetAnneeId"><span
-                                                            class="fa fa-times"></span></button>
-                                                @else
-                                                    {{ $annee->nom}}
-                                                @endif
-                                            </div>
-
+                                            <div class="d-flex">{{ $annee->nom}}</div>
                                         </td>
                                         <td>{{ $annee->encours ? 'EN COURS' : '' }}</td>
                                         <td>
-
                                             <div class="d-flex float-right">
-                                                @if ($annee_id == -1)
                                                     @if (!$annee->encours)
                                                         <button title="metter en cours"
                                                                 wire:click="setAnneeEnCours({{ $annee->id }})"
                                                                 class="btn bg-yellow mr-2">
                                                             <i class="fas fa-check"></i>
                                                         </button>
+                                                        <button wire:click="editAnnee({{ $annee->id }})" type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit-annee-modal">
+                                                            <i class="fas fa-pen"></i></button>
 
-                                                        <button title="modifier"
-                                                                wire:click="editAnnee({{ $annee->id }})"
-                                                                class="btn btn-info">
-                                                            <i class="fas fa-pen"></i>
-                                                        </button>
                                                         <button title="supprimer"
                                                                 wire:click="deleteAnnee({{ $annee->id }})"
                                                                 class="btn btn-danger ml-2">
                                                             <i class="fas fa-trash"></i>
                                                         </button>
                                                     @endif
-                                                @endif
+
                                             </div>
 
                                         </td>
@@ -115,4 +79,54 @@
             </div>
         </div>
     </div>
+
+    <div wire:ignore.self class="modal fade" id="add-annee-modal">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Ajouter Année Scolaire</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input class="form-control" type="number" wire:model="nom"
+                           placeholder="Année debut">
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button  wire:click="addAnnee" type="submit" data-dismiss="modal" class="btn btn-primary">Soumettre</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div wire:ignore.self class="modal fade" id="edit-annee-modal">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Modifier Année Scolaire</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input class="form-control" type="text" wire:model="nom"
+                           placeholder="Année debut">
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button wire:click="updateAnnee" type="button" class="btn btn-primary"  data-dismiss="modal">Soumettre</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
+
+
+

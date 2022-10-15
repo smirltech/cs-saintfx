@@ -11,6 +11,7 @@ class AnneeComponent extends Component
 {
     use LivewireAlert;
 
+    public $name;
     public $annees;
     public $annee_id = -1;
     public $nom = "";
@@ -20,6 +21,7 @@ class AnneeComponent extends Component
 
     protected $rules = [
         'nom' => 'required',
+        'name' => 'required',
     ];
 
     public function mount()
@@ -36,6 +38,12 @@ class AnneeComponent extends Component
     {
         return view('livewire.admin.annees.index')
             ->layout(AdminLayout::class, ['title' => "Liste d'années scolaires"]);
+    }
+
+    public function nameSetter($name)
+    {
+        $this->name = $name;
+
     }
 
     public function toggleIsAdding()
@@ -82,6 +90,7 @@ class AnneeComponent extends Component
 
     public function setAnneeEnCours($id)
     {
+
         $aa = Annee::find($id);
         //if ($aa != null) {
         Annee::query()->where('encours', true)->update(['encours' => false]);
