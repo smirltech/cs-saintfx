@@ -288,12 +288,12 @@ return [
         [
             'text' => 'Inscriptions',
             'icon' => 'fas fa-fw fa-plus',
-            'can' => RolePermission::view_etudiant->name,
+           // 'can' => RolePermission::view_etudiant->name,
             'submenu' => [
                 [
-                    'text' => 'Inscrire un étudiant',
+                    'text' => 'Inscrire un élève',
                     'url' => 'admin/admissions/create',
-                    'can' => RolePermission::create_etudiant->name,
+              //      'can' => RolePermission::create_etudiant->name,
                 ],
                 [
                     'text' => 'Liste d\'inscriptions',
@@ -303,14 +303,27 @@ return [
             ],
         ],
         [
-            'text' => 'Filières',
+            'text' => 'Élèves',
             'icon' => 'fas fa-fw fa-graduation-cap',
-           // 'can' => RolePermission::create_promotion->name,
+            // 'can' => RolePermission::view_etudiant->name,
             'submenu' => [
                 [
                     'text' => 'Liste de classes',
                     'url' => 'admin/classes',
                 ],
+                [
+                    'text' => 'Liste d\'élèves',
+                    'url' => 'admin/eleves',
+                ],
+
+            ],
+        ],
+        [
+            'text' => 'Filières',
+            'icon' => 'fas fa-fw fa-chalkboard-teacher',
+           // 'can' => RolePermission::create_promotion->name,
+            'submenu' => [
+
                 [
                     'text' => 'Liste de filières',
                     'url' => 'admin/filieres',
