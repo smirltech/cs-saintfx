@@ -104,8 +104,10 @@ class InscriptionCreateComponent extends Component
     public function submit()
     {
         $this->validate();
-
-        $resp = $this->submitResponsable();
+$resp = null;
+        try{
+            $resp = $this->submitResponsable();
+        }catch (_){}
         $ele = $this->submitEleve($resp);
        if($resp !=null) $res_ele = $this->submitResponsableEleve($resp, $ele);
         $insc = $this->submitInscription($ele);
@@ -118,6 +120,7 @@ class InscriptionCreateComponent extends Component
 
     public function submitResponsable()
     {
+        if(isset($this->responsable_nom))
         return Responsable::create([
             'nom' => $this->responsable_nom,
             'sexe' => $this->responsable_sexe,
