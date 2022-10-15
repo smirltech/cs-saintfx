@@ -22,9 +22,11 @@ class DatabaseSeeder extends Seeder
         $this->call([
             PermissionSeeder::class,
             UserSeeder::class,
+            SectionSeeder::class,
+            OptionSeeder::class,
+            FiliereSeeder::class,
             AnneeSeeder::class,
-            // FiliereSeeder::class,
-            // PromotionSeeder::class,
+            ClasseSeeder::class,
         ]);
 
         Schema::enableForeignKeyConstraints();

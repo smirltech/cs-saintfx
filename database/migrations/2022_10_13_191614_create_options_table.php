@@ -11,7 +11,7 @@ return new class extends Migration {
         Schema::create('options', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
-            $table->integer('code');
+            $table->string('code')->nullable();
             $table->foreignIdFor(Section::class)->constrained();
             $table->timestamps();
         });
