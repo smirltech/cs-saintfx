@@ -17,19 +17,19 @@ class SectionEditComponent extends ModalComponent
 
     public $section;
 
-
     protected $messages = [
         'section.nom.required' => 'Ce nom est obligatoire !',
-        'section.nom.unique' => 'Ce nom est déjà pris, cherchez-en un autre !',
+       // 'section.nom.unique' => 'Ce nom est déjà pris, cherchez-en un autre !',
 
         'section.code.required' => 'Ce code est obligatoire !',
-        'section.code.unique' => 'Ce code est déjà pris, cherchez-en un autre !',
+       // 'section.code.unique' => 'Ce code est déjà pris, cherchez-en un autre !',
     ];
 
-    public function mount(Section $section)
+    public function mount($section_id)
     {
        // dd($section);
-        $this->section = $section;
+        $this->section = Section::find($section_id);
+
     }
 
     public function submit()
@@ -59,12 +59,15 @@ class SectionEditComponent extends ModalComponent
             ->layout(AdminLayout::class, ['title' => 'Modification de section']);
     }
 
-    protected $listeners = ['refreshComponent' => '$refresh'];
-
     protected function rules()
     {
         return [
             'section.nom' => [
+                "required",
+                Rule::unique((new Section)->getTable(), "nom")->ignore($this->section->id)
+
+            ],
+            'nom' => [
                 "required",
                 Rule::unique((new Section)->getTable(), "nom")->ignore($this->section->id)
 

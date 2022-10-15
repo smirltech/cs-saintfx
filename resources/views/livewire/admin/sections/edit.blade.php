@@ -1,6 +1,6 @@
 
 <div class="">
-    <button wire:click="$emit('refreshComponent')" type="button" class="btn btn-info  ml-2" data-toggle="modal" data-target="#edit-section-modal">
+    <button type="button" class="btn btn-info  ml-2" data-toggle="modal" data-target="#edit-section-modal">
                                     <span
                                         class="fa fa-pen"></span></button>
 
@@ -43,4 +43,5 @@
         </div>
 
     </div>
+
 </div>
