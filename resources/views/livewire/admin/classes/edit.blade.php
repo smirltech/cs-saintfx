@@ -1,17 +1,17 @@
 @section('title')
-    {{Str::upper('cenk')}} - modifier classe - {{$classe->grade}}
+    {{Str::upper('cenk')}} - modifier classe - {{$classe->code}}
 @endsection
 @section('content_header')
     <div class="row">
         <div class="col-6">
-            <h1 class="ms-3">Modifier classe - {{$classe->grade}}</h1>
+            <h1 class="ms-3">Modifier classe - {{$classe->code}}</h1>
         </div>
 
         <div class="col-6">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('admin') }}">Accueil</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('admin.classes') }}">Classes</a></li>
-                <li class="breadcrumb-item active">{{$classe->grade}}</li>
+                <li class="breadcrumb-item active">{{$classe->code}}</li>
             </ol>
         </div>
     </div>
