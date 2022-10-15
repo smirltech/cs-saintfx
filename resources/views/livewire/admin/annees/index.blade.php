@@ -1,5 +1,22 @@
-<div class="">
+@section('title')
+    {{Str::upper('cenk')}} - années scolaires
+@endsection
+@section('content_header')
+    <div class="row">
+        <div class="col-6">
+            <h1 class="ms-3">Liste d'années</h1>
+        </div>
 
+        <div class="col-6">
+            <ol class="breadcrumb float-right">
+                <li class="breadcrumb-item"><a href="{{ route('admin') }}">Accueil</a></li>
+                <li class="breadcrumb-item active">Années scolaires</li>
+            </ol>
+        </div>
+    </div>
+
+@stop
+<div class="">
     <div class="content mt-3">
         <div class="container-fluid">
             <div class="row">
@@ -22,8 +39,8 @@
                                             wire:click="toggleIsAdding"><span
                                             class="fa fa-times"></span></button>
                                 @else
-                                    <button onclick="Livewire.emit('openModal', 'annee-modal-component')" title="ajouter" class="btn btn-primary mr-2"
-                                            {{--wire:click="toggleIsAdding"--}}><span
+                                    <button  title="ajouter" class="btn btn-primary mr-2"
+                                            wire:click="toggleIsAdding"><span
                                             class="fa fa-plus"></span></button>
                                 @endif
 
