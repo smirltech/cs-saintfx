@@ -71,7 +71,7 @@
                                 <label for="">Sexe <i class="text-red">*</i></label>
                                 <select wire:model="sexe" class="form-control  @error('sexe') is-invalid @enderror">
                                     <option value="" disabled>Choisir sexe...</option>
-                                    @foreach (EtudiantSexe::cases() as $es )
+                                    @foreach (\App\Enum\EleveSexe::cases() as $es )
                                         <option value="{{ strtoupper($es->value)}}">{{ $es->label() }}</option>
                                     @endforeach
                                     @error('sexe')
@@ -117,7 +117,7 @@
                                 <label for="">Sexe <i class="text-red">*</i></label>
                                 <select wire:model="responsable_sexe" class="form-control  @error('responsable_sexe') is-invalid @enderror">
                                     <option value="" disabled>Choisir sexe...</option>
-                                    @foreach (EtudiantSexe::cases() as $es )
+                                    @foreach (\App\Enum\EleveSexe::cases() as $es )
                                         <option value="{{ strtoupper($es->value)}}">{{ $es->label() }}</option>
                                     @endforeach
                                     @error('responsable_sexe')
@@ -189,8 +189,8 @@
                             </div>
                             <div class="form-group col-3">
                                 <label for="">Filière</label>
-                                <select wire:change="setCode" wire:model="filiere_id"
-                                        class="form-control">
+                                <select wire:model="filiere_id"
+                                        wire:change="changeFiliere"    class="form-control">
                                     <option value="">Choisir filière</option>
                                     @foreach ($filieres as $filiere )
                                         <option value="{{ $filiere->id }}">{{ $filiere->nom }}</option>
@@ -199,7 +199,7 @@
                             </div>
                             <div class="form-group col-3">
                                 <label for="">Classe <i class="text-red">*</i></label>
-                                <select wire:change="setCode" wire:model="classe_id"
+                                <select  wire:model="classe_id"
                                         class="form-control">
                                     <option value="">Choisir classe</option>
                                     @foreach ($classes as $classe )

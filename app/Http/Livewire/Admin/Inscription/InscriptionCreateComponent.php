@@ -2,17 +2,18 @@
 
 namespace App\Http\Livewire\Admin\Inscription;
 
-use App\Enum\EtatCivil;
-use App\Enum\EtudiantSexe;
+use App\Enum\EleveSexe;
 use App\Enum\EtudiantStep;
 use App\Enum\InscriptionStatus;
 use App\Enum\MediaType;
 use App\Models\Annee;
-use App\Models\Diplome;
-use App\Models\Etudiant;
+use App\Models\Eleve;
 use App\Models\Filiere;
 use App\Models\Inscription;
 use App\Models\Option;
+use App\Models\Responsable;
+use App\Models\ResponsableEleve;
+use App\Models\Section;
 use App\Traits\WithFileUploads;
 use App\View\Components\AdminLayout;
 use Carbon\Carbon;
@@ -29,12 +30,19 @@ class InscriptionCreateComponent extends Component
     public $filieres = [];
     public $classes = [];
 
+    //inscription
     public $section_id;
     public $option_id;
     public $filiere_id;
     public $classe_id;
 
+    public $categorie;
+    public $montant;
+    public $status;
+    public $code;
 
+
+    //eleve
     public $nom;
     public $postnom;
     public $prenom;
@@ -43,60 +51,40 @@ class InscriptionCreateComponent extends Component
     public $sexe;
     public $telephone;
     public $email;
-    public $etat_civil;
-    public $pere;
-    public $mere;
-    public $tuteur;
-    public $origine;
-    public $adresse_urgence;
-    public $contact_urgence;
     public $adresse;
+    public $matricule;
+
+    //responsable
+    public $responsable_nom;
+    public $responsable_sexe;
+    public $responsable_telephone;
+    public $responsable_email;
+    public $responsable_adresse;
+    public $responsable_relation;
 
     public $annee_courante;
-
-
-    // About the last diploma
-    public $numero;
-    public $pourcentage;
-    public $section;
-    public $option;
-    public $date_delivrance;
-    public $ecole;
-    public $code_ecole;
-    public $province_ecole;
 
 
     protected $rules = [
         'nom' => 'required|string',
         'postnom' => 'required|string',
         'prenom' => 'nullable|string',
-        'lieu_naissance' => 'required',
-        'date_naissance' => 'required|date',
-        'sexe' => 'required',
+        'lieu_naissance' => 'nullable',
+        'date_naissance' => 'nullable|date',
+        'sexe' => 'nullable',
         'telephone' => 'nullable|string|unique:etudiants',
         'email' => 'required|unique:etudiants',
-        'filiere_id' => 'required|numeric|min:1|not_in:0',
-        'promotion_id' => 'required|numeric|min:1|not_in:0',
-        'faculte_id' => 'required|numeric|min:1|not_in:0',
 
-        'filiere2_id' => 'nullable|numeric|min:1|not_in:0',
-        'promotion2_id' => 'nullable|numeric|min:1|not_in:0',
-        'faculte2_id' => 'nullable|numeric|min:1|not_in:0',
+        'classe_id' => 'required|numeric|min:1|not_in:0',
+        'filiere_id' => 'nullable|numeric|min:1|not_in:0',
+        'option_id' => 'nullable|numeric|min:1|not_in:0',
+        'section_id' => 'required|numeric|min:1|not_in:0',
 
-        'bordereau' => 'nullable|mimes:pdf|max:3000',
-        'piece' => 'nullable|mimes:pdf|max:3000',
-        'fiche' => 'nullable|mimes:pdf|max:3000',
     ];
     protected $messages = [
         'nom.required' => 'Ce nom est obligatoire !',
         'postnom.required' => 'Ce postnom est obligatoire !',
-        'lieu_naissance.required' => 'Ce lieu de naissance est obligatoire !',
-        'date_naissance.required' => 'Cette date de naissance est obligatoire !',
-        'sexe.required' => 'Choisir le sexe !',
-        'email.required' => 'Cette adresse e-mail est obligatoire !',
-        'faculte_id.min' => 'Choisir une faculté',
-        'filiere_id.min' => 'Choisir une filière',
-        'promotion_id.min' => 'Choisir une promotion',
+
     ];
 
     public function mount()
@@ -104,114 +92,76 @@ class InscriptionCreateComponent extends Component
         $this->annee_courante = Annee::where('encours', true)->first();
         $this->date_naissance = Carbon::today()->subYears(3)->toDateString();
         //$this->date_delivrance = Carbon::today()->subYears(1)->toDateString();
-        $this->facultes = Option::orderBy('nom')->get();
-        $this->facultes2 = Option::orderBy('nom')->get();
-        $this->sexe = EtudiantSexe::m->value;
+        $this->sections = Section::orderBy('nom')->get();
 
-        $this->etat_civil = EtatCivil::single->value;
+        $this->sexe = EleveSexe::m->value;
     }
 
     public function submit()
     {
         $this->validate();
-        $student = Etudiant::create([
+
+        $resp = $this->submitResponsable();
+        $ele = $this->submitEleve($resp);
+        $res_ele = $this->submitResponsableEleve($resp, $ele);
+        $insc = $this->submitInscription($ele);
+        $this->flash('success', 'Élève inscrit avec succès', [], route('admin.eleves'));
+
+
+        //  $this->alert('error', "L'enregistrement de l'étudiant n'a pas aboutis, veuillez reéssayer !");
+
+    }
+
+    public function submitResponsable()
+    {
+        return Responsable::create([
+            'nom' => $this->responsable_nom,
+            'sexe' => $this->responsable_sexe,
+            'telephone' => $this->responsable_telephone,
+            'email' => $this->responsable_email,
+            'adresse' => $this->responsable_adresse,
+        ]);
+    }
+
+    public function submitEleve($responsable)
+    {
+        return Eleve::create([
             'nom' => $this->nom,
             'postnom' => $this->postnom,
             'prenom' => $this->prenom,
+            'sexe' => $this->sexe,
             'telephone' => $this->telephone,
             'email' => $this->email,
-            'sexe' => $this->sexe,
-            'etat_civil' => $this->etat_civil,
-            'date_naissance' => $this->date_naissance,
-            'lieu_naissance' => $this->lieu_naissance,
             'adresse' => $this->adresse,
-            'mere' => $this->mere,
-            'pere' => $this->pere,
-            'tuteur' => $this->tuteur ?? $this->pere,
-            'origine' => $this->origine,
-            'adresse_urgence' => $this->adresse_urgence,
-            'contact_urgence' => $this->contact_urgence,
-            'step' => EtudiantStep::complete->value,
-        ]);
-
-        if ($student) {
-            $this->submitDiplome($student->id);
-            $done = $this->submitAdmission($student->id);
-            $this->uploadDocuments($student);
-            if ($done) {
-                $this->reset(
-                    [
-                        'nom',
-                        'postnom',
-                        'prenom',
-                        'telephone',
-                        'email',
-                        'sexe',
-                        'etat_civil',
-                        'date_naissance',
-                        'lieu_naissance',
-                        'adresse',
-                        'mere',
-                        'pere',
-                        'tuteur',
-                        'origine',
-                        'contact_urgence',
-                    ]
-                );
-
-                // upload media
-                //$this->upload(null, $student->id, MediaType::bordereaux);
-
-                $this->flash('success', "Etudiant $this->nom inscrit avec succès !", [], route('admin.admissions.index'));
-
-            } else {
-                $this->alert('error', "L'inscription de l'étudiant n'a pas aboutis, veuillez reéssayer !");
-            }
-
-        } else {
-            $this->alert('error', "L'enregistrement de l'étudiant n'a pas aboutis, veuillez reéssayer !");
-        }
-    }
-
-    public function submitDiplome($etudiant_id)
-    {
-        return Diplome::create([
-            'etudiant_id' => $etudiant_id,
-            'numero' => $this->numero,
-            'pourcentage' => $this->pourcentage,
-            'section' => $this->section,
-            'option' => $this->option,
-            'date_delivrance' => $this->date_delivrance,
-            'ecole' => $this->ecole,
-            'code_ecole' => $this->code_ecole,
-            'province_ecole' => $this->province_ecole,
+            'lieu_naissance' => $this->lieu_naissance,
+            'date_naissance' => $this->date_naissance,
+            'matricule' => $this->matricule,
+            'responsable_id' => $responsable->id,
         ]);
     }
 
-    private function submitAdmission($etudiant_id)
+    public function submitResponsableEleve($responsable, $eleve)
     {
-        $done = Inscription::create([
-            'etudiant_id' => $etudiant_id,
-            'promotion_id' => $this->promotion_id,
-            'promotion2_id' => $this->promotion2_id,
+        return ResponsableEleve::create([
+            'relation' => $this->responsable_relation,
+            'eleve_id' => $eleve->id,
+            'responsable_id' => $responsable->id,
+        ]);
+    }
+
+    private function submitInscription($eleve)
+    {
+        return Inscription::create([
+            'eleve_id' => $eleve->id,
+            'classe_id' => $this->classe_id,
             'annee_id' => $this->annee_courante->id,
+            'categorie' => $this->categorie,
+            'montant' => $this->montant,
             'status' => InscriptionStatus::pending->value,
+            'code' => $this->code,
         ]);
-
-        return $done;
     }
 
-    public function uploadDocuments($etudiant)
-    {
-        if ($this->bordereau)
-            $this->upload(file: $this->bordereau, entity: $etudiant, mediaType: MediaType::bordereaux);
-
-        if ($this->piece)
-            $this->upload(file: $this->piece, entity: $etudiant, mediaType: MediaType::diplome);
-
-        if ($this->fiche)
-            $this->upload(file: $this->fiche, entity: $etudiant, mediaType: MediaType::fiche_inscription);
-    }
 
     public function render()
     {
@@ -220,108 +170,66 @@ class InscriptionCreateComponent extends Component
             ->layout(AdminLayout::class, ['title' => 'Inscription Élève']);
     }
 
-    public function changeFaculte()
+    public function changeSection()
     {
-        if ($this->faculte_id > 0) {
-            $faculte = Option::find($this->faculte_id);
-            $this->filieres = $faculte->filieres;
-            if (count($this->filieres) > 0) {
-                $filiere = $this->filieres[0];
-                $this->filiere_id = $filiere->id;
-                $this->promotions = $filiere->promotions;
-                if (count($this->promotions) > 0) {
-                    $this->promotion_id = $this->promotions[0]->id;
-                } else {
-                    $this->promotion_id = -1;
-                    $this->promotion2_id = -1;
-                }
+        if ($this->section_id > 0) {
+            $section = Section::find($this->section_id);
+            $this->options = $section->options;
+            if (count($this->options) > 0) {
+                $this->option_id = null;
+                $this->filiere_id = null;
             } else {
-                $this->filiere_id = -1;
-                $this->promotions = [];
-                $this->promotion_id = -1;
+                $this->option_id = null;
+                $this->options = [];
 
-                $this->filiere2_id = -1;
-                $this->promotions2 = [];
-                $this->promotion2_id = -1;
-                $this->faculte2_id = -1;
+                $this->filiere_id = null;
+                $this->filieres = [];
             }
         } else {
-            $this->filieres = [];
-            $this->filiere_id = -1;
-            $this->promotions = [];
-            $this->promotion_id = -1;
+            $this->option_id = null;
+            $this->options = [];
 
-            $this->filieres2 = [];
-            $this->filiere2_id = -1;
-            $this->promotions2 = [];
-            $this->promotion2_id = -1;
-            $this->faculte2_id = -1;
+            $this->filiere_id = null;
+            $this->filieres = [];
         }
+        $this->loadAvailableClasses();
+    }
+
+    public function changeOption()
+    {
+        if ($this->option_id > 0) {
+            $option = Option::find($this->option_id);
+            $this->filieres = $option->filieres;
+            if (count($this->filieres) > 0) {
+                $this->filiere_id = null;
+            } else {
+                $this->filiere_id = null;
+                $this->filieres = [];
+            }
+        } else {
+            $this->filiere_id = null;
+            $this->filieres = [];
+        }
+        $this->loadAvailableClasses();
     }
 
     public function changeFiliere()
     {
+        $this->loadAvailableClasses();
+    }
+
+    private function loadAvailableClasses()
+    {
         if ($this->filiere_id > 0) {
             $filiere = Filiere::find($this->filiere_id);
-            $this->promotions = $filiere->promotions;
-            if (count($this->promotions) > 0) {
-                $this->promotion_id = $this->promotions[0]->id;
-            } else {
-                $this->promotion_id = -1;
-
-                $this->promotion2_id = -1;
-                $this->faculte2_id = -1;
-            }
-        } else {
-            $this->promotions = [];
-            $this->promotion_id = -1;
-
-            $this->promotions2 = [];
-            $this->promotion2_id = -1;
-            $this->faculte2_id = -1;
+            $this->classes = $filiere->classes;
+        } else if ($this->option_id > 0) {
+            $option = Option::find($this->option_id);
+            $this->classes = $option->classes;
+        } else if ($this->section_id > 0) {
+            $section = Section::find($this->section_id);
+            $this->classes = $section->classes;
         }
     }
 
-    public function changeFaculte2()
-    {
-        if ($this->faculte2_id > 0) {
-            $faculte = Option::find($this->faculte2_id);
-            $this->filieres2 = $faculte->filieres;
-            if (count($this->filieres2) > 0) {
-                $filiere = $this->filieres2[0];
-                $this->filiere2_id = $filiere->id;
-                $this->promotions2 = $filiere->promotions;
-                if (count($this->promotions2) > 0) {
-                    $this->promotion2_id = $this->promotions2[0]->id;
-                } else {
-                    $this->promotion2_id = -1;
-                }
-            } else {
-                $this->filiere2_id = -1;
-                $this->promotions2 = [];
-                $this->promotion2_id = -1;
-            }
-        } else {
-            $this->filieres2 = [];
-            $this->filiere2_id = -1;
-            $this->promotions2 = [];
-            $this->promotion2_id = -1;
-        }
-    }
-
-    public function changeFiliere2()
-    {
-        if ($this->filiere2_id > 0) {
-            $filiere = Filiere::find($this->filiere2_id);
-            $this->promotions2 = $filiere->promotions;
-            if (count($this->promotions2) > 0) {
-                $this->promotion2_id = $this->promotions2[0]->id;
-            } else {
-                $this->promotion2_id = -1;
-            }
-        } else {
-            $this->promotions2 = [];
-            $this->promotion2_id = -1;
-        }
-    }
 }
