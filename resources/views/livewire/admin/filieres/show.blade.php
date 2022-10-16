@@ -18,27 +18,29 @@
 
 @stop
 <div class="">
+    @include('livewire.admin.filieres.modals.crud')
+
     <div class="content mt-3">
         <div class="container-fluid">
             <div class="card">
                 <div class="card-header">
 
                     <div class="card-tools">
-                        <a href="/admin/filieres/{{ $filiere->id }}/edit" title="modifier"
-                           class="btn btn-primary btn-sm ml-2">
-                            <i class="fas fa-pen"></i>
-                        </a>
+                        <button type="button"
+                                title="Modifier" class="btn btn-info  ml-2" data-toggle="modal"
+                                data-target="#edit-filiere-modal">
+                            <span class="fa fa-pen"></span>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col">
-                            <label>Nom : </label>
-                            {{ $filiere->nom }}
-                        </div>
-                        <div class="col">
                             <label>Code : </label>
                             {{ $filiere->code }}
+                        </div>
+                        <div class="col">
+                            <label>Filière : </label>
+                            {{ $filiere->nom }}
                         </div>
                         <div class="col">
                             <label>Option : </label>

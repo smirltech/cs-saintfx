@@ -17,6 +17,8 @@
 
 @stop
 <div class="">
+    @include('livewire.admin.filieres.modals.crud')
+
     <div class="content mt-3">
         <div class="container-fluid">
             <div class="row">
@@ -28,9 +30,10 @@
                             </div>
                             <div class="card-tools d-flex my-auto">
 
-                                <a href="{{ route('admin.filieres.create') }}" title="ajouter" class="btn btn-primary mr-2"><span
-                                        class="fa fa-plus"></span></a>
-
+                                <button type="button"
+                                        class="btn btn-primary  ml-2" data-toggle="modal"
+                                        data-target="#add-filiere-modal"><span
+                                        class="fa fa-plus"></span></button>
 
                             </div>
                         </div>
@@ -39,8 +42,8 @@
                             <table class="table">
                                 <thead>
                                     <tr>
+                                        <th style="width: 200px">CODE</th>
                                         <th>FILIERE</th>
-                                        <th >CODE</th>
                                         <th >OPTION</th>
                                         <th style="width: 100px"></th>
                                     </tr>
@@ -48,8 +51,8 @@
                                 <tbody>
                                     @foreach ($filieres as $filiere)
                                         <tr>
-                                            <td>{{ $filiere->nom }}</td>
                                             <td>{{ $filiere->code }}</td>
+                                            <td>{{ $filiere->nom }}</td>
                                             <td><a href="/admin/options/{{ $filiere->option->id }}">{{ $filiere->option->nom }}</a></td>
 
                                             <td>
@@ -57,12 +60,16 @@
                                                     <a href="/admin/filieres/{{ $filiere->id }}" title="Voir" class="btn btn-warning">
                                                         <i class="fas fa-eye"></i>
                                                     </a>
-                                                    <a href="/admin/filieres/{{ $filiere->id }}/edit" title="modifier" class="btn btn-info  ml-2">
-                                                        <i class="fas fa-pen"></i>
-                                                    </a>
+                                                    <button wire:click="getSelectedFiliere({{$filiere}})" type="button"
+                                                            title="Modifier" class="btn btn-info  ml-2" data-toggle="modal"
+                                                            data-target="#edit-filiere-modal">
+                                                        <span class="fa fa-pen"></span>
+                                                    </button>
 
-                                                    <button wire:click="deleteFiliere({{ $filiere->id }})" title="supprimer" class="btn btn-danger ml-2">
-                                                        <i class="fas fa-trash"></i>
+                                                    <button wire:click="getSelectedFiliere({{$filiere}})" type="button"
+                                                            title="supprimer" class="btn btn-danger  ml-2" data-toggle="modal"
+                                                            data-target="#delete-filiere-modal">
+                                                        <span class="fa fa-trash"></span>
                                                     </button>
                                                 </div>
                                             </td>
