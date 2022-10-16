@@ -28,19 +28,31 @@ class SectionIndexComponent extends Component
         'code.unique' => 'Ce code est déjà pris, cherchez-en un autre !',
     ];
 
-    protected $listeners = ['onSaved', 'onUpdated', 'onDeleted'];
+    protected $listeners = ['onSaved', 'onUpdated', 'onDeleted', 'onModalOpened', 'onModalClosed'];
 
+    public function onModalOpened()
+    {
+        $this->clearValidation();
+    }
 
+    public function onModalClosed()
+    {
+        $this->clearValidation();
+        $this->reset(['section', 'nom', 'code']);
+    }
 
-    public function onSaved(){
+    public function onSaved()
+    {
         $this->loadData();
     }
 
-    public function onUpdated(){
+    public function onUpdated()
+    {
         $this->loadData();
     }
 
-    public function onDeleted(){
+    public function onDeleted()
+    {
         $this->loadData();
     }
 
@@ -59,11 +71,11 @@ class SectionIndexComponent extends Component
     public function addSection()
     {
         // dd($this->nom);
-     $this->validate([
+
+        $this->validate([
             'nom' => 'required|unique:sections',
             'code' => 'required|unique:sections',
         ]);
-
 
         Section::create([
             'nom' => $this->nom,
@@ -76,11 +88,12 @@ class SectionIndexComponent extends Component
 
         // close the modal by specifying the id of the modal
         $this->dispatchBrowserEvent('closeModal', ['modal' => 'add-section-modal']);
+        $this->onModalClosed();
     }
 
     public function getSelectedSection(Section $section)
     {
-       // dd($section);
+        // dd($section);
         $this->section = $section;
         $this->nom = $section->nom;
         $this->code = $section->code;
@@ -88,7 +101,7 @@ class SectionIndexComponent extends Component
 
     public function updateSection()
     {
-        $this->validateOnly($this->section,[
+        $this->validate([
             'nom' => [
                 "required",
                 Rule::unique((new Section)->getTable(), "nom")->ignore($this->section->id)
@@ -99,17 +112,17 @@ class SectionIndexComponent extends Component
                 Rule::unique((new Section)->getTable(), "code")->ignore($this->section->id)
 
             ],
-
         ]);
+
         $done = $this->section->update([
-            'nom'=>$this->nom,
-            'code'=>$this->code,
+            'nom' => $this->nom,
+            'code' => $this->code,
         ]);
         if ($done) {
             $this->emit('onUpdated');
             $this->alert('success', "Section modifiée avec succès !");
 
-            $this->reset(['section']);
+            $this->reset(['section', 'nom', 'code']);
 
             // close the modal by specifying the id of the modal
             $this->dispatchBrowserEvent('closeModal', ['modal' => 'edit-section-modal']);
@@ -117,20 +130,22 @@ class SectionIndexComponent extends Component
         } else {
             $this->alert('warning', "Echec de modification de section !");
         }
-
+        $this->onModalClosed();
 
     }
 
-    public function deleteSection($id)
+    public function deleteSection()
     {
-        $section = Section::find($id);
-        if (count($section->options) == 0) {
-            if ($section->delete()) {
+        if (count($this->section->options) == 0) {
+            if ($this->section->delete()) {
                 $this->loadData();
                 $this->alert('success', "Section supprimée avec succès !");
+                $this->dispatchBrowserEvent('closeModal', ['modal' => 'delete-section-modal']);
             }
         } else {
             $this->alert('warning', "Section n'a pas été supprimée, il y a des options attachées !");
         }
+        $this->onModalClosed();
+
     }
 }

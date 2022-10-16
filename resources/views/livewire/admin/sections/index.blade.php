@@ -33,7 +33,7 @@
                                 <button type="button"
                                         class="btn btn-primary  ml-2" data-toggle="modal"
                                         data-target="#add-section-modal"><span
-                                        class="fa fa-plus"></span> Ajouter section</button>
+                                        class="fa fa-plus"></span></button>
                             </div>
                         </div>
 
@@ -60,14 +60,20 @@
                                                     <i class="fas fa-eye"></i>
                                                 </a>
                                                <button wire:click="getSelectedSection({{$section}})" type="button"
-                                                        class="btn btn-info  ml-2" data-toggle="modal"
+                                                       title="Modifier" class="btn btn-info  ml-2" data-toggle="modal"
                                                         data-target="#edit-section-modal">
-                                    <span
-                                        class="fa fa-pen"></span></button>
-                                                <button wire:click="deleteSection({{ $section->id }})"
+                                                        <span class="fa fa-pen"></span>
+                                               </button>
+
+                                                <button wire:click="getSelectedSection({{$section}})" type="button"
+                                                        title="supprimer" class="btn btn-danger  ml-2" data-toggle="modal"
+                                                        data-target="#delete-section-modal">
+                                                    <span class="fa fa-trash"></span>
+                                                </button>
+                                               {{-- <button wire:click="deleteSection({{ $section->id }})"
                                                         title="supprimer" class="btn btn-danger ml-2">
                                                     <i class="fas fa-trash"></i>
-                                                </button>
+                                                </button>--}}
                                             </div>
                                         </td>
                                     </tr>
