@@ -2,9 +2,11 @@
 
 namespace App\Http\Livewire\Admin\Filiere;
 
+use App\Models\Classe;
 use App\Models\Filiere;
 use App\Models\Option;
 use App\Models\Section;
+use App\Traits\FiliereCode;
 use App\View\Components\AdminLayout;
 use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -13,6 +15,7 @@ use Livewire\Component;
 class FiliereShowComponent extends Component
 {
     use LivewireAlert;
+    use FiliereCode;
 
     public $options = [];
     public $sections = [];
@@ -24,6 +27,9 @@ class FiliereShowComponent extends Component
     public $section_id;
 
     public $filiere;
+
+    public $classe_grade;
+    public $classe_code;
 
     protected $rules = [
         'nom' => 'required|unique:filieres',
@@ -53,7 +59,7 @@ class FiliereShowComponent extends Component
     public function onModalClosed()
     {
         $this->clearValidation();
-        $this->reset(['nom', 'code', 'section_id', 'options', 'description']);
+        $this->reset(['nom', 'code', 'section_id', 'option_id', 'options', 'description']);
     }
 
     public function onSaved()
@@ -86,7 +92,7 @@ class FiliereShowComponent extends Component
 
     public function loadData()
     {
-      //  $this->filieres = Filiere::/* orderBy('encours', 'DESC')-> */ orderBy('nom', 'ASC')->get();
+        //  $this->filieres = Filiere::/* orderBy('encours', 'DESC')-> */ orderBy('nom', 'ASC')->get();
     }
 
 
@@ -152,5 +158,32 @@ class FiliereShowComponent extends Component
 
     }
 
+
+    public function addClasse()
+    {
+        $this->validate([
+            'classe_grade' => "required",
+            'classe_code' => [
+                "required",
+                Rule::unique((new Classe())->getTable(), "code")
+            ],
+
+        ]);
+
+        $classe = new Classe();
+        $classe->grade = $this->classe_grade;
+        $classe->code = $this->classe_code;
+
+        $this->filiere->classes()->save($classe);
+
+        $this->emit('onSaved');
+        $this->alert('success', "Classe ajoutée avec succès !");
+
+        //$this->reset(['filiere_nom', 'filiere_code']);
+
+        // close the modal by specifying the id of the modal
+        $this->dispatchBrowserEvent('closeModal', ['modal' => 'add-classe-modal']);
+        $this->onModalClosed();
+    }
 
 }

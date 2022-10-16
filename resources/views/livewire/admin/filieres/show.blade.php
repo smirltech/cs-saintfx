@@ -68,9 +68,10 @@
                         <h3 class="m-0">Classes</h3>
                     </div>
                     <div class="card-tools d-flex my-auto">
-                        {{--<a href="{{ route('admin.promotions.create') }}" title="ajouter"
-                           class="btn btn-primary mr-2"><span
-                                class="fa fa-plus"></span></a>--}}
+                        <button type="button"
+                                class="btn btn-primary  ml-2" data-toggle="modal"
+                                data-target="#add-classe-modal"><span
+                                class="fa fa-plus"></span></button>
                     </div>
                 </div>
 
@@ -78,13 +79,27 @@
                     <table class="table">
                         <thead>
                         <tr>
-                            <th>CLASSE</th>
-                            <th >CODE</th>
+                            <th style="width: 200px">CODE</th>
+                            <th >CLASSE</th>
                             <th style="width: 100px"></th>
                         </tr>
                         </thead>
                         <tbody>
+                        @foreach ($filiere->classes as $classe)
+                            <tr>
+                                <td>{{ $classe->code }}</td>
+                                <td>{{ $classe->grade->label() }}</td>
+                                <td>
+                                    <div class="d-flex float-right">
+                                        <a href="/admin/classes/{{ $classe->id }}" title="Voir"
+                                           class="btn btn-warning">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
 
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>

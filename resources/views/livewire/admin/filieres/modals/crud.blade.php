@@ -178,27 +178,33 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Ajouter Filière</h4>
+                <h4 class="modal-title">Ajouter Classe</h4>
                 <button wire:click="$emit('onModalClosed')" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <x-validation-errors class="mb-4" :errors="$errors"/>
-                <form id="f4" wire:submit.prevent="addFiliere">
-
+                <form id="f4" wire:submit.prevent="addClasse">
                     <div class="row">
-                        <div class="form-group col-9">
-                            <label for="">Nom <i class="text-red">*</i></label>
-                            <input wire:keyup.debounce="genCode" type="text" wire:model="filiere_nom" class="form-control @error('filiere_nom') is-invalid @enderror">
-                            @error('filiere_nom')
+                        <div class="form-group col">
+                            <label for="">Grade <i class="text-red">*</i></label>
+                            <select wire:change="setCode" wire:model="classe_grade"
+                                    class="form-control  @error('classe_grade') is-invalid @enderror">
+                                <option value="">Choisir grade</option>
+                                @foreach (\App\Enum\ClasseGrade::cases() as $grade )
+                                    <option value="{{ $grade->value}}">{{ $grade->label() }}</option>
+                                @endforeach
+                            </select>
+                            @error('classe_grade')
                             <span class="text-red">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="form-group col-3">
+                        <div class="form-group col">
                             <label for="">Code <i class="text-red">*</i></label>
-                            <input type="text" wire:model="filiere_code" class="form-control @error('filiere_code') is-invalid @enderror">
-                            @error('filiere_code')
+                            <input type="text" readonly wire:model="classe_code"
+                                   class="form-control  @error('classe_code') is-invalid @enderror">
+                            @error('classe_code')
                             <span class="text-red">{{ $message }}</span>
                             @enderror
                         </div>
