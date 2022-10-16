@@ -12,6 +12,10 @@ trait OptionCode
         }else{
             $this->option->code = strtoupper(substr($this->option->nom, 0, 3));
         }
+
+        if(isset($this->filiere_nom)) {
+            $this->filiere_code = strtoupper(substr($this->filiere_nom, 0, 3));
+        }
     }
 
 }

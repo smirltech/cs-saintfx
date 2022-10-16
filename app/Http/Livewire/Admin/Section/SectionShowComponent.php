@@ -10,13 +10,13 @@ use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
-class SectionIndexComponent extends Component
+class SectionShowComponent extends Component
 {
     use LivewireAlert;
     use SectionCode;
 
-    public $sections = [];
     public $section;
+
     public $nom;
     public $code;
 
@@ -65,47 +65,24 @@ class SectionIndexComponent extends Component
         $this->loadData();
     }
 
-    public function render()
-    {
-        $this->loadData();
-        return view('livewire.admin.sections.index')
-            ->layout(AdminLayout::class, ['title' => 'Liste de Sections']);
-    }
-
     public function loadData()
     {
-        $this->sections = Section::orderBy('nom', 'ASC')->get();
+        $this->section = Section::find($this->section->id);
+        $this->nom = $this->section->nom;
+        $this->code = $this->section->code;
     }
 
-    public function addSection()
+    public function mount(Section $section)
     {
-        // dd($this->nom);
-
-        $this->validate([
-            'nom' => 'required|unique:sections',
-            'code' => 'required|unique:sections',
-        ]);
-
-        Section::create([
-            'nom' => $this->nom,
-            'code' => $this->code,
-        ]);
-        $this->emit('onSaved');
-        $this->alert('success', "Section ajoutée avec succès !");
-
-        $this->reset(['nom', 'code']);
-
-        // close the modal by specifying the id of the modal
-        $this->dispatchBrowserEvent('closeModal', ['modal' => 'add-section-modal']);
-        $this->onModalClosed();
-    }
-
-    public function getSelectedSection(Section $section)
-    {
-
         $this->section = $section;
         $this->nom = $section->nom;
         $this->code = $section->code;
+    }
+
+    public function render()
+    {
+        return view('livewire.admin.sections.show')
+            ->layout(AdminLayout::class, ['title' => 'Détail sur la section']);
     }
 
     public function updateSection()
@@ -138,21 +115,6 @@ class SectionIndexComponent extends Component
             //$this->flash('success', 'Section modifiée avec succès', [], route('admin.sections'));
         } else {
             $this->alert('warning', "Echec de modification de section !");
-        }
-        $this->onModalClosed();
-
-    }
-
-    public function deleteSection()
-    {
-        if (count($this->section->options) == 0) {
-            if ($this->section->delete()) {
-                $this->loadData();
-                $this->alert('success', "Section supprimée avec succès !");
-                $this->dispatchBrowserEvent('closeModal', ['modal' => 'delete-section-modal']);
-            }
-        } else {
-            $this->alert('warning', "Section n'a pas été supprimée, il y a des options attachées !");
         }
         $this->onModalClosed();
 
@@ -193,5 +155,4 @@ class SectionIndexComponent extends Component
         $this->dispatchBrowserEvent('closeModal', ['modal' => 'add-option-modal']);
         $this->onModalClosed();
     }
-
 }

@@ -1,5 +1,6 @@
 
 {{-- Show Section --}}
+{{--
 <div wire:ignore.self class="modal fade" tabindex="-1" id="show-section-modal">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
@@ -17,10 +18,6 @@
                         </div>
                         <div class="card-tools">
                             @if($section != null)
-                                {{-- <a href="/admin/sections/{{ $section->id }}/edit" title="modifier"
-                                    class="btn btn-primary btn-sm ml-2">
-                                     <i class="fas fa-pen"></i>
-                                 </a>--}}
                                 <button type="button"
                                         title="Modifier" class="btn btn-info  ml-2" data-toggle="modal"
                                         data-target="#edit-section-modal">
@@ -51,10 +48,15 @@
                         </div>
                         <div class="card-tools d-flex my-auto">
                             @if($section != null)
-                                <a href="{{ route('admin.options.create',["section_id"=>$section->id]) }}" title="ajouter"
+                               --}}
+{{-- <a href="{{ route('admin.options.create',["section_id"=>$section->id]) }}" title="ajouter"
                                    class="btn btn-primary mr-2"><span
-                                        class="fa fa-plus"></span></a>
+                                        class="fa fa-plus"></span></a>--}}{{--
 
+                                <button type="button"
+                                        class="btn btn-primary  ml-2" data-toggle="modal"
+                                        data-target="#add-option-modal"><span
+                                        class="fa fa-plus"></span></button>
                             @endif
                         </div>
                     </div>
@@ -83,13 +85,15 @@
                                                    class="btn btn-warning">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
-                                                {{--  <a href="/filiere-edit/{{ $filiere->id }}" title="modifier" class="btn btn-info  ml-2">
+                                                --}}
+{{--  <a href="/filiere-edit/{{ $filiere->id }}" title="modifier" class="btn btn-info  ml-2">
                                                      <i class="fas fa-pen"></i>
                                                  </a>
 
                                                  <button wire:click="deleteFiliere({{ $filiere->id }})" title="supprimer" class="btn btn-danger ml-2">
                                                      <i class="fas fa-trash"></i>
-                                                 </button> --}}
+                                                 </button> --}}{{--
+
                                             </div>
                                         </td>
                                     </tr>
@@ -105,6 +109,7 @@
     </div>
 
 </div>
+--}}
 
 
 {{-- Add Section --}}
@@ -207,6 +212,52 @@
             <div class="modal-footer justify-content-between">
                 <button wire:click="$emit('onModalClosed')" type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
                 <button wire:click="deleteSection" class="btn btn-primary">Supprimer</button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+{{--------------------------------------------------------}}
+
+{{-- Add Option --}}
+<div wire:ignore.self class="modal fade" tabindex="-1" id="add-option-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Ajouter Option</h4>
+                <button wire:click="$emit('onModalClosed')" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <x-validation-errors class="mb-4" :errors="$errors"/>
+                <form id="f4" wire:submit.prevent="addOption">
+
+                    <div class="row">
+                        <div class="form-group col-9">
+                            <label for="">Nom <i class="text-red">*</i></label>
+                            <input wire:keyup.debounce="genCode" type="text" wire:model="option_nom" class="form-control @error('option_nom') is-invalid @enderror">
+                            @error('option_nom')
+                            <span class="text-red">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group col-3">
+                            <label for="">Code <i class="text-red">*</i></label>
+                            <input type="text" wire:model="option_code" class="form-control @error('option_code') is-invalid @enderror">
+                            @error('option_code')
+                            <span class="text-red">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button wire:click="$emit('onModalClosed')" type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                <button form="f4" type="submit" class="btn btn-primary">Ajouter</button>
             </div>
         </div>
 

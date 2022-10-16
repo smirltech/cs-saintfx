@@ -1,5 +1,6 @@
 
 {{-- Show Option --}}
+{{--
 <div wire:ignore.self class="modal fade" tabindex="-1" id="show-option-modal">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
@@ -17,10 +18,12 @@
                         </div>
                         <div class="card-tools">
                             @if($option != null)
-                                {{-- <a href="/admin/sections/{{ $section->id }}/edit" title="modifier"
+                                --}}
+{{-- <a href="/admin/sections/{{ $section->id }}/edit" title="modifier"
                                     class="btn btn-primary btn-sm ml-2">
                                      <i class="fas fa-pen"></i>
-                                 </a>--}}
+                                 </a>--}}{{--
+
                                 <button type="button"
                                         title="Modifier" class="btn btn-info  ml-2" data-toggle="modal"
                                         data-target="#edit-option-modal">
@@ -83,13 +86,15 @@
                                                    class="btn btn-warning">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
-                                                {{--  <a href="/filiere-edit/{{ $filiere->id }}" title="modifier" class="btn btn-info  ml-2">
+                                                --}}
+{{--  <a href="/filiere-edit/{{ $filiere->id }}" title="modifier" class="btn btn-info  ml-2">
                                                      <i class="fas fa-pen"></i>
                                                  </a>
 
                                                  <button wire:click="deleteFiliere({{ $filiere->id }})" title="supprimer" class="btn btn-danger ml-2">
                                                      <i class="fas fa-trash"></i>
-                                                 </button> --}}
+                                                 </button> --}}{{--
+
                                             </div>
                                         </td>
                                     </tr>
@@ -106,6 +111,7 @@
 
 </div>
 
+--}}
 
 {{-- Add Option --}}
 <div wire:ignore.self class="modal fade" tabindex="-1" id="add-option-modal">
@@ -228,6 +234,51 @@
             <div class="modal-footer justify-content-between">
                 <button wire:click="$emit('onModalClosed')" type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
                 <button wire:click="deleteOption" class="btn btn-primary">Supprimer</button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+{{-- AUTRES --}}
+
+{{-- Add Filiere --}}
+<div wire:ignore.self class="modal fade" tabindex="-1" id="add-filiere-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Ajouter Filière</h4>
+                <button wire:click="$emit('onModalClosed')" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <x-validation-errors class="mb-4" :errors="$errors"/>
+                <form id="f4" wire:submit.prevent="addFiliere">
+
+                    <div class="row">
+                        <div class="form-group col-9">
+                            <label for="">Nom <i class="text-red">*</i></label>
+                            <input wire:keyup.debounce="genCode" type="text" wire:model="filiere_nom" class="form-control @error('filiere_nom') is-invalid @enderror">
+                            @error('filiere_nom')
+                            <span class="text-red">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group col-3">
+                            <label for="">Code <i class="text-red">*</i></label>
+                            <input type="text" wire:model="filiere_code" class="form-control @error('filiere_code') is-invalid @enderror">
+                            @error('filiere_code')
+                            <span class="text-red">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button wire:click="$emit('onModalClosed')" type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                <button form="f4" type="submit" class="btn btn-primary">Ajouter</button>
             </div>
         </div>
 

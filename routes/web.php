@@ -17,7 +17,9 @@ use App\Http\Livewire\Admin\Inscription\InscriptionCreateComponent;
 use App\Http\Livewire\Admin\Inscription\InscriptionEditComponent;
 use App\Http\Livewire\Admin\Inscription\InscriptionIndexComponent;
 use App\Http\Livewire\Admin\Option\OptionIndexComponent;
+use App\Http\Livewire\Admin\Option\OptionShowComponent;
 use App\Http\Livewire\Admin\Section\SectionIndexComponent;
+use App\Http\Livewire\Admin\Section\SectionShowComponent;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -51,13 +53,13 @@ Route::prefix('admin')->middleware(['auth:web'])->as('admin.')->group(function (
 //Section
    // Route::get('sections/create', SectionCreateComponent::class)->name('sections.create');
    // Route::get('sections/{section}/edit', SectionEditComponent::class)->name('sections.edit');
-    //Route::get('sections/{section}', SectionShowComponent::class)->name('sections.show');
+    Route::get('sections/{section}', SectionShowComponent::class)->name('sections.show');
     Route::get('sections', SectionIndexComponent::class)->name('sections');
 
     //Option
 //    Route::get('options/create', OptionCreateComponent::class)->name('options.create');
 //    Route::get('options/{option}/edit', OptionEditComponent::class)->name('options.edit');
-  //  Route::get('options/{option}', OptionShowComponent::class)->name('options.show');
+    Route::get('options/{option}', OptionShowComponent::class)->name('options.show');
     Route::get('options', OptionIndexComponent::class)->name('options');
 
 

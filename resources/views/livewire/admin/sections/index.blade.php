@@ -41,25 +41,22 @@
                             <table class="table">
                                 <thead>
                                 <tr>
+                                    <th style="width: 200px">CODE</th>
                                     <th>SECTION</th>
-
-                                    <th>CODE</th>
-
                                     <th style="width: 100px"></th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @foreach ($sections as $section)
                                     <tr>
-                                        <td>{{ $section->nom }}</td>
                                         <td>{{ $section->code }}</td>
+                                        <td>{{ $section->nom }}</td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                <button wire:click="getSelectedSection({{$section}})" type="button"
-                                                        title="Voir" class="btn btn-warning  ml-2" data-toggle="modal"
-                                                        data-target="#show-section-modal">
-                                                    <span class="fa fa-eye"></span>
-                                                </button>
+                                                <a href="/admin/sections/{{ $section->id }}" title="Voir"
+                                                   class="btn btn-warning">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
                                                <button wire:click="getSelectedSection({{$section}})" type="button"
                                                        title="Modifier" class="btn btn-info  ml-2" data-toggle="modal"
                                                         data-target="#edit-section-modal">
@@ -71,10 +68,6 @@
                                                         data-target="#delete-section-modal">
                                                     <span class="fa fa-trash"></span>
                                                 </button>
-                                               {{-- <button wire:click="deleteSection({{ $section->id }})"
-                                                        title="supprimer" class="btn btn-danger ml-2">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>--}}
                                             </div>
                                         </td>
                                     </tr>

@@ -43,8 +43,8 @@
                             <table class="table">
                                 <thead>
                                 <tr>
+                                    <th style="width: 200px">CODE</th>
                                     <th>OPTION</th>
-                                    <th>CODE</th>
                                     <th>SECTION</th>
                                     <th style="width: 100px"></th>
                                 </tr>
@@ -52,16 +52,16 @@
                                 <tbody>
                                 @foreach ($options as $option)
                                     <tr>
-                                        <td>{{ $option->nom }}</td>
                                         <td>{{ $option->code }}</td>
+                                        <td>{{ $option->nom }}</td>
                                         <td><a title="voir cette section" href="/admin/sections/{{ $option->section->id }}">{{ $option->section->nom }}</a></td>
                                         <td>
                                             <div class="d-flex float-right">
-                                             {{--   <a href="/admin/options/{{ $option->id }}" title="Voir"
+                                               <a href="/admin/options/{{ $option->id }}" title="Voir"
                                                    class="btn btn-warning">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
-                                               <a href="/admin/options/{{ $option->id }}/edit" title="modifier"
+                                          {{--      <a href="/admin/options/{{ $option->id }}/edit" title="modifier"
                                                    class="btn btn-info  ml-2">
                                                     <i class="fas fa-pen"></i>
                                                 </a>
@@ -71,11 +71,11 @@
                                                     <i class="fas fa-trash"></i>
                                                 </button>
                                             --}}
-                                                <button wire:click="getSelectedOption({{$option}})" type="button"
+                                             {{--   <button wire:click="getSelectedOption({{$option}})" type="button"
                                                         title="Voir" class="btn btn-warning  ml-2" data-toggle="modal"
                                                         data-target="#show-option-modal">
                                                     <span class="fa fa-eye"></span>
-                                                </button>
+                                                </button>--}}
                                                 <button wire:click="getSelectedOption({{$option}})" type="button"
                                                         title="Modifier" class="btn btn-info  ml-2" data-toggle="modal"
                                                         data-target="#edit-option-modal">

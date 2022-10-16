@@ -12,6 +12,10 @@ trait SectionCode
         }else{
             $this->section->code = strtoupper(substr($this->section->nom, 0, 3));
         }
+
+        if(isset($this->option_nom)) {
+            $this->option_code = strtoupper(substr($this->option_nom, 0, 3));
+        }
     }
 
 }
