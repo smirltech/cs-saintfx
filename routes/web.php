@@ -64,8 +64,8 @@ Route::prefix('admin')->middleware(['auth:web'])->as('admin.')->group(function (
 
 
 //Filiere
-    Route::get('filieres/create', FiliereCreateComponent::class)->name('filieres.create');
-    Route::get('filieres/{filiere}/edit', FiliereEditComponent::class)->name('filieres.edit');
+//    Route::get('filieres/create', FiliereCreateComponent::class)->name('filieres.create');
+//    Route::get('filieres/{filiere}/edit', FiliereEditComponent::class)->name('filieres.edit');
     Route::get('filieres/{filiere}', FiliereShowComponent::class)->name('filieres.show');
     Route::get('filieres', FiliereIndexComponent::class)->name('filieres');
 
