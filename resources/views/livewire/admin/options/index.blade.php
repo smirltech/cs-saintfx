@@ -17,6 +17,8 @@
 
 @stop
 <div class="">
+    @include('livewire.admin.options.modals.crud')
+
     <div class="content mt-3">
         <div class="container-fluid">
             <x-validation-errors class="mb-4" :errors="$errors"/>
@@ -28,8 +30,12 @@
 
                             </div>
                             <div class="card-tools d-flex my-auto">
-                                <a href="{{ route('admin.options.create') }}" title="ajouter"
-                                   class="btn btn-primary mr-2"><span class="fa fa-plus"></span></a>
+                                {{--<a href="{{ route('admin.options.create') }}" title="ajouter"
+                                   class="btn btn-primary mr-2"><span class="fa fa-plus"></span></a>--}}
+                                <button type="button"
+                                        class="btn btn-primary  ml-2" data-toggle="modal"
+                                        data-target="#add-option-modal"><span
+                                        class="fa fa-plus"></span></button>
                             </div>
                         </div>
 
@@ -51,7 +57,7 @@
                                         <td><a title="voir cette section" href="/admin/sections/{{ $option->section->id }}">{{ $option->section->nom }}</a></td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                <a href="/admin/options/{{ $option->id }}" title="Voir"
+                                             {{--   <a href="/admin/options/{{ $option->id }}" title="Voir"
                                                    class="btn btn-warning">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
@@ -64,6 +70,24 @@
                                                         title="supprimer" class="btn btn-danger ml-2">
                                                     <i class="fas fa-trash"></i>
                                                 </button>
+                                            --}}
+                                                <button wire:click="getSelectedOption({{$option}})" type="button"
+                                                        title="Voir" class="btn btn-warning  ml-2" data-toggle="modal"
+                                                        data-target="#show-option-modal">
+                                                    <span class="fa fa-eye"></span>
+                                                </button>
+                                                <button wire:click="getSelectedOption({{$option}})" type="button"
+                                                        title="Modifier" class="btn btn-info  ml-2" data-toggle="modal"
+                                                        data-target="#edit-option-modal">
+                                                    <span class="fa fa-pen"></span>
+                                                </button>
+
+                                                <button wire:click="getSelectedOption({{$option}})" type="button"
+                                                        title="supprimer" class="btn btn-danger  ml-2" data-toggle="modal"
+                                                        data-target="#delete-option-modal">
+                                                    <span class="fa fa-trash"></span>
+                                                </button>
+
                                             </div>
                                         </td>
                                     </tr>
