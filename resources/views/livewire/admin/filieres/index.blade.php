@@ -42,9 +42,10 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th style="width: 200px">CODE</th>
+                                        <th style="width: 100px">CODE</th>
                                         <th>FILIERE</th>
                                         <th >OPTION</th>
+                                        <th >DESCRIPTION</th>
                                         <th style="width: 100px"></th>
                                     </tr>
                                 </thead>
@@ -54,7 +55,7 @@
                                             <td>{{ $filiere->code }}</td>
                                             <td>{{ $filiere->nom }}</td>
                                             <td><a href="/admin/options/{{ $filiere->option->id }}">{{ $filiere->option->nom }}</a></td>
-
+                                            <td>{{ $filiere->description }}</td>
                                             <td>
                                                 <div class="d-flex float-right">
                                                     <a href="/admin/filieres/{{ $filiere->id }}" title="Voir" class="btn btn-warning">
