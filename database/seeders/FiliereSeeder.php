@@ -19,16 +19,35 @@ class FiliereSeeder extends Seeder
     {
         return [
             [
-                'nom' => 'Biologie Chimie',
-                'code' => 'BC',
-                'option_id' => 1,
+                'nom' => 'Pédagogie Générale',
+                'code' => 'PG',
+                'option_id' => 2,
             ],
             [
-                'nom' => 'Mathematique Physique',
-                'code' => 'MP',
-                'option_id' => 1,
+                'nom' => 'Literaire',
+                'code' => 'LT',
+                'option_id' => 2,
             ],
-
+            [
+                'nom' => 'Scientifique',
+                'code' => 'SCI',
+                'option_id' => 2,
+            ],
+            [
+                'nom' => 'Mécanique',
+                'code' => 'MEC',
+                'option_id' => 3,
+            ],
+            [
+                'nom' => 'Éléctricité',
+                'code' => 'ELE',
+                'option_id' => 3,
+            ],
+            [
+                'nom' => 'Coupe et Couture',
+                'code' => 'TCC',
+                'option_id' => 3,
+            ],
         ];
     }
 }

@@ -18,30 +18,21 @@ class OptionSeeder extends Seeder
     {
         return [
             [
-                'nom' => 'Scientifique',
-                'code' => 'SCI',
-                'section_id' => 4,
+                'nom' => 'Education de Base',
+                'code' => 'EB',
+                'section_id' => 3,
             ],
             [
-                'nom' => 'Pedagogique',
-                'code' => 'PEDA',
-                'section_id' => 4,
+                'nom' => 'Humanité',
+                'code' => 'HUM',
+                'section_id' => 3,
             ],
             [
-                'nom' => 'Technique Coupe et Couture',
-                'code' => 'TTC',
-                'section_id' => 5,
+                'nom' => 'Technique',
+                'code' => 'TEC',
+                'section_id' => 3,
             ],
-            [
-                'nom' => 'Commerciale',
-                'code' => 'COM',
-                'section_id' => 5,
-            ],
-            [
-                'nom' => 'Literaire',
-                'code' => 'LIT',
-                'section_id' => 4,
-            ],
+
         ];
     }
 }

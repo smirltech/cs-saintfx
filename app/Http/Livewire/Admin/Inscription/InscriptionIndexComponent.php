@@ -29,7 +29,7 @@ class InscriptionIndexComponent extends Component
 
 
         return view('livewire.admin.inscriptions.index', [
-            'inscriptions' => $inscriptions->paginate(10),
+            'inscriptions' => $inscriptions->get(),
         ])
             ->layout(AdminLayout::class, ['title' => "Liste d'inscriptions"]);
     }
@@ -37,18 +37,7 @@ class InscriptionIndexComponent extends Component
     public function loadData()
     {
         $query = Inscription::query();
-
-       /* if ($this->search) {
-            $query->whereHas('etudiant', function ($q) {
-                $q->where('nom', 'like', "%{$this->search}%")
-                    ->orWhere('postnom', 'like', "%{$this->search}%")
-                    ->orWhere('prenom', 'like', "%{$this->search}%");
-
-            });
-        }*/
-
         $query->orderBy('status', 'ASC');
-
         return $query;
     }
 

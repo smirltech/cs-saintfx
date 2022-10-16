@@ -37,11 +37,11 @@ class DatabaseSeeder extends Seeder
         if (app()->environment('local')) {
             User::factory(10)->create();
 
-            Eleve::factory(10)->create();
-            Inscription::factory(10)->create();
+            Eleve::factory(30)->create();
+            Inscription::factory(30)->create();
 
-            Responsable::factory(10)->create();
-            ResponsableEleve::factory(10)->create();
+            Responsable::factory(30)->create();
+            ResponsableEleve::factory(30)->create();
         }
 
         Schema::enableForeignKeyConstraints();

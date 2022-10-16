@@ -20,19 +20,17 @@ class SectionSeeder extends Seeder
         return [
             [
                 'nom' => 'Maternelle',
+                'code' => 'MAT',
             ],
             [
                 'nom' => 'Primaire',
+                'code' => 'PRI',
             ],
             [
                 'nom' => 'Secondaire',
+                'code' => 'SEC',
             ],
-            [
-                'nom' => 'Humanitaire',
-            ],
-            [
-                'nom' => 'Technique',
-            ],
+
         ];
     }
 }
