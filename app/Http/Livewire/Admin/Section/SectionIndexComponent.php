@@ -15,13 +15,22 @@ class SectionIndexComponent extends Component
     use LivewireAlert;
     use SectionCode;
 
-
     public $sections = [];
     public $section;
     public $nom;
     public $code;
 
+    protected $messages = [
+        'nom.required' => 'Ce nom est obligatoire !',
+        'nom.unique' => 'Ce nom est déjà pris, cherchez-en un autre !',
+
+        'code.required' => 'Ce code est obligatoire !',
+        'code.unique' => 'Ce code est déjà pris, cherchez-en un autre !',
+    ];
+
     protected $listeners = ['onSaved', 'onUpdated', 'onDeleted'];
+
+
 
     public function onSaved(){
         $this->loadData();
@@ -47,6 +56,28 @@ class SectionIndexComponent extends Component
         $this->sections = Section::/* orderBy('encours', 'DESC')-> */ orderBy('nom', 'ASC')->get();
     }
 
+    public function addSection()
+    {
+        // dd($this->nom);
+     $this->validate([
+            'nom' => 'required|unique:sections',
+            'code' => 'required|unique:sections',
+        ]);
+
+
+        Section::create([
+            'nom' => $this->nom,
+            'code' => $this->code,
+        ]);
+        $this->emit('onSaved');
+        $this->alert('success', "Section ajoutée avec succès !");
+
+        $this->reset(['nom', 'code']);
+
+        // close the modal by specifying the id of the modal
+        $this->dispatchBrowserEvent('closeModal', ['modal' => 'add-section-modal']);
+    }
+
     public function getSelectedSection(Section $section)
     {
        // dd($section);
@@ -57,7 +88,7 @@ class SectionIndexComponent extends Component
 
     public function updateSection()
     {
-        $this->validate([
+        $this->validateOnly($this->section,[
             'nom' => [
                 "required",
                 Rule::unique((new Section)->getTable(), "nom")->ignore($this->section->id)
