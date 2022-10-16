@@ -38,7 +38,7 @@ class SectionIndexComponent extends Component
     public function onModalClosed()
     {
         $this->clearValidation();
-        $this->reset(['section', 'nom', 'code']);
+        $this->reset(['nom', 'code']);
     }
 
     public function onSaved()
@@ -122,7 +122,7 @@ class SectionIndexComponent extends Component
             $this->emit('onUpdated');
             $this->alert('success', "Section modifiée avec succès !");
 
-            $this->reset(['section', 'nom', 'code']);
+            $this->reset(['nom', 'code']);
 
             // close the modal by specifying the id of the modal
             $this->dispatchBrowserEvent('closeModal', ['modal' => 'edit-section-modal']);

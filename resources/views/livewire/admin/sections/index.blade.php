@@ -55,10 +55,11 @@
                                         <td>{{ $section->code }}</td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                <a href="/admin/sections/{{ $section->id }}" title="Voir"
-                                                   class="btn btn-warning">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
+                                                <button wire:click="getSelectedSection({{$section}})" type="button"
+                                                        title="Voir" class="btn btn-warning  ml-2" data-toggle="modal"
+                                                        data-target="#show-section-modal">
+                                                    <span class="fa fa-eye"></span>
+                                                </button>
                                                <button wire:click="getSelectedSection({{$section}})" type="button"
                                                        title="Modifier" class="btn btn-info  ml-2" data-toggle="modal"
                                                         data-target="#edit-section-modal">
