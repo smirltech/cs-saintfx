@@ -188,14 +188,14 @@ return [
     |
     */
 
-    'sidebar_mini' => 'lg',
+    'sidebar_mini' => 'xs',
     'sidebar_collapse' => true,
     'sidebar_collapse_auto_size' => true,
-    'sidebar_collapse_remember' => false,
+    'sidebar_collapse_remember' => true,
     'sidebar_collapse_remember_no_transition' => false,
     'sidebar_scrollbar_theme' => 'os-theme-light',
     'sidebar_scrollbar_auto_hide' => 'l',
-    'sidebar_nav_accordion' => true,
+    'sidebar_nav_accordion' => false,
     'sidebar_nav_animation_speed' => 300,
 
     /*
@@ -299,10 +299,10 @@ return [
                     'text' => 'Liste d\'inscriptions',
                     'url' => 'admin/inscriptions',
                 ],
-                [
+                /*[
                     'text' => 'Liste d\'élèves',
                     'url' => 'admin/eleves',
-                ],
+                ],*/
 
             ],
         ],
