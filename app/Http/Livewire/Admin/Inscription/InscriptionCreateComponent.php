@@ -142,7 +142,6 @@ class InscriptionCreateComponent extends Component
             'lieu_naissance' => $this->lieu_naissance,
             'date_naissance' => $this->date_naissance,
             'matricule' => $this->matricule,
-            'responsable_id' => $responsable?->id ?? '',
         ]);
     }
 
