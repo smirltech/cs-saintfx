@@ -110,7 +110,11 @@
     {{--<script src="{{ asset('vendor/livewire-alert/livewire-alert.js') }}"></script>--}}
     <x-livewire-alert::scripts/>
     <x-livewire-alert::flash/>
-
+    <script>
+        window.addEventListener('closeModal', event=>{
+            $("#"+event.detail.modal).modal('hide');
+        });
+    </script>
 @endif
 
 {{-- Custom Scripts --}}

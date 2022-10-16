@@ -17,6 +17,7 @@
 
 @stop
 <div class="">
+@include('livewire.admin.sections.modals.crud')
 
     <div class="content mt-3">
         <div class="container-fluid">
@@ -28,11 +29,11 @@
 
                             </div>
                             <div class="card-tools d-flex my-auto">
-
-                                <a href="{{ route('admin.sections.create') }}" title="ajouter"
-                                   class="btn btn-primary mr-2"><span class="fa fa-plus"></span></a>
-
-
+                               {{-- <livewire:admin.section.section-create-component/>--}}
+                                <button type="button"
+                                        class="btn btn-primary  ml-2" data-toggle="modal"
+                                        data-target="#add-section-modal"><span
+                                        class="fa fa-plus"></span></button>
                             </div>
                         </div>
 
@@ -54,19 +55,26 @@
                                         <td>{{ $section->code }}</td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                <a href="/admin/sections/{{ $section->id }}" title="Voir"
-                                                   class="btn btn-warning">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                               <a href="/admin/sections/{{ $section->id }}/edit" title="modifier"
-                                                   class="btn btn-info  ml-2">
-                                                    <i class="fas fa-pen"></i>
-                                                </a>
+                                                <button wire:click="getSelectedSection({{$section}})" type="button"
+                                                        title="Voir" class="btn btn-warning  ml-2" data-toggle="modal"
+                                                        data-target="#show-section-modal">
+                                                    <span class="fa fa-eye"></span>
+                                                </button>
+                                               <button wire:click="getSelectedSection({{$section}})" type="button"
+                                                       title="Modifier" class="btn btn-info  ml-2" data-toggle="modal"
+                                                        data-target="#edit-section-modal">
+                                                        <span class="fa fa-pen"></span>
+                                               </button>
 
-                                                <button wire:click="deleteSection({{ $section->id }})"
+                                                <button wire:click="getSelectedSection({{$section}})" type="button"
+                                                        title="supprimer" class="btn btn-danger  ml-2" data-toggle="modal"
+                                                        data-target="#delete-section-modal">
+                                                    <span class="fa fa-trash"></span>
+                                                </button>
+                                               {{-- <button wire:click="deleteSection({{ $section->id }})"
                                                         title="supprimer" class="btn btn-danger ml-2">
                                                     <i class="fas fa-trash"></i>
-                                                </button>
+                                                </button>--}}
                                             </div>
                                         </td>
                                     </tr>
@@ -79,6 +87,5 @@
             </div>
         </div>
     </div>
-
 </div>
 
