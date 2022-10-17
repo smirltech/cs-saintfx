@@ -4,6 +4,8 @@ namespace App\Helpers;
 
 use App\Enum\InscriptionStatus;
 use App\Mail\SendMail;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Http;
 use phpseclib3\Math\PrimeField\Integer;
 
 
@@ -38,6 +40,20 @@ class Helpers
         $bytes /= pow(1024, $pow);
 
         return round($bytes, $precision) . ' ' . $units[$pow];
+    }
+
+    public static function currencyFormat($amount, $decimal = 0, $symbol = ''){
+
+            return number_format($amount, $decimal).' '.$symbol;
+
+    }
+
+    public static function fakePicsum($user_id, $width=50, $height=50){
+        /*$req = Http::get("https://picsum.photos/id/{$user_id}/info");
+        return json_decode($req->body())->download_url;*/
+
+       return"https://picsum.photos/id/{$user_id}/{$width}/{$height}";
+
     }
 
     public static function admissionStatusColor($admissionStatus)

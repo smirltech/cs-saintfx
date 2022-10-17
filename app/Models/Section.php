@@ -17,7 +17,8 @@ class Section extends Model
         return $this->hasMany(Option::class);
     }
 
-    public function classes(){
+    public function classes()
+    {
         return $this->morphMany(Classe::class, 'filierable');
     }
 
@@ -25,5 +26,17 @@ class Section extends Model
     public function getFullNameAttribute(): string
     {
         return "{$this->nom}";
+    }
+
+    // full_name
+    public function getFullCodeAttribute(): string
+    {
+        return "{$this->code}";
+    }
+
+    // full_name
+    public function getShortCodeAttribute(): string
+    {
+        return substr("{$this->code}", 0, 1);
     }
 }

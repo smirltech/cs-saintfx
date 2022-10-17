@@ -3,6 +3,7 @@
     use App\Helpers\Helpers;use App\Models\Annee;
     $heads = [
             'NO.',
+            '',
             'ELEVE',
             'SEXE',
             'AGE',
@@ -26,9 +27,11 @@
                                             </button>';
 
         //    $badgeColor = Helpers::admissionStatusColor($inscription->status);
+//if($profile_url == null)$profile_url =Helpers::fakePicsum($eleve->id, 100, 100);
 
             $data[] = [
                 $eleve->id,
+                '<img class="img-circle" style="width:50px; height:50px" src="'.$eleve->profile_url.'"></img>',
                 $eleve->fullName,
                 $eleve->sexe->value??'',
                 $eleve->date_naissance->age??'',
@@ -45,7 +48,7 @@
         $config = [
             'data' => $data ?? [],
             'order' => [[1, 'asc']],
-            'columns' => [['orderable' => true], null, null, null, null, null, null, null, null,['orderable' => false]],
+            'columns' => [['orderable' => true], ['orderable' => false], null, null, null, null, null, null, null, null,['orderable' => false]],
         ];
 @endphp
 @section('title')

@@ -29,6 +29,18 @@ class Filiere extends Model
         return "{$this->option->fullName} {$this->nom}";
     }
 
+    // full_name
+    public function getFullCodeAttribute(): string
+    {
+        return "{$this->option->fullCode} {$this->code}";
+    }
+
+    // full_name
+    public function getShortCodeAttribute(): string
+    {
+        return "{$this->option->shortCode}".substr("{$this->code}", 0, 1) ;
+    }
+
     /**
      * Get the comments for the blog post.
      */

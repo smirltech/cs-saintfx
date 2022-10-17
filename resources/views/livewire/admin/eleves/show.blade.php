@@ -5,7 +5,7 @@
 @section('content_header')
     <div class="row">
         <div class="col-6">
-            <h1 class="ms-3">{{$eleve->fullName}}</h1>
+{{--            <h1 class="ms-3">{{$eleve->fullName}}</h1>--}}
         </div>
 
         <div class="col-6">
@@ -26,31 +26,66 @@
                 <div class="card card-primary card-outline">
                     <div class="card-body box-profile">
                         <div class="text-center">
-                            <img hidden class="profile-user-img img-fluid img-circle"
-                                 src="../../dist/img/user4-128x128.jpg" alt="User profile picture">
+                            <img  class="profile-user-img img-fluid img-circle"
+                                 src="{{$eleve->profile_url}}" alt="User profile picture">
                         </div>
-                       {{-- <h3 class="profile-username text-center">{{$etudiant->fullName}}</h3>
-                        <p class="text-muted text-center">{{$admission->promotion->code}}</p>
-                        <ul class="list-group list-group-unbordered mb-3">
-                            <li class="list-group-item">
-                                <b>Nom</b> <span class="float-right">{{$etudiant->nom}}</span>
-                            </li>
-                            <li class="list-group-item">
-                                <b>Postnom</b> <span class="float-right">{{$etudiant->postnom}}</span>
-                            </li>
-                            <li class="list-group-item">
-                                <b>Prenom</b> <span class="float-right">{{$etudiant->prenom}}</span>
-                            </li>
-                            <li class="list-group-item">
-                                <b>{{$etudiant->matricule?'Matricule':'Code Temporaire'}}</b> <span
-                                    class="float-right">{{$etudiant->matricule??$admission->code}}</span>
-                            </li>
-                        </ul>--}}
+                        <h3 class="profile-username text-center">{{$eleve->fullName}}</h3>
+                        <p class="text-muted text-center">{{$eleve->id}}</p>
+                        <p class="text-muted text-center">{{$inscription?->classe?->shortCode??'Non encore inscrit !'}}</p>
+                        <p class="text-muted text-center">{{$annee_courante?->nom??''}}</p>
+{{--                        <ul class="list-group list-group-unbordered mb-3">--}}
+{{--                            <li class="list-group-item">--}}
+{{--                                <b>Nom</b> <span class="float-right">{{$etudiant->nom}}</span>--}}
+{{--                            </li>--}}
+{{--                            <li class="list-group-item">--}}
+{{--                                <b>Postnom</b> <span class="float-right">{{$etudiant->postnom}}</span>--}}
+{{--                            </li>--}}
+{{--                            <li class="list-group-item">--}}
+{{--                                <b>Prenom</b> <span class="float-right">{{$etudiant->prenom}}</span>--}}
+{{--                            </li>--}}
+{{--                            <li class="list-group-item">--}}
+{{--                                <b>{{$etudiant->matricule?'Matricule':'Code Temporaire'}}</b> <span--}}
+{{--                                    class="float-right">{{$etudiant->matricule??$admission->code}}</span>--}}
+{{--                            </li>--}}
+{{--                        </ul>--}}
                         <a hidden href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
                     </div>
 
                 </div>
 
+                <div class="card card-secondary">
+                    <div class="card-header">
+                        <h3 class="card-title">État Financier</h3>
+                    </div>
+                    <div class="card-body">
+                                                <ul class="list-group list-group-unbordered mb-3">
+                                                    <li class="list-group-item">
+                                                        <b>Inscription : </b> <span class="float-right">{{\App\Helpers\Helpers::currencyFormat($inscription?->montant, symbol: 'Fc')}}</span>
+                                                    </li>
+                                                    <li class="list-group-item">
+                                                        <b>Facture : </b> <span class="float-right">{{\App\Helpers\Helpers::currencyFormat(39000, symbol: 'Fc')}}</span>
+                                                    </li>
+                                                    <li class="list-group-item">
+                                                        <b>Reçu : </b> <span class="float-right">{{\App\Helpers\Helpers::currencyFormat(9000, symbol: 'Fc')}}</span>
+                                                    </li>
+                                                    <li class="list-group-item">
+                                                        <b>Balance : </b> <span class="float-right"><i class="badge bg-warning">{{\App\Helpers\Helpers::currencyFormat(30000, symbol: 'Fc')}}</i></span>
+                                                    </li>
+                        {{--                            <li class="list-group-item">--}}
+                        {{--                                <b>Postnom</b> <span class="float-right">{{$etudiant->postnom}}</span>--}}
+                        {{--                            </li>--}}
+                        {{--                            <li class="list-group-item">--}}
+                        {{--                                <b>Prenom</b> <span class="float-right">{{$etudiant->prenom}}</span>--}}
+                        {{--                            </li>--}}
+                        {{--                            <li class="list-group-item">--}}
+                        {{--                                <b>{{$etudiant->matricule?'Matricule':'Code Temporaire'}}</b> <span--}}
+                        {{--                                    class="float-right">{{$etudiant->matricule??$admission->code}}</span>--}}
+                        {{--                            </li>--}}
+                                                </ul>
+                        <a hidden href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+                    </div>
+
+                </div>
 
                 <div class="card card-primary">
                     <div class="card-header">
@@ -123,16 +158,16 @@
 
             <div class="col-md-9">
                 <div class="card">
-                    <div class="card-header p-2">
+                    {{--<div class="card-header p-2">
                         <ul class="nav nav-pills">
                             <li class="nav-item"><a class="nav-link active" href="#admission"
                                                     data-toggle="tab">Admission</a>
                             </li>
-{{--                            <li class="nav-item"><a class="nav-link " href="/admin/admissions/{{$admission->id}}/edit">Modifier</a>--}}
-{{--                            </li>--}}
+--}}{{--                            <li class="nav-item"><a class="nav-link " href="/admin/admissions/{{$admission->id}}/edit">Modifier</a>--}}{{--
+--}}{{--                            </li>--}}{{--
 
                         </ul>
-                    </div>
+                    </div>--}}
                     <div class="card-body">
                         <div class="tab-content">
                             <div class="active tab-pane" id="admission">

@@ -25,4 +25,22 @@ class Classe extends Model
     {
         return $this->morphTo();
     }
+
+    // full_name
+    public function getFullNameAttribute(): string
+    {
+        return "{$this->filierable->fullName} {$this->grade->value}";
+    }
+
+    // full_name
+    public function getFullCodeAttribute(): string
+    {
+        return "{$this->grade->value} {$this->filierable->fullCode}";
+    }
+
+    // full_name
+    public function getShortCodeAttribute(): string
+    {
+        return "{$this->grade->value} {$this->filierable->shortCode}";
+    }
 }
