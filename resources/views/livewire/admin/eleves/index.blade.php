@@ -2,8 +2,9 @@
     use App\Enum\InscriptionStatus;
     use App\Helpers\Helpers;use App\Models\Annee;
     $heads = [
-            'NO.',
-            '',
+            ['', 'no-export' => false, 'width' => 5],
+            'CODE',
+            'MATRICULE',
             'ELEVE',
             'SEXE',
             'AGE',
@@ -30,8 +31,9 @@
 //if($profile_url == null)$profile_url =Helpers::fakePicsum($eleve->id, 100, 100);
 
             $data[] = [
-                $eleve->id,
                 '<img class="img-circle" style="width:50px; height:50px" src="'.$eleve->profile_url.'"></img>',
+                $eleve->code,
+                $eleve->matricule,
                 $eleve->fullName,
                 $eleve->sexe->value??'',
                 $eleve->date_naissance->age??'',
@@ -48,7 +50,7 @@
         $config = [
             'data' => $data ?? [],
             'order' => [[1, 'asc']],
-            'columns' => [['orderable' => true], ['orderable' => false], null, null, null, null, null, null, null, null,['orderable' => false]],
+            'columns' => [['orderable' => false],['orderable' => true], null,  null, null, null, null, null, null, null, null,['orderable' => false]],
         ];
 @endphp
 @section('title')

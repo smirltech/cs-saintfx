@@ -20,6 +20,7 @@ return new class extends Migration {
             $table->string('telephone')->nullable();
             $table->string('profile_url')->nullable();
             $table->string('matricule')->nullable();
+            $table->string('code')->unique();
             $table->timestamps();
         });
     }
