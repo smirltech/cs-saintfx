@@ -34,4 +34,16 @@ class Option extends Model
     {
         return "{$this->section->fullName} - {$this->nom}";
     }
+
+    // full_name
+    public function getFullCodeAttribute(): string
+    {
+        return "{$this->section->fullCode} {$this->code}";
+    }
+
+    // full_name
+    public function getShortCodeAttribute(): string
+    {
+        return substr("{$this->code}", 0, 1);
+    }
 }

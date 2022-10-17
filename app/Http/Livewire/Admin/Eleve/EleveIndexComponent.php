@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin\Eleve;
 
 use App\Models\Classe;
 use App\Models\Eleve;
+use App\Traits\FakeProfileImage;
 use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
@@ -11,12 +12,18 @@ use Livewire\Component;
 class EleveIndexComponent extends Component
 {
     use LivewireAlert;
+    use FakeProfileImage;
 
     public $eleves = [];
 
-    public function render()
+    public function mount()
     {
         $this->loadData();
+    }
+
+    public function render()
+    {
+
         return view('livewire.admin.eleves.index',[
             'eleves'=>$this->eleves
         ])
@@ -27,6 +34,7 @@ class EleveIndexComponent extends Component
     public function loadData()
     {
         $this->eleves = Eleve::orderBy('nom')->get();
+        $this->setFakeProfileImageUrl();
     }
 
 }

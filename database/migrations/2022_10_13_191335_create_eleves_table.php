@@ -18,7 +18,9 @@ return new class extends Migration {
             $table->string('adresse')->nullable();
             $table->string('email')->nullable();
             $table->string('telephone')->nullable();
+            $table->string('profile_url')->nullable();
             $table->string('matricule')->nullable();
+            $table->string('code')->unique();
             $table->timestamps();
         });
     }

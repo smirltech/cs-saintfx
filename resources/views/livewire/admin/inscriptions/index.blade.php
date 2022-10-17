@@ -3,6 +3,7 @@
     use App\Helpers\Helpers;use App\Models\Annee;
     $heads = [
             'NO.',
+            '',
             'ELEVE',
             'SEXE',
             'CLASSE',
@@ -26,6 +27,8 @@
 
             $data[] = [
                  $inscription->code,
+                 '<img class="img-circle" style="width:50px; height:50px" src="'.$inscription->eleve->profile_url.'"></img>',
+
                 $inscription->eleve->fullName,
                $inscription->eleve->sexe->value??'',
 
@@ -40,7 +43,7 @@
         $config = [
             'data' => $data ?? [],
             'order' => [[1, 'asc']],
-            'columns' => [['orderable' => true], null, null, null, null, null,['orderable' => false]],
+            'columns' => [['orderable' => true],null, null, null, null, null, null,['orderable' => false]],
         ];
 @endphp
 @section('title')

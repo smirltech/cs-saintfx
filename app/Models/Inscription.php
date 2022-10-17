@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enum\AdmissionType;
+use App\Enum\InscriptionCategorie;
 use App\Enum\InscriptionStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -22,6 +23,7 @@ class Inscription extends Model
     protected $casts = [
         'type' => AdmissionType::class,
         'status' => InscriptionStatus::class,
+        'categorie' => InscriptionCategorie::class,
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
