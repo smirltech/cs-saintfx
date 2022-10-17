@@ -8,9 +8,7 @@ use App\Http\Controllers\Auth\OtpController;
 use App\Http\Livewire\Admin\Annee\AnneeComponent;
 use App\Http\Livewire\Admin\Classe;
 use App\Http\Livewire\Admin\DashboardComponent;
-use App\Http\Livewire\Admin\Etudiant\EtudiantShowComponent;
-use App\Http\Livewire\Admin\Filiere\FiliereCreateComponent;
-use App\Http\Livewire\Admin\Filiere\FiliereEditComponent;
+use App\Http\Livewire\Admin\Eleve\EleveIndexComponent;
 use App\Http\Livewire\Admin\Filiere\FiliereIndexComponent;
 use App\Http\Livewire\Admin\Filiere\FiliereShowComponent;
 use App\Http\Livewire\Admin\Inscription\InscriptionCreateComponent;
@@ -18,6 +16,8 @@ use App\Http\Livewire\Admin\Inscription\InscriptionEditComponent;
 use App\Http\Livewire\Admin\Inscription\InscriptionIndexComponent;
 use App\Http\Livewire\Admin\Option\OptionIndexComponent;
 use App\Http\Livewire\Admin\Option\OptionShowComponent;
+use App\Http\Livewire\Admin\Responsable\ResponsableIndexComponent;
+use App\Http\Livewire\Admin\Responsable\ResponsableShowComponent;
 use App\Http\Livewire\Admin\Section\SectionIndexComponent;
 use App\Http\Livewire\Admin\Section\SectionShowComponent;
 use Illuminate\Support\Facades\Auth;
@@ -78,9 +78,9 @@ Route::prefix('admin')->middleware(['auth:web'])->as('admin.')->group(function (
 // Année
     Route::get('annees', AnneeComponent::class)->name('annees');
 
-// Etudiant
-    Route::get('eleves/{eleve}', EtudiantShowComponent::class)->name('eleves.show');
-    Route::get('eleves', EtudiantShowComponent::class)->name('eleves');
+// Eleves
+   // Route::get('eleves/{eleve}', EtudiantShowComponent::class)->name('eleves.show');
+    Route::get('eleves', EleveIndexComponent::class)->name('eleves');
 
     // Inscription
     Route::get('inscriptions/create', InscriptionCreateComponent::class)->name('inscriptions.create');
@@ -88,6 +88,9 @@ Route::prefix('admin')->middleware(['auth:web'])->as('admin.')->group(function (
     Route::get('inscriptions/tous', InscriptionIndexComponent::class)->name('inscriptions.index');
     Route::get('inscriptions', InscriptionIndexComponent::class)->name('inscriptions');
 
+    // Responsables
+    Route::get('responsables/{responsable}', ResponsableShowComponent::class)->name('responsables.show');
+    Route::get('responsables', ResponsableIndexComponent::class)->name('responsables');
 
     Route::get('/', DashboardComponent::class)->name('admin');
 

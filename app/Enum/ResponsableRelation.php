@@ -26,4 +26,16 @@ enum ResponsableRelation: string
 
         };
     }
+
+    // label() is a method that a string value
+    public function reverse(Sexe $sexe): string
+    {
+        return match ($this) {
+            self::oncle, self::tante => $sexe == Sexe::m?'Neveux':'Niece',
+            self::pere, self::mere =>  $sexe == Sexe::m?'Fils':'Fille',
+            self::frere, self::soeur =>  $sexe == Sexe::m?'Frère':'Soeur',
+            self::autre => 'Autre',
+
+        };
+    }
 }

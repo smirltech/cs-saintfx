@@ -15,6 +15,7 @@ class Eleve extends Model
 
     protected $casts = [
         'sexe' => Sexe::class,
+        'date_naissance' => 'datetime',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
@@ -28,5 +29,10 @@ class Eleve extends Model
     public function getFullNameAttribute(): string
     {
         return "{$this->nom} {$this->postnom} {$this->prenom}";
+    }
+
+    public function responsable_eleve()
+    {
+        return $this->hasOne(ResponsableEleve::class);
     }
 }

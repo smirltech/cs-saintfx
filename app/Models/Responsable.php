@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enum\Sexe;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 use Illuminate\Database\Eloquent\Model;
@@ -11,4 +12,15 @@ class Responsable extends Model
     use HasFactory;
 
     public $guarded = [];
+    protected $casts = [
+        'sexe' => Sexe::class,
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
+
+    public function responsable_eleves()
+    {
+        return $this->hasMany(ResponsableEleve::class);
+    }
+
 }

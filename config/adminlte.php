@@ -306,15 +306,22 @@ return [
 
             ],
         ],
-        /*[
+
+        [
             'text' => 'Élèves',
             'icon' => 'fas fa-fw fa-graduation-cap',
             // 'can' => RolePermission::view_etudiant->name,
             'submenu' => [
-
-
+                [
+                    'text' => "Liste d'Élèves",
+                    'url' => 'admin/eleves',
+                ],
+                [
+                    'text' => "Liste de Résponsables",
+                    'url' => 'admin/responsables',
+                ],
             ],
-        ],*/
+        ],
         [
             'text' => 'Classes',
             'icon' => 'fas fa-fw fa-chalkboard-teacher',

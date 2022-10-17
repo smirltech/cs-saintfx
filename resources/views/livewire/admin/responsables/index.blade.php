@@ -1,0 +1,95 @@
+@php
+    use App\Enum\InscriptionStatus;
+    use App\Helpers\Helpers;use App\Models\Annee;
+    $heads = [
+            'NO.',
+            'RESPONSABLE',
+            'SEXE',
+            'TELEPHONE',
+            'EMAIL',
+            'ADRESSE',
+            'ENFANTS',
+            ['Actions', 'no-export' => true, 'width' => 5],
+        ];
+
+
+
+    foreach ($responsables as $responsable){
+
+            $btn1 = '<a href="' . "/admin/responsables/{$responsable->id}" . '" class="btn btn-success btn-sm m-1" title="Voir Responsable"><i class="fa fa-eye"></i></a>';
+            $btn2 = '<a hidden href="' . "/admin/responsables/{$responsable->id}/edit" . '" class="btn btn-warning btn-sm m-1" title="Edit"><i class="fa fa-edit"></i></a>';
+            $btn3 = '<button hidden wire:click="deleteResponsable('.$responsable->id.')"
+                                                    title="supprimer" class="btn btn-danger  btn-sm m-1">
+                                                <i class="fas fa-trash"></i>
+                                            </button>';
+
+        //    $badgeColor = Helpers::admissionStatusColor($inscription->status);
+
+            $data[] = [
+                 $responsable->id,
+                $responsable->nom,
+               $responsable->sexe->value??'',
+                $responsable->telephone,
+                $responsable->email,
+                $responsable->adresse,
+                count($responsable->responsable_eleves),
+                '<nobr>' . $btn1 . $btn2. $btn3 . '</nobr>',
+            ];
+
+        }
+
+        $config = [
+            'data' => $data ?? [],
+            'order' => [[1, 'asc']],
+            'columns' => [['orderable' => true], null,null, null, null, null, null,['orderable' => false]],
+        ];
+@endphp
+@section('title')
+    {{Str::upper('cenk')}} - résponsables
+@endsection
+@section('content_header')
+    <div class="row">
+        <div class="col-6">
+            <h1 class="ms-3">Liste de résponsables</h1>
+        </div>
+
+        <div class="col-6">
+            <ol class="breadcrumb float-right">
+                <li class="breadcrumb-item"><a href="{{ route('admin') }}">Accueil</a></li>
+                <li class="breadcrumb-item active">Résponsables</li>
+            </ol>
+        </div>
+    </div>
+
+@stop
+<div class="content mt-3">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title d-flex">
+                            {{--<a href="{{ route('admin.responsables.create') }}" title="ajouter"
+                               class="btn btn-primary mr-2"><span class="fa fa-plus"></span></a>--}}
+                        </div>
+                        <div class="card-tools d-flex my-auto">
+
+                            {{--  <a href="{{ route('admin.responsables.create') }}" title="ajouter"
+                                 class="btn btn-primary mr-2"><span class="fa fa-plus"></span></a>
+  --}}
+
+                        </div>
+                    </div>
+
+                    <div class="mb-3 card-body">
+                        <div class="table-responsive m-b-40">
+                            <x-adminlte-datatable id="table7" :heads="$heads" theme="light" :config="$config" striped
+                                                  hoverable with-buttons/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

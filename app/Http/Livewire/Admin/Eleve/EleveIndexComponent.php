@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin\Eleve;
 
 use App\Models\Classe;
+use App\Models\Eleve;
 use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
@@ -11,29 +12,21 @@ class EleveIndexComponent extends Component
 {
     use LivewireAlert;
 
-    public $classes = [];
+    public $eleves = [];
 
     public function render()
     {
         $this->loadData();
-        return view('livewire.admin.classes.index')
-            ->layout(AdminLayout::class, ['title' => 'Liste de Classes']);
+        return view('livewire.admin.eleves.index',[
+            'eleves'=>$this->eleves
+        ])
+            ->layout(AdminLayout::class, ['title' => 'Liste d\'élèves']);
     }
 
 
     public function loadData()
     {
-        $this->classes = Classe::orderBy('code')->get();
+        $this->eleves = Eleve::orderBy('nom')->get();
     }
 
-    public function deleteClasse($id)
-    {
-
-        $fa = Classe::find($id);
-        if ($fa->delete()) {
-            $this->loadData();
-            $this->alert('success', 'Classe supprimée avec succès');
-
-        }
-    }
 }
