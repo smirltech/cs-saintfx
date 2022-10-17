@@ -9,6 +9,7 @@ use App\Http\Livewire\Admin\Annee\AnneeComponent;
 use App\Http\Livewire\Admin\Classe;
 use App\Http\Livewire\Admin\DashboardComponent;
 use App\Http\Livewire\Admin\Eleve\EleveIndexComponent;
+use App\Http\Livewire\Admin\Eleve\EleveShowComponent;
 use App\Http\Livewire\Admin\Filiere\FiliereIndexComponent;
 use App\Http\Livewire\Admin\Filiere\FiliereShowComponent;
 use App\Http\Livewire\Admin\Inscription\InscriptionCreateComponent;
@@ -79,7 +80,7 @@ Route::prefix('admin')->middleware(['auth:web'])->as('admin.')->group(function (
     Route::get('annees', AnneeComponent::class)->name('annees');
 
 // Eleves
-   // Route::get('eleves/{eleve}', EtudiantShowComponent::class)->name('eleves.show');
+    Route::get('eleves/{eleve}', EleveShowComponent::class)->name('eleves.show');
     Route::get('eleves', EleveIndexComponent::class)->name('eleves');
 
     // Inscription
