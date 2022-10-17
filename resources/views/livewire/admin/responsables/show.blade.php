@@ -1,3 +1,49 @@
+@php
+    use App\Enum\InscriptionStatus;
+    use App\Helpers\Helpers;use App\Models\Annee;
+    $heads = [
+            'NO.',
+            'ELEVE',
+            'SEXE',
+            'AGE',
+            'TELEPHONE',
+            'EMAIL',
+            'RELATION',
+            ['Actions', 'no-export' => true, 'width' => 5],
+        ];
+
+
+
+    foreach ($responsable->responsable_eleves as $responsable_eleve){
+
+            $btn1 = '<a href="' . "/admin/eleves/{$responsable_eleve->eleve->id}" . '" class="btn btn-success btn-sm m-1" title="Voir Élève"><i class="fa fa-eye"></i></a>';
+            $btn2 = '<a hidden href="' . "/admin/eleves/{$responsable_eleve->eleve->id}/edit" . '" class="btn btn-warning btn-sm m-1" title="Edit"><i class="fa fa-edit"></i></a>';
+            $btn3 = '<button hidden wire:click="deleteEleve('.$responsable_eleve->eleve->id.')"
+                                                    title="supprimer" class="btn btn-danger  btn-sm m-1">
+                                                <i class="fas fa-trash"></i>
+                                            </button>';
+
+        //    $badgeColor = Helpers::admissionStatusColor($inscription->status);
+
+            $data[] = [
+                $responsable_eleve->eleve->id,
+                $responsable_eleve->eleve->fullName,
+                $responsable_eleve->eleve->sexe->value??'',
+                $responsable_eleve->eleve->date_naissance->age??'',
+                $responsable_eleve->eleve->telephone,
+                $responsable_eleve->eleve->email,
+                $responsable_eleve?->relation?->reverse($responsable_eleve->eleve->sexe)??'',
+                '<nobr>' . $btn1 . $btn2. $btn3 . '</nobr>',
+            ];
+
+        }
+
+        $config = [
+            'data' => $data ?? [],
+            'order' => [[1, 'asc']],
+            'columns' => [['orderable' => true], null, null, null, null, null, null,['orderable' => false]],
+        ];
+@endphp
 @section('title')
     {{Str::upper('cenk')}} - responsable - {{$responsable->nom}}
 @endsection
@@ -72,40 +118,12 @@
                     </div>
                 </div>
 
-                <div class="card-body table-responsive">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th style="width: 100px">CODE</th>
-                            <th >NOM</th>
-                            <th >SEXE</th>
-                            <th >AGE</th>
-                            <th >RELATION</th>
-                            <th style="width: 100px"></th>
-                        </tr>
-                        </thead>
-                        <tbody>
+                <div class="card-body">
 
-                        @foreach ($responsable->responsable_eleves as $responsable_eleve)
-                            <tr>
-                                <td>{{ $responsable_eleve->eleve->id }}</td>
-                                <td>{{ $responsable_eleve->eleve->fullName }}</td>
-                                <td>{{ $responsable_eleve->eleve->sexe }}</td>
-                                <td>{{ $responsable_eleve->eleve->date_naissance->age }}</td>
-                                <td>{{ $responsable_eleve->relation->reverse($responsable_eleve->eleve->sexe) }}</td>
-                                <td>
-                                    <div class="d-flex float-right">
-                                      {{--  <a href="/admin/classes/{{ $classe->id }}" title="Voir"
-                                           class="btn btn-warning">
-                                            <i class="fas fa-eye"></i>
-                                        </a>--}}
-
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
+                    <div class="table-responsive m-b-40">
+                        <x-adminlte-datatable id="table7" :heads="$heads" theme="light" :config="$config" striped
+                                              hoverable with-buttons/>
+                    </div>
                 </div>
             </div>
         </div>
