@@ -30,8 +30,8 @@
                 $responsable_eleve->eleve->fullName,
                 $responsable_eleve->eleve->sexe->value??'',
                 $responsable_eleve->eleve->date_naissance->age??'',
-                $responsable_eleve->eleve->telephone,
-                $responsable_eleve->eleve->email,
+                '<a href="tel:'.$responsable_eleve->eleve->telephone.'">'.$responsable_eleve->eleve->telephone.'</a>',
+                '<a href = "mailto:'.$responsable_eleve->eleve->email.'">'.$responsable_eleve->eleve->email.'</a>',
                 $responsable_eleve?->relation?->reverse($responsable_eleve->eleve->sexe)??'',
                 '<nobr>' . $btn1 . $btn2. $btn3 . '</nobr>',
             ];
@@ -89,11 +89,11 @@
                     <div class="row">
                         <div class="col">
                             <label>Phone : </label>
-                            {{ $responsable->telephone }}
+                            <a href="tel:{{ $responsable->telephone }}">{{ $responsable->telephone }}</a>
                         </div>
                         <div class="col">
                             <label>E-mail : </label>
-                            {{ $responsable->email }}
+                            <a href="mailto:{{ $responsable->email }}">{{ $responsable->email }}</a>
                         </div>
                         <div class="col">
                             <label>Adresse : </label>
