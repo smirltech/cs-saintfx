@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin\Inscription;
 
 use App\Enum\InscriptionCategorie;
 use App\Enum\InscriptionStatus;
+use App\Enum\ResponsableRelation;
 use App\Enum\Sexe;
 use App\Models\Annee;
 use App\Models\Eleve;
@@ -13,6 +14,7 @@ use App\Models\Option;
 use App\Models\Responsable;
 use App\Models\ResponsableEleve;
 use App\Models\Section;
+use App\Traits\EleveUniqueCode;
 use App\Traits\WithFileUploads;
 use App\View\Components\AdminLayout;
 use Carbon\Carbon;
@@ -23,6 +25,7 @@ class InscriptionCreateComponent extends Component
 {
     use WithFileUploads;
     use LivewireAlert;
+    use EleveUniqueCode;
 
     public $options = [];
     public $sections = [];
@@ -97,6 +100,8 @@ class InscriptionCreateComponent extends Component
         $this->sections = Section::orderBy('nom')->get();
         $this->sexe = Sexe::m->value;
         $this->categorie = InscriptionCategorie::normal->value;
+        $this->responsable_relation = ResponsableRelation::pere->value;
+        $this->responsable_sexe = Sexe::m->value;
     }
 
     public function submit()
@@ -131,6 +136,7 @@ class InscriptionCreateComponent extends Component
 
     public function submitEleve($responsable)
     {
+        $ucode = $this->getGeneratedUniqueCode();
         return Eleve::create([
             'nom' => $this->nom,
             'postnom' => $this->postnom,
@@ -142,6 +148,7 @@ class InscriptionCreateComponent extends Component
             'lieu_naissance' => $this->lieu_naissance,
             'date_naissance' => $this->date_naissance,
             'matricule' => $this->matricule,
+            'code'=>$ucode,
         ]);
     }
 

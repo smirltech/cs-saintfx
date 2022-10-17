@@ -133,7 +133,7 @@
                                         class="form-control  @error('responsable_relation') is-invalid @enderror">
                                     <option value="" disabled>Choisir genre de relation...</option>
                                     @foreach (ResponsableRelation::cases() as $es )
-                                        <option value="{{ strtoupper($es->value)}}">{{ $es->label() }}</option>
+                                        <option value="{{$es->value}}">{{ $es->label() }}</option>
                                     @endforeach
                                     @error('responsable_relation')
                                     <span class="text-red">{{ $message }}</span>
