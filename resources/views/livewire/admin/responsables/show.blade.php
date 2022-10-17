@@ -56,7 +56,7 @@
         <div class="col-6">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('admin') }}">Accueil</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('admin.responsables') }}">Responsable</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.responsables') }}">Responsables</a></li>
                 <li class="breadcrumb-item active">{{$responsable->nom}}</li>
             </ol>
         </div>

@@ -26,11 +26,11 @@
         //    $badgeColor = Helpers::admissionStatusColor($inscription->status);
 
             $data[] = [
-                 $responsable->id,
+                $responsable->id,
                 $responsable->nom,
-               $responsable->sexe->value??'',
-                $responsable->telephone,
-                $responsable->email,
+                $responsable->sexe->value??'',
+                '<a href="tel:'.$responsable->telephone.'">'.$responsable->telephone.'</a>',
+                '<a href = "mailto:'.$responsable->email.'">'.$responsable->email.'</a>',
                 $responsable->adresse,
                 count($responsable->responsable_eleves),
                 '<nobr>' . $btn1 . $btn2. $btn3 . '</nobr>',
