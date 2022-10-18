@@ -57,6 +57,10 @@ class InscriptionCreateComponent extends Component
     public $matricule;
 
     //responsable
+    public $searchResponsable = '';
+    public $chooseResponsable = false;
+
+    public $responsable_id;
     public $responsable_nom;
     public $responsable_sexe;
     public $responsable_telephone;
@@ -64,8 +68,35 @@ class InscriptionCreateComponent extends Component
     public $responsable_adresse;
     public $responsable_relation;
 
+    public $responsable;
+    public $responsables;
+
     public $annee_courante;
 
+    protected $listeners = ['onModalClosed'];
+
+    public function setChooseResponsable()
+    {
+        $this->chooseResponsable = !$this->chooseResponsable;
+        if($this->chooseResponsable ) {
+            $this->searchResponsable = '';
+        }else{
+            $this->responsable = null;
+            $this->responsable_nom = null;
+            $this->responsable_id = null;
+
+        }
+    }
+
+    public function onModalClosed()
+    {
+        $this->chooseResponsable = false;
+        $this->searchResponsable = '';
+    }
+
+    public function runSearch(){
+$this->responsables = Responsable::where('nom', 'LIKE', "%$this->searchResponsable%")->orderBy('nom')->get();
+    }
 
     protected $rules = [
         'nom' => 'required|string',
@@ -95,6 +126,8 @@ class InscriptionCreateComponent extends Component
 
     public function mount()
     {
+        $this->responsables = Responsable::orderBy('nom')->get();
+
         $this->annee_courante = Annee::where('encours', true)->first();
         $this->date_naissance = Carbon::today()->subYears(3)->toDateString();
         $this->sections = Section::orderBy('nom')->get();
@@ -107,13 +140,9 @@ class InscriptionCreateComponent extends Component
     public function submit()
     {
         $this->validate();
-        $resp = null;
-        try {
-            $resp = $this->submitResponsable();
-        } catch (_) {
-        }
-        $ele = $this->submitEleve($resp);
-        if ($resp != null) $res_ele = $this->submitResponsableEleve($resp, $ele);
+
+        $ele = $this->submitEleve($this->responsable);
+        if ($this->responsable != null) $res_ele = $this->submitResponsableEleve($this->responsable, $ele);
         $insc = $this->submitInscription($ele);
         $this->flash('success', 'Élève inscrit avec succès', [], route('admin.inscriptions'));
 
@@ -124,14 +153,26 @@ class InscriptionCreateComponent extends Component
 
     public function submitResponsable()
     {
-        if (isset($this->responsable_nom))
-            return Responsable::create([
+        $this->validate([
+            'responsable_nom' => 'required|string',
+
+        ]);
+        if (isset($this->responsable_nom)) {
+            $this->responsable = Responsable::create([
                 'nom' => $this->responsable_nom,
                 'sexe' => $this->responsable_sexe,
                 'telephone' => $this->responsable_telephone,
                 'email' => $this->responsable_email,
                 'adresse' => $this->responsable_adresse,
             ]);
+            $this->responsable_id = $this->responsable->id;
+            $this->responsable_nom = $this->responsable?->nom??null;
+
+            // close the modal by specifying the id of the modal
+            $this->dispatchBrowserEvent('closeModal', ['modal' => 'add-responsable-modal']);
+            $this->onModalClosed();
+        }
+
     }
 
     public function submitEleve($responsable)
@@ -148,7 +189,7 @@ class InscriptionCreateComponent extends Component
             'lieu_naissance' => $this->lieu_naissance,
             'date_naissance' => $this->date_naissance,
             'matricule' => $this->matricule,
-            'code'=>$ucode,
+            'code' => $ucode,
         ]);
     }
 
@@ -177,9 +218,19 @@ class InscriptionCreateComponent extends Component
 
     public function render()
     {
-
+       // $this->responsables = Responsable::orderBy('nom')->get();
         return view('livewire.admin.inscriptions.create')
             ->layout(AdminLayout::class, ['title' => 'Inscription Élève']);
+    }
+
+    public function changeSelectedResponsable(){
+        $this->responsable = Responsable::find($this->responsable_id);
+        $this->responsable_nom = $this->responsable?->nom??null;
+
+        if($this->responsable == null){
+            $this->responsable_nom = null;
+            $this->responsable_id = null;
+        }
     }
 
     public function changeSection()
