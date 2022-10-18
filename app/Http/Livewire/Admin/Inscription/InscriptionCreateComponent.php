@@ -141,7 +141,7 @@ $this->responsables = Responsable::where('nom', 'LIKE', "%$this->searchResponsab
     {
         $this->validate();
 
-        $ele = $this->submitEleve($this->responsable);
+        $ele = $this->submitEleve();
         if ($this->responsable != null) $res_ele = $this->submitResponsableEleve($this->responsable, $ele);
         $insc = $this->submitInscription($ele);
         $this->flash('success', 'Élève inscrit avec succès', [], route('admin.inscriptions'));
@@ -175,7 +175,7 @@ $this->responsables = Responsable::where('nom', 'LIKE', "%$this->searchResponsab
 
     }
 
-    public function submitEleve($responsable)
+    public function submitEleve()
     {
         $ucode = $this->getGeneratedUniqueCode();
         return Eleve::create([

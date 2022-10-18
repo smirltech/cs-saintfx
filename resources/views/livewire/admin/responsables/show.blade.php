@@ -50,7 +50,7 @@
 @section('content_header')
     <div class="row">
         <div class="col-6">
-            <h1 class="ms-3">{{$responsable->nom}}</h1>
+            {{--<h1 class="ms-3">{{$responsable->nom}}</h1>--}}
         </div>
 
         <div class="col-6">
@@ -64,16 +64,20 @@
 
 @stop
 <div class="">
+    @include('livewire.admin.responsables.modals.crud')
 
     <div class="content mt-3">
         <div class="container-fluid">
             <div class="card">
-                {{--<div class="card-header">
-
+                <div class="card-header">
+                    <h1 class="card-title">{{$responsable->nom}}</h1>
                     <div class="card-tools">
-
+                        <button wire:click.debounce="fillDataToModal" type="button"
+                                title="Modifier" class="btn btn-info  ml-2" data-toggle="modal"
+                                data-target="#edit-responsable-modal">
+                            <span class="fa fa-pen"></span>
                     </div>
-                </div>--}}
+                </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col">
