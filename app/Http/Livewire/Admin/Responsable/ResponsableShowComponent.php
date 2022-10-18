@@ -76,4 +76,23 @@ class ResponsableShowComponent extends Component
 
     }
 
+    public function deleteResponsable()
+    {
+        if (count($this->responsable->responsable_eleves) == 0) {
+            if ($this->responsable->delete()) {
+                //$this->loadData();
+               // $this->alert('success', "Responsable supprimé avec succès !");
+                // $this->dispatchBrowserEvent('closeModal', ['modal' => 'delete-responsable-modal']);
+                $this->flash('success', 'Responsable supprimé avec succès', [], route('admin.responsables'));
+
+            }
+        } else {
+
+            $this->alert('warning', "Responsable n'a pas été supprimé, il y a des élèves attachés !");
+             $this->dispatchBrowserEvent('closeModal', ['modal' => 'delete-responsable-modal']);
+            $this->onModalClosed();
+        }
+
+    }
+
 }

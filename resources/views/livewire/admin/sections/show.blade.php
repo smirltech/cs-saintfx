@@ -30,6 +30,7 @@
                                 data-target="#edit-section-modal">
                             <span class="fa fa-pen"></span>
                         </button>
+
                     </div>
                 </div>
                 <div class="card-body">

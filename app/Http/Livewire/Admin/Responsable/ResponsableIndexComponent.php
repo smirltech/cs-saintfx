@@ -75,4 +75,21 @@ class ResponsableIndexComponent extends Component
 
     }
 
+
+    public function deleteResponsable($responsable_id)
+    {
+        $responsable = Responsable::find($responsable_id);
+        dd($responsable);
+        if (count($responsable->responsable_eleves) == 0) {
+            if ($responsable->delete()) {
+                $this->loadData();
+                $this->alert('success', "Responsable supprimé avec succès !");
+               // $this->dispatchBrowserEvent('closeModal', ['modal' => 'delete-section-modal']);
+            }
+        } else {
+            $this->alert('warning', "Responsable n'a pas été supprimé, il y a des élèves attachés !");
+        }
+
+    }
+
 }

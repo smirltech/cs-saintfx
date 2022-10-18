@@ -75,7 +75,12 @@
                         <button wire:click.debounce="fillDataToModal" type="button"
                                 title="Modifier" class="btn btn-info  ml-2" data-toggle="modal"
                                 data-target="#edit-responsable-modal">
-                            <span class="fa fa-pen"></span>
+                            <span class="fa fa-pen"></span></button>
+                        <button type="button"
+                                title="supprimer" class="btn btn-danger  ml-4" data-toggle="modal"
+                                data-target="#delete-responsable-modal">
+                            <span class="fa fa-trash"></span>
+                        </button>
                     </div>
                 </div>
                 <div class="card-body">
@@ -125,7 +130,7 @@
                 <div class="card-body">
 
                     <div class="table-responsive m-b-40">
-                        <x-adminlte-datatable id="table7" :heads="$heads" theme="light" :config="$config" striped
+                        <x-adminlte-datatable  wire:ignore.self id="table7" :heads="$heads" theme="light" :config="$config" striped
                                               hoverable with-buttons/>
                     </div>
                 </div>
