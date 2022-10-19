@@ -32,7 +32,10 @@
                 $responsable_eleve->eleve->date_naissance->age??'',
                 '<a href="tel:'.$responsable_eleve->eleve->telephone.'">'.$responsable_eleve->eleve->telephone.'</a>',
                 '<a href = "mailto:'.$responsable_eleve->eleve->email.'">'.$responsable_eleve->eleve->email.'</a>',
-                $responsable_eleve?->relation?->reverse($responsable_eleve->eleve->sexe)??'',
+
+                '<span wire:click="selectResponsableEleve('.$responsable_eleve->id.')" role="button" class="text-red" data-toggle="modal"
+                                data-target="#edit-relation-modal" >'.$responsable_eleve?->relation?->reverse($responsable_eleve->eleve->sexe)??''.'</span>',
+
                 '<nobr>' . $btn1 . $btn2. $btn3 . '</nobr>',
             ];
 
@@ -42,6 +45,7 @@
             'data' => $data ?? [],
             'order' => [[1, 'asc']],
             'columns' => [['orderable' => true], null, null, null, null, null, null,['orderable' => false]],
+            'destroy'=>true,
         ];
 @endphp
 @section('title')

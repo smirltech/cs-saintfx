@@ -1,4 +1,4 @@
-{{-- Add Option --}}
+{{-- Edit Relation --}}
 <div wire:ignore.self class="modal fade" tabindex="-1" id="edit-relation-modal">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">

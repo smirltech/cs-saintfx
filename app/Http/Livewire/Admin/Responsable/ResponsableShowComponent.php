@@ -21,6 +21,9 @@ class ResponsableShowComponent extends Component
     public $email;
     public $adresse;
 
+    public $responsable_eleve;
+    public $responsable_relation;
+
     protected $rules = [
         'nom' => 'required|string',
         'sexe' => 'nullable',
@@ -35,18 +38,27 @@ class ResponsableShowComponent extends Component
     public function mount(Responsable $responsable)
     {
         $this->responsable = $responsable;
+    }
 
+    public function reloadData(){
+        $this->responsable = Responsable::find($this->responsable->id);
     }
 
     public function onModalClosed()
     {
-        $this->reset(['nom', 'sexe', 'telephone', 'email', 'adresse']);
+        $this->reset(['nom', 'sexe', 'telephone', 'email', 'adresse', 'responsable_eleve', 'responsable_relation']);
     }
 
     public function render()
     {
         return view('livewire.admin.responsables.show')
             ->layout(AdminLayout::class, ['title' => 'Détail sur le responsable']);
+    }
+
+    public function selectResponsableEleve($relationEleve){
+        dd($relationEleve);
+//        $this->responsable_eleve = $relationEleve;
+//        $this->responsable_relation = $this->responsable_eleve->relation;
     }
 
     public function fillDataToModal(){
@@ -94,5 +106,24 @@ class ResponsableShowComponent extends Component
         }
 
     }
+
+    public function editRelation(){
+
+        $done =$this->responsable_eleve->update([
+            'relation' => $this->responsable_relation,
+        ]);
+
+        if ($done) {
+            $this->reloadData();
+            $this->alert('success', "Relation modifiée avec succès !");
+            $this->dispatchBrowserEvent('closeModal', ['modal' => 'edit-relation-modal']);
+        } else {
+            $this->alert('warning', "Echec de modification de relation !");
+        }
+        $this->onModalClosed();
+
+    }
+
+
 
 }
