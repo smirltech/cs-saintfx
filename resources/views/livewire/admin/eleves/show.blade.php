@@ -18,7 +18,10 @@
     </div>
 
 @stop
-<div class="content mt-3">
+<div>
+    @include('livewire.admin.eleves.modals.crud')
+
+    <div class="content mt-3">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3">
@@ -131,7 +134,8 @@
                                 <b>Responsable</b> <span class="float-right">{{$eleve->responsable_eleve?->responsable?->nom??''}}</span>
                             </li>
                             <li class="list-group-item">
-                                <b>Relation</b> <span class="float-right">{{$eleve->responsable_eleve?->relation?->label()??''}}</span>
+                                <b>Relation</b> <span class="float-right">{{$eleve->responsable_eleve?->relation?->label()??''}}<span title="Modifier" role="button" class=" fa fa-edit ml-1" data-toggle="modal"
+                                                                                                                                      data-target="#edit-relation-modal"></span></span>
                             </li>
                             <li class="list-group-item">
                                 <b>Sexe</b> <span class="float-right">{{$eleve->responsable_eleve?->responsable?->sexe??''}}</span>
@@ -249,5 +253,6 @@
 
         </div>
     </div>
+</div>
 </div>
 
