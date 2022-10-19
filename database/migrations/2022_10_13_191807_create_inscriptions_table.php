@@ -21,7 +21,9 @@ return new class extends Migration {
             $table->integer('montant')->nullable();
             $table->string('status')->default(InscriptionStatus::pending->value);
             $table->string('code')->unique();
+            $table->unique(["eleve_id", "annee_id"], 'eleve_annee');
             $table->timestamps();
+
         });
     }
 };
