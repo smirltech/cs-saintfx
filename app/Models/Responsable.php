@@ -23,4 +23,9 @@ class Responsable extends Model
         return $this->hasMany(ResponsableEleve::class);
     }
 
+    public function getDetailAttribute(): string
+    {
+        return "{$this->nom} - Phone:({$this->telephone}) - Adresse:({$this->adresse})";
+    }
+
 }

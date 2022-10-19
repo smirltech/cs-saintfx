@@ -27,6 +27,7 @@ class DashboardComponent extends Component
 
 
         $this->annee_courante = Annee::where('encours', true)->first();
+
         $this->inscrits = Inscription::where('annee_id', $this->annee_courante->id)->get();
         $inscritsValid = Inscription::where('annee_id', $this->annee_courante->id)->where('status', InscriptionStatus::approved->name)->get();
         $inscritsReject = Inscription::where('annee_id', $this->annee_courante->id)->where('status', InscriptionStatus::rejected->name)->get();
@@ -38,10 +39,10 @@ class DashboardComponent extends Component
         $moisInscritspending = Inscription::where('annee_id', $this->annee_courante->id)->where('status', InscriptionStatus::pending->name)->where('created_at', '>', $moisCourrant)->get();
 
 
-        $rateInscritsMois = $moisInscrits->count() > 0 ? ($moisInscrits->count() / $moisInscrits->count()) * 100 : 0;
-        $rateInscritsMoisValid = $moisInscritsValid->count() > 0 ? ($moisInscritsValid->count() / $moisInscrits->count()) * 100 : 0;
-        $rateInscritsMoisReject = $moisInscritsReject->count() > 0 ? ($moisInscritsReject->count() / $moisInscrits->count()) * 100 : 0;
-        $rateInscritsMoisPending = $moisInscritspending->count() > 0 ? ($moisInscritspending->count() / $moisInscrits->count()) * 100 : 0;
+        $rateInscritsMois = $moisInscrits->count() > 0 ? intval(($moisInscrits->count() / $moisInscrits->count()) * 100) : 0;
+        $rateInscritsMoisValid = $moisInscritsValid->count() > 0 ? intval(($moisInscritsValid->count() / $moisInscrits->count()) * 100) : 0;
+        $rateInscritsMoisReject = $moisInscritsReject->count() > 0 ? intval(($moisInscritsReject->count() / $moisInscrits->count()) * 100) : 0;
+        $rateInscritsMoisPending = $moisInscritspending->count() > 0 ? intval(($moisInscritspending->count() / $moisInscrits->count()) * 100) : 0;
 
         $this->boxes = [
             [

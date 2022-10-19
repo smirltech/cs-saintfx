@@ -10,10 +10,10 @@ return new class extends Migration {
         Schema::create('responsables', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
-            $table->string('sexe');
-            $table->string('telephone');
-            $table->string('adresse');
-            $table->string('email');
+            $table->string('sexe')->nullable();
+            $table->string('telephone')->nullable();
+            $table->string('adresse')->nullable();
+            $table->string('email')->nullable();
             $table->timestamps();
         });
     }

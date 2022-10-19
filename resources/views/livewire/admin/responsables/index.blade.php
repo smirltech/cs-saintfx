@@ -62,29 +62,33 @@
     </div>
 
 @stop
-<div class="content mt-3">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title d-flex">
-                            {{--<a href="{{ route('admin.responsables.create') }}" title="ajouter"
-                               class="btn btn-primary mr-2"><span class="fa fa-plus"></span></a>--}}
+<div>
+    @include('livewire.admin.responsables.modals.crud')
+    <div class="content mt-3">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div hidden class="card-header">
+                            <div class="card-title d-flex">
+                                {{--<a href="{{ route('admin.responsables.create') }}" title="ajouter"
+                                   class="btn btn-primary mr-2"><span class="fa fa-plus"></span></a>--}}
+                            </div>
+                            <div class="card-tools d-flex my-auto">
+
+                                <button hidden type="button"
+                                        title="Ajouter" class="btn btn-primary" data-toggle="modal"
+                                        data-target="#add-responsable-modal">
+                                    <span class="fa fa-plus"></span>
+                                </button>
+                            </div>
                         </div>
-                        <div class="card-tools d-flex my-auto">
 
-                            {{--  <a href="{{ route('admin.responsables.create') }}" title="ajouter"
-                                 class="btn btn-primary mr-2"><span class="fa fa-plus"></span></a>
-  --}}
-
-                        </div>
-                    </div>
-
-                    <div class="mb-3 card-body">
-                        <div class="table-responsive m-b-40">
-                            <x-adminlte-datatable id="table7" :heads="$heads" theme="light" :config="$config" striped
-                                                  hoverable with-buttons/>
+                        <div class="mb-3 card-body">
+                            <div class="table-responsive m-b-40">
+                                <x-adminlte-datatable id="table7" :heads="$heads" theme="light" :config="$config" striped
+                                                      hoverable with-buttons/>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -92,4 +96,5 @@
         </div>
     </div>
 </div>
+
 
