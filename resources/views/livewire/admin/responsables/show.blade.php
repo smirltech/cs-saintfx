@@ -91,7 +91,7 @@
                         <table class="table">
                             <thead>
                             <tr>
-                                <th style="width: 200px">CODE</th>
+                                <th style="width: 100px">CODE</th>
                                 <th>ELEVE</th>
                                 <th>SEXE</th>
                                 <th>AGE</th>
@@ -104,24 +104,24 @@
                             <tbody>
                             @foreach ($responsable->responsable_eleves as $responsable_eleve)
                                 <tr>
-                                    <td>{{ $responsable_eleve->eleve->id }}</td>
+                                    <td>{{ $responsable_eleve->eleve->code }}</td>
                                     <td>{{ $responsable_eleve->eleve->fullName }}</td>
                                     <td>{{ $responsable_eleve->eleve->sexe }}</td>
                                     <td>{{ $responsable_eleve->eleve->date_naissance->age??'' }}</td>
                                     <td>{{ $responsable_eleve->eleve->telephone }}</td>
                                     <td>{{ $responsable_eleve->eleve->email }}</td>
-                                    <td>{{ $responsable_eleve?->relation?->reverse($responsable_eleve->eleve->sexe)??'' }}</td>
+                                    <td>{{ $responsable_eleve?->relation?->reverse($responsable_eleve->eleve->sexe)??'' }}<span wire:click="selectResponsableEleve({{$responsable_eleve->id}})" type="button"
+                                                                                                                                  title="Modifier Relation" class="ml-2" data-toggle="modal"
+                                                                                                                                  data-target="#edit-relation-modal">
+                                            <span class="fa fa-link"></span>
+                                        </span></td>
                                     <td>
                                        <div class="d-flex float-right">
                                              <a href="/admin/eleves/{{ $responsable_eleve->eleve->id }}" title="Voir"
                                                class="btn btn-warning">
                                                 <i class="fas fa-eye"></i>
                                             </a>
-                                            <button wire:click="selectResponsableEleve({{$responsable_eleve->id}})" type="button"
-                                                    title="Modifier" class="btn btn-info  ml-2" data-toggle="modal"
-                                                    data-target="#edit-relation-modal">
-                                                <span class="fa fa-pen"></span>
-                                            </button>
+
                                         </div>
                                     </td>
                                 </tr>
