@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin\Responsable;
 
 use App\Models\Option;
 use App\Models\Responsable;
+use App\Models\ResponsableEleve;
 use App\Models\Section;
 use App\Traits\SectionCode;
 use App\View\Components\AdminLayout;
@@ -56,10 +57,10 @@ class ResponsableShowComponent extends Component
             ->layout(AdminLayout::class, ['title' => 'Détail sur le responsable']);
     }
 
-    public function selectResponsableEleve($relationEleve){
-        dd($relationEleve);
-//        $this->responsable_eleve = $relationEleve;
-//        $this->responsable_relation = $this->responsable_eleve->relation;
+    public function selectResponsableEleve($relationEleve_id){
+     //   dd($relationEleve);
+        $this->responsable_eleve = ResponsableEleve::find($relationEleve_id);
+        $this->responsable_relation = $this->responsable_eleve->relation;
     }
 
     public function fillDataToModal(){

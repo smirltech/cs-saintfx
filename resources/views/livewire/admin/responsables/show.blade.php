@@ -1,52 +1,6 @@
 @php
     use App\Enum\InscriptionStatus;
     use App\Helpers\Helpers;use App\Models\Annee;
-    $heads = [
-            'NO.',
-            'ELEVE',
-            'SEXE',
-            'AGE',
-            'TELEPHONE',
-            'EMAIL',
-            'RELATION',
-            ['Actions', 'no-export' => true, 'width' => 5],
-        ];
-
-
-
-    foreach ($responsable->responsable_eleves as $responsable_eleve){
-
-            $btn1 = '<a href="' . "/admin/eleves/{$responsable_eleve->eleve->id}" . '" class="btn btn-success btn-sm m-1" title="Voir Élève"><i class="fa fa-eye"></i></a>';
-            $btn2 = '<a hidden href="' . "/admin/eleves/{$responsable_eleve->eleve->id}/edit" . '" class="btn btn-warning btn-sm m-1" title="Edit"><i class="fa fa-edit"></i></a>';
-            $btn3 = '<button hidden wire:click="deleteEleve('.$responsable_eleve->eleve->id.')"
-                                                    title="supprimer" class="btn btn-danger  btn-sm m-1">
-                                                <i class="fas fa-trash"></i>
-                                            </button>';
-
-        //    $badgeColor = Helpers::admissionStatusColor($inscription->status);
-
-            $data[] = [
-                $responsable_eleve->eleve->id,
-                $responsable_eleve->eleve->fullName,
-                $responsable_eleve->eleve->sexe->value??'',
-                $responsable_eleve->eleve->date_naissance->age??'',
-                '<a href="tel:'.$responsable_eleve->eleve->telephone.'">'.$responsable_eleve->eleve->telephone.'</a>',
-                '<a href = "mailto:'.$responsable_eleve->eleve->email.'">'.$responsable_eleve->eleve->email.'</a>',
-
-                '<span wire:click="selectResponsableEleve('.$responsable_eleve->id.')" role="button" class="text-red" data-toggle="modal"
-                                data-target="#edit-relation-modal" >'.$responsable_eleve?->relation?->reverse($responsable_eleve->eleve->sexe)??''.'</span>',
-
-                '<nobr>' . $btn1 . $btn2. $btn3 . '</nobr>',
-            ];
-
-        }
-
-        $config = [
-            'data' => $data ?? [],
-            'order' => [[1, 'asc']],
-            'columns' => [['orderable' => true], null, null, null, null, null, null,['orderable' => false]],
-            'destroy'=>false,
-        ];
 @endphp
 @section('title')
     {{Str::upper('cenk')}} - responsable - {{$responsable->nom}}
@@ -134,8 +88,46 @@
                 <div class="card-body">
 
                     <div class="table-responsive m-b-40">
-                        <x-adminlte-datatable  wire:ignore.self id="table7" :heads="$heads" theme="light" :config="$config" striped
-                                              hoverable with-buttons/>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th style="width: 200px">CODE</th>
+                                <th>ELEVE</th>
+                                <th>SEXE</th>
+                                <th>AGE</th>
+                                <th>TELEPHONE</th>
+                                <th>EMAIL</th>
+                                <th>RELATION</th>
+                                <th style="width: 100px"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach ($responsable->responsable_eleves as $responsable_eleve)
+                                <tr>
+                                    <td>{{ $responsable_eleve->eleve->id }}</td>
+                                    <td>{{ $responsable_eleve->eleve->fullName }}</td>
+                                    <td>{{ $responsable_eleve->eleve->sexe }}</td>
+                                    <td>{{ $responsable_eleve->eleve->date_naissance->age??'' }}</td>
+                                    <td>{{ $responsable_eleve->eleve->telephone }}</td>
+                                    <td>{{ $responsable_eleve->eleve->email }}</td>
+                                    <td>{{ $responsable_eleve?->relation?->reverse($responsable_eleve->eleve->sexe)??'' }}</td>
+                                    <td>
+                                       <div class="d-flex float-right">
+                                             <a href="/admin/eleves/{{ $responsable_eleve->eleve->id }}" title="Voir"
+                                               class="btn btn-warning">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <button wire:click="selectResponsableEleve({{$responsable_eleve->id}})" type="button"
+                                                    title="Modifier" class="btn btn-info  ml-2" data-toggle="modal"
+                                                    data-target="#edit-relation-modal">
+                                                <span class="fa fa-pen"></span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

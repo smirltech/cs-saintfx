@@ -131,7 +131,7 @@
                     <div class="card-body">
                         <ul class="list-group list-group-unbordered mb-3">
                             <li class="list-group-item">
-                                <b>Responsable</b> <span class="float-right">{{$eleve->responsable_eleve?->responsable?->nom??''}}</span>
+                                <b>Responsable</b> <span class="float-right"><a href="/admin/responsables/{{$eleve->responsable_eleve?->responsable?->id}}">{{$eleve->responsable_eleve?->responsable?->nom??''}}</a></span>
                             </li>
                             <li class="list-group-item">
                                 <b>Relation</b> <span class="float-right">{{$eleve->responsable_eleve?->relation?->label()??''}}<span title="Modifier" role="button" class=" fa fa-edit ml-1" data-toggle="modal"
