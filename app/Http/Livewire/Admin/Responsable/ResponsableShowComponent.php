@@ -51,6 +51,7 @@ class ResponsableShowComponent extends Component
 
     public function render()
     {
+        $this->reloadData();
         return view('livewire.admin.responsables.show')
             ->layout(AdminLayout::class, ['title' => 'Détail sur le responsable']);
     }

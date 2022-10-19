@@ -45,7 +45,7 @@
             'data' => $data ?? [],
             'order' => [[1, 'asc']],
             'columns' => [['orderable' => true], null, null, null, null, null, null,['orderable' => false]],
-            'destroy'=>true,
+            'destroy'=>false,
         ];
 @endphp
 @section('title')
@@ -67,7 +67,7 @@
     </div>
 
 @stop
-<div class="">
+<div class="  wire:ignore.self">
     @include('livewire.admin.responsables.modals.crud')
 
     <div class="content mt-3">
