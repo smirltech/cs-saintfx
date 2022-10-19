@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin\Eleve;
 
+use App\Enum\InscriptionCategorie;
 use App\Enum\InscriptionStatus;
 use App\Models\Annee;
 use App\Models\Classe;
@@ -10,6 +11,7 @@ use App\Models\Filiere;
 use App\Models\Inscription;
 use App\Models\Option;
 use App\Models\Section;
+use App\Traits\EleveUniqueCode;
 use App\Traits\FakeProfileImage;
 use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -19,6 +21,8 @@ class EleveShowComponent extends Component
 {
     use LivewireAlert;
     use FakeProfileImage;
+    use EleveUniqueCode;
+
 
     public $eleve;
     public $inscription, $inscription2;
@@ -32,7 +36,7 @@ class EleveShowComponent extends Component
     public $filieres = [];
     public $classes = [];
 
-    protected $listeners = [ 'onModalClosed'];
+    protected $listeners = ['onModalClosed'];
 
     public $inscription2_categorie;
     public $inscription2_montant;
@@ -43,20 +47,21 @@ class EleveShowComponent extends Component
 
     public function onModalClosed()
     {
-       // $this->clearValidation();
-       // $this->reset(['nom', 'code']);
+        // $this->clearValidation();
+        // $this->reset(['nom', 'code']);
     }
 
     public function mount(Eleve $eleve)
     {
         $this->annee_courante = Annee::where('encours', true)->first();
-        $this->inscription = Inscription::where(['eleve_id'=>$this->eleve->id,'annee_id'=>$this->annee_courante->id])->first();
+        $this->inscription = Inscription::where(['eleve_id' => $this->eleve->id, 'annee_id' => $this->annee_courante->id])->first();
         $this->eleve = $eleve;
-        $this->responsable_relation = $this->eleve->responsable_eleve->relation;
-       // $this->profile_url =Helpers::fakePicsum($this->eleve->id, 120, 120);
-      //  dd($this->profile_url);
+        $this->responsable_relation = $this->eleve->responsable_eleve?->relation;
+        // $this->profile_url =Helpers::fakePicsum($this->eleve->id, 120, 120);
+        //  dd($this->profile_url);
 
         $this->sections = Section::orderBy('nom')->get();
+        $this->inscription2_categorie = InscriptionCategorie::normal;
 
 
         $this->setFakeProfileImageUrl();
@@ -72,7 +77,7 @@ class EleveShowComponent extends Component
         $this->inscription2_classe_id = $classe->id;
         $filierable = $classe->filierable;
 
-        if($filierable instanceof \App\Models\Filiere){
+        if ($filierable instanceof \App\Models\Filiere) {
             $this->inscription2_filiere_id = $filierable->id;
 
             $option = Option::find($filierable->option_id);
@@ -81,27 +86,28 @@ class EleveShowComponent extends Component
             $section = Section::find($option->section_id);
             $this->inscription2_section_id = $section->id;
 
-        }else  if($filierable instanceof \App\Models\Option){
+        } else if ($filierable instanceof \App\Models\Option) {
             $this->inscription2_option_id = $filierable->id;
 
             $section = Section::find($filierable->section_id);
             $this->inscription2_section_id = $section->id;
 
-        }else  if($filierable instanceof \App\Models\Section){
+        } else if ($filierable instanceof \App\Models\Section) {
             $this->inscription2_section_id = $filierable->id;
         }
 
         $this->options = Option::where('section_id', $this->inscription2_section_id)->orderBy('nom')->get();
         $this->filieres = Filiere::where('option_id', $this->inscription2_option_id)->orderBy('nom')->get();
-       // $this->classes = Classe::orderBy('grade')->get();
+        // $this->classes = Classe::orderBy('grade')->get();
         $this->loadAvailableClasses();
         // dd($inscription);
     }
 
 
-    public function reloadData(){
+    public function reloadData()
+    {
         $this->eleve = Eleve::find($this->eleve->id);
-        $this->inscription = Inscription::where(['eleve_id'=>$this->eleve->id,'annee_id'=>$this->annee_courante->id])->first();
+        $this->inscription = Inscription::where(['eleve_id' => $this->eleve->id, 'annee_id' => $this->annee_courante->id])->first();
         $this->responsable_relation = $this->eleve->responsable_eleve->relation;
 
         $this->setFakeProfileImageUrl();
@@ -113,9 +119,10 @@ class EleveShowComponent extends Component
             ->layout(AdminLayout::class, ['title' => 'Détail sur l\'élève']);
     }
 
-    public function editRelation(){
+    public function editRelation()
+    {
 
-        $done =$this->eleve->responsable_eleve->update([
+        $done = $this->eleve->responsable_eleve->update([
             'relation' => $this->responsable_relation,
         ]);
 
@@ -129,6 +136,45 @@ class EleveShowComponent extends Component
         $this->onModalClosed();
 
     }
+
+    public function addInscription()
+    {
+        $this->validate([
+            'inscription2_classe_id'=>'required',
+            'inscription2_categorie'=>'required',
+        ]);
+
+        try{
+            $done = Inscription::create([
+                'eleve_id' => $this->eleve->id,
+                'classe_id' => $this->inscription2_classe_id,
+                'annee_id' => $this->annee_courante->id,
+                'categorie' => $this->inscription2_categorie,
+                'montant' => $this->inscription2_montant,
+                'code' => $this->getGeneratedUniqueCode(),
+                'status' => InscriptionStatus::pending->value,
+            ]);
+
+            if ($done) {
+                $this->reloadData();
+                $this->alert('success', "Nouvelle inscription faite avec succès !");
+                $this->dispatchBrowserEvent('closeModal', ['modal' => 'add-inscription-modal']);
+            } else {
+                $this->alert('warning', "Echec d'ajout d'inscription,  !");
+            }
+            $this->onModalClosed();
+        }catch (\Throwable $e){
+
+            $this->alert('warning', "Une inscription pour cette année existe déjà !");
+
+        }
+
+
+
+
+
+    }
+
 
     public function editInscription()
     {

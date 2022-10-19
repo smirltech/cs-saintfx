@@ -37,7 +37,7 @@ class InscriptionIndexComponent extends Component
     public function loadData()
     {
         $query = Inscription::query();
-        $query->orderBy('status', 'ASC');
+        $query->where('annee_id', $this->annee_courante->id)->orderBy('status', 'ASC');
         return $query;
     }
 

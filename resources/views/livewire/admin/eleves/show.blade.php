@@ -198,6 +198,10 @@
                                         <div class="card">
                                             <div class="card-header">
                                                 <h4 class="card-title">Cursus Scolaire</h4>
+                                                <div class="card-tools">
+                                                    <button role="button" class="btn btn-warning" data-toggle="modal"
+                                                          data-target="#add-inscription-modal"><span class="fas fa-plus"></span></button>
+                                                </div>
                                             </div>
                                             <div class="card-body">
                                                 <div class="row">
