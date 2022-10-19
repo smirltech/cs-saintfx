@@ -1,60 +1,35 @@
-{{-- Edit Relation --}}
-<div wire:ignore.self class="modal fade" tabindex="-1" id="edit-relation-modal">
+{{-- Edit Inscription --}}
+<div wire:ignore.self class="modal fade" tabindex="-1" id="edit-inscription-modal">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Modifier Relation</h4>
+                <h4 class="modal-title">Modifier Inscription</h4>
                 <button wire:click="$emit('onModalClosed')" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <x-validation-errors class="mb-4" :errors="$errors"/>
-                <form id="f1" wire:submit.prevent="editRelation">
-
-                    <div class="row">
-                        <div class="form-group col-sm-12">
-                            <label for="">Relation</label>
-                            <select wire:model="responsable_relation"
-                                    class="form-control">
-                                @foreach (\App\Enum\ResponsableRelation::cases() as $es )
-                                    <option value="{{$es->value}}">{{ $es->label() }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer justify-content-between">
-                <button wire:click="$emit('onModalClosed')" type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-                <button form="f1" type="submit" class="btn btn-warning">Soumettre</button>
-            </div>
-        </div>
-
-    </div>
-
-</div>
-
-{{-- Edit Inscription --}}
-<div wire:ignore.self class="modal fade" tabindex="-1" id="edit-inscription-modal">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Modifier Le choix de classe</h4>
-                <button wire:click="$emit('onModalClosed')" type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <x-validation-errors class="mb-4" :errors="$errors"/>
-                <form id="f2" wire:submit.prevent="editInscription">
+                <form id="f1" wire:submit.prevent="editInscription">
 
                     {{-- Choix de classe --}}
                     <div>
+                        <h4 class="font-weight-bold"><u>Choix de classe</u></h4>
+                        <p>Procédez à l'inscription de ce candidat pour l'année scolaire <span
+                                class="text-red">{{$annee_courante->nom}}</span>, dans la classe que vous
+                            sélectionnerez ici-dessous.
+                            Pour choisir la classe, vous devez commencer par sélectionner la section, puis l'option,
+                            ensuite la filière et finalement la classe.</p>
+                        <p>Il y a des sections sans options ni filières, dans ce cas choisir seulement la section,
+                            puis
+                            la classe.</p>
+                        <p>Il y a des options sans filières, dans ce cas choisir seulement la section, puis
+                            l'option, et
+                            enfin la classe.</p>
                         <div class="row">
                             <div class="form-group col-3">
                                 <label for="">Section <i class="text-red">*</i></label>
-                                <select wire:model="inscription2_section_id" wire:change="changeSection"
+                                <select wire:model="section_id" wire:change="changeSection"
                                         class="form-control  @error('section_id') is-invalid @enderror">
                                     <option value="">Choisir section</option>
                                     @foreach ($sections as $section )
@@ -67,7 +42,7 @@
                             </div>
                             <div class="form-group col-3">
                                 <label for="">Option</label>
-                                <select wire:model="inscription2_option_id" wire:change="changeOption" class="form-control">
+                                <select wire:model="option_id" wire:change="changeOption" class="form-control">
                                     <option value="">Choisir option</option>
                                     @foreach ($options as $option )
                                         <option value="{{ $option->id }}">{{ $option->nom }}</option>
@@ -77,7 +52,7 @@
                             </div>
                             <div class="form-group col-3">
                                 <label for="">Filière</label>
-                                <select wire:model="inscription2_filiere_id"
+                                <select wire:model="filiere_id"
                                         wire:change="changeFiliere" class="form-control">
                                     <option value="">Choisir filière</option>
                                     @foreach ($filieres as $filiere )
@@ -87,7 +62,7 @@
                             </div>
                             <div class="form-group col-3">
                                 <label for="">Classe <i class="text-red">*</i></label>
-                                <select wire:model="inscription2_classe_id"
+                                <select wire:model="classe_id"
                                         class="form-control">
                                     <option value="">Choisir classe</option>
                                     @foreach ($classes as $classe )
@@ -102,20 +77,20 @@
                         <div class="row">
                             <div class="form-group col-md-6 col-sm-12">
                                 <label for="">Categorie <i class="text-red">*</i></label>
-                                <select wire:model="inscription2_categorie"
-                                        class="form-control  @error('inscription2_categorie') is-invalid @enderror">
+                                <select wire:model="categorie"
+                                        class="form-control  @error('categorie') is-invalid @enderror">
                                     <option value="" disabled>Choisir categorie...</option>
-                                    @foreach (\App\Enum\InscriptionCategorie::cases() as $es )
+                                    @foreach (InscriptionCategorie::cases() as $es )
                                         <option value="{{ strtoupper($es->value)}}">{{ $es->label() }}</option>
                                     @endforeach
-                                    @error('inscription2_categorie')
+                                    @error('categorie')
                                     <span class="text-red">{{ $message }}</span>
                                     @enderror
                                 </select>
                             </div>
                             <div class="form-group col-md-6 col-sm-12">
                                 <label for="">Montant</label>
-                                <input placeholder="Saisir frais d'inscription" type="number" wire:model="inscription2_montant"
+                                <input placeholder="Saisir frais d'inscription" type="number" wire:model="montant"
                                        class="form-control">
                             </div>
                         </div>
@@ -124,15 +99,13 @@
                 </form>
             </div>
             <div class="modal-footer justify-content-between">
-{{--                <button wire:click="$emit('onModalClosed')" type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>--}}
-                <button wire:click="deleteInscription" type="button" class="btn btn-danger" data-dismiss="modal">Supprimer</button>
-                <button form="f2" type="submit" class="btn btn-warning">Soumettre</button>
+                <button wire:click="$emit('onModalClosed')" type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                <button form="f1" type="submit" class="btn btn-warning">Soumettre</button>
             </div>
         </div>
 
     </div>
 
 </div>
-
 
 

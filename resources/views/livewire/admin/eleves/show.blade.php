@@ -134,7 +134,7 @@
                                 <b>Responsable</b> <span class="float-right"><a href="/admin/responsables/{{$eleve->responsable_eleve?->responsable?->id}}">{{$eleve->responsable_eleve?->responsable?->nom??''}}</a></span>
                             </li>
                             <li class="list-group-item">
-                                <b>Relation</b> <span class="float-right">{{$eleve->responsable_eleve?->relation?->label()??''}}<span title="Modifier" role="button" class=" fa fa-edit ml-1" data-toggle="modal"
+                                <b>Relation</b> <span class="float-right">{{$eleve->responsable_eleve?->relation?->label()??''}}<span title="Modifier" role="button" class=" fa fa-link ml-1" data-toggle="modal"
                                                                                                                                       data-target="#edit-relation-modal"></span></span>
                             </li>
                             <li class="list-group-item">
@@ -206,7 +206,8 @@
                                                         <div class="timeline">
                                                             @foreach($eleve->inscriptions as $inscription)
                                                                 <div class="time-label">
-                                                                    <span class="bg-green">{{$inscription->classe->shortCode}}</span>
+                                                                    <span wire:click="getSelectedInscription({{$inscription}})" role="button" class="bg-green" data-toggle="modal"
+                                                                          data-target="#edit-inscription-modal">{{$inscription->classe->shortCode}}</span>
                                                                 </div>
 
                                                                 <div>
