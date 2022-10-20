@@ -11,6 +11,9 @@ use Livewire\Component;
 class ClasseShowComponent extends Component
 {
     public $classe;
+public $parent = "";
+public $parent_url = "";
+    public $inscriptions = [];
    /* public $admissions;
 
     public $pendingCount = 0;
@@ -22,7 +25,20 @@ class ClasseShowComponent extends Component
     public function mount(Classe $classe)
     {
         $this->classe = $classe;
+        $this->inscriptions = $this->classe->inscriptions;
        // $this->admissions = $this->promotion->admissions;
+
+        $classable = $classe->filierable;
+        if($classable instanceof \App\Models\Filiere){
+            $this->parent_url = "/admin/filieres/$classe->filierable_id";
+            $this->parent = "Filière";
+        }else  if($classable instanceof \App\Models\Option){
+            $this->parent_url = "/admin/options/$classe->filierable_id";
+            $this->parent = "Option";
+        }else  if($classable instanceof \App\Models\Section){
+            $this->parent_url = "/admin/sections/$classe->filierable_id";
+            $this->parent = "Section";
+        }
     }
 
 

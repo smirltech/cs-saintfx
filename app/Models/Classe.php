@@ -26,6 +26,11 @@ class Classe extends Model
         return $this->morphTo();
     }
 
+    public function inscriptions()
+    {
+        return $this->hasMany(Inscription::class);
+    }
+
     // full_name
     public function getFullNameAttribute(): string
     {

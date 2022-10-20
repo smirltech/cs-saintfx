@@ -4,7 +4,7 @@
 @section('content_header')
     <div class="row">
         <div class="col-6">
-            <h1 class="ms-3"><span class="fas fa-fw fa-university mr-1"></span> Section</h1>
+            <h1 class="ms-3"><span class="fas fa-fw fa-university mr-1"></span>Section</h1>
         </div>
 
         <div class="col-6">
@@ -44,7 +44,7 @@
                                     <b>Code : </b> <span class="float-right">{{ $section->code }}</span>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Nom : </b> <span class="float-right">{{ $section->nom }}</span>
+                                    <b>Section : </b> <span class="float-right">{{ $section->nom }}</span>
                                 </li>
                             </ul>
                         </div>
