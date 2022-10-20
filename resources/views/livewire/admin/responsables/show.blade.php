@@ -8,7 +8,7 @@
 @section('content_header')
     <div class="row">
         <div class="col-6">
-            {{--<h1 class="ms-3">{{$responsable->nom}}</h1>--}}
+            <h1 class="ms-3"><span class="fas fa-fw fa-user mr-1"></span>Responsable</h1>
         </div>
 
         <div class="col-6">
@@ -26,108 +26,113 @@
 
     <div class="content mt-3">
         <div class="container-fluid">
-            <div class="card">
-                <div class="card-header">
-                    <h1 class="card-title">{{$responsable->nom}}</h1>
-                    <div class="card-tools">
-                        <button wire:click.debounce="fillDataToModal" type="button"
-                                title="Modifier" class="btn btn-info  ml-2" data-toggle="modal"
-                                data-target="#edit-responsable-modal">
-                            <span class="fa fa-pen"></span></button>
-                        <button type="button"
-                                title="supprimer" class="btn btn-danger  ml-4" data-toggle="modal"
-                                data-target="#delete-responsable-modal">
-                            <span class="fa fa-trash"></span>
-                        </button>
+            <div class="row">
+                <div class="col-md-3 col-sm-12">
+                    <div class="card card-primary card-outline">
+                        <div class="card-header">
+                            <h1 class="card-title">{{$responsable->nom}}</h1>
+                            <div class="card-tools">
+                                <span role="button" wire:click.debounce="fillDataToModal" type="button"
+                                      title="Modifier" class=" ml-2" data-toggle="modal"
+                                      data-target="#edit-responsable-modal">
+                                    <span class="fa fa-pen"></span></span>
+                                <span role="button" type="button"
+                                      title="supprimer" class=" ml-4 mr-2" data-toggle="modal"
+                                      data-target="#delete-responsable-modal">
+                                    <span class="fa fa-trash"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group list-group-unbordered mb-3">
+                                <li class="list-group-item">
+                                    <b>Nom : </b> <span class="float-right">{{ $responsable->nom }}</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Sexe : </b> <span class="float-right">{{ $responsable->sexe->value }}</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Phone : </b> <span class="float-right"><a
+                                            href="tel:{{ $responsable->telephone }}">{{ $responsable->telephone }}</a></span>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>E-mail : </b> <span class="float-right"><a
+                                            href="mailto:{{ $responsable->email }}">{{ $responsable->email }}</a></span>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Enfants : </b> <span class="float-right">{{ $responsable->responsable_eleves->count() }}</span>
+                                </li>
+                            </ul>
+
+                            <div class="">
+                                <label>Adresse : </label>
+                                {{ $responsable->adresse }}
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col">
-                            <label>Nom : </label>
-                            {{ $responsable->nom }}
-                        </div>
-                        <div class="col">
-                            <label>Sexe : </label>
-                            {{ $responsable->sexe->value }}
+                <div class="col-md-9 col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <h3 class="m-0">Enfants</h3>
+                            </div>
+                            <div class="card-tools d-flex my-auto">
+                                {{--<button type="button"
+                                        class="btn btn-primary  ml-2" data-toggle="modal"
+                                        data-target="#add-classe-modal"><span
+                                        class="fa fa-plus"></span></button>--}}
+                            </div>
                         </div>
 
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <label>Phone : </label>
-                            <a href="tel:{{ $responsable->telephone }}">{{ $responsable->telephone }}</a>
-                        </div>
-                        <div class="col">
-                            <label>E-mail : </label>
-                            <a href="mailto:{{ $responsable->email }}">{{ $responsable->email }}</a>
-                        </div>
-                        <div class="col">
-                            <label>Adresse : </label>
-                            {{ $responsable->adresse }}
-                        </div>
-                    </div>
+                        <div class="card-body">
 
-                </div>
-            </div>
-        </div>
-        <div class="container-fluid">
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">
-                        <h3 class="m-0">Enfants</h3>
-                    </div>
-                    <div class="card-tools d-flex my-auto">
-                        {{--<button type="button"
-                                class="btn btn-primary  ml-2" data-toggle="modal"
-                                data-target="#add-classe-modal"><span
-                                class="fa fa-plus"></span></button>--}}
-                    </div>
-                </div>
-
-                <div class="card-body">
-
-                    <div class="table-responsive m-b-40">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th style="width: 100px">CODE</th>
-                                <th>ELEVE</th>
-                                <th>SEXE</th>
-                                <th>AGE</th>
-                                <th>TELEPHONE</th>
-                                <th>EMAIL</th>
-                                <th>RELATION</th>
-                                <th style="width: 100px"></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach ($responsable->responsable_eleves as $responsable_eleve)
-                                <tr>
-                                    <td>{{ $responsable_eleve->eleve->code }}</td>
-                                    <td>{{ $responsable_eleve->eleve->fullName }}</td>
-                                    <td>{{ $responsable_eleve->eleve->sexe }}</td>
-                                    <td>{{ $responsable_eleve->eleve->date_naissance->age??'' }}</td>
-                                    <td>{{ $responsable_eleve->eleve->telephone }}</td>
-                                    <td>{{ $responsable_eleve->eleve->email }}</td>
-                                    <td>{{ $responsable_eleve?->relation?->reverse($responsable_eleve->eleve->sexe)??'' }}<span wire:click="selectResponsableEleve({{$responsable_eleve->id}})" type="button"
-                                                                                                                                  title="Modifier Relation" class="ml-2" data-toggle="modal"
-                                                                                                                                  data-target="#edit-relation-modal">
+                            <div class="table-responsive m-b-40">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th style="width: 100px">CODE</th>
+                                        <th>ENFANT</th>
+                                        <th>SEXE</th>
+                                        <th>AGE</th>
+                                        <th>TELEPHONE</th>
+                                        <th>EMAIL</th>
+                                        <th>RELATION</th>
+                                        <th style="width: 100px"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach ($responsable->responsable_eleves as $responsable_eleve)
+                                        <tr>
+                                            <td>{{ $responsable_eleve->eleve->code }}</td>
+                                            <td>{{ $responsable_eleve->eleve->fullName }}</td>
+                                            <td>{{ $responsable_eleve->eleve->sexe }}</td>
+                                            <td>{{ $responsable_eleve->eleve->date_naissance->age??'' }}</td>
+                                            <td>{{ $responsable_eleve->eleve->telephone }}</td>
+                                            <td>{{ $responsable_eleve->eleve->email }}</td>
+                                            <td>{{ $responsable_eleve?->relation?->reverse($responsable_eleve->eleve->sexe)??'' }}
+                                                <span wire:click="selectResponsableEleve({{$responsable_eleve->id}})"
+                                                      type="button"
+                                                      title="Modifier Relation" class="ml-2" data-toggle="modal"
+                                                      data-target="#edit-relation-modal">
                                             <span class="fa fa-link"></span>
                                         </span></td>
-                                    <td>
-                                       <div class="d-flex float-right">
-                                             <a href="/admin/eleves/{{ $responsable_eleve->eleve->id }}" title="Voir"
-                                               class="btn btn-warning">
-                                                <i class="fas fa-eye"></i>
-                                            </a>
+                                            <td>
+                                                <div class="d-flex float-right">
+                                                    <a href="/admin/eleves/{{ $responsable_eleve->eleve->id }}"
+                                                       title="Voir"
+                                                       class="btn btn-warning">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
 
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
