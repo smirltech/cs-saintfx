@@ -5,14 +5,14 @@
 @section('content_header')
     <div class="row">
         <div class="col-6">
-            {{--            <h1 class="ms-3">{{$eleve->fullName}}</h1>--}}
+            <h1 class="ms-3"><span class="fas fa-fw fa-user mr-1"></span>Élève</h1>
         </div>
 
         <div class="col-6">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('admin') }}">Accueil</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('admin.eleves') }}">Élèves</a></li>
-                <li class="breadcrumb-item active">{{$eleve->fullName}}</li>
+                <li class="breadcrumb-item active">Élève</li>
             </ol>
         </div>
     </div>
@@ -55,6 +55,67 @@
                         </div>
 
                     </div>
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Information Personnelle</h3>
+                            <div class="card-tools">
+                                <span role="button" class="mr-1"
+                                        data-toggle="modal"
+                                        data-target="#edit-eleve-modal"><span
+                                        class="fas fa-pen"></span></span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <strong><i class="fas fa-id-card-alt mr-1"></i> Matricule</strong>
+                            <p class="text-muted">
+                                {{$eleve->matricule??''}}
+                            </p>
+                            <hr>
+                            <strong><i class="fas fa-user mr-1"></i> Nom</strong>
+                            <p class="text-muted">
+                                {{$eleve->nom}}
+                            </p>
+                            <hr>
+                            <strong><i class="fas fa-user mr-1"></i> Postnom</strong>
+                            <p class="text-muted">
+                                {{$eleve->postnom}}
+                            </p>
+                            <hr>
+                            <strong><i class="fas fa-user mr-1"></i> Prenom</strong>
+                            <p class="text-muted">
+                                {{$eleve->prenom}}
+                            </p>
+                            <hr>
+                            <strong><i class="fas fa-venus-mars mr-1"></i> Sexe</strong>
+                            <p class="text-muted">
+                                {{$eleve->sexe->value??''}}
+                            </p>
+                            <hr>
+                            <strong><i class="fas fa-map-marker-alt mr-1"></i> Lieu de naissance</strong>
+                            <p class="text-muted">
+                                {{$eleve->lieu_naissance}}
+                            </p>
+                            <hr>
+                            <strong><i class="fas fa-calendar-alt mr-1"></i> Date de naissance</strong>
+                            <p class="text-muted">
+                                {{$eleve->date_naissance?->format('d/m/Y')??''}}
+                                <strong
+                                    class="float-right badge bg-gradient-info">{{Carbon::now()->diffInYears($eleve->date_naissance)}}
+                                    ans</strong>
+                            </p>
+                            <hr>
+                            <strong><i class="fas fa-phone-alt mr-1"></i> Téléphone</strong>
+                            <p class="text-muted">{{$eleve->telephone}}</p>
+                            <hr>
+                            <strong><i class="fas fa-envelope mr-1"></i> E-mail</strong>
+                            <p class="text-muted">{{$eleve->email}}</p>
+                            <hr>
+                            <strong><i class="fas fa-map-marker-alt mr-1"></i> Adresse</strong>
+                            <p class="text-muted">{{$eleve->adresse}}</p>
+
+                        </div>
+
+                    </div>
                     <div class="card card-secondary">
                         <div class="card-header">
                             <h3 class="card-title">État Financier</h3>
@@ -89,38 +150,6 @@
                                 {{--                            </li>--}}
                             </ul>
                             <a hidden href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
-                        </div>
-
-                    </div>
-                    <div class="card card-primary">
-                        <div class="card-header">
-                            <h3 class="card-title">À propos</h3>
-                        </div>
-
-                        <div class="card-body">
-                            <strong><i class="fas fa-book mr-1"></i> Lieu et date de naissance</strong>
-                            <p class="text-muted">
-                                {{$eleve->lieu_naissance}}, le {{$eleve->date_naissance?->format('d/m/Y')??''}}
-                                <strong
-                                    class="float-right badge bg-gradient-info">{{Carbon::now()->diffInYears($eleve->date_naissance)}}
-                                    ans</strong>
-                            </p>
-                            <hr>
-                            <strong><i class="fas fa-phone-alt mr-1"></i> Téléphone</strong>
-                            <p class="text-muted">{{$eleve->telephone}}</p>
-                            <hr>
-                            <strong><i class="fas fa-envelope mr-1"></i> E-mail</strong>
-                            <p class="text-muted">{{$eleve->email}}</p>
-                            <hr>
-                            <strong><i class="fas fa-map-marker-alt mr-1"></i> Adresse</strong>
-                            <p class="text-muted">{{$eleve->adresse}}</p>
-                            <hr>
-                            <strong><i class="fas fa-venus-mars mr-1"></i> Sexe</strong>
-                            <p class="text-muted">
-                                {{$eleve->sexe->value??''}}
-                            </p>
-                            <hr>
-
                         </div>
 
                     </div>

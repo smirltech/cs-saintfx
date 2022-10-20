@@ -36,7 +36,7 @@ class EleveShowComponent extends Component
     public $filieres = [];
     public $classes = [];
 
-    protected $listeners = ['onModalClosed'];
+    protected $listeners = ['onModalClosed', 'refreshComponent' => '$refresh'];
 
     public $inscription2_categorie;
     public $inscription2_montant;
@@ -44,6 +44,17 @@ class EleveShowComponent extends Component
     public $inscription2_option_id;
     public $inscription2_filiere_id;
     public $inscription2_classe_id;
+
+    public $eleve_nom;
+    public $eleve_postnom;
+    public $eleve_prenom;
+    public $eleve_sexe;
+    public $eleve_lieu_naissance;
+    public $eleve_date_naissance;
+    public $eleve_adresse;
+    public $eleve_email;
+    public $eleve_telephone;
+    public $eleve_matricule;
 
     public function onModalClosed()
     {
@@ -62,9 +73,24 @@ class EleveShowComponent extends Component
 
         $this->sections = Section::orderBy('nom')->get();
         $this->inscription2_categorie = InscriptionCategorie::normal;
-
+        $this->preloadEleve();
 
         $this->setFakeProfileImageUrl();
+    }
+
+    public function preloadEleve()
+    {
+        $this->eleve_nom = $this->eleve->nom;
+        $this->eleve_postnom = $this->eleve->postnom;
+        $this->eleve_prenom = $this->eleve->prenom;
+        $this->eleve_sexe = $this->eleve->sexe;
+        $this->eleve_lieu_naissance = $this->eleve->lieu_naissance;
+        $this->eleve_date_naissance = $this->eleve->date_naissance->format('Y-m-d');
+        $this->eleve_adresse = $this->eleve->adresse;
+        $this->eleve_email = $this->eleve->email;
+        $this->eleve_telephone = $this->eleve->telephone;
+        $this->eleve_matricule = $this->eleve->matricule;
+
     }
 
     public function getSelectedInscription(Inscription $inscription)
@@ -109,8 +135,10 @@ class EleveShowComponent extends Component
         $this->eleve = Eleve::find($this->eleve->id);
         $this->inscription = Inscription::where(['eleve_id' => $this->eleve->id, 'annee_id' => $this->annee_courante->id])->first();
         $this->responsable_relation = $this->eleve->responsable_eleve->relation;
-
+        $this->preloadEleve();
         $this->setFakeProfileImageUrl();
+
+        $this->emit('refreshComponent');
     }
 
     public function render()
@@ -118,6 +146,38 @@ class EleveShowComponent extends Component
         return view('livewire.admin.eleves.show')
             ->layout(AdminLayout::class, ['title' => 'Détail sur l\'élève']);
     }
+
+    public function editEleve()
+    {
+        $this->validate([
+            'eleve_nom' => 'required',
+            'eleve_postnom' => 'required',
+        ]);
+        $done = $this->eleve->update([
+            'nom' => $this->eleve_nom,
+            'postnom' => $this->eleve_postnom,
+            'prenom' => $this->eleve_prenom,
+            'sexe' => $this->eleve_sexe,
+            'lieu_naissance' => $this->eleve_lieu_naissance,
+            'date_naissance' => $this->eleve_date_naissance,
+            'adresse' => $this->eleve_adresse,
+            'email' => $this->eleve_email,
+            'telephone' => $this->eleve_telephone,
+            'matricule' => $this->eleve_matricule,
+        ]);
+
+
+        if ($done) {
+            $this->reloadData();
+            $this->alert('success', "Élève modifié avec succès !");
+            $this->dispatchBrowserEvent('closeModal', ['modal' => 'edit-eleve-modal']);
+        } else {
+            $this->alert('warning', "Echec de modification d'élève !");
+        }
+        $this->onModalClosed();
+
+    }
+
 
     public function editRelation()
     {
@@ -140,11 +200,11 @@ class EleveShowComponent extends Component
     public function addInscription()
     {
         $this->validate([
-            'inscription2_classe_id'=>'required',
-            'inscription2_categorie'=>'required',
+            'inscription2_classe_id' => 'required',
+            'inscription2_categorie' => 'required',
         ]);
 
-        try{
+        try {
             $done = Inscription::create([
                 'eleve_id' => $this->eleve->id,
                 'classe_id' => $this->inscription2_classe_id,
@@ -163,14 +223,11 @@ class EleveShowComponent extends Component
                 $this->alert('warning', "Echec d'ajout d'inscription,  !");
             }
             $this->onModalClosed();
-        }catch (\Throwable $e){
+        } catch (\Throwable $e) {
 
             $this->alert('warning', "Une inscription pour cette année existe déjà !");
 
         }
-
-
-
 
 
     }

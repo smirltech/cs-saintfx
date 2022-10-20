@@ -232,4 +232,110 @@
 
 </div>
 
+{{-- Edit Élève --}}
+<div wire:ignore.self class="modal fade" tabindex="-1" id="edit-eleve-modal">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Modifier Information Élève</h4>
+                <button wire:click="$emit('onModalClosed')" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <x-validation-errors class="mb-4" :errors="$errors"/>
+                <form id="f4" wire:submit.prevent="editEleve">
+                    {{-- Information Personnelle--}}
+                    <div>
+                        <div class="row">
+                            <div class="form-group col-md-4 col-sm-12">
+                                <label for="">Nom <i class="text-red">*</i></label>
+                                <input placeholder="Saisir le nom" type="text" wire:model="eleve_nom"
+                                       class="form-control  @error('eleve_nom') is-invalid @enderror">
+                                @error('eleve_nom')
+                                <span class="text-red">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="form-group col-md-4 col-sm-12">
+                                <label for="">Postnom <i class="text-red">*</i></label>
+                                <input placeholder="Saisir le postnom" type="text" wire:model="eleve_postnom"
+                                       class="form-control  @error('eleve_postnom') is-invalid @enderror">
+                                @error('eleve_postnom')
+                                <span class="text-red">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="form-group col-md-4 col-sm-12">
+                                <label for="">Prenom</label>
+                                <input placeholder="Saisir le prenom" type="text" wire:model="eleve_prenom"
+                                       class="form-control">
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-lg-3 col-md-6 col-sm-12">
+                                <label for="">Lieu de naissance</label>
+                                <input placeholder="Saisir la ville / village de naissance" type="text"
+                                       wire:model="eleve_lieu_naissance"
+                                       class="form-control">
+
+                            </div>
+                            <div class="form-group col-lg-3 col-md-6 col-sm-12">
+                                <label for="">Date de naissance</label>
+                                <input type="date" wire:model="eleve_date_naissance"
+                                       class="form-control">
+
+                            </div>
+                            <div class="form-group col-lg-3 col-md-6 col-sm-12">
+                                <label for="">Sexe <i class="text-red">*</i></label>
+                                <select wire:model="eleve_sexe" class="form-control  @error('eleve_sexe') is-invalid @enderror">
+                                    <option value="" disabled>Choisir sexe...</option>
+                                    @foreach (\App\Enum\Sexe::cases() as $es )
+                                        <option value="{{ strtoupper($es->value)}}">{{ $es->label() }}</option>
+                                    @endforeach
+                                    @error('eleve_sexe')
+                                    <span class="text-red">{{ $message }}</span>
+                                    @enderror
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-3 col-md-6 col-sm-12">
+                                <label for="">Matricule</label>
+                                <input placeholder="Saisir le matricule" type="text" wire:model="eleve_matricule"
+                                       class="form-control">
+                            </div>
+                        </div>
+                        <h6 class="font-weight-bold"><u>Information de contacts</u></h6>
+                        <div class="row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="">Téléphone</label>
+                                <input placeholder="Saisir le numéro de téléphone" type="tel" wire:model="eleve_telephone"
+                                       class="form-control">
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="">E-mail</label>
+                                <input placeholder="Saisir l'adresse e-mail" type="text" wire:model="eleve_email"
+                                       class="form-control">
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="">Adresse </label>
+                            <textarea placeholder="Saisir l'adresse du domicile" wire:model="eleve_adresse" rows="2"
+                                      class="form-control"></textarea>
+                        </div>
+                    </div>
+                    {{-- ./Information Personnelle--}}
+                </form>
+            </div>
+            <div class="modal-footer justify-content-between">
+                {{--                <button wire:click="$emit('onModalClosed')" type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>--}}
+                <button wire:click="deleteEleve" type="button" class="btn btn-danger" data-dismiss="modal">Supprimer</button>
+                <button form="f4" type="submit" class="btn btn-warning">Modifier</button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
 
