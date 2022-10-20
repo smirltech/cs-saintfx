@@ -24,18 +24,13 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="card-title">
-
                             </div>
                             <div class="card-tools d-flex my-auto">
-
                                 <a href="{{ route('admin.classes.create') }}" title="ajouter"
                                    class="btn btn-primary mr-2"><span
                                         class="fa fa-plus"></span></a>
-
-
                             </div>
                         </div>
-
                         <div class="card-body p-0 table-responsive">
                             <table class="table">
                                 <thead>

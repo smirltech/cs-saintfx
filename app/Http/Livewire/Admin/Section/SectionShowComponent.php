@@ -16,6 +16,7 @@ class SectionShowComponent extends Component
     use SectionCode;
 
     public $section;
+    public $classes = [];
 
     public $nom;
     public $code;
@@ -70,6 +71,8 @@ class SectionShowComponent extends Component
         $this->section = Section::find($this->section->id);
         $this->nom = $this->section->nom;
         $this->code = $this->section->code;
+
+        $this->classes = $this->section->classes;
     }
 
     public function mount(Section $section)
@@ -77,6 +80,7 @@ class SectionShowComponent extends Component
         $this->section = $section;
         $this->nom = $section->nom;
         $this->code = $section->code;
+        $this->classes = $this->section->classes;
     }
 
     public function render()

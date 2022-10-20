@@ -30,6 +30,7 @@
                                 title="Modifier" class="btn btn-info  ml-2" data-toggle="modal"
                                 data-target="#edit-filiere-modal">
                             <span class="fa fa-pen"></span>
+                        </button>
                     </div>
                 </div>
                 <div class="card-body">
@@ -60,8 +61,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="container-fluid">
             <div class="card">
                 <div class="card-header">
                     <div class="card-title">
