@@ -74,7 +74,6 @@
         <meta name="msapplication-TileImage" content="{{ asset('favicon/ms-icon-144x144.png') }}">
     @endif
 
-
 </head>
 
 <body class="@yield('classes_body')" @yield('body_data')>
@@ -96,6 +95,7 @@
 
 @endif
 
+
 @livewire('livewire-ui-modal')
 {{-- Livewire Script --}}
 @if(config('adminlte.livewire'))
@@ -115,6 +115,7 @@
             $("#"+event.detail.modal).modal('hide');
         });
     </script>
+
 @endif
 
 {{-- Custom Scripts --}}

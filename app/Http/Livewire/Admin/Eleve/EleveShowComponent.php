@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin\Eleve;
 
 use App\Enum\InscriptionCategorie;
 use App\Enum\InscriptionStatus;
+use App\Helpers\Helpers;
 use App\Models\Annee;
 use App\Models\Classe;
 use App\Models\Eleve;
@@ -134,7 +135,7 @@ class EleveShowComponent extends Component
     {
         $this->eleve = Eleve::find($this->eleve->id);
         $this->inscription = Inscription::where(['eleve_id' => $this->eleve->id, 'annee_id' => $this->annee_courante->id])->first();
-        $this->responsable_relation = $this->eleve->responsable_eleve->relation;
+        $this->responsable_relation = $this->eleve->responsable_eleve?->relation;
         $this->preloadEleve();
         $this->setFakeProfileImageUrl();
 
@@ -176,6 +177,20 @@ class EleveShowComponent extends Component
         }
         $this->onModalClosed();
 
+    }
+
+    public function deleteEleve()
+    {
+        if (count($this->eleve->inscriptions) == 0) {
+            if ($this->eleve->delete()) {
+                $this->alert('success', "Élève supprimé avec succès !");
+                $this->flash('success', 'Élève supprimé avec succès', [], route('admin.eleves'));
+            }
+        } else {
+
+            $this->alert('warning', "Élève n'a pas été supprimé, il y a des inscriptions attachées !");
+            $this->onModalClosed();
+        }
     }
 
 
