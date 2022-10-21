@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin\Classe;
 
+use App\Enum\ClasseGrade;
 use App\Models\Classe;
 use App\Models\Filiere;
 use App\Models\Option;

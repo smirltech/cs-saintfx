@@ -19,7 +19,7 @@ trait ClasseCode
             $this->code = "{$this->grade} {$option->code}";
         }else if ($this->grade and $this->section_id) {
             $section = Section::find($this->section_id);
-            $this->code = "{$this->grade->value} {$section->code}";
+            $this->code = "{$this->grade} {$section->code}";
         }
     }
 
