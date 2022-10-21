@@ -49,3 +49,6 @@ The Laravel sample project is now up and running! Access it at http://localhost:
 - [ ] Orion
 - [ ] Laravel Permission
 
+## Functionnalities
+
+To see the list of modules and functionalities available, [FUNCTIONALITIES.md](FUNCTIONALITIES.md)
