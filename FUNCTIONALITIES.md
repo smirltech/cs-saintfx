@@ -14,6 +14,8 @@ In this page you will see what modules and their functionalities have been so fa
 - [ ] réinscription d'un élève existant dans le système
 - [ ] exporter la liste d'inscriptions
 - [ ] rechercher dans la liste d'inscriptions
+- [ ] modifier status d'inscription
+- [ ] modifier categorie d'inscription
 ### Élève
 - [ ] Liste d'élèves
 - [ ] Ajouter un élève
@@ -22,12 +24,18 @@ In this page you will see what modules and their functionalities have been so fa
 - [ ] Voir détail d'un élève
 - [ ] exporter la liste d'élèves
 - [ ] rechercher dans la liste d'élèves
+- [ ] modifier relation élève responsable
+- [ ] supprimer relation élève responsable
+- [ ] créer relation élève responsable
 ### Responsable
 - [ ] Liste de responsables
 - [ ] Ajouter un responsable
 - [ ] Modifier un responsable
 - [ ] Supprimer un responsable
 - [ ] Voir détail d'un responsable
+- [ ] modifier relation élève responsable
+- [ ] supprimer relation élève responsable
+- [ ] créer relation élève responsable
 ### Classe
 - [ ] Liste de classes
 - [ ] Ajouter une classe
@@ -41,7 +49,7 @@ In this page you will see what modules and their functionalities have been so fa
 - [ ] Supprimer une filière
 - [ ] Voir détail d'une filière
 ### Option
-- [ ] Liste de options
+- [ ] Liste d'options
 - [ ] Ajouter une option
 - [ ] Modifier une option
 - [ ] Supprimer une option
