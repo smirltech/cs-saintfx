@@ -11,7 +11,7 @@ In this page you will see what modules and their functionalities have been so fa
 - [ ] Modifier une inscription
 - [ ] Supprimer une inscription
 - [ ] Voir détail d'une inscription
-- [ ] réinscription un élève existant dans le système
+- [ ] réinscription d'un élève existant dans le système
 - [ ] exporter la liste d'inscriptions
 - [ ] rechercher dans la liste d'inscriptions
 ### Élève
