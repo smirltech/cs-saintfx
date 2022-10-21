@@ -98,28 +98,31 @@
                                         <th>TELEPHONE</th>
                                         <th>EMAIL</th>
                                         <th>RELATION</th>
+                                        <th>CLASSE</th>
                                         <th style="width: 100px"></th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     @foreach ($responsable->responsable_eleves as $responsable_eleve)
+                                        @if($responsable_eleve->eleve != null)
                                         <tr>
-                                            <td>{{ $responsable_eleve->eleve->code }}</td>
-                                            <td>{{ $responsable_eleve->eleve->fullName }}</td>
-                                            <td>{{ $responsable_eleve->eleve->sexe }}</td>
+                                            <td>{{ $responsable_eleve->eleve->code??'' }}</td>
+                                            <td>{{ $responsable_eleve->eleve->fullName??'' }}</td>
+                                            <td>{{ $responsable_eleve->eleve->sexe??'' }}</td>
                                             <td>{{ $responsable_eleve->eleve->date_naissance->age??'' }}</td>
-                                            <td>{{ $responsable_eleve->eleve->telephone }}</td>
-                                            <td>{{ $responsable_eleve->eleve->email }}</td>
-                                            <td>{{ $responsable_eleve?->relation?->reverse($responsable_eleve->eleve->sexe)??'' }}
-                                                <span wire:click="selectResponsableEleve({{$responsable_eleve->id}})"
+                                            <td>{{ $responsable_eleve->eleve->telephone??'' }}</td>
+                                            <td>{{ $responsable_eleve->eleve->email??'' }}</td>
+                                            <td>{{ $responsable_eleve?->relation?->reverse($responsable_eleve->eleve->sexe??'')??'' }}
+                                                <span wire:click="selectResponsableEleve({{$responsable_eleve->id??''}})"
                                                       type="button"
                                                       title="Modifier Relation" class="ml-2" data-toggle="modal"
                                                       data-target="#edit-relation-modal">
                                             <span class="fa fa-link"></span>
                                         </span></td>
+                                            <td>{{ $responsable_eleve->eleve->currentInscription()->classe->code??'' }}</td>
                                             <td>
                                                 <div class="d-flex float-right">
-                                                    <a href="/admin/eleves/{{ $responsable_eleve->eleve->id }}"
+                                                    <a href="/admin/eleves/{{ $responsable_eleve->eleve->id??'' }}"
                                                        title="Voir"
                                                        class="btn btn-warning">
                                                         <i class="fas fa-eye"></i>
@@ -128,6 +131,7 @@
                                                 </div>
                                             </td>
                                         </tr>
+                                        @endif
                                     @endforeach
                                     </tbody>
                                 </table>

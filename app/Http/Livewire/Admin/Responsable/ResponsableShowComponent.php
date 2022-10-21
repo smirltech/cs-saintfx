@@ -93,6 +93,7 @@ class ResponsableShowComponent extends Component
     public function deleteResponsable()
     {
         if (count($this->responsable->responsable_eleves) == 0) {
+            ResponsableEleve::where('responsable_id', $this->responsable->id)->delete();
             if ($this->responsable->delete()) {
                 //$this->loadData();
                // $this->alert('success', "Responsable supprimé avec succès !");

@@ -11,6 +11,7 @@ use App\Models\Eleve;
 use App\Models\Filiere;
 use App\Models\Inscription;
 use App\Models\Option;
+use App\Models\ResponsableEleve;
 use App\Models\Section;
 use App\Traits\EleveUniqueCode;
 use App\Traits\FakeProfileImage;
@@ -182,6 +183,7 @@ class EleveShowComponent extends Component
     public function deleteEleve()
     {
         if (count($this->eleve->inscriptions) == 0) {
+            ResponsableEleve::where('eleve_id', $this->eleve->id)->delete();
             if ($this->eleve->delete()) {
                 $this->alert('success', "Élève supprimé avec succès !");
                 $this->flash('success', 'Élève supprimé avec succès', [], route('admin.eleves'));

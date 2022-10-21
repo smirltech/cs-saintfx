@@ -25,6 +25,13 @@ class Eleve extends Model
         return $this->hasMany(Inscription::class);
     }
 
+
+    public function currentInscription()
+    {
+        $y = Annee::where('encours', 1)->first();
+       return Inscription::where(['eleve_id'=>$this->id, 'annee_id' => $y->id])->first();
+    }
+
     // full_name
     public function getFullNameAttribute(): string
     {

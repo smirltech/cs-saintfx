@@ -15,6 +15,7 @@ use App\Models\Responsable;
 use App\Models\ResponsableEleve;
 use App\Models\Section;
 use App\Traits\EleveUniqueCode;
+use App\Traits\InscriptionUniqueCode;
 use App\Traits\WithFileUploads;
 use App\View\Components\AdminLayout;
 use Carbon\Carbon;
@@ -26,6 +27,7 @@ class InscriptionCreateComponent extends Component
     use WithFileUploads;
     use LivewireAlert;
     use EleveUniqueCode;
+    use InscriptionUniqueCode;
 
     public $options = [];
     public $sections = [];
@@ -204,6 +206,7 @@ $this->responsables = Responsable::where('nom', 'LIKE', "%$this->searchResponsab
 
     private function submitInscription($eleve)
     {
+        $icode = $this->getGeneratedInscriptionUniqueCode();
         return Inscription::create([
             'eleve_id' => $eleve->id,
             'classe_id' => $this->classe_id,
@@ -211,7 +214,7 @@ $this->responsables = Responsable::where('nom', 'LIKE', "%$this->searchResponsab
             'categorie' => $this->categorie,
             'montant' => $this->montant,
             'status' => InscriptionStatus::pending->value,
-            'code' => $this->code,
+            'code' => $icode,
         ]);
     }
 
