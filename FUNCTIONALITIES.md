@@ -59,3 +59,4 @@ In this page you will see what modules and their functionalities have been so fa
 - [ ] Modifier année scolaire
 - [ ] Supprimer année scolaire
 ### Utilisateur
+- [ ] Liste d'utilisateurs
