@@ -6,17 +6,22 @@ In this page you will see what modules and their functionalities have been so fa
 
 ### Inscription
 - [ ] Liste d'inscriptions
+- [ ] Liste d'inscriptions par état d'inscription
 - [ ] Ajouter une inscription
 - [ ] Modifier une inscription
 - [ ] Supprimer une inscription
 - [ ] Voir détail d'une inscription
 - [ ] réinscription un élève existant dans le système
+- [ ] exporter la liste d'inscriptions
+- [ ] rechercher dans la liste d'inscriptions
 ### Élève
 - [ ] Liste d'élèves
 - [ ] Ajouter un élève
 - [ ] Modifier un élève
 - [ ] Supprimer un élève
 - [ ] Voir détail d'un élève
+- [ ] exporter la liste d'élèves
+- [ ] rechercher dans la liste d'élèves
 ### Responsable
 - [ ] Liste de responsables
 - [ ] Ajouter un responsable
