@@ -45,18 +45,18 @@
         ];
 @endphp
 @section('title')
-    {{Str::upper('cenk')}} - résponsables
+    {{Str::upper('cenk')}} - responsables
 @endsection
 @section('content_header')
     <div class="row">
         <div class="col-6">
-            <h1 class="ms-3">Liste de résponsables</h1>
+            <h1 class="ms-3">Liste de responsables</h1>
         </div>
 
         <div class="col-6">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('admin') }}">Accueil</a></li>
-                <li class="breadcrumb-item active">Résponsables</li>
+                <li class="breadcrumb-item active">Responsables</li>
             </ol>
         </div>
     </div>
