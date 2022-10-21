@@ -16,8 +16,8 @@
 
     foreach ($inscriptions->sortBy(fn ($q) => $q->eleve->fullName) as $inscription){
 
-            $btn1 = '<a href="' . "/admin/inscriptions/{$inscription->eleve_id}" . '" class="btn btn-success btn-sm m-1" title="Voir Élève"><i class="fa fa-eye"></i></a>';
-            $btn2 = '<a href="' . "/admin/admissions/{$inscription->id}/edit" . '" class="btn btn-warning btn-sm m-1" title="Edit"><i class="fa fa-edit"></i></a>';
+            $btn1 = '<a href="' . "/admin/eleves/{$inscription->eleve_id}" . '" class="btn btn-success btn-sm m-1" title="Voir Élève"><i class="fa fa-eye"></i></a>';
+            $btn2 = '<a hidden href="' . "/admin/eleves/{$inscription->eleve_id}/edit" . '" class="btn btn-warning btn-sm m-1" title="Edit"><i class="fa fa-edit"></i></a>';
             $btn3 = '<button hidden wire:click="deleteInscription('.$inscription->id.')"
                                                     title="supprimer" class="btn btn-danger  btn-sm m-1">
                                                 <i class="fas fa-trash"></i>
