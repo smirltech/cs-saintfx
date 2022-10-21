@@ -7,7 +7,6 @@
             'ELEVE',
             'SEXE',
             'CLASSE',
-            'STATUS',
             'DEPUIS LE',
             ['Actions', 'no-export' => true, 'width' => 5],
         ];
@@ -33,7 +32,6 @@
                $inscription->eleve->sexe->value??'',
 
                 $inscription->classe->code,
-               '<a href="'.route('admin.inscriptions.status',['status'=>$inscription->status->name]).'"><span class="badge bg-gradient-'.$badgeColor.'">'. $inscription->status->label().'</span></a>',
                 $inscription->created_at->format('d/m/Y'),
                 '<nobr>' . $btn1 . $btn2. $btn3 . '</nobr>',
             ];
@@ -43,22 +41,23 @@
         $config = [
             'data' => $data ?? [],
             'order' => [[1, 'asc']],
-            'columns' => [['orderable' => true],null, null, null, null, null, null,['orderable' => false]],
+            'columns' => [['orderable' => true],null, null, null, null, null,['orderable' => false]],
         ];
 @endphp
 @section('title')
-    {{Str::upper('cenk')}} - inscriptions {{date('d-m-Y')}}
+    {{Str::upper('cenk')}} - inscriptions {{strtolower($status->label())}} {{date('d-m-Y')}}
 @endsection
 @section('content_header')
     <div class="row">
         <div class="col-6">
-            <h1 class="ms-3">Liste d'inscriptions</h1>
+            <h1 class="ms-3">Liste d'inscriptions {{strtolower($status->label())}}</h1>
         </div>
 
         <div class="col-6">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('admin') }}">Accueil</a></li>
-                <li class="breadcrumb-item active">Inscriptions</li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.inscriptions') }}">Inscriptions</a></li>
+                <li class="breadcrumb-item active">{{$status->label()}}</li>
             </ol>
         </div>
     </div>
