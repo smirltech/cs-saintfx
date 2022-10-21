@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin\Eleve;
 
 use App\Enum\InscriptionCategorie;
 use App\Enum\InscriptionStatus;
+use App\Enum\ResponsableRelation;
 use App\Helpers\Helpers;
 use App\Models\Annee;
 use App\Models\Classe;
@@ -11,6 +12,7 @@ use App\Models\Eleve;
 use App\Models\Filiere;
 use App\Models\Inscription;
 use App\Models\Option;
+use App\Models\Responsable;
 use App\Models\ResponsableEleve;
 use App\Models\Section;
 use App\Traits\EleveUniqueCode;
@@ -40,6 +42,8 @@ class EleveShowComponent extends Component
 
     protected $listeners = ['onModalClosed', 'refreshComponent' => '$refresh'];
 
+    public $inscription_status;
+
     public $inscription2_categorie;
     public $inscription2_montant;
     public $inscription2_section_id;
@@ -58,10 +62,56 @@ class EleveShowComponent extends Component
     public $eleve_telephone;
     public $eleve_matricule;
 
+    //responsable
+    public $searchResponsable = '';
+    public $responsable_id;
+    public $responsable;
+    public $responsables;
+    public $responsable_relation2;
+
     public function onModalClosed()
     {
         // $this->clearValidation();
-        // $this->reset(['nom', 'code']);
+        $this->reset(['inscription_status']);
+    }
+
+    public function runSearchResponsables()
+    {
+        $this->responsables = Responsable::where('nom', 'LIKE', "%$this->searchResponsable%")->orderBy('nom')->get();
+    if($this->responsables->count() > 0){
+        $this->responsable_id = $this->responsables->first()->id;
+    }else{
+        $this->responsable_id = null;
+    }
+    }
+
+    public function changeSelectedResponsable()
+    {
+        $this->responsable = Responsable::find($this->responsable_id);
+        if ($this->responsable == null) {
+            $this->responsable_id = null;
+        } else {
+            $this->responsable_id = $this->responsable->id;
+        }
+    }
+
+    public function attachResponsable()
+    {
+       $done = ResponsableEleve::create([
+            'relation' => $this->responsable_relation2,
+            'eleve_id' => $this->eleve->id,
+            'responsable_id' => $this->responsable_id,
+        ]);
+
+           if ($done) {
+               $this->reloadData();
+               $this->alert('success', "Attachement au responsable avec succès !");
+               $this->dispatchBrowserEvent('closeModal', ['modal' => 'attach-responsable-modal']);
+           } else {
+               $this->alert('warning', "Echec d'attachement au responsable !");
+           }
+        $this->onModalClosed();
+
     }
 
     public function mount(Eleve $eleve)
@@ -69,13 +119,22 @@ class EleveShowComponent extends Component
         $this->annee_courante = Annee::where('encours', true)->first();
         $this->inscription = Inscription::where(['eleve_id' => $this->eleve->id, 'annee_id' => $this->annee_courante->id])->first();
         $this->eleve = $eleve;
-        $this->responsable_relation = $this->eleve->responsable_eleve?->relation;
+        $this->responsable_relation = $this->eleve->responsable_eleve?->relation ?? null;
+        $this->responsable_relation2 = ResponsableRelation::pere;
         // $this->profile_url =Helpers::fakePicsum($this->eleve->id, 120, 120);
         //  dd($this->profile_url);
+        // $this->inscription_status = $this->inscription->status->value;
 
         $this->sections = Section::orderBy('nom')->get();
         $this->inscription2_categorie = InscriptionCategorie::normal;
         $this->preloadEleve();
+
+        $this->responsables = Responsable::orderBy('nom')->get();
+        if($this->responsables->count() > 0){
+            $this->responsable_id = $this->responsables->first()->id;
+        }else{
+            $this->responsable_id = null;
+        }
 
         $this->setFakeProfileImageUrl();
     }
@@ -100,6 +159,8 @@ class EleveShowComponent extends Component
         $this->inscription2 = $inscription;
         $this->inscription2_categorie = $inscription->categorie;
         $this->inscription2_montant = $inscription->montant;
+
+        $this->inscription_status = $this->inscription2->status->value;
 
         $classe = $inscription->classe;
         $this->inscription2_classe_id = $classe->id;
@@ -180,6 +241,43 @@ class EleveShowComponent extends Component
 
     }
 
+    public function editInscriptionCategorie()
+    {
+        $done = $this->validate(['inscription2_categorie' => 'required']);
+        $this->inscription2->update([
+            'categorie' => $this->inscription2_categorie,
+        ]);
+
+        if ($done) {
+            $this->reloadData();
+            $this->alert('success', "Categorie inscription modifiée avec succès !");
+            $this->dispatchBrowserEvent('closeModal', ['modal' => 'edit-inscription-categorie-modal']);
+        } else {
+            $this->alert('warning', "Echec de modification de categorie inscription !");
+        }
+        $this->onModalClosed();
+
+    }
+
+
+    public function editInscriptionStatus()
+    {
+        $done = $this->validate(['inscription_status' => 'required']);
+        $this->inscription2->update([
+            'status' => $this->inscription_status,
+        ]);
+
+        if ($done) {
+            $this->reloadData();
+            $this->alert('success', "Status inscription modifié avec succès !");
+            $this->dispatchBrowserEvent('closeModal', ['modal' => 'edit-inscription-status-modal']);
+        } else {
+            $this->alert('warning', "Echec de modification de status inscription !");
+        }
+        $this->onModalClosed();
+
+    }
+
     public function deleteEleve()
     {
         if (count($this->eleve->inscriptions) == 0) {
@@ -209,6 +307,22 @@ class EleveShowComponent extends Component
             $this->dispatchBrowserEvent('closeModal', ['modal' => 'edit-relation-modal']);
         } else {
             $this->alert('warning', "Echec de modification de relation !");
+        }
+        $this->onModalClosed();
+
+    }
+
+    public function deleteRelation()
+    {
+
+        $done = $this->eleve->responsable_eleve->delete();
+
+        if ($done) {
+            $this->reloadData();
+            $this->alert('success', "Relation supprimée avec succès !");
+            $this->dispatchBrowserEvent('closeModal', ['modal' => 'edit-relation-modal']);
+        } else {
+            $this->alert('warning', "Echec de suppression de relation !");
         }
         $this->onModalClosed();
 

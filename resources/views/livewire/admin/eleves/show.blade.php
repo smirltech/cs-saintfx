@@ -60,8 +60,8 @@
                             <h3 class="card-title">Information Personnelle</h3>
                             <div class="card-tools">
                                 <span role="button" class="mr-1"
-                                        data-toggle="modal"
-                                        data-target="#edit-eleve-modal"><span
+                                      data-toggle="modal"
+                                      data-target="#edit-eleve-modal"><span
                                         class="fas fa-pen"></span></span>
                             </div>
                         </div>
@@ -155,49 +155,58 @@
                     </div>
                     <div class="card card-info">
                         <div class="card-header">
-                            <h3 class="card-title"> Responsables / Tuteurs</h3>
+                            <h3 class="card-title"> Responsable / Tuteur</h3>
+                            @if(!$eleve->responsable_eleve)
+                            <div class="card-tools">
+                                <span title="Attacher" role="button" class="mr-2"
+                                      data-toggle="modal"
+                                      data-target="#attach-responsable-modal"><span
+                                        class="fas fa-plus"></span></span>
+                            </div>
+                            @endif
                         </div>
+                        @if($eleve->responsable_eleve)
+                            <div class="card-body">
+                                <ul class="list-group list-group-unbordered mb-3">
+                                    <li class="list-group-item">
+                                        <b>Responsable</b> <span class="float-right"><a
+                                                href="/admin/responsables/{{$eleve->responsable_eleve?->responsable?->id}}">{{$eleve->responsable_eleve?->responsable?->nom??''}}</a></span>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Relation</b> <span class="float-right">{{$eleve->responsable_eleve?->relation?->label()??''}}<span
+                                                title="Modifier" role="button" class=" fa fa-link ml-1"
+                                                data-toggle="modal"
+                                                data-target="#edit-relation-modal"></span></span>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Sexe</b> <span
+                                            class="float-right">{{$eleve->responsable_eleve?->responsable?->sexe??''}}</span>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Téléphone</b> <span
+                                            class="float-right">{{$eleve->responsable_eleve?->responsable?->telephone??''}}</span>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>E-mail</b> <span
+                                            class="float-right">{{$eleve->responsable_eleve?->responsable?->email??''}}</span>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Adresse</b> <span
+                                            class="float-right">{{$eleve->responsable_eleve?->responsable?->adresse??''}}</span>
+                                    </li>
+                                    {{--                            <li class="list-group-item">--}}
+                                    {{--                                <b>Origine</b> <span class="float-right">{{$etudiant->origine}}</span>--}}
+                                    {{--                            </li>--}}
+                                    {{--                            <li class="list-group-item">--}}
+                                    {{--                                <b>Adresse Urgence</b> <span class="float-right">{{$etudiant->adresse_urgence}}</span>--}}
+                                    {{--                            </li>--}}
+                                    {{--                            <li class="list-group-item">--}}
+                                    {{--                                <b>Contact Urgence</b> <span class="float-right">{{$etudiant->contact_urgence}}</span>--}}
+                                    {{--                            </li>--}}
+                                </ul>
 
-                        <div class="card-body">
-                            <ul class="list-group list-group-unbordered mb-3">
-                                <li class="list-group-item">
-                                    <b>Responsable</b> <span class="float-right"><a
-                                            href="/admin/responsables/{{$eleve->responsable_eleve?->responsable?->id}}">{{$eleve->responsable_eleve?->responsable?->nom??''}}</a></span>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Relation</b> <span class="float-right">{{$eleve->responsable_eleve?->relation?->label()??''}}<span
-                                            title="Modifier" role="button" class=" fa fa-link ml-1" data-toggle="modal"
-                                            data-target="#edit-relation-modal"></span></span>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Sexe</b> <span
-                                        class="float-right">{{$eleve->responsable_eleve?->responsable?->sexe??''}}</span>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Téléphone</b> <span
-                                        class="float-right">{{$eleve->responsable_eleve?->responsable?->telephone??''}}</span>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>E-mail</b> <span
-                                        class="float-right">{{$eleve->responsable_eleve?->responsable?->email??''}}</span>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Adresse</b> <span
-                                        class="float-right">{{$eleve->responsable_eleve?->responsable?->adresse??''}}</span>
-                                </li>
-                                {{--                            <li class="list-group-item">--}}
-                                {{--                                <b>Origine</b> <span class="float-right">{{$etudiant->origine}}</span>--}}
-                                {{--                            </li>--}}
-                                {{--                            <li class="list-group-item">--}}
-                                {{--                                <b>Adresse Urgence</b> <span class="float-right">{{$etudiant->adresse_urgence}}</span>--}}
-                                {{--                            </li>--}}
-                                {{--                            <li class="list-group-item">--}}
-                                {{--                                <b>Contact Urgence</b> <span class="float-right">{{$etudiant->contact_urgence}}</span>--}}
-                                {{--                            </li>--}}
-                            </ul>
-
-                        </div>
-
+                            </div>
+                        @endif
                     </div>
                 </div>
                 <div class="col-md-9">
@@ -243,10 +252,16 @@
                                                                         </div>
                                                                         <div
                                                                             class="timeline-footer d-flex justify-content-between">
-                                                                                <span
-                                                                                    class="border border-success rounded p-1">{{$inscription->categorie->label()}}</span>
-                                                                            <span
-                                                                                class="border border-warning rounded p-1 ">{{$inscription->status->label()}}</span>
+                                                                                <span title="Changer"
+                                                                                      wire:click="getSelectedInscription({{$inscription}})"
+                                                                                      role="button" data-toggle="modal"
+                                                                                      data-target="#edit-inscription-categorie-modal"
+                                                                                      class="border border-success rounded p-1">{{$inscription->categorie->label()}}</span>
+                                                                            <span title="Changer"
+                                                                                  wire:click="getSelectedInscription({{$inscription}})"
+                                                                                  role="button" data-toggle="modal"
+                                                                                  data-target="#edit-inscription-status-modal"
+                                                                                  class="border border-warning rounded p-1 ">{{$inscription->status->label()}}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>

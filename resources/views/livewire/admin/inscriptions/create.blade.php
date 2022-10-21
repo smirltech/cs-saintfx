@@ -134,7 +134,7 @@
                             <h4 class="font-weight-bold"><u>Choix de classe</u></h4>
                             <p>Procédez à l'inscription de ce candidat pour l'année scolaire <span
                                     class="text-red">{{$annee_courante->nom}}</span>, dans la classe que vous
-                                sélectionnerez ici-dessous.
+                                sélectionnerez ci-dessous.
                                 Pour choisir la classe, vous devez commencer par sélectionner la section, puis l'option,
                                 ensuite la filière et finalement la classe.</p>
                             <p>Il y a des sections sans options ni filières, dans ce cas choisir seulement la section,
