@@ -151,7 +151,7 @@
 
 {{-- Edit Relation --}}
 <div wire:ignore.self class="modal fade" tabindex="-1" id="edit-relation-modal">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Modifier Relation</h4>
@@ -178,7 +178,9 @@
             </div>
             <div class="modal-footer justify-content-between">
                 <button wire:click="$emit('onModalClosed')" type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-                <button form="f5" type="submit" class="btn btn-warning">Soumettre</button>
+                <button wire:click="deleteRelation" type="button" class="btn btn-danger" data-dismiss="modal">
+                    Supprimer
+                </button> <button form="f5" type="submit" class="btn btn-warning">Soumettre</button>
             </div>
         </div>
 

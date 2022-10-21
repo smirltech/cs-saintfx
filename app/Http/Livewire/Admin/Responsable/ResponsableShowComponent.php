@@ -127,6 +127,23 @@ class ResponsableShowComponent extends Component
 
     }
 
+    public function deleteRelation()
+    {
+
+        $done = $this->responsable_eleve->delete();
+
+        if ($done) {
+            $this->reloadData();
+            $this->alert('success', "Relation supprimée avec succès !");
+            $this->dispatchBrowserEvent('closeModal', ['modal' => 'edit-relation-modal']);
+        } else {
+            $this->alert('warning', "Echec de suppression de relation !");
+        }
+        $this->onModalClosed();
+
+    }
+
+
 
 
 }
