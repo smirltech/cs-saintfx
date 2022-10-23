@@ -10,7 +10,7 @@ class AnneeResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'libelle' => $this->nom,
+            'nom' => $this->nom,
             'date_debut' => $this->date_debut,
             'date_fin' => $this->date_fin,
             'encours' => $this->encours,
