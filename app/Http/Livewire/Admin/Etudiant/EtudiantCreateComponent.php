@@ -2,11 +2,11 @@
 
 namespace App\Http\Livewire\Admin\Etudiant;
 
-use App\Enum\EtatCivil;
-use App\Enum\EtudiantSexe;
-use App\Enum\EtudiantStep;
-use App\Enum\InscriptionStatus;
-use App\Enum\MediaType;
+use App\Enums\EtatCivil;
+use App\Enums\EtudiantSexe;
+use App\Enums\EtudiantStep;
+use App\Enums\InscriptionStatus;
+use App\Enums\MediaType;
 use App\Models\Annee;
 use App\Models\Diplome;
 use App\Models\Etudiant;

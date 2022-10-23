@@ -1,6 +1,6 @@
 @php
-    use App\Enum\InscriptionStatus;
-    use App\Helpers\Helpers;use App\Models\Annee;
+    use App\Enums\InscriptionStatus;
+    use App\Enums\Sexe;use App\Helpers\Helpers;use App\Models\Annee;
     $heads = [
             'NO.',
             '',
@@ -33,7 +33,7 @@
                $inscription->eleve->sexe->value??'',
 
                 $inscription->classe->code,
-               '<a href="'.route('admin.inscriptions.status',['status'=>$inscription->status->name]).'"><span class="badge bg-gradient-'.$badgeColor.'">'. $inscription->status->label(\App\Enum\Sexe::f).'</span></a>',
+               '<a href="'.route('admin.inscriptions.status',['status'=>$inscription->status->name]).'"><span class="badge bg-gradient-'.$badgeColor.'">'. $inscription->status->label(Sexe::f).'</span></a>',
                 $inscription->created_at->format('d/m/Y'),
                 '<nobr>' . $btn1 . $btn2. $btn3 . '</nobr>',
             ];

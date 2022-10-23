@@ -2,10 +2,10 @@
 
 namespace App\Http\Livewire\Admin\Inscription;
 
-use App\Enum\InscriptionCategorie;
-use App\Enum\InscriptionStatus;
-use App\Enum\ResponsableRelation;
-use App\Enum\Sexe;
+use App\Enums\InscriptionCategorie;
+use App\Enums\InscriptionStatus;
+use App\Enums\ResponsableRelation;
+use App\Enums\Sexe;
 use App\Models\Annee;
 use App\Models\Eleve;
 use App\Models\Filiere;
@@ -76,30 +76,6 @@ class InscriptionCreateComponent extends Component
     public $annee_courante;
 
     protected $listeners = ['onModalClosed'];
-
-    public function setChooseResponsable()
-    {
-        $this->chooseResponsable = !$this->chooseResponsable;
-        if($this->chooseResponsable ) {
-            $this->searchResponsable = '';
-        }else{
-            $this->responsable = null;
-            $this->responsable_nom = null;
-            $this->responsable_id = null;
-
-        }
-    }
-
-    public function onModalClosed()
-    {
-        $this->chooseResponsable = false;
-        $this->searchResponsable = '';
-    }
-
-    public function runSearch(){
-$this->responsables = Responsable::where('nom', 'LIKE', "%$this->searchResponsable%")->orderBy('nom')->get();
-    }
-
     protected $rules = [
         'nom' => 'required|string',
         'postnom' => 'required|string',
@@ -126,6 +102,24 @@ $this->responsables = Responsable::where('nom', 'LIKE', "%$this->searchResponsab
 
     ];
 
+    public function setChooseResponsable()
+    {
+        $this->chooseResponsable = !$this->chooseResponsable;
+        if ($this->chooseResponsable) {
+            $this->searchResponsable = '';
+        } else {
+            $this->responsable = null;
+            $this->responsable_nom = null;
+            $this->responsable_id = null;
+
+        }
+    }
+
+    public function runSearch()
+    {
+        $this->responsables = Responsable::where('nom', 'LIKE', "%$this->searchResponsable%")->orderBy('nom')->get();
+    }
+
     public function mount()
     {
         $this->responsables = Responsable::orderBy('nom')->get();
@@ -150,30 +144,6 @@ $this->responsables = Responsable::where('nom', 'LIKE', "%$this->searchResponsab
 
 
         //  $this->alert('error', "L'enregistrement de l'étudiant n'a pas aboutis, veuillez reéssayer !");
-
-    }
-
-    public function submitResponsable()
-    {
-        $this->validate([
-            'responsable_nom' => 'required|string',
-
-        ]);
-        if (isset($this->responsable_nom)) {
-            $this->responsable = Responsable::create([
-                'nom' => $this->responsable_nom,
-                'sexe' => $this->responsable_sexe,
-                'telephone' => $this->responsable_telephone,
-                'email' => $this->responsable_email,
-                'adresse' => $this->responsable_adresse,
-            ]);
-            $this->responsable_id = $this->responsable->id;
-            $this->responsable_nom = $this->responsable?->nom??null;
-
-            // close the modal by specifying the id of the modal
-            $this->dispatchBrowserEvent('closeModal', ['modal' => 'add-responsable-modal']);
-            $this->onModalClosed();
-        }
 
     }
 
@@ -204,33 +174,49 @@ $this->responsables = Responsable::where('nom', 'LIKE', "%$this->searchResponsab
         ]);
     }
 
-    private function submitInscription($eleve)
+    public function submitResponsable()
     {
-        $icode = $this->getGeneratedInscriptionUniqueCode();
-        return Inscription::create([
-            'eleve_id' => $eleve->id,
-            'classe_id' => $this->classe_id,
-            'annee_id' => $this->annee_courante->id,
-            'categorie' => $this->categorie,
-            'montant' => $this->montant,
-            'status' => InscriptionStatus::pending->value,
-            'code' => $icode,
+        $this->validate([
+            'responsable_nom' => 'required|string',
+
         ]);
+        if (isset($this->responsable_nom)) {
+            $this->responsable = Responsable::create([
+                'nom' => $this->responsable_nom,
+                'sexe' => $this->responsable_sexe,
+                'telephone' => $this->responsable_telephone,
+                'email' => $this->responsable_email,
+                'adresse' => $this->responsable_adresse,
+            ]);
+            $this->responsable_id = $this->responsable->id;
+            $this->responsable_nom = $this->responsable?->nom ?? null;
+
+            // close the modal by specifying the id of the modal
+            $this->dispatchBrowserEvent('closeModal', ['modal' => 'add-responsable-modal']);
+            $this->onModalClosed();
+        }
+
     }
 
+    public function onModalClosed()
+    {
+        $this->chooseResponsable = false;
+        $this->searchResponsable = '';
+    }
 
     public function render()
     {
-       // $this->responsables = Responsable::orderBy('nom')->get();
+        // $this->responsables = Responsable::orderBy('nom')->get();
         return view('livewire.admin.inscriptions.create')
             ->layout(AdminLayout::class, ['title' => 'Inscription Élève']);
     }
 
-    public function changeSelectedResponsable(){
+    public function changeSelectedResponsable()
+    {
         $this->responsable = Responsable::find($this->responsable_id);
-        $this->responsable_nom = $this->responsable?->nom??null;
+        $this->responsable_nom = $this->responsable?->nom ?? null;
 
-        if($this->responsable == null){
+        if ($this->responsable == null) {
             $this->responsable_nom = null;
             $this->responsable_id = null;
         }
@@ -261,20 +247,6 @@ $this->responsables = Responsable::where('nom', 'LIKE', "%$this->searchResponsab
         $this->loadAvailableClasses();
     }
 
-    private function loadAvailableClasses()
-    {
-        if ($this->filiere_id > 0) {
-            $filiere = Filiere::find($this->filiere_id);
-            $this->classes = $filiere->classes;
-        } else if ($this->option_id > 0) {
-            $option = Option::find($this->option_id);
-            $this->classes = $option->classes;
-        } else if ($this->section_id > 0) {
-            $section = Section::find($this->section_id);
-            $this->classes = $section->classes;
-        }
-    }
-
     public function changeOption()
     {
         if ($this->option_id > 0) {
@@ -296,6 +268,34 @@ $this->responsables = Responsable::where('nom', 'LIKE', "%$this->searchResponsab
     public function changeFiliere()
     {
         $this->loadAvailableClasses();
+    }
+
+    private function submitInscription($eleve)
+    {
+        $icode = $this->getGeneratedInscriptionUniqueCode();
+        return Inscription::create([
+            'eleve_id' => $eleve->id,
+            'classe_id' => $this->classe_id,
+            'annee_id' => $this->annee_courante->id,
+            'categorie' => $this->categorie,
+            'montant' => $this->montant,
+            'status' => InscriptionStatus::pending->value,
+            'code' => $icode,
+        ]);
+    }
+
+    private function loadAvailableClasses()
+    {
+        if ($this->filiere_id > 0) {
+            $filiere = Filiere::find($this->filiere_id);
+            $this->classes = $filiere->classes;
+        } else if ($this->option_id > 0) {
+            $option = Option::find($this->option_id);
+            $this->classes = $option->classes;
+        } else if ($this->section_id > 0) {
+            $section = Section::find($this->section_id);
+            $this->classes = $section->classes;
+        }
     }
 
 }

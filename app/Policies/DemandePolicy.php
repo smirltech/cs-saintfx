@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Enum\Permission\DemandePermission;
+use App\Enums\Permission\DemandePermission;
 use App\Models\Demande;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;

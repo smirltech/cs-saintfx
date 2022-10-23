@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enum\AuditEvent;
+use App\Enums\AuditEvent;
 use Date;
 use Illuminate\Database\Eloquent\Model;
 

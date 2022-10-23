@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Enum;
+namespace App\Enums;
 
 enum InscriptionStatus: string
 {
@@ -10,27 +10,27 @@ enum InscriptionStatus: string
     case canceled = 'canceled';
 
     // label() is a method that returns the label of the enum
-    public function label($sexe=Sexe::m): string
+    public function label($sexe = Sexe::m): string
     {
-       if($sexe == Sexe::m) return match ($this) {
+        if ($sexe == Sexe::m) return match ($this) {
             self::pending => 'En attente',
             self::approved => 'Approuvé',
             self::rejected => 'Rejeté',
             self::canceled => 'Annulé',
         };
-       else return match ($this) {
-           self::pending => 'En attente',
-           self::approved => 'Approuvée',
-           self::rejected => 'Rejetée',
-           self::canceled => 'Annulée',
-       };
+        else return match ($this) {
+            self::pending => 'En attente',
+            self::approved => 'Approuvée',
+            self::rejected => 'Rejetée',
+            self::canceled => 'Annulée',
+        };
     }
 
 
     // label() is a method that returns the label of the enum
-    public function pluralLabel($sexe=Sexe::m): string
+    public function pluralLabel($sexe = Sexe::m): string
     {
-        if($sexe == Sexe::m) return match ($this) {
+        if ($sexe == Sexe::m) return match ($this) {
             self::pending => 'En attente',
             self::approved => 'Approuvés',
             self::rejected => 'Rejetés',

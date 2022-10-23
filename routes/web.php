@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\Admin\AuditController;
-use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\OtpController;
 use App\Http\Livewire\Admin\Annee\AnneeComponent;
@@ -98,7 +97,7 @@ Route::prefix('admin')->middleware(['auth:web'])->as('admin.')->group(function (
     Route::get("audits", [AuditController::class, 'index'])->name("audits.index")->can('audits.viewAny');
     Route::get("audits/{audit}", [AuditController::class, 'show'])->name("audits.show")->can('audits.view');
 
-    Route::resource('roles', RoleController::class);
+    Route::resource('roles', Admin\RoleController::class);
 
     Route::get('users/{user}/reset-password', [UserController::class, 'resetPassword'])->name('users.password.autoreset');
     Route::resource('users', UserController::class);

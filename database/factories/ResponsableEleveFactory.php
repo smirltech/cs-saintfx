@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Enum\ResponsableRelation;
+use App\Enums\ResponsableRelation;
 use App\Models\Eleve;
 use App\Models\Responsable;
 use App\Models\ResponsableEleve;

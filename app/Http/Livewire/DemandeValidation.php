@@ -2,8 +2,8 @@
 
 namespace App\Http\Livewire;
 
-use App\Enum\DemandeStatus;
-use App\Enum\RejectRaison;
+use App\Enums\DemandeStatus;
+use App\Enums\RejectRaison;
 use App\Models\Demande;
 use App\Notifications\DemandeApprovedNotification;
 use Illuminate\Contracts\Foundation\Application;

@@ -2,12 +2,10 @@
 
 namespace App\Http\Livewire\Admin\Eleve;
 
-use App\Enum\InscriptionCategorie;
-use App\Enum\InscriptionStatus;
-use App\Enum\ResponsableRelation;
-use App\Helpers\Helpers;
+use App\Enums\InscriptionCategorie;
+use App\Enums\InscriptionStatus;
+use App\Enums\ResponsableRelation;
 use App\Models\Annee;
-use App\Models\Classe;
 use App\Models\Eleve;
 use App\Models\Filiere;
 use App\Models\Inscription;
@@ -20,6 +18,7 @@ use App\Traits\FakeProfileImage;
 use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
+use Throwable;
 
 class EleveShowComponent extends Component
 {
@@ -39,18 +38,13 @@ class EleveShowComponent extends Component
     public $options = [];
     public $filieres = [];
     public $classes = [];
-
-    protected $listeners = ['onModalClosed', 'refreshComponent' => '$refresh'];
-
     public $inscription_status;
-
     public $inscription2_categorie;
     public $inscription2_montant;
     public $inscription2_section_id;
     public $inscription2_option_id;
     public $inscription2_filiere_id;
     public $inscription2_classe_id;
-
     public $eleve_nom;
     public $eleve_postnom;
     public $eleve_prenom;
@@ -61,28 +55,23 @@ class EleveShowComponent extends Component
     public $eleve_email;
     public $eleve_telephone;
     public $eleve_matricule;
+    public $searchResponsable = '';
 
     //responsable
-    public $searchResponsable = '';
     public $responsable_id;
     public $responsable;
     public $responsables;
     public $responsable_relation2;
-
-    public function onModalClosed()
-    {
-        // $this->clearValidation();
-        $this->reset(['inscription_status']);
-    }
+    protected $listeners = ['onModalClosed', 'refreshComponent' => '$refresh'];
 
     public function runSearchResponsables()
     {
         $this->responsables = Responsable::where('nom', 'LIKE', "%$this->searchResponsable%")->orderBy('nom')->get();
-    if($this->responsables->count() > 0){
-        $this->responsable_id = $this->responsables->first()->id;
-    }else{
-        $this->responsable_id = null;
-    }
+        if ($this->responsables->count() > 0) {
+            $this->responsable_id = $this->responsables->first()->id;
+        } else {
+            $this->responsable_id = null;
+        }
     }
 
     public function changeSelectedResponsable()
@@ -97,21 +86,53 @@ class EleveShowComponent extends Component
 
     public function attachResponsable()
     {
-       $done = ResponsableEleve::create([
+        $done = ResponsableEleve::create([
             'relation' => $this->responsable_relation2,
             'eleve_id' => $this->eleve->id,
             'responsable_id' => $this->responsable_id,
         ]);
 
-           if ($done) {
-               $this->reloadData();
-               $this->alert('success', "Attachement au responsable avec succès !");
-               $this->dispatchBrowserEvent('closeModal', ['modal' => 'attach-responsable-modal']);
-           } else {
-               $this->alert('warning', "Echec d'attachement au responsable !");
-           }
+        if ($done) {
+            $this->reloadData();
+            $this->alert('success', "Attachement au responsable avec succès !");
+            $this->dispatchBrowserEvent('closeModal', ['modal' => 'attach-responsable-modal']);
+        } else {
+            $this->alert('warning', "Echec d'attachement au responsable !");
+        }
         $this->onModalClosed();
 
+    }
+
+    public function reloadData()
+    {
+        $this->eleve = Eleve::find($this->eleve->id);
+        $this->inscription = Inscription::where(['eleve_id' => $this->eleve->id, 'annee_id' => $this->annee_courante->id])->first();
+        $this->responsable_relation = $this->eleve->responsable_eleve?->relation;
+        $this->preloadEleve();
+        $this->setFakeProfileImageUrl();
+
+        $this->emit('refreshComponent');
+    }
+
+    public function preloadEleve()
+    {
+        $this->eleve_nom = $this->eleve->nom;
+        $this->eleve_postnom = $this->eleve->postnom;
+        $this->eleve_prenom = $this->eleve->prenom;
+        $this->eleve_sexe = $this->eleve->sexe;
+        $this->eleve_lieu_naissance = $this->eleve->lieu_naissance;
+        $this->eleve_date_naissance = $this->eleve->date_naissance->format('Y-m-d');
+        $this->eleve_adresse = $this->eleve->adresse;
+        $this->eleve_email = $this->eleve->email;
+        $this->eleve_telephone = $this->eleve->telephone;
+        $this->eleve_matricule = $this->eleve->matricule;
+
+    }
+
+    public function onModalClosed()
+    {
+        // $this->clearValidation();
+        $this->reset(['inscription_status']);
     }
 
     public function mount(Eleve $eleve)
@@ -130,28 +151,13 @@ class EleveShowComponent extends Component
         $this->preloadEleve();
 
         $this->responsables = Responsable::orderBy('nom')->get();
-        if($this->responsables->count() > 0){
+        if ($this->responsables->count() > 0) {
             $this->responsable_id = $this->responsables->first()->id;
-        }else{
+        } else {
             $this->responsable_id = null;
         }
 
         $this->setFakeProfileImageUrl();
-    }
-
-    public function preloadEleve()
-    {
-        $this->eleve_nom = $this->eleve->nom;
-        $this->eleve_postnom = $this->eleve->postnom;
-        $this->eleve_prenom = $this->eleve->prenom;
-        $this->eleve_sexe = $this->eleve->sexe;
-        $this->eleve_lieu_naissance = $this->eleve->lieu_naissance;
-        $this->eleve_date_naissance = $this->eleve->date_naissance->format('Y-m-d');
-        $this->eleve_adresse = $this->eleve->adresse;
-        $this->eleve_email = $this->eleve->email;
-        $this->eleve_telephone = $this->eleve->telephone;
-        $this->eleve_matricule = $this->eleve->matricule;
-
     }
 
     public function getSelectedInscription(Inscription $inscription)
@@ -166,7 +172,7 @@ class EleveShowComponent extends Component
         $this->inscription2_classe_id = $classe->id;
         $filierable = $classe->filierable;
 
-        if ($filierable instanceof \App\Models\Filiere) {
+        if ($filierable instanceof Filiere) {
             $this->inscription2_filiere_id = $filierable->id;
 
             $option = Option::find($filierable->option_id);
@@ -175,13 +181,13 @@ class EleveShowComponent extends Component
             $section = Section::find($option->section_id);
             $this->inscription2_section_id = $section->id;
 
-        } else if ($filierable instanceof \App\Models\Option) {
+        } else if ($filierable instanceof Option) {
             $this->inscription2_option_id = $filierable->id;
 
             $section = Section::find($filierable->section_id);
             $this->inscription2_section_id = $section->id;
 
-        } else if ($filierable instanceof \App\Models\Section) {
+        } else if ($filierable instanceof Section) {
             $this->inscription2_section_id = $filierable->id;
         }
 
@@ -190,18 +196,6 @@ class EleveShowComponent extends Component
         // $this->classes = Classe::orderBy('grade')->get();
         $this->loadAvailableClasses();
         // dd($inscription);
-    }
-
-
-    public function reloadData()
-    {
-        $this->eleve = Eleve::find($this->eleve->id);
-        $this->inscription = Inscription::where(['eleve_id' => $this->eleve->id, 'annee_id' => $this->annee_courante->id])->first();
-        $this->responsable_relation = $this->eleve->responsable_eleve?->relation;
-        $this->preloadEleve();
-        $this->setFakeProfileImageUrl();
-
-        $this->emit('refreshComponent');
     }
 
     public function render()
@@ -259,7 +253,6 @@ class EleveShowComponent extends Component
 
     }
 
-
     public function editInscriptionStatus()
     {
         $done = $this->validate(['inscription_status' => 'required']);
@@ -292,7 +285,6 @@ class EleveShowComponent extends Component
             $this->onModalClosed();
         }
     }
-
 
     public function editRelation()
     {
@@ -354,7 +346,7 @@ class EleveShowComponent extends Component
                 $this->alert('warning', "Echec d'ajout d'inscription,  !");
             }
             $this->onModalClosed();
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
 
             $this->alert('warning', "Une inscription pour cette année existe déjà !");
 
@@ -362,7 +354,6 @@ class EleveShowComponent extends Component
 
 
     }
-
 
     public function editInscription()
     {
@@ -385,7 +376,6 @@ class EleveShowComponent extends Component
 
     }
 
-
     public function deleteInscription()
     {
         $done = $this->inscription2->delete();
@@ -400,7 +390,6 @@ class EleveShowComponent extends Component
         $this->onModalClosed();
 
     }
-
 
     public function changeSection()
     {
@@ -427,20 +416,6 @@ class EleveShowComponent extends Component
         $this->loadAvailableClasses();
     }
 
-    private function loadAvailableClasses()
-    {
-        if ($this->inscription2_filiere_id > 0) {
-            $filiere = Filiere::find($this->inscription2_filiere_id);
-            $this->classes = $filiere->classes;
-        } else if ($this->inscription2_option_id > 0) {
-            $option = Option::find($this->inscription2_option_id);
-            $this->classes = $option->classes;
-        } else if ($this->inscription2_section_id > 0) {
-            $section = Section::find($this->inscription2_section_id);
-            $this->classes = $section->classes;
-        }
-    }
-
     public function changeOption()
     {
         if ($this->inscription2_option_id > 0) {
@@ -462,6 +437,20 @@ class EleveShowComponent extends Component
     public function changeFiliere()
     {
         $this->loadAvailableClasses();
+    }
+
+    private function loadAvailableClasses()
+    {
+        if ($this->inscription2_filiere_id > 0) {
+            $filiere = Filiere::find($this->inscription2_filiere_id);
+            $this->classes = $filiere->classes;
+        } else if ($this->inscription2_option_id > 0) {
+            $option = Option::find($this->inscription2_option_id);
+            $this->classes = $option->classes;
+        } else if ($this->inscription2_section_id > 0) {
+            $section = Section::find($this->inscription2_section_id);
+            $this->classes = $section->classes;
+        }
     }
 
 

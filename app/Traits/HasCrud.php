@@ -2,7 +2,7 @@
 
 namespace App\Traits;
 
-use App\Enum\MediaType;
+use App\Enums\MediaType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 

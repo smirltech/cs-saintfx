@@ -1,10 +1,13 @@
 {{-- Add Responsable --}}
+@php use App\Enums\Sexe; @endphp
+@php use App\Enums\ResponsableRelation; @endphp
 <div wire:ignore.self class="modal fade" tabindex="-1" id="add-responsable-modal">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Ajouter Responsable</h4>
-                <button wire:click="$emit('onModalClosed')" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button wire:click="$emit('onModalClosed')" type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -22,7 +25,7 @@
                             <label for="">Sexe</label>
                             <select wire:model="responsable_sexe"
                                     class="form-control">
-                                @foreach (\App\Enum\Sexe::cases() as $es )
+                                @foreach (Sexe::cases() as $es )
                                     <option value="{{ strtoupper($es->value)}}">{{ $es->label() }}</option>
                                 @endforeach
                             </select>
@@ -53,7 +56,9 @@
                 </form>
             </div>
             <div class="modal-footer justify-content-between">
-                <button wire:click="$emit('onModalClosed')" type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                <button wire:click="$emit('onModalClosed')" type="button" class="btn btn-default" data-dismiss="modal">
+                    Fermer
+                </button>
                 <button form="f1" type="submit" class="btn btn-primary">Soumettre</button>
             </div>
         </div>
@@ -68,7 +73,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Modifier Responsable</h4>
-                <button wire:click="$emit('onModalClosed')" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button wire:click="$emit('onModalClosed')" type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -86,7 +92,7 @@
                             <label for="">Sexe</label>
                             <select wire:model="sexe"
                                     class="form-control">
-                                @foreach (\App\Enum\Sexe::cases() as $es )
+                                @foreach (Sexe::cases() as $es )
                                     <option value="{{ strtoupper($es->value)}}">{{ $es->label() }}</option>
                                 @endforeach
                             </select>
@@ -117,7 +123,9 @@
                 </form>
             </div>
             <div class="modal-footer justify-content-between">
-                <button wire:click="$emit('onModalClosed')" type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                <button wire:click="$emit('onModalClosed')" type="button" class="btn btn-default" data-dismiss="modal">
+                    Fermer
+                </button>
                 <button form="f2" type="submit" class="btn btn-primary">Soumettre</button>
             </div>
         </div>
@@ -132,7 +140,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Suppression de Responsable</h4>
-                <button wire:click="$emit('onModalClosed')" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button wire:click="$emit('onModalClosed')" type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -140,7 +149,9 @@
                 <p>Êtes-vous sûr de vouloir supprimer ce responsable ?</p>
             </div>
             <div class="modal-footer justify-content-between">
-                <button wire:click="$emit('onModalClosed')" type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                <button wire:click="$emit('onModalClosed')" type="button" class="btn btn-default" data-dismiss="modal">
+                    Fermer
+                </button>
                 <button wire:click="deleteResponsable" class="btn btn-primary">Supprimer</button>
             </div>
         </div>
@@ -155,7 +166,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Modifier Relation</h4>
-                <button wire:click="$emit('onModalClosed')" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button wire:click="$emit('onModalClosed')" type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -168,7 +180,7 @@
                             <label for="">Relation</label>
                             <select wire:model="responsable_relation"
                                     class="form-control">
-                                @foreach (\App\Enum\ResponsableRelation::cases() as $es )
+                                @foreach (ResponsableRelation::cases() as $es )
                                     <option value="{{$es->value}}">{{ $es->label() }}</option>
                                 @endforeach
                             </select>
@@ -177,10 +189,13 @@
                 </form>
             </div>
             <div class="modal-footer justify-content-between">
-                <button wire:click="$emit('onModalClosed')" type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                <button wire:click="$emit('onModalClosed')" type="button" class="btn btn-default" data-dismiss="modal">
+                    Fermer
+                </button>
                 <button wire:click="deleteRelation" type="button" class="btn btn-danger" data-dismiss="modal">
                     Supprimer
-                </button> <button form="f5" type="submit" class="btn btn-warning">Soumettre</button>
+                </button>
+                <button form="f5" type="submit" class="btn btn-warning">Soumettre</button>
             </div>
         </div>
 

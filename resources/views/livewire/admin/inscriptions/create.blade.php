@@ -1,5 +1,5 @@
-@php use App\Enum\Sexe;use App\Enum\EtudiantSexe; @endphp
-@php use App\Enum\EtatCivil;use App\Enum\InscriptionCategorie;use App\Enum\ResponsableRelation; @endphp
+@php use App\Enums\Sexe;use App\Enums\EtudiantSexe; @endphp
+@php use App\Enums\EtatCivil;use App\Enums\InscriptionCategorie;use App\Enums\ResponsableRelation; @endphp
 @section('title')
     {{Str::upper('cenk')}} - inscrire élève
 @endsection
@@ -115,16 +115,21 @@
                         <div>
                             <h4 class="font-weight-bold"><u>Information sur le responsable / tuteur</u></h4>
                             <div>
-                                <strong>Si le responsable n'est pas encore dans le système </strong><button type="button" wire:click="setChooseResponsable()" class="btn btn-primary" data-toggle="modal"
-                                        @if(!$chooseResponsable) data-target="#add-responsable-modal" @endif>{{$chooseResponsable?'Choisir':'Ajouter'}} Responsable</button>
+                                <strong>Si le responsable n'est pas encore dans le système </strong>
+                                <button type="button" wire:click="setChooseResponsable()" class="btn btn-primary"
+                                        data-toggle="modal"
+                                        @if(!$chooseResponsable) data-target="#add-responsable-modal" @endif>{{$chooseResponsable?'Choisir':'Ajouter'}}
+                                    Responsable
+                                </button>
 
                             </div>
                             @if(!$chooseResponsable)
 
-                            <div>
-                                <div class="mt-1"> <strong>Mais, si le responsable est pas déjà dans le système, recherchez-le </strong></div>
-                                @include('livewire.admin.inscriptions.blocks.responsables_search_block')
-                            </div>
+                                <div>
+                                    <div class="mt-1"><strong>Mais, si le responsable est pas déjà dans le système,
+                                            recherchez-le </strong></div>
+                                    @include('livewire.admin.inscriptions.blocks.responsables_search_block')
+                                </div>
                             @endif
                         </div>
                         {{-- ./Information sur le responsable--}}
@@ -133,7 +138,7 @@
                         <div>
                             <h4 class="font-weight-bold"><u>Choix de classe</u></h4>
                             <p>Procédez à l'inscription de ce candidat pour l'année scolaire <span
-                                    class="text-red">{{$annee_courante->nom}}</span>, dans la classe que vous
+                                        class="text-red">{{$annee_courante->nom}}</span>, dans la classe que vous
                                 sélectionnerez ci-dessous.
                                 Pour choisir la classe, vous devez commencer par sélectionner la section, puis l'option,
                                 ensuite la filière et finalement la classe.</p>
