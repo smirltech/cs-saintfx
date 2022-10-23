@@ -33,3 +33,18 @@ Accept: application/json
 ### Annees
 GET {{base_url}}/api/annees
 Accept: application/json
+
+### Search inscriptions
+POST {{base_url}}/api/inscriptions/search
+Accept: application/json
+Content-Type: application/json
+
+{
+    "scopes": [
+        {
+            "name": "annee"
+        }
+    ]
+}
+
+

@@ -22,4 +22,10 @@ class InscriptionController extends Controller
         return ['eleve'];
     }
 
+    public function exposedScopes(): array
+    {
+        return ['annee', 'eleve', 'classe'];
+    }
+
+
 }

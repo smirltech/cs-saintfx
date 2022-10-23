@@ -14,6 +14,6 @@ Route::group(['as' => 'api.'], function () {
     Route::get('annees/encours', function () {
         return AnneeResource::make(Annee::encours());
     });
-    Orion::resource('inscriptions', InscriptionController::class)->only(['index', 'show']);
+    Orion::resource('inscriptions', InscriptionController::class)->only(['index', 'show', 'search']);
 
 });

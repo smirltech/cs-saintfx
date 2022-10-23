@@ -69,4 +69,32 @@ class Inscription extends Model
     {
         return $this->morphMany(Media::class, 'mediable');
     }
+
+    // scope annee
+    public function scopeAnnee($query, $annee_id = null)
+    {
+        if ($annee_id) {
+            return $query->where('annee_id', $annee_id);
+        }
+        return $query->where('annee_id', Annee::encours()->id);
+    }
+
+    // scope eleve
+    public function scopeEleve($query, $eleve_id = null)
+    {
+        if ($eleve_id) {
+            return $query->where('eleve_id', $eleve_id);
+        }
+        return $query;
+    }
+
+    // scope classe
+    public function scopeClasse($query, $classe_id = null)
+    {
+        if ($classe_id) {
+            return $query->where('classe_id', $classe_id);
+        }
+        return $query;
+    }
+
 }
