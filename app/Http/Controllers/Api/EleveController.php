@@ -12,4 +12,9 @@ class EleveController extends Controller
 
     protected $model = Eleve::class;
 
+    public function includes(): array
+    {
+        return ['inscriptions', 'responsables'];
+    }
+
 }

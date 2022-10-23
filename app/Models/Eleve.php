@@ -44,10 +44,9 @@ class Eleve extends Model
         return $this->hasOne(ResponsableEleve::class);
     }
 
-    // responsables
     public function responsables(): HasManyThrough
     {
-        return $this->hasManyThrough(Responsable::class, ResponsableEleve::class);
+        return $this->hasManyThrough(Responsable::class, ResponsableEleve::class, 'eleve_id', 'id', 'id', 'responsable_id');
     }
 
 
