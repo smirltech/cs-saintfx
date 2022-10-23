@@ -1,4 +1,8 @@
 {{-- Attach Responsable --}}
+@php use App\Enums\ResponsableRelation; @endphp
+@php use App\Enums\InscriptionStatus; @endphp
+@php use App\Enums\InscriptionCategorie; @endphp
+@php use App\Enums\Sexe; @endphp
 <div wire:ignore.self class="modal fade" tabindex="-1" id="attach-responsable-modal">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
@@ -50,7 +54,7 @@
                             <label for="">Relation</label>
                             <select wire:model="responsable_relation"
                                     class="form-control">
-                                @foreach (\App\Enum\ResponsableRelation::cases() as $es )
+                                @foreach (ResponsableRelation::cases() as $es )
                                     <option value="{{$es->value}}">{{ $es->label() }}</option>
                                 @endforeach
                             </select>
@@ -145,7 +149,7 @@
                                 <select wire:model="inscription2_categorie"
                                         class="form-control  @error('inscription2_categorie') is-invalid @enderror">
                                     <option value="" disabled>Choisir categorie...</option>
-                                    @foreach (\App\Enum\InscriptionCategorie::cases() as $es )
+                                    @foreach (InscriptionCategorie::cases() as $es )
                                         <option value="{{$es->value}}">{{ $es->label() }}</option>
                                     @endforeach
                                     @error('inscription2_categorie')
@@ -246,7 +250,7 @@
                                 <select wire:model="inscription2_categorie"
                                         class="form-control  @error('inscription2_categorie') is-invalid @enderror">
                                     <option value="" disabled>Choisir categorie...</option>
-                                    @foreach (\App\Enum\InscriptionCategorie::cases() as $es )
+                                    @foreach (InscriptionCategorie::cases() as $es )
                                         <option value="{{ strtoupper($es->value)}}">{{ $es->label() }}</option>
                                     @endforeach
                                     @error('inscription2_categorie')
@@ -301,7 +305,7 @@
                             <select wire:model="inscription_status"
                                     class="form-control  @error('inscription_status') is-invalid @enderror">
                                 <option value="" disabled>Choisir état...</option>
-                                @foreach (\App\Enum\InscriptionStatus::cases() as $es )
+                                @foreach (InscriptionStatus::cases() as $es )
                                     <option value="{{ $es->value}}">{{ $es->label() }}</option>
                                 @endforeach
                                 @error('inscription_status')
@@ -346,7 +350,7 @@
                             <select wire:model="inscription2_categorie"
                                     class="form-control  @error('inscription2_categorie') is-invalid @enderror">
                                 <option value="" disabled>Choisir categorie...</option>
-                                @foreach (\App\Enum\InscriptionCategorie::cases() as $es )
+                                @foreach (InscriptionCategorie::cases() as $es )
                                     <option value="{{$es->value}}">{{ $es->label() }}</option>
                                 @endforeach
                                 @error('inscription2_categorie')
@@ -428,7 +432,7 @@
                                 <select wire:model="eleve_sexe"
                                         class="form-control  @error('eleve_sexe') is-invalid @enderror">
                                     <option value="" disabled>Choisir sexe...</option>
-                                    @foreach (\App\Enum\Sexe::cases() as $es )
+                                    @foreach (Sexe::cases() as $es )
                                         <option value="{{ strtoupper($es->value)}}">{{ $es->label() }}</option>
                                     @endforeach
                                     @error('eleve_sexe')

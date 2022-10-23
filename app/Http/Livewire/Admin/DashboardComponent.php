@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Admin;
 
-use App\Enum\InscriptionStatus;
+use App\Enums\InscriptionStatus;
 use App\Models\Annee;
 use App\Models\Inscription;
 use App\View\Components\AdminLayout;

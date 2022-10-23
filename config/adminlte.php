@@ -1,6 +1,6 @@
 <?php
 
-use App\Enum\RolePermission;
+use App\Enums\RolePermission;
 
 return [
 

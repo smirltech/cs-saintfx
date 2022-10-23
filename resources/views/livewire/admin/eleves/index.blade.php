@@ -1,5 +1,5 @@
 @php
-    use App\Enum\InscriptionStatus;
+    use App\Enums\InscriptionStatus;
     use App\Helpers\Helpers;use App\Models\Annee;
     $heads = [
             ['', 'no-export' => false, 'width' => 5],

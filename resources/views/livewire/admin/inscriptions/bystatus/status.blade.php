@@ -1,5 +1,5 @@
 @php
-    use App\Enum\InscriptionStatus;
+    use App\Enums\InscriptionStatus;
     use App\Helpers\Helpers;use App\Models\Annee;
     $heads = [
             'NO.',
@@ -45,19 +45,19 @@
         ];
 @endphp
 @section('title')
-    {{Str::upper('cenk')}} - inscriptions {{strtolower($status->pluralLabel(\App\Enum\Sexe::f))}} {{date('d-m-Y')}}
+    {{Str::upper('cenk')}} - inscriptions {{strtolower($status->pluralLabel(\App\Enums\Sexe::f))}} {{date('d-m-Y')}}
 @endsection
 @section('content_header')
     <div class="row">
         <div class="col-6">
-            <h1 class="ms-3">Liste d'inscriptions {{strtolower($status->pluralLabel(\App\Enum\Sexe::f))}}</h1>
+            <h1 class="ms-3">Liste d'inscriptions {{strtolower($status->pluralLabel(\App\Enums\Sexe::f))}}</h1>
         </div>
 
         <div class="col-6">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('admin') }}">Accueil</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('admin.inscriptions') }}">Inscriptions</a></li>
-                <li class="breadcrumb-item active">{{$status->pluralLabel(\App\Enum\Sexe::f)}}</li>
+                <li class="breadcrumb-item active">{{$status->pluralLabel(\App\Enums\Sexe::f)}}</li>
             </ol>
         </div>
     </div>

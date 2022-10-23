@@ -1,7 +1,7 @@
 <?php
 
-use App\Enum\InscriptionCategorie;
-use App\Enum\InscriptionStatus;
+use App\Enums\InscriptionCategorie;
+use App\Enums\InscriptionStatus;
 use App\Models\Annee;
 use App\Models\Classe;
 use App\Models\Eleve;

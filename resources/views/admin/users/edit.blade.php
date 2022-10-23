@@ -1,4 +1,4 @@
-@php use App\Enum\RolePermission;use App\Enums\Permission\UserPermission;use App\Enums\UserRole; @endphp
+@php use App\Enums\RolePermission;use App\Enums\Permission\UserPermission;use App\Enums\UserRole; @endphp
 @extends('adminlte::page')
 @section('content')
     <div class="container">

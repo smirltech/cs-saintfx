@@ -1,5 +1,5 @@
-@php use App\Enum\EtudiantSexe; @endphp
-@php use App\Enum\EtatCivil; @endphp
+@php use App\Enums\EtudiantSexe; @endphp
+@php use App\Enums\EtatCivil; @endphp
 <div class="">
     <div class="content mt-3">
         <div class="container-fluid">

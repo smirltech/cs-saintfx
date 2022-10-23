@@ -1,5 +1,5 @@
 @php
-    use App\Enum\InscriptionStatus;use App\Helpers\Helpers;
+    use App\Enums\InscriptionStatus;use App\Helpers\Helpers;
 @endphp
 
 @section('title')
@@ -52,55 +52,56 @@
                                     <b>Élèves : </b> <span class="float-right">{{ $inscriptions->count() }}</span>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>{{ $parent }} : </b> <span class="float-right"> <a href="{{ $parent_url }}">{{  $classe->filierable->nom }}</a>
+                                    <b>{{ $parent }} : </b> <span class="float-right"> <a
+                                            href="{{ $parent_url }}">{{  $classe->filierable->nom }}</a>
          </span>
                                 </li>
                             </ul>
 
-                           {{-- <div hidden class="row d-flex mt-2">
+                            {{-- <div hidden class="row d-flex mt-2">
 
-                                <div class="col-md-3 col-sm-6 col-6">
-                                    <div class="d-flex align-items-center">
-                                        <div class="bg-info rounded p-2"><i
-                                                class="fa fa-users align-middle"></i></div>
-                                        <div class="ml-1 d-flex flex-column">
-                                            <span class=""></span>
-                                            <span class=""><strong></strong></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-6">
-                                    <div class="d-flex align-items-center">
-                                        <div class="bg-success rounded p-2"><i
-                                                class="fa fa-users align-middle"></i></div>
-                                        <div class="ml-1 d-flex flex-column">
-                                            <span class=""></span>
-                                            <span class=""><strong></strong></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-6">
-                                    <div class="d-flex align-items-center">
-                                        <div class="bg-danger rounded p-2"><i
-                                                class="fa fa-users align-middle"></i></div>
-                                        <div class="ml-1 d-flex flex-column">
-                                            <span class=""></span>
-                                            <span class=""><strong></strong></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-6">
-                                    <div class="d-flex align-items-center">
-                                        <div class="bg-warning rounded p-2"><i
-                                                class="fa fa-users align-middle"></i></div>
-                                        <div class="ml-1 d-flex flex-column">
-                                            <span class=""></span>
-                                            <span class=""><strong></strong></span>
-                                        </div>
-                                    </div>
-                                </div>
+                                 <div class="col-md-3 col-sm-6 col-6">
+                                     <div class="d-flex align-items-center">
+                                         <div class="bg-info rounded p-2"><i
+                                                 class="fa fa-users align-middle"></i></div>
+                                         <div class="ml-1 d-flex flex-column">
+                                             <span class=""></span>
+                                             <span class=""><strong></strong></span>
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <div class="col-md-3 col-sm-6 col-6">
+                                     <div class="d-flex align-items-center">
+                                         <div class="bg-success rounded p-2"><i
+                                                 class="fa fa-users align-middle"></i></div>
+                                         <div class="ml-1 d-flex flex-column">
+                                             <span class=""></span>
+                                             <span class=""><strong></strong></span>
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <div class="col-md-3 col-sm-6 col-6">
+                                     <div class="d-flex align-items-center">
+                                         <div class="bg-danger rounded p-2"><i
+                                                 class="fa fa-users align-middle"></i></div>
+                                         <div class="ml-1 d-flex flex-column">
+                                             <span class=""></span>
+                                             <span class=""><strong></strong></span>
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <div class="col-md-3 col-sm-6 col-6">
+                                     <div class="d-flex align-items-center">
+                                         <div class="bg-warning rounded p-2"><i
+                                                 class="fa fa-users align-middle"></i></div>
+                                         <div class="ml-1 d-flex flex-column">
+                                             <span class=""></span>
+                                             <span class=""><strong></strong></span>
+                                         </div>
+                                     </div>
+                                 </div>
 
-                            </div>--}}
+                             </div>--}}
                         </div>
                     </div>
                 </div>

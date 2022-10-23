@@ -4,7 +4,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Ajouter Responsable</h4>
-                <button wire:click="$emit('onModalClosed')" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button wire:click="$emit('onModalClosed')" type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -22,7 +23,7 @@
                             <label for="">Sexe</label>
                             <select wire:model="responsable_sexe"
                                     class="form-control">
-                                @foreach (\App\Enum\Sexe::cases() as $es )
+                                @foreach (\App\Enums\Sexe::cases() as $es )
                                     <option value="{{ strtoupper($es->value)}}">{{ $es->label() }}</option>
                                 @endforeach
                             </select>
@@ -31,7 +32,7 @@
                             <label for="">Relation</label>
                             <select wire:model="responsable_relation"
                                     class="form-control">
-                                @foreach (\App\Enum\ResponsableRelation::cases() as $es )
+                                @foreach (\App\Enums\ResponsableRelation::cases() as $es )
                                     <option value="{{$es->value}}">{{ $es->label() }}</option>
                                 @endforeach
                             </select>
@@ -62,7 +63,9 @@
                 </form>
             </div>
             <div class="modal-footer justify-content-between">
-                <button wire:click="$emit('onModalClosed')" type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                <button wire:click="$emit('onModalClosed')" type="button" class="btn btn-default" data-dismiss="modal">
+                    Fermer
+                </button>
                 <button form="f1" type="submit" class="btn btn-primary">Ajouter</button>
             </div>
         </div>

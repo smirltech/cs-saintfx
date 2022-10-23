@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use App\Enum\AdmissionType;
-use App\Enum\InscriptionCategorie;
-use App\Enum\InscriptionStatus;
+use App\Enums\AdmissionType;
+use App\Enums\InscriptionCategorie;
+use App\Enums\InscriptionStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;

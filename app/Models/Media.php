@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enum\MediaType;
+use App\Enums\MediaType;
 use Illuminate\Database\Eloquent\Model;
 
 class Media extends Model

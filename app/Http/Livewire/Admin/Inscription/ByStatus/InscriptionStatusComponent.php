@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Admin\Inscription\ByStatus;
 
-use App\Enum\InscriptionStatus;
+use App\Enums\InscriptionStatus;
 use App\Models\Annee;
 use App\Models\Inscription;
 use App\View\Components\AdminLayout;
@@ -19,7 +19,8 @@ class InscriptionStatusComponent extends Component
 
     public $status;
 
-    public function mount($status){
+    public function mount($status)
+    {
         $this->status = InscriptionStatus::from($status);
     }
 
@@ -33,13 +34,13 @@ class InscriptionStatusComponent extends Component
         return view("livewire.admin.inscriptions.bystatus.status", [
             'inscriptions' => $inscriptions->get(),
         ])
-            ->layout(AdminLayout::class, ['title' => "Liste d'inscriptions ".$this->status->label()]);
+            ->layout(AdminLayout::class, ['title' => "Liste d'inscriptions " . $this->status->label()]);
     }
 
     public function loadData()
     {
         $query = Inscription::query();
-        $query->where(['annee_id'=> $this->annee_courante->id, 'status'=>$this->status])->orderBy('status', 'ASC');
+        $query->where(['annee_id' => $this->annee_courante->id, 'status' => $this->status])->orderBy('status', 'ASC');
         return $query;
     }
 

@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Admin\Inscription;
 
-use App\Enum\MediaType;
+use App\Enums\MediaType;
 use App\Models\Annee;
 use App\Models\Filiere;
 use App\Models\Inscription;
@@ -112,16 +112,6 @@ class InscriptionEditComponent extends Component
         }
 
         $this->checkAvailabilityOfMedia();
-    }
-
-    private function checkAvailabilityOfMedia()
-    {
-        $media = $this->etudiant->media;
-        foreach ($media as $medium) {
-            if (!$this->hasBordereau) $this->hasBordereau = $medium->custom_property == MediaType::bordereaux;
-            if (!$this->hasPiece) $this->hasPiece = $medium->custom_property == MediaType::diplome;
-            if (!$this->hasFiche) $this->hasFiche = $medium->custom_property == MediaType::fiche_inscription;
-        }
     }
 
     public function submit()
@@ -294,5 +284,15 @@ class InscriptionEditComponent extends Component
             'piece' => 'nullable|mimes:pdf|max:3000',
             'fiche' => 'nullable|mimes:pdf|max:3000',
         ];
+    }
+
+    private function checkAvailabilityOfMedia()
+    {
+        $media = $this->etudiant->media;
+        foreach ($media as $medium) {
+            if (!$this->hasBordereau) $this->hasBordereau = $medium->custom_property == MediaType::bordereaux;
+            if (!$this->hasPiece) $this->hasPiece = $medium->custom_property == MediaType::diplome;
+            if (!$this->hasFiche) $this->hasFiche = $medium->custom_property == MediaType::fiche_inscription;
+        }
     }
 }

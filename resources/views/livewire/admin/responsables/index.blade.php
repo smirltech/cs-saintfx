@@ -1,5 +1,5 @@
 @php
-    use App\Enum\InscriptionStatus;
+    use App\Enums\InscriptionStatus;
     use App\Helpers\Helpers;use App\Models\Annee;
     $heads = [
             'NO.',
@@ -86,7 +86,8 @@
 
                         <div class="mb-3 card-body">
                             <div class="table-responsive m-b-40">
-                                <x-adminlte-datatable id="table7" :heads="$heads" theme="light" :config="$config" striped
+                                <x-adminlte-datatable id="table7" :heads="$heads" theme="light" :config="$config"
+                                                      striped
                                                       hoverable with-buttons/>
                             </div>
                         </div>

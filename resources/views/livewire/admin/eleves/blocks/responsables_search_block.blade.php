@@ -1,8 +1,9 @@
 <div class="form-group">
     <div class="row mt-2 mb-2">
         <div class="form-group col-sm-12">
-                <label for="" class="">Responsable :</label>
-                <input type="text" class="form-control ml-2" wire:keydown.debounce="runSearchResponsables" wire:model="searchResponsable" placeholder="Rechercher...">
+            <label for="" class="">Responsable :</label>
+            <input type="text" class="form-control ml-2" wire:keydown.debounce="runSearchResponsables"
+                   wire:model="searchResponsable" placeholder="Rechercher...">
         </div>
         <div class="form-group">
             <label for="">Choisir parmi {{ count($responsables) }} noms disponibles</label>
@@ -19,7 +20,7 @@
         <label for="">Relation</label>
         <select wire:model="responsable_relation2"
                 class="form-control">
-            @foreach (\App\Enum\ResponsableRelation::cases() as $es )
+            @foreach (\App\Enums\ResponsableRelation::cases() as $es )
                 <option value="{{$es->value}}">{{ $es->label() }}</option>
             @endforeach
         </select>
