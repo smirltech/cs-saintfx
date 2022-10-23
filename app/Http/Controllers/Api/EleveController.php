@@ -14,7 +14,7 @@ class EleveController extends Controller
 
     public function includes(): array
     {
-        return ['inscriptions', 'responsables'];
+        return ['inscriptions', 'responsables', 'inscription'];
     }
 
 }

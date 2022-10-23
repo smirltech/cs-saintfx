@@ -13,7 +13,7 @@ Accept: application/json
 <> 2022-10-22T215547.200.json
 
 ### Eleve inscriptions
-GET {{base_url}}/api/eleves/10/inscriptions
+GET {{base_url}}/api/inscriptions
 Accept: application/json
 
 <> 2022-10-22T220030.200.json

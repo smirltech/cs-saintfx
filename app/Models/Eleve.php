@@ -29,8 +29,7 @@ class Eleve extends Model
 
     public function currentInscription()
     {
-        $y = Annee::where('encours', 1)->first();
-        return Inscription::where(['eleve_id' => $this->id, 'annee_id' => $y->id])->first();
+        return Inscription::where(['eleve_id' => $this->id, 'annee_id' => Annee::encours()->id])->first();
     }
 
     // full_name

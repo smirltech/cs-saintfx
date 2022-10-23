@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\EleveController;
+use App\Http\Controllers\Api\InscriptionController;
 use App\Http\Resources\AnneeResource;
 use App\Models\Annee;
 use Orion\Facades\Orion;
@@ -13,6 +14,6 @@ Route::group(['as' => 'api.'], function () {
     Route::get('annees/encours', function () {
         return AnneeResource::make(Annee::encours());
     });
-    Orion::resource('inscriptions', Insc::class)->only(['index', 'show']);
+    Orion::resource('inscriptions', InscriptionController::class)->only(['index', 'show']);
 
 });
