@@ -42,7 +42,16 @@ Content-Type: application/json
 {
     "scopes": [
         {
-            "name": "annee"
+            "name": "annee",
+            "parameters": [
+                "1"
+            ]
+        },
+        {
+            "name": "classe",
+            "parameters": [
+                "1"
+            ]
         }
     ]
 }
