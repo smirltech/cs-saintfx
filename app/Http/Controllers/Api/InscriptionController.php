@@ -17,10 +17,10 @@ class InscriptionController extends Controller
         return ['eleve', 'annee', 'classe'];
     }
 
-    public function alwaysIncludes(): array
-    {
-        return ['eleve'];
-    }
+    /*  public function alwaysIncludes(): array
+      {
+          return ['eleve'];
+      }*/
 
     public function exposedScopes(): array
     {
