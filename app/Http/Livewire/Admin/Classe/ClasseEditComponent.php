@@ -42,7 +42,7 @@ class ClasseEditComponent extends Component
     public function mount(Classe $classe)
     {
         $this->classe = $classe;
-        $this->grade = $this->classe->grade;
+        $this->grade = $this->classe->grade->value;
         $this->code = $this->classe->code;
         $this->loadFilieresData();
         $classable = $classe->filierable;

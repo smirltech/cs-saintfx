@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use App\Enum\Sexe;
+use App\Enums\Sexe;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Eleve extends Model
 {
@@ -25,6 +26,12 @@ class Eleve extends Model
         return $this->hasMany(Inscription::class);
     }
 
+
+    public function currentInscription()
+    {
+        return Inscription::where(['eleve_id' => $this->id, 'annee_id' => Annee::encours()->id])->first();
+    }
+
     // full_name
     public function getFullNameAttribute(): string
     {
@@ -35,4 +42,11 @@ class Eleve extends Model
     {
         return $this->hasOne(ResponsableEleve::class);
     }
+
+    public function responsables(): HasManyThrough
+    {
+        return $this->hasManyThrough(Responsable::class, ResponsableEleve::class, 'eleve_id', 'id', 'id', 'responsable_id');
+    }
+
+
 }

@@ -7,6 +7,7 @@
                     <div class="row g-2">
                         @foreach ($boxes as $box)
                             <div class="col-md-3 col-sm-6 col-12">
+                                <a href="{{ $box['url'] }}">
                                 <div class="info-box bg-{{ $box['theme'] }}">
                                     <span class="info-box-icon"><i class="{{ $box['icon'] }}{{--far fa-bookmark--}}"></i></span>
                                     <div class="info-box-content">
@@ -19,9 +20,8 @@
                                             {{$box['subtitle']}}
                                         </span>
                                     </div>
-
                                 </div>
-
+                                </a>
                             </div>
                         @endforeach
                     </div>

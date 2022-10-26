@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Enum\ClasseGrade;
+use App\Enums\ClasseGrade;
 use App\Models\Classe;
 use App\Models\Filiere;
 use App\Models\Section;

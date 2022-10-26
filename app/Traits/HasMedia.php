@@ -2,7 +2,7 @@
 
 namespace App\Traits;
 
-use App\Enum\MediaType;
+use App\Enums\MediaType;
 use App\Models\Media;
 
 trait HasMedia

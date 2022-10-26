@@ -27,6 +27,8 @@ class OptionShowComponent extends Component
 
     public $option;
 
+    public $classes = [];
+
     public function mount(Option $option)
     {
         $this->option = $option;
@@ -35,6 +37,7 @@ class OptionShowComponent extends Component
         $this->section_id = $option->section->id;
 
         $this->sections = Section::orderBy('nom')->get();
+        $this->classes = $this->option->classes;
     }
 
     protected $messages = [
@@ -82,6 +85,7 @@ class OptionShowComponent extends Component
     public function loadData()
     {
       //  $this->options = Option::orderBy('nom', 'ASC')->get();
+        $this->classes = $this->option->classes;
     }
 
     public function render()

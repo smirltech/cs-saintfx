@@ -2,10 +2,10 @@
 
 namespace App\Http\Livewire\Admin\Inscription;
 
-use App\Enum\InscriptionCategorie;
-use App\Enum\InscriptionStatus;
-use App\Enum\ResponsableRelation;
-use App\Enum\Sexe;
+use App\Enums\InscriptionCategorie;
+use App\Enums\InscriptionStatus;
+use App\Enums\ResponsableRelation;
+use App\Enums\Sexe;
 use App\Models\Annee;
 use App\Models\Eleve;
 use App\Models\Filiere;
@@ -15,6 +15,7 @@ use App\Models\Responsable;
 use App\Models\ResponsableEleve;
 use App\Models\Section;
 use App\Traits\EleveUniqueCode;
+use App\Traits\InscriptionUniqueCode;
 use App\Traits\WithFileUploads;
 use App\View\Components\AdminLayout;
 use Carbon\Carbon;
@@ -26,6 +27,7 @@ class InscriptionCreateComponent extends Component
     use WithFileUploads;
     use LivewireAlert;
     use EleveUniqueCode;
+    use InscriptionUniqueCode;
 
     public $options = [];
     public $sections = [];
@@ -57,6 +59,10 @@ class InscriptionCreateComponent extends Component
     public $matricule;
 
     //responsable
+    public $searchResponsable = '';
+    public $chooseResponsable = false;
+
+    public $responsable_id;
     public $responsable_nom;
     public $responsable_sexe;
     public $responsable_telephone;
@@ -64,9 +70,12 @@ class InscriptionCreateComponent extends Component
     public $responsable_adresse;
     public $responsable_relation;
 
+    public $responsable;
+    public $responsables;
+
     public $annee_courante;
 
-
+    protected $listeners = ['onModalClosed'];
     protected $rules = [
         'nom' => 'required|string',
         'postnom' => 'required|string',
@@ -93,8 +102,28 @@ class InscriptionCreateComponent extends Component
 
     ];
 
+    public function setChooseResponsable()
+    {
+        $this->chooseResponsable = !$this->chooseResponsable;
+        if ($this->chooseResponsable) {
+            $this->searchResponsable = '';
+        } else {
+            $this->responsable = null;
+            $this->responsable_nom = null;
+            $this->responsable_id = null;
+
+        }
+    }
+
+    public function runSearch()
+    {
+        $this->responsables = Responsable::where('nom', 'LIKE', "%$this->searchResponsable%")->orderBy('nom')->get();
+    }
+
     public function mount()
     {
+        $this->responsables = Responsable::orderBy('nom')->get();
+
         $this->annee_courante = Annee::where('encours', true)->first();
         $this->date_naissance = Carbon::today()->subYears(3)->toDateString();
         $this->sections = Section::orderBy('nom')->get();
@@ -107,13 +136,9 @@ class InscriptionCreateComponent extends Component
     public function submit()
     {
         $this->validate();
-        $resp = null;
-        try {
-            $resp = $this->submitResponsable();
-        } catch (_) {
-        }
-        $ele = $this->submitEleve($resp);
-        if ($resp != null) $res_ele = $this->submitResponsableEleve($resp, $ele);
+
+        $ele = $this->submitEleve();
+        if ($this->responsable != null) $res_ele = $this->submitResponsableEleve($this->responsable, $ele);
         $insc = $this->submitInscription($ele);
         $this->flash('success', 'Élève inscrit avec succès', [], route('admin.inscriptions'));
 
@@ -122,19 +147,7 @@ class InscriptionCreateComponent extends Component
 
     }
 
-    public function submitResponsable()
-    {
-        if (isset($this->responsable_nom))
-            return Responsable::create([
-                'nom' => $this->responsable_nom,
-                'sexe' => $this->responsable_sexe,
-                'telephone' => $this->responsable_telephone,
-                'email' => $this->responsable_email,
-                'adresse' => $this->responsable_adresse,
-            ]);
-    }
-
-    public function submitEleve($responsable)
+    public function submitEleve()
     {
         $ucode = $this->getGeneratedUniqueCode();
         return Eleve::create([
@@ -148,7 +161,7 @@ class InscriptionCreateComponent extends Component
             'lieu_naissance' => $this->lieu_naissance,
             'date_naissance' => $this->date_naissance,
             'matricule' => $this->matricule,
-            'code'=>$ucode,
+            'code' => $ucode,
         ]);
     }
 
@@ -161,25 +174,52 @@ class InscriptionCreateComponent extends Component
         ]);
     }
 
-    private function submitInscription($eleve)
+    public function submitResponsable()
     {
-        return Inscription::create([
-            'eleve_id' => $eleve->id,
-            'classe_id' => $this->classe_id,
-            'annee_id' => $this->annee_courante->id,
-            'categorie' => $this->categorie,
-            'montant' => $this->montant,
-            'status' => InscriptionStatus::pending->value,
-            'code' => $this->code,
+        $this->validate([
+            'responsable_nom' => 'required|string',
+
         ]);
+        if (isset($this->responsable_nom)) {
+            $this->responsable = Responsable::create([
+                'nom' => $this->responsable_nom,
+                'sexe' => $this->responsable_sexe,
+                'telephone' => $this->responsable_telephone,
+                'email' => $this->responsable_email,
+                'adresse' => $this->responsable_adresse,
+            ]);
+            $this->responsable_id = $this->responsable->id;
+            $this->responsable_nom = $this->responsable?->nom ?? null;
+
+            // close the modal by specifying the id of the modal
+            $this->dispatchBrowserEvent('closeModal', ['modal' => 'add-responsable-modal']);
+            $this->onModalClosed();
+        }
+
     }
 
+    public function onModalClosed()
+    {
+        $this->chooseResponsable = false;
+        $this->searchResponsable = '';
+    }
 
     public function render()
     {
-
+        // $this->responsables = Responsable::orderBy('nom')->get();
         return view('livewire.admin.inscriptions.create')
             ->layout(AdminLayout::class, ['title' => 'Inscription Élève']);
+    }
+
+    public function changeSelectedResponsable()
+    {
+        $this->responsable = Responsable::find($this->responsable_id);
+        $this->responsable_nom = $this->responsable?->nom ?? null;
+
+        if ($this->responsable == null) {
+            $this->responsable_nom = null;
+            $this->responsable_id = null;
+        }
     }
 
     public function changeSection()
@@ -207,20 +247,6 @@ class InscriptionCreateComponent extends Component
         $this->loadAvailableClasses();
     }
 
-    private function loadAvailableClasses()
-    {
-        if ($this->filiere_id > 0) {
-            $filiere = Filiere::find($this->filiere_id);
-            $this->classes = $filiere->classes;
-        } else if ($this->option_id > 0) {
-            $option = Option::find($this->option_id);
-            $this->classes = $option->classes;
-        } else if ($this->section_id > 0) {
-            $section = Section::find($this->section_id);
-            $this->classes = $section->classes;
-        }
-    }
-
     public function changeOption()
     {
         if ($this->option_id > 0) {
@@ -242,6 +268,34 @@ class InscriptionCreateComponent extends Component
     public function changeFiliere()
     {
         $this->loadAvailableClasses();
+    }
+
+    private function submitInscription($eleve)
+    {
+        $icode = $this->getGeneratedInscriptionUniqueCode();
+        return Inscription::create([
+            'eleve_id' => $eleve->id,
+            'classe_id' => $this->classe_id,
+            'annee_id' => $this->annee_courante->id,
+            'categorie' => $this->categorie,
+            'montant' => $this->montant,
+            'status' => InscriptionStatus::pending->value,
+            'code' => $icode,
+        ]);
+    }
+
+    private function loadAvailableClasses()
+    {
+        if ($this->filiere_id > 0) {
+            $filiere = Filiere::find($this->filiere_id);
+            $this->classes = $filiere->classes;
+        } else if ($this->option_id > 0) {
+            $option = Option::find($this->option_id);
+            $this->classes = $option->classes;
+        } else if ($this->section_id > 0) {
+            $section = Section::find($this->section_id);
+            $this->classes = $section->classes;
+        }
     }
 
 }

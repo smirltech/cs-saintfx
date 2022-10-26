@@ -1,3 +1,27 @@
+@php
+    $heads =[
+        ['label'=>'CODE', 'width'=>5],
+        'SECTION',
+        ['label'=>'', 'no-export'=>true, 'width'=>5]
+];
+   //$datas =[];
+   foreach ($sections as $section){
+        $datas[] =[
+            $section->code,
+            $section->nom,
+            $section,
+];
+   }
+
+    $config =[
+  'data'=>$datas,
+  'order'=>[[1, 'asc']],
+  'columns'=>[null, null, ['orderable'=>false]],
+  'destroy'=>false,
+
+];
+@endphp
+
 @section('title')
     {{Str::upper('cenk')}} - sections
 @endsection
@@ -16,8 +40,8 @@
     </div>
 
 @stop
-<div class="">
-@include('livewire.admin.sections.modals.crud')
+<div wire:ignore.self class="">
+    @include('livewire.admin.sections.modals.crud')
 
     <div class="content mt-3">
         <div class="container-fluid">
@@ -29,7 +53,7 @@
 
                             </div>
                             <div class="card-tools d-flex my-auto">
-                               {{-- <livewire:admin.section.section-create-component/>--}}
+                                {{-- <livewire:admin.section.section-create-component/>--}}
                                 <button type="button"
                                         class="btn btn-primary  ml-2" data-toggle="modal"
                                         data-target="#add-section-modal"><span
@@ -37,34 +61,28 @@
                             </div>
                         </div>
 
-                        <div class="card-body p-0 table-responsive">
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th style="width: 200px">CODE</th>
-                                    <th>SECTION</th>
-                                    <th style="width: 100px"></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach ($sections as $section)
+                        <div class="card-body m-b-40 table-responsive">
+                            <x-adminlte-datatable wire:ignore.self theme="light" id="table1" :heads="$heads" striped hoverable
+                                                  with-buttons>
+                                @foreach($config['data'] as $row)
                                     <tr>
-                                        <td>{{ $section->code }}</td>
-                                        <td>{{ $section->nom }}</td>
+                                        <td>{!! $row[0] !!}</td>
+                                        <td>{!! $row[1] !!}</td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                <a href="/admin/sections/{{ $section->id }}" title="Voir"
+                                                <a href="/admin/sections/{{ $row[2]->id }}" title="Voir"
                                                    class="btn btn-warning">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
-                                               <button wire:click="getSelectedSection({{$section}})" type="button"
-                                                       title="Modifier" class="btn btn-info  ml-2" data-toggle="modal"
+                                                <button wire:click="getSelectedSection({{$row[2]}})" type="button"
+                                                        title="Modifier" class="btn btn-info  ml-2" data-toggle="modal"
                                                         data-target="#edit-section-modal">
-                                                        <span class="fa fa-pen"></span>
-                                               </button>
+                                                    <span class="fa fa-pen"></span>
+                                                </button>
 
-                                                <button wire:click="getSelectedSection({{$section}})" type="button"
-                                                        title="supprimer" class="btn btn-danger  ml-2" data-toggle="modal"
+                                                <button wire:click="getSelectedSection({{$row[2]}})" type="button"
+                                                        title="supprimer" class="btn btn-danger  ml-2"
+                                                        data-toggle="modal"
                                                         data-target="#delete-section-modal">
                                                     <span class="fa fa-trash"></span>
                                                 </button>
@@ -72,8 +90,8 @@
                                         </td>
                                     </tr>
                                 @endforeach
-                                </tbody>
-                            </table>
+                            </x-adminlte-datatable>
+
                         </div>
                     </div>
                 </div>

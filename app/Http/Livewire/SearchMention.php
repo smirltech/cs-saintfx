@@ -2,8 +2,8 @@
 
 namespace App\Http\Livewire;
 
-use App\Enum\DemandeStatus;
-use App\Enum\RejectRaison;
+use App\Enums\DemandeStatus;
+use App\Enums\RejectRaison;
 use App\Notifications\DemandeApprovedNotification;
 use App\Services\Sagenet\SagenetService;
 use Illuminate\Contracts\Foundation\Application;

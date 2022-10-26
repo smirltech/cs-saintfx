@@ -1,6 +1,6 @@
-@php use App\Enum\EtudiantSexe; @endphp
-@php use App\Enum\EtatCivil; @endphp
-@php use App\Enum\InscriptionStatus; @endphp
+@php use App\Enums\EtudiantSexe; @endphp
+@php use App\Enums\EtatCivil; @endphp
+@php use App\Enums\InscriptionStatus; @endphp
 <div class="">
 
 
@@ -221,7 +221,7 @@
                         <hr>
                         <h4 class="font-weight-bold"><u>Choix du programme</u></h4>
                         <p>Procédez à l'inscription de ce candidat pour l'année académique <span
-                                class="text-red">{{$annee_courante->nom}}</span>
+                                    class="text-red">{{$annee_courante->nom}}</span>
                             , dans la promotion que vous sélectionnerez ici-dessous.
                             Pour choisir la promotion, vous devez commencer par sélectionner la faculté, puis la filière
                             et finalement la promotion.</p>
@@ -304,7 +304,7 @@
                                         <option value="-1">Choisir la promotion...</option>
                                         @foreach ($promotions2 as $promotion )
                                             <option
-                                                value="{{ $promotion->id}}">{{ $promotion->grade->label() }}</option>
+                                                    value="{{ $promotion->id}}">{{ $promotion->grade->label() }}</option>
                                         @endforeach
 
                                     </select>
@@ -324,7 +324,7 @@
                                         <td>
                                             <label for="">Bordereau (pdf, max: 3Mo) @if($hasBordereau)
                                                     <strong
-                                                        class="fa fa-check-circle text-success"></strong>
+                                                            class="fa fa-check-circle text-success"></strong>
                                                 @endif</label>
 
                                             <input type="file" wire:model="bordereau" class="form-control"
@@ -341,7 +341,7 @@
                                         <td>
                                             <label for="">Pièce scolaire (pdf, max: 3Mo) @if($hasPiece)
                                                     <strong
-                                                        class="fa fa-check-circle text-success"></strong>
+                                                            class="fa fa-check-circle text-success"></strong>
                                                 @endif</label>
                                             <input type="file" wire:model="piece" class="form-control"
                                                    accept="application/pdf"
@@ -357,7 +357,7 @@
                                         <td>
                                             <label for="">Fiche d'inscription (pdf, max: 3Mo) @if($hasFiche)
                                                     <strong
-                                                        class="fa fa-check-circle text-success"></strong>
+                                                            class="fa fa-check-circle text-success"></strong>
                                                 @endif</label>
                                             <input type="file" wire:model="fiche" class="form-control"
                                                    accept="application/pdf"

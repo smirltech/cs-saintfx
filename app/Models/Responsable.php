@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enum\Sexe;
+use App\Enums\Sexe;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 use Illuminate\Database\Eloquent\Model;
@@ -21,6 +21,11 @@ class Responsable extends Model
     public function responsable_eleves()
     {
         return $this->hasMany(ResponsableEleve::class);
+    }
+
+    public function getDetailAttribute(): string
+    {
+        return "{$this->nom} - Phone:({$this->telephone}) - Adresse:({$this->adresse})";
     }
 
 }

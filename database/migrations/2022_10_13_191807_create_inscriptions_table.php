@@ -1,7 +1,7 @@
 <?php
 
-use App\Enum\InscriptionCategorie;
-use App\Enum\InscriptionStatus;
+use App\Enums\InscriptionCategorie;
+use App\Enums\InscriptionStatus;
 use App\Models\Annee;
 use App\Models\Classe;
 use App\Models\Eleve;
@@ -21,7 +21,9 @@ return new class extends Migration {
             $table->integer('montant')->nullable();
             $table->string('status')->default(InscriptionStatus::pending->value);
             $table->string('code')->unique();
+            $table->unique(["eleve_id", "annee_id"], 'eleve_annee');
             $table->timestamps();
+
         });
     }
 };

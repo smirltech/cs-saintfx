@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use LaravelIdea\Helper\Spatie\Permission\Models\_IH_Role_C;
 
 class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return _IH_Role_C|\LaravelIdea\Helper\App\Models\_IH_Role_C|Role[]|\Spatie\Permission\Models\Role[]
+     * @return Role[]|\Spatie\Permission\Models\Role[]
      */
     public function index()
     {

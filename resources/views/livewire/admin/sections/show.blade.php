@@ -4,7 +4,7 @@
 @section('content_header')
     <div class="row">
         <div class="col-6">
-            <h1 class="ms-3">{{$section->nom}}</h1>
+            <h1 class="ms-3"><span class="fas fa-fw fa-university mr-1"></span>Section</h1>
         </div>
 
         <div class="col-6">
@@ -22,77 +22,131 @@
 
     <div class="content mt-3">
         <div class="container-fluid">
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-tools">
-                        <button type="button"
-                                title="Modifier" class="btn btn-info  ml-2" data-toggle="modal"
-                                data-target="#edit-section-modal">
-                            <span class="fa fa-pen"></span>
-                        </button>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col">
-                            <label>Code : </label>
-                            {{ $section->code }}
+            <div class="row">
+                <div class="col-md-3 col-sm-12">
+                    <div class="card card-primary card-outline">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <h4 class="m-0">{{$section->nom}}</h4>
+                            </div>
+                            <div class="card-tools">
+                                <span
+                                        title="Modifier" role="button" class="ml-2 mr-2" data-toggle="modal"
+                                        data-target="#edit-section-modal">
+                                    <span class="fa fa-pen"></span>
+                                </span>
+
+                            </div>
                         </div>
-                        <div class="col">
-                            <label>Nom : </label>
-                            {{ $section->nom }}
+                        <div class="card-body">
+                            <ul class="list-group list-group-unbordered mb-3">
+                                <li class="list-group-item">
+                                    <b>Code : </b> <span class="float-right">{{ $section->code }}</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Section : </b> <span class="float-right">{{ $section->nom }}</span>
+                                </li>
+                            </ul>
                         </div>
-
-                    </div>
-
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">
-                        <h4 class="m-0">Options de la section</h4>
-                    </div>
-                    <div class="card-tools d-flex my-auto">
-
-                        <button type="button"
-                                class="btn btn-primary  ml-2" data-toggle="modal"
-                                data-target="#add-option-modal"><span
-                                class="fa fa-plus"></span></button>
-
-
                     </div>
                 </div>
+                <div class="col-md-9 col-sm-12">
+                    @if(count($section->options) > 0)
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <h4 class="m-0">Options</h4>
+                                </div>
+                                <div class="card-tools d-flex my-auto">
+                                    <button type="button"
+                                            class="btn btn-primary  ml-2" data-toggle="modal"
+                                            data-target="#add-option-modal"><span
+                                            class="fa fa-plus"></span></button>
+                                </div>
+                            </div>
 
-                <div class="card-body p-0 table-responsive">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th style="width: 200px">CODE</th>
-                            <th>OPTION</th>
+                            <div class="card-body p-0 table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th style="width: 200px">CODE</th>
+                                        <th>OPTION</th>
 
-                            <th style="width: 100px"></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach ($section->options as $option)
-                            <tr>
-                                <td>{{ $option->code }}</td>
-                                <td>{{ $option->nom }}</td>
+                                        <th style="width: 100px"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach ($section->options as $option)
+                                        <tr>
+                                            <td>{{ $option->code }}</td>
+                                            <td>{{ $option->nom }}</td>
 
 
-                                <td>
-                                    <div class="d-flex float-right">
-                                        <a href="/admin/options/{{ $option->id }}" title="Voir"
-                                           class="btn btn-warning">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
+                                            <td>
+                                                <div class="d-flex float-right">
+                                                    <a href="/admin/options/{{ $option->id }}" title="Voir"
+                                                       class="btn btn-warning">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
 
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    @endif
+                    @if(count($classes) > 0)
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <h4 class="m-0">Classes</h4>
+                                </div>
+                                <div class="card-tools d-flex my-auto">
+                                    {{-- <a href="{{ route('admin.classes.create') }}" title="ajouter"
+                                        class="btn btn-primary mr-2"><span
+                                             class="fa fa-plus"></span></a>--}}
+                                </div>
+                            </div>
+                            <div class="card-body p-0 table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th style="width: 100px">CODE</th>
+                                        <th>CLASSE</th>
+                                        {{-- <th></th>--}}
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach ($classes as $classe)
+                                        <tr>
+                                            <td>{{ $classe->code }}</td>
+                                            <td>{{ $classe->grade->label() }}</td>
+                                            {{-- <td>
+                                                 <div class="d-flex float-right">
+                                                     <a href="/admin/classes/{{ $classe->id }}" title="Voir"
+                                                        class="btn btn-warning">
+                                                         <i class="fas fa-eye"></i>
+                                                     </a>
+                                                     <a href="/admin/classes/{{ $classe->id }}/edit" title="modifier"
+                                                        class="btn btn-info  ml-2">
+                                                         <i class="fas fa-pen"></i>
+                                                     </a>
+                                                     <button wire:click="deleteClasse({{ $classe->id }})"
+                                                             title="supprimer" class="btn btn-danger ml-2">
+                                                         <i class="fas fa-trash"></i>
+                                                     </button>
+                                                 </div>
+                                             </td>--}}
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

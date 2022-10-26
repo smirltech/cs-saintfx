@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\Admin\AuditController;
-use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\OtpController;
 use App\Http\Livewire\Admin\Annee\AnneeComponent;
@@ -12,6 +11,7 @@ use App\Http\Livewire\Admin\Eleve\EleveIndexComponent;
 use App\Http\Livewire\Admin\Eleve\EleveShowComponent;
 use App\Http\Livewire\Admin\Filiere\FiliereIndexComponent;
 use App\Http\Livewire\Admin\Filiere\FiliereShowComponent;
+use App\Http\Livewire\Admin\Inscription\ByStatus\InscriptionStatusComponent;
 use App\Http\Livewire\Admin\Inscription\InscriptionCreateComponent;
 use App\Http\Livewire\Admin\Inscription\InscriptionEditComponent;
 use App\Http\Livewire\Admin\Inscription\InscriptionIndexComponent;
@@ -52,21 +52,15 @@ Route::redirect('dashboard', 'admin')->name('dashboard');
 Route::prefix('admin')->middleware(['auth:web'])->as('admin.')->group(function () {
 
 //Section
-   // Route::get('sections/create', SectionCreateComponent::class)->name('sections.create');
-   // Route::get('sections/{section}/edit', SectionEditComponent::class)->name('sections.edit');
     Route::get('sections/{section}', SectionShowComponent::class)->name('sections.show');
     Route::get('sections', SectionIndexComponent::class)->name('sections');
 
     //Option
-//    Route::get('options/create', OptionCreateComponent::class)->name('options.create');
-//    Route::get('options/{option}/edit', OptionEditComponent::class)->name('options.edit');
     Route::get('options/{option}', OptionShowComponent::class)->name('options.show');
     Route::get('options', OptionIndexComponent::class)->name('options');
 
 
 //Filiere
-//    Route::get('filieres/create', FiliereCreateComponent::class)->name('filieres.create');
-//    Route::get('filieres/{filiere}/edit', FiliereEditComponent::class)->name('filieres.edit');
     Route::get('filieres/{filiere}', FiliereShowComponent::class)->name('filieres.show');
     Route::get('filieres', FiliereIndexComponent::class)->name('filieres');
 
@@ -87,6 +81,7 @@ Route::prefix('admin')->middleware(['auth:web'])->as('admin.')->group(function (
     Route::get('inscriptions/create', InscriptionCreateComponent::class)->name('inscriptions.create');
     Route::get('inscriptions/{inscription}/edit', InscriptionEditComponent::class)->name('inscriptions.edit');
     Route::get('inscriptions/tous', InscriptionIndexComponent::class)->name('inscriptions.index');
+    Route::get('inscriptions/status/{status}', InscriptionStatusComponent::class)->name('inscriptions.status');
     Route::get('inscriptions', InscriptionIndexComponent::class)->name('inscriptions');
 
     // Responsables
@@ -102,7 +97,7 @@ Route::prefix('admin')->middleware(['auth:web'])->as('admin.')->group(function (
     Route::get("audits", [AuditController::class, 'index'])->name("audits.index")->can('audits.viewAny');
     Route::get("audits/{audit}", [AuditController::class, 'show'])->name("audits.show")->can('audits.view');
 
-    Route::resource('roles', RoleController::class);
+    Route::resource('roles', Admin\RoleController::class);
 
     Route::get('users/{user}/reset-password', [UserController::class, 'resetPassword'])->name('users.password.autoreset');
     Route::resource('users', UserController::class);

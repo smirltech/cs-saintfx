@@ -1,3 +1,4 @@
+@php use App\Enums\ClasseGrade; @endphp
 @section('title')
     {{Str::upper('cenk')}} - ajouter classe
 @endsection
@@ -30,13 +31,13 @@
                                 <select wire:change="setCode" wire:model="grade"
                                         class="form-control  @error('grade') is-invalid @enderror">
                                     <option value="">Choisir grade</option>
-                                    @foreach (\App\Enum\ClasseGrade::cases() as $grade )
+                                    @foreach (ClasseGrade::cases() as $grade )
                                         <option value="{{ $grade->value}}">{{ $grade->label() }}</option>
                                     @endforeach
                                 </select>
-                                    @error('grade')
-                                    <span class="text-red">{{ $message }}</span>
-                                    @enderror
+                                @error('grade')
+                                <span class="text-red">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="form-group col">
                                 <label for="">Code <i class="text-red">*</i></label>
@@ -50,7 +51,8 @@
                         <div class="row">
                             <div class="form-group col-4">
                                 <label for="">Section <i class="text-red">*</i></label>
-                                <select wire:model="section_id"  wire:change="changeSection" class="form-control  @error('section_id') is-invalid @enderror">
+                                <select wire:model="section_id" wire:change="changeSection"
+                                        class="form-control  @error('section_id') is-invalid @enderror">
                                     <option value="">Choisir section</option>
                                     @foreach ($sections as $section )
                                         <option value="{{ $section->id }}">{{ $section->nom }}</option>

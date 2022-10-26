@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enum\ClasseGrade;
+use App\Enums\ClasseGrade;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
@@ -24,6 +24,11 @@ class Classe extends Model
     public function filierable(): MorphTo
     {
         return $this->morphTo();
+    }
+
+    public function inscriptions()
+    {
+        return $this->hasMany(Inscription::class);
     }
 
     // full_name

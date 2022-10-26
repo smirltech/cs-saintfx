@@ -51,14 +51,13 @@ class ClasseCreateComponent extends Component
         $classe->grade = $this->grade;
         $classe->code = $this->code;
 
-        if($this->filiere_id > 0){
+        if ($this->filiere_id > 0) {
             $filiere = Filiere::find($this->filiere_id);
             $filiere->classes()->save($classe);
-        }else if($this->option_id > 0){
+        } else if ($this->option_id > 0) {
             $option = Option::find($this->option_id);
             $option->classes()->save($classe);
-        }
-        else if($this->section_id > 0){
+        } else if ($this->section_id > 0) {
             $section = Section::find($this->section_id);
             $section->classes()->save($classe);
         }
@@ -77,8 +76,8 @@ class ClasseCreateComponent extends Component
     {
 
         $this->sections = Section::orderBy('nom')->get();
-       // $this->options = Option::orderBy('nom')->get();
-      //  $this->filieres = Filiere::orderBy('nom')->get();
+        // $this->options = Option::orderBy('nom')->get();
+        //  $this->filieres = Filiere::orderBy('nom')->get();
     }
 
     public function render()
@@ -96,7 +95,7 @@ class ClasseCreateComponent extends Component
             $this->options = $section->options;
             if (count($this->options) > 0) {
                 $option = $this->options[0];
-             //   $this->option_id = $option->id;
+                //   $this->option_id = $option->id;
                 $this->option_id = null;
                 $this->filiere_id = null;
 

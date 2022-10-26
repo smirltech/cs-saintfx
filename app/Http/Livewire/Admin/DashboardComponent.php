@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Admin;
 
-use App\Enum\InscriptionStatus;
+use App\Enums\InscriptionStatus;
 use App\Models\Annee;
 use App\Models\Inscription;
 use App\View\Components\AdminLayout;
@@ -27,6 +27,7 @@ class DashboardComponent extends Component
 
 
         $this->annee_courante = Annee::where('encours', true)->first();
+
         $this->inscrits = Inscription::where('annee_id', $this->annee_courante->id)->get();
         $inscritsValid = Inscription::where('annee_id', $this->annee_courante->id)->where('status', InscriptionStatus::approved->name)->get();
         $inscritsReject = Inscription::where('annee_id', $this->annee_courante->id)->where('status', InscriptionStatus::rejected->name)->get();
@@ -38,10 +39,10 @@ class DashboardComponent extends Component
         $moisInscritspending = Inscription::where('annee_id', $this->annee_courante->id)->where('status', InscriptionStatus::pending->name)->where('created_at', '>', $moisCourrant)->get();
 
 
-        $rateInscritsMois = $moisInscrits->count() > 0 ? ($moisInscrits->count() / $moisInscrits->count()) * 100 : 0;
-        $rateInscritsMoisValid = $moisInscritsValid->count() > 0 ? ($moisInscritsValid->count() / $moisInscrits->count()) * 100 : 0;
-        $rateInscritsMoisReject = $moisInscritsReject->count() > 0 ? ($moisInscritsReject->count() / $moisInscrits->count()) * 100 : 0;
-        $rateInscritsMoisPending = $moisInscritspending->count() > 0 ? ($moisInscritspending->count() / $moisInscrits->count()) * 100 : 0;
+        $rateInscritsMois = $moisInscrits->count() > 0 ? intval(($moisInscrits->count() / $moisInscrits->count()) * 100) : 0;
+        $rateInscritsMoisValid = $moisInscritsValid->count() > 0 ? intval(($moisInscritsValid->count() / $moisInscrits->count()) * 100) : 0;
+        $rateInscritsMoisReject = $moisInscritsReject->count() > 0 ? intval(($moisInscritsReject->count() / $moisInscrits->count()) * 100) : 0;
+        $rateInscritsMoisPending = $moisInscritspending->count() > 0 ? intval(($moisInscritspending->count() / $moisInscrits->count()) * 100) : 0;
 
         $this->boxes = [
             [
@@ -52,12 +53,13 @@ class DashboardComponent extends Component
                 'theme' => 'danger',
                 'rate' => "$rateInscritsMois%",
                 'subtitle' => "+{$rateInscritsMois}% en 1 mois",
+
             ],
             [
                 'title' => count($moisInscritsValid),
                 'text' => 'Validés',
                 'icon' => 'far fa-bookmark',
-                'url' => "#",
+                'url' => "admin/inscriptions/status/approved",
                 'theme' => 'primary',
                 'rate' => "$rateInscritsMoisValid%",
                 'subtitle' => "+$rateInscritsMoisValid% en 1 mois",
@@ -66,7 +68,7 @@ class DashboardComponent extends Component
                 'title' => count($moisInscritsReject),
                 'text' => 'Rejetés',
                 'icon' => 'far fa-bookmark',
-                'url' => "#",
+                'url' => "admin/inscriptions/status/rejected",
                 'theme' => 'warning',
                 'rate' => "$rateInscritsMoisReject%",
                 'subtitle' => "+$rateInscritsMoisReject% en 1 mois",
@@ -75,7 +77,7 @@ class DashboardComponent extends Component
                 'title' => count($moisInscritspending),
                 'text' => 'En Attente',
                 'icon' => 'far fa-bookmark',
-                'url' => "#",
+                'url' => "admin/inscriptions/status/pending",
                 'theme' => 'success',
                 'rate' => "$rateInscritsMoisPending%",
                 'subtitle' => "+$rateInscritsMoisPending% en 1 mois",
