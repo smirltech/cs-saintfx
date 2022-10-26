@@ -19,7 +19,7 @@ class InscriptionController extends Controller
 
     public function alwaysIncludes(): array
     {
-        return ['eleve'];
+        return ['eleve', 'classe'];
     }
 
     public function exposedScopes(): array
