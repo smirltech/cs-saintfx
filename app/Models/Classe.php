@@ -18,6 +18,8 @@ class Classe extends Model
 
     ];
 
+    protected $with=['filierable'];
+
     /*
      * Get parents that can be Section, Option or Filiere
      * */

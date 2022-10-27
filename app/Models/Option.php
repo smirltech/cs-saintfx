@@ -11,6 +11,8 @@ class Option extends Model
 
     public $guarded = [];
 
+    protected $with=['section'];
+
     protected $casts = [
         'filiere_codes' => 'json'
     ];

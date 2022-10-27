@@ -10,6 +10,7 @@ class Filiere extends Model
     use HasFactory;
 
     public $guarded = [];
+    protected $with=['option'];
 
     /**
      * Get the user that owns the phone.
