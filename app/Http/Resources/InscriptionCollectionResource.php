@@ -12,9 +12,9 @@ class InscriptionCollectionResource extends ResourceCollection
         return [
             'data' => $this->collection->transform(fn($inscription) => [
                 'id' => $inscription->id,
-                'eleve_id' => $inscription->eleve_id,
-                'classe_id' => $inscription->classe_id,
-                'annee_id' => $inscription->annee_id,
+                'eleve' => $this->eleve,
+                'classe' => ClasseResource::make($this->classe),
+                'annee' => $this->annee,
                 'categorie' => $inscription->categorie,
                 'montant' => $inscription->montant,
                 'status' => $inscription->status,
