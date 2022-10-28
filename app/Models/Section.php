@@ -12,6 +12,9 @@ class Section extends Model
 
     public $guarded = [];
 
+    //protected $with=['options'];
+
+
     public function options()
     {
         return $this->hasMany(Option::class);
