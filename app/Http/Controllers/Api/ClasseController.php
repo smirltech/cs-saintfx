@@ -14,7 +14,7 @@ class ClasseController extends Controller
 
     public function includes(): array
     {
-        return ['eleves'];
+        return ['inscriptions'];
     }
 
 }

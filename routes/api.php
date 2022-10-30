@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ClasseController;
 use App\Http\Controllers\Api\EleveController;
 use App\Http\Controllers\Api\FiliereController;
 use App\Http\Controllers\Api\InscriptionController;
@@ -14,7 +15,7 @@ Route::group(['as' => 'api.'], function () {
     Orion::resource('sections', SectionController::class)->only(['index', 'show']);
     Orion::resource('options', OptionController::class)->only(['index', 'show']);
     Orion::resource('filieres', FiliereController::class)->only(['index', 'show']);
-    Orion::resource('classes', SectionController::class)->only(['index', 'show']);
+    Orion::resource('classes', ClasseController::class)->only(['index', 'show']);
     Route::get('annees', function () {
         return AnneeResource::collection(Annee::all());
     });
