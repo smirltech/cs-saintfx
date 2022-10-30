@@ -10,7 +10,6 @@ class Filiere extends Model
     use HasFactory;
 
     public $guarded = [];
-    protected $with=['option'];
 
     /**
      * Get the user that owns the phone.
@@ -20,7 +19,8 @@ class Filiere extends Model
         return $this->belongsTo(Option::class);
     }
 
-    public function classes(){
+    public function classes()
+    {
         return $this->morphMany(Classe::class, 'filierable');
     }
 
@@ -39,14 +39,14 @@ class Filiere extends Model
     // full_name
     public function getShortCodeAttribute(): string
     {
-        return "{$this->option->shortCode}".substr("{$this->code}", 0, 1) ;
+        return "{$this->option->shortCode}" . substr("{$this->code}", 0, 1);
     }
 
     /**
      * Get the comments for the blog post.
      */
-   /* public function promotions()
-    {
-        return $this->hasMany(Promotion::class);
-    }*/
+    /* public function promotions()
+     {
+         return $this->hasMany(Promotion::class);
+     }*/
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Section;
+use App\Models\Option;
 use Orion\Concerns\DisableAuthorization;
 use Orion\Http\Controllers\Controller;
 
@@ -10,16 +10,16 @@ class OptionController extends Controller
 {
     use DisableAuthorization;
 
-    protected $model = Section::class;
+    protected $model = Option::class;
 
     public function includes(): array
     {
-        return ['options', 'classes'];
+        return ['filieres', 'classes'];
     }
 
-    public function alwaysIncludes(): array
-    {
-        return ['options', 'classes'];
-    }
+    /*    public function alwaysIncludes(): array
+        {
+            return ['filieres', 'classes'];
+        }*/
 
 }

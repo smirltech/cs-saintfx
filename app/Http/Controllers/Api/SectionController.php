@@ -17,9 +17,4 @@ class SectionController extends Controller
         return ['options', 'classes'];
     }
 
-    public function alwaysIncludes(): array
-    {
-        return ['options', 'classes'];
-    }
-
 }

@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
 use Illuminate\Database\Eloquent\Model;
 
 class Section extends Model
@@ -11,8 +10,6 @@ class Section extends Model
     use HasFactory;
 
     public $guarded = [];
-
-    //protected $with=['options'];
 
 
     public function options()
