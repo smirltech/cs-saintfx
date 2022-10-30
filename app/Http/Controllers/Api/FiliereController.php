@@ -6,7 +6,7 @@ use App\Models\Section;
 use Orion\Concerns\DisableAuthorization;
 use Orion\Http\Controllers\Controller;
 
-class SectionController extends Controller
+class FiliereController extends Controller
 {
     use DisableAuthorization;
 

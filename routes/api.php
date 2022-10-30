@@ -10,7 +10,10 @@ use Orion\Facades\Orion;
 Route::group(['as' => 'api.'], function () {
     Orion::resource('eleves', EleveController::class)->only(['index', 'show']);
     Orion::resource('sections', SectionController::class)->only(['index', 'show']);
-   Route::get('annees', function () {
+    Orion::resource('options', SectionController::class)->only(['index', 'show']);
+    Orion::resource('filieres', SectionController::class)->only(['index', 'show']);
+    Orion::resource('classes', SectionController::class)->only(['index', 'show']);
+    Route::get('annees', function () {
         return AnneeResource::collection(Annee::all());
     });
     Route::get('annees/encours', function () {
