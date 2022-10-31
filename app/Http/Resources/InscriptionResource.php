@@ -13,7 +13,7 @@ class InscriptionResource extends JsonResource
             'id' => $this->id,
             'eleve' => EleveResource::make($this->eleve),
             'classe' => ClasseResource::make($this->whenLoaded('classe')),
-            'annee' => AnneeResource::make($this->whenLoaded('annee')),
+            'annee' => AnneeResource::make($this->annee),
             'categorie' => $this->categorie,
             'montant' => $this->montant,
             'status' => $this->status,
