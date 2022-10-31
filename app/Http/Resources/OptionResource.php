@@ -16,7 +16,7 @@ class OptionResource extends JsonResource
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'classes' => ClasseResource::collection($this->whenLoaded('classes')),
-            'filieres' => FiliereResource::collection($this->whenLoaded('options')),
+            'filieres' => FiliereResource::collection($this->whenLoaded('filieres')),
         ];
     }
 }
