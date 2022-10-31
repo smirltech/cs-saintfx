@@ -19,7 +19,6 @@ class Inscription extends Model
     //, SoftDeletes;
 
     public $guarded = [];
-
     protected $casts = [
         'type' => AdmissionType::class,
         'status' => InscriptionStatus::class,

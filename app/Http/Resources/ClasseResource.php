@@ -14,6 +14,7 @@ class ClasseResource extends JsonResource
             'filierable' => $this->filierable,
             'filierable_type' => $this->filierable_type,
             'code' => $this->code,
+            'inscriptions' => InscriptionResource::collection($this->whenLoaded('inscriptions')),
         ];
     }
 }

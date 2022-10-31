@@ -11,7 +11,7 @@ class InscriptionResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'eleve' => $this->eleve,
+            'eleve' => EleveResource::make($this->whenLoaded('eleve')),
             'classe' => ClasseResource::make($this->classe),
             'annee' => $this->annee,
             'categorie' => $this->categorie,
