@@ -14,12 +14,7 @@ class OptionController extends Controller
 
     public function includes(): array
     {
-        return ['filieres', 'classes'];
+        return ['filieres', 'classes', 'classes.inscriptions'];
     }
-
-    /*    public function alwaysIncludes(): array
-        {
-            return ['filieres', 'classes'];
-        }*/
 
 }

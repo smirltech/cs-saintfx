@@ -14,7 +14,7 @@ class SectionController extends Controller
 
     public function includes(): array
     {
-        return ['options', 'classes'];
+        return ['options', 'classes', 'classes.inscriptions'];
     }
 
 }

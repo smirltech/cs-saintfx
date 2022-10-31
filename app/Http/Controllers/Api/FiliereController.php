@@ -14,12 +14,6 @@ class FiliereController extends Controller
 
     public function includes(): array
     {
-        return ['classes'];
+        return ['classes', 'classes.inscriptions'];
     }
-
-    /*    public function alwaysIncludes(): array
-        {
-            return ['classes'];
-        }*/
-
 }
