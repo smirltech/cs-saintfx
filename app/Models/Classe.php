@@ -18,6 +18,7 @@ class Classe extends Model
 
     ];
 
+
     /*
      * Get parents that can be Section, Option or Filiere
      * */
