@@ -3,8 +3,13 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\ClasseEnseignant;
+use App\Models\Cours;
 use App\Models\Eleve;
+use App\Models\Enseignant;
+use App\Models\EnseignantCours;
 use App\Models\Inscription;
+use App\Models\Presence;
 use App\Models\Responsable;
 use App\Models\ResponsableEleve;
 use App\Models\User;
@@ -42,6 +47,16 @@ class DatabaseSeeder extends Seeder
 
             Responsable::factory(30)->create();
             ResponsableEleve::factory(30)->create();
+
+            Enseignant::factory(30)->create();
+            ClasseEnseignant::factory(10)->create();
+
+            Cours::factory(30)->create();
+            EnseignantCours::factory(20)->create();
+
+            Presence::factory(30)->create();
+
+
         }
 
         Schema::enableForeignKeyConstraints();
