@@ -2,21 +2,26 @@
 
 namespace Database\Factories;
 
+use App\Models\Annee;
+use App\Models\Classe;
 use App\Models\ClasseEnseignant;
+use App\Models\Enseignant;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 /**
  * @extends Factory<ClasseEnseignant>
  */
 class ClasseEnseignantFactory extends Factory
 {
+
     protected $model = ClasseEnseignant::class;
 
     public function definition()
     {
         return [
-            //
+            'classe_id' => $this->faker->numberBetween(1, Classe::count()),
+            'enseignant_id' => $this->faker->numberBetween(1, Enseignant::count()),
+            'annee_id' => $this->faker->numberBetween(1, Annee::count()),
         ];
     }
 }
