@@ -55,16 +55,16 @@
                                         </td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                <a href="/admin/classes/{{ $c->id }}" title="Voir"
+                                                <a href="/admin/cours/{{ $c->id }}" title="Voir"
                                                    class="btn btn-warning">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
-                                                <a href="/admin/classes/{{ $c->id }}/edit" title="modifier"
+                                                <a href="/admin/cours/{{ $c->id }}/edit" title="modifier"
                                                    class="btn btn-info  ml-2">
                                                     <i class="fas fa-pen"></i>
                                                 </a>
 
-                                                <button wire:click="deleteClasse({{ $c->id }})"
+                                                <button wire:click="deleteCours({{ $c->id }})"
                                                         title="supprimer" class="btn btn-danger ml-2">
                                                     <i class="fas fa-trash"></i>
                                                 </button>

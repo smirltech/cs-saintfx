@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Admin\Cours;
 
-use App\Models\Classe;
 use App\Models\Cours;
 use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -27,13 +26,13 @@ class CoursIndexComponent extends Component
         $this->cours = Cours::orderBy('code')->get();
     }
 
-    public function deleteClasse($id)
+    public function deleteCours($id)
     {
 
-        $fa = Classe::find($id);
+        $fa = Cours::find($id);
         if ($fa->delete()) {
             $this->loadData();
-            $this->alert('success', 'Classe supprimée avec succès');
+            $this->alert('success', 'Cours supprimée avec succès');
 
         }
     }
