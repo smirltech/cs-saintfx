@@ -335,6 +335,10 @@ return [
                     'text' => "Liste d'années scolaires",
                     'url' => 'admin/annees',
                 ],
+                [
+                    'text' => 'Liste de cours',
+                    'url' => 'admin/cours',
+                ],
             ],
         ],
         [

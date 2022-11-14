@@ -21,7 +21,7 @@ class CoursFactory extends Factory
     {
         return [
             'nom' => $this->faker->sentence(3),
-            'code' => $this->faker->sentence(3),
+            'code' => $this->faker->randomNumber(3),
             'description' => $this->faker->sentence(3),
         ];
     }

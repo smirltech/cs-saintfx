@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\OtpController;
 use App\Http\Livewire\Admin\Annee\AnneeComponent;
 use App\Http\Livewire\Admin\Classe;
+use App\Http\Livewire\Admin\Cours;
 use App\Http\Livewire\Admin\DashboardComponent;
 use App\Http\Livewire\Admin\Eleve\EleveIndexComponent;
 use App\Http\Livewire\Admin\Eleve\EleveShowComponent;
@@ -69,6 +70,12 @@ Route::prefix('admin')->middleware(['auth:web'])->as('admin.')->group(function (
     Route::get('classes/{classe}/edit', Classe\ClasseEditComponent::class)->name('classes.edit');
     Route::get('classes/{classe}', Classe\ClasseShowComponent::class)->name('classes.show');
     Route::get('classes', Classe\ClasseIndexComponent::class)->name('classes');
+
+    Route::get('cours', Cours\CoursIndexComponent::class)->name('cours.index');
+    Route::get('cours/create', Classe\ClasseCreateComponent::class)->name('cours.create');
+    Route::get('cours/{cours}/edit', Classe\ClasseEditComponent::class)->name('cours.edit');
+    Route::get('cours/{cours}', Classe\ClasseShowComponent::class)->name('cours.show');
+
 
 // Année
     Route::get('annees', AnneeComponent::class)->name('annees');
