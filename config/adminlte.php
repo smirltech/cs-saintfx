@@ -279,15 +279,9 @@ return [
             'topnav_right' => true,
         ],
 
-        /* // Sidebar items:
-         [
-             'type' => 'sidebar-menu-search',
-             'text' => 'search',
-             ''
-         ],*/
         [
-            'text' => 'Inscriptions',
-            'icon' => 'fas fa-fw fa-plus',
+            'text' => 'Élèves',
+            'icon' => 'fas fa-fw fa-graduation-cap',
             // 'can' => RolePermission::view_etudiant->name,
             'submenu' => [
                 [
@@ -299,21 +293,8 @@ return [
                     'text' => 'Liste d\'inscriptions',
                     'url' => 'admin/inscriptions',
                 ],
-                /*[
-                    'text' => 'Liste d\'élèves',
-                    'url' => 'admin/eleves',
-                ],*/
-
-            ],
-        ],
-
-        [
-            'text' => 'Élèves',
-            'icon' => 'fas fa-fw fa-graduation-cap',
-            // 'can' => RolePermission::view_etudiant->name,
-            'submenu' => [
                 [
-                    'text' => "Liste d'Élèves",
+                    'text' => "Liste d'élèves",
                     'url' => 'admin/eleves',
                 ],
                 [
