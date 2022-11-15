@@ -56,12 +56,12 @@
                                         <td>
                                             <div class="d-flex float-right">
                                                 <a href="/admin/cours/{{ $c->id }}/edit" title="modifier"
-                                                   class="btn btn-info  ml-2">
+                                                   class="btn btn-outline-info  ml-2">
                                                     <i class="fas fa-pen"></i>
                                                 </a>
 
                                                 <button wire:click="deleteCours({{ $c->id }})"
-                                                        title="supprimer" class="btn btn-danger ml-2">
+                                                        title="supprimer" class="btn btn-outline-danger ml-2">
                                                     <i class="fas fa-trash"></i>
                                                 </button>
                                             </div>
