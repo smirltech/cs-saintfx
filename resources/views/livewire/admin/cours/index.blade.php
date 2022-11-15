@@ -38,7 +38,7 @@
                             <table class="table">
                                 <thead>
                                 <tr>
-                                    <th>CODE</th>
+                                    <th>ID</th>
                                     <th>NOM</th>
                                     <th>DESCRIPION</th>
                                     <th></th>
@@ -47,7 +47,7 @@
                                 <tbody>
                                 @foreach ($cours as $c)
                                     <tr>
-                                        <td>{{ $c->code }}</td>
+                                        <td>{{ $c->id }}</td>
                                         <td>{{ $c->nom }}</td>
 
                                         <td>

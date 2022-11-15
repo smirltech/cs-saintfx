@@ -8,16 +8,14 @@
         $classes = '';
     }
 @endphp
-<div>
-    @if(isset($label))
-        <label class="form-label">{{$label}}</label>
-    @endif
-    <input {{ $disabled ? 'disabled' : '' }} {!! $attributes->merge(['class' => 'form-control'.$classes]) !!}>
-    @if(isset($error))
-        <x-form-invalid-feedback>
-            {{$error}}
-        </x-form-invalid-feedback>
-    @endif
-</div>
+@if(isset($label))
+    <label class="form-label">{{$label}}</label>
+@endif
+<input {{ $disabled ? 'disabled' : '' }} {!! $attributes->merge(['class' => 'form-control'.$classes]) !!}>
+@if(isset($error))
+    <x-form-invalid-feedback>
+        {{$error}}
+    </x-form-invalid-feedback>
+@endif
 
 

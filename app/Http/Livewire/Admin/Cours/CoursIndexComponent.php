@@ -23,7 +23,7 @@ class CoursIndexComponent extends Component
 
     public function loadData()
     {
-        $this->cours = Cours::orderBy('code')->get();
+        $this->cours = Cours::latest()->get();
     }
 
     public function deleteCours($id)

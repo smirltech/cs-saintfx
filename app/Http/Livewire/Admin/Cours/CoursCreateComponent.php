@@ -13,31 +13,34 @@ class CoursCreateComponent extends Component
     use LivewireAlert;
     use ClasseCode;
 
-    public Cours $cours;
+    public ?Cours $cours;
 
 
     protected $rules = [
         'cours.nom' => 'required|unique:cours,nom',
+        'cours.description' => 'required'
 
     ];
 
     protected $messages = [
         'cours.nom.required' => 'Le nom est obligatoire',
         'cours.nom.unique' => 'Le nom existe déjà',
+        'cours.description.required' => 'La description est requise',
     ];
 
     public function submit()
     {
         $this->validate();
 
-        $this->flash('success', 'Classe ajoutée avec succès', [], route('admin.classes'));
-        //return redirect()->to(route('admin.promotions'));
+        $this->cours->save();
+
+        $this->flash('success', 'Cours ajoutée avec succès', [], route('admin.cours.index'));
     }
 
 
     public function mount()
     {
-
+        $this->cours = new Cours();
     }
 
 

@@ -26,19 +26,25 @@
                     {{--  <x-validation-errors class="mb-4" :errors="$errors"/>--}}
                     <form wire:submit.prevent="submit">
                         <div class="row">
-                            <x-form-input class="form-group col-md-6" placeholder="Saisir le nom du cours"
-                                          wire:model="cours.nom"
-                                          label="Nom du cours"
-                                          :isValid="$errors->has('cours.nom') ? false : null"
-                                          error="{{$errors->first('cours.nom')}}"/>
-
-                            <x-form-textarea class="form-group col-md-6" placeholder="Saisir la description du cours"
-                                             wire:model="cours.description"
-                                             label="Description du cours"
-                                             :isValid="$errors->has('cours.description') ? false : null"
-                                             error="{{$errors->first('cours.description')}}"/>
+                            <div class="form-group col-md-6">
+                                <x-form-input placeholder="Saisir le nom du cours"
+                                              wire:model="cours.nom"
+                                              label="Nom du cours"
+                                              :isValid="$errors->has('cours.nom') ? false : null"
+                                              error="{{$errors->first('cours.nom')}}"/>
+                            </div>
 
 
+                            <div class="form-group col-md-6">
+                                <x-form-textarea rows="5"
+                                                 placeholder="Saisir la description du cours"
+                                                 wire:model="cours.description"
+                                                 label="Description du cours"
+                                                 :isValid="$errors->has('cours.description') ? false : null"
+                                                 error="{{$errors->first('cours.description')}}"/>
+
+
+                            </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Soumettre</button>
                     </form>
