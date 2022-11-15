@@ -48,5 +48,16 @@ class Eleve extends Model
         return $this->hasManyThrough(Responsable::class, ResponsableEleve::class, 'eleve_id', 'id', 'id', 'responsable_id');
     }
 
+    // get profile url
+    public function getProfileUrlAttribute(): string
+    {
+        return $this->avatar;
+    }
+
+    public function getAvatarAttribute()
+    {
+        return "https://ui-avatars.com/api/?name=" . $this->full_name . "&background=random";
+    }
+
 
 }
