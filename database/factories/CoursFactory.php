@@ -12,17 +12,11 @@ class CoursFactory extends Factory
 {
     protected $model = Cours::class;
 
-    /*
-     nom         varchar(255) not null,
-    code        varchar(255) not null,
-    description text null,
-     */
-    public function definition()
+    public function definition(): array
     {
         return [
             'nom' => $this->faker->sentence(3),
-            'code' => $this->faker->sentence(3),
-            'description' => $this->faker->sentence(3),
+            'description' => $this->faker->paragraph(1),
         ];
     }
 }
