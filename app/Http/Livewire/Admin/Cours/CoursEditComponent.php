@@ -5,7 +5,6 @@ namespace App\Http\Livewire\Admin\Cours;
 
 use App\Models\Cours;
 use App\View\Components\AdminLayout;
-use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
@@ -13,40 +12,43 @@ class CoursEditComponent extends Component
 {
     use LivewireAlert;
 
-    public $cours;
+    public ?Cours $cours;
 
-    public function mount(Cours $cours)
-    {
 
-        $this->cours = $cours;
-    }
-
+    protected $messages = [
+        'cours.nom.required' => 'Le nom est obligatoire',
+        'cours.nom.unique' => 'Le nom existe déjà',
+        'cours.description.required' => 'La description est requise',
+    ];
 
     public function submit()
     {
         $this->validate();
 
-        $this->flash('success', 'Classe modifiée avec succès', [], route('admin.classes'));
+        $this->cours->save();
 
+        $this->alert('success', 'Cours modifiée avec succès');
     }
+
+
+    public function mount(Cours $cours)
+    {
+        $this->cours = $cours;
+    }
+
 
     public function render()
     {
         return view('livewire.admin.cours.edit')
-            ->layout(AdminLayout::class, ['title' => 'Modification de la classe']);
+            ->layout(AdminLayout::class, ['title' => 'Ajout de classe']);
     }
 
 
-    protected function rules()
+    protected function rules(): array
     {
         return [
-            'cours.nom' => "required",
-            'cours.code' => [
-                "required",
-                Rule::unique((new Cours())->getTable(), "code")->ignore($this->cours->id)
-            ],
-            'cours.description' => 'required',
+            'cours.nom' => 'required|unique:cours,nom,' . $this->cours->id,
+            'cours.description' => 'required'
         ];
     }
-
 }
