@@ -37,12 +37,12 @@ class User extends Authenticatable
 
     public function adminlte_image()
     {
-        return asset('images/logo.png');
+        return $this->avatar;
     }
 
     public function getAvatarAttribute()
     {
-        return asset('images/logo.png');
+        return "https://ui-avatars.com/api/?name=" . $this->name . "&background=random";
     }
 
     public function image()
@@ -80,4 +80,6 @@ class User extends Authenticatable
             return Storage::delete($file);
         }
     }
+
+
 }
