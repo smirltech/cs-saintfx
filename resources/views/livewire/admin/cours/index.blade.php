@@ -55,10 +55,6 @@
                                         </td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                <a href="/admin/cours/{{ $c->id }}" title="Voir"
-                                                   class="btn btn-warning">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
                                                 <a href="/admin/cours/{{ $c->id }}/edit" title="modifier"
                                                    class="btn btn-info  ml-2">
                                                     <i class="fas fa-pen"></i>
