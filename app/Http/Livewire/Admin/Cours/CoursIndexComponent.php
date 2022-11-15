@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin\Cours;
 
 use App\Models\Cours;
 use App\View\Components\AdminLayout;
+use Illuminate\Database\QueryException;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
@@ -26,14 +27,13 @@ class CoursIndexComponent extends Component
         $this->cours = Cours::latest()->get();
     }
 
-    public function deleteCours($id)
+    public function deleteCours(Cours $cours)
     {
-
-        $fa = Cours::find($id);
-        if ($fa->delete()) {
-            $this->loadData();
-            $this->alert('success', 'Cours supprimée avec succès');
-
+        try {
+            $cours->delete();
+            $this->alert('success', 'Cours supprimé avec succès');
+        } catch (QueryException) {
+            $this->alert('error', 'Ce cours est attaché à un enseignant ou à une classe');
         }
     }
 }
