@@ -72,7 +72,7 @@ Route::prefix('admin')->middleware(['auth:web'])->as('admin.')->group(function (
     Route::get('classes', Classe\ClasseIndexComponent::class)->name('classes');
 
     Route::get('cours', Cours\CoursIndexComponent::class)->name('cours.index');
-    Route::get('cours/create', Classe\ClasseCreateComponent::class)->name('cours.create');
+    Route::get('cours/create', Cours\CoursCreateComponent::class)->name('cours.create');
     Route::get('cours/{cours}/edit', Cours\CoursEditComponent::class)->name('cours.edit');
     Route::get('cours/{cours}', Classe\ClasseShowComponent::class)->name('cours.show');
 

@@ -12,12 +12,15 @@
     @if(isset($label))
         <label class="form-label">{{$label}}</label>
     @endif
-    <input {{ $disabled ? 'disabled' : '' }} {!! $attributes->merge(['class' => 'form-control'.$classes]) !!}>
+    <textarea {{ $disabled ? 'disabled' : '' }} {!! $attributes->merge(['class' => 'form-control'.$classes]) !!}>
+        {{$slot}}
+    </textarea>
     @if(isset($error))
         <x-form-invalid-feedback>
             {{$error}}
         </x-form-invalid-feedback>
     @endif
 </div>
+
 
 
