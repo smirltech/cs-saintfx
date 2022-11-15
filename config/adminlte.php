@@ -290,15 +290,16 @@ return [
                     //      'can' => RolePermission::create_etudiant->name,
                 ],
                 [
-                    'text' => 'Liste d\'inscriptions',
+                    'text' => 'Liste d\'élèves',
                     'url' => 'admin/inscriptions',
                 ],
+                /*[
+                            'text' => "Liste d'élèves",
+                            'url' => 'admin/eleves',
+                        ],
+                */
                 [
-                    'text' => "Liste d'élèves",
-                    'url' => 'admin/eleves',
-                ],
-                [
-                    'text' => "Liste de Résponsables",
+                    'text' => "Liste de résponsables",
                     'url' => 'admin/responsables',
                 ],
             ],

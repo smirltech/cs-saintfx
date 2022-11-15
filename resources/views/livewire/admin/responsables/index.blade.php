@@ -14,7 +14,7 @@
 
 
 
-    foreach ($responsables as $responsable){
+    foreach ($responsables as $key=>$responsable){
 
             $btn1 = '<a href="' . "/admin/responsables/{$responsable->id}" . '" class="btn btn-success btn-sm m-1" title="Voir Responsable"><i class="fa fa-eye"></i></a>';
             $btn2 = '<a hidden href="' . "/admin/responsables/{$responsable->id}/edit" . '" class="btn btn-warning btn-sm m-1" title="Edit"><i class="fa fa-edit"></i></a>';
@@ -26,7 +26,7 @@
         //    $badgeColor = Helpers::admissionStatusColor($inscription->status);
 
             $data[] = [
-                $responsable->id,
+                $key+1,
                 $responsable->nom,
                 $responsable->sexe->value??'',
                 '<a href="tel:'.$responsable->telephone.'">'.$responsable->telephone.'</a>',
