@@ -7,6 +7,7 @@ use App\Models\Cours;
 use App\Models\Section;
 use App\View\Components\AdminLayout;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
@@ -50,7 +51,9 @@ class CoursEditComponent extends Component
     protected function rules(): array
     {
         return [
-            'cours.nom' => 'required|unique:cours,nom,' . $this->cours->id,
+            'cours.nom' => ['required', Rule::unique('cours')->where(fn($query) => $query->where('section_id', $this->cours->section_id)
+                ->where('nom', $this->cours->nom))
+                ->ignore($this->cours->id)],
             'cours.description' => 'required',
             'cours.section_id' => 'required'
         ];

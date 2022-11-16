@@ -34,6 +34,18 @@
                                               error="{{$errors->first('cours.nom')}}"/>
                             </div>
 
+                            <div class="form-group col-md-6">
+                                <x-form-select wire:model="cours.section_id"
+                                               label="Section"
+                                               :isValid="$errors->has('cours.section_id') ? false : null"
+                                               error="{{$errors->first('cours.section_id')}}">
+                                    <option value="">Selectionner une section</option>
+                                    @foreach($sections as $section)
+                                        <option value="{{$section->id}}">{{$section->nom}}</option>
+                                    @endforeach
+                                </x-form-select>
+                            </div>
+
 
                             <div class="form-group col-md-6">
                                 <x-form-textarea rows="5"
