@@ -38,26 +38,21 @@
                             <table class="table">
                                 <thead>
                                 <tr>
-                                    <th>NO.</th>
+                                    <th>ID</th>
                                     <th>NOM</th>
-                                    <th>SECTION</th>
-                                    <th>DESCRIPTION</th>
-
+                                    <th>DESCRIPION</th>
                                     <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ($cours as $k=>$c)
+                                @foreach ($cours as $c)
                                     <tr>
-                                        <td>{{ $k+1 }}</td>
+                                        <td>{{ $c->id }}</td>
                                         <td>{{ $c->nom }}</td>
-                                        <td>
-                                            {{ $c->section->nom }}
-                                        </td>
-                                        <td>
-                                            {{ Str::limit($c->description, 50) }}
-                                        </td>
 
+                                        <td>
+                                            {{ $c->description }}
+                                        </td>
                                         <td>
                                             <div class="d-flex float-right">
                                                 <a href="/admin/cours/{{ $c->id }}/edit" title="modifier"

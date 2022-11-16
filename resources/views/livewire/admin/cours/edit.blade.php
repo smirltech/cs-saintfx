@@ -47,7 +47,7 @@
                             </div>
 
 
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-12">
                                 <x-form-textarea rows="5"
                                                  placeholder="Saisir la description du cours"
                                                  wire:model="cours.description"

@@ -1,18 +1,18 @@
 @php use App\Enums\ClasseGrade; @endphp
 @section('title')
-    {{Str::upper('cenk')}} - ajouter cours
+    {{Str::upper('cenk')}} - modifier cours - {{$cours->nom}}
 @endsection
 @section('content_header')
     <div class="row">
         <div class="col-6">
-            <h1 class="ms-3">Ajouter un cours</h1>
+            <h1 class="ms-3">Modifier cours - {{$cours->nom}}</h1>
         </div>
 
         <div class="col-6">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('admin') }}">Accueil</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('admin.cours.index') }}">Cours</a></li>
-                <li class="breadcrumb-item active">Nouvelle Classe</li>
+                <li class="breadcrumb-item active">{{$cours->nom}}</li>
             </ol>
         </div>
     </div>
@@ -33,6 +33,7 @@
                                               :isValid="$errors->has('cours.nom') ? false : null"
                                               error="{{$errors->first('cours.nom')}}"/>
                             </div>
+
                             <div class="form-group col-md-6">
                                 <x-form-select wire:model="cours.section_id"
                                                label="Section"
@@ -46,7 +47,7 @@
                             </div>
 
 
-                            <div class="form-group col-md-12">
+                            <div class="form-group col-md-6">
                                 <x-form-textarea rows="5"
                                                  placeholder="Saisir la description du cours"
                                                  wire:model="cours.description"
