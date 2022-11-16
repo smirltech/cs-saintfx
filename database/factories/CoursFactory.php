@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Cours;
+use App\Models\Section;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,6 +18,7 @@ class CoursFactory extends Factory
         return [
             'nom' => $this->faker->sentence(3),
             'description' => $this->faker->paragraph(1),
+            'section_id' => $this->faker->numberBetween(1, Section::count()),
         ];
     }
 }

@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Enseignant;
+use App\Models\Section;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -12,26 +13,6 @@ class EnseignantFactory extends Factory
 {
     protected $model = Enseignant::class;
 
-    /*
-     * nom            varchar(255) not null,
-    email          varchar(255) not null,
-    telephone      varchar(255) null,
-    matricule      varchar(255) null,
-    adresse        varchar(255) null,
-    genre          varchar(255) null,
-    date_naissance varchar(255) null,
-    lieu_naissance varchar(255) null,
-    nationalite    varchar(255) null,
-    grade          varchar(255) null,
-    specialite     varchar(255) null,
-    diplome        varchar(255) null,
-    date_embauche  varchar(255) null,
-    date_depart    varchar(255) null,
-    motif_depart   varchar(255) null,
-    etat           varchar(255) null,
-    type           varchar(255) null,
-    status         varchar(255) null,
-     * */
     public function definition(): array
     {
         return [
@@ -39,6 +20,7 @@ class EnseignantFactory extends Factory
             'email' => $this->faker->email(),
             'telephone' => $this->faker->phoneNumber(),
             'matricule' => $this->faker->uuid(),
+            'section_id' => $this->faker->numberBetween(1, Section::class::count()),
             'adresse' => $this->faker->address(),
             'genre' => $this->faker->randomElement(['M', 'F']),
             'date_naissance' => $this->faker->date(),
