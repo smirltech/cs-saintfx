@@ -15,18 +15,18 @@ class EnseignantIndexComponent extends Component
 
     public $cours = [];
 
-    public function render()
-    {
-        $this->loadData();
-        return view('livewire.admin.enseingnants.index')
-            ->layout(AdminLayout::class, ['title' => 'Liste d\'enseignants']);
-    }
-
-
-    public function loadData()
+    public function mount()
     {
         $this->cours = Cours::latest()->get();
     }
+
+    public function render()
+    {
+        $data = ['title' => 'Liste d\'enseignants'];
+        return view('livewire.admin.enseingnants.index', $data)
+            ->layout(AdminLayout::class, $data);
+    }
+
 
     public function deleteCours(Cours $cours)
     {

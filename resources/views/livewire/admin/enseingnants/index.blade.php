@@ -1,19 +1,16 @@
 @php use App\Models\Filiere; @endphp
 @php use App\Models\Option; @endphp
 @php use App\Models\Section; @endphp
-@section('title')
-    {{Str::upper('cenk')}} -
-@endsection
 @section('content_header')
     <div class="row">
         <div class="col-6">
-            <h1 class="ms-3">Liste de cours</h1>
+            <h1 class="ms-3">{{$title}}</h1>
         </div>
 
         <div class="col-6">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('admin') }}">Accueil</a></li>
-                <li class="breadcrumb-item active">Cours</li>
+                <li class="breadcrumb-item active">Enseignants</li>
             </ol>
         </div>
     </div>
@@ -29,7 +26,7 @@
                             <div class="card-title">
                             </div>
                             <div class="card-tools d-flex my-auto">
-                                <a href="{{ route('admin.cours.create') }}" title="ajouter"
+                                <a href="{{ route('admin.enseignants.create') }}" title="ajouter"
                                    class="btn btn-primary mr-2"><span
                                         class="fa fa-plus"></span></a>
                             </div>
@@ -55,12 +52,12 @@
                                         </td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                <a href="/admin/cours/{{ $c->id }}/edit" title="modifier"
+                                                <a href="/admin/enseginants/{{ $c->id }}/edit" title="modifier"
                                                    class="btn btn-outline-info  ml-2">
                                                     <i class="fas fa-pen"></i>
                                                 </a>
 
-                                                <button wire:click="deleteCours({{ $c->id }})"
+                                                <button wire:click="delete({{ $c->id }})"
                                                         title="supprimer" class="btn btn-outline-danger ml-2">
                                                     <i class="fas fa-trash"></i>
                                                 </button>

@@ -1,7 +1,8 @@
-
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title')
+    {{config('app.name')}} - {{$title}}
+@endsection
 
 @section('content_header')
     <h1>{{ $title ?? 'Dashboard' }}</h1>
@@ -13,7 +14,7 @@
 
 
 @section('css')
-     <link rel="stylesheet" href="/css/admin_custom.css">
+    <link rel="stylesheet" href="/css/admin_custom.css">
 @stop
 
 @section('js')
