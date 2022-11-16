@@ -36,68 +36,23 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body box-profile">
+                            <div class="text-center">
+                                <img class="profile-user-img img-fluid img-circle mb-2"
+                                     src="{{$enseignant->avatar}}" alt="User profile picture">
+                            </div>
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
-                                    <b>Grade : </b> <span class="float-right">Grade</span>
+                                    <b>Telephone : </b> <span class="float-right">{{$enseignant->telephone}}</span>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Code : </b> <span class="float-right">{{ '$classe->code' }}</span>
+                                    <b>Email : </b> <span class="float-right">{{$enseignant->email}}</span>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Élèves : </b> <span class="float-right">{{ 0 }}</span>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>{{ $parent??'' }} : </b> <span class="float-right"> <a
-                                            href="">{{  'nom' }}</a>
-         </span>
+                                    <b>Adresse : </b> <span class="float-right">{{$enseignant->adresse}}</span>
                                 </li>
                             </ul>
 
-                            <div class="row d-flex mt-2">
-
-                                <div class="col-md-3 col-sm-6 col-6">
-                                    <div class="d-flex align-items-center">
-                                        <div class="bg-info rounded p-2"><i
-                                                class="fa fa-users align-middle"></i></div>
-                                        <div class="ml-1 d-flex flex-column">
-                                            <span class=""></span>
-                                            <span class=""><strong></strong></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-6">
-                                    <div class="d-flex align-items-center">
-                                        <div class="bg-success rounded p-2"><i
-                                                class="fa fa-users align-middle"></i></div>
-                                        <div class="ml-1 d-flex flex-column">
-                                            <span class=""></span>
-                                            <span class=""><strong></strong></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-6">
-                                    <div class="d-flex align-items-center">
-                                        <div class="bg-danger rounded p-2"><i
-                                                class="fa fa-users align-middle"></i></div>
-                                        <div class="ml-1 d-flex flex-column">
-                                            <span class=""></span>
-                                            <span class=""><strong></strong></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-6 col-6">
-                                    <div class="d-flex align-items-center">
-                                        <div class="bg-warning rounded p-2"><i
-                                                class="fa fa-users align-middle"></i></div>
-                                        <div class="ml-1 d-flex flex-column">
-                                            <span class=""></span>
-                                            <span class=""><strong></strong></span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
                         </div>
                     </div>
                 </div>

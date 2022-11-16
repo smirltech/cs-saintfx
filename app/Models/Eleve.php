@@ -57,7 +57,7 @@ class Eleve extends Model
 
     public function getAvatarAttribute()
     {
-        Helpers::fetchAvatar($this->full_name);
+        return Helpers::fetchAvatar($this->full_name);
     }
 
 

@@ -41,7 +41,7 @@
                                     <th>SECTION</th>
 
 
-                                    <th>CLASSE/COURS</th>
+                                    <th>COURS</th>
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -56,13 +56,13 @@
                                         <td>
                                             {{ $enseignant->section->nom }}
                                         </td>
-                                        @if($enseignant->section->nom == 'Secondaire')
+                                        @if(!$enseignant->primaire())
                                             <td>
-                                                {{ $enseignant->cours->count() }} Cours
+                                                {{ $enseignant->cours->count()??'-' }} Cours
                                             </td>
                                         @else
                                             <td>
-                                                {{ $enseignant->classe->code??null }}
+                                                {{ $enseignant->classe->code??'-' }}
                                             </td>
                                         @endif
 
