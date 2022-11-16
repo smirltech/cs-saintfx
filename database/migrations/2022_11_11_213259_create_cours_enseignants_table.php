@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up()
     {
-        Schema::create('enseignant_cours', function (Blueprint $table) {
+        Schema::create('cours_enseignants', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Cours::class)->constrained()->restrictOnDelete();
             $table->foreignIdFor(Enseignant::class)->constrained()->restrictOnDelete();

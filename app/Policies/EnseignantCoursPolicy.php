@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Models\EnseignantCours;
+use App\Models\CoursEnseignant;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -15,7 +15,7 @@ class EnseignantCoursPolicy
         //
     }
 
-    public function view(User $user, EnseignantCours $enseignantCours)
+    public function view(User $user, CoursEnseignant $enseignantCours)
     {
         //
     }
@@ -25,22 +25,22 @@ class EnseignantCoursPolicy
         //
     }
 
-    public function update(User $user, EnseignantCours $enseignantCours)
+    public function update(User $user, CoursEnseignant $enseignantCours)
     {
         //
     }
 
-    public function delete(User $user, EnseignantCours $enseignantCours)
+    public function delete(User $user, CoursEnseignant $enseignantCours)
     {
         //
     }
 
-    public function restore(User $user, EnseignantCours $enseignantCours)
+    public function restore(User $user, CoursEnseignant $enseignantCours)
     {
         //
     }
 
-    public function forceDelete(User $user, EnseignantCours $enseignantCours)
+    public function forceDelete(User $user, CoursEnseignant $enseignantCours)
     {
         //
     }

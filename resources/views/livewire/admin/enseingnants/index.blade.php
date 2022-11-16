@@ -39,8 +39,9 @@
                                     <th></th>
                                     <th>NOM</th>
                                     <th>SECTION</th>
-                                    <th>CLASSE</th>
-                                    <th>COURS</th>
+
+
+                                    <th>CLASSE/COURS</th>
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -55,9 +56,16 @@
                                         <td>
                                             {{ $enseignant->section->nom }}
                                         </td>
-                                        <td>
-                                            {{ $enseignant->classes}}
-                                        </td>
+                                        @if($enseignant->section->nom == 'Secondaire')
+                                            <td>
+                                                {{ $enseignant->cours->count() }} Cours
+                                            </td>
+                                        @else
+                                            <td>
+                                                {{ $enseignant->classe->code??null }}
+                                            </td>
+                                        @endif
+
                                         <td>
                                             <div class="d-flex float-right">
                                                 <a href="/admin/enseginants/{{ $enseignant->id }}/edit" title="modifier"

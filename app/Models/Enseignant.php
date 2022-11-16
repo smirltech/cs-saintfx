@@ -24,9 +24,22 @@ class Enseignant extends Model
         return Helpers::fetchAvatar($this->nom);
     }
 
-    // classe
+    // classes
+
+    public function getClasseAttribute()
+    {
+        return $this->classes()->where('annee_id', Annee::encours()->id)->first();
+    }
+
+
     public function classes()
     {
-        return $this->belongsToMany(Classe::class);
+        return $this->belongsToMany(Classe::class, 'classe_enseignants');
+    }
+
+    // cours
+    public function cours()
+    {
+        return $this->belongsToMany(Cours::class, 'cours_enseignants')->where('annee_id', Annee::encours()->id);
     }
 }
