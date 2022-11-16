@@ -1,5 +1,5 @@
 @php
-    use App\Enums\InscriptionStatus;use App\Helpers\Helpers;use App\Models\Filiere;use App\Models\Option;use App\Models\Section;
+    use App\Enums\InscriptionStatus;use App\Helpers\Helpers;use App\Models\Classe;use App\Models\Filiere;use App\Models\Option;use App\Models\Section;
 @endphp
 @section('content_header')
     <div class="row">
@@ -54,7 +54,7 @@
                                 </li>
                             </ul>
 
-                            <div hidden class="row d-flex mt-2">
+                            <div class="row d-flex mt-2">
 
                                 <div class="col-md-3 col-sm-6 col-6">
                                     <div class="d-flex align-items-center">
@@ -102,108 +102,111 @@
                     </div>
                 </div>
                 <div class="col-md-9 col-sm-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">
-                                <h4 class="m-0">Cours</h4>
+                    @if($enseignant->primaire())
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <h4 class="m-0">Classes</h4>
+                                </div>
+                                <div class="card-tools d-flex my-auto">
+
+                                    <button role="button" class="btn btn-warning"
+                                            data-toggle="modal"
+                                            data-target="#add-inscription-modal"><span
+                                            class="fas fa-plus"></span></button>
+
+                                </div>
                             </div>
-                            <div class="card-tools d-flex my-auto">
-
-                                <button role="button" class="btn btn-warning"
-                                        data-toggle="modal"
-                                        data-target="#add-inscription-modal"><span
-                                        class="fas fa-plus"></span></button>
-
-                            </div>
-                        </div>
-
-                        <div class="card-body p-0 table-responsive">
-                            <div class="table-responsive m-b-40">
-                                <table class="table">
-                                    <thead>
-                                    <tr>
-                                        <th>NO.</th>
-                                        <th>NOM</th>
-                                        <th>DESCRIPTION</th>
-                                        <th>CLASSE</th>
-                                        <th></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach ($cours as $k=>$c)
+                            <div class="card-body p-0 table-responsive">
+                                <div class="table-responsive m-b-40">
+                                    <table class="table">
+                                        <thead>
                                         <tr>
-                                            <td>{{ $k+1 }}</td>
-                                            <td>{{ $c->nom }}</td>
-                                            <td>
-                                                {{ Str::limit($c->description, 50) }}
-                                            </td>
-                                            <td>{{ $c->pivot }}</td>
-                                            <td>
-                                                <div class="d-flex float-right">
-                                                    <button wire:click="deleteCours({{ $c->id }})"
-                                                            title="Remove" class="btn btn-outline-primary ml-2">
-                                                        <i class="fas fa-minus"></i>
-                                                    </button>
-                                                </div>
-                                            </td>
+                                            <th>CODE</th>
+                                            <th>FILIERE</th>
+                                            <th>ELEVES</th>
+                                            <th></th>
                                         </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                        @foreach ($classes as $key=>$classe)
+                                            <tr>
+                                                <td>{{ $classe->code }}</td>
+
+                                                <td>
+                                                    <a href="{{$classe->parent_url}}">{{ $classe->filierable->fullName }}</a>
+                                                </td>
+                                                <td>
+                                                    {{ $classe->inscriptions->count() }}
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex float-right">
+                                                        <button wire:click="deleteCours({{ $classe->id }})"
+                                                                title="Remove" class="btn btn-outline-primary ml-2">
+                                                            <i class="fas fa-minus"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">
-                                <h4 class="m-0">Classes</h4>
-                            </div>
-                            <div class="card-tools d-flex my-auto">
+                    @else
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <h4 class="m-0">Cours</h4>
+                                </div>
+                                <div class="card-tools d-flex my-auto">
 
-                                <button role="button" class="btn btn-warning"
-                                        data-toggle="modal"
-                                        data-target="#add-inscription-modal"><span
-                                        class="fas fa-plus"></span></button>
+                                    <button role="button" class="btn btn-warning"
+                                            data-toggle="modal"
+                                            data-target="#add-inscription-modal"><span
+                                            class="fas fa-plus"></span></button>
 
+                                </div>
                             </div>
-                        </div>
-                        <div class="card-body p-0 table-responsive">
-                            <div class="table-responsive m-b-40">
-                                <table class="table">
-                                    <thead>
-                                    <tr>
-                                        <th>CODE</th>
-                                        <th>FILIERE</th>
-                                        <th>ELEVES</th>
-                                        <th></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach ($classes as $key=>$classe)
+
+                            <div class="card-body p-0 table-responsive">
+                                <div class="table-responsive m-b-40">
+                                    <table class="table">
+                                        <thead>
                                         <tr>
-                                            <td>{{ $classe->code }}</td>
-
-                                            <td>
-                                                <a href="{{$classe->parent_url}}">{{ $classe->filierable->fullName }}</a>
-                                            </td>
-                                            <td>
-                                                {{ $classe->inscriptions->count() }}
-                                            </td>
-                                            <td>
-                                                <div class="d-flex float-right">
-                                                    <button wire:click="deleteCours({{ $c->id }})"
-                                                            title="Remove" class="btn btn-outline-primary ml-2">
-                                                        <i class="fas fa-minus"></i>
-                                                    </button>
-                                                </div>
-                                            </td>
+                                            <th>NO.</th>
+                                            <th>NOM</th>
+                                            <th>DESCRIPTION</th>
+                                            <th>CLASSE</th>
+                                            <th></th>
                                         </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                        @foreach ($cours as $k=>$c)
+                                            <tr>
+                                                <td>{{ $k+1 }}</td>
+                                                <td>{{ $c->nom }}</td>
+                                                <td>
+                                                    {{ Str::limit($c->description, 100) }}
+                                                </td>
+                                                <td>{{Classe::find($c->pivot->classe_id)->code}}</td>
+                                                <td>
+                                                    <div class="d-flex float-right">
+                                                        <button wire:click="deleteCours({{ $c->id??'' }})"
+                                                                title="Remove" class="btn btn-outline-primary ml-2">
+                                                            <i class="fas fa-minus"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
             </div>
         </div>

@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Admin\Enseignant;
 
 use App\Models\Annee;
-use App\Models\Classe;
 use App\Models\Enseignant;
 use App\Traits\EleveUniqueCode;
 use App\Traits\FakeProfileImage;
@@ -31,7 +30,7 @@ class EnseignantShowComponent extends Component
     {
         $this->enseignant = $enseignant;
         $this->cours = $enseignant->cours;
-        $this->classes = Classe::all();
+        $this->classes = $enseignant->classes;
         $this->annee_courante = Annee::encours();
     }
 
