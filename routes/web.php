@@ -83,6 +83,7 @@ Route::prefix('admin')->middleware(['auth:web'])->as('admin.')->group(function (
     Route::get('enseignants', Enseignant\EnseignantIndexComponent::class)->name('enseignants.index');
     Route::get('enseignants/create', Enseignant\EnseignantCreateComponent::class)->name('enseignants.create');
     Route::get('enseignants/{enseignant}/edit', Enseignant\EnseignantEditComponent::class)->name('enseignants.edit');
+    Route::get('enseignants/{enseignant}', Enseignant\EnseignantShowComponent::class)->name('enseignants.show');
 
 
 // Année

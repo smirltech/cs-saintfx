@@ -1,29 +1,25 @@
 @php
-    use App\Enums\InscriptionStatus;use App\Helpers\Helpers;
+    use App\Enums\InscriptionStatus;use App\Helpers\Helpers;use App\Models\Filiere;use App\Models\Option;use App\Models\Section;
 @endphp
-
-@section('title')
-    {{Str::upper('cenk')}} - classe - {{$classe->code}}
-@endsection
 @section('content_header')
     <div class="row">
         <div class="col-6">
-            <h1 class="ms-3"><span class="fas fa-fw fa-chalkboard-teacher mr-1"></span>Classe</h1>
+            <h1 class="ms-3"><span
+                    class="fas fa-fw fa-chalkboard-teacher mr-1"></span>Enseignant {{$enseignant->section->nom}}
+            </h1>
         </div>
 
         <div class="col-6">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('admin') }}">Accueil</a></li>
-                <li class="breadcrumb-item"><a href="{{ $parent_url }}">{{$classe->filierable->nom}}</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('admin.classes') }}">Classes</a></li>
-                <li class="breadcrumb-item active">{{$classe->grade->label()}}</li>
+                <li class="breadcrumb-item"><a href="{{route('admin.enseignants.index')}}">Enseignants</a></li>
+                <li class="breadcrumb-item active">{{$enseignant->nom}}</li>
             </ol>
         </div>
     </div>
 
 @stop
 <div class="">
-
     <div class="content mt-3">
         <div class="container-fluid">
             <div class="row">
@@ -31,10 +27,10 @@
                     <div class="card card-primary card-outline">
                         <div class="card-header">
                             <div class="card-title">
-                                <h4 class="m-0">{{$classe->grade->label()}}</h4>
+                                <h4 class="m-0">{{$enseignant->nom}}</h4>
                             </div>
                             <div class="card-tools">
-                                <a href="/admin/classes/{{ $classe->id }}/edit" title="modifier"
+                                <a href="{{route('admin.enseignants.edit',$enseignant)}}" title="modifier"
                                    class="ml-2">
                                     <i class="fas fa-pen"></i>
                                 </a>
@@ -43,65 +39,65 @@
                         <div class="card-body">
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
-                                    <b>Grade : </b> <span class="float-right">{{ $classe->grade->label() }}</span>
+                                    <b>Grade : </b> <span class="float-right">Grade</span>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Code : </b> <span class="float-right">{{ $classe->code }}</span>
+                                    <b>Code : </b> <span class="float-right">{{ '$classe->code' }}</span>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Élèves : </b> <span class="float-right">{{ $inscriptions->count() }}</span>
+                                    <b>Élèves : </b> <span class="float-right">{{ 0 }}</span>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>{{ $parent }} : </b> <span class="float-right"> <a
-                                            href="{{ $parent_url }}">{{  $classe->filierable->nom }}</a>
+                                    <b>{{ $parent??'' }} : </b> <span class="float-right"> <a
+                                            href="">{{  'nom' }}</a>
          </span>
                                 </li>
                             </ul>
 
-                            {{-- <div hidden class="row d-flex mt-2">
+                            <div hidden class="row d-flex mt-2">
 
-                                 <div class="col-md-3 col-sm-6 col-6">
-                                     <div class="d-flex align-items-center">
-                                         <div class="bg-info rounded p-2"><i
-                                                 class="fa fa-users align-middle"></i></div>
-                                         <div class="ml-1 d-flex flex-column">
-                                             <span class=""></span>
-                                             <span class=""><strong></strong></span>
-                                         </div>
-                                     </div>
-                                 </div>
-                                 <div class="col-md-3 col-sm-6 col-6">
-                                     <div class="d-flex align-items-center">
-                                         <div class="bg-success rounded p-2"><i
-                                                 class="fa fa-users align-middle"></i></div>
-                                         <div class="ml-1 d-flex flex-column">
-                                             <span class=""></span>
-                                             <span class=""><strong></strong></span>
-                                         </div>
-                                     </div>
-                                 </div>
-                                 <div class="col-md-3 col-sm-6 col-6">
-                                     <div class="d-flex align-items-center">
-                                         <div class="bg-danger rounded p-2"><i
-                                                 class="fa fa-users align-middle"></i></div>
-                                         <div class="ml-1 d-flex flex-column">
-                                             <span class=""></span>
-                                             <span class=""><strong></strong></span>
-                                         </div>
-                                     </div>
-                                 </div>
-                                 <div class="col-md-3 col-sm-6 col-6">
-                                     <div class="d-flex align-items-center">
-                                         <div class="bg-warning rounded p-2"><i
-                                                 class="fa fa-users align-middle"></i></div>
-                                         <div class="ml-1 d-flex flex-column">
-                                             <span class=""></span>
-                                             <span class=""><strong></strong></span>
-                                         </div>
-                                     </div>
-                                 </div>
+                                <div class="col-md-3 col-sm-6 col-6">
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-info rounded p-2"><i
+                                                class="fa fa-users align-middle"></i></div>
+                                        <div class="ml-1 d-flex flex-column">
+                                            <span class=""></span>
+                                            <span class=""><strong></strong></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-6 col-6">
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-success rounded p-2"><i
+                                                class="fa fa-users align-middle"></i></div>
+                                        <div class="ml-1 d-flex flex-column">
+                                            <span class=""></span>
+                                            <span class=""><strong></strong></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-6 col-6">
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-danger rounded p-2"><i
+                                                class="fa fa-users align-middle"></i></div>
+                                        <div class="ml-1 d-flex flex-column">
+                                            <span class=""></span>
+                                            <span class=""><strong></strong></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-6 col-6">
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-warning rounded p-2"><i
+                                                class="fa fa-users align-middle"></i></div>
+                                        <div class="ml-1 d-flex flex-column">
+                                            <span class=""></span>
+                                            <span class=""><strong></strong></span>
+                                        </div>
+                                    </div>
+                                </div>
 
-                             </div>--}}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -109,13 +105,14 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="card-title">
-                                <h4 class="m-0">Liste d'inscriptions</h4>
+                                <h4 class="m-0">Cours</h4>
                             </div>
                             <div class="card-tools d-flex my-auto">
 
-                                {{-- <a href="{{ route('admin.admissions.create') }}" title="ajouter"
-                                    class="btn btn-primary mr-2"><span class="fa fa-plus"></span></a>--}}
-
+                                <button role="button" class="btn btn-warning"
+                                        data-toggle="modal"
+                                        data-target="#add-inscription-modal"><span
+                                        class="fas fa-plus"></span></button>
 
                             </div>
                         </div>
@@ -125,25 +122,28 @@
                                 <table class="table">
                                     <thead>
                                     <tr>
-                                        <th style="width: 100px">CODE</th>
-                                        <th>ELEVE</th>
-                                        <th>SEXE</th>
-                                        <th style="width: 100px"></th>
+                                        <th>NO.</th>
+                                        <th>NOM</th>
+                                        <th>DESCRIPTION</th>
+                                        <th>CLASSE</th>
+                                        <th></th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach ($inscriptions->sortBy(fn ($q) => $q->eleve->fullName) as $inscription)
+                                    @foreach ($cours as $k=>$c)
                                         <tr>
-                                            <td>{{ $inscription->code }}</td>
-                                            <td>{{ $inscription->eleve->fullName }}</td>
-                                            <td>{{ $inscription->eleve->sexe }}</td>
+                                            <td>{{ $k+1 }}</td>
+                                            <td>{{ $c->nom }}</td>
+                                            <td>
+                                                {{ Str::limit($c->description, 50) }}
+                                            </td>
+                                            <td>{{ $c->pivot }}</td>
                                             <td>
                                                 <div class="d-flex float-right">
-                                                    {{--<a href="/admin/eleves/{{ $responsable_eleve->eleve->id }}" title="Voir"
-                                                       class="btn btn-warning">
-                                                        <i class="fas fa-eye"></i>
-                                                    </a>--}}
-
+                                                    <button wire:click="deleteCours({{ $c->id }})"
+                                                            title="Remove" class="btn btn-outline-primary ml-2">
+                                                        <i class="fas fa-minus"></i>
+                                                    </button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -151,8 +151,57 @@
                                     </tbody>
                                 </table>
                             </div>
-                            {{-- <x-adminlte-datatable id="table7" :heads="$heads" theme="light" :config="$config" striped
-                                                   hoverable with-buttons/>--}}
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <h4 class="m-0">Classes</h4>
+                            </div>
+                            <div class="card-tools d-flex my-auto">
+
+                                <button role="button" class="btn btn-warning"
+                                        data-toggle="modal"
+                                        data-target="#add-inscription-modal"><span
+                                        class="fas fa-plus"></span></button>
+
+                            </div>
+                        </div>
+                        <div class="card-body p-0 table-responsive">
+                            <div class="table-responsive m-b-40">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>CODE</th>
+                                        <th>FILIERE</th>
+                                        <th>ELEVES</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach ($classes as $key=>$classe)
+                                        <tr>
+                                            <td>{{ $classe->code }}</td>
+
+                                            <td>
+                                                <a href="{{$classe->parent_url}}">{{ $classe->filierable->fullName }}</a>
+                                            </td>
+                                            <td>
+                                                {{ $classe->inscriptions->count() }}
+                                            </td>
+                                            <td>
+                                                <div class="d-flex float-right">
+                                                    <button wire:click="deleteCours({{ $c->id }})"
+                                                            title="Remove" class="btn btn-outline-primary ml-2">
+                                                        <i class="fas fa-minus"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

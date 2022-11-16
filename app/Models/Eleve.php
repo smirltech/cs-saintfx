@@ -50,7 +50,7 @@ class Eleve extends Model
     }
 
     // get profile url
-    public function getProfileUrlAttribute(): string
+    public function getProfileUrlAttribute(): ?string
     {
         return $this->avatar;
     }
