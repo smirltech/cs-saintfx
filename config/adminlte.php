@@ -306,7 +306,7 @@ return [
         ],
         [
             'text' => 'Classes',
-            'icon' => 'fas fa-fw fa-chalkboard-teacher',
+            'icon' => 'fas fa-fw fa-school',
             // 'can' => RolePermission::create_promotion->name,
             'submenu' => [
                 [
@@ -322,6 +322,12 @@ return [
                     'url' => 'admin/cours',
                 ],
             ],
+        ],
+        [
+            'text' => 'Enseignants',
+            'icon' => 'fas fa-fw fa-chalkboard-teacher',
+            // 'can' => RolePermission::create_promotion->name,
+            'url' => 'admin/enseignants',
         ],
         [
             'text' => 'Sections',
@@ -342,67 +348,6 @@ return [
                 ],
             ],
         ],
-        /*  [
-              'text' => 'Facultés',
-              'icon' => 'fas fa-fw fa-university',
-              'can' => RolePermission::create_faculte->name,
-              'submenu' => [
-                  [
-                      'text' => 'Liste de facultés',
-                      'url' => 'admin/facultes',
-                  ],
-                  [
-                      'text' => 'Liste de filières',
-                      'url' => 'admin/filieres',
-                  ],
-              ],
-          ],*/
-
-        /*  [
-              'text' => 'Sites',
-              'icon' => 'fas fa-fw fa-map',
-              'submenu' => [
-                  [
-                      'text' => 'Ajouter',
-                      'url' => 'admin/sites/create',
-                  ],
-                  [
-                      'text' => 'Liste',
-                      'url' => 'admin/sites',
-                  ],
-
-              ],
-          ],*/
-        /*
-            [
-                'text' => 'Promotions',
-                'icon' => 'fas fa-fw fa-bullhorn',
-                'submenu' => [
-                    [
-                        'text' => 'Creer une promotion',
-                        'url' => 'admin/promotions/create',
-                    ],
-                    [
-                        'text' => 'Liste des promotions',
-                        'url' => 'admin/promotions',
-                    ],
-
-
-                ],
-            ],
-
-            [
-                'text' => 'Reservations',
-                'icon' => 'fas fa-fw fa-ticket-alt',
-                'url' => '/admin/reservations',
-            ],
-
-
-            [
-                'text' => 'Paramettres',
-                'icon' => 'fa fa-fw fa-cog',
-                'url' => '/admin/settings',
-            ],*/
         [
             'text' => 'Utilisateurs',
             'icon' => 'fas fa-fw fa-users',
