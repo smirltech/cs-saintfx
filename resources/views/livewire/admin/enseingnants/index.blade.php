@@ -35,29 +35,37 @@
                             <table class="table">
                                 <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    <th>NO.</th>
+                                    <th></th>
                                     <th>NOM</th>
-                                    <th>DESCRIPION</th>
+                                    <th>SECTION</th>
+                                    <th>CLASSE</th>
+                                    <th>COURS</th>
                                     <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ($cours as $c)
+                                @foreach ($enseignants as $key=>$enseignant)
                                     <tr>
-                                        <td>{{ $c->id }}</td>
-                                        <td>{{ $c->nom }}</td>
+                                        <td>{{ $key+1 }}</td>
+                                        <td><img class="img-circle" style="width:50px; height:50px"
+                                                 src="{{$enseignant->avatar}}"></td>
+                                        <td>{{ $enseignant->nom }}</td>
 
                                         <td>
-                                            {{ $c->description }}
+                                            {{ $enseignant->section->nom }}
+                                        </td>
+                                        <td>
+                                            {{ $enseignant->classes}}
                                         </td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                <a href="/admin/enseginants/{{ $c->id }}/edit" title="modifier"
+                                                <a href="/admin/enseginants/{{ $enseignant->id }}/edit" title="modifier"
                                                    class="btn btn-outline-info  ml-2">
                                                     <i class="fas fa-pen"></i>
                                                 </a>
 
-                                                <button wire:click="delete({{ $c->id }})"
+                                                <button wire:click="delete({{ $enseignant->id }})"
                                                         title="supprimer" class="btn btn-outline-danger ml-2">
                                                     <i class="fas fa-trash"></i>
                                                 </button>

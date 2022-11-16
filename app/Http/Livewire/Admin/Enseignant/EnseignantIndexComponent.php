@@ -2,9 +2,10 @@
 
 namespace App\Http\Livewire\Admin\Enseignant;
 
-use App\Models\Cours;
+use App\Models\Enseignant;
 use App\Traits\HasDeleteModel;
 use App\View\Components\AdminLayout;
+use Illuminate\Database\Eloquent\Collection;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
@@ -13,11 +14,11 @@ class EnseignantIndexComponent extends Component
     use LivewireAlert;
     use HasDeleteModel;
 
-    public $cours = [];
+    public Collection $enseignants;
 
     public function mount()
     {
-        $this->cours = Cours::latest()->get();
+        $this->enseignants = Enseignant::latest()->get();
     }
 
     public function render()
@@ -28,8 +29,8 @@ class EnseignantIndexComponent extends Component
     }
 
 
-    public function deleteCours(Cours $cours)
+    public function delete(Enseignant $enseignant)
     {
-        $this->deleteModel($cours, 'Cours supprimé avec succès', 'Erreur lors de la suppression');
+        $this->deleteModel($enseignant, 'Enseignant supprimé avec succès');
     }
 }
