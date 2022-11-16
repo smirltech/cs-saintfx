@@ -4,7 +4,9 @@ namespace App\Http\Livewire\Admin\Cours;
 
 
 use App\Models\Cours;
+use App\Models\Section;
 use App\View\Components\AdminLayout;
+use Illuminate\Database\Eloquent\Collection;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
@@ -12,13 +14,13 @@ class CoursEditComponent extends Component
 {
     use LivewireAlert;
 
-    public ?Cours $cours;
-
-
+    public Cours $cours;
+    public Collection $sections;
     protected $messages = [
         'cours.nom.required' => 'Le nom est obligatoire',
         'cours.nom.unique' => 'Le nom existe déjà',
         'cours.description.required' => 'La description est requise',
+        'cours.section_id.required' => 'La section est requise'
     ];
 
     public function submit()
@@ -34,6 +36,7 @@ class CoursEditComponent extends Component
     public function mount(Cours $cours)
     {
         $this->cours = $cours;
+        $this->sections = Section::all();
     }
 
 
@@ -48,7 +51,8 @@ class CoursEditComponent extends Component
     {
         return [
             'cours.nom' => 'required|unique:cours,nom,' . $this->cours->id,
-            'cours.description' => 'required'
+            'cours.description' => 'required',
+            'cours.section_id' => 'required'
         ];
     }
 }
