@@ -111,7 +111,7 @@
                                                     <td>{{ $inscription->eleve->sexe }}</td>
                                                     <td>
                                                         <div class="d-flex float-right">
-                                                            <a href="/admin/eleves/{{ $inscription->eleve->id }}"
+                                                            <a href="{{route('admin.eleves.show',$inscription->eleve)}}"
                                                                title="Voir"
                                                                class="btn btn-warning btn-sm">
                                                                 <i class="fas fa-eye"></i>
@@ -134,8 +134,6 @@
                                                 <th>NOM</th>
                                                 <th>SECTION</th>
                                                 <th>DESCRIPTION</th>
-
-                                                <th></th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -148,21 +146,6 @@
                                                     </td>
                                                     <td>
                                                         {{ Str::limit($c->description, 50) }}
-                                                    </td>
-
-                                                    <td>
-                                                        <div class="d-flex float-right">
-                                                            <a href="/admin/cours/{{ $c->id }}/edit" title="modifier"
-                                                               class="btn btn-outline-info  ml-2">
-                                                                <i class="fas fa-pen"></i>
-                                                            </a>
-
-                                                            <button wire:click="deleteCours({{ $c->id }})"
-                                                                    title="supprimer"
-                                                                    class="btn btn-outline-danger ml-2">
-                                                                <i class="fas fa-trash"></i>
-                                                            </button>
-                                                        </div>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -190,7 +173,7 @@
                                             @foreach ($enseignants as $key=>$enseignant)
                                                 <tr>
                                                     <td>{{ $key+1 }}</td>
-                                                    <td><img class="img-circle" style="width:50px; height:50px"
+                                                    <td><img class="img-circle" style="width:30px; height:auto"
                                                              src="{{$enseignant->avatar}}"></td>
                                                     <td>{{ $enseignant->nom }}</td>
 
@@ -209,18 +192,6 @@
 
                                                     <td>
                                                         <div class="d-flex float-right">
-
-                                                            <a href="/admin/enseignants/{{ $enseignant->id }}"
-                                                               title="Voir"
-                                                               class="btn btn-outline-primary ml-2">
-                                                                <i class="fas fa-eye"></i>
-                                                            </a>
-                                                            <a href="/admin/enseignants/{{ $enseignant->id }}/edit"
-                                                               title="modifier"
-                                                               class="btn btn-outline-info  ml-2">
-                                                                <i class="fas fa-pen"></i>
-                                                            </a>
-
                                                             <button wire:click="delete({{ $enseignant->id }})"
                                                                     title="supprimer"
                                                                     class="btn btn-outline-danger ml-2">
