@@ -3,14 +3,14 @@
 namespace App\Http\Livewire\Admin\Cours;
 
 use App\Models\Cours;
+use App\Traits\HasDeleteModel;
 use App\View\Components\AdminLayout;
-use Illuminate\Database\QueryException;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 class CoursIndexComponent extends Component
 {
-    use LivewireAlert;
+    use LivewireAlert, HasDeleteModel;
 
     public $cours = [];
 
@@ -29,11 +29,6 @@ class CoursIndexComponent extends Component
 
     public function deleteCours(Cours $cours)
     {
-        try {
-            $cours->delete();
-            $this->alert('success', 'Cours supprimé avec succès');
-        } catch (QueryException) {
-            $this->alert('error', 'Ce cours est attaché à un enseignant ou à une classe');
-        }
+        $this->deleteModel($cours, 'Cours supprimé avec succès', 'Ce cours est attaché à un enseignant ou à une classe');
     }
 }

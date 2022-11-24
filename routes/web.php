@@ -10,6 +10,7 @@ use App\Http\Livewire\Admin\Cours;
 use App\Http\Livewire\Admin\DashboardComponent;
 use App\Http\Livewire\Admin\Eleve\EleveIndexComponent;
 use App\Http\Livewire\Admin\Eleve\EleveShowComponent;
+use App\Http\Livewire\Admin\Enseignant;
 use App\Http\Livewire\Admin\Filiere\FiliereIndexComponent;
 use App\Http\Livewire\Admin\Filiere\FiliereShowComponent;
 use App\Http\Livewire\Admin\Inscription\ByStatus\InscriptionStatusComponent;
@@ -71,10 +72,18 @@ Route::prefix('admin')->middleware(['auth:web'])->as('admin.')->group(function (
     Route::get('classes/{classe}', Classe\ClasseShowComponent::class)->name('classes.show');
     Route::get('classes', Classe\ClasseIndexComponent::class)->name('classes');
 
+
+    // cours
     Route::get('cours', Cours\CoursIndexComponent::class)->name('cours.index');
     Route::get('cours/create', Cours\CoursCreateComponent::class)->name('cours.create');
     Route::get('cours/{cours}/edit', Cours\CoursEditComponent::class)->name('cours.edit');
     Route::get('cours/{cours}', Classe\ClasseShowComponent::class)->name('cours.show');
+
+    // Enseignant
+    Route::get('enseignants', Enseignant\EnseignantIndexComponent::class)->name('enseignants.index');
+    Route::get('enseignants/create', Enseignant\EnseignantCreateComponent::class)->name('enseignants.create');
+    Route::get('enseignants/{enseignant}/edit', Enseignant\EnseignantEditComponent::class)->name('enseignants.edit');
+    Route::get('enseignants/{enseignant}', Enseignant\EnseignantShowComponent::class)->name('enseignants.show');
 
 
 // Année

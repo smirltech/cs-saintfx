@@ -22,7 +22,7 @@ class EnseignantFactory extends Factory
             'matricule' => $this->faker->uuid(),
             'section_id' => $this->faker->numberBetween(1, Section::class::count()),
             'adresse' => $this->faker->address(),
-            'genre' => $this->faker->randomElement(['M', 'F']),
+            'sexe' => $this->faker->randomElement(['M', 'F']),
             'date_naissance' => $this->faker->date(),
             'lieu_naissance' => $this->faker->city(),
             'nationalite' => $this->faker->country(),

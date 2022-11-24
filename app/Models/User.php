@@ -7,7 +7,6 @@ use App\Helpers\Helpers;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Traits\HasRoles;
 
 
@@ -42,7 +41,7 @@ class User extends Authenticatable
 
     public function getAvatarAttribute()
     {
-        return "https://ui-avatars.com/api/?name=" . $this->name . "&background=random";
+        return Helpers::fetchAvatar($this->name);
     }
 
     public function image()
@@ -70,15 +69,6 @@ class User extends Authenticatable
     public function getRoleAttribute()
     {
         return $this->roles->first();
-    }
-
-    public function delete_image()
-    {
-        if (!empty($this->image)) {
-            //  $file = 'public/companies/' .$this->company_id . '/users/' . $this->image;
-            $file = Helpers::profile_image($this->image);
-            return Storage::delete($file);
-        }
     }
 
 

@@ -15,10 +15,10 @@ return new class extends Migration {
             $table->string('telephone')->nullable();
             $table->string('matricule')->unique()->nullable();
             $table->string('adresse')->nullable();
-            $table->string('genre')->nullable();
+            $table->string('sexe')->nullable();
             $table->string('date_naissance')->nullable();
             $table->string('lieu_naissance')->nullable();
-            $table->string('nationalite')->nullable();
+            $table->string('nationalite')->default('Congolaise');
             $table->foreignIdFor(Section::class)->constrained()->restrictOnDelete();
 
             $table->string('grade')->nullable();

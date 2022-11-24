@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\Sexe;
+use App\Helpers\Helpers;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -49,14 +50,14 @@ class Eleve extends Model
     }
 
     // get profile url
-    public function getProfileUrlAttribute(): string
+    public function getProfileUrlAttribute(): ?string
     {
         return $this->avatar;
     }
 
     public function getAvatarAttribute()
     {
-        return "https://ui-avatars.com/api/?name=" . $this->full_name . "&background=random";
+        return Helpers::fetchAvatar($this->full_name);
     }
 
 

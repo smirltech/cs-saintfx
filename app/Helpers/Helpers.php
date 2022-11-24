@@ -72,4 +72,11 @@ class Helpers
                 return "primary";
         }
     }
+
+    // fetchAvatar
+    public static function fetchAvatar($name, $width = 50, $height = 50): string
+    {
+        $name = str_replace(' ', '+', $name);
+        return "https://ui-avatars.com/api/?name={$name}&background=random&size={$width}x{$height}";
+    }
 }

@@ -29,7 +29,7 @@ class Classe extends Model
 
     public function inscriptions()
     {
-        return $this->hasMany(Inscription::class);
+        return $this->hasMany(Inscription::class)->where('annee_id', Annee::encours()->id);
     }
 
     // full_name
@@ -48,5 +48,21 @@ class Classe extends Model
     public function getShortCodeAttribute(): string
     {
         return "{$this->grade->value} {$this->filierable->shortCode}";
+    }
+
+    // parent_url
+    public function getParentUrlAttribute(): ?string
+    {
+        $parent_url = "";
+        $classable = $this->filierable;
+        if ($classable instanceof Filiere) {
+            $parent_url = route('admin.filieres.show', $classable->id);
+        } else if ($classable instanceof Option) {
+            $parent_url = route('admin.options.show', $classable->id);
+        } else if ($classable instanceof Section) {
+            $parent_url = route('admin.sections.show', $classable->id);
+        }
+
+        return $parent_url;
     }
 }

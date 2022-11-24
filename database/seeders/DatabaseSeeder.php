@@ -5,9 +5,9 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\ClasseEnseignant;
 use App\Models\Cours;
+use App\Models\CoursEnseignant;
 use App\Models\Eleve;
 use App\Models\Enseignant;
-use App\Models\EnseignantCours;
 use App\Models\Inscription;
 use App\Models\Presence;
 use App\Models\Responsable;
@@ -52,7 +52,7 @@ class DatabaseSeeder extends Seeder
             ClasseEnseignant::factory(10)->create();
 
             Cours::factory(30)->create();
-            EnseignantCours::factory(20)->create();
+            CoursEnseignant::factory(20)->create();
 
             Presence::factory(30)->create();
 

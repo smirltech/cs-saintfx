@@ -3,22 +3,24 @@
 namespace Database\Factories;
 
 use App\Models\Annee;
+use App\Models\Classe;
 use App\Models\Cours;
+use App\Models\CoursEnseignant;
 use App\Models\Enseignant;
-use App\Models\EnseignantCours;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<EnseignantCours>
+ * @extends Factory<CoursEnseignant>
  */
-class EnseignantCoursFactory extends Factory
+class CoursEnseignantFactory extends Factory
 {
-    protected $model = EnseignantCours::class;
+    protected $model = CoursEnseignant::class;
 
     public function definition()
     {
         return [
             'cours_id' => $this->faker->numberBetween(1, Cours::count()),
+            'classe_id' => $this->faker->numberBetween(1, Classe::count()),
             'enseignant_id' => $this->faker->numberBetween(1, Enseignant::count()),
             'annee_id' => $this->faker->numberBetween(1, Annee::count()),
         ];

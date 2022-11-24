@@ -1,3 +1,6 @@
+@php use App\Models\Filiere; @endphp
+@php use App\Models\Option; @endphp
+@php use App\Models\Section; @endphp
 @section('title')
     {{Str::upper('cenk')}} - classes
 @endsection
@@ -35,31 +38,23 @@
                             <table class="table">
                                 <thead>
                                 <tr>
+                                    <th>NO.</th>
                                     <th>CODE</th>
-                                    <th>CLASSE</th>
-                                    <th>SECTION/OPTION/FILIERE</th>
+                                    <th>FILIERE</th>
+                                    <th>ELEVES</th>
                                     <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ($classes as $classe)
-                                    @php
-                                        $parent_url = "";
-                                            $classable = $classe->filierable;
-                                            if($classable instanceof \App\Models\Filiere){
-                                                $parent_url = "/admin/filieres/$classe->filierable_id";
-                                            }else  if($classable instanceof \App\Models\Option){
-                                                $parent_url = "/admin/options/$classe->filierable_id";
-                                            }else  if($classable instanceof \App\Models\Section){
-                                                $parent_url = "/admin/sections/$classe->filierable_id";
-                                            }
-                                    @endphp
+                                @foreach ($classes as $key=>$classe)
                                     <tr>
+                                        <td>{{ $key+1 }}</td>
                                         <td>{{ $classe->code }}</td>
-                                        <td>{{ $classe->grade->label() }}</td>
-
                                         <td>
-                                            <a href="{{$parent_url}}">{{ $classe->filierable->fullName }}</a>
+                                            <a href="{{$classe->parent_url}}">{{ $classe->filierable->fullName }}</a>
+                                        </td>
+                                        <td>
+                                            {{$classe->inscriptions->count()}}
                                         </td>
                                         <td>
                                             <div class="d-flex float-right">
