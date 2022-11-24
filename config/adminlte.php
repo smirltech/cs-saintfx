@@ -290,38 +290,25 @@ return [
                     //      'can' => RolePermission::create_etudiant->name,
                 ],
                 [
-                    'text' => 'Liste d\'élèves',
+                    'text' => 'Elèves inscrits',
                     'url' => 'admin/inscriptions',
                 ],
-                /*[
-                            'text' => "Liste d'élèves",
-                            'url' => 'admin/eleves',
-                        ],
-                */
                 [
-                    'text' => "Liste de résponsables",
+                    'text' => 'Responsables',
                     'url' => 'admin/responsables',
+                    'icon' => 'fas fa-fw fa-person-pregnant',
                 ],
             ],
         ],
         [
             'text' => 'Classes',
+            'url' => 'admin/classes',
             'icon' => 'fas fa-fw fa-school',
-            // 'can' => RolePermission::create_promotion->name,
-            'submenu' => [
-                [
-                    'text' => 'Liste de classes',
-                    'url' => 'admin/classes',
-                ],
-                [
-                    'text' => "Liste d'années scolaires",
-                    'url' => 'admin/annees',
-                ],
-                [
-                    'text' => 'Liste de cours',
-                    'url' => 'admin/cours',
-                ],
-            ],
+        ],
+        [
+            'text' => 'Cours',
+            'url' => 'admin/cours',
+            'icon' => 'fas fa-fw fa-book-open',
         ],
         [
             'text' => 'Enseignants',
@@ -329,24 +316,30 @@ return [
             // 'can' => RolePermission::create_promotion->name,
             'url' => 'admin/enseignants',
         ],
+
         [
             'text' => 'Sections',
             'icon' => 'fas fa-fw fa-university',
             // 'can' => RolePermission::create_faculte->name,
             'submenu' => [
                 [
-                    'text' => 'Liste de filières',
+                    'text' => 'Filières',
                     'url' => 'admin/filieres',
                 ],
                 [
-                    'text' => 'Liste d\'options',
+                    'text' => 'Options',
                     'url' => 'admin/options',
                 ],
                 [
-                    'text' => 'Liste de sections',
+                    'text' => 'Sections',
                     'url' => 'admin/sections',
                 ],
             ],
+        ],
+        [
+            'text' => 'Calendrier scolaire',
+            'url' => 'admin/annees',
+            'icon' => 'fas fa-fw fa-calendar-alt',
         ],
         [
             'text' => 'Utilisateurs',
