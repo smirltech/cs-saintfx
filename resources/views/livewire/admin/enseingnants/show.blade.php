@@ -63,24 +63,15 @@
                                 <div class="card-title">
                                     <h4 class="m-0">Classes</h4>
                                 </div>
-                                <div class="card-tools d-flex my-auto">
-
-                                    <button role="button" class="btn btn-warning"
-                                            data-toggle="modal"
-                                            data-target="#add-inscription-modal"><span
-                                            class="fas fa-plus"></span></button>
-
-                                </div>
                             </div>
                             <div class="card-body p-0 table-responsive">
-                                <div class="table-responsive m-b-40">
+                                <div class="table-responsive">
                                     <table class="table">
                                         <thead>
                                         <tr>
                                             <th>CODE</th>
                                             <th>FILIERE</th>
                                             <th>ELEVES</th>
-                                            <th></th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -93,14 +84,6 @@
                                                 </td>
                                                 <td>
                                                     {{ $classe->inscriptions->count() }}
-                                                </td>
-                                                <td>
-                                                    <div class="d-flex float-right">
-                                                        <button wire:click="deleteCours({{ $classe->id }})"
-                                                                title="Remove" class="btn btn-outline-primary ml-2">
-                                                            <i class="fas fa-minus"></i>
-                                                        </button>
-                                                    </div>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -115,14 +98,6 @@
                                 <div class="card-title">
                                     <h4 class="m-0">Cours</h4>
                                 </div>
-                                <div class="card-tools d-flex my-auto">
-
-                                    <button role="button" class="btn btn-warning"
-                                            data-toggle="modal"
-                                            data-target="#add-inscription-modal"><span
-                                            class="fas fa-plus"></span></button>
-
-                                </div>
                             </div>
 
                             <div class="card-body p-0 table-responsive">
@@ -134,7 +109,6 @@
                                             <th>NOM</th>
                                             <th>DESCRIPTION</th>
                                             <th>CLASSE</th>
-                                            <th></th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -143,17 +117,9 @@
                                                 <td>{{ $k+1 }}</td>
                                                 <td>{{ $c->nom }}</td>
                                                 <td>
-                                                    {{ Str::limit($c->description, 100) }}
+                                                    {{ Str::limit($c->description, 50) }}
                                                 </td>
                                                 <td>{{Classe::find($c->pivot->classe_id)->code}}</td>
-                                                <td>
-                                                    <div class="d-flex float-right">
-                                                        <button wire:click="deleteCours({{ $c->id??'' }})"
-                                                                title="Remove" class="btn btn-outline-primary ml-2">
-                                                            <i class="fas fa-minus"></i>
-                                                        </button>
-                                                    </div>
-                                                </td>
                                             </tr>
                                         @endforeach
                                         </tbody>
