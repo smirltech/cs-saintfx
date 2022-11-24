@@ -42,6 +42,8 @@
                                     <th>CODE</th>
                                     <th>FILIERE</th>
                                     <th>ELEVES</th>
+                                    <th>COURS</th>
+                                    <th>ENSEIGNANTS</th>
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -55,6 +57,12 @@
                                         </td>
                                         <td>
                                             {{$classe->inscriptions->count()}}
+                                        </td>
+                                        <td>
+                                            {{$classe->cours->count()}}
+                                        </td>
+                                        <td>
+                                            {{$classe->enseignants->count()}}
                                         </td>
                                         <td>
                                             <div class="d-flex float-right">

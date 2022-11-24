@@ -8,26 +8,24 @@ use App\Models\Option;
 use App\Models\Promotion;
 use App\Models\Section;
 use App\View\Components\AdminLayout;
+use Illuminate\Database\Eloquent\Collection;
 use Livewire\Component;
 
 class ClasseShowComponent extends Component
 {
-    public $classe;
-    public $parent = "";
-    public $parent_url = "";
-    public $inscriptions = [];
-
-    /* public $admissions;
-
-     public $pendingCount = 0;
-     public $approvedCount = 0;
-     public $rejectedCount = 0;
-     public $canceledCount = 0;*/
+    public Classe $classe;
+    public ?string $parent = "";
+    public ?string $parent_url = "";
+    public ?Collection $inscriptions;
+    public Collection $cours;
+    public Collection $enseignants;
 
 
     public function mount(Classe $classe)
     {
         $this->classe = $classe;
+        $this->cours = $classe->cours;
+        $this->enseignants = $classe->enseignants;
         $this->inscriptions = $this->classe->inscriptions;
         // $this->admissions = $this->promotion->admissions;
 
@@ -47,16 +45,6 @@ class ClasseShowComponent extends Component
 
     public function render()
     {
-        /*  $this->pendingCount = 0;
-          $this->approvedCount = 0;
-          $this->rejectedCount = 0;
-          $this->canceledCount = 0;
-          foreach ($this->admissions as $admission) {
-              if ($admission->status == InscriptionStatus::pending) $this->pendingCount++;
-              if ($admission->status == InscriptionStatus::approved) $this->approvedCount++;
-              if ($admission->status == InscriptionStatus::rejected) $this->rejectedCount++;
-              if ($admission->status == InscriptionStatus::canceled) $this->canceledCount++;
-          }*/
         return view('livewire.admin.classes.show')
             ->layout(AdminLayout::class, ['title' => 'Détail sur la classe']);
     }

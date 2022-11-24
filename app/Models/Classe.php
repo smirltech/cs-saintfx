@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\ClasseGrade;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Classe extends Model
@@ -64,5 +65,17 @@ class Classe extends Model
         }
 
         return $parent_url;
+    }
+
+    public function enseignants(): BelongsToMany
+    {
+        return $this->belongsToMany(Enseignant::class, 'classe_enseignants')->where('annee_id', Annee::encours()->id);
+    }
+
+    // cours
+
+    public function cours(): BelongsToMany
+    {
+        return $this->belongsToMany(Cours::class, 'cours_enseignants')->where('annee_id', Annee::encours()->id)->withPivot('classe_id');
     }
 }
