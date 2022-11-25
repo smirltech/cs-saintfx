@@ -3,6 +3,8 @@
 namespace App\Http\Livewire\Admin\Classe;
 
 use App\Models\Classe;
+use App\Models\ClasseEnseignant;
+use App\Models\CoursEnseignant;
 use App\Models\Filiere;
 use App\Models\Option;
 use App\Models\Promotion;
@@ -18,11 +20,17 @@ class ClasseShowComponent extends Component
     public ?string $parent_url = "";
     public ?Collection $inscriptions;
     public Collection $cours;
+    public ?CoursEnseignant $cours_enseignant;
+    public ?ClasseEnseignant $classe_enseignant;
     public Collection $enseignants;
 
 
     public function mount(Classe $classe)
     {
+
+        $this->cours_enseignant = new CoursEnseignant();
+        $this->classe_enseignant = new ClasseEnseignant();
+
         $this->classe = $classe;
         $this->cours = $classe->cours;
         $this->enseignants = $classe->enseignants;
@@ -52,6 +60,25 @@ class ClasseShowComponent extends Component
     // ajouter un cours
     public function addCours()
     {
-        $this->emit('addCours', $this->classe);
+        $this->validate([
+            'cours_enseignant.cours_id' => 'required|exists:cours,id',
+            'cours_enseignant.enseignant_id' => 'required|exists:enseignants,id',
+        ]);
+
+        $this->cours_enseignant->classe_id = $this->classe->id;
+        $this->cours_enseignant->save();
+
+        $this->cours = $this->classe->cours;
+        $this->dispatchBrowserEvent('closeModal', ['modal' => 'add-cours-modal']);
+    }
+
+    // function rules
+    public function rules()
+    {
+        return [
+            'cours_enseignant.cours_id' => 'required|exists:cours,id',
+            'cours_enseignant.enseignant_id' => 'required|exists:enseignants,id',
+            'classe_enseignant.enseignant_id' => 'required|exists:enseignants,id',
+        ];
     }
 }
