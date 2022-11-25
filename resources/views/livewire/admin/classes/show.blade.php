@@ -50,7 +50,13 @@
                                     <b>Élèves : </b> <span class="float-right">{{ $inscriptions->count() }}</span>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Cours : </b> <span class="float-right">{{ $cours->count() }}</span>
+                                    <b>Cours : {{ $cours->count() }}</b>
+                                    <span class="float-right">
+                                        <button class="btn btn-sm btn-primary" wire:click="addCours" title="ajouter">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </span>
+
                                 </li>
                                 <li class="list-group-item">
                                     <b>Enseignants : </b> <span class="float-right">{{ $enseignants->count() }}</span>
@@ -73,6 +79,7 @@
                                     <a class="nav-link active" id="custom-tabs-one-home-tab" data-toggle="pill"
                                        href="#custom-tabs-one-home" role="tab" aria-controls="custom-tabs-one-home"
                                        aria-selected="true">Elèves</a>
+
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill"
@@ -126,91 +133,101 @@
                                 </div>
                                 <div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel"
                                      aria-labelledby="custom-tabs-one-profile-tab">
-                                    <div class="card-body p-0 table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                            <tr>
-                                                <th>NO.</th>
-                                                <th>NOM</th>
-                                                <th>SECTION</th>
-                                                <th>DESCRIPTION</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            @foreach ($cours as $k=>$c)
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <div class="card-title">
+                                            </div>
+                                            <div class="card-tools d-flex my-auto">
+                                                <a href="{{ route('admin.classes.create') }}" title="ajouter"
+                                                   class="btn btn-primary mr-2"><span
+                                                        class="fa fa-plus"></span></a>
+                                            </div>
+                                        </div>
+                                        <div class="card-body p-0 table-responsive">
+                                            <table class="table">
+                                                <thead>
                                                 <tr>
-                                                    <td>{{ $k+1 }}</td>
-                                                    <td>{{ $c->nom }}</td>
-                                                    <td>
-                                                        {{ $c->section->nom }}
-                                                    </td>
-                                                    <td>
-                                                        {{ Str::limit($c->description, 50) }}
-                                                    </td>
+                                                    <th>NO.</th>
+                                                    <th>NOM</th>
+                                                    <th>SECTION</th>
+                                                    <th>DESCRIPTION</th>
                                                 </tr>
-                                            @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="custom-tabs-one-messages" role="tabpanel"
-                                     aria-labelledby="custom-tabs-one-messages-tab">
-                                    <div class="card-body p-0 table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                            <tr>
-                                                <th>NO.</th>
-                                                <th></th>
-                                                <th>NOM</th>
-                                                <th>SECTION</th>
-
-
-                                                <th>COURS</th>
-                                                <th></th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            @foreach ($enseignants as $key=>$enseignant)
-                                                <tr>
-                                                    <td>{{ $key+1 }}</td>
-                                                    <td><img class="img-circle" style="width:30px; height:auto"
-                                                             src="{{$enseignant->avatar}}"></td>
-                                                    <td>{{ $enseignant->nom }}</td>
-
-                                                    <td>
-                                                        {{ $enseignant->section->nom }}
-                                                    </td>
-                                                    @if(!$enseignant->primaire())
+                                                </thead>
+                                                <tbody>
+                                                @foreach ($cours as $k=>$c)
+                                                    <tr>
+                                                        <td>{{ $k+1 }}</td>
+                                                        <td>{{ $c->nom }}</td>
                                                         <td>
-                                                            {{ $enseignant->cours->count()??'-' }} Cours
+                                                            {{ $c->section->nom }}
                                                         </td>
-                                                    @else
                                                         <td>
-                                                            {{ $enseignant->classe->code??'-' }}
+                                                            {{ Str::limit($c->description, 50) }}
                                                         </td>
-                                                    @endif
-
-                                                    <td>
-                                                        <div class="d-flex float-right">
-                                                            <button wire:click="delete({{ $enseignant->id }})"
-                                                                    title="supprimer"
-                                                                    class="btn btn-outline-danger ml-2">
-                                                                <i class="fas fa-trash"></i>
-                                                            </button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                            </tbody>
-                                        </table>
+                                                    </tr>
+                                                @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                            <div class="tab-pane fade" id="custom-tabs-one-messages" role="tabpanel"
+                                 aria-labelledby="custom-tabs-one-messages-tab">
+                                <div class="card-body p-0 table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>NO.</th>
+                                            <th></th>
+                                            <th>NOM</th>
+                                            <th>SECTION</th>
+                                            <th>COURS</th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach ($enseignants as $key=>$enseignant)
+                                            <tr>
+                                                <td>{{ $key+1 }}</td>
+                                                <td><img class="img-circle" style="width:30px; height:auto"
+                                                         src="{{$enseignant->avatar}}"></td>
+                                                <td>{{ $enseignant->nom }}</td>
 
+                                                <td>
+                                                    {{ $enseignant->section->nom }}
+                                                </td>
+                                                @if(!$enseignant->primaire())
+                                                    <td>
+                                                        {{ $enseignant->cours->count()??'-' }} Cours
+                                                    </td>
+                                                @else
+                                                    <td>
+                                                        {{ $enseignant->classe->code??'-' }}
+                                                    </td>
+                                                @endif
+
+                                                <td>
+                                                    <div class="d-flex float-right">
+                                                        <button wire:click="delete({{ $enseignant->id }})"
+                                                                title="supprimer"
+                                                                class="btn btn-outline-danger ml-2">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>

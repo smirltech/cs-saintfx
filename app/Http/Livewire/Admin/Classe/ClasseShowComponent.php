@@ -48,4 +48,10 @@ class ClasseShowComponent extends Component
         return view('livewire.admin.classes.show')
             ->layout(AdminLayout::class, ['title' => 'Détail sur la classe']);
     }
+
+    // ajouter un cours
+    public function addCours()
+    {
+        $this->emit('addCours', $this->classe);
+    }
 }
