@@ -52,7 +52,9 @@
                                 <li class="list-group-item">
                                     <b>Cours : {{ $cours->count() }}</b>
                                     <span class="float-right">
-                                        <button class="btn btn-sm btn-primary" wire:click="addCours" title="ajouter">
+                                        <button class="btn btn-sm btn-primary"
+                                                wire:click="$emit('openModal', 'admin.classe.add-cours-component',{{json_encode(['classe'=>$classe->id])}})"
+                                                title="ajouter">
                                             <i class="fa fa-plus"></i>
                                         </button>
                                     </span>
