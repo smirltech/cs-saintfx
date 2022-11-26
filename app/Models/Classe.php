@@ -74,8 +74,36 @@ class Classe extends Model
 
     // cours
 
-    public function cours(): BelongsToMany
+    public function coursEnseignants(): BelongsToMany
     {
         return $this->belongsToMany(Cours::class, 'cours_enseignants')->where('annee_id', Annee::encours()->id)->withPivot('classe_id');
+    }
+
+    // get cours attribute
+    public function getCoursAttribute()
+    {
+        return $this->coursEnseignants;
+    }
+
+    // get section id from filierable attribute
+    public function getSectionIdAttribute(): ?int
+    {
+        $section_id = null;
+        $classable = $this->filierable;
+        if ($classable instanceof Filiere) {
+            $section_id = $classable->option->section_id;
+        } else if ($classable instanceof Option) {
+            $section_id = $classable->section_id;
+        } else if ($classable instanceof Section) {
+            $section_id = $classable->id;
+        }
+
+        return $section_id;
+    }
+
+    // get section from section_id attribute
+    public function getSectionAttribute(): ?Section
+    {
+        return Section::find($this->section_id);
     }
 }

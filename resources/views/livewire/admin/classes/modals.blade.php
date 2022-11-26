@@ -18,7 +18,7 @@
                                            label="Cours"
                                            :isValid="$errors->has('cours_enseignant.cours_id') ? false : null"
                                            error="{{$errors->first('cours_enseignant.cours_id')}}">
-                                @foreach(Cours::all() as $c)
+                                @foreach(Cours::classe($classe)->get() as $c)
                                     <option value="{{ $c->id }}">{{ $c->nom }}</option>
                                 @endforeach
                             </x-form-select>
