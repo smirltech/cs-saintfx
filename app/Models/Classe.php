@@ -67,10 +67,16 @@ class Classe extends Model
         return $parent_url;
     }
 
-    public function enseignants(): BelongsToMany
+    public function enseignantsPrimaire(): BelongsToMany
     {
         return $this->belongsToMany(Enseignant::class, 'classe_enseignants')->where('annee_id', Annee::encours()->id);
     }
+
+    public function enseignants(): BelongsToMany
+    {
+        return $this->belongsToMany(Enseignant::class, 'cours_enseignants')->where('annee_id', Annee::encours()->id);
+    }
+
 
     // cours
 
@@ -106,7 +112,7 @@ class Classe extends Model
     public function getEnseignantIdAttribute(): ?int
 
     {
-        return $this->enseignants->first()?->pivot->enseignant_id;
+        return $this->enseignantsPrimaire->first()?->pivot->enseignant_id;
     }
 
     // get enseignant from enseignant_id attribute

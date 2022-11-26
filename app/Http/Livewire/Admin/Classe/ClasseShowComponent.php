@@ -76,6 +76,7 @@ class ClasseShowComponent extends Component
     {
         $this->classe->refresh();
         $this->cours = $this->classe->cours;
+        $this->enseignants = $this->classe->enseignants;
     }
 
     // ajouter un cours

@@ -92,13 +92,16 @@
                                    href="#custom-tabs-one-profile" role="tab"
                                    aria-controls="custom-tabs-one-profile" aria-selected="false">Cours</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="custom-tabs-one-messages-tab" data-toggle="pill"
-                                   href="#custom-tabs-one-messages" role="tab"
-                                   aria-controls="custom-tabs-one-messages" aria-selected="false">Enseignants</a>
-                            </li>
+                            @if(!$classe->primaire())
+                                <li class="nav-item">
+                                    <a class="nav-link" id="custom-tabs-one-messages-tab" data-toggle="pill"
+                                       href="#custom-tabs-one-messages" role="tab"
+                                       aria-controls="custom-tabs-one-messages" aria-selected="false">Enseignants</a>
+                                </li>
+                            @endif
                         </ul>
                     </div>
+
                     <div class="card-body">
                         <div class="tab-content" id="custom-tabs-one-tabContent">
                             <div class="tab-pane fade active show" id="custom-tabs-one-home" role="tabpanel"
@@ -166,59 +169,58 @@
                                     </table>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="custom-tabs-one-messages" role="tabpanel"
-                                 aria-labelledby="custom-tabs-one-messages-tab">
-                                <div class="card-body p-0 table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                        <tr>
-                                            <th>NO.</th>
-                                            <th></th>
-                                            <th>NOM</th>
-                                            <th>SECTION</th>
-                                            <th>COURS</th>
-                                            <th></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach ($enseignants as $key=>$enseignant)
+                            @if(!$classe->primaire())
+                                <div class="tab-pane fade" id="custom-tabs-one-messages" role="tabpanel"
+                                     aria-labelledby="custom-tabs-one-messages-tab">
+                                    <div class="card-body p-0 table-responsive">
+                                        <table class="table">
+                                            <thead>
                                             <tr>
-                                                <td>{{ $key+1 }}</td>
-                                                <td><img class="img-circle" style="width:30px; height:auto"
-                                                         src="{{$enseignant->avatar}}"></td>
-                                                <td>{{ $enseignant->nom }}</td>
-
-                                                <td>
-                                                    {{ $enseignant->section->nom }}
-                                                </td>
-                                                @if(!$enseignant->primaire())
-                                                    <td>
-                                                        {{ $enseignant->cours->count()??'-' }} Cours
-                                                    </td>
-                                                @else
-                                                    <td>
-                                                        {{ $enseignant->classe->code??'-' }}
-                                                    </td>
-                                                @endif
-
-                                                <td>
-                                                    <div class="d-flex float-right">
-                                                        <button wire:click="delete({{ $enseignant->id }})"
-                                                                title="supprimer"
-                                                                class="btn btn-outline-danger ml-2">
-                                                            <i class="fas fa-trash"></i>
-                                                        </button>
-                                                    </div>
-                                                </td>
+                                                <th>NO.</th>
+                                                <th></th>
+                                                <th>NOM</th>
+                                                <th>COURS</th>
+                                                {{--   <th></th>--}}
                                             </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
+                                            </thead>
+                                            <tbody>
+                                            @foreach ($enseignants as $key=>$enseignant)
+                                                <tr>
+                                                    <td>{{ $key+1 }}</td>
+                                                    <td><img class="img-circle" style="width:30px; height:auto"
+                                                             src="{{$enseignant->avatar}}"></td>
+                                                    <td>{{ $enseignant->nom }}</td>
+                                                    @if(!$enseignant->primaire())
+                                                        <td>
+                                                            {{ $enseignant->cours->count()??'-' }} Cours
+                                                        </td>
+                                                    @else
+                                                        <td>
+                                                            {{ $enseignant->classe->code??'-' }}
+                                                        </td>
+                                                    @endif
+
+                                                    {{-- <td>
+                                                         <div class="d-flex float-right">
+                                                             <button wire:click="delete({{ $enseignant->id }})"
+                                                                     title="supprimer"
+                                                                     class="btn btn-outline-danger ml-2">
+                                                                 <i class="fas fa-trash"></i>
+                                                             </button>
+                                                         </div>
+                                                     </td>--}}
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
-                            </div>
+                            @endif
                         </div>
 
                     </div>
+
+
                 </div>
 
             </div>
