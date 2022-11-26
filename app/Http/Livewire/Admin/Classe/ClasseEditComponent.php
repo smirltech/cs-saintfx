@@ -3,13 +3,14 @@
 namespace App\Http\Livewire\Admin\Classe;
 
 
+use App\Models\Annee;
 use App\Models\Classe;
+use App\Models\ClasseEnseignant;
 use App\Models\Filiere;
 use App\Models\Option;
 use App\Models\Section;
 use App\Traits\ClasseCode;
 use App\View\Components\AdminLayout;
-use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
@@ -29,6 +30,7 @@ class ClasseEditComponent extends Component
     public $filiere_id;
     public $option_id;
     public $section_id;
+    public $enseignant_id;
 
     protected $messages = [
         'grade.required' => 'Cette grade est obligatoire !',
@@ -42,24 +44,25 @@ class ClasseEditComponent extends Component
     public function mount(Classe $classe)
     {
         $this->classe = $classe;
+        $this->enseignant_id = $this->classe->enseignant_id;
         $this->grade = $this->classe->grade->value;
         $this->code = $this->classe->code;
         $this->loadFilieresData();
         $classable = $classe->filierable;
-        if ($classable instanceof \App\Models\Filiere) {
+        if ($classable instanceof Filiere) {
             $this->filiere_id = $this->classe->filierable_id;
             $fily = Filiere::find($this->filiere_id);
             $this->option_id = $fily->option_id;
             $this->section_id = $fily->option->section_id;
             $this->options = Option::where("section_id", $this->section_id)->orderBy('nom')->get();
             $this->filieres = Filiere::where("option_id", $this->option_id)->orderBy('nom')->get();
-        } else if ($classable instanceof \App\Models\Option) {
+        } else if ($classable instanceof Option) {
             $this->option_id = $this->classe->filierable_id;
             $opy = Option::find($this->option_id);
             $this->section_id = $opy->section_id;
             $this->options = Option::where("section_id", $this->section_id)->orderBy('nom')->get();
             $this->filieres = Filiere::where("option_id", $this->option_id)->orderBy('nom')->get();
-        } else if ($classable instanceof \App\Models\Section) {
+        } else if ($classable instanceof Section) {
             $this->section_id = $this->classe->filierable_id;
         }
     }
@@ -87,8 +90,23 @@ class ClasseEditComponent extends Component
             $section = Section::find($this->section_id);
             $section->classes()->save($this->classe);
         }
+        if ($this->enseignant_id) {
+            ClasseEnseignant::updateOrCreate(
+                [
+                    'classe_id' => $this->classe->id,
+                    'annee_id' => Annee::id(),
+                ],
+                [
+                    'classe_id' => $this->classe->id,
+                    'enseignant_id' => $this->enseignant_id,
+                    'annee_id' => Annee::id(),
 
-        $this->flash('success', 'Classe modifiée avec succès', [], route('admin.classes'));
+                ]
+            );
+        }
+
+
+        $this->alert('success', 'Classe modifiée avec succès');
 
     }
 
@@ -96,18 +114,6 @@ class ClasseEditComponent extends Component
     {
         return view('livewire.admin.classes.edit')
             ->layout(AdminLayout::class, ['title' => 'Modification de la classe']);
-    }
-
-    protected function rules()
-    {
-        return [
-            'grade' => "required",
-            'code' => [
-                "required",
-                Rule::unique((new Classe())->getTable(), "code")->ignore($this->classe->id)
-            ],
-            'section_id' => 'required',
-        ];
     }
 
     public function changeSection()
@@ -157,6 +163,19 @@ class ClasseEditComponent extends Component
             $this->filieres = [];
         }
         $this->setCode();
+    }
+
+    protected function rules()
+    {
+        return [
+            'grade' => "required",
+            'code' => [
+                "required",
+                //  Rule::unique((new Classe())->getTable(), "code")->ignore($this->classe->id)
+            ],
+            'section_id' => 'required',
+            'enseignant_id' => 'nullable',
+        ];
     }
 
 }

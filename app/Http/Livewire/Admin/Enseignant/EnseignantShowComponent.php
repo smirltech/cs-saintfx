@@ -7,6 +7,9 @@ use App\Models\Enseignant;
 use App\Traits\EleveUniqueCode;
 use App\Traits\FakeProfileImage;
 use App\View\Components\AdminLayout;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
@@ -34,11 +37,13 @@ class EnseignantShowComponent extends Component
         $this->annee_courante = Annee::encours();
     }
 
-    public function render()
+    public function render(): Factory|View|Application
     {
 
         $data = ['title' => 'Modification d\'un enseignant'];
         return view('livewire.admin.enseingnants.show', $data)
             ->layout(AdminLayout::class, $data);
     }
+
+
 }

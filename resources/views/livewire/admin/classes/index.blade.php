@@ -42,6 +42,8 @@
                                     <th>CODE</th>
                                     <th>FILIERE</th>
                                     <th>ELEVES</th>
+                                    <th>COURS</th>
+                                    <th>ENSEIGNANTS</th>
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -57,18 +59,24 @@
                                             {{$classe->inscriptions->count()}}
                                         </td>
                                         <td>
+                                            {{$classe->cours->count()}}
+                                        </td>
+                                        <td>
+                                            {{$classe->enseignants->count()}}
+                                        </td>
+                                        <td>
                                             <div class="d-flex float-right">
                                                 <a href="/admin/classes/{{ $classe->id }}" title="Voir"
-                                                   class="btn btn-warning">
+                                                   class="btn btn-warning btn-sm">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
                                                 <a href="/admin/classes/{{ $classe->id }}/edit" title="modifier"
-                                                   class="btn btn-info  ml-2">
+                                                   class="btn btn-info  btn-sm ml-2">
                                                     <i class="fas fa-pen"></i>
                                                 </a>
 
                                                 <button wire:click="deleteClasse({{ $classe->id }})"
-                                                        title="supprimer" class="btn btn-danger ml-2">
+                                                        title="supprimer" class="btn btn-sm btn-danger ml-2">
                                                     <i class="fas fa-trash"></i>
                                                 </button>
                                             </div>

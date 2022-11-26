@@ -2,32 +2,39 @@
 
 namespace App\Http\Livewire\Admin\Classe;
 
+use App\Models\Annee;
 use App\Models\Classe;
+use App\Models\ClasseEnseignant;
+use App\Models\CoursEnseignant;
 use App\Models\Filiere;
 use App\Models\Option;
-use App\Models\Promotion;
 use App\Models\Section;
 use App\View\Components\AdminLayout;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 
 class ClasseShowComponent extends Component
 {
-    public $classe;
-    public $parent = "";
-    public $parent_url = "";
-    public $inscriptions = [];
-
-    /* public $admissions;
-
-     public $pendingCount = 0;
-     public $approvedCount = 0;
-     public $rejectedCount = 0;
-     public $canceledCount = 0;*/
+    public Classe $classe;
+    public ?string $parent = "";
+    public ?string $parent_url = "";
+    public ?Collection $inscriptions;
+    public Collection $cours;
+    public ?CoursEnseignant $cours_enseignant;
+    public ?ClasseEnseignant $classe_enseignant;
+    public Collection $enseignants;
 
 
     public function mount(Classe $classe)
     {
+
+        $this->cours_enseignant = new CoursEnseignant();
+        $this->classe_enseignant = new ClasseEnseignant();
+
         $this->classe = $classe;
+        $this->cours = $classe->cours;
+        $this->enseignants = $classe->enseignants;
         $this->inscriptions = $this->classe->inscriptions;
         // $this->admissions = $this->promotion->admissions;
 
@@ -44,20 +51,50 @@ class ClasseShowComponent extends Component
         }
     }
 
+    // hydrate
+
+    public function addCours()
+    {
+        $this->validate([
+            'cours_enseignant.cours_id' => [
+                'required',
+                Rule::unique('cours_enseignants', 'cours_id')->where(function ($query) {
+                    return $query->where('classe_id', $this->classe->id)
+                        ->where('annee_id', Annee::encours()->id);
+                })],
+            'cours_enseignant.enseignant_id' => Rule::requiredIf(!$this->classe->primaire()), // si la classe n'est pas primaire
+        ]);
+
+        $this->cours_enseignant->classe_id = $this->classe->id;
+        $this->cours_enseignant->save();
+
+        $this->dispatchBrowserEvent('closeModal', ['modal' => 'add-cours-modal']);
+        $this->refreshData();
+    }
+
+    public function refreshData()
+    {
+        $this->classe->refresh();
+        $this->cours = $this->classe->cours;
+        $this->enseignants = $this->classe->enseignants;
+    }
+
+    // ajouter un cours
 
     public function render()
     {
-        /*  $this->pendingCount = 0;
-          $this->approvedCount = 0;
-          $this->rejectedCount = 0;
-          $this->canceledCount = 0;
-          foreach ($this->admissions as $admission) {
-              if ($admission->status == InscriptionStatus::pending) $this->pendingCount++;
-              if ($admission->status == InscriptionStatus::approved) $this->approvedCount++;
-              if ($admission->status == InscriptionStatus::rejected) $this->rejectedCount++;
-              if ($admission->status == InscriptionStatus::canceled) $this->canceledCount++;
-          }*/
         return view('livewire.admin.classes.show')
             ->layout(AdminLayout::class, ['title' => 'Détail sur la classe']);
+    }
+
+    // function rules
+
+    public function rules()
+    {
+        return [
+            'cours_enseignant.cours_id' => 'required|exists:cours,id',
+            'cours_enseignant.enseignant_id' => 'required|exists:enseignants,id',
+            'classe_enseignant.enseignant_id' => 'required|exists:enseignants,id',
+        ];
     }
 }

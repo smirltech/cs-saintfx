@@ -100,7 +100,7 @@
                                 </div>
                             </div>
 
-                            <div class="card-body p-0 table-responsive">
+                            <div class="card-body p-0 table-responsive ">
                                 <div class="table-responsive m-b-40">
                                     <table class="table">
                                         <thead>

@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignIdFor(Cours::class)->constrained()->restrictOnDelete();
             $table->foreignIdFor(Classe::class)->constrained()->restrictOnDelete();
-            $table->foreignIdFor(Enseignant::class)->constrained()->restrictOnDelete();
+            $table->foreignIdFor(Enseignant::class)->nullable()->constrained()->restrictOnDelete();
             $table->foreignIdFor(Annee::class)->constrained()->restrictOnDelete();
             $table->timestamps();
         });

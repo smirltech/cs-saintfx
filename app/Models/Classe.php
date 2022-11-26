@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\ClasseGrade;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Classe extends Model
@@ -65,4 +66,66 @@ class Classe extends Model
 
         return $parent_url;
     }
+
+    public function enseignantsPrimaire(): BelongsToMany
+    {
+        return $this->belongsToMany(Enseignant::class, 'classe_enseignants')->where('annee_id', Annee::encours()->id);
+    }
+
+    public function enseignants(): BelongsToMany
+    {
+        return $this->belongsToMany(Enseignant::class, 'cours_enseignants')->where('annee_id', Annee::encours()->id);
+    }
+
+
+    // cours
+
+    public function cours(): BelongsToMany
+    {
+        return $this->belongsToMany(Cours::class, 'cours_enseignants')->where('annee_id', Annee::encours()->id)->withPivot('classe_id');
+    }
+
+
+    // get section id from filierable attribute
+    public function getSectionIdAttribute(): ?int
+    {
+        $section_id = null;
+        $classable = $this->filierable;
+        if ($classable instanceof Filiere) {
+            $section_id = $classable->option->section_id;
+        } else if ($classable instanceof Option) {
+            $section_id = $classable->section_id;
+        } else if ($classable instanceof Section) {
+            $section_id = $classable->id;
+        }
+
+        return $section_id;
+    }
+
+    // get section from section_id attribute
+    public function getSectionAttribute(): ?Section
+    {
+        return Section::find($this->section_id);
+    }
+
+    // get enseignant id from classe enseignant pivot table
+    public function getEnseignantIdAttribute(): ?int
+
+    {
+        return $this->enseignantsPrimaire->first()?->pivot->enseignant_id;
+    }
+
+    // get enseignant from enseignant_id attribute
+    public function getEnseignantAttribute(): ?Enseignant
+    {
+        return Enseignant::find($this->enseignant_id);
+    }
+
+    // function primaire
+    public function primaire(): bool
+    {
+        return $this->section->primaire();
+    }
+
+
 }

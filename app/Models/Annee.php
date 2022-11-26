@@ -12,6 +12,20 @@ class Annee extends Model
 
     public $guarded = [];
 
+    /**
+     * Renvoie l'id de l'année scolaire en cours
+     * @return int
+     */
+    public static function id(): int
+    {
+        return self::encours()->id;
+    }
+
+
+    /**
+     * Renvoie l'année scolaire en cours
+     * @return Annee
+     */
     public static function encours(): Annee
     {
         return self::where('encours', true)->latest()->first();
