@@ -62,7 +62,7 @@ class ClasseShowComponent extends Component
                     return $query->where('classe_id', $this->classe->id)
                         ->where('annee_id', Annee::encours()->id);
                 })],
-            'cours_enseignant.enseignant_id' => Rule::requiredIf(!$this->classe->primaire()),
+            'cours_enseignant.enseignant_id' => Rule::requiredIf(!$this->classe->primaire()), // si la classe n'est pas primaire
         ]);
 
         $this->cours_enseignant->classe_id = $this->classe->id;
