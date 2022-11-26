@@ -74,16 +74,11 @@ class Classe extends Model
 
     // cours
 
-    public function coursEnseignants(): BelongsToMany
+    public function cours(): BelongsToMany
     {
         return $this->belongsToMany(Cours::class, 'cours_enseignants')->where('annee_id', Annee::encours()->id)->withPivot('classe_id');
     }
 
-    // get cours attribute
-    public function getCoursAttribute()
-    {
-        return $this->coursEnseignants;
-    }
 
     // get section id from filierable attribute
     public function getSectionIdAttribute(): ?int
@@ -106,4 +101,25 @@ class Classe extends Model
     {
         return Section::find($this->section_id);
     }
+
+    // get enseignant id from classe enseignant pivot table
+    public function getEnseignantIdAttribute(): ?int
+
+    {
+        return $this->enseignants->first()?->pivot->enseignant_id;
+    }
+
+    // get enseignant from enseignant_id attribute
+    public function getEnseignantAttribute(): ?Enseignant
+    {
+        return Enseignant::find($this->enseignant_id);
+    }
+
+    // function primaire
+    public function primaire(): bool
+    {
+        return $this->section->primaire();
+    }
+
+
 }

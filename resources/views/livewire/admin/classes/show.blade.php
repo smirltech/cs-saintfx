@@ -56,9 +56,17 @@
                                     </span>
 
                             </li>
-                            <li class="list-group-item">
-                                <b>Enseignants : </b> <span class="float-right">{{ $enseignants->count() }}</span>
-                            </li>
+                            @if($classe->primaire())
+                                <li class="list-group-item">
+                                    <b>Enseignant : </b> <span
+                                        class="float-right"><a
+                                            href="{{$classe->enseignant?route('admin.enseignants.show',$classe->enseignant):route('admin.classes.edit',$classe)}}">{{ $classe->enseignant->nom??'Ajouter un enseignant' }}</a></span>
+                                </li>
+                            @else
+                                <li class="list-group-item">
+                                    <b>Enseignants : </b> <span class="float-right">{{ $enseignants->count() }}</span>
+                                </li>
+                            @endif
                             <li class="list-group-item">
                                 <b>{{ $parent }} : </b> <span class="float-right"> <a
                                         href="{{ $parent_url }}">{{  $classe->filierable->nom }}</a>

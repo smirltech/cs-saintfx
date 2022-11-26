@@ -2,15 +2,16 @@
 
 namespace App\Http\Livewire\Admin\Classe;
 
+use App\Models\Annee;
 use App\Models\Classe;
 use App\Models\ClasseEnseignant;
 use App\Models\CoursEnseignant;
 use App\Models\Filiere;
 use App\Models\Option;
-use App\Models\Promotion;
 use App\Models\Section;
 use App\View\Components\AdminLayout;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 
 class ClasseShowComponent extends Component
@@ -50,6 +51,34 @@ class ClasseShowComponent extends Component
         }
     }
 
+    // hydrate
+
+    public function addCours()
+    {
+        $this->validate([
+            'cours_enseignant.cours_id' => [
+                'required',
+                Rule::unique('cours_enseignants', 'cours_id')->where(function ($query) {
+                    return $query->where('classe_id', $this->classe->id)
+                        ->where('annee_id', Annee::encours()->id);
+                })],
+            'cours_enseignant.enseignant_id' => Rule::requiredIf(!$this->classe->primaire()),
+        ]);
+
+        $this->cours_enseignant->classe_id = $this->classe->id;
+        $this->cours_enseignant->save();
+
+        $this->dispatchBrowserEvent('closeModal', ['modal' => 'add-cours-modal']);
+        $this->refreshData();
+    }
+
+    public function refreshData()
+    {
+        $this->classe->refresh();
+        $this->cours = $this->classe->cours;
+    }
+
+    // ajouter un cours
 
     public function render()
     {
@@ -57,22 +86,8 @@ class ClasseShowComponent extends Component
             ->layout(AdminLayout::class, ['title' => 'Détail sur la classe']);
     }
 
-    // ajouter un cours
-    public function addCours()
-    {
-        $this->validate([
-            'cours_enseignant.cours_id' => 'required|exists:cours,id',
-            'cours_enseignant.enseignant_id' => 'required|exists:enseignants,id',
-        ]);
-
-        $this->cours_enseignant->classe_id = $this->classe->id;
-        $this->cours_enseignant->save();
-
-        $this->cours = $this->classe->cours;
-        $this->dispatchBrowserEvent('closeModal', ['modal' => 'add-cours-modal']);
-    }
-
     // function rules
+
     public function rules()
     {
         return [

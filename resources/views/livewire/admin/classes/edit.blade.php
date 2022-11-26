@@ -1,3 +1,4 @@
+@php use App\Enums\ClasseGrade;use App\Models\Enseignant; @endphp
 @section('title')
     {{Str::upper('cenk')}} - modifier classe - {{$classe->code}}
 @endsection
@@ -31,7 +32,7 @@
                                 <select wire:change="setCode" wire:model="grade"
                                         class="form-control  @error('grade') is-invalid @enderror">
                                     <option value="">Choisir grade</option>
-                                    @foreach (\App\Enums\ClasseGrade::cases() as $grade )
+                                    @foreach (ClasseGrade::cases() as $grade )
                                         <option value="{{ $grade->value}}">{{ $grade->label() }}</option>
                                     @endforeach
                                 </select>
@@ -84,6 +85,18 @@
 
                                 </select>
                             </div>
+                            @if($classe->section->primaire())
+                                <div class="form-group col-md-4">
+                                    <x-form-select wire:model="enseignant_id"
+                                                   label="Enseignant"
+                                                   :isValid="$errors->has('enseignant_id') ? false : null"
+                                                   error="{{$errors->first('enseignant_id')}}">
+                                        @foreach(Enseignant::classe($classe)->get() as $c)
+                                            <option value="{{ $c->id }}">{{ $c->nom }}</option>
+                                        @endforeach
+                                    </x-form-select>
+                                </div>
+                            @endif
                         </div>
                         <button type="submit" class="btn btn-primary">Soumettre</button>
                     </form>

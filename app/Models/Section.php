@@ -39,4 +39,12 @@ class Section extends Model
     {
         return substr("{$this->code}", 0, 1);
     }
+
+    public function primaire(): bool
+    {
+        if ($this->id == 1 || $this->id == 2) {
+            return true;
+        }
+        return false;
+    }
 }

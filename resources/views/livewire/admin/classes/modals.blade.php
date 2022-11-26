@@ -13,7 +13,7 @@
                 {{--   <x-validation-errors class="mb-4" :errors="$errors"/>--}}
                 <form id="modal1" wire:submit.prevent="addCours">
                     <div class="row">
-                        <div class="form-group col-md-6">
+                        <div class="form-group @if(!$classe->primaire()) col-md-6 @else col-md-12 @endif">
                             <x-form-select wire:model="cours_enseignant.cours_id"
                                            label="Cours"
                                            :isValid="$errors->has('cours_enseignant.cours_id') ? false : null"
@@ -23,16 +23,18 @@
                                 @endforeach
                             </x-form-select>
                         </div>
-                        <div class="form-group col-md-6">
-                            <x-form-select wire:model="cours_enseignant.enseignant_id"
-                                           label="Enseignant"
-                                           :isValid="$errors->has('cours_enseignant.enseignant_id') ? false : null"
-                                           error="{{$errors->first('cours_enseignant.enseignant_id')}}">
-                                @foreach(Enseignant::all() as $c)
-                                    <option value="{{ $c->id }}">{{ $c->nom }}</option>
-                                @endforeach
-                            </x-form-select>
-                        </div>
+                        @if(!$classe->primaire())
+                            <div class="form-group col-md-6">
+                                <x-form-select wire:model="cours_enseignant.enseignant_id"
+                                               label="Enseignant"
+                                               :isValid="$errors->has('cours_enseignant.enseignant_id') ? false : null"
+                                               error="{{$errors->first('cours_enseignant.enseignant_id')}}">
+                                    @foreach(Enseignant::classe($classe)->get() as $c)
+                                        <option value="{{ $c->id }}">{{ $c->nom }}</option>
+                                    @endforeach
+                                </x-form-select>
+                            </div>
+                        @endif
                     </div>
                 </form>
             </div>
