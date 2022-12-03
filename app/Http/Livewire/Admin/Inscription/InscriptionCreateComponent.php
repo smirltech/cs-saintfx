@@ -56,7 +56,7 @@ class InscriptionCreateComponent extends Component
     public $telephone;
     public $email;
     public $adresse;
-    public $matricule;
+    public $numero_permanent;
 
     //responsable
     public $searchResponsable = '';
@@ -160,7 +160,7 @@ class InscriptionCreateComponent extends Component
             'adresse' => $this->adresse,
             'lieu_naissance' => $this->lieu_naissance,
             'date_naissance' => $this->date_naissance,
-            'numero_permanent' => null
+            'numero_permanent' => $this->numero_permanent,
         ]);
     }
 
@@ -175,7 +175,6 @@ class InscriptionCreateComponent extends Component
 
     private function submitInscription($eleve)
     {
-        $icode = $this->getGeneratedInscriptionUniqueCode();
         return Inscription::create([
             'eleve_id' => $eleve->id,
             'classe_id' => $this->classe_id,
@@ -183,7 +182,6 @@ class InscriptionCreateComponent extends Component
             'categorie' => $this->categorie,
             'montant' => $this->montant,
             'status' => InscriptionStatus::pending->value,
-            'code' => $icode,
         ]);
     }
 

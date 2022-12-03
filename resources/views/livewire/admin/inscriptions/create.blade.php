@@ -84,8 +84,9 @@
                                     </select>
                                 </div>
                                 <div class="form-group col-lg-3 col-md-6 col-sm-12">
-                                    <label for="">Matricule</label>
-                                    <input placeholder="Saisir le matricule" type="text" wire:model="matricule"
+                                    <label for="">No. permanent</label>
+                                    <input placeholder="Saisir le numero permanent" type="text"
+                                           wire:model="numero_permanent"
                                            class="form-control">
                                 </div>
                             </div>
@@ -138,7 +139,7 @@
                         <div>
                             <h4 class="font-weight-bold"><u>Choix de classe</u></h4>
                             <p>Procédez à l'inscription de ce candidat pour l'année scolaire <span
-                                        class="text-red">{{$annee_courante->nom}}</span>, dans la classe que vous
+                                    class="text-red">{{$annee_courante->nom}}</span>, dans la classe que vous
                                 sélectionnerez ci-dessous.
                                 Pour choisir la classe, vous devez commencer par sélectionner la section, puis l'option,
                                 ensuite la filière et finalement la classe.</p>
