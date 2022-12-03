@@ -79,4 +79,10 @@ class Helpers
         $name = str_replace(' ', '+', $name);
         return "https://ui-avatars.com/api/?name={$name}&background=random&size={$width}x{$height}";
     }
+
+    // pad
+    public static function pad($number, $length = 2): string
+    {
+        return str_pad($number, $length, '0', STR_PAD_LEFT);
+    }
 }

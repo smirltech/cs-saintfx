@@ -11,6 +11,10 @@ class Annee extends Model
     use HasFactory;
 
     public $guarded = [];
+    protected $appends = [
+        'start_year',
+        'end_year'
+    ];
 
     /**
      * Renvoie l'id de l'année scolaire en cours
@@ -51,5 +55,15 @@ class Annee extends Model
     public function getNomEditAttribute(): string
     {
         return explode("-", $this->nom)[0];
+    }
+
+    public function getStartYearAttribute(): string
+    {
+        return explode("-", $this->nom)[0];
+    }
+
+    public function getEndYearAttribute(): string
+    {
+        return explode("-", $this->nom)[1];
     }
 }

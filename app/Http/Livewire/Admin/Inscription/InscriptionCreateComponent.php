@@ -147,9 +147,9 @@ class InscriptionCreateComponent extends Component
 
     }
 
-    public function submitEleve()
+    public function submitEleve(): Eleve
     {
-        $ucode = $this->getGeneratedUniqueCode();
+        // $ucode = $this->getGeneratedUniqueCode();
         return Eleve::create([
             'nom' => $this->nom,
             'postnom' => $this->postnom,
@@ -160,8 +160,7 @@ class InscriptionCreateComponent extends Component
             'adresse' => $this->adresse,
             'lieu_naissance' => $this->lieu_naissance,
             'date_naissance' => $this->date_naissance,
-            'matricule' => $this->matricule,
-            'code' => $ucode,
+            'numero_permanent' => null
         ]);
     }
 
@@ -171,6 +170,20 @@ class InscriptionCreateComponent extends Component
             'relation' => $this->responsable_relation,
             'eleve_id' => $eleve->id,
             'responsable_id' => $responsable->id,
+        ]);
+    }
+
+    private function submitInscription($eleve)
+    {
+        $icode = $this->getGeneratedInscriptionUniqueCode();
+        return Inscription::create([
+            'eleve_id' => $eleve->id,
+            'classe_id' => $this->classe_id,
+            'annee_id' => $this->annee_courante->id,
+            'categorie' => $this->categorie,
+            'montant' => $this->montant,
+            'status' => InscriptionStatus::pending->value,
+            'code' => $icode,
         ]);
     }
 
@@ -247,6 +260,20 @@ class InscriptionCreateComponent extends Component
         $this->loadAvailableClasses();
     }
 
+    private function loadAvailableClasses()
+    {
+        if ($this->filiere_id > 0) {
+            $filiere = Filiere::find($this->filiere_id);
+            $this->classes = $filiere->classes;
+        } else if ($this->option_id > 0) {
+            $option = Option::find($this->option_id);
+            $this->classes = $option->classes;
+        } else if ($this->section_id > 0) {
+            $section = Section::find($this->section_id);
+            $this->classes = $section->classes;
+        }
+    }
+
     public function changeOption()
     {
         if ($this->option_id > 0) {
@@ -268,34 +295,6 @@ class InscriptionCreateComponent extends Component
     public function changeFiliere()
     {
         $this->loadAvailableClasses();
-    }
-
-    private function submitInscription($eleve)
-    {
-        $icode = $this->getGeneratedInscriptionUniqueCode();
-        return Inscription::create([
-            'eleve_id' => $eleve->id,
-            'classe_id' => $this->classe_id,
-            'annee_id' => $this->annee_courante->id,
-            'categorie' => $this->categorie,
-            'montant' => $this->montant,
-            'status' => InscriptionStatus::pending->value,
-            'code' => $icode,
-        ]);
-    }
-
-    private function loadAvailableClasses()
-    {
-        if ($this->filiere_id > 0) {
-            $filiere = Filiere::find($this->filiere_id);
-            $this->classes = $filiere->classes;
-        } else if ($this->option_id > 0) {
-            $option = Option::find($this->option_id);
-            $this->classes = $option->classes;
-        } else if ($this->section_id > 0) {
-            $section = Section::find($this->section_id);
-            $this->classes = $section->classes;
-        }
     }
 
 }
