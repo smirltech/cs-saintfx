@@ -176,7 +176,6 @@
                                         <table class="table">
                                             <thead>
                                             <tr>
-                                                <th>NO.</th>
                                                 <th></th>
                                                 <th>NOM</th>
                                                 <th>COURS</th>
@@ -186,7 +185,6 @@
                                             <tbody>
                                             @foreach ($enseignants as $key=>$enseignant)
                                                 <tr>
-                                                    <td>{{ $key+1 }}</td>
                                                     <td><img class="img-circle" style="width:30px; height:auto"
                                                              src="{{$enseignant->avatar}}"></td>
                                                     <td>{{ $enseignant->nom }}</td>
