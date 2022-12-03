@@ -3,6 +3,8 @@
 @php use App\Enums\InscriptionStatus; @endphp
 @php use App\Enums\InscriptionCategorie; @endphp
 @php use App\Enums\Sexe; @endphp
+
+
 <div wire:ignore.self class="modal fade" tabindex="-1" id="attach-responsable-modal">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
@@ -441,8 +443,9 @@
                                 </select>
                             </div>
                             <div class="form-group col-lg-3 col-md-6 col-sm-12">
-                                <label for="">Matricule</label>
-                                <input placeholder="Saisir le matricule" type="text" wire:model="eleve_matricule"
+                                <label for="">No. Permanent</label>
+                                <input placeholder="Saisir le numero permanent" type="text"
+                                       wire:model="numero_permanent"
                                        class="form-control">
                             </div>
                         </div>

@@ -20,7 +20,6 @@ return new class extends Migration {
             $table->string('categorie')->default(InscriptionCategorie::normal->name);
             $table->integer('montant')->nullable();
             $table->string('status')->default(InscriptionStatus::pending->value);
-            $table->string('code')->unique();
             $table->unique(["eleve_id", "annee_id"], 'eleve_annee');
             $table->timestamps();
 

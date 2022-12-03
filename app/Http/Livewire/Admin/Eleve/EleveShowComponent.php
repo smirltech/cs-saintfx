@@ -54,7 +54,7 @@ class EleveShowComponent extends Component
     public $eleve_adresse;
     public $eleve_email;
     public $eleve_telephone;
-    public $eleve_matricule;
+    public $numero_permanent;
     public $searchResponsable = '';
 
     //responsable
@@ -125,7 +125,7 @@ class EleveShowComponent extends Component
         $this->eleve_adresse = $this->eleve->adresse;
         $this->eleve_email = $this->eleve->email;
         $this->eleve_telephone = $this->eleve->telephone;
-        $this->eleve_matricule = $this->eleve->matricule;
+        $this->numero_permanent = $this->eleve->numero_permanent;
 
     }
 
@@ -198,6 +198,20 @@ class EleveShowComponent extends Component
         // dd($inscription);
     }
 
+    private function loadAvailableClasses()
+    {
+        if ($this->inscription2_filiere_id > 0) {
+            $filiere = Filiere::find($this->inscription2_filiere_id);
+            $this->classes = $filiere->classes;
+        } else if ($this->inscription2_option_id > 0) {
+            $option = Option::find($this->inscription2_option_id);
+            $this->classes = $option->classes;
+        } else if ($this->inscription2_section_id > 0) {
+            $section = Section::find($this->inscription2_section_id);
+            $this->classes = $section->classes;
+        }
+    }
+
     public function render()
     {
         return view('livewire.admin.eleves.show')
@@ -220,7 +234,7 @@ class EleveShowComponent extends Component
             'adresse' => $this->eleve_adresse,
             'email' => $this->eleve_email,
             'telephone' => $this->eleve_telephone,
-            'matricule' => $this->eleve_matricule,
+            'numero_permanent' => $this->numero_permanent,
         ]);
 
 
@@ -437,20 +451,6 @@ class EleveShowComponent extends Component
     public function changeFiliere()
     {
         $this->loadAvailableClasses();
-    }
-
-    private function loadAvailableClasses()
-    {
-        if ($this->inscription2_filiere_id > 0) {
-            $filiere = Filiere::find($this->inscription2_filiere_id);
-            $this->classes = $filiere->classes;
-        } else if ($this->inscription2_option_id > 0) {
-            $option = Option::find($this->inscription2_option_id);
-            $this->classes = $option->classes;
-        } else if ($this->inscription2_section_id > 0) {
-            $section = Section::find($this->inscription2_section_id);
-            $this->classes = $section->classes;
-        }
     }
 
 

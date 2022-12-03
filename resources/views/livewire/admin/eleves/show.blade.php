@@ -36,22 +36,6 @@
                             <p class="text-muted text-center">CLASSE
                                 : {{$inscription?->classe?->shortCode??'Non encore inscrit !'}}</p>
                             <p class="text-muted text-center">ANNEE SCOLAIRE : {{$annee_courante?->nom??''}}</p>
-                            {{--                        <ul class="list-group list-group-unbordered mb-3">--}}
-                            {{--                            <li class="list-group-item">--}}
-                            {{--                                <b>Nom</b> <span class="float-right">{{$etudiant->nom}}</span>--}}
-                            {{--                            </li>--}}
-                            {{--                            <li class="list-group-item">--}}
-                            {{--                                <b>Postnom</b> <span class="float-right">{{$etudiant->postnom}}</span>--}}
-                            {{--                            </li>--}}
-                            {{--                            <li class="list-group-item">--}}
-                            {{--                                <b>Prenom</b> <span class="float-right">{{$etudiant->prenom}}</span>--}}
-                            {{--                            </li>--}}
-                            {{--                            <li class="list-group-item">--}}
-                            {{--                                <b>{{$etudiant->matricule?'Matricule':'Code Temporaire'}}</b> <span--}}
-                            {{--                                    class="float-right">{{$etudiant->matricule??$admission->code}}</span>--}}
-                            {{--                            </li>--}}
-                            {{--                        </ul>--}}
-                            <a hidden href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
                         </div>
 
                     </div>
@@ -66,9 +50,9 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <strong><i class="fas fa-id-card-alt mr-1"></i> Matricule</strong>
+                            <strong><i class="fas fa-id-card-alt mr-1"></i> No. Permanent</strong>
                             <p class="text-muted">
-                                {{$eleve->matricule??''}}
+                                {{$eleve->numero_permanent??''}}
                             </p>
                             <hr>
                             <strong><i class="fas fa-user mr-1"></i> Nom</strong>
@@ -138,16 +122,6 @@
                                     <b>Balance : </b> <span class="float-right"><i
                                             class="badge bg-warning">{{\App\Helpers\Helpers::currencyFormat(30000, symbol: 'Fc')}}</i></span>
                                 </li>
-                                {{--                            <li class="list-group-item">--}}
-                                {{--                                <b>Postnom</b> <span class="float-right">{{$etudiant->postnom}}</span>--}}
-                                {{--                            </li>--}}
-                                {{--                            <li class="list-group-item">--}}
-                                {{--                                <b>Prenom</b> <span class="float-right">{{$etudiant->prenom}}</span>--}}
-                                {{--                            </li>--}}
-                                {{--                            <li class="list-group-item">--}}
-                                {{--                                <b>{{$etudiant->matricule?'Matricule':'Code Temporaire'}}</b> <span--}}
-                                {{--                                    class="float-right">{{$etudiant->matricule??$admission->code}}</span>--}}
-                                {{--                            </li>--}}
                             </ul>
                             <a hidden href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
                         </div>
@@ -157,12 +131,12 @@
                         <div class="card-header">
                             <h3 class="card-title"> Responsable / Tuteur</h3>
                             @if(!$eleve->responsable_eleve)
-                            <div class="card-tools">
+                                <div class="card-tools">
                                 <span title="Attacher" role="button" class="mr-2"
                                       data-toggle="modal"
                                       data-target="#attach-responsable-modal"><span
                                         class="fas fa-plus"></span></span>
-                            </div>
+                                </div>
                             @endif
                         </div>
                         @if($eleve->responsable_eleve)
@@ -194,15 +168,6 @@
                                         <b>Adresse</b> <span
                                             class="float-right">{{$eleve->responsable_eleve?->responsable?->adresse??''}}</span>
                                     </li>
-                                    {{--                            <li class="list-group-item">--}}
-                                    {{--                                <b>Origine</b> <span class="float-right">{{$etudiant->origine}}</span>--}}
-                                    {{--                            </li>--}}
-                                    {{--                            <li class="list-group-item">--}}
-                                    {{--                                <b>Adresse Urgence</b> <span class="float-right">{{$etudiant->adresse_urgence}}</span>--}}
-                                    {{--                            </li>--}}
-                                    {{--                            <li class="list-group-item">--}}
-                                    {{--                                <b>Contact Urgence</b> <span class="float-right">{{$etudiant->contact_urgence}}</span>--}}
-                                    {{--                            </li>--}}
                                 </ul>
 
                             </div>

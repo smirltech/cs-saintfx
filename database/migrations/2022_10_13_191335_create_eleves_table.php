@@ -9,6 +9,7 @@ return new class extends Migration {
     {
         Schema::create('eleves', function (Blueprint $table) {
             $table->id();
+            $table->string('matricule')->nullable()->unique()->comment('Matricule de l\'eleve attribue par l\'ecole');
             $table->string('nom');
             $table->string('postnom');
             $table->string('prenom')->nullable();
@@ -18,8 +19,7 @@ return new class extends Migration {
             $table->string('adresse')->nullable();
             $table->string('email')->nullable();
             $table->string('telephone')->nullable();
-            $table->string('matricule')->nullable();
-            $table->string('code')->unique();
+            $table->string('numero_permanent')->nullable()->unique()->comment('Numero permanent de l\'eleve attribue par le ministere de l\'education');
             $table->timestamps();
         });
     }
