@@ -6,7 +6,7 @@ use App\Enums\MediaType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
-trait HasCrud
+trait CanCrudModel
 {
     use WithFileUploads;
 

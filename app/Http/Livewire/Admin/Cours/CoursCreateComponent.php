@@ -4,7 +4,7 @@ namespace App\Http\Livewire\Admin\Cours;
 
 use App\Models\Cours;
 use App\Models\Section;
-use App\Traits\ClasseCode;
+use App\Traits\CanHandleClasseCode;
 use App\View\Components\AdminLayout;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Validation\Rule;
@@ -14,7 +14,7 @@ use Livewire\Component;
 class CoursCreateComponent extends Component
 {
     use LivewireAlert;
-    use ClasseCode;
+    use CanHandleClasseCode;
 
     public Cours $cours;
     public Collection $sections;

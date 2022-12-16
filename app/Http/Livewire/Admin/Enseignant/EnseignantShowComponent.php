@@ -4,7 +4,7 @@ namespace App\Http\Livewire\Admin\Enseignant;
 
 use App\Models\Annee;
 use App\Models\Enseignant;
-use App\Traits\EleveUniqueCode;
+use App\Traits\CanHandleEleveUniqueCode;
 use App\Traits\FakeProfileImage;
 use App\View\Components\AdminLayout;
 use Illuminate\Contracts\Foundation\Application;
@@ -18,7 +18,7 @@ class EnseignantShowComponent extends Component
 {
     use LivewireAlert;
     use FakeProfileImage;
-    use EleveUniqueCode;
+    use CanHandleEleveUniqueCode;
 
 
     public Enseignant $enseignant;

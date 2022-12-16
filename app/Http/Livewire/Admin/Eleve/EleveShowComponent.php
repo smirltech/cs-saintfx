@@ -13,7 +13,7 @@ use App\Models\Option;
 use App\Models\Responsable;
 use App\Models\ResponsableEleve;
 use App\Models\Section;
-use App\Traits\EleveUniqueCode;
+use App\Traits\CanHandleEleveUniqueCode;
 use App\Traits\FakeProfileImage;
 use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -24,7 +24,7 @@ class EleveShowComponent extends Component
 {
     use LivewireAlert;
     use FakeProfileImage;
-    use EleveUniqueCode;
+    use CanHandleEleveUniqueCode;
 
 
     public $eleve;

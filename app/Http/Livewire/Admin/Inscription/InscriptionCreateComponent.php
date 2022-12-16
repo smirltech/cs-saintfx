@@ -14,7 +14,7 @@ use App\Models\Option;
 use App\Models\Responsable;
 use App\Models\ResponsableEleve;
 use App\Models\Section;
-use App\Traits\EleveUniqueCode;
+use App\Traits\CanHandleEleveUniqueCode;
 use App\Traits\InscriptionUniqueCode;
 use App\Traits\WithFileUploads;
 use App\View\Components\AdminLayout;
@@ -26,7 +26,7 @@ class InscriptionCreateComponent extends Component
 {
     use WithFileUploads;
     use LivewireAlert;
-    use EleveUniqueCode;
+    use CanHandleEleveUniqueCode;
     use InscriptionUniqueCode;
 
     public $options = [];
