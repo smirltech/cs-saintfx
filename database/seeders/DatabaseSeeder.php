@@ -6,6 +6,8 @@ namespace Database\Seeders;
 use App\Models\ClasseEnseignant;
 use App\Models\Cours;
 use App\Models\CoursEnseignant;
+use App\Models\Devoir;
+use App\Models\DevoirEleve;
 use App\Models\Eleve;
 use App\Models\Enseignant;
 use App\Models\Inscription;
@@ -56,7 +58,11 @@ class DatabaseSeeder extends Seeder
             CoursEnseignant::factory(20)->create();
 
             Presence::factory(30)->create();
+
             Resultat::factory(30)->create();
+
+            Devoir::factory(30)->create();
+            DevoirEleve::factory(30)->create();
 
 
         }
