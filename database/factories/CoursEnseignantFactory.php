@@ -21,7 +21,7 @@ class CoursEnseignantFactory extends Factory
         return [
             'cours_id' => $this->faker->numberBetween(1, Cours::count()),
             'classe_id' => $this->faker->numberBetween(1, Classe::count()),
-            'enseignant_id' => $this->faker->numberBetween(1, Enseignant::count()),
+            'enseignant_id' => $this->faker->randomElement(Enseignant::pluck('id')->toArray()),
             'annee_id' => $this->faker->numberBetween(1, Annee::count()),
         ];
     }

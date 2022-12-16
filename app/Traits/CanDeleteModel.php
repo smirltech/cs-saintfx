@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
-trait HasDeleteModel
+trait CanDeleteModel
 {
     use LivewireAlert;
 

@@ -9,7 +9,7 @@ use App\Models\ClasseEnseignant;
 use App\Models\Filiere;
 use App\Models\Option;
 use App\Models\Section;
-use App\Traits\ClasseCode;
+use App\Traits\CanHandleClasseCode;
 use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
@@ -17,7 +17,7 @@ use Livewire\Component;
 class ClasseEditComponent extends Component
 {
     use LivewireAlert;
-    use ClasseCode;
+    use CanHandleClasseCode;
 
     public $options = [];
     public $sections = [];

@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use App\Enums\MediaType;
 use Illuminate\Database\Eloquent\Model;
+use Storage;
 
 class Media extends Model
 {
@@ -13,32 +13,63 @@ class Media extends Model
     protected $hidden = ['mediable_type', 'mediable_id'];
 
     protected $casts = [
-        'created_at' => 'datetime',
         'updated_at' => 'datetime',
-        'custom_property' => MediaType::class
+        'created_at' => 'datetime',
     ];
 
-    // mediables
     public function mediable()
     {
         return $this->morphTo();
     }
 
-    // created at attribute
-    // then format it to be human readable
-    // return days ago, hours ago, minutes ago, seconds ago
-    // $media->createdAt
-    /*  public function getCreatedAtAttribute(): string
-  /*  {
-          return $this->created_at->diffForHumans();
-      }*/
-
-    // Create location attribute
-    // return the location of the media
-    // $media->path
-    //
     public function getPathAttribute(): string
     {
-        return asset("storage/{$this->location}");
+        return $this->getUrlAttribute();
     }
+
+    public function getUrlAttribute(): string
+    {
+        return Storage::disk('public')->url($this->location);
+
+    }
+
+    public function delete(): ?bool
+    {
+        $bool = Storage::disk('public')->delete($this->location);
+
+        if ($bool) {
+            return parent::delete();
+        }
+
+    }
+
+    // get Url
+
+    public function getUrl(): string
+    {
+        return $this->getUrlAttribute();
+    }
+
+    // get directory
+
+    public function getDirectory(): string
+    {
+        // extract the file location from the media location
+        $location = $this->location;
+        $parts = explode('/', $location);
+
+        // build string and ignore last part
+        $directory = '';
+        foreach ($parts as $key => $part) {
+            $directory .= $part;
+            if ($key === count($parts) - 2) {
+                break;
+            } else {
+                $directory .= '/';
+            }
+        }
+
+        return $directory;
+    }
+
 }

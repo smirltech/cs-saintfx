@@ -12,6 +12,7 @@ use App\Models\Inscription;
 use App\Models\Presence;
 use App\Models\Responsable;
 use App\Models\ResponsableEleve;
+use App\Models\Resultat;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Schema;
@@ -55,6 +56,7 @@ class DatabaseSeeder extends Seeder
             CoursEnseignant::factory(20)->create();
 
             Presence::factory(30)->create();
+            Resultat::factory(30)->create();
 
 
         }
