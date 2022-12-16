@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\AdmissionType;
 use App\Enums\InscriptionCategorie;
 use App\Enums\InscriptionStatus;
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -13,7 +14,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Inscription extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUlids;
 
     //, SoftDeletes;
 

@@ -13,16 +13,10 @@ class PresenceFactory extends Factory
 {
     protected $model = Presence::class;
 
-    /*
-     *
-     eleve_id    bigint unsigned not null,
-    date        date            not null,
-    observation text            null,
-     */
     public function definition()
     {
         return [
-            'eleve_id' => $this->faker->numberBetween(1, Eleve::count()),
+            'eleve_id' => $this->faker->randomElement(Eleve::pluck('id')->toArray()),
             'date' => $this->faker->date(),
             'observation' => $this->faker->sentence(3),
         ];

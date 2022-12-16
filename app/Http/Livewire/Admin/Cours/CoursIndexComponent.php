@@ -3,14 +3,14 @@
 namespace App\Http\Livewire\Admin\Cours;
 
 use App\Models\Cours;
-use App\Traits\HasDeleteModel;
+use App\Traits\CanDeleteModel;
 use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 class CoursIndexComponent extends Component
 {
-    use LivewireAlert, HasDeleteModel;
+    use LivewireAlert, CanDeleteModel;
 
     public $cours = [];
 

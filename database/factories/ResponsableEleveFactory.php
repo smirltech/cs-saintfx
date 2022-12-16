@@ -18,8 +18,8 @@ class ResponsableEleveFactory extends Factory
     public function definition()
     {
         return [
-            'responsable_id' => $this->faker->numberBetween(1, Responsable::count()),
-            'eleve_id' => $this->faker->numberBetween(1, Eleve::count()),
+            'responsable_id' => $this->faker->randomElement(Responsable::pluck('id')->toArray()),
+            'eleve_id' => $this->faker->randomElement(Eleve::pluck('id')->toArray()),
             'relation' => $this->faker->randomElement(array_column(ResponsableRelation::cases(), 'value')),
         ];
     }

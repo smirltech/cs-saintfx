@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\Admin\Enseignant;
 
 use App\Models\Enseignant;
-use App\Traits\HasDeleteModel;
+use App\Traits\CanDeleteModel;
 use App\View\Components\AdminLayout;
 use Illuminate\Database\Eloquent\Collection;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -12,7 +12,7 @@ use Livewire\Component;
 class EnseignantIndexComponent extends Component
 {
     use LivewireAlert;
-    use HasDeleteModel;
+    use CanDeleteModel;
 
     public Collection $enseignants;
 
