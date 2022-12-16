@@ -10,6 +10,8 @@ enum MediaType: string
     case piece_identite = 'piece_identite';
     case photo_passport = 'photo_passport';
 
+    case bulletin = 'bulletin';
+
     //folder() is a method that returns the folder name
     public function folder(): string
     {
@@ -19,6 +21,7 @@ enum MediaType: string
             self::fiche_inscription => 'fiches',
             self::piece_identite => 'pieces',
             self::photo_passport => 'photos',
+            self::bulletin => 'bulletins',
         };
     }
 
@@ -31,6 +34,7 @@ enum MediaType: string
             self::fiche_inscription => 'Fiche d\'inscription',
             self::piece_identite => 'Piece d\'identite',
             self::photo_passport => 'Photo de passport',
+            self::bulletin => 'Bulletin',
 
         };
     }

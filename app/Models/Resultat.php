@@ -2,13 +2,30 @@
 
 namespace App\Models;
 
+use App\Traits\HasMedia;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Resultat extends Model
 {
-    use HasFactory, HasUlids;
+    use HasFactory, HasUlids, HasMedia;
 
     public $guarded = [];
+
+    public function getBulletinAttribute(): ?Media
+    {
+        return $this->getBulletin();
+    }
+
+    public function getBulletin(): ?Media
+    {
+        return $this->getFirstMedia();
+    }
+
+    // get bulletin attribute
+    public function getBulletinUrlAttribute(): string
+    {
+        return $this->getFirstMediaUrl();
+    }
 }
