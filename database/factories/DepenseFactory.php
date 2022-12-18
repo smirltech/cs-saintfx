@@ -19,11 +19,11 @@ class DepenseFactory extends Factory
     {
         return [
             'categorie' => $this->faker->randomElement(array_column(DepenseCategorie::cases(), 'value')),
-            'montant' => $this->faker->randomNumber(2)*1000,
+            'montant' => $this->faker->randomNumber(2) * 1000,
             'note' => $this->faker->sentence(6),
             'reference' => $this->faker->randomNumber(6),
             'annee_id' => 1,
-            'user_id' => $this->faker->numberBetween(1, User::count()),
+            'user_id' => $this->faker->randomElement(User::pluck('id')->toArray()),
         ];
     }
 }

@@ -17,12 +17,12 @@ class PaimentFactory extends Factory
     public function definition()
     {
         return [
-            'paimentable_type' => '',
-            'paimentable_id' => 1,
-            'montant' => $this->faker->randomNumber(2)*1000,
+            'paimentable_type' => User::class,
+            'paimentable_id' => $this->faker->randomElement(User::pluck('id')->toArray()),
+            'montant' => $this->faker->randomNumber(2) * 1000,
             'mois' => '',
             'motif' => $this->faker->sentence(6),
             'annee_id' => 1,
-         ];
+        ];
     }
 }

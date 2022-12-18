@@ -17,7 +17,7 @@ class PerceptionFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => $this->faker->numberBetween(1, User::count()),
+            'user_id' => $this->faker->randomElement(User::pluck('id')->toArray()),
             'frais_id' => $this->faker->numberBetween(1, Frais::count()),
             'inscription_id' => $this->faker->numberBetween(1, 10),
             'custom_property' => $this->faker->word,
