@@ -6,15 +6,19 @@ namespace Database\Seeders;
 use App\Models\ClasseEnseignant;
 use App\Models\Cours;
 use App\Models\CoursEnseignant;
+use App\Models\Depense;
 use App\Models\Devoir;
 use App\Models\DevoirEleve;
 use App\Models\Eleve;
 use App\Models\Enseignant;
 use App\Models\Inscription;
+use App\Models\Paiment;
+use App\Models\Perception;
 use App\Models\Presence;
 use App\Models\Responsable;
 use App\Models\ResponsableEleve;
 use App\Models\Resultat;
+use App\Models\Revenu;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -48,6 +52,12 @@ class FactorySeeder extends Seeder
 
         Devoir::factory(10)->create();
         DevoirEleve::factory(10)->create();
+
+        # Finance
+        Revenu::factory(5)->create();
+        Depense::factory(5)->create();
+        Paiment::factory(5)->create();
+        Perception::factory(5)->create();
 
     }
 }
