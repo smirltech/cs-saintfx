@@ -2,7 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Annee;
 use App\Models\Frais;
+use App\Models\Inscription;
 use App\Models\Perception;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -19,12 +21,13 @@ class PerceptionFactory extends Factory
         return [
             'user_id' => $this->faker->randomElement(User::pluck('id')->toArray()),
             'frais_id' => $this->faker->numberBetween(1, Frais::count()),
-            'inscription_id' => $this->faker->numberBetween(1, 10),
+            'inscription_id' => $this->faker->randomElement(Inscription::pluck('id')->toArray()),
             'custom_property' => $this->faker->word,
-            'annee_id' => 1,
+            'annee_id' => $this->faker->numberBetween(1, Annee::count()),
             'montant' => 50000,
             'paid' => $this->faker->numberBetween(30000, 55000),
             'paid_by' => $this->faker->word,
         ];
     }
 }
+

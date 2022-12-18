@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Annee;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,7 +16,7 @@ return new class extends Migration {
             $table->string('frequence'); //App\Enum\FraisFrequence
             $table->string('type'); //App\Enum\FraisType
             $table->morphs('classable');
-            $table->integer('annee_id');
+            $table->foreignIdFor(Annee::class);
             $table->timestamps();
             $table->softDeletes();
         });
