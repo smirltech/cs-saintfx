@@ -49,5 +49,11 @@ class FactorySeeder extends Seeder
         Devoir::factory(10)->create();
         DevoirEleve::factory(10)->create();
 
+        # Finance
+        Revenu::factory(5)->create();
+        Depense::factory(5)->create();
+        Paiment::factory(5)->create();
+        Perception::factory(5)->create();
+
     }
 }

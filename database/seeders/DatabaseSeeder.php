@@ -25,6 +25,9 @@ class DatabaseSeeder extends Seeder
             FiliereSeeder::class,
             AnneeSeeder::class,
             ClasseSeeder::class,
+
+            RevenuSeeder::class,
+            FraisSeeder::class,
         ]);
 
         // if local env
