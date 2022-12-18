@@ -3,8 +3,6 @@
 namespace App\Helpers;
 
 use App\Enums\InscriptionStatus;
-use App\Mail\SendMail;
-use phpseclib3\Math\PrimeField\Integer;
 
 
 class Helpers
@@ -16,7 +14,7 @@ class Helpers
     }
 
     // remove spaces and special characters from a string
-    public static function removeSpaceBetween($string)
+    public static function removeSpaceBetween($string): array|string|null
     {
         return preg_replace('/\s+/', '', $string);
     }
@@ -40,7 +38,7 @@ class Helpers
         return round($bytes, $precision) . ' ' . $units[$pow];
     }
 
-    public static function currencyFormat($amount, $decimal = 0, $symbol = '')
+    public static function currencyFormat($amount, $decimal = 0, $symbol = ''): string
     {
 
         return number_format($amount, $decimal) . ' ' . $symbol;
@@ -56,7 +54,7 @@ class Helpers
 
     }
 
-    public static function admissionStatusColor($admissionStatus)
+    public static function admissionStatusColor($admissionStatus): string
     {
 
         switch ($admissionStatus) {
