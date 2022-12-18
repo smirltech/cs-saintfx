@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->foreignIdFor(Frais::class)->constrained();
             $table->foreignIdFor(Inscription::class)->constrained();
             $table->foreignIdFor(Annee::class)->constrained();
+
             $table->string('custom_property')->nullable();
             $table->integer('montant')->nullable()->default(0);
             $table->integer('paid')->nullable()->default(0);
