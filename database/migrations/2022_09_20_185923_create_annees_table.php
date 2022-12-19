@@ -9,7 +9,9 @@ return new class extends Migration {
     {
         Schema::create('annees', function (Blueprint $table) {
             $table->id();
-            $table->string('nom')->unique();
+            $table->string('code')->unique();
+            $table->date('date_debut');
+            $table->date('date_fin');
             $table->boolean('encours')->default(false);
             $table->timestamps();
         });
