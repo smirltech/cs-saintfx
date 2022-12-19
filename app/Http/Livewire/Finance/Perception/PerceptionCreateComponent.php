@@ -11,6 +11,7 @@ use App\Http\Integrations\Scolarite\Requests\Option\GetOptionRequest;
 use App\Models\Annee;
 use App\Models\Frais;
 use App\Models\Inscription;
+use App\Models\Option;
 use App\Models\Perception;
 use App\View\Components\AdminLayout;
 use Carbon\Carbon;
@@ -105,7 +106,7 @@ class PerceptionCreateComponent extends Component
 
                 $this->frais = $this->frais->merge($frais2);
 
-                $filiere2 = (new GetFiliereRequest($filiere_id))->send()->dto();
+                $filiere2 = Filiere::find($filiere_id);
                 if ($filiere2) {
                     $option_id = $filiere2->option_id;
                     $frais3 = Frais::
@@ -117,7 +118,7 @@ class PerceptionCreateComponent extends Component
 
                     $this->frais = $this->frais->merge($frais3);
 
-                    $option2 = (new GetOptionRequest($option_id))->send()->dto();
+                    $option2 = Option::find($option_id);
                     if ($option2) {
                         $section_id = $option2->section_id;
 
@@ -144,7 +145,7 @@ class PerceptionCreateComponent extends Component
 
                 $this->frais = $this->frais->merge($frais2);
 
-                $option2 = (new GetOptionRequest($option_id))->send()->dto();
+                $option2 = Option::find($option_id);
                 if ($option2) {
                     $section_id = $option2->section_id;
 
