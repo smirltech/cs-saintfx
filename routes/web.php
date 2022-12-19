@@ -4,25 +4,8 @@ use App\Http\Controllers\Admin;
 use App\Http\Controllers\Admin\AuditController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\OtpController;
-use App\Http\Livewire\Admin\Annee\AnneeComponent;
-use App\Http\Livewire\Admin\Classe;
-use App\Http\Livewire\Admin\Cours;
-use App\Http\Livewire\Admin\DashboardComponent;
-use App\Http\Livewire\Admin\Eleve\EleveIndexComponent;
-use App\Http\Livewire\Admin\Eleve\EleveShowComponent;
-use App\Http\Livewire\Admin\Enseignant;
-use App\Http\Livewire\Admin\Filiere\FiliereIndexComponent;
-use App\Http\Livewire\Admin\Filiere\FiliereShowComponent;
-use App\Http\Livewire\Admin\Inscription\ByStatus\InscriptionStatusComponent;
-use App\Http\Livewire\Admin\Inscription\InscriptionCreateComponent;
-use App\Http\Livewire\Admin\Inscription\InscriptionEditComponent;
-use App\Http\Livewire\Admin\Inscription\InscriptionIndexComponent;
-use App\Http\Livewire\Admin\Option\OptionIndexComponent;
-use App\Http\Livewire\Admin\Option\OptionShowComponent;
-use App\Http\Livewire\Admin\Responsable\ResponsableIndexComponent;
-use App\Http\Livewire\Admin\Responsable\ResponsableShowComponent;
-use App\Http\Livewire\Admin\Section\SectionIndexComponent;
-use App\Http\Livewire\Admin\Section\SectionShowComponent;
+use App\Http\Livewire\Finance;
+use App\Http\Livewire\Scolarite;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -37,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::redirect('/', 'admin')->name('admin');
+Route::redirect('/', 'scolarite')->name('scolarite');
 
 
 Route::get('auth/{user}', [OtpController::class, 'showVerifyOtp'])->name('auth.verify');
@@ -47,64 +30,68 @@ Route::get('auth/success', function () {
 Route::post('auth/otp-send', [OtpController::class, 'sendOtp'])->name('auth.otp-send');
 Route::post('auth/otp-verify', [OtpController::class, 'verifyOtp'])->name('auth.otp-verify');
 
-Route::redirect('dashboard', 'admin')->name('dashboard');
+// add routes
+Route::get('home', [Admin\HomeController::class, 'index'])->name('home');
+Route::redirect('dashboard', 'scolarite')->name('dashboard');
 
-//Route::get('inscription', InscriptionEtudiant::class)->name('inscription');
+//Users
+Route::resource('users', UserController::class);
 
-Route::prefix('admin')->middleware(['auth:web'])->as('admin.')->group(function () {
+
+Route::prefix('scolarite')->middleware(['auth:web'])->as('scolarite.')->group(function () {
 
 //Section
-    Route::get('sections/{section}', SectionShowComponent::class)->name('sections.show');
-    Route::get('sections', SectionIndexComponent::class)->name('sections');
+    Route::get('sections/{section}', Scolarite\Section\SectionShowComponent::class)->name('sections.show');
+    Route::get('sections', Scolarite\Section\SectionIndexComponent::class)->name('sections');
 
     //Option
-    Route::get('options/{option}', OptionShowComponent::class)->name('options.show');
-    Route::get('options', OptionIndexComponent::class)->name('options');
+    Route::get('options/{option}', Scolarite\Option\OptionShowComponent::class)->name('options.show');
+    Route::get('options', Scolarite\Option\OptionIndexComponent::class)->name('options');
 
 
 //Filiere
-    Route::get('filieres/{filiere}', FiliereShowComponent::class)->name('filieres.show');
-    Route::get('filieres', FiliereIndexComponent::class)->name('filieres');
+    Route::get('filieres/{filiere}', Scolarite\Filiere\FiliereShowComponent::class)->name('filieres.show');
+    Route::get('filieres', Scolarite\Filiere\FiliereIndexComponent::class)->name('filieres');
 
 // Classe
-    Route::get('classes/create', Classe\ClasseCreateComponent::class)->name('classes.create');
-    Route::get('classes/{classe}/edit', Classe\ClasseEditComponent::class)->name('classes.edit');
-    Route::get('classes/{classe}', Classe\ClasseShowComponent::class)->name('classes.show');
-    Route::get('classes', Classe\ClasseIndexComponent::class)->name('classes');
+    Route::get('classes/create', Scolarite\Classe\ClasseCreateComponent::class)->name('classes.create');
+    Route::get('classes/{classe}/edit', Scolarite\Classe\ClasseEditComponent::class)->name('classes.edit');
+    Route::get('classes/{classe}', Scolarite\Classe\ClasseShowComponent::class)->name('classes.show');
+    Route::get('classes', Scolarite\Classe\ClasseIndexComponent::class)->name('classes');
 
 
     // cours
-    Route::get('cours', Cours\CoursIndexComponent::class)->name('cours.index');
-    Route::get('cours/create', Cours\CoursCreateComponent::class)->name('cours.create');
-    Route::get('cours/{cours}/edit', Cours\CoursEditComponent::class)->name('cours.edit');
-    Route::get('cours/{cours}', Classe\ClasseShowComponent::class)->name('cours.show');
+    Route::get('cours', Scolarite\Cours\CoursIndexComponent::class)->name('cours.index');
+    Route::get('cours/create', Scolarite\Cours\CoursCreateComponent::class)->name('cours.create');
+    Route::get('cours/{cours}/edit', Scolarite\Cours\CoursEditComponent::class)->name('cours.edit');
+    Route::get('cours/{cours}', Scolarite\Classe\ClasseShowComponent::class)->name('cours.show');
 
     // Enseignant
-    Route::get('enseignants', Enseignant\EnseignantIndexComponent::class)->name('enseignants.index');
-    Route::get('enseignants/create', Enseignant\EnseignantCreateComponent::class)->name('enseignants.create');
-    Route::get('enseignants/{enseignant}/edit', Enseignant\EnseignantEditComponent::class)->name('enseignants.edit');
-    Route::get('enseignants/{enseignant}', Enseignant\EnseignantShowComponent::class)->name('enseignants.show');
+    Route::get('enseignants', Scolarite\Enseignant\EnseignantIndexComponent::class)->name('enseignants.index');
+    Route::get('enseignants/create', Scolarite\Enseignant\EnseignantCreateComponent::class)->name('enseignants.create');
+    Route::get('enseignants/{enseignant}/edit', Scolarite\Enseignant\EnseignantEditComponent::class)->name('enseignants.edit');
+    Route::get('enseignants/{enseignant}', Scolarite\Enseignant\EnseignantShowComponent::class)->name('enseignants.show');
 
 
 // Année
-    Route::get('annees', AnneeComponent::class)->name('annees');
+    Route::get('annees', Scolarite\Annee\AnneeComponent::class)->name('annees');
 
 // Eleves
-    Route::get('eleves/{eleve}', EleveShowComponent::class)->name('eleves.show');
-    Route::get('eleves', EleveIndexComponent::class)->name('eleves');
+    Route::get('eleves/{eleve}', Scolarite\Eleve\EleveShowComponent::class)->name('eleves.show');
+    Route::get('eleves', Scolarite\Eleve\EleveIndexComponent::class)->name('eleves');
 
     // Inscription
-    Route::get('inscriptions/create', InscriptionCreateComponent::class)->name('inscriptions.create');
-    Route::get('inscriptions/{inscription}/edit', InscriptionEditComponent::class)->name('inscriptions.edit');
-    Route::get('inscriptions/tous', InscriptionIndexComponent::class)->name('inscriptions.index');
-    Route::get('inscriptions/status/{status}', InscriptionStatusComponent::class)->name('inscriptions.status');
-    Route::get('inscriptions', InscriptionIndexComponent::class)->name('inscriptions');
+    Route::get('inscriptions/create', Scolarite\Inscription\InscriptionCreateComponent::class)->name('inscriptions.create');
+    Route::get('inscriptions/{inscription}/edit', Scolarite\Inscription\InscriptionEditComponent::class)->name('inscriptions.edit');
+    Route::get('inscriptions/tous', Scolarite\Inscription\InscriptionIndexComponent::class)->name('inscriptions.index');
+    Route::get('inscriptions/status/{status}', Scolarite\Inscription\ByStatus\InscriptionStatusComponent::class)->name('inscriptions.status');
+    Route::get('inscriptions', Scolarite\Inscription\InscriptionIndexComponent::class)->name('inscriptions');
 
     // Responsables
-    Route::get('responsables/{responsable}', ResponsableShowComponent::class)->name('responsables.show');
-    Route::get('responsables', ResponsableIndexComponent::class)->name('responsables');
+    Route::get('responsables/{responsable}', Scolarite\Responsable\ResponsableShowComponent::class)->name('responsables.show');
+    Route::get('responsables', Scolarite\Responsable\ResponsableIndexComponent::class)->name('responsables');
 
-    Route::get('/', DashboardComponent::class)->name('admin');
+    Route::get('/', Scolarite\DashboardComponent::class)->name('scolarite');
 
     //others
     Route::resource('users', UserController::class);
@@ -118,8 +105,29 @@ Route::prefix('admin')->middleware(['auth:web'])->as('admin.')->group(function (
     Route::get('users/{user}/reset-password', [UserController::class, 'resetPassword'])->name('users.password.autoreset');
     Route::resource('users', UserController::class);
 });
+# Finance
+Route::prefix('finance')->middleware(['auth:web'])->as('finance.')->group(function () {
+    // Admin
+    Route::get('/', Finance\Dashboard\DashboardComponent::class)->name('finance');
 
+
+    //Revenu
+    Route::get('revenus', Finance\Revenu\RevenuIndexComponent::class)->name('revenus');
+
+    //Revenu
+    Route::get('depenses', Finance\Depense\DepenseIndexComponent::class)->name('depenses');
+
+    //Frais
+    Route::get('frais', Finance\Frais\FraisIndexComponent::class)->name('frais');
+
+    //Perception
+    Route::get('perceptions/create', Finance\Perception\PerceptionCreateComponent::class)->name('perceptions.create');
+    Route::get('perceptions/{perception}/edit', Finance\Perception\PerceptionEditComponent::class)->name('perceptions.edit');
+    Route::get('perceptions', Finance\Perception\PerceptionIndexComponent::class)->name('perceptions');
+
+    //Perception
+    Route::get('eleves', Finance\Eleve\EleveIndexComponent::class)->name('eleves');
+    Route::get('eleves/{id}', Finance\Eleve\EleveShowComponent::class)->name('eleves.show');
+});
 
 Auth::routes();
-
-Route::get('home', [Admin\HomeController::class, 'index'])->name('home');

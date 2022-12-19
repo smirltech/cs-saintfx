@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fa0fdb2c8c3a921405f395b969b6ced0",
+    "content-hash": "9d511015ebd9a1f2e205b95a4544f738",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -3280,6 +3280,81 @@
             "time": "2022-07-29T11:21:26+00:00"
         },
         {
+            "name": "pharaonic/laravel-readable",
+            "version": "1.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Pharaonic/laravel-readable.git",
+                "reference": "cda54a05c6b0bc0ed8d740243a4c392d79f4621c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Pharaonic/laravel-readable/zipball/cda54a05c6b0bc0ed8d740243a4c392d79f4621c",
+                "reference": "cda54a05c6b0bc0ed8d740243a4c392d79f4621c",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": ">=6.0",
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "orchestra/testbench": ">=5.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Pharaonic\\Laravel\\Readable\\ReadableServiceProvider"
+                    ],
+                    "aliases": {
+                        "Readable": "Pharaonic\\Laravel\\Readable\\Readable"
+                    }
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Helpers.php"
+                ],
+                "psr-4": {
+                    "Pharaonic\\Laravel\\Readable\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Raggi",
+                    "email": "support@pharaonic.io",
+                    "homepage": "https://pharaonic.io"
+                }
+            ],
+            "description": "Laravel - Readable Number (Integer|decimal) & DateTime & Time Length & File Size.",
+            "keywords": [
+                "human readable",
+                "laravel",
+                "pharaonic",
+                "php",
+                "readable"
+            ],
+            "support": {
+                "issues": "https://github.com/Pharaonic/laravel-readable/issues",
+                "source": "https://github.com/Pharaonic/laravel-readable/tree/1.0.5"
+            },
+            "funding": [
+                {
+                    "url": "https://liberapay.com/Pharaonic",
+                    "type": "liberapay"
+                },
+                {
+                    "url": "https://www.patreon.com/Pharaonic",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2022-02-14T09:56:07+00:00"
+        },
+        {
             "name": "phenx/php-font-lib",
             "version": "0.5.4",
             "source": {
@@ -4200,6 +4275,186 @@
                 "source": "https://github.com/sabberworm/PHP-CSS-Parser/tree/8.4.0"
             },
             "time": "2021-12-11T13:40:54+00:00"
+        },
+        {
+            "name": "sammyjo20/saloon",
+            "version": "v1.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Sammyjo20/Saloon.git",
+                "reference": "e46b9737f7c2a4450f113f1838c916c81fc83808"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Sammyjo20/Saloon/zipball/e46b9737f7c2a4450f113f1838c916c81fc83808",
+                "reference": "e46b9737f7c2a4450f113f1838c916c81fc83808",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^7.5",
+                "illuminate/support": "^8.0 || ^9.0",
+                "nesbot/carbon": "^2.64",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.5",
+                "league/flysystem": "^3.0",
+                "pestphp/pest": "^1.21",
+                "spatie/ray": "^1.33",
+                "symfony/dom-crawler": "^6.0"
+            },
+            "suggest": {
+                "symfony/dom-crawler": "Required for the SaloonResponse dom() method to parse HTML and XML."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Sammyjo20\\Saloon\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sam Carré",
+                    "email": "29132017+Sammyjo20@users.noreply.github.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A Laravel/PHP package that allows you to write your API integrations or SDKs in a beautiful, standardised syntax.",
+            "homepage": "https://github.com/sammyjo20/saloon",
+            "keywords": [
+                "api",
+                "api-integrations",
+                "saloon",
+                "sammyjo20",
+                "sdk"
+            ],
+            "support": {
+                "issues": "https://github.com/Sammyjo20/Saloon/issues",
+                "source": "https://github.com/Sammyjo20/Saloon/tree/v1.6.0"
+            },
+            "time": "2022-12-11T13:42:49+00:00"
+        },
+        {
+            "name": "sammyjo20/saloon-cache-plugin",
+            "version": "v0.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Sammyjo20/saloon-cache-plugin.git",
+                "reference": "2fe213be4a0bf5b8124b580cb606354a316687e3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Sammyjo20/saloon-cache-plugin/zipball/2fe213be4a0bf5b8124b580cb606354a316687e3",
+                "reference": "2fe213be4a0bf5b8124b580cb606354a316687e3",
+                "shasum": ""
+            },
+            "require": {
+                "nesbot/carbon": "^2.57",
+                "php": "^8.0",
+                "sammyjo20/saloon": "^1.0.1"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.8",
+                "league/flysystem": "^3.0",
+                "orchestra/testbench": "^7.0",
+                "pestphp/pest": "^1.21.2",
+                "psr/simple-cache": "^3.0",
+                "spatie/ray": "^1.34.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Sammyjo20\\SaloonCachePlugin\\": "src/",
+                    "Sammyjo20\\SaloonCachePlugin\\Tests\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sammyjo20",
+                    "email": "29132017+Sammyjo20@users.noreply.github.com"
+                }
+            ],
+            "description": "Official plugin for caching Saloon responses",
+            "support": {
+                "issues": "https://github.com/Sammyjo20/saloon-cache-plugin/issues",
+                "source": "https://github.com/Sammyjo20/saloon-cache-plugin/tree/v0.3.0"
+            },
+            "time": "2022-10-22T10:17:31+00:00"
+        },
+        {
+            "name": "sammyjo20/saloon-laravel",
+            "version": "v1.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Sammyjo20/saloon-laravel.git",
+                "reference": "427f7f63e2b441d9d141a03815cbb51b7763c775"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Sammyjo20/saloon-laravel/zipball/427f7f63e2b441d9d141a03815cbb51b7763c775",
+                "reference": "427f7f63e2b441d9d141a03815cbb51b7763c775",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "^8.0 || ^9.0",
+                "illuminate/support": "^8.0 || ^9.0",
+                "php": "^8.0",
+                "sammyjo20/saloon": "^1.6"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.5",
+                "orchestra/testbench": "^6.24 || ^7.7",
+                "pestphp/pest": "^1.21"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "Saloon": "Sammyjo20\\SaloonLaravel\\Facades\\Saloon"
+                    },
+                    "providers": [
+                        "Sammyjo20\\SaloonLaravel\\SaloonServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Sammyjo20\\SaloonLaravel\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sam Carré",
+                    "email": "29132017+Sammyjo20@users.noreply.github.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel package for Sammyjo20/Saloon",
+            "homepage": "https://github.com/sammyjo20/saloon-laravel",
+            "keywords": [
+                "api",
+                "api-integrations",
+                "saloon",
+                "sammyjo20",
+                "sdk"
+            ],
+            "support": {
+                "issues": "https://github.com/Sammyjo20/saloon-laravel/issues",
+                "source": "https://github.com/Sammyjo20/saloon-laravel/tree/v1.6.0"
+            },
+            "time": "2022-12-11T13:55:28+00:00"
         },
         {
             "name": "simplesoftwareio/simple-qrcode",
@@ -7892,16 +8147,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "9.2.21",
+            "version": "9.2.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "3f893e19712bb0c8bc86665d1562e9fd509c4ef0"
+                "reference": "e4bf60d2220b4baaa0572986b5d69870226b06df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/3f893e19712bb0c8bc86665d1562e9fd509c4ef0",
-                "reference": "3f893e19712bb0c8bc86665d1562e9fd509c4ef0",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/e4bf60d2220b4baaa0572986b5d69870226b06df",
+                "reference": "e4bf60d2220b4baaa0572986b5d69870226b06df",
                 "shasum": ""
             },
             "require": {
@@ -7957,7 +8212,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/php-code-coverage/issues",
-                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/9.2.21"
+                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/9.2.22"
             },
             "funding": [
                 {
@@ -7965,7 +8220,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-12-14T13:26:54+00:00"
+            "time": "2022-12-18T16:40:55+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",

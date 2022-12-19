@@ -57,11 +57,11 @@ class Classe extends Model
         $parent_url = "";
         $classable = $this->filierable;
         if ($classable instanceof Filiere) {
-            $parent_url = route('admin.filieres.show', $classable->id);
+            $parent_url = route('scolarite.filieres.show', $classable->id);
         } else if ($classable instanceof Option) {
-            $parent_url = route('admin.options.show', $classable->id);
+            $parent_url = route('scolarite.options.show', $classable->id);
         } else if ($classable instanceof Section) {
-            $parent_url = route('admin.sections.show', $classable->id);
+            $parent_url = route('scolarite.sections.show', $classable->id);
         }
 
         return $parent_url;

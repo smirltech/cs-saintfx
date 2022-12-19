@@ -9,7 +9,7 @@ return [
     | Title
     |--------------------------------------------------------------------------
     |
-    | Here you can change the default title of your admin panel.
+    | Here you can change the default title of your scolarite panel.
     |
     | For detailed instructions you can look the title section here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Basic-Configuration
@@ -41,7 +41,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | Here you can allow or not the use of external google fonts. Disabling the
-    | google fonts may be useful if your admin panel internet access is
+    | google fonts may be useful if your scolarite panel internet access is
     | restricted somehow.
     |
     | For detailed instructions you can look the google fonts section here:
@@ -58,7 +58,7 @@ return [
     | Logo
     |--------------------------------------------------------------------------
     |
-    | Here you can change the logo of your admin panel.
+    | Here you can change the logo of your scolarite panel.
     |
     | For detailed instructions you can look the logo section here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Basic-Configuration
@@ -119,7 +119,7 @@ return [
     | Layout
     |--------------------------------------------------------------------------
     |
-    | Here we change the layout of your admin panel.
+    | Here we change the layout of your scolarite panel.
     |
     | For detailed instructions you can look the layout section here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Layout-and-Styling-Configuration
@@ -157,9 +157,9 @@ return [
     | Admin Panel Classes
     |--------------------------------------------------------------------------
     |
-    | Here you can change the look and behavior of the admin panel.
+    | Here you can change the look and behavior of the scolarite panel.
     |
-    | For detailed instructions you can look the admin panel classes here:
+    | For detailed instructions you can look the scolarite panel classes here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Layout-and-Styling-Configuration
     |
     */
@@ -181,7 +181,7 @@ return [
     | Sidebar
     |--------------------------------------------------------------------------
     |
-    | Here we can modify the sidebar of the admin panel.
+    | Here we can modify the sidebar of the scolarite panel.
     |
     | For detailed instructions you can look the sidebar section here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Layout-and-Styling-Configuration
@@ -203,7 +203,7 @@ return [
     | Control Sidebar (Right Sidebar)
     |--------------------------------------------------------------------------
     |
-    | Here we can modify the right sidebar aka control sidebar of the admin panel.
+    | Here we can modify the right sidebar aka control sidebar of the scolarite panel.
     |
     | For detailed instructions you can look the right sidebar section here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Layout-and-Styling-Configuration
@@ -223,7 +223,7 @@ return [
     | URLs
     |--------------------------------------------------------------------------
     |
-    | Here we can modify the url settings of the admin panel.
+    | Here we can modify the url settings of the scolarite panel.
     |
     | For detailed instructions you can look the urls section here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Basic-Configuration
@@ -231,7 +231,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'admin',
+    'dashboard_url' => 'scolarite',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -244,7 +244,7 @@ return [
     | Laravel Mix
     |--------------------------------------------------------------------------
     |
-    | Here we can enable the Laravel Mix option for the admin panel.
+    | Here we can enable the Laravel Mix option for the scolarite panel.
     |
     | For detailed instructions you can look the laravel mix section here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Other-Configuration
@@ -260,7 +260,7 @@ return [
     | Menu Items
     |--------------------------------------------------------------------------
     |
-    | Here we can modify the sidebar/top navigation of the admin panel.
+    | Here we can modify the sidebar/top navigation of the scolarite panel.
     |
     | For detailed instructions you can look here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Menu-Configuration
@@ -286,35 +286,35 @@ return [
             'submenu' => [
                 [
                     'text' => 'Inscrire un élève',
-                    'url' => 'admin/inscriptions/create',
+                    'url' => 'scolarite/inscriptions/create',
                     //      'can' => RolePermission::create_etudiant->name,
                 ],
                 [
                     'text' => 'Elèves inscrits',
-                    'url' => 'admin/inscriptions',
+                    'url' => 'scolarite/inscriptions',
                 ],
                 [
                     'text' => 'Responsables',
-                    'url' => 'admin/responsables',
+                    'url' => 'scolarite/responsables',
                     'icon' => 'fas fa-fw fa-person-pregnant',
                 ],
             ],
         ],
         [
             'text' => 'Classes',
-            'url' => 'admin/classes',
+            'url' => 'scolarite/classes',
             'icon' => 'fas fa-fw fa-school',
         ],
         [
             'text' => 'Cours',
-            'url' => 'admin/cours',
+            'url' => 'scolarite/cours',
             'icon' => 'fas fa-fw fa-book-open',
         ],
         [
             'text' => 'Enseignants',
             'icon' => 'fas fa-fw fa-chalkboard-teacher',
             // 'can' => RolePermission::create_promotion->name,
-            'url' => 'admin/enseignants',
+            'url' => 'scolarite/enseignants',
         ],
 
         [
@@ -324,27 +324,75 @@ return [
             'submenu' => [
                 [
                     'text' => 'Filières',
-                    'url' => 'admin/filieres',
+                    'url' => 'scolarite/filieres',
                 ],
                 [
                     'text' => 'Options',
-                    'url' => 'admin/options',
+                    'url' => 'scolarite/options',
                 ],
                 [
                     'text' => 'Sections',
-                    'url' => 'admin/sections',
+                    'url' => 'scolarite/sections',
+                ],
+            ],
+        ],
+        [
+            'text' => 'Perceptions',
+            'icon' => 'fas fa-fw fa-plus',
+            // 'can' => RolePermission::view_etudiant->name,
+            'submenu' => [
+                [
+                    'text' => 'Ajouter perception',
+                    'url' => 'finance/perceptions/create',
+                    //      'can' => RolePermission::create_etudiant->name,
+                ],
+                [
+                    'text' => 'Liste de perceptions',
+                    'url' => 'finance/perceptions',
+                ],
+            ],
+        ],
+        [
+            'text' => 'Revenu Auxiliaire',
+            'icon' => 'fa fa-puzzle-piece',
+            'url' => '/finance/revenus',
+            // 'can' => RolePermission::create_user->name,
+        ],
+        [
+            'text' => 'Sorties',
+            'icon' => 'fas fa-fw fa-minus',
+            // 'can' => RolePermission::view_etudiant->name,
+            'submenu' => [
+                [
+                    'text' => "Liste de dépenses",
+                    'url' => 'finance/depenses',
+                ],
+                /*[
+                    'text' => "Liste de paiements",
+                    'url' => 'admin/paiements',
+                ],*/
+            ],
+        ],
+        [
+            'text' => 'Configurations',
+            'icon' => 'fas fa-fw fa-cogs',
+            // 'can' => RolePermission::view_etudiant->name,
+            'submenu' => [
+                [
+                    'text' => 'Liste de frais',
+                    'url' => 'finance/frais',
                 ],
             ],
         ],
         [
             'text' => 'Calendrier scolaire',
-            'url' => 'admin/annees',
+            'url' => 'scolarite/annees',
             'icon' => 'fas fa-fw fa-calendar-alt',
         ],
         [
             'text' => 'Utilisateurs',
             'icon' => 'fas fa-fw fa-users',
-            'url' => '/admin/users',
+            'url' => '/scolarite/users',
             'can' => RolePermission::create_user->name,
         ],
     ],
@@ -354,7 +402,7 @@ return [
     | Menu Filters
     |--------------------------------------------------------------------------
     |
-    | Here we can modify the menu filters of the admin panel.
+    | Here we can modify the menu filters of the scolarite panel.
     |
     | For detailed instructions you can look the menu filters section here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Menu-Configuration
@@ -376,7 +424,7 @@ return [
     | Plugins Initialization
     |--------------------------------------------------------------------------
     |
-    | Here we can modify the plugins used inside the admin panel.
+    | Here we can modify the plugins used inside the scolarite panel.
     |
     | For detailed instructions you can look the plugins section here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Plugins-Configuration
