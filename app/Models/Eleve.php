@@ -96,5 +96,4 @@ class Eleve extends Model
         return $this->matricule;
     }
 
-
 }
