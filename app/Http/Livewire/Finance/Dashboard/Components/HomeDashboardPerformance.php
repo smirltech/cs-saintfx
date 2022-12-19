@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Finance\Dashboard\Components;
 
 use App\Enums\FraisType;
 use App\Http\Integrations\Scolarite\Requests\Annee\GetCurrentAnnneRequest;
+use App\Models\Annee;
 use App\Models\Frais;
 use Faker\Factory;
 use Livewire\Component;
@@ -34,7 +35,7 @@ class HomeDashboardPerformance extends Component
         $this->faker = Factory::create();
 
         $this->dayCount = $dayCount;
-        $this->annee_id = (new GetCurrentAnnneRequest())->send()->dto()->id;
+        $this->annee_id = Annee::encours()->id;
 
         $this->fullFrais = Frais::where('annee_id', $this->annee_id)->get();
         $this->prepareData();

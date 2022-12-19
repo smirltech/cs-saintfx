@@ -4,7 +4,7 @@ namespace App\Http\Livewire\Finance\Dashboard;
 
 
 use App\Helpers\Helpers;
-use App\Http\Integrations\Scolarite\Requests\Annee\GetCurrentAnnneRequest;
+use App\Models\Annee;
 use App\Models\Depense;
 use App\Models\Perception;
 use App\Models\Revenu;
@@ -30,7 +30,9 @@ class DashboardComponent extends Component
             Auth::user()->update(['email_verified_at' => now()]);
         }
         //Annee::class
-        $this->anneeEncours = (new GetCurrentAnnneRequest())->send()->dto();
+
+        $this->anneeEncours = Annee::encours();
+
 
         $monthTo = Carbon::now()->endOfMonth();
         $monthFrom = $monthTo->copy()->subMonth()->subDay()->addSecond();

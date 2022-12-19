@@ -30,9 +30,13 @@ Route::get('auth/success', function () {
 Route::post('auth/otp-send', [OtpController::class, 'sendOtp'])->name('auth.otp-send');
 Route::post('auth/otp-verify', [OtpController::class, 'verifyOtp'])->name('auth.otp-verify');
 
+// add routes
+Route::get('home', [Admin\HomeController::class, 'index'])->name('home');
 Route::redirect('dashboard', 'scolarite')->name('dashboard');
 
-//Route::get('inscription', InscriptionEtudiant::class)->name('inscription');
+//Users
+Route::resource('users', UserController::class);
+
 
 Route::prefix('scolarite')->middleware(['auth:web'])->as('scolarite.')->group(function () {
 
@@ -106,8 +110,6 @@ Route::prefix('finance')->middleware(['auth:web'])->as('finance.')->group(functi
     // Admin
     Route::get('/', Finance\Dashboard\DashboardComponent::class)->name('finance');
 
-    //others
-    Route::resource('users', UserController::class);
 
     //Revenu
     Route::get('revenus', Finance\Revenu\RevenuIndexComponent::class)->name('revenus');
@@ -129,7 +131,3 @@ Route::prefix('finance')->middleware(['auth:web'])->as('finance.')->group(functi
 });
 
 Auth::routes();
-
-// add routes
-
-Route::get('home', [Admin\HomeController::class, 'index'])->name('home');

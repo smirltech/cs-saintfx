@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Finance\Dashboard\Components;
 
 use App\Http\Integrations\Scolarite\Requests\Annee\GetCurrentAnnneRequest;
+use App\Models\Annee;
 use App\Models\Depense;
 use App\Models\Paiment;
 use App\Models\Perception;
@@ -47,7 +48,7 @@ class HomeTotaux extends Component
     {
 
         $this->dayCount = $dayCount;
-        $this->annee_id = (new GetCurrentAnnneRequest())->send()->dto()->id;
+        $this->annee_id = Annee::encours()->id;
 
         $tdate = Carbon::now();
         $sdate = Carbon::now()->startOfMonth();

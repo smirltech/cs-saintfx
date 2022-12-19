@@ -25,7 +25,8 @@
         "sammyjo20/saloon-cache-plugin": "^0.3.0",
         "tailflow/laravel-orion": "^2.16",
         "wire-elements/modal": "^1.0",
-        "sammyjo20/saloon-laravel": "^1.5"
+        "sammyjo20/saloon-laravel": "^1.5",
+        "pharaonic/laravel-readable": "^1.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

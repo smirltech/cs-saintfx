@@ -40,11 +40,11 @@
                     <div class="card-body" bis_skin_checked="1">
                         <div class="row" bis_skin_checked="1">
                             <div class="col-md-8" bis_skin_checked="1">
-                                <livewire:admin.dashboard.components.home-dashboard-graph :day-count="$dayCount"/>
+                                <livewire:finance.dashboard.components.home-dashboard-graph :day-count="$dayCount"/>
                             </div>
 
                             <div class="col-md-4" bis_skin_checked="1">
-                                <livewire:admin.dashboard.components.home-dashboard-performance
+                                <livewire:finance.dashboard.components.home-dashboard-performance
                                     :day-count="$dayCount"/>
                             </div>
 
@@ -53,7 +53,7 @@
                     </div>
 
                     <div class="card-footer" bis_skin_checked="1">
-                        <livewire:admin.dashboard.components.home-totaux :day-count="$dayCount"/>
+                        <livewire:finance.dashboard.components.home-totaux :day-count="$dayCount"/>
                     </div>
 
                 </div>
