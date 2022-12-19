@@ -102,9 +102,9 @@ Route::prefix('scolarite')->middleware(['auth:web'])->as('scolarite.')->group(fu
     Route::resource('users', UserController::class);
 });
 # Finance
-Route::prefix('scolarite')->middleware(['auth:web'])->as('scolarite.')->group(function () {
+Route::prefix('finance')->middleware(['auth:web'])->as('finance.')->group(function () {
     // Admin
-    Route::get('/', Finance\Dashboard\DashboardComponent::class)->name('scolarite');
+    Route::get('/', Finance\Dashboard\DashboardComponent::class)->name('finance');
 
     //others
     Route::resource('users', UserController::class);
@@ -126,9 +126,6 @@ Route::prefix('scolarite')->middleware(['auth:web'])->as('scolarite.')->group(fu
     //Perception
     Route::get('eleves', Finance\Eleve\EleveIndexComponent::class)->name('eleves');
     Route::get('eleves/{id}', Finance\Eleve\EleveShowComponent::class)->name('eleves.show');
-
-//    Route::get('users/{user}/reset-password', [UserController::class, 'resetPassword'])->name('users.password.autoreset');
-//    Route::resource('users', UserController::class);
 });
 
 Auth::routes();

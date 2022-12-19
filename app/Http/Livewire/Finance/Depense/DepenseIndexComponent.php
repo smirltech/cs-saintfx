@@ -39,7 +39,7 @@ class DepenseIndexComponent extends Component
     public function render()
     {
         $this->loadData();
-        return view('livewire.admin.depenses.index')
+        return view('livewire.finance.depenses.index')
             ->layout(AdminLayout::class, ['title' => 'Liste de Dépenses']);
     }
 

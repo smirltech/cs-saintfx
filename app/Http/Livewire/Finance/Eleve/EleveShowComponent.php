@@ -63,7 +63,7 @@ class EleveShowComponent extends Component
         $perceptionsDues = $perceptionsRequest->sum("montant");
         $perceptionsPaid = $perceptionsRequest->sum("paid");
 
-        return view('livewire.admin.eleves.show', [
+        return view('livewire.finance.eleves.show', [
             'annee_courante' => $this->annee_courante,
             'inscription' => $this->inscription,
             'eleve' => $this->eleve,

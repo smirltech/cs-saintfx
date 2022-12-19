@@ -83,7 +83,7 @@ class HomeDashboardGraph extends Component
     public function render()
     {
         // $this->prepareData();
-        return view('livewire.admin.dashboard.components.dashboard-graph', [
+        return view('livewire.finance.dashboard.components.dashboard-graph', [
             "labels" => $this->labels,
             "dataset" => $this->dataset,
         ]);

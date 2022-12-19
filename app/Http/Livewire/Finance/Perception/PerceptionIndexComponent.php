@@ -27,7 +27,7 @@ class PerceptionIndexComponent extends Component
         $perceptionsRequest = Perception::where('annee_id', $this->annee_id);
         $this->perceptions = $perceptionsRequest->orderBy('created_at', 'DESC')->get();
         // dd($this->perceptions);
-        return view('livewire.admin.perceptions.index', ['perceptions' => $this->perceptions])
+        return view('livewire.finance.perceptions.index', ['perceptions' => $this->perceptions])
             ->layout(AdminLayout::class, ['title' => 'Liste de Perceptions']);
     }
 

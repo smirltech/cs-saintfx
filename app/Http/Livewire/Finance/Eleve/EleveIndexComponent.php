@@ -49,7 +49,7 @@ class EleveIndexComponent extends Component
         $inscriptions = $request->send()->dto();
 
         //dd($inscriptions);
-        return view('livewire.admin.eleves.index', ['inscriptions' => $inscriptions])
+        return view('livewire.finance.eleves.index', ['inscriptions' => $inscriptions])
             ->layout(AdminLayout::class, ['title' => 'Liste de Perceptions']);
     }
 

@@ -36,7 +36,7 @@ class RevenuIndexComponent extends Component
     public function render()
     {
         $this->loadData();
-        return view('livewire.admin.revenus.index')
+        return view('livewire.finance.revenus.index')
             ->layout(AdminLayout::class, ['title' => 'Liste de Revenus']);
     }
 

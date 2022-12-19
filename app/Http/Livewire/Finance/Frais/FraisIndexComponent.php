@@ -66,7 +66,7 @@ class FraisIndexComponent extends Component
     public function render()
     {
         $this->loadData();
-        return view('livewire.admin.frais.index')
+        return view('livewire.finance.frais.index')
             ->layout(AdminLayout::class, ['title' => 'Liste de Frais']);
     }
 

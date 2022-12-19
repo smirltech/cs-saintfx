@@ -97,7 +97,7 @@ class DashboardComponent extends Component
 
     public function render(): Factory|View|Application
     {
-        return view('livewire.admin.dashboard.dashboard')
+        return view('livewire.finance.dashboard.dashboard')
             ->layout(AdminLayout::class, ['title' => 'Admin Dashboard']);
     }
 

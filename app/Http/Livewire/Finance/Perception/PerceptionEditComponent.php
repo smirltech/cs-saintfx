@@ -77,7 +77,7 @@ class PerceptionEditComponent extends Component
     public function render()
     {
         $this->reloadData();
-        return view('livewire.admin.perceptions.edit',
+        return view('livewire.finance.perceptions.edit',
             ['annee' => $this->annee, 'inscription' => $this->inscription, 'inscriptions' => $this->inscriptions, 'frais' => $this->frais])
             ->layout(AdminLayout::class, ['title' => 'Modifier Perception']);
     }

@@ -168,7 +168,7 @@ class HomeTotaux extends Component
 
     public function render()
     {
-        return view('livewire.admin.dashboard.components.home-totaux');
+        return view('livewire.finance.dashboard.components.home-totaux');
     }
 }
 

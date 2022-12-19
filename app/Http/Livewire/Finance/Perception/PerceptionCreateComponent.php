@@ -62,7 +62,7 @@ class PerceptionCreateComponent extends Component
     public function render()
     {
         $this->reloadData();
-        return view('livewire.admin.perceptions.create',
+        return view('livewire.finance.perceptions.create',
             ['inscriptions' => $this->inscriptions, 'frais' => $this->frais])
             ->layout(AdminLayout::class, ['title' => 'Nouvelle Perception']);
     }
