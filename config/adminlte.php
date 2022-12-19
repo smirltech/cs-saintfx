@@ -337,6 +337,54 @@ return [
             ],
         ],
         [
+            'text' => 'Perceptions',
+            'icon' => 'fas fa-fw fa-plus',
+            // 'can' => RolePermission::view_etudiant->name,
+            'submenu' => [
+                [
+                    'text' => 'Ajouter perception',
+                    'url' => 'finance/perceptions/create',
+                    //      'can' => RolePermission::create_etudiant->name,
+                ],
+                [
+                    'text' => 'Liste de perceptions',
+                    'url' => 'finance/perceptions',
+                ],
+            ],
+        ],
+        [
+            'text' => 'Revenu Auxiliaire',
+            'icon' => 'fa fa-puzzle-piece',
+            'url' => '/finance/revenus',
+            // 'can' => RolePermission::create_user->name,
+        ],
+        [
+            'text' => 'Sorties',
+            'icon' => 'fas fa-fw fa-minus',
+            // 'can' => RolePermission::view_etudiant->name,
+            'submenu' => [
+                [
+                    'text' => "Liste de dépenses",
+                    'url' => 'finance/depenses',
+                ],
+                /*[
+                    'text' => "Liste de paiements",
+                    'url' => 'admin/paiements',
+                ],*/
+            ],
+        ],
+        [
+            'text' => 'Configurations',
+            'icon' => 'fas fa-fw fa-cogs',
+            // 'can' => RolePermission::view_etudiant->name,
+            'submenu' => [
+                [
+                    'text' => 'Liste de frais',
+                    'url' => 'finance/frais',
+                ],
+            ],
+        ],
+        [
             'text' => 'Calendrier scolaire',
             'url' => 'scolarite/annees',
             'icon' => 'fas fa-fw fa-calendar-alt',
