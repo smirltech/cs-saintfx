@@ -122,4 +122,6 @@ Route::prefix('admin')->middleware(['auth:web'])->as('admin.')->group(function (
 
 Auth::routes();
 
+// add routes
+
 Route::get('home', [Admin\HomeController::class, 'index'])->name('home');
