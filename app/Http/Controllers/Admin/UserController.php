@@ -73,11 +73,11 @@ class UserController extends Controller
             $user->delete();
 
             // redirect to the user creation page with an error message
-            return redirect()->route('scolarite.users.create')->with('error', __('Une erreur est survenue lors de l\'envoi du mail. Veuillez réessayer.'));
+            return redirect()->route('users.create')->with('error', __('Une erreur est survenue lors de l\'envoi du mail. Veuillez réessayer.'));
         }
 
 
-        return redirect()->route('scolarite.users.index')->with('success', __('Utilisateur créé avec succès'));
+        return redirect()->route('users.index')->with('success', __('Utilisateur créé avec succès'));
     }
 
     /**
@@ -87,9 +87,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        //  get alls roles except super scolarite
+        //  get alls roles except super admin
 
-        $roles = Role::where('name', '!=', 'super-scolarite')->get();
+        $roles = Role::where('name', '!=', 'super-admin')->get();
         $facultes = Option::all();
 
         return view('admin.users.create', compact('roles', 'facultes'))->with('title', __('Ajouter un utilisateur'));
@@ -114,7 +114,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        $roles = Role::where('name', '!=', 'super-scolarite')->get();
+        $roles = Role::where('name', '!=', 'super-admin')->get();
         $facultes = Option::all();
 
         return view('admin.users.edit', compact('user', 'roles', 'facultes'))->with('title', $user->name);
@@ -170,6 +170,6 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect(route('scolarite.users.index'))->with('success', __('The action ran successfully!'));
+        return redirect(route('users.index'))->with('success', __('The action ran successfully!'));
     }
 }

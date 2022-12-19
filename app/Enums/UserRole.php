@@ -6,7 +6,7 @@ enum UserRole: string
 {
 
     case super_admin = 'super_admin';
-    case admin = 'scolarite';
+    case admin = 'admin';
     case operateur = 'operateur';
     case caissier = 'caissier';
     case prefet = 'prefet';
