@@ -3,19 +3,15 @@
 namespace App\Http\Livewire\Finance\Frais;
 
 
-use App\Data\Classe;
-use App\Data\Filiere;
-use App\Data\Option;
-use App\Data\Section;
+
 use App\Enums\FraisFrequence;
 use App\Enums\FraisType;
-use App\Http\Integrations\Scolarite\Requests\Annee\GetCurrentAnnneRequest;
-use App\Http\Integrations\Scolarite\Requests\Classe\GetClasseRequest;
-use App\Http\Integrations\Scolarite\Requests\Filiere\GetFiliereRequest;
-use App\Http\Integrations\Scolarite\Requests\Option\GetOptionRequest;
-use App\Http\Integrations\Scolarite\Requests\Section\GetSectionRequest;
-use App\Http\Integrations\Scolarite\Requests\Section\GetSectionsRequest;
+use App\Models\Annee;
+use App\Models\Classe;
+use App\Models\Filiere;
 use App\Models\Frais;
+use App\Models\Option;
+use App\Models\Section;
 use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
@@ -58,8 +54,8 @@ class FraisIndexComponent extends Component
 
     public function mount()
     {
-        $this->annee_id = (new GetCurrentAnnneRequest())->send()->dto()->id;
-        $this->sections = (new GetSectionsRequest())->send()->dto();
+        $this->annee_id = Annee::id();
+        $this->sections = Section::orderBy('nom')->get();
         // dd($this->sections);
     }
 
@@ -80,21 +76,21 @@ class FraisIndexComponent extends Component
     private function loadAvailableClasses()
     {
         if ($this->filiere_id > 0) {
-            $filiere = (new GetFiliereRequest($this->filiere_id))->send()->dto();
+            $filiere =  Filiere::find($this->filiere_id);
             $this->classes = $filiere->classes ?? [];
         } else if ($this->option_id > 0) {
-            $option = (new GetOptionRequest($this->option_id))->send()->dto();
+            $option = Option::find($this->option_id);
             $this->classes = $option->classes ?? [];
         } else if ($this->section_id > 0) {
-            $section = (new GetSectionRequest($this->section_id))->send()->dto();
+            $section = Section::find($this->section_id);
             $this->classes = $section->classes ?? [];
         } else {
             $this->classes = [];
         }
 
-        $this->sections = (new GetSectionsRequest())->send()->dto();
-        $this->options = ($this->section_id > 0) ? (new GetSectionRequest($this->section_id))->send()->dto()->options ?? [] : [];
-        $this->filieres = ($this->option_id > 0) ? (new GetOptionRequest($this->option_id))->send()->dto()->filieres ?? [] : [];
+        $this->sections = Section::orderBy('nom')->get();
+        $this->options = ($this->section_id > 0) ?Option::where('section_id',$this->section_id)->get():[];
+        $this->filieres = ($this->option_id > 0) ? Option::find($this->option_id)->filieres ?? [] : [];
     }
 
     public function addFrais()
@@ -164,7 +160,7 @@ class FraisIndexComponent extends Component
 
     private function manipulateFilierableClasse()
     {
-        $classe = $this->classe_id != null ? (new GetClasseRequest($this->classe_id))->send()->dto() : null;
+        $classe = $this->classe_id != null ? Classe::find($this->classe_id) : null;
         if ($classe) {
             if (str_ends_with($classe->filierableType, 'Filiere')) {
                 $this->filiere_id = $classe->filierable->id;
@@ -180,14 +176,14 @@ class FraisIndexComponent extends Component
 
     private function manipulateFilierableFiliere()
     {
-        $filiere = $this->filiere_id != null ? (new GetFiliereRequest($this->filiere_id))->send()->dto() : null;
+        $filiere = $this->filiere_id != null ? Filiere::find($this->filiere_id) : null;
         $this->option_id = $filiere->option_id ?? null;
         $this->manipulateFilierableOption();
     }
 
     private function manipulateFilierableOption()
     {
-        $option = $this->option_id != null ? (new GetOptionRequest($this->option_id))->send()->dto() : null;
+        $option = $this->option_id != null ? Option::find($this->option_id) : null;
         $this->section_id = $option->section_id ?? null;
     }
 
@@ -242,7 +238,7 @@ class FraisIndexComponent extends Component
     public function changeSection()
     {
         if ($this->section_id > 0) {
-            $section = (new GetSectionRequest($this->section_id))->send()->dto();
+            $section = Section::find($this->section_id);
             $this->options = $section->options ?? [];
         } else {
             $this->options = [];
@@ -260,7 +256,7 @@ class FraisIndexComponent extends Component
     {
 
         if ($this->option_id > 0) {
-            $option = (new GetOptionRequest($this->option_id))->send()->dto();
+            $option = Option::find($this->option_id);
             $this->filieres = $option->filieres ?? [];
         } else {
             $this->filieres = [];

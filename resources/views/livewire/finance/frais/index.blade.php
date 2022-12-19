@@ -15,7 +15,7 @@
         $data[] =[
             $fee->created_at->format('d-m-Y'),
             $fee->nom,
-            Helpers::currencyFormat($fee->montant, symbol: 'Fc'),
+            \App\Helpers\Helpers::currencyFormat($fee->montant, symbol: 'Fc'),
             $fee->description,
             $fee->type->label(),
             $fee->frequence->label(),
@@ -44,7 +44,7 @@
 
         <div class="col-6">
             <ol class="breadcrumb float-right">
-                <li class="breadcrumb-item"><a href="{{ route('finance') }}">Accueil</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('home') }}">Accueil</a></li>
                 <li class="breadcrumb-item active">Frais</li>
             </ol>
         </div>

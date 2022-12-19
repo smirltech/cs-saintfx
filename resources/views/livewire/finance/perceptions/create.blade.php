@@ -67,8 +67,9 @@
                                             <option value="">Choisir frais... !</option>
                                             @foreach ($frais as $feee )
                                                 <option value="{{$feee->id}}">{{ $feee->nom }}
-                                                    [{{ $feee->type->label() }}]
-                                                    [{{ $feee->frequence->label() }}]
+                                                    [{{ $feee->type->label() }}
+                                                    - {{ $feee->classable->fullCode }}
+                                                    - {{ $feee->frequence->label() }}]
                                                 </option>
                                             @endforeach
                                         </select>
