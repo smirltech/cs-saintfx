@@ -78,7 +78,7 @@
                             </div>
                             <div class="card-tools d-flex my-auto">
 
-                                <a href="/admin/perceptions/create" title="voir"
+                                <a href="/finance/perceptions/create" title="voir"
                                    class="btn btn-primary  ml-2">
                                     <i class="fas fa-plus"></i>
                                 </a>
@@ -106,7 +106,7 @@
                                         <td title="{!! $row[8]->format('d-m-Y') !!}">{!!$row[7]<=0?'OK':GraviteRetard::retard($row[8])!!}</td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                <a href="/admin/perceptions/{{ $row[9] }}/edit" title="voir"
+                                                <a href="/finance/perceptions/{{ $row[9] }}/edit" title="voir"
                                                    class="btn btn-success  ml-2">
                                                     <i class="fas fa-edit"></i>
                                                 </a>

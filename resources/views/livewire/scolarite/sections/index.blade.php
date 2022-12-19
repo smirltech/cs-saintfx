@@ -57,7 +57,7 @@
                                 <button type="button"
                                         class="btn btn-primary  ml-2" data-toggle="modal"
                                         data-target="#add-section-modal"><span
-                                            class="fa fa-plus"></span></button>
+                                        class="fa fa-plus"></span></button>
                             </div>
                         </div>
 
@@ -71,7 +71,7 @@
                                         <td>{!! $row[1] !!}</td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                <a href="/admin/sections/{{ $row[2]->id }}" title="Voir"
+                                                <a href="/scolarite/sections/{{ $row[2]->id }}" title="Voir"
                                                    class="btn btn-warning">
                                                     <i class="fas fa-eye"></i>
                                                 </a>

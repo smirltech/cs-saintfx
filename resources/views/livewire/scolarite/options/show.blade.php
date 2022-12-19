@@ -31,8 +31,8 @@
                             </div>
                             <div class="card-tools">
                                 <span
-                                        title="Modifier" role="button" class="ml-2 mr-2" data-toggle="modal"
-                                        data-target="#edit-option-modal">
+                                    title="Modifier" role="button" class="ml-2 mr-2" data-toggle="modal"
+                                    data-target="#edit-option-modal">
                                     <span class="fa fa-pen"></span>
                                 </span>
                             </div>
@@ -47,7 +47,7 @@
                                 </li>
                                 <li class="list-group-item">
                                     <b>Section : </b> <span class="float-right"><a
-                                                href="/admin/sections/{{ $option->section->id }}">{{ $option->section->nom }}</a></span>
+                                            href="/scolarite/sections/{{ $option->section->id }}">{{ $option->section->nom }}</a></span>
                                 </li>
                             </ul>
                         </div>
@@ -65,7 +65,7 @@
                                     <button type="button"
                                             class="btn btn-primary  ml-2" data-toggle="modal"
                                             data-target="#add-filiere-modal"><span
-                                                class="fa fa-plus"></span></button>
+                                            class="fa fa-plus"></span></button>
 
                                 </div>
                             </div>
@@ -86,7 +86,7 @@
                                             <td>{{ $filiere->nom }}</td>
                                             <td>
                                                 <div class="d-flex float-right">
-                                                    <a href="/admin/filieres/{{ $filiere->id }}" title="Voir"
+                                                    <a href="/scolarite/filieres/{{ $filiere->id }}" title="Voir"
                                                        class="btn btn-warning">
                                                         <i class="fas fa-eye"></i>
                                                     </a>

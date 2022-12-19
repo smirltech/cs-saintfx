@@ -90,7 +90,7 @@
 
                                         <td>
                                             <div class="d-flex float-right">
-                                                <a href="/admin/eleves/{{ $row[6] }}" title="voir"
+                                                <a href="/finance/eleves/{{ $row[6] }}" title="voir"
                                                    class="btn btn-success  ml-2">
                                                     <i class="fas fa-eye"></i>
                                                 </a>

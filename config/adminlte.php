@@ -369,7 +369,7 @@ return [
                 ],
                 /*[
                     'text' => "Liste de paiements",
-                    'url' => 'admin/paiements',
+                    'url' => 'finance/paiements',
                 ],*/
             ],
         ],

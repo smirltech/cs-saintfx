@@ -69,11 +69,12 @@
                                         <td>
                                             <div class="d-flex float-right">
 
-                                                <a href="/admin/enseignants/{{ $enseignant->id }}" title="Voir"
+                                                <a href="/scolarite/enseignants/{{ $enseignant->id }}" title="Voir"
                                                    class="btn btn-outline-primary ml-2">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
-                                                <a href="/admin/enseignants/{{ $enseignant->id }}/edit" title="modifier"
+                                                <a href="/scolarite/enseignants/{{ $enseignant->id }}/edit"
+                                                   title="modifier"
                                                    class="btn btn-outline-info  ml-2">
                                                     <i class="fas fa-pen"></i>
                                                 </a>

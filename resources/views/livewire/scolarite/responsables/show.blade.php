@@ -53,15 +53,15 @@
                                 </li>
                                 <li class="list-group-item">
                                     <b>Phone : </b> <span class="float-right"><a
-                                                href="tel:{{ $responsable->telephone }}">{{ $responsable->telephone }}</a></span>
+                                            href="tel:{{ $responsable->telephone }}">{{ $responsable->telephone }}</a></span>
                                 </li>
                                 <li class="list-group-item">
                                     <b>E-mail : </b> <span class="float-right"><a
-                                                href="mailto:{{ $responsable->email }}">{{ $responsable->email }}</a></span>
+                                            href="mailto:{{ $responsable->email }}">{{ $responsable->email }}</a></span>
                                 </li>
                                 <li class="list-group-item">
                                     <b>Enfants : </b> <span
-                                            class="float-right">{{ $responsable->responsable_eleves->count() }}</span>
+                                        class="float-right">{{ $responsable->responsable_eleves->count() }}</span>
                                 </li>
                             </ul>
 
@@ -114,16 +114,17 @@
                                                 <td>{{ $responsable_eleve->eleve->telephone??'' }}</td>
                                                 <td>{{ $responsable_eleve->eleve->email??'' }}</td>
                                                 <td>{{ $responsable_eleve?->relation?->reverse($responsable_eleve->eleve->sexe??'')??'' }}
-                                                    <span wire:click="selectResponsableEleve({{$responsable_eleve->id??''}})"
-                                                          type="button"
-                                                          title="Modifier Relation" class="ml-2" data-toggle="modal"
-                                                          data-target="#edit-relation-modal">
+                                                    <span
+                                                        wire:click="selectResponsableEleve({{$responsable_eleve->id??''}})"
+                                                        type="button"
+                                                        title="Modifier Relation" class="ml-2" data-toggle="modal"
+                                                        data-target="#edit-relation-modal">
                                             <span class="fa fa-link"></span>
                                         </span></td>
                                                 <td>{{ $responsable_eleve->eleve->currentInscription()->classe->code??'' }}</td>
                                                 <td>
                                                     <div class="d-flex float-right">
-                                                        <a href="/admin/eleves/{{ $responsable_eleve->eleve->id??'' }}"
+                                                        <a href="/scolarite/eleves/{{ $responsable_eleve->eleve->id??'' }}"
                                                            title="Voir"
                                                            class="btn btn-warning">
                                                             <i class="fas fa-eye"></i>

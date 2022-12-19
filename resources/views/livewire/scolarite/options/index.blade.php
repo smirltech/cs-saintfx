@@ -35,7 +35,7 @@
                                 <button type="button"
                                         class="btn btn-primary  ml-2" data-toggle="modal"
                                         data-target="#add-option-modal"><span
-                                            class="fa fa-plus"></span></button>
+                                        class="fa fa-plus"></span></button>
                             </div>
                         </div>
 
@@ -55,11 +55,11 @@
                                         <td>{{ $option->code }}</td>
                                         <td>{{ $option->nom }}</td>
                                         <td><a title="voir cette section"
-                                               href="/admin/sections/{{ $option->section->id }}">{{ $option->section->nom }}</a>
+                                               href="/scolarite/sections/{{ $option->section->id }}">{{ $option->section->nom }}</a>
                                         </td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                <a href="/admin/options/{{ $option->id }}" title="Voir"
+                                                <a href="/scolarite/options/{{ $option->id }}" title="Voir"
                                                    class="btn btn-warning">
                                                     <i class="fas fa-eye"></i>
                                                 </a>

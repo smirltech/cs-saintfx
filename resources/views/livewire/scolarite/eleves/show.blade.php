@@ -46,7 +46,7 @@
                                 <span role="button" class="mr-1"
                                       data-toggle="modal"
                                       data-target="#edit-eleve-modal"><span
-                                            class="fas fa-pen"></span></span>
+                                        class="fas fa-pen"></span></span>
                             </div>
                         </div>
                         <div class="card-body">
@@ -84,7 +84,7 @@
                             <p class="text-muted">
                                 {{$eleve->date_naissance?->format('d/m/Y')??''}}
                                 <strong
-                                        class="float-right badge bg-gradient-info">{{Carbon::now()->diffInYears($eleve->date_naissance)}}
+                                    class="float-right badge bg-gradient-info">{{Carbon::now()->diffInYears($eleve->date_naissance)}}
                                     ans</strong>
                             </p>
                             <hr>
@@ -108,19 +108,19 @@
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
                                     <b>Inscription : </b> <span
-                                            class="float-right">{{\App\Helpers\Helpers::currencyFormat($inscription?->montant, symbol: 'Fc')}}</span>
+                                        class="float-right">{{\App\Helpers\Helpers::currencyFormat($inscription?->montant, symbol: 'Fc')}}</span>
                                 </li>
                                 <li class="list-group-item">
                                     <b>Facture : </b> <span
-                                            class="float-right">{{\App\Helpers\Helpers::currencyFormat(39000, symbol: 'Fc')}}</span>
+                                        class="float-right">{{\App\Helpers\Helpers::currencyFormat(39000, symbol: 'Fc')}}</span>
                                 </li>
                                 <li class="list-group-item">
                                     <b>Reçu : </b> <span
-                                            class="float-right">{{\App\Helpers\Helpers::currencyFormat(9000, symbol: 'Fc')}}</span>
+                                        class="float-right">{{\App\Helpers\Helpers::currencyFormat(9000, symbol: 'Fc')}}</span>
                                 </li>
                                 <li class="list-group-item">
                                     <b>Balance : </b> <span class="float-right"><i
-                                                class="badge bg-warning">{{\App\Helpers\Helpers::currencyFormat(30000, symbol: 'Fc')}}</i></span>
+                                            class="badge bg-warning">{{\App\Helpers\Helpers::currencyFormat(30000, symbol: 'Fc')}}</i></span>
                                 </li>
                             </ul>
                             <a hidden href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
@@ -135,7 +135,7 @@
                                 <span title="Attacher" role="button" class="mr-2"
                                       data-toggle="modal"
                                       data-target="#attach-responsable-modal"><span
-                                            class="fas fa-plus"></span></span>
+                                        class="fas fa-plus"></span></span>
                                 </div>
                             @endif
                         </div>
@@ -144,29 +144,29 @@
                                 <ul class="list-group list-group-unbordered mb-3">
                                     <li class="list-group-item">
                                         <b>Responsable</b> <span class="float-right"><a
-                                                    href="/admin/responsables/{{$eleve->responsable_eleve?->responsable?->id}}">{{$eleve->responsable_eleve?->responsable?->nom??''}}</a></span>
+                                                href="/scolarite/responsables/{{$eleve->responsable_eleve?->responsable?->id}}">{{$eleve->responsable_eleve?->responsable?->nom??''}}</a></span>
                                     </li>
                                     <li class="list-group-item">
                                         <b>Relation</b> <span class="float-right">{{$eleve->responsable_eleve?->relation?->label()??''}}<span
-                                                    title="Modifier" role="button" class=" fa fa-link ml-1"
-                                                    data-toggle="modal"
-                                                    data-target="#edit-relation-modal"></span></span>
+                                                title="Modifier" role="button" class=" fa fa-link ml-1"
+                                                data-toggle="modal"
+                                                data-target="#edit-relation-modal"></span></span>
                                     </li>
                                     <li class="list-group-item">
                                         <b>Sexe</b> <span
-                                                class="float-right">{{$eleve->responsable_eleve?->responsable?->sexe??''}}</span>
+                                            class="float-right">{{$eleve->responsable_eleve?->responsable?->sexe??''}}</span>
                                     </li>
                                     <li class="list-group-item">
                                         <b>Téléphone</b> <span
-                                                class="float-right">{{$eleve->responsable_eleve?->responsable?->telephone??''}}</span>
+                                            class="float-right">{{$eleve->responsable_eleve?->responsable?->telephone??''}}</span>
                                     </li>
                                     <li class="list-group-item">
                                         <b>E-mail</b> <span
-                                                class="float-right">{{$eleve->responsable_eleve?->responsable?->email??''}}</span>
+                                            class="float-right">{{$eleve->responsable_eleve?->responsable?->email??''}}</span>
                                     </li>
                                     <li class="list-group-item">
                                         <b>Adresse</b> <span
-                                                class="float-right">{{$eleve->responsable_eleve?->responsable?->adresse??''}}</span>
+                                            class="float-right">{{$eleve->responsable_eleve?->responsable?->adresse??''}}</span>
                                     </li>
                                 </ul>
 
@@ -187,7 +187,7 @@
                                                     <button role="button" class="btn btn-warning"
                                                             data-toggle="modal"
                                                             data-target="#add-inscription-modal"><span
-                                                                class="fas fa-plus"></span></button>
+                                                            class="fas fa-plus"></span></button>
                                                 </div>
                                             </div>
                                             <div class="card-body">
@@ -198,17 +198,17 @@
                                                             @foreach($eleve->inscriptions as $inscription)
                                                                 <div class="time-label">
                                                                     <span
-                                                                            wire:click="getSelectedInscription({{$inscription}})"
-                                                                            role="button" class="bg-green"
-                                                                            data-toggle="modal"
-                                                                            data-target="#edit-inscription-modal">{{$inscription->classe->shortCode}}</span>
+                                                                        wire:click="getSelectedInscription({{$inscription}})"
+                                                                        role="button" class="bg-green"
+                                                                        data-toggle="modal"
+                                                                        data-target="#edit-inscription-modal">{{$inscription->classe->shortCode}}</span>
                                                                 </div>
 
                                                                 <div>
                                                                     <i class="fas fa-clock bg-maroon"></i>
                                                                     <div class="timeline-item">
                                                                             <span class="time"><i
-                                                                                        class="fas fa-clock mr-1"></i>{{$inscription->created_at->format('d-m-Y')}}</span>
+                                                                                    class="fas fa-clock mr-1"></i>{{$inscription->created_at->format('d-m-Y')}}</span>
                                                                         <h3 class="timeline-header"><a>Réussite</a>
                                                                             avec 56%</h3>
                                                                         <div class="timeline-body">
@@ -216,7 +216,7 @@
                                                                                 l'évolution durant l'année</p>
                                                                         </div>
                                                                         <div
-                                                                                class="timeline-footer d-flex justify-content-between">
+                                                                            class="timeline-footer d-flex justify-content-between">
                                                                                 <span title="Changer"
                                                                                       wire:click="getSelectedInscription({{$inscription}})"
                                                                                       role="button" data-toggle="modal"

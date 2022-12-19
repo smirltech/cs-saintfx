@@ -33,7 +33,7 @@
                                 <button type="button"
                                         class="btn btn-primary  ml-2" data-toggle="modal"
                                         data-target="#add-filiere-modal"><span
-                                            class="fa fa-plus"></span></button>
+                                        class="fa fa-plus"></span></button>
 
                             </div>
                         </div>
@@ -55,12 +55,12 @@
                                         <td>{{ $filiere->code }}</td>
                                         <td>{{ $filiere->nom }}</td>
                                         <td>
-                                            <a href="/admin/options/{{ $filiere->option->id }}">{{ $filiere->option->nom }}</a>
+                                            <a href="/scolarite/options/{{ $filiere->option->id }}">{{ $filiere->option->nom }}</a>
                                         </td>
                                         <td>{{ $filiere->description }}</td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                <a href="/admin/filieres/{{ $filiere->id }}" title="Voir"
+                                                <a href="/scolarite/filieres/{{ $filiere->id }}" title="Voir"
                                                    class="btn btn-warning">
                                                     <i class="fas fa-eye"></i>
                                                 </a>

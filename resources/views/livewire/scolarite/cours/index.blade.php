@@ -60,7 +60,7 @@
 
                                         <td>
                                             <div class="d-flex float-right">
-                                                <a href="/admin/cours/{{ $c->id }}/edit" title="modifier"
+                                                <a href="/scolarite/cours/{{ $c->id }}/edit" title="modifier"
                                                    class="btn btn-outline-info  ml-2">
                                                     <i class="fas fa-pen"></i>
                                                 </a>

@@ -66,11 +66,11 @@
                                         </td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                <a href="/admin/classes/{{ $classe->id }}" title="Voir"
+                                                <a href="/scolarite/classes/{{ $classe->id }}" title="Voir"
                                                    class="btn btn-warning btn-sm">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
-                                                <a href="/admin/classes/{{ $classe->id }}/edit" title="modifier"
+                                                <a href="/scolarite/classes/{{ $classe->id }}/edit" title="modifier"
                                                    class="btn btn-info  btn-sm ml-2">
                                                     <i class="fas fa-pen"></i>
                                                 </a>

@@ -31,7 +31,7 @@
                             <h4 class="m-0">{{$classe->grade->label()}}</h4>
                         </div>
                         <div class="card-tools">
-                            <a href="/admin/classes/{{ $classe->id }}/edit" title="modifier"
+                            <a href="/scolarite/classes/{{ $classe->id }}/edit" title="modifier"
                                class="ml-2">
                                 <i class="fas fa-pen"></i>
                             </a>

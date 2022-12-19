@@ -31,8 +31,8 @@
                             </div>
                             <div class="card-tools">
                                 <span
-                                        title="Modifier" role="button" class="ml-2 mr-2" data-toggle="modal"
-                                        data-target="#edit-section-modal">
+                                    title="Modifier" role="button" class="ml-2 mr-2" data-toggle="modal"
+                                    data-target="#edit-section-modal">
                                     <span class="fa fa-pen"></span>
                                 </span>
 
@@ -61,7 +61,7 @@
                                     <button type="button"
                                             class="btn btn-primary  ml-2" data-toggle="modal"
                                             data-target="#add-option-modal"><span
-                                                class="fa fa-plus"></span></button>
+                                            class="fa fa-plus"></span></button>
                                 </div>
                             </div>
 
@@ -84,7 +84,7 @@
 
                                             <td>
                                                 <div class="d-flex float-right">
-                                                    <a href="/admin/options/{{ $option->id }}" title="Voir"
+                                                    <a href="/scolarite/options/{{ $option->id }}" title="Voir"
                                                        class="btn btn-warning">
                                                         <i class="fas fa-eye"></i>
                                                     </a>
