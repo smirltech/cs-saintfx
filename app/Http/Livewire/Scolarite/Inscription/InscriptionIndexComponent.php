@@ -28,7 +28,7 @@ class InscriptionIndexComponent extends Component
         $inscriptions = $this->loadData();
 
 
-        return view('livewire.admin.inscriptions.index', [
+        return view('livewire.scolarite.inscriptions.index', [
             'inscriptions' => $inscriptions->get(),
         ])
             ->layout(AdminLayout::class, ['title' => "Liste d'inscriptions"]);

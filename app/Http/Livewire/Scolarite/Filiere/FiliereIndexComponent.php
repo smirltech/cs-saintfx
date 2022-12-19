@@ -80,7 +80,7 @@ class FiliereIndexComponent extends Component
     public function render()
     {
         $this->loadData();
-        return view('livewire.admin.filieres.index')
+        return view('livewire.scolarite.filieres.index')
             ->layout(AdminLayout::class, ['title' => 'Liste de Filières']);
     }
 
@@ -170,7 +170,7 @@ class FiliereIndexComponent extends Component
 
             // close the modal by specifying the id of the modal
             $this->dispatchBrowserEvent('closeModal', ['modal' => 'edit-filiere-modal']);
-            //$this->flash('success', 'Section modifiée avec succès', [], route('admin.sections'));
+            //$this->flash('success', 'Section modifiée avec succès', [], route('scolarite.sections'));
         } else {
             $this->alert('warning', "Echec de modification de filière !");
         }

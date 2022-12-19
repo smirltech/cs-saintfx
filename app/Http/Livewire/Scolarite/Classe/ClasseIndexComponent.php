@@ -16,7 +16,7 @@ class ClasseIndexComponent extends Component
     public function render()
     {
         $this->loadData();
-        return view('livewire.admin.classes.index')
+        return view('livewire.scolarite.classes.index')
             ->layout(AdminLayout::class, ['title' => 'Liste de Classes']);
     }
 

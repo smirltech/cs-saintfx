@@ -62,8 +62,8 @@ class ClasseCreateComponent extends Component
             $section->classes()->save($classe);
         }
 
-        $this->flash('success', 'Classe ajoutée avec succès', [], route('admin.classes'));
-        //return redirect()->to(route('admin.promotions'));
+        $this->flash('success', 'Classe ajoutée avec succès', [], route('scolarite.classes'));
+        //return redirect()->to(route('scolarite.promotions'));
     }
 
 
@@ -83,7 +83,7 @@ class ClasseCreateComponent extends Component
     public function render()
     {
 
-        return view('livewire.admin.classes.create')
+        return view('livewire.scolarite.classes.create')
             ->layout(AdminLayout::class, ['title' => 'Ajout de classe']);
     }
 

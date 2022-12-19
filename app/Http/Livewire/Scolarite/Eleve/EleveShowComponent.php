@@ -214,7 +214,7 @@ class EleveShowComponent extends Component
 
     public function render()
     {
-        return view('livewire.admin.eleves.show')
+        return view('livewire.scolarite.eleves.show')
             ->layout(AdminLayout::class, ['title' => 'Détail sur l\'élève']);
     }
 
@@ -291,7 +291,7 @@ class EleveShowComponent extends Component
             ResponsableEleve::where('eleve_id', $this->eleve->id)->delete();
             if ($this->eleve->delete()) {
                 $this->alert('success', "Élève supprimé avec succès !");
-                $this->flash('success', 'Élève supprimé avec succès', [], route('admin.eleves'));
+                $this->flash('success', 'Élève supprimé avec succès', [], route('scolarite.eleves'));
             }
         } else {
 

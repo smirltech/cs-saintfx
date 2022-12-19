@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::redirect('/', 'admin')->name('admin');
+Route::redirect('/', 'scolarite')->name('scolarite');
 
 
 Route::get('auth/{user}', [OtpController::class, 'showVerifyOtp'])->name('auth.verify');
@@ -30,11 +30,11 @@ Route::get('auth/success', function () {
 Route::post('auth/otp-send', [OtpController::class, 'sendOtp'])->name('auth.otp-send');
 Route::post('auth/otp-verify', [OtpController::class, 'verifyOtp'])->name('auth.otp-verify');
 
-Route::redirect('dashboard', 'admin')->name('dashboard');
+Route::redirect('dashboard', 'scolarite')->name('dashboard');
 
 //Route::get('inscription', InscriptionEtudiant::class)->name('inscription');
 
-Route::prefix('admin')->middleware(['auth:web'])->as('admin.')->group(function () {
+Route::prefix('scolarite')->middleware(['auth:web'])->as('scolarite.')->group(function () {
 
 //Section
     Route::get('sections/{section}', Scolarite\Section\SectionShowComponent::class)->name('sections.show');
@@ -87,7 +87,7 @@ Route::prefix('admin')->middleware(['auth:web'])->as('admin.')->group(function (
     Route::get('responsables/{responsable}', Scolarite\Responsable\ResponsableShowComponent::class)->name('responsables.show');
     Route::get('responsables', Scolarite\Responsable\ResponsableIndexComponent::class)->name('responsables');
 
-    Route::get('/', Scolarite\DashboardComponent::class)->name('admin');
+    Route::get('/', Scolarite\DashboardComponent::class)->name('scolarite');
 
     //others
     Route::resource('users', UserController::class);
@@ -102,9 +102,9 @@ Route::prefix('admin')->middleware(['auth:web'])->as('admin.')->group(function (
     Route::resource('users', UserController::class);
 });
 # Finance
-Route::prefix('admin')->middleware(['auth:web'])->as('admin.')->group(function () {
+Route::prefix('scolarite')->middleware(['auth:web'])->as('scolarite.')->group(function () {
     // Admin
-    Route::get('/', Finance\Dashboard\DashboardComponent::class)->name('admin');
+    Route::get('/', Finance\Dashboard\DashboardComponent::class)->name('scolarite');
 
     //others
     Route::resource('users', UserController::class);

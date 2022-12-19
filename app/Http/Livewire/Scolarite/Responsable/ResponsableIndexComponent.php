@@ -39,7 +39,7 @@ class ResponsableIndexComponent extends Component
     {
         $this->responsables = $this->loadData();
 
-        return view('livewire.admin.responsables.index')
+        return view('livewire.scolarite.responsables.index')
             ->layout(AdminLayout::class, ['title' => "Liste de responsables"]);
     }
 

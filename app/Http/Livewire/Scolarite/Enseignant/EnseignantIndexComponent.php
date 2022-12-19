@@ -24,7 +24,7 @@ class EnseignantIndexComponent extends Component
     public function render()
     {
         $data = ['title' => 'Liste d\'enseignants'];
-        return view('livewire.admin.enseingnants.index', $data)
+        return view('livewire.scolarite.enseingnants.index', $data)
             ->layout(AdminLayout::class, $data);
     }
 

@@ -68,7 +68,7 @@ class OptionIndexComponent extends Component
     public function render()
     {
         $this->loadData();
-        return view('livewire.admin.options.index')
+        return view('livewire.scolarite.options.index')
             ->layout(AdminLayout::class, ['title' => 'Liste d\'options']);
     }
 
@@ -141,7 +141,7 @@ class OptionIndexComponent extends Component
 
             // close the modal by specifying the id of the modal
             $this->dispatchBrowserEvent('closeModal', ['modal' => 'edit-option-modal']);
-            //$this->flash('success', 'Section modifiée avec succès', [], route('admin.sections'));
+            //$this->flash('success', 'Section modifiée avec succès', [], route('scolarite.sections'));
         } else {
             $this->alert('warning', "Echec de modification d'option !");
         }

@@ -29,7 +29,7 @@ class EleveIndexComponent extends Component
     public function render()
     {
 
-        return view('livewire.admin.eleves.index', [
+        return view('livewire.scolarite.eleves.index', [
             'eleves' => $this->eleves
         ])
             ->layout(AdminLayout::class, ['title' => 'Liste d\'élèves']);

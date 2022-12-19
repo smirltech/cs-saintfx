@@ -112,7 +112,7 @@ class ClasseEditComponent extends Component
 
     public function render()
     {
-        return view('livewire.admin.classes.edit')
+        return view('livewire.scolarite.classes.edit')
             ->layout(AdminLayout::class, ['title' => 'Modification de la classe']);
     }
 

@@ -20,7 +20,7 @@
                     <div class="col-6 ps-1 pe-1">
                         <ul class="list-unstyled">
                             <li>
-                                <a href="{{route('admin.users.edit',Auth::user())}}">{{ Auth::user()->name }}</a>
+                                <a href="{{route('scolarite.users.edit',Auth::user())}}">{{ Auth::user()->name }}</a>
                             </li>
                         </ul>
                     </div>
@@ -161,7 +161,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="{{route('admin.users.index')}}">
+                    <a href="{{route('scolarite.users.index')}}">
                         <i data-cs-icon="user" class="icon" data-cs-size="18"></i>
                         <span class="label">{{__('Users')}}</span>
                     </a>

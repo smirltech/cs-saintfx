@@ -31,7 +31,7 @@ class InscriptionStatusComponent extends Component
         #TODO: move this to mount()
         $inscriptions = $this->loadData();
 
-        return view("livewire.admin.inscriptions.bystatus.status", [
+        return view("livewire.scolarite.inscriptions.bystatus.status", [
             'inscriptions' => $inscriptions->get(),
         ])
             ->layout(AdminLayout::class, ['title' => "Liste d'inscriptions " . $this->status->label()]);

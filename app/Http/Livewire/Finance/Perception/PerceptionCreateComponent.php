@@ -230,7 +230,7 @@ class PerceptionCreateComponent extends Component
 
             if ($done) {
                 //    $this->alert('success', "Frais imputé avec succès !");
-                $this->flash('success', "Frais imputé avec succès !", [], route('admin.perceptions'));
+                $this->flash('success', "Frais imputé avec succès !", [], route('scolarite.perceptions'));
 
             } else {
                 $this->alert('warning', "Echec d'imputation de frais !");

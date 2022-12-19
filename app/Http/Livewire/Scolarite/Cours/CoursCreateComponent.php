@@ -31,7 +31,7 @@ class CoursCreateComponent extends Component
 
         $this->cours->save();
 
-        $this->flash('success', 'Cours ajoutée avec succès', [], route('admin.cours.index'));
+        $this->flash('success', 'Cours ajoutée avec succès', [], route('scolarite.cours.index'));
     }
 
     public function mount()
@@ -43,7 +43,7 @@ class CoursCreateComponent extends Component
     public function render()
     {
 
-        return view('livewire.admin.cours.create')
+        return view('livewire.scolarite.cours.create')
             ->layout(AdminLayout::class, ['title' => 'Ajout de classe']);
     }
 

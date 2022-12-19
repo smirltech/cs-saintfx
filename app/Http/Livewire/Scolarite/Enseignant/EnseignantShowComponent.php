@@ -41,7 +41,7 @@ class EnseignantShowComponent extends Component
     {
 
         $data = ['title' => 'Modification d\'un enseignant'];
-        return view('livewire.admin.enseingnants.show', $data)
+        return view('livewire.scolarite.enseingnants.show', $data)
             ->layout(AdminLayout::class, $data);
     }
 

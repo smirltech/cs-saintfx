@@ -218,7 +218,7 @@ class PerceptionEditComponent extends Component
 
             if ($done) {
                 // $this->alert('success', "Facture modifiée avec succès !");
-                $this->flash('success', "Facture modifiée avec succès !", [], route('admin.perceptions'));
+                $this->flash('success', "Facture modifiée avec succès !", [], route('scolarite.perceptions'));
 
             } else {
                 $this->alert('warning', "Echec de modofication de facture !");

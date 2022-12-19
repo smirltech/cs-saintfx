@@ -41,7 +41,7 @@ class ResponsableShowComponent extends Component
     public function render()
     {
         $this->reloadData();
-        return view('livewire.admin.responsables.show')
+        return view('livewire.scolarite.responsables.show')
             ->layout(AdminLayout::class, ['title' => 'Détail sur le responsable']);
     }
 
@@ -98,7 +98,7 @@ class ResponsableShowComponent extends Component
                 //$this->loadData();
                 // $this->alert('success', "Responsable supprimé avec succès !");
                 // $this->dispatchBrowserEvent('closeModal', ['modal' => 'delete-responsable-modal']);
-                $this->flash('success', 'Responsable supprimé avec succès', [], route('admin.responsables'));
+                $this->flash('success', 'Responsable supprimé avec succès', [], route('scolarite.responsables'));
 
             }
         } else {

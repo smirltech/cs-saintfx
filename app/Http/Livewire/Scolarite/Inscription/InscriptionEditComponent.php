@@ -132,7 +132,7 @@ class InscriptionEditComponent extends Component
         if ($done) $done = $this->diplome->save();
         if ($done) {
             $this->uploadDocuments();
-            $this->flash('success', "Admission modifiée avec succès !", [], route('admin.admissions.index'));
+            $this->flash('success', "Admission modifiée avec succès !", [], route('scolarite.admissions.index'));
 
         } else {
             $this->alert('error', "Echec de modification de l'admission !");
@@ -153,7 +153,7 @@ class InscriptionEditComponent extends Component
 
     public function render()
     {
-        return view('livewire.admin.admission-academique.edit')
+        return view('livewire.scolarite.admission-academique.edit')
             ->layout(AdminLayout::class, ['title' => "Modification d'admission"]);
     }
 

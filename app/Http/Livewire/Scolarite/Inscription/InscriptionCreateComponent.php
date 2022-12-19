@@ -140,7 +140,7 @@ class InscriptionCreateComponent extends Component
         $ele = $this->submitEleve();
         if ($this->responsable != null) $res_ele = $this->submitResponsableEleve($this->responsable, $ele);
         $insc = $this->submitInscription($ele);
-        $this->flash('success', 'Élève inscrit avec succès', [], route('admin.inscriptions'));
+        $this->flash('success', 'Élève inscrit avec succès', [], route('scolarite.inscriptions'));
 
 
         //  $this->alert('error', "L'enregistrement de l'étudiant n'a pas aboutis, veuillez reéssayer !");
@@ -218,7 +218,7 @@ class InscriptionCreateComponent extends Component
     public function render()
     {
         // $this->responsables = Responsable::orderBy('nom')->get();
-        return view('livewire.admin.inscriptions.create')
+        return view('livewire.scolarite.inscriptions.create')
             ->layout(AdminLayout::class, ['title' => 'Inscription Élève']);
     }
 

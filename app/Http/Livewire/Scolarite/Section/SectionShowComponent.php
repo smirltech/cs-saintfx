@@ -79,7 +79,7 @@ class SectionShowComponent extends Component
 
     public function render()
     {
-        return view('livewire.admin.sections.show')
+        return view('livewire.scolarite.sections.show')
             ->layout(AdminLayout::class, ['title' => 'Détail sur la section']);
     }
 
@@ -110,7 +110,7 @@ class SectionShowComponent extends Component
 
             // close the modal by specifying the id of the modal
             $this->dispatchBrowserEvent('closeModal', ['modal' => 'edit-section-modal']);
-            //$this->flash('success', 'Section modifiée avec succès', [], route('admin.sections'));
+            //$this->flash('success', 'Section modifiée avec succès', [], route('scolarite.sections'));
         } else {
             $this->alert('warning', "Echec de modification de section !");
         }

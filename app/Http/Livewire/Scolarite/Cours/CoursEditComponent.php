@@ -43,7 +43,7 @@ class CoursEditComponent extends Component
 
     public function render()
     {
-        return view('livewire.admin.cours.edit')
+        return view('livewire.scolarite.cours.edit')
             ->layout(AdminLayout::class, ['title' => 'Ajout de classe']);
     }
 

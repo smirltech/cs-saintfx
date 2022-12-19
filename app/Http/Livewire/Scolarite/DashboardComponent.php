@@ -59,7 +59,7 @@ class DashboardComponent extends Component
                 'title' => count($moisInscritsValid),
                 'text' => 'Validés',
                 'icon' => 'far fa-bookmark',
-                'url' => "admin/inscriptions/status/approved",
+                'url' => "scolarite/inscriptions/status/approved",
                 'theme' => 'primary',
                 'rate' => "$rateInscritsMoisValid%",
                 'subtitle' => "+$rateInscritsMoisValid% en 1 mois",
@@ -68,7 +68,7 @@ class DashboardComponent extends Component
                 'title' => count($moisInscritsReject),
                 'text' => 'Rejetés',
                 'icon' => 'far fa-bookmark',
-                'url' => "admin/inscriptions/status/rejected",
+                'url' => "scolarite/inscriptions/status/rejected",
                 'theme' => 'warning',
                 'rate' => "$rateInscritsMoisReject%",
                 'subtitle' => "+$rateInscritsMoisReject% en 1 mois",
@@ -77,7 +77,7 @@ class DashboardComponent extends Component
                 'title' => count($moisInscritspending),
                 'text' => 'En Attente',
                 'icon' => 'far fa-bookmark',
-                'url' => "admin/inscriptions/status/pending",
+                'url' => "scolarite/inscriptions/status/pending",
                 'theme' => 'success',
                 'rate' => "$rateInscritsMoisPending%",
                 'subtitle' => "+$rateInscritsMoisPending% en 1 mois",
@@ -87,7 +87,7 @@ class DashboardComponent extends Component
 
     public function render()
     {
-        return view('livewire.admin.dashboard')
+        return view('livewire.scolarite.dashboard')
             ->layout(AdminLayout::class, ['title' => 'Admin Dashboard']);
     }
 

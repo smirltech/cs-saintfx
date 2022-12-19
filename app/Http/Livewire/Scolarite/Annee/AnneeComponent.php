@@ -36,7 +36,7 @@ class AnneeComponent extends Component
 
     public function render()
     {
-        return view('livewire.admin.annees.index')
+        return view('livewire.scolarite.annees.index')
             ->layout(AdminLayout::class, ['title' => "Liste d'années scolaires"]);
     }
 

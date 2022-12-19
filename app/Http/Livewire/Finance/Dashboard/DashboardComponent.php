@@ -78,7 +78,7 @@ class DashboardComponent extends Component
                 'title' => 13,
                 'text' => 'Rejetés',
                 'icon' => 'far fa-bookmark',
-                'url' => "admin/inscriptions/status/rejected",
+                'url' => "scolarite/inscriptions/status/rejected",
                 'theme' => 'warning',
                 'rate' => "45%",
                 'subtitle' => "+45% en 1 mois",

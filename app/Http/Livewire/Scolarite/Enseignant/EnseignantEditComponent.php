@@ -35,7 +35,7 @@ class EnseignantEditComponent extends Component
 
         $this->enseignant->save();
 
-        $this->flash('success', 'Enseignant ajoutée avec succès', [], route('admin.enseignants.index'));
+        $this->flash('success', 'Enseignant ajoutée avec succès', [], route('scolarite.enseignants.index'));
     }
 
     public function mount(Enseignant $enseignant)
@@ -48,7 +48,7 @@ class EnseignantEditComponent extends Component
     {
 
         $data = ['title' => 'Modification d\'un enseignant'];
-        return view('livewire.admin.enseingnants.edit', $data)
+        return view('livewire.scolarite.enseingnants.edit', $data)
             ->layout(AdminLayout::class, $data);
     }
 

@@ -40,13 +40,13 @@ class ClasseShowComponent extends Component
 
         $classable = $classe->filierable;
         if ($classable instanceof Filiere) {
-            $this->parent_url = "/admin/filieres/$classe->filierable_id";
+            $this->parent_url = "/scolarite/filieres/$classe->filierable_id";
             $this->parent = "Filière";
         } else if ($classable instanceof Option) {
-            $this->parent_url = "/admin/options/$classe->filierable_id";
+            $this->parent_url = "/scolarite/options/$classe->filierable_id";
             $this->parent = "Option";
         } else if ($classable instanceof Section) {
-            $this->parent_url = "/admin/sections/$classe->filierable_id";
+            $this->parent_url = "/scolarite/sections/$classe->filierable_id";
             $this->parent = "Section";
         }
     }
@@ -83,7 +83,7 @@ class ClasseShowComponent extends Component
 
     public function render()
     {
-        return view('livewire.admin.classes.show')
+        return view('livewire.scolarite.classes.show')
             ->layout(AdminLayout::class, ['title' => 'Détail sur la classe']);
     }
 

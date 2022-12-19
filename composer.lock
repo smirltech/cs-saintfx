@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f06e62847beb5aaeb98baadab22a752a",
+    "content-hash": "878ce949a65a5a683300b0423cd3c6b3",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -4262,6 +4262,57 @@
                 "source": "https://github.com/Sammyjo20/Saloon/tree/v1.6.0"
             },
             "time": "2022-12-11T13:42:49+00:00"
+        },
+        {
+            "name": "sammyjo20/saloon-cache-plugin",
+            "version": "v0.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Sammyjo20/saloon-cache-plugin.git",
+                "reference": "2fe213be4a0bf5b8124b580cb606354a316687e3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Sammyjo20/saloon-cache-plugin/zipball/2fe213be4a0bf5b8124b580cb606354a316687e3",
+                "reference": "2fe213be4a0bf5b8124b580cb606354a316687e3",
+                "shasum": ""
+            },
+            "require": {
+                "nesbot/carbon": "^2.57",
+                "php": "^8.0",
+                "sammyjo20/saloon": "^1.0.1"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.8",
+                "league/flysystem": "^3.0",
+                "orchestra/testbench": "^7.0",
+                "pestphp/pest": "^1.21.2",
+                "psr/simple-cache": "^3.0",
+                "spatie/ray": "^1.34.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Sammyjo20\\SaloonCachePlugin\\": "src/",
+                    "Sammyjo20\\SaloonCachePlugin\\Tests\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sammyjo20",
+                    "email": "29132017+Sammyjo20@users.noreply.github.com"
+                }
+            ],
+            "description": "Official plugin for caching Saloon responses",
+            "support": {
+                "issues": "https://github.com/Sammyjo20/saloon-cache-plugin/issues",
+                "source": "https://github.com/Sammyjo20/saloon-cache-plugin/tree/v0.3.0"
+            },
+            "time": "2022-10-22T10:17:31+00:00"
         },
         {
             "name": "sammyjo20/saloon-laravel",

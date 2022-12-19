@@ -11,7 +11,7 @@
                             <strong>Informations personnelles</strong>
                         </div>
                         <div class="card-body card-block">
-                            <form action="{{route('admin.users.store')}}" enctype="multipart/form-data" method="POST"
+                            <form action="{{route('scolarite.users.store')}}" enctype="multipart/form-data" method="POST"
                                   class="form-horizontal">
                                 @csrf @method('POST')
 
