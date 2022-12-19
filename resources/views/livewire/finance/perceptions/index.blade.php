@@ -103,7 +103,7 @@
                                         <td title="{!! $row[8]->format('d-m-Y') !!}">{!!$row[7]<=0?'OK':GraviteRetard::retard($row[8])!!}</td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                <a href="/finance/perceptions/{{ $row[9] }}/edit" title="voir"
+                                                <a href="{{route('finance.perceptions.edit', ['perception'=>$row[9]])}}" title="voir"
                                                    class="btn btn-success  ml-2">
                                                     <i class="fas fa-edit"></i>
                                                 </a>

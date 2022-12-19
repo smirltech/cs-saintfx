@@ -96,4 +96,8 @@ class Inscription extends Model
         return $this?->eleve->matricule;
     }
 
+    public static function getCurrentInscriptions(){
+        return self::where('annee_id', Annee::id())->get();
+}
+
 }
