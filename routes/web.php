@@ -103,6 +103,10 @@ Route::prefix('scolarite')->middleware(['auth:web'])->as('scolarite.')->group(fu
 
 # Finance
 Route::prefix('finance')->middleware(['auth:web'])->as('finance.')->group(function () {
+
+    // Rapport
+    Route::get('rapports', Finance\Rapport\RapportIndexComponent::class)->name('rapports');
+
     //Revenu
     Route::get('revenus', Finance\Revenu\RevenuIndexComponent::class)->name('revenus');
 

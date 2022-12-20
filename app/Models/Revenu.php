@@ -21,4 +21,11 @@ class Revenu extends Model
         }
         return $data;
     }
+
+    public static function sommeBetween($annee_id, $ddebut, $dfin)
+    {
+        $debut = Carbon::parse($ddebut)->startOfDay();
+        $fin = Carbon::parse($dfin)->endOfDay();
+        return self::where('annee_id', $annee_id)->whereBetween('created_at', [$debut, $fin])->sum('montant');
+    }
 }

@@ -39,7 +39,7 @@
 @section('content_header')
     <div class="row">
         <div class="col-6">
-            <h1 class="ms-3">Liste de frais</h1>
+            <h1 class="ms-3">Plans de frais</h1>
         </div>
 
         <div class="col-6">
