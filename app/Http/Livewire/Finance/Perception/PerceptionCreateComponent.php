@@ -245,17 +245,22 @@ class PerceptionCreateComponent extends Component
             );
 
             if ($done) {
-                //    $this->alert('success', "Frais imputé avec succès !");
-                $this->flash('success', "Frais imputé avec succès !", [], route('finance.perceptions'));
+                $this->alert('success', "Frais imputé avec succès !");
+             //   $this->flash('success', "Frais imputé avec succès !", [], route('finance.perceptions'));
 
             } else {
                 $this->alert('warning', "Echec d'imputation de frais !");
             }
         } catch (Exception $exception) {
-            dd($exception->getMessage());
+           // dd($exception->getMessage());
             $this->alert('error', "Echec d'imputation de frais déjà existante !");
         }
     }
 
+    public function addPerceptionAndClose(){
+        $this->addPerception();
+        $this->flash('success', "Frais imputé avec succès !", [], route('finance.perceptions'));
+
+    }
 
 }
