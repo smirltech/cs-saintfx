@@ -2,12 +2,12 @@
 @php use App\Models\Option; @endphp
 @php use App\Models\Section; @endphp
 @section('title')
-    {{Str::upper('cenk')}} - Cours
+    Liste des devoirs
 @endsection
 @section('content_header')
     <div class="row">
         <div class="col-6">
-            <h1 class="ms-3">Liste de cours</h1>
+            <h1 class="ms-3">Liste des devoirs</h1>
         </div>
 
         <div class="col-6">
@@ -43,7 +43,6 @@
                                     <th>ECHEANCE</th>
                                     <th>COURS</th>
                                     <th>CLASSE</th>
-                                    <th>ANNEE</th>
                                     <th>STATUS</th>
                                     <th></th>
                                 </tr>
@@ -54,10 +53,17 @@
                                         <td>{{ $k+1 }}</td>
                                         <td>{{ $devoir->titre }}</td>
                                         <td>
-                                            {{ $devoir->section->nom }}
+                                            {{ $devoir->echeance_display }}
                                         </td>
                                         <td>
-                                            {{ Str::limit($devoir->description, 50) }}
+                                            {{ $devoir->cours->nom }}
+                                        </td>
+                                        <td>
+                                            {{ $devoir->classe->code }}
+                                        </td>
+
+                                        <td>
+                                            {{ $devoir->status->label() }}
                                         </td>
 
                                         <td>

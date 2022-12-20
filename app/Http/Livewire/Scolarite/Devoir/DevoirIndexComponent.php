@@ -5,7 +5,9 @@ namespace App\Http\Livewire\Scolarite\Devoir;
 use App\Models\Cours;
 use App\Models\Devoir;
 use App\Traits\CanDeleteModel;
-use App\View\Components\AdminLayout;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
@@ -16,11 +18,10 @@ class DevoirIndexComponent extends Component
 
     public Collection $devoirs;
 
-    public function render()
+    public function render(): Factory|View|Application
     {
         $this->loadData();
-        return view('livewire.scolarite.devoirs.index')
-            ->layout(AdminLayout::class, ['title' => 'Liste de cours']);
+        return view('livewire.scolarite.devoirs.index');
     }
 
 
