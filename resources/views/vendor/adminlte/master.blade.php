@@ -119,6 +119,23 @@
         });
     </script>
 
+    <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+    <link rel="stylesheet" href="https://printjs-4de6.kxcdn.com/print.min.css">
+
+    <script>
+        window.addEventListener('printIt', event => {
+            // alert(" print home edit");
+            printJS({
+                printable: event.detail.elementId,
+                type: event.detail.type,
+                targetStyles: ['*'],
+                maxWidth: event.detail.maxWidth,
+                style: "text-align:center"
+            });
+        })
+
+    </script>
+
 @endif
 
 {{-- Custom Scripts --}}
