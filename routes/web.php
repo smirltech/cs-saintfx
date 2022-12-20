@@ -38,8 +38,7 @@ Route::post('auth/otp-verify', [OtpController::class, 'verifyOtp'])->name('auth.
 Route::get('users/{user}/reset-password', [UserController::class, 'resetPassword'])->name('users.password.autoreset');
 Route::resource('users', UserController::class);
 
-//Route::get('/', Scolarite\DashboardComponent::class)->name('scolarite');
-
+//Scolarite
 Route::prefix('scolarite')->middleware(['auth:web'])->as('scolarite.')->group(function () {
 
 //Section
@@ -50,7 +49,6 @@ Route::prefix('scolarite')->middleware(['auth:web'])->as('scolarite.')->group(fu
     Route::get('options/{option}', Scolarite\Option\OptionShowComponent::class)->name('options.show');
     Route::get('options', Scolarite\Option\OptionIndexComponent::class)->name('options');
 
-
 //Filiere
     Route::get('filieres/{filiere}', Scolarite\Filiere\FiliereShowComponent::class)->name('filieres.show');
     Route::get('filieres', Scolarite\Filiere\FiliereIndexComponent::class)->name('filieres');
@@ -60,7 +58,6 @@ Route::prefix('scolarite')->middleware(['auth:web'])->as('scolarite.')->group(fu
     Route::get('classes/{classe}/edit', Scolarite\Classe\ClasseEditComponent::class)->name('classes.edit');
     Route::get('classes/{classe}', Scolarite\Classe\ClasseShowComponent::class)->name('classes.show');
     Route::get('classes', Scolarite\Classe\ClasseIndexComponent::class)->name('classes');
-
 
     // cours
     Route::get('cours', Scolarite\Cours\CoursIndexComponent::class)->name('cours.index');
@@ -80,7 +77,6 @@ Route::prefix('scolarite')->middleware(['auth:web'])->as('scolarite.')->group(fu
     Route::get('enseignants/{enseignant}/edit', Scolarite\Enseignant\EnseignantEditComponent::class)->name('enseignants.edit');
     Route::get('enseignants/{enseignant}', Scolarite\Enseignant\EnseignantShowComponent::class)->name('enseignants.show');
 
-
 // Année
     Route::get('annees', Scolarite\Annee\AnneeComponent::class)->name('annees');
 
@@ -99,7 +95,6 @@ Route::prefix('scolarite')->middleware(['auth:web'])->as('scolarite.')->group(fu
     Route::get('responsables/{responsable}', Scolarite\Responsable\ResponsableShowComponent::class)->name('responsables.show');
     Route::get('responsables', Scolarite\Responsable\ResponsableIndexComponent::class)->name('responsables');
 
-
     Route::get("audits", [AuditController::class, 'index'])->name("audits.index")->can('audits.viewAny');
     Route::get("audits/{audit}", [AuditController::class, 'show'])->name("audits.show")->can('audits.view');
 
@@ -108,9 +103,10 @@ Route::prefix('scolarite')->middleware(['auth:web'])->as('scolarite.')->group(fu
 
 # Finance
 Route::prefix('finance')->middleware(['auth:web'])->as('finance.')->group(function () {
+    //Revenu
     Route::get('revenus', Finance\Revenu\RevenuIndexComponent::class)->name('revenus');
 
-    //Revenu
+    //Depense
     Route::get('depenses', Finance\Depense\DepenseIndexComponent::class)->name('depenses');
 
     //Frais
