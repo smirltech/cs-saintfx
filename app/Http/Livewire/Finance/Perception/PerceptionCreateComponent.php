@@ -4,11 +4,6 @@ namespace App\Http\Livewire\Finance\Perception;
 
 use App\Enums\FraisType;
 use App\Exceptions\ApplicationAlert;
-use App\Http\Integrations\Scolarite\Requests\Annee\GetCurrentAnnneRequest;
-use App\Http\Integrations\Scolarite\Requests\Filiere\GetFiliereRequest;
-use App\Http\Integrations\Scolarite\Requests\Inscription\GetInscriptionRequest;
-use App\Http\Integrations\Scolarite\Requests\Inscription\GetInscriptionsRequest;
-use App\Http\Integrations\Scolarite\Requests\Option\GetOptionRequest;
 use App\Models\Annee;
 use App\Models\Filiere;
 use App\Models\Frais;
