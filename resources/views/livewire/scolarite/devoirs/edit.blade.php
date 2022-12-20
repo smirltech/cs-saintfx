@@ -58,14 +58,21 @@
 
 
                             <div class="form-group col-md-12">
-                                <x-form-textarea rows="5"
-                                                 placeholder="Saisir la description du cours"
+                                <x-form-textarea rows="10"
+                                                 placeholder="Saisir le contenu du devoir"
                                                  wire:model="devoir.description"
-                                                 label="Description du cours"
-                                                 :isValid="$errors->has('devoir.description') ? false : null"
-                                                 error="{{$errors->first('devoir.description')}}"/>
+                                                 label="Contenu du devoir"
+                                                 :isValid="$errors->has('devoir.contenu') ? false : null"
+                                                 error="{{$errors->first('devoir.contenu')}}"/>
 
 
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                <x-form-file wire:model="devoir.document"
+                                             label="Document du devoir"
+                                             :isValid="$errors->has('devoir.document') ? false : null"
+                                             error="{{$errors->first('devoir.document')}}"/>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Soumettre</button>
