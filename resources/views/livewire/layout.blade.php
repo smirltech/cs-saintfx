@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('title')
-    {{config('app.name')}} - {{$title}}
+    {{config('app.name')}} - {{$title ?? 'Dashboard'}}
 @endsection
 
 @section('content_header')

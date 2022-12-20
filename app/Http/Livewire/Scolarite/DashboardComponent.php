@@ -5,7 +5,6 @@ namespace App\Http\Livewire\Scolarite;
 use App\Enums\InscriptionStatus;
 use App\Models\Annee;
 use App\Models\Inscription;
-use App\View\Components\AdminLayout;
 use Auth;
 use Carbon\Carbon;
 use Livewire\Component;
@@ -87,8 +86,7 @@ class DashboardComponent extends Component
 
     public function render()
     {
-        return view('livewire.scolarite.dashboard')
-            ->layout(AdminLayout::class, ['title' => 'Admin Dashboard']);
+        return view('livewire.scolarite.dashboard');
     }
 
 }
