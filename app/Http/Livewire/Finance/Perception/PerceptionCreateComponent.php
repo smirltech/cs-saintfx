@@ -88,7 +88,8 @@ class PerceptionCreateComponent extends Component
     private function chooseSuitableFrais()
     {
         if ($this->inscription_id) {
-           // $this->inscription = Inscription::find($this->inscription_id);
+            //$this->inscription = Inscription::find($this->inscription_id);
+            dd($this->inscription->classe);
             $this->frais = Frais::
             where('annee_id', $this->annee_id)
                 ->where('classable_type', 'like', '%Classe')
@@ -163,6 +164,7 @@ class PerceptionCreateComponent extends Component
 
             if (str_ends_with($this->inscription->classe->filierableType, 'Section')) {
                 $section_id = $this->inscription->classe->filierable->id;
+                dd($section_id);
                 $frais2 = Frais::
                 where('annee_id', $this->annee_id)
                     ->where('classable_type', 'like', '%Section')
