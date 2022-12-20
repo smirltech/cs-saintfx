@@ -18,12 +18,11 @@ use App\View\Components\AdminLayout;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Auth;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 class PerceptionCreateComponent extends Component
 {
-    use LivewireAlert;
+    use ApplicationAlert;
 
     public $searchName;
 
@@ -40,9 +39,12 @@ class PerceptionCreateComponent extends Component
     public $eleveNom;
     public $classe_id;
     public $due_date;
+    public $inscription;
+    protected $rules = [
+        'inscription_id' => 'nullable',
+    ];
     private $frais;
     private $inscriptions = [];
-    public $inscription;
 
     public function mount()
     {
@@ -75,7 +77,7 @@ class PerceptionCreateComponent extends Component
     private function reloadData()
     {
         $this->inscriptions = Inscription::getCurrentInscriptions();
-       // $this->inscription_id = $this->inscription->id;
+        // $this->inscription_id = $this->inscription->id;
 
         if ($this->inscription_id == null) {
             $this->loadInscriptionFrais();
@@ -87,8 +89,9 @@ class PerceptionCreateComponent extends Component
 
     private function chooseSuitableFrais()
     {
-        if ($this->inscription_id) {
-           // $this->inscription = Inscription::find($this->inscription_id);
+        if ($this->inscription_id != null) {
+            //$this->inscription = Inscription::find($this->inscription_id);
+            //   dd($this->inscription->classe);
             $this->frais = Frais::
             where('annee_id', $this->annee_id)
                 ->where('classable_type', 'like', '%Classe')
@@ -96,7 +99,7 @@ class PerceptionCreateComponent extends Component
                 ->orderBy('nom')
                 ->get();
 
-            if (str_ends_with($this->inscription->classe->filierableType, 'Filiere')) {
+            if (str_ends_with($this->inscription->classe->filierable_type, 'Filiere')) {
                 $filiere_id = $this->inscription->classe->filierable->id;
                 $frais2 = Frais::
                 where('annee_id', $this->annee_id)
@@ -135,7 +138,7 @@ class PerceptionCreateComponent extends Component
                 }
             }
 
-            if (str_ends_with($this->inscription->classe->filierableType, 'Option')) {
+            if (str_ends_with($this->inscription->classe->filierable_type, 'Option')) {
                 $option_id = $this->inscription->classe->filierable->id;
                 $frais2 = Frais::
                 where('annee_id', $this->annee_id)
@@ -161,8 +164,9 @@ class PerceptionCreateComponent extends Component
                 }
             }
 
-            if (str_ends_with($this->inscription->classe->filierableType, 'Section')) {
+            if (str_ends_with($this->inscription->classe->filierable_type, 'Section')) {
                 $section_id = $this->inscription->classe->filierable->id;
+                //   dd($section_id);
                 $frais2 = Frais::
                 where('annee_id', $this->annee_id)
                     ->where('classable_type', 'like', '%Section')
@@ -180,17 +184,23 @@ class PerceptionCreateComponent extends Component
 
     public function eleveSelected()
     {
-       // $this->inscription_id = intval($this->inscription_id);
-        if ($this->inscription_id == null or $this->inscription_id == "") {
+
+        // $this->inscription_id = intval($this->inscription_id);
+        if ($this->inscription_id == null) {
             $this->eleveNom = null;
             $this->inscription = null;
             $this->classe_id = null;
-
-            //  $this->loadInscriptionFrais();
+            // $this->loadInscriptionFrais();
         } else {
             $this->inscription = Inscription::find($this->inscription_id);
-            $this->eleveNom = $this->inscription->eleve->fullName;
-            $this->classe_id = $this->inscription->classe->id;
+            if ($this->inscription != null) {
+                $this->eleveNom = $this->inscription?->eleve->fullName;
+                $this->classe_id = $this->inscription?->classe->id;
+            } else {
+                $this->eleveNom = null;
+                $this->inscription_id = null;
+                $this->classe_id = null;
+            }
         }
         $this->fee_id = null;
         $this->fee = null;
@@ -218,7 +228,7 @@ class PerceptionCreateComponent extends Component
         ]);
 
         try {
-            $done = Perception::create(
+            Perception::create(
                 [
                     'user_id' => $this->user_id,
                     'frais_id' => $this->fee_id,
@@ -233,17 +243,17 @@ class PerceptionCreateComponent extends Component
                 ]
             );
 
-            if ($done) {
-                //    $this->alert('success', "Frais imputé avec succès !");
-                $this->flash('success', "Frais imputé avec succès !", [], route('scolarite.perceptions'));
+            $this->flash('success', "Frais imputé avec succès !", [], route('finance.perceptions'));
 
-            } else {
-                $this->alert('warning', "Echec d'imputation de frais !");
-            }
         } catch (Exception $exception) {
-            $this->alert('error', "Echec d'imputation de frais déjà existante !");
+            $this->error(local: $exception->getMessage(), production: "Echec d'imputation de frais déjà existante !");
         }
     }
 
+    public function addPerceptionAndClose(){
+        $this->addPerception();
+        $this->flash('success', "Frais imputé avec succès !", [], route('finance.perceptions'));
+
+    }
 
 }

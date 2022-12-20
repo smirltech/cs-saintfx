@@ -20,7 +20,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::redirect('/', 'scolarite')->name('scolarite');
+Route::get('/', \App\Http\Livewire\MainDashboardComponent::class)->name('home');
+Route::get('scolarite', Scolarite\DashboardComponent::class)->name('scolarite');
+Route::redirect('dashboard', 'scolarite')->name('dashboard');
 
 
 Route::get('auth/{user}', [OtpController::class, 'showVerifyOtp'])->name('auth.verify');
@@ -31,8 +33,8 @@ Route::post('auth/otp-send', [OtpController::class, 'sendOtp'])->name('auth.otp-
 Route::post('auth/otp-verify', [OtpController::class, 'verifyOtp'])->name('auth.otp-verify');
 
 // add routes
-Route::get('home', [Admin\HomeController::class, 'index'])->name('home');
-Route::redirect('dashboard', 'scolarite')->name('dashboard');
+//Route::get('home', [Admin\HomeController::class, 'index'])->name('home');
+//Route::get('home', [Admin\HomeController::class, 'index'])->name('home');
 
 //Users
 Route::resource('users', UserController::class);
