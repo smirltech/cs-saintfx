@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Finance\Perception;
 
 use App\Enums\FraisType;
+use App\Exceptions\ApplicationAlert;
 use App\Http\Integrations\Scolarite\Requests\Annee\GetCurrentAnnneRequest;
 use App\Http\Integrations\Scolarite\Requests\Filiere\GetFiliereRequest;
 use App\Http\Integrations\Scolarite\Requests\Inscription\GetInscriptionRequest;
@@ -215,6 +216,13 @@ class PerceptionCreateComponent extends Component
 
     }
 
+    public function addPerceptionAndClose()
+    {
+        $this->addPerception();
+        $this->flash('success', "Frais imputé avec succès !", [], route('finance.perceptions'));
+
+    }
+
     public function addPerception()
     {
         $this->validate([
@@ -248,12 +256,6 @@ class PerceptionCreateComponent extends Component
         } catch (Exception $exception) {
             $this->error(local: $exception->getMessage(), production: "Echec d'imputation de frais déjà existante !");
         }
-    }
-
-    public function addPerceptionAndClose(){
-        $this->addPerception();
-        $this->flash('success', "Frais imputé avec succès !", [], route('finance.perceptions'));
-
     }
 
 }

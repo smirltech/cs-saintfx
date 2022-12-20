@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Cours extends Model
@@ -14,7 +15,7 @@ class Cours extends Model
     public $guarded = [];
 
     // section
-    public function section()
+    public function section(): BelongsTo
     {
         return $this->belongsTo(Section::class);
     }
@@ -33,5 +34,10 @@ class Cours extends Model
     public function coursEnseignants(): HasMany
     {
         return $this->hasMany(CoursEnseignant::class);
+    }
+
+    public function getEnseignantAttribute(): Enseignant
+    {
+        return $this->coursEnseignants->first()->enseignant;
     }
 }

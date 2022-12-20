@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AuditController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\OtpController;
 use App\Http\Livewire\Finance;
+use App\Http\Livewire\MainDashboardComponent;
 use App\Http\Livewire\Scolarite;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -20,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', \App\Http\Livewire\MainDashboardComponent::class)->name('home');
+Route::get('/', MainDashboardComponent::class)->name('home');
 Route::get('scolarite', Scolarite\DashboardComponent::class)->name('scolarite');
 Route::redirect('dashboard', 'scolarite')->name('dashboard');
 
@@ -38,10 +39,10 @@ Route::post('auth/otp-verify', [OtpController::class, 'verifyOtp'])->name('auth.
 
 //Users
 Route::resource('users', UserController::class);
-
+Route::get('/', Scolarite\DashboardComponent::class)->name('scolarite');
 
 Route::prefix('scolarite')->middleware(['auth:web'])->as('scolarite.')->group(function () {
-
+    // Route::get('/', Scolarite\DashboardComponent::class)->name('scolarite');
 //Section
     Route::get('sections/{section}', Scolarite\Section\SectionShowComponent::class)->name('sections.show');
     Route::get('sections', Scolarite\Section\SectionIndexComponent::class)->name('sections');
@@ -99,7 +100,6 @@ Route::prefix('scolarite')->middleware(['auth:web'])->as('scolarite.')->group(fu
     Route::get('responsables/{responsable}', Scolarite\Responsable\ResponsableShowComponent::class)->name('responsables.show');
     Route::get('responsables', Scolarite\Responsable\ResponsableIndexComponent::class)->name('responsables');
 
-    Route::get('/', Scolarite\DashboardComponent::class)->name('scolarite');
 
     //others
     Route::resource('users', UserController::class);

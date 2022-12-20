@@ -149,8 +149,8 @@
                                             <th>NO.</th>
                                             <th>NOM</th>
                                             <th>SECTION</th>
-                                            <th>DESCRIPTION</th>
                                             <th>ENSEIGNANT</th>
+                                            <th></th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -162,10 +162,16 @@
                                                     {{ $c->section->nom }}
                                                 </td>
                                                 <td>
-                                                    {{ Str::limit($c->description, 50) }}
+                                                    {{ $c->enseignant->nom??'Aucun' }}
                                                 </td>
                                                 <td>
-                                                    {{ $c->enseignant->nom??'Aucun' }}
+                                                    <div class="d-flex float-right">
+                                                        <button wire:click="editCours({{ $c->id }})"
+                                                                title="Modifier"
+                                                                class="btn btn-outline-warning ml-2">
+                                                            <i class="fas fa-edit"></i>
+                                                        </button>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -182,8 +188,6 @@
                                             <tr>
                                                 <th></th>
                                                 <th>NOM</th>
-                                                <th>COURS</th>
-                                                {{--   <th></th>--}}
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -192,25 +196,6 @@
                                                     <td><img class="img-circle" style="width:30px; height:auto"
                                                              src="{{$enseignant->avatar}}"></td>
                                                     <td>{{ $enseignant->nom }}</td>
-                                                    @if(!$enseignant->primaire())
-                                                        <td>
-                                                            {{ $enseignant->cours->count()??'-' }} Cours
-                                                        </td>
-                                                    @else
-                                                        <td>
-                                                            {{ $enseignant->classe->code??'-' }}
-                                                        </td>
-                                                    @endif
-
-                                                    {{-- <td>
-                                                         <div class="d-flex float-right">
-                                                             <button wire:click="delete({{ $enseignant->id }})"
-                                                                     title="supprimer"
-                                                                     class="btn btn-outline-danger ml-2">
-                                                                 <i class="fas fa-trash"></i>
-                                                             </button>
-                                                         </div>
-                                                     </td>--}}
                                                 </tr>
                                             @endforeach
                                             </tbody>
