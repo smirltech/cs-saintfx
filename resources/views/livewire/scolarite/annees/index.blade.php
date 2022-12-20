@@ -9,7 +9,7 @@
 
         <div class="col-6">
             <ol class="breadcrumb float-right">
-                <li class="breadcrumb-item"><a href="{{ route('scolarite.scolarite') }}">Accueil</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('scolarite') }}">Accueil</a></li>
                 <li class="breadcrumb-item active">Années scolaires</li>
             </ol>
         </div>
@@ -26,7 +26,8 @@
                             <div class="card-title">
                             </div>
                             <div class="card-tools d-flex my-auto">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add-annee-modal">
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                        data-target="#add-annee-modal">
                                     <span
                                         class="fa fa-plus"></span></button>
                             </div>
@@ -50,21 +51,23 @@
                                         <td>{{ $annee->encours ? 'EN COURS' : '' }}</td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                    @if (!$annee->encours)
-                                                        <button title="metter en cours"
-                                                                wire:click="setAnneeEnCours({{ $annee->id }})"
-                                                                class="btn bg-yellow mr-2">
-                                                            <i class="fas fa-check"></i>
-                                                        </button>
-                                                        <button wire:click="editAnnee({{ $annee->id }})" type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit-annee-modal">
-                                                            <i class="fas fa-pen"></i></button>
+                                                @if (!$annee->encours)
+                                                    <button title="metter en cours"
+                                                            wire:click="setAnneeEnCours({{ $annee->id }})"
+                                                            class="btn bg-yellow mr-2">
+                                                        <i class="fas fa-check"></i>
+                                                    </button>
+                                                    <button wire:click="editAnnee({{ $annee->id }})" type="button"
+                                                            class="btn btn-primary" data-toggle="modal"
+                                                            data-target="#edit-annee-modal">
+                                                        <i class="fas fa-pen"></i></button>
 
-                                                        <button title="supprimer"
-                                                                wire:click="deleteAnnee({{ $annee->id }})"
-                                                                class="btn btn-danger ml-2">
-                                                            <i class="fas fa-trash"></i>
-                                                        </button>
-                                                    @endif
+                                                    <button title="supprimer"
+                                                            wire:click="deleteAnnee({{ $annee->id }})"
+                                                            class="btn btn-danger ml-2">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                @endif
 
                                             </div>
 
@@ -95,7 +98,8 @@
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button  wire:click="addAnnee" type="submit" data-dismiss="modal" class="btn btn-primary">Soumettre</button>
+                    <button wire:click="addAnnee" type="submit" data-dismiss="modal" class="btn btn-primary">Soumettre
+                    </button>
                 </div>
             </div>
 
@@ -118,7 +122,9 @@
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button wire:click="updateAnnee" type="button" class="btn btn-primary"  data-dismiss="modal">Soumettre</button>
+                    <button wire:click="updateAnnee" type="button" class="btn btn-primary" data-dismiss="modal">
+                        Soumettre
+                    </button>
                 </div>
             </div>
 
