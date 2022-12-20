@@ -8,7 +8,11 @@ use App\Http\Integrations\Scolarite\Requests\Filiere\GetFiliereRequest;
 use App\Http\Integrations\Scolarite\Requests\Inscription\GetInscriptionRequest;
 use App\Http\Integrations\Scolarite\Requests\Inscription\GetInscriptionsRequest;
 use App\Http\Integrations\Scolarite\Requests\Option\GetOptionRequest;
+use App\Models\Annee;
+use App\Models\Filiere;
 use App\Models\Frais;
+use App\Models\Inscription;
+use App\Models\Option;
 use App\Models\Perception;
 use App\View\Components\AdminLayout;
 use Carbon\Carbon;
@@ -38,13 +42,14 @@ class PerceptionCreateComponent extends Component
     public $due_date;
     private $frais;
     private $inscriptions = [];
-    private $inscription;
+    public $inscription;
 
     public function mount()
     {
         $this->user_id = Auth::id();
-        $this->annee_id = (new GetCurrentAnnneRequest())->send()->dto()->id;
+        $this->annee_id = Annee::id();
         $this->due_date = Carbon::now()->format('Y-m-d');
+        $this->inscription = new Inscription();
         $this->loadInscriptionFrais();
 
     }
@@ -69,8 +74,8 @@ class PerceptionCreateComponent extends Component
 
     private function reloadData()
     {
-        $this->inscriptions = (new GetInscriptionsRequest())->send()->dto();
-        $this->inscription_id = (int)$this->inscription_id;
+        $this->inscriptions = Inscription::getCurrentInscriptions();
+       // $this->inscription_id = $this->inscription->id;
 
         if ($this->inscription_id == null) {
             $this->loadInscriptionFrais();
@@ -83,7 +88,7 @@ class PerceptionCreateComponent extends Component
     private function chooseSuitableFrais()
     {
         if ($this->inscription_id) {
-            $this->inscription = (new GetInscriptionRequest($this->inscription_id))->send()->dto();
+           // $this->inscription = Inscription::find($this->inscription_id);
             $this->frais = Frais::
             where('annee_id', $this->annee_id)
                 ->where('classable_type', 'like', '%Classe')
@@ -102,7 +107,7 @@ class PerceptionCreateComponent extends Component
 
                 $this->frais = $this->frais->merge($frais2);
 
-                $filiere2 = (new GetFiliereRequest($filiere_id))->send()->dto();
+                $filiere2 = Filiere::find($filiere_id);
                 if ($filiere2) {
                     $option_id = $filiere2->option_id;
                     $frais3 = Frais::
@@ -114,7 +119,7 @@ class PerceptionCreateComponent extends Component
 
                     $this->frais = $this->frais->merge($frais3);
 
-                    $option2 = (new GetOptionRequest($option_id))->send()->dto();
+                    $option2 = Option::find($option_id);
                     if ($option2) {
                         $section_id = $option2->section_id;
 
@@ -141,7 +146,7 @@ class PerceptionCreateComponent extends Component
 
                 $this->frais = $this->frais->merge($frais2);
 
-                $option2 = (new GetOptionRequest($option_id))->send()->dto();
+                $option2 = Option::find($option_id);
                 if ($option2) {
                     $section_id = $option2->section_id;
 
@@ -175,7 +180,7 @@ class PerceptionCreateComponent extends Component
 
     public function eleveSelected()
     {
-        $this->inscription_id = intval($this->inscription_id);
+       // $this->inscription_id = intval($this->inscription_id);
         if ($this->inscription_id == null or $this->inscription_id == "") {
             $this->eleveNom = null;
             $this->inscription = null;
@@ -183,8 +188,8 @@ class PerceptionCreateComponent extends Component
 
             //  $this->loadInscriptionFrais();
         } else {
-            $this->inscription = (new GetInscriptionRequest($this->inscription_id))->send()->dto();
-            $this->eleveNom = $this->inscription->eleve->getNomComplet();
+            $this->inscription = Inscription::find($this->inscription_id);
+            $this->eleveNom = $this->inscription->eleve->fullName;
             $this->classe_id = $this->inscription->classe->id;
         }
         $this->fee_id = null;

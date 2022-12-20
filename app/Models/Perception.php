@@ -34,4 +34,9 @@ class Perception extends Model
     {
         return $this->belongsTo(Frais::class);
     }
+
+    public function inscription()
+    {
+        return $this->belongsTo(Inscription::class);
+    }
 }

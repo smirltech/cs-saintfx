@@ -87,13 +87,13 @@ class Frais extends Model
     public function getClassableAttribute(): mixed
     {
         if (str_ends_with($this->classable_type, 'Classe')) {
-            return (new GetClasseRequest($this->classable_id))->send()->dto();
+            return Classe::find($this->classable_id);
         } else if (str_ends_with($this->classable_type, 'Filiere')) {
-            return (new GetFiliereRequest($this->classable_id))->send()->dto();
+            return Filiere::find($this->classable_id);
         } else if (str_ends_with($this->classable_type, 'Option')) {
-            return (new GetOptionRequest($this->classable_id))->send()->dto();
+            return Option::find($this->classable_id);
         } else if (str_ends_with($this->classable_type, 'Section')) {
-            return (new GetSectionRequest($this->classable_id))->send()->dto();
+            return Section::find($this->classable_id);
         } else {
             return null;
         }

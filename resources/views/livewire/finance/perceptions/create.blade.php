@@ -11,7 +11,7 @@
 
         <div class="col-6">
             <ol class="breadcrumb float-right">
-                <li class="breadcrumb-item"><a href="{{ route('finance') }}">Accueil</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('home') }}">Accueil</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('finance.perceptions') }}">Perceptions</a></li>
                 <li class="breadcrumb-item active">Facture</li>
             </ol>
@@ -44,7 +44,7 @@
                                             <option value=null>Choisir élève ... !</option>
                                             @foreach ($inscriptions as $inscription )
                                                 <option
-                                                    value="{{$inscription->id}}">{{$inscription->eleve->getNomComplet()}}
+                                                    value="{{$inscription->id}}">{{$inscription->eleve->fullName}}
                                                     [ {{ $inscription->classe->code }} ]
                                                 </option>
                                             @endforeach
@@ -67,8 +67,9 @@
                                             <option value="">Choisir frais... !</option>
                                             @foreach ($frais as $feee )
                                                 <option value="{{$feee->id}}">{{ $feee->nom }}
-                                                    [{{ $feee->type->label() }}]
-                                                    [{{ $feee->frequence->label() }}]
+                                                    [{{ $feee->type->label() }}
+                                                    - {{ $feee->classable->fullCode }}
+                                                    - {{ $feee->frequence->label() }}]
                                                 </option>
                                             @endforeach
                                         </select>
