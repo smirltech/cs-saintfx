@@ -289,56 +289,54 @@ return [
                     'text' => 'Inscrire un élève',
                     'url' => 'scolarite/inscriptions/create',
                     'icon' => 'fa fa-plus',
-                    'shift'   => 'ml-3',
+                    'shift' => 'ml-3',
                     //      'can' => RolePermission::create_etudiant->name,
                 ],
                 [
                     'text' => 'Elèves inscrits',
                     'url' => 'scolarite/inscriptions',
                     'icon' => 'fa fa-users-line',
-                    'shift'   => 'ml-3',
+                    'shift' => 'ml-3',
                 ],
                 [
                     'text' => 'Responsables',
                     'url' => 'scolarite/responsables',
                     'icon' => 'fas fa-fw fa-person-pregnant',
-                    'shift'   => 'ml-3',
+                    'shift' => 'ml-3',
                 ],
             ],
         ],
         [
             'text' => 'Classes',
-            'url' => 'scolarite/classes',
+
             'icon' => 'fas fa-fw fa-people-roof',
-        ],
-        [
-            'text' => 'Cours',
-            'url' => 'scolarite/cours',
-            'icon' => 'fas fa-fw fa-book-open',
-        ],
-        [
-            'text' => 'Devoirs',
-            'icon' => 'fas fa-fw fa-tasks',
-            // 'can' => RolePermission::view_etudiant->name,
             'submenu' => [
                 [
-                    'text' => 'Ajouter un devoir',
-                    'url' => 'scolarite/devoirs/create',
+                    'text' => 'Liste des classes',
+                    'url' => 'scolarite/classes',
                     'shift' => 'ml-3',
                     //      'can' => RolePermission::create_etudiant->name,
                 ],
                 [
-                    'text' => 'Liste des devoirs',
+                    'text' => 'Cours',
+                    'url' => 'scolarite/cours',
+                    'icon' => 'fas fa-fw fa-book-open',
+                    'shift' => 'ml-3',
+                ],
+                [
+                    'text' => 'Devoirs',
+                    'icon' => 'fas fa-fw fa-tasks',
                     'url' => 'scolarite/devoirs',
                     'shift' => 'ml-3',
                 ],
+                [
+                    'text' => 'Enseignants',
+                    'icon' => 'fas fa-fw fa-chalkboard-teacher',
+                    // 'can' => RolePermission::create_promotion->name,
+                    'url' => 'scolarite/enseignants',
+                    'shift' => 'ml-3',
+                ],
             ],
-        ],
-        [
-            'text' => 'Enseignants',
-            'icon' => 'fas fa-fw fa-chalkboard-teacher',
-            // 'can' => RolePermission::create_promotion->name,
-            'url' => 'scolarite/enseignants',
         ],
 
         [
