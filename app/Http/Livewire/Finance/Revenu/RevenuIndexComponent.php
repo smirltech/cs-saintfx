@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Finance\Revenu;
 
 use App\Http\Integrations\Scolarite\Requests\Annee\GetCurrentAnnneRequest;
+use App\Models\Annee;
 use App\Models\Revenu;
 use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -29,7 +30,7 @@ class RevenuIndexComponent extends Component
 
     public function mount()
     {
-        $this->annee_id = (new GetCurrentAnnneRequest())->send()->dto()->id;
+        $this->annee_id = Annee::id();
 
     }
 

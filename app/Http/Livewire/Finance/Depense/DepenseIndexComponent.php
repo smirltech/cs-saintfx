@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Finance\Depense;
 
 use App\Enums\DepenseCategorie;
 use App\Http\Integrations\Scolarite\Requests\Annee\GetCurrentAnnneRequest;
+use App\Models\Annee;
 use App\Models\Depense;
 use App\View\Components\AdminLayout;
 use Illuminate\Support\Facades\Auth;
@@ -33,7 +34,7 @@ class DepenseIndexComponent extends Component
 
     public function mount()
     {
-        $this->annee_id = (new GetCurrentAnnneRequest())->send()->dto()->id;
+        $this->annee_id = Annee::id();
     }
 
     public function render()

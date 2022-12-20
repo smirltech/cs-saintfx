@@ -3,7 +3,11 @@
 namespace App\Http\Livewire\Finance\Perception;
 
 use App\Enums\FraisType;
-use App\Exceptions\ApplicationAlert;
+use App\Http\Integrations\Scolarite\Requests\Annee\GetCurrentAnnneRequest;
+use App\Http\Integrations\Scolarite\Requests\Filiere\GetFiliereRequest;
+use App\Http\Integrations\Scolarite\Requests\Inscription\GetInscriptionRequest;
+use App\Http\Integrations\Scolarite\Requests\Inscription\GetInscriptionsRequest;
+use App\Http\Integrations\Scolarite\Requests\Option\GetOptionRequest;
 use App\Models\Annee;
 use App\Models\Filiere;
 use App\Models\Frais;
@@ -246,5 +250,10 @@ class PerceptionCreateComponent extends Component
         }
     }
 
+    public function addPerceptionAndClose(){
+        $this->addPerception();
+        $this->flash('success', "Frais imputé avec succès !", [], route('finance.perceptions'));
+
+    }
 
 }

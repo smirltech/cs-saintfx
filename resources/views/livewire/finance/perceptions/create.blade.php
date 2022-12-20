@@ -117,7 +117,8 @@
                             </form>
                         </div>
                         <div class="card-footer">
-                            <button form="f1" type="submit" class="btn btn-primary">Percevoir</button>
+                            <button form="f1" type="submit" class="btn btn-primary">Facturer</button>
+                            <button wire:click="addPerceptionAndClose" type="button" class="btn btn-success ml-5">Facturer et Terminer</button>
                         </div>
                     </div>
                 </div>
