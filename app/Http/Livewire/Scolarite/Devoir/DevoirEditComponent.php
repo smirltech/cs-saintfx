@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Scolarite\Devoir;
 
 
+use App\Enums\MediaType;
 use App\Exceptions\ApplicationAlert;
 use App\Models\Classe;
 use App\Models\Cours;
@@ -23,7 +24,7 @@ class DevoirEditComponent extends Component
     public Devoir $devoir;
     public Collection $cours;
     public Collection $classes;
-    public ?UploadedFile $document = null;
+    public UploadedFile|string|null $document = null;
 
     protected $messages = [
         'cours.nom.required' => 'Le nom est obligatoire',
@@ -38,7 +39,7 @@ class DevoirEditComponent extends Component
 
         $this->devoir->save();
         if ($this->document) {
-            $this->devoir->addMedia($this->document, MediaType: $this->devoir);
+            $this->devoir->addMedia(file: $this->document, mediaType: MediaType::devoir);
         }
 
         $this->alert('success', 'Cours modifiée avec succès');
