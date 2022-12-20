@@ -11,7 +11,7 @@
 
         <div class="col-6">
             <ol class="breadcrumb float-right">
-                <li class="breadcrumb-item"><a href="{{ route('scolarite.scolarite') }}">Accueil</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('scolarite') }}">Accueil</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('scolarite.inscriptions') }}">Inscriptions</a></li>
                 <li class="breadcrumb-item active">Nouvelle Inscription</li>
             </ol>
@@ -139,7 +139,7 @@
                         <div>
                             <h4 class="font-weight-bold"><u>Choix de classe</u></h4>
                             <p>Procédez à l'inscription de ce candidat pour l'année scolaire <span
-                                        class="text-red">{{$annee_courante->nom}}</span>, dans la classe que vous
+                                    class="text-red">{{$annee_courante->nom}}</span>, dans la classe que vous
                                 sélectionnerez ci-dessous.
                                 Pour choisir la classe, vous devez commencer par sélectionner la section, puis l'option,
                                 ensuite la filière et finalement la classe.</p>
