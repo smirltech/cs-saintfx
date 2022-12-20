@@ -288,19 +288,19 @@ return [
                 [
                     'text' => 'Inscrire un élève',
                     'url' => 'scolarite/inscriptions/create',
-                    'shift'   => 'ml-3',
+                    'shift' => 'ml-3',
                     //      'can' => RolePermission::create_etudiant->name,
                 ],
                 [
                     'text' => 'Elèves inscrits',
                     'url' => 'scolarite/inscriptions',
-                    'shift'   => 'ml-3',
+                    'shift' => 'ml-3',
                 ],
                 [
                     'text' => 'Responsables',
                     'url' => 'scolarite/responsables',
                     'icon' => 'fas fa-fw fa-person-pregnant',
-                    'shift'   => 'ml-3',
+                    'shift' => 'ml-3',
                 ],
             ],
         ],
@@ -322,13 +322,13 @@ return [
                 [
                     'text' => 'Ajouter un devoir',
                     'url' => 'scolarite/devoirs/create',
-                    'shift'   => 'ml-3',
+                    'shift' => 'ml-3',
                     //      'can' => RolePermission::create_etudiant->name,
                 ],
                 [
                     'text' => 'Liste des devoirs',
                     'url' => 'scolarite/devoirs',
-                    'shift'   => 'ml-3',
+                    'shift' => 'ml-3',
                 ],
             ],
         ],
@@ -347,17 +347,17 @@ return [
                 [
                     'text' => 'Filières',
                     'url' => 'scolarite/filieres',
-                    'shift'   => 'ml-3',
+                    'shift' => 'ml-3',
                 ],
                 [
                     'text' => 'Options',
                     'url' => 'scolarite/options',
-                    'shift'   => 'ml-3',
+                    'shift' => 'ml-3',
                 ],
                 [
                     'text' => 'Sections',
                     'url' => 'scolarite/sections',
-                    'shift'   => 'ml-3',
+                    'shift' => 'ml-3',
                 ],
             ],
         ],
@@ -370,18 +370,18 @@ return [
                 [
                     'text' => 'Ajouter perception',
                     'url' => 'finance/perceptions/create',
-                    'shift'   => 'ml-3',
+                    'shift' => 'ml-3',
                     //      'can' => RolePermission::create_etudiant->name,
                 ],
                 [
                     'text' => 'Liste de perceptions',
                     'url' => 'finance/perceptions',
-                    'shift'   => 'ml-3',
+                    'shift' => 'ml-3',
                 ],
                 [
                     'text' => 'Plans de frais',
                     'url' => 'finance/frais',
-                    'shift'   => 'ml-3',
+                    'shift' => 'ml-3',
                 ],
             ],
         ],
@@ -399,7 +399,7 @@ return [
                 [
                     'text' => "Liste de dépenses",
                     'url' => 'finance/depenses',
-                    'shift'   => 'ml-3',
+                    'shift' => 'ml-3',
                 ],
                 /*[
                     'text' => "Liste de paiements",
@@ -407,19 +407,20 @@ return [
                 ],*/
             ],
         ],
-       /* [
-            'text' => 'Configurations',
-            'icon' => 'fas fa-fw fa-cogs',
-            // 'can' => RolePermission::view_etudiant->name,
-            'submenu' => [
-                [
-                    'text' => 'Liste de frais',
-                    'url' => 'finance/frais',
-                ],
-            ],
-        ],*/
+        /* [
+             'text' => 'Configurations',
+             'icon' => 'fas fa-fw fa-cogs',
+             // 'can' => RolePermission::view_etudiant->name,
+             'submenu' => [
+                 [
+                     'text' => 'Liste de frais',
+                     'url' => 'finance/frais',
+                 ],
+             ],
+         ],*/
+        ['header' => 'SYSTEME'],
         [
-            'text' => 'Calendrier scolaire',
+            'text' => 'Calendrier',
             'url' => 'scolarite/annees',
             'icon' => 'fas fa-fw fa-calendar-alt',
         ],
