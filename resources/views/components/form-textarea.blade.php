@@ -1,4 +1,4 @@
-@props(['disabled' => false,'isValid','label','error'])
+@props(['disabled' => false,'isValid','label','error','ckeditor'=>false]))
 @php
     if (isset($isValid )) {
         $classes = ($isValid ===true)
@@ -11,8 +11,9 @@
 @if(isset($label))
     <label class="form-label">{{$label}}</label>
 @endif
-<textarea {{ $disabled ? 'disabled' : '' }} {!! $attributes->merge(['class' => 'form-control ckeditor'.$classes]) !!}>
-    {{$slot}}
+<textarea
+    @if($ckeditor) id="ckeditor" @endif {{ $disabled ? 'disabled' : '' }} {!! $attributes->merge(['class' => 'form-control ckeditor'.$classes]) !!}>
+{{$slot}}
 </textarea>
 @if(isset($error))
     <x-form-invalid-feedback>
