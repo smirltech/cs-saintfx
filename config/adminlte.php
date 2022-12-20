@@ -311,6 +311,22 @@ return [
             'icon' => 'fas fa-fw fa-book-open',
         ],
         [
+            'text' => 'Devoirs',
+            'icon' => 'fas fa-fw fa-tasks',
+            // 'can' => RolePermission::view_etudiant->name,
+            'submenu' => [
+                [
+                    'text' => 'Ajouter un devoir',
+                    'url' => 'scolarite/devoirs/create',
+                    //      'can' => RolePermission::create_etudiant->name,
+                ],
+                [
+                    'text' => 'Liste des devoirs',
+                    'url' => 'scolarite/devoirs',
+                ],
+            ],
+        ],
+        [
             'text' => 'Enseignants',
             'icon' => 'fas fa-fw fa-chalkboard-teacher',
             // 'can' => RolePermission::create_promotion->name,
