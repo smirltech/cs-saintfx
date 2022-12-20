@@ -41,7 +41,7 @@
                                         <label for="">Selectionner élève</label>
                                         <select wire:change="eleveSelected" wire:model="inscription_id"
                                                 class="form-control">
-                                            <option value=null>Choisir élève ... !</option>
+                                            <option value=''>Choisir élève ... !</option>
                                             @foreach ($inscriptions as $inscription )
                                                 <option
                                                     value="{{$inscription->id}}">{{$inscription->eleve->fullName}}
@@ -51,7 +51,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group col-sm-12 col-md-6">
-                                        <label for="">Élève selectionné {{$inscription_id}}</label>
+                                        <label for="">Élève selectionné</label>
                                         <input readonly type="text" wire:model="eleveNom"
                                                class="form-control">
                                     </div>
@@ -64,7 +64,7 @@
                                         <label for="">Frais {{$fee_id}}</label>
                                         <select wire:ignore.self wire:change="feeSelected" wire:model="fee_id"
                                                 class="form-control">
-                                            <option value="">Choisir frais... !</option>
+                                            <option value=null>Choisir frais... !</option>
                                             @foreach ($frais as $feee )
                                                 <option value="{{$feee->id}}">{{ $feee->nom }}
                                                     [{{ $feee->type->label() }}
