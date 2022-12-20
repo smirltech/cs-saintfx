@@ -8,7 +8,10 @@ if (mix.inProduction()) {
     mix.version();
 }
 
-mix.browserSync('http://cenk.test');
+mix.browserSync({
+    proxy: 'http://cenk.test',
+    injectChanges: false,
+});
 
 
 
