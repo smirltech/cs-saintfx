@@ -10,7 +10,7 @@
                             <div class="main-title">
                                 <h3 hidden class="m-0">{{__($title)}}</h3>
                             </div>
-                            <div class="erning_btn d-flex">
+                            <div class="erning_btn d-flex float-right">
                                 <a href="{{route('scolarite.users.create')}}" class="btn btn-outline-primary btn-sm"><i
                                         class="fa fa-plus"></i></a>
                             </div>

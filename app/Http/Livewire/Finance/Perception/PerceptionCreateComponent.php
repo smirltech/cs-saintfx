@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Finance\Perception;
 
 use App\Enums\FraisType;
+use App\Exceptions\ApplicationAlert;
 use App\Http\Integrations\Scolarite\Requests\Annee\GetCurrentAnnneRequest;
 use App\Http\Integrations\Scolarite\Requests\Filiere\GetFiliereRequest;
 use App\Http\Integrations\Scolarite\Requests\Inscription\GetInscriptionRequest;
