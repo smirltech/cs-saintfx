@@ -71,13 +71,13 @@
                                                 <a href="{{route('scolarite.devoirs.edit',$devoir )}}"
                                                    title="modifier"
                                                    class="btn btn-outline-info  ml-2">
-                                                    <i class="fas fa-pen"></i>
+                                                    <i class="fas fa-eye"></i>
                                                 </a>
 
-                                                <button wire:click="deleteCours({{ $devoir->id }})"
+                                                {{--<button wire:click="deleteCours({{ $devoir->id }})"
                                                         title="supprimer" class="btn btn-outline-danger ml-2">
                                                     <i class="fas fa-trash"></i>
-                                                </button>
+                                                </button>--}}
                                             </div>
                                         </td>
                                     </tr>
