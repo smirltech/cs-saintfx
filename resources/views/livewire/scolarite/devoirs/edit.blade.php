@@ -52,6 +52,7 @@
                                                  placeholder="Saisir la description du cours"
                                                  wire:model="cours.description"
                                                  label="Description du cours"
+                                                 :ckeditor="true"
                                                  :isValid="$errors->has('cours.description') ? false : null"
                                                  error="{{$errors->first('cours.description')}}"/>
 
