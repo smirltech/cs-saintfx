@@ -211,11 +211,47 @@
                                                                                     class="fas fa-clock mr-1"></i>{{$inscription->created_at->format('d-m-Y')}}</span>
                                                                         <h3 class="timeline-header"><a>Réussite</a>
                                                                             avec 56%</h3>
-                                                                        <div class="timeline-body">
-                                                                            <p>Ici seront les détails sur
-                                                                                l'évolution durant l'année</p>
+                                                                        <div style="width: 100%" class="timeline-body ">
+                                                                            <div class="table-responsive-sm">
+                                                                           <table class="table">
+                                                                               <thead>
+                                                                               <tr>
+                                                                                   <th scope="col">PÉRIODE</th>
+                                                                                   <th scope="col">POURCENTAGE</th>
+                                                                                   <th scope="col">PLACE</th>
+                                                                                   <th scope="col"></th>
+                                                                               </tr>
+                                                                               </thead>
+                                                                               <tbody>
+                                                                               @foreach($eleve->resultatsOfYear(annee_id:$inscription->annee_id) as $resultat)
+                                                                                   <tr>
+                                                                                       <th scope="row">{{$resultat->custom_property}}</th>
+                                                                                       <td>{{$resultat->pourcentage}}%</td>
+                                                                                       <td>{{$resultat->place}}</td>
+                                                                                       <td>
+                                                                                           <div class="d-flex float-right">
+                                                                                               <button type="button"
+                                                                                                       title="Modifier" class="btn btn-info btn-xs  ml-2" data-toggle="modal"
+                                                                                                       data-target="#edit-depense-modal">
+                                                                                                   <span class="fa fa-pen"></span>
+                                                                                               </button>
+
+                                                                                               <button type="button"
+                                                                                                       title="supprimer" class="btn btn-danger btn-xs  ml-2"
+                                                                                                       data-toggle="modal"
+                                                                                                       data-target="#delete-depense-modal">
+                                                                                                   <span class="fa fa-trash"></span>
+                                                                                               </button>
+                                                                                           </div>
+                                                                                       </td>
+                                                                                   </tr>
+                                                                               @endforeach
+
+                                                                               </tbody>
+                                                                           </table>
+                                                                            </div>
                                                                         </div>
-                                                                        <div
+                                                                        {{--<div
                                                                             class="timeline-footer d-flex justify-content-between">
                                                                                 <span title="Changer"
                                                                                       wire:click="getSelectedInscription({{$inscription}})"
@@ -227,7 +263,7 @@
                                                                                   role="button" data-toggle="modal"
                                                                                   data-target="#edit-inscription-status-modal"
                                                                                   class="border border-warning rounded p-1 ">{{$inscription->status->label()}}</span>
-                                                                        </div>
+                                                                        </div>--}}
                                                                     </div>
                                                                 </div>
                                                             @endforeach

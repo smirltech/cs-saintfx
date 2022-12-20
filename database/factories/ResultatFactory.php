@@ -19,7 +19,7 @@ class ResultatFactory extends Factory
         return [
             'custom_property' => $this->faker->word,
             'pourcentage' => $this->faker->randomFloat(2, 0, 100),
-            'place' => $this->faker->word,
+            'place' => $this->faker->numberBetween(1, 10),
             'annee_id' => $this->faker->numberBetween(1, Annee::count()),
             'eleve_id' => $this->faker->randomElement(Eleve::pluck('id')->toArray()),
         ];

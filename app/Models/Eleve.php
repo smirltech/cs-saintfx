@@ -51,6 +51,21 @@ class Eleve extends Model
         return $this->hasMany(Inscription::class);
     }
 
+    public function resultats(): HasMany
+    {
+        return $this->hasMany(Resultat::class);
+    }
+
+    public function resultatsThisYear()
+    {
+        return $this->resultats->where('annee_id', Annee::id());
+    }
+
+    public function resultatsOfYear($annee_id)
+    {
+        return $this->resultats->where('annee_id', $annee_id);
+    }
+
     // full_name
 
     public function currentInscription()

@@ -71,6 +71,9 @@ Route::prefix('scolarite')->middleware(['auth:web'])->as('scolarite.')->group(fu
     Route::get('devoirs/{devoir}/edit', Scolarite\Devoir\DevoirEditComponent::class)->name('devoirs.edit');
     Route::get('devoirs/{devoir}', Scolarite\Devoir\DevoirShowComponent::class)->name('devoirs.show');
 
+    // devoirs
+    Route::get('resultats/classe/{classe}', Scolarite\Resultat\ResultatIndexComponent::class)->name('resultats.classe');
+
     // Enseignant
     Route::get('enseignants', Scolarite\Enseignant\EnseignantIndexComponent::class)->name('enseignants.index');
     Route::get('enseignants/create', Scolarite\Enseignant\EnseignantCreateComponent::class)->name('enseignants.create');

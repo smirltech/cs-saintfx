@@ -12,6 +12,7 @@ use App\Models\Inscription;
 use App\Models\Option;
 use App\Models\Responsable;
 use App\Models\ResponsableEleve;
+use App\Models\Resultat;
 use App\Models\Section;
 use App\Traits\CanHandleEleveUniqueCode;
 use App\Traits\FakeProfileImage;
@@ -126,7 +127,6 @@ class EleveShowComponent extends Component
         $this->eleve_email = $this->eleve->email;
         $this->eleve_telephone = $this->eleve->telephone;
         $this->numero_permanent = $this->eleve->numero_permanent;
-
     }
 
     public function onModalClosed()
