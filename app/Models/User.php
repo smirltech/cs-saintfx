@@ -61,7 +61,7 @@ class User extends Authenticatable
 
     public function adminlte_profile_url(): string
     {
-        return route('scolarite.users.edit', $this);
+        return route('users.edit', $this);
     }
 
     public function getRoleNameAttribute()
