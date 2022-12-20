@@ -150,6 +150,7 @@
                                             <th>NOM</th>
                                             <th>SECTION</th>
                                             <th>DESCRIPTION</th>
+                                            <th>ENSEIGNANT</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -162,6 +163,9 @@
                                                 </td>
                                                 <td>
                                                     {{ Str::limit($c->description, 50) }}
+                                                </td>
+                                                <td>
+                                                    {{ $c->enseignant->nom??'Aucun' }}
                                                 </td>
                                             </tr>
                                         @endforeach
