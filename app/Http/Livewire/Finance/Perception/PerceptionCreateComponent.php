@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Finance\Perception;
 
 use App\Enums\FraisType;
+use App\Exceptions\ApplicationAlert;
 use App\Http\Integrations\Scolarite\Requests\Annee\GetCurrentAnnneRequest;
 use App\Http\Integrations\Scolarite\Requests\Filiere\GetFiliereRequest;
 use App\Http\Integrations\Scolarite\Requests\Inscription\GetInscriptionRequest;
@@ -18,12 +19,11 @@ use App\View\Components\AdminLayout;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Auth;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 class PerceptionCreateComponent extends Component
 {
-    use LivewireAlert;
+    use ApplicationAlert;
 
     public $searchName;
 
@@ -229,7 +229,7 @@ class PerceptionCreateComponent extends Component
         ]);
 
         try {
-            $done = Perception::create(
+            Perception::create(
                 [
                     'user_id' => $this->user_id,
                     'frais_id' => $this->fee_id,
@@ -244,16 +244,10 @@ class PerceptionCreateComponent extends Component
                 ]
             );
 
-            if ($done) {
-                //    $this->alert('success', "Frais imputé avec succès !");
-                $this->flash('success', "Frais imputé avec succès !", [], route('finance.perceptions'));
+            $this->flash('success', "Frais imputé avec succès !", [], route('finance.perceptions'));
 
-            } else {
-                $this->alert('warning', "Echec d'imputation de frais !");
-            }
         } catch (Exception $exception) {
-            dd($exception->getMessage());
-            $this->alert('error', "Echec d'imputation de frais déjà existante !");
+            $this->error(local: $exception->getMessage(), production: "Echec d'imputation de frais déjà existante !");
         }
     }
 
