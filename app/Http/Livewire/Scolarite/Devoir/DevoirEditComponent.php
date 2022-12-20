@@ -11,16 +11,19 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Validation\Rule;
+use Illuminate\Http\UploadedFile;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class DevoirEditComponent extends Component
 {
-    use ApplicationAlert;
+
+    use ApplicationAlert, WithFileUploads;
 
     public Devoir $devoir;
     public Collection $cours;
     public Collection $classes;
+    public ?UploadedFile $document = null;
 
     protected $messages = [
         'cours.nom.required' => 'Le nom est obligatoire',
@@ -34,6 +37,9 @@ class DevoirEditComponent extends Component
         $this->validate();
 
         $this->devoir->save();
+        if ($this->document) {
+            $this->devoir->addMedia($this->document, MediaType: $this->devoir);
+        }
 
         $this->alert('success', 'Cours modifiée avec succès');
     }
@@ -56,11 +62,11 @@ class DevoirEditComponent extends Component
     protected function rules(): array
     {
         return [
-            'cours.nom' => ['required', Rule::unique('cours')->where(fn($query) => $query->where('section_id', $this->devoir->section_id)
-                ->where('nom', $this->devoir->nom))
-                ->ignore($this->devoir->id)],
-            'cours.description' => 'required',
-            'cours.section_id' => 'required'
+            'devoir.titre' => ['required', 'string'],
+            'devoir.contenu' => ['required', 'string'],
+            'devoir.classe_id' => ['required', 'integer'],
+            'devoir.cours_id' => ['required', 'integer'],
+            'devoir.echeance' => ['required', 'date'],
         ];
     }
 }

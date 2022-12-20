@@ -23,7 +23,7 @@
         <div class="container-fluid">
             <div class="card">
                 <div class="card-body">
-                    {{--  <x-validation-errors class="mb-4" :errors="$errors"/>--}}
+                    <x-validation-errors class="mb-4" :errors="$errors"/>
                     <form wire:submit.prevent="submit">
                         <div class="row">
                             <div class="form-group col-md-12">
@@ -62,6 +62,7 @@
                                     placeholder="Saisir le contenu du devoir"
                                     wire:model="devoir.description"
                                     label="Contenu du devoir"
+                                    :ckeditor="true"
                                     :isValid="$errors->has('devoir.contenu') ? false : null"
                                     error="{{$errors->first('devoir.contenu')}}"/>
 
@@ -69,13 +70,13 @@
                             </div>
 
                             <div class="form-group col-md-12">
-                                <x-form-file wire:model="devoir.document"
+                                <x-form-file wire:model="document"
                                              label="Document du devoir"
-                                             :isValid="$errors->has('devoir.document') ? false : null"
-                                             error="{{$errors->first('devoir.document')}}"/>
+                                             :isValid="$errors->has('document') ? false : null"
+                                             error="{{$errors->first('document')}}"/>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Soumettre</button>
+                        <button type="submit" class="btn btn-primary float-end">Soumettre</button>
                     </form>
                 </div>
             </div>

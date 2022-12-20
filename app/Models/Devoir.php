@@ -3,14 +3,12 @@
 namespace App\Models;
 
 use App\Enums\DevoirStatus;
-use App\Enums\MediaType;
 use App\Traits\HasMedia;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Http\UploadedFile;
 
 class Devoir extends Model
 {
@@ -37,11 +35,6 @@ class Devoir extends Model
     public function getDocumentUrlAttribute(): string
     {
         return $this->getFirstMediaUrl();
-    }
-
-    public function setDocumentUrlAttribute(UploadedFile $file): void
-    {
-        $this->upload(file: $file, entity: $this, mediaType: MediaType::devoir);
     }
 
     // get devoirEleves relation

@@ -14,12 +14,10 @@ trait HasMedia
 {
     use WithFileUploads;
 
-    public function setImageAttribute(UploadedFile $file): void
+    public function AddMedia(UploadedFile $file, MediaType $mediaType): void
     {
-        $this->upload(file: $file, entity: $this, mediaType: MediaType::image);
+        $this->upload(file: $file, entity: $this, mediaType: $mediaType);
     }
-
-    // set image attribute
 
     public function upload(UploadedFile $file, Model $entity, MediaType $mediaType)
     {
@@ -32,11 +30,18 @@ trait HasMedia
         ]);
     }
 
-    // upload media
+    // set image attribute
 
     public function media(): MorphMany
     {
         return $this->morphMany(Media::class, 'mediable');
+    }
+
+    // upload media
+
+    public function setImageAttribute(UploadedFile $file): void
+    {
+        $this->upload(file: $file, entity: $this, mediaType: MediaType::image);
     }
 
     public function getImageUrlAttribute(): string
