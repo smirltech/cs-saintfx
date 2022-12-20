@@ -10,7 +10,7 @@ use Livewire\Component;
 class MainDashboardComponent extends Component
 {
 
-    public function mount(): RedirectResponse
+    public function mount()
     {
         $me = Auth::user();
         if ($me->role == UserRole::caissier) {
