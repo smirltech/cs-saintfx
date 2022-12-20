@@ -7,6 +7,9 @@ use App\Models\Annee;
 use App\Models\Inscription;
 use Auth;
 use Carbon\Carbon;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
 class DashboardComponent extends Component
@@ -84,7 +87,7 @@ class DashboardComponent extends Component
         ];
     }
 
-    public function render()
+    public function render(): Factory|View|Application
     {
         return view('livewire.scolarite.dashboard');
     }
