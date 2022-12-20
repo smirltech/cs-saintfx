@@ -9,7 +9,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    @include('analytics')
+    @if(app()->isProduction())
+        @include('analytics')
+    @endif
+
 
     {{-- Custom Meta Tags --}}
     @yield('meta_tags')
@@ -111,8 +114,8 @@
     <x-livewire-alert::scripts/>
     <x-livewire-alert::flash/>
     <script>
-        window.addEventListener('closeModal', event=>{
-            $("#"+event.detail.modal).modal('hide');
+        window.addEventListener('closeModal', event => {
+            $("#" + event.detail.modal).modal('hide');
         });
     </script>
 
@@ -120,6 +123,12 @@
 
 {{-- Custom Scripts --}}
 @yield('adminlte_js')
+
+@if(!app()->isProduction())
+    <script id="__bs_script__">//<![CDATA[
+        document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.2.11.2.js'><\/script>".replace("HOST", location.hostname));
+        //]]></script>
+@endif
 
 </body>
 
