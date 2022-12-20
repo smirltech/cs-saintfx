@@ -196,6 +196,12 @@
 
                                                         <div class="timeline">
                                                             @foreach($eleve->inscriptions as $inscription)
+                                                                @php
+                                                                  $resultats =  $eleve->resultatsOfYear(annee_id:$inscription->annee_id);
+                                                                  $lastResultat = $resultats->last();
+                                                                  $mention = "Pas d'info";
+                                                                  if($lastResultat != null)$mention = $lastResultat?->pourcentage >= 50?'Réussite':'Échec';
+                                                                @endphp
                                                                 <div class="time-label">
                                                                     <span
                                                                         wire:click="getSelectedInscription({{$inscription}})"
@@ -209,8 +215,8 @@
                                                                     <div class="timeline-item">
                                                                             <span class="time"><i
                                                                                     class="fas fa-clock mr-1"></i>{{$inscription->created_at->format('d-m-Y')}}</span>
-                                                                        <h3 class="timeline-header"><a>Réussite</a>
-                                                                            avec 56%</h3>
+                                                                        <h3 class="timeline-header"><a>{{$mention}}</a>
+                                                                            avec {{$lastResultat?->pourcentage}}%</h3>
                                                                         <div style="width: 100%" class="timeline-body ">
                                                                             <div class="table-responsive-sm">
                                                                            <table class="table">
@@ -223,7 +229,7 @@
                                                                                </tr>
                                                                                </thead>
                                                                                <tbody>
-                                                                               @foreach($eleve->resultatsOfYear(annee_id:$inscription->annee_id) as $resultat)
+                                                                               @foreach($resultats as $resultat)
                                                                                    <tr>
                                                                                        <th scope="row">{{$resultat->custom_property}}</th>
                                                                                        <td>{{$resultat->pourcentage}}%</td>
@@ -231,15 +237,12 @@
                                                                                        <td>
                                                                                            <div class="d-flex float-right">
                                                                                                <button type="button"
-                                                                                                       title="Modifier" class="btn btn-info btn-xs  ml-2" data-toggle="modal"
-                                                                                                       data-target="#edit-depense-modal">
+                                                                                                       title="Modifier" class="btn btn-info btn-xs  ml-2">
                                                                                                    <span class="fa fa-pen"></span>
                                                                                                </button>
 
                                                                                                <button type="button"
-                                                                                                       title="supprimer" class="btn btn-danger btn-xs  ml-2"
-                                                                                                       data-toggle="modal"
-                                                                                                       data-target="#delete-depense-modal">
+                                                                                                       title="supprimer" class="btn btn-danger btn-xs  ml-2">
                                                                                                    <span class="fa fa-trash"></span>
                                                                                                </button>
                                                                                            </div>

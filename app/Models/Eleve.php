@@ -53,7 +53,7 @@ class Eleve extends Model
 
     public function resultats(): HasMany
     {
-        return $this->hasMany(Resultat::class);
+        return $this->hasMany(Resultat::class)->orderBy('created_at');
     }
 
     public function resultatsThisYear()
