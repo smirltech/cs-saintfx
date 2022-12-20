@@ -34,16 +34,14 @@ Route::get('auth/success', function () {
 Route::post('auth/otp-send', [OtpController::class, 'sendOtp'])->name('auth.otp-send');
 Route::post('auth/otp-verify', [OtpController::class, 'verifyOtp'])->name('auth.otp-verify');
 
-// add routes
-//Route::get('home', [Admin\HomeController::class, 'index'])->name('home');
-//Route::get('home', [Admin\HomeController::class, 'index'])->name('home');
-
 //Users
+Route::get('users/{user}/reset-password', [UserController::class, 'resetPassword'])->name('users.password.autoreset');
 Route::resource('users', UserController::class);
-Route::get('/', Scolarite\DashboardComponent::class)->name('scolarite');
+
+//Route::get('/', Scolarite\DashboardComponent::class)->name('scolarite');
 
 Route::prefix('scolarite')->middleware(['auth:web'])->as('scolarite.')->group(function () {
-    // Route::get('/', Scolarite\DashboardComponent::class)->name('scolarite');
+
 //Section
     Route::get('sections/{section}', Scolarite\Section\SectionShowComponent::class)->name('sections.show');
     Route::get('sections', Scolarite\Section\SectionIndexComponent::class)->name('sections');
@@ -106,10 +104,8 @@ Route::prefix('scolarite')->middleware(['auth:web'])->as('scolarite.')->group(fu
     Route::get("audits/{audit}", [AuditController::class, 'show'])->name("audits.show")->can('audits.view');
 
     Route::resource('roles', Admin\RoleController::class);
-
-    Route::get('users/{user}/reset-password', [UserController::class, 'resetPassword'])->name('users.password.autoreset');
-    Route::resource('users', UserController::class);
 });
+
 # Finance
 Route::prefix('finance')->middleware(['auth:web'])->as('finance.')->group(function () {
     Route::get('revenus', Finance\Revenu\RevenuIndexComponent::class)->name('revenus');
