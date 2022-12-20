@@ -17,6 +17,8 @@ return new class extends Migration {
             $table->foreignIdFor(Annee::class)->constrained()->restrictOnDelete();
             $table->string('titre');
             $table->mediumText('contenu')->nullable();
+            $table->dateTime('echeance');
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }

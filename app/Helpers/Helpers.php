@@ -45,7 +45,7 @@ class Helpers
 
     }
 
-    public static function fakePicsum($user_id, $width = 50, $height = 50)
+    public static function fakePicsum($user_id, $width = 50, $height = 50): string
     {
         /*$req = Http::get("https://picsum.photos/id/{$user_id}/info");
         return json_decode($req->body())->download_url;*/

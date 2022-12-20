@@ -1,0 +1,86 @@
+@php use App\Models\Filiere; @endphp
+@php use App\Models\Option; @endphp
+@php use App\Models\Section; @endphp
+@section('title')
+    {{Str::upper('cenk')}} - Cours
+@endsection
+@section('content_header')
+    <div class="row">
+        <div class="col-6">
+            <h1 class="ms-3">Liste de cours</h1>
+        </div>
+
+        <div class="col-6">
+            <ol class="breadcrumb float-right">
+                <li class="breadcrumb-item"><a href="{{ route('scolarite') }}">Accueil</a></li>
+                <li class="breadcrumb-item active">Cours</li>
+            </ol>
+        </div>
+    </div>
+
+@stop
+<div class="">
+    <div class="content mt-3">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">
+                            </div>
+                            <div class="card-tools d-flex my-auto">
+                                <a href="{{ route('scolarite.cours.create') }}" title="ajouter"
+                                   class="btn btn-primary mr-2"><span
+                                        class="fa fa-plus"></span></a>
+                            </div>
+                        </div>
+                        <div class="card-body p-0 table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>NO.</th>
+                                    <th>TITRE</th>
+                                    <th>ECHEANCE</th>
+                                    <th>COURS</th>
+                                    <th>CLASSE</th>
+                                    <th>ANNEE</th>
+                                    <th>STATUS</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach ($devoirs as $k=>$devoir)
+                                    <tr>
+                                        <td>{{ $k+1 }}</td>
+                                        <td>{{ $devoir->titre }}</td>
+                                        <td>
+                                            {{ $devoir->section->nom }}
+                                        </td>
+                                        <td>
+                                            {{ Str::limit($devoir->description, 50) }}
+                                        </td>
+
+                                        <td>
+                                            <div class="d-flex float-right">
+                                                <a href="/scolarite/cours/{{ $devoir->id }}/edit" title="modifier"
+                                                   class="btn btn-outline-info  ml-2">
+                                                    <i class="fas fa-pen"></i>
+                                                </a>
+
+                                                <button wire:click="deleteCours({{ $devoir->id }})"
+                                                        title="supprimer" class="btn btn-outline-danger ml-2">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -11,7 +11,7 @@
 
         <div class="col-6">
             <ol class="breadcrumb float-right">
-                <li class="breadcrumb-item"><a href="{{ route('home') }}">Accueil</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('finance') }}">Accueil</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('finance.perceptions') }}">Perceptions</a></li>
                 <li class="breadcrumb-item active">Facture</li>
             </ol>
@@ -118,7 +118,9 @@
                         </div>
                         <div class="card-footer">
                             <button form="f1" type="submit" class="btn btn-primary">Facturer</button>
-                            <button wire:click="addPerceptionAndClose" type="button" class="btn btn-success ml-5">Facturer et Terminer</button>
+                            <button wire:click="addPerceptionAndClose" type="button" class="btn btn-success ml-5">
+                                Facturer et Terminer
+                            </button>
                         </div>
                     </div>
                 </div>

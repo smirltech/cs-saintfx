@@ -22,8 +22,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', MainDashboardComponent::class)->name('home');
-Route::get('scolarite', Scolarite\DashboardComponent::class)->name('scolarite');
-Route::redirect('dashboard', 'scolarite')->name('dashboard');
+
+Route::get('scolarite', Scolarite\DashboardComponent::class)->name('scolarite')->middleware('auth');
+Route::get('finance', Finance\Dashboard\DashboardComponent::class)->name('finance')->middleware('auth');
 
 
 Route::get('auth/{user}', [OtpController::class, 'showVerifyOtp'])->name('auth.verify');
@@ -70,7 +71,7 @@ Route::prefix('scolarite')->middleware(['auth:web'])->as('scolarite.')->group(fu
     Route::get('cours/{cours}', Scolarite\Classe\ClasseShowComponent::class)->name('cours.show');
 
     // devoirs
-    //  Route::get('devoirs', Scolarite\Devoir\DevoirIndexComponent::class)->name('devoirs.index');
+    Route::get('devoirs', Scolarite\Devoir\DevoirIndexComponent::class)->name('devoirs.index');
     Route::get('devoirs/create', Scolarite\Devoir\DevoirCreateComponent::class)->name('devoirs.create');
     Route::get('devoirs/{devoir}/edit', Scolarite\Devoir\DevoirEditComponent::class)->name('devoirs.edit');
     Route::get('devoirs/{devoir}', Scolarite\Devoir\DevoirShowComponent::class)->name('devoirs.show');
@@ -115,11 +116,6 @@ Route::prefix('scolarite')->middleware(['auth:web'])->as('scolarite.')->group(fu
 });
 # Finance
 Route::prefix('finance')->middleware(['auth:web'])->as('finance.')->group(function () {
-    // Admin
-    Route::get('/', Finance\Dashboard\DashboardComponent::class)->name('finance');
-
-
-    //Revenu
     Route::get('revenus', Finance\Revenu\RevenuIndexComponent::class)->name('revenus');
 
     //Revenu
