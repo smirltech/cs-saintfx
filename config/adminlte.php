@@ -288,12 +288,14 @@ return [
                 [
                     'text' => 'Inscrire un élève',
                     'url' => 'scolarite/inscriptions/create',
+                    'icon' => 'fa fa-plus',
                     'shift'   => 'ml-3',
                     //      'can' => RolePermission::create_etudiant->name,
                 ],
                 [
                     'text' => 'Elèves inscrits',
                     'url' => 'scolarite/inscriptions',
+                    'icon' => 'fa fa-users-line',
                     'shift'   => 'ml-3',
                 ],
                 [
@@ -307,7 +309,7 @@ return [
         [
             'text' => 'Classes',
             'url' => 'scolarite/classes',
-            'icon' => 'fas fa-fw fa-school',
+            'icon' => 'fas fa-fw fa-people-roof',
         ],
         [
             'text' => 'Cours',
