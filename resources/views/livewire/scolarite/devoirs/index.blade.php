@@ -29,7 +29,7 @@
                             <div class="card-title">
                             </div>
                             <div class="card-tools d-flex my-auto">
-                                <a href="{{ route('scolarite.cours.create') }}" title="ajouter"
+                                <a href="{{ route('scolarite.devoirs.create') }}" title="ajouter"
                                    class="btn btn-primary mr-2"><span
                                         class="fa fa-plus"></span></a>
                             </div>
@@ -68,7 +68,8 @@
 
                                         <td>
                                             <div class="d-flex float-right">
-                                                <a href="/scolarite/cours/{{ $devoir->id }}/edit" title="modifier"
+                                                <a href="{{route('scolarite.devoirs.edit',$devoir )}}"
+                                                   title="modifier"
                                                    class="btn btn-outline-info  ml-2">
                                                     <i class="fas fa-pen"></i>
                                                 </a>
