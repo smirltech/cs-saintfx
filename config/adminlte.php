@@ -388,7 +388,7 @@ return [
         [
             'text' => 'Revenu Auxiliaire',
             'icon' => 'fa fa-puzzle-piece',
-            'url' => '/finance/revenus',
+            'url' => 'finance/revenus',
             // 'can' => RolePermission::create_user->name,
         ],
         [
@@ -406,6 +406,12 @@ return [
                     'url' => 'finance/paiements',
                 ],*/
             ],
+        ],
+        [
+            'text' => 'Rapport Financier',
+            'icon' => 'fas fa-fw fa-chart-line',
+            'url' => 'finance/rapports',
+            // 'can' => RolePermission::create_user->name,
         ],
         /* [
              'text' => 'Configurations',

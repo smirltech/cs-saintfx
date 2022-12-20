@@ -40,9 +40,9 @@
                                 <tr>
                                     <th>NO.</th>
                                     <th>TITRE</th>
-                                    <th>ECHEANCE</th>
-                                    <th>COURS</th>
+                                    <th>CONTENU</th>
                                     <th>CLASSE</th>
+                                    <th>ECHEANCE</th>
                                     <th>STATUS</th>
                                     <th></th>
                                 </tr>
@@ -53,17 +53,16 @@
                                         <td>{{ $k+1 }}</td>
                                         <td>{{ $devoir->titre }}</td>
                                         <td>
-                                            {{ $devoir->echeance_display }}
-                                        </td>
-                                        <td>
-                                            {{ $devoir->cours->nom }}
+                                            {{ $devoir->contenu }}
                                         </td>
                                         <td>
                                             {{ $devoir->classe->code }}
                                         </td>
-
                                         <td>
-                                            {{ $devoir->status->label() }}
+                                            {{ $devoir->echeance_display }}
+                                        </td>
+                                        <td>
+                                            {{ $devoir->status?->label() }}
                                         </td>
 
                                         <td>

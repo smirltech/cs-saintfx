@@ -41,7 +41,7 @@ class Devoir extends Model
 
     public function setDocumentUrlAttribute(UploadedFile $file): void
     {
-        $this->upload(file: $file, entity: $this, mediaType: MediaType::Document);
+        $this->upload(file: $file, entity: $this, mediaType: MediaType::devoir);
     }
 
     // get devoirEleves relation
