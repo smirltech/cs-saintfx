@@ -11,7 +11,7 @@
 
         <div class="col-6">
             <ol class="breadcrumb float-right">
-                <li class="breadcrumb-item"><a href="{{ route('home') }}">Accueil</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('finance.finance') }}">Accueil</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('finance.perceptions') }}">Perceptions</a></li>
                 <li class="breadcrumb-item active">Facture</li>
             </ol>

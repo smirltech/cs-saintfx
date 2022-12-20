@@ -13,7 +13,7 @@
 
         <div class="col-6">
             <ol class="breadcrumb float-right">
-                <li class="breadcrumb-item"><a href="{{ route('finance') }}">Accueil</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('finance.finance') }}">Accueil</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('finance.eleves') }}">Élèves</a></li>
                 <li class="breadcrumb-item active">Élève</li>
             </ol>
