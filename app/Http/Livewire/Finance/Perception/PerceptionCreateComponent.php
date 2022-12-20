@@ -40,12 +40,12 @@ class PerceptionCreateComponent extends Component
     public $eleveNom;
     public $classe_id;
     public $due_date;
-    private $frais;
-    private $inscriptions = [];
     public $inscription;
     protected $rules = [
         'inscription_id' => 'nullable',
     ];
+    private $frais;
+    private $inscriptions = [];
 
     public function mount()
     {
@@ -246,12 +246,13 @@ class PerceptionCreateComponent extends Component
 
             if ($done) {
                 //    $this->alert('success', "Frais imputé avec succès !");
-                $this->flash('success', "Frais imputé avec succès !", [], route('scolarite.perceptions'));
+                $this->flash('success', "Frais imputé avec succès !", [], route('finance.perceptions'));
 
             } else {
                 $this->alert('warning', "Echec d'imputation de frais !");
             }
         } catch (Exception $exception) {
+            dd($exception->getMessage());
             $this->alert('error', "Echec d'imputation de frais déjà existante !");
         }
     }
