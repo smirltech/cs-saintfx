@@ -58,12 +58,13 @@
 
 
                             <div class="form-group col-md-12">
-                                <x-form-textarea rows="10"
-                                                 placeholder="Saisir le contenu du devoir"
-                                                 wire:model="devoir.description"
-                                                 label="Contenu du devoir"
-                                                 :isValid="$errors->has('devoir.contenu') ? false : null"
-                                                 error="{{$errors->first('devoir.contenu')}}"/>
+                                <x-form-textarea
+                                    placeholder="Saisir le contenu du devoir"
+                                    wire:model="devoir.description"
+                                    id="ckeditor"
+                                    label="Contenu du devoir"
+                                    :isValid="$errors->has('devoir.contenu') ? false : null"
+                                    error="{{$errors->first('devoir.contenu')}}"/>
 
 
                             </div>
@@ -83,3 +84,4 @@
         </div>
     </div>
 </div>
+

@@ -11,14 +11,22 @@
 @if(isset($label))
     <label class="form-label">{{$label}}</label>
 @endif
-<textarea {{ $disabled ? 'disabled' : '' }} {!! $attributes->merge(['class' => 'form-control'.$classes]) !!}>
-        {{$slot}}
-    </textarea>
+<textarea {{ $disabled ? 'disabled' : '' }} {!! $attributes->merge(['class' => 'form-control ckeditor'.$classes]) !!}>
+    {{$slot}}
+</textarea>
 @if(isset($error))
     <x-form-invalid-feedback>
         {{$error}}
     </x-form-invalid-feedback>
 @endif
+@push('js')
+    <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
+    <script>
+        $(document).ready(function () {
+            CKEDITOR.replace('ckeditor');
+        });
+    </script>
+@endpush
 
 
 
