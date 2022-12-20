@@ -420,7 +420,7 @@ return [
                  ],
              ],
          ],*/
-        ['header' => 'SYSTEME'],
+        ['header' => 'SYSTÊME'],
         [
             'text' => 'Calendrier',
             'url' => 'scolarite/annees',
