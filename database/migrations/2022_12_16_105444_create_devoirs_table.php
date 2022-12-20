@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\DevoirStatus;
 use App\Models\Annee;
 use App\Models\Classe;
 use App\Models\Cours;
@@ -18,7 +19,7 @@ return new class extends Migration {
             $table->string('titre');
             $table->mediumText('contenu')->nullable();
             $table->dateTime('echeance');
-            $table->string('status')->default('pending');
+            $table->string('status')->default(DevoirStatus::draft->name);
             $table->timestamps();
         });
     }
