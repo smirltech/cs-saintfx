@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Enums\UserRole;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -13,21 +12,12 @@ use Illuminate\Support\Str;
 class UserFactory extends Factory
 {
 
-    public function configure()
-    {
-        return $this->afterMaking(function (User $user) {
-            //
-        })->afterCreating(function (User $user) {
-            $user->syncRoles(array_rand(array_column(UserRole::cases(), 'value')));
-        });
-    }
-
     /**
      * Define the model's default state.
      *
      * @return array<string, mixed>
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             'name' => fake()->name(),

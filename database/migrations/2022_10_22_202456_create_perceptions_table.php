@@ -28,7 +28,7 @@ return new class extends Migration {
             $table->timestamps();
             $table->softDeletes();
 
-            $table->unique(["frais_id", "inscription_id", "custom_property", "annee_id"]);
+            $table->unique(['frais_id', 'inscription_id', 'custom_property', 'annee_id']);
         });
     }
 };

@@ -13,7 +13,7 @@
 
         <div class="col-6">
             <ol class="breadcrumb float-right">
-                <li class="breadcrumb-item"><a href="{{ route('home') }}">Accueil</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('finance') }}">Accueil</a></li>
                 <li class="breadcrumb-item active">Élèves</li>
             </ol>
         </div>
@@ -30,7 +30,7 @@
             'ELEVE',
 
             'CLASSE',
-            'MONTANT DU',
+            'MONTANT',
             'PAYE',
             'SOLDE',
              ['label'=>'ECHEANCE', 'width'=>8],
@@ -103,7 +103,8 @@
                                         <td title="{!! $row[8]->format('d-m-Y') !!}">{!!$row[7]<=0?'OK':GraviteRetard::retard($row[8])!!}</td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                <a href="{{route('finance.perceptions.edit', ['perception'=>$row[9]])}}" title="voir"
+                                                <a href="{{route('finance.perceptions.edit', ['perception'=>$row[9]])}}"
+                                                   title="voir"
                                                    class="btn btn-success  ml-2">
                                                     <i class="fas fa-edit"></i>
                                                 </a>

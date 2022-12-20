@@ -10,6 +10,9 @@ use App\Models\Filiere;
 use App\Models\Option;
 use App\Models\Section;
 use App\View\Components\AdminLayout;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
@@ -81,7 +84,7 @@ class ClasseShowComponent extends Component
 
     // ajouter un cours
 
-    public function render()
+    public function render(): Factory|View|Application
     {
         return view('livewire.scolarite.classes.show')
             ->layout(AdminLayout::class, ['title' => 'Détail sur la classe']);

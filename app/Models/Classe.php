@@ -109,7 +109,7 @@ class Classe extends Model
     }
 
     // get enseignant id from classe enseignant pivot table
-    public function getEnseignantIdAttribute(): ?int
+    public function getEnseignantIdAttribute(): ?string
 
     {
         return $this->enseignantsPrimaire->first()?->pivot->enseignant_id;
