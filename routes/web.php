@@ -102,10 +102,6 @@ Route::prefix('scolarite')->middleware(['auth:web'])->as('scolarite.')->group(fu
     Route::get('responsables', Scolarite\Responsable\ResponsableIndexComponent::class)->name('responsables');
 
 
-    //others
-    Route::resource('users', UserController::class);
-    // Route::resource('facultes', FaculteController::class);
-
     Route::get("audits", [AuditController::class, 'index'])->name("audits.index")->can('audits.viewAny');
     Route::get("audits/{audit}", [AuditController::class, 'show'])->name("audits.show")->can('audits.view');
 
