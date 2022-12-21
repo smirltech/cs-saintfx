@@ -21,7 +21,7 @@
     </x-form-invalid-feedback>
 @endif
 @push('js')
-    <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
+    <script src="//cdn.ckeditor.com/4.14.1/{{$ckeditor}}/ckeditor.js"></script>
     <script>
         $(document).ready(function () {
             CKEDITOR.replace('ckeditor');
