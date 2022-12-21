@@ -52,17 +52,17 @@ enum ResultatType: int
         return match ($this) {
             self::p1 => '1e Période',
             self::p2 => '2e Période',
-            self::ex1 => '1e Examen',
+            self::ex1 => 'Examen 1e Trimestre',
             self::t1 => '1e Trimestre',
 
             self::p3 => '3e Période',
             self::p4 => '4e Période',
-            self::ex2 => '2e Examen',
+            self::ex2 => 'Examen 2e Trimestre',
             self::t2 => '2e Trimestre',
 
             self::p5 => '5e Période',
             self::p6 => '6e Période',
-            self::ex3 => '3e Examen',
+            self::ex3 => 'Examen 3e Trimestre',
             self::t3 => '3e Trimestre',
 
             self::tg => 'Total Général',

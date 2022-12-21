@@ -214,7 +214,7 @@
                                                                     <i class="fas fa-clock bg-maroon"></i>
                                                                     <div class="timeline-item">
                                                                             <span class="time"><i
-                                                                                    class="fas fa-clock mr-1"></i>{{$inscription->created_at->format('d-m-Y')}}</span>
+                                                                                    class="fas fa-clock mr-1"></i>{{$lastResultat->created_at->format('d-m-Y')}}</span>
                                                                         <h3 class="timeline-header"><a>{{$mention}}</a>
                                                                             avec {{$lastResultat?->pourcentage}}%</h3>
                                                                         <div style="width: 100%" class="timeline-body ">
