@@ -12,7 +12,7 @@
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('scolarite') }}">Accueil</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('scolarite.devoirs.index') }}">Devoirs</a></li>
-                <li class="breadcrumb-item active">{{$devoir->nom}}</li>
+                <li class="breadcrumb-item active">{{$devoir->titre}}</li>
             </ol>
         </div>
     </div>

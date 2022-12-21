@@ -33,6 +33,12 @@ class Classe extends Model
         return $this->hasMany(Inscription::class)->where('annee_id', Annee::encours()->id);
     }
 
+    // eleves
+    public function eleves(): BelongsToMany
+    {
+        return $this->belongsToMany(Eleve::class, 'inscriptions')->where('annee_id', Annee::encours()->id);
+    }
+
     // full_name
     public function getFullNameAttribute(): string
     {

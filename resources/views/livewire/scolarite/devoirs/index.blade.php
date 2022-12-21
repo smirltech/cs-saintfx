@@ -41,6 +41,7 @@
                                     <th>NO.</th>
                                     <th>TITRE</th>
                                     <th>COURS</th>
+                                    <th>DEPOTS</th>
                                     <th>CLASSE</th>
                                     <th>ECHEANCE</th>
                                     <th>STATUS</th>
@@ -54,6 +55,10 @@
                                         <td>{{ $devoir->titre }}</td>
                                         <td>
                                             {{ $devoir->cours->nom }}
+                                        </td>
+                                        <td>
+                                            {{ $devoir->reponses->count() }}
+                                            / {{ $devoir->classe->eleves->count() }}
                                         </td>
                                         <td>
                                             {{ $devoir->classe->code }}
