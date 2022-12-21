@@ -79,13 +79,11 @@
                                                  :isValid="$errors->has('document') ? false : null"
                                                  error="{{$errors->first('document')}}"/>
                                     <ul class="list-group mt-3">
-                                        @foreach($devoir->media as $document)
+                                        @foreach($devoir->media as $m)
                                             <li class="list-group-item">
-                                                <a title="Voir" href="{{route('media.show', $document)}}"
-                                                   target="_blank">{{$document->filename}}</a>
-                                                |
-                                                <a title="Supprimer" href="{{route('media.show', $document)}}"
-                                                   class=""><i class="fa fa-trash"></i></a>
+                                                <a title="Voir" href="{{route('media.show', $m)}}"
+                                                   target="_blank">{{$m->filename}}</a>
+                                                | <i wire:click="deleteModel({{$m}})" class="fa fa-trash"></i>
                                             </li>
                                         @endforeach
                                     </ul>

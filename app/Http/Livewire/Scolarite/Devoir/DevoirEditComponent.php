@@ -8,6 +8,8 @@ use App\Exceptions\ApplicationAlert;
 use App\Models\Classe;
 use App\Models\Cours;
 use App\Models\Devoir;
+use App\Models\Media;
+use App\Traits\CanDeleteModel;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -19,7 +21,7 @@ use Livewire\WithFileUploads;
 class DevoirEditComponent extends Component
 {
 
-    use ApplicationAlert, WithFileUploads;
+    use ApplicationAlert, WithFileUploads, CanDeleteModel;
 
     public Devoir $devoir;
     public Collection $cours;
@@ -66,6 +68,12 @@ class DevoirEditComponent extends Component
         return view('livewire.scolarite.devoirs.edit');
     }
 
+    public function deleteMedia(Media $media): void
+    {
+        $this->deleteModel(model: $media, successMessage: 'Document supprimé avec succès', failureMessage: 'Erreur lors de la suppression du document');
+    }
+
+    // delete media
 
     protected function rules(): array
     {
@@ -79,4 +87,5 @@ class DevoirEditComponent extends Component
             'document' => ['nullable', 'file', 'max:1024'],
         ];
     }
+
 }
