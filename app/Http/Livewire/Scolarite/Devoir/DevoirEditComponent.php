@@ -39,7 +39,13 @@ class DevoirEditComponent extends Component
 
         $this->devoir->save();
         if ($this->document) {
-            $this->devoir->addMedia(file: $this->document, mediaType: MediaType::devoir);
+            $document = $this->devoir->addMedia(file: $this->document, mediaType: MediaType::devoir);
+
+            if ($document->id) {
+                $this->alert('success', "{$document->filename} a été ajouté avec succès");
+            } else {
+                $this->alert('error', "Une erreur s'est produite lors de l'ajout du document");
+            }
         }
 
         $this->alert('success', 'Cours modifiée avec succès');
@@ -69,6 +75,8 @@ class DevoirEditComponent extends Component
             'devoir.classe_id' => ['required', 'integer'],
             'devoir.cours_id' => ['required', 'integer'],
             'devoir.echeance' => ['required', 'date'],
+            'devoir.' => ['required', 'date'],
+            'document' => ['nullable', 'file', 'max:1024'],
         ];
     }
 }

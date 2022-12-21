@@ -12,12 +12,12 @@ use Illuminate\Support\Facades\Storage;
 trait HasMedia
 {
 
-    public function AddMedia(UploadedFile $file, MediaType $mediaType): void
+    public function AddMedia(UploadedFile $file, MediaType $mediaType): Media
     {
-        $this->upload(file: $file, entity: $this, mediaType: $mediaType);
+        return $this->upload(file: $file, entity: $this, mediaType: $mediaType);
     }
 
-    public function upload(UploadedFile $file, Model $entity, MediaType $mediaType)
+    public function upload(UploadedFile $file, Model $entity, MediaType $mediaType): Media
     {
         return $entity->media()->create([
             'mime_type' => $file->getMimeType(),

@@ -25,7 +25,6 @@
         "tailflow/laravel-orion": "^2.16",
         "pharaonic/laravel-readable": "^1.0",
         "wire-elements/modal": "^1.0",
-        "pharaonic/laravel-readable": "^1.0",
         "ext-http": "*"
     },
     "require-dev": {

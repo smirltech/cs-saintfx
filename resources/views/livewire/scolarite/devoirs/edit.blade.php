@@ -78,6 +78,17 @@
                                                  label="Document du devoir"
                                                  :isValid="$errors->has('document') ? false : null"
                                                  error="{{$errors->first('document')}}"/>
+                                    <ul class="list-group mt-3">
+                                        @foreach($devoir->media as $document)
+                                            <li class="list-group-item">
+                                                <a title="Voir" href="{{route('media.show', $document)}}"
+                                                   target="_blank">{{$document->filename}}</a>
+                                                |
+                                                <a title="Supprimer" href="{{route('media.show', $document)}}"
+                                                   class=""><i class="fa fa-trash"></i></a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary float-end">Soumettre</button>
@@ -118,10 +129,10 @@
                                     <td>
                                         <div class="d-flex float-right">
                                             @if($reponse->document)
-                                                <a href="{{route()}}
+                                                <a href="{{route('media.show', $reponse->document)}}"
                                                    title=" Document"
-                                                class="btn btn-outline-primary  ml-2">
-                                                <i class="fas fa-file"></i>
+                                                   class="btn btn-outline-primary  ml-2">
+                                                    <i class="fas fa-file"></i>
                                                 </a>
                                             @endif
                                             <a href="{{route('scolarite.devoirs.edit',$reponse )}}"
