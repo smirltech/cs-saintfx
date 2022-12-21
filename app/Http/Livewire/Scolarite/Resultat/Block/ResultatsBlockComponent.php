@@ -39,7 +39,11 @@ class ResultatsBlockComponent extends Component
     public function selectResultatType($type)
     {
         $this->resultatType = ResultatType::from($type);
-        $this->resultats = Resultat::with('eleve')->where('annee_id', Annee::id())->orderBy('place')->get();
+        $this->resultats = Resultat::with('eleve')
+            ->where('classe_id', $this->classe->id)
+            ->where('annee_id', Annee::id())
+            ->where('custom_property', $this->resultatType)
+            ->orderBy('place')->get();
         // dd($type);
     }
 

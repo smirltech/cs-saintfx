@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Annee;
+use App\Models\Classe;
 use App\Models\Eleve;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -13,9 +14,10 @@ return new class extends Migration {
             $table->ulid('id')->primary();
             $table->foreignIdFor(Eleve::class)->constrained()->restrictOnDelete();
             $table->foreignIdFor(Annee::class)->constrained()->restrictOnDelete();
+            $table->foreignIdFor(Classe::class)->constrained()->restrictOnDelete();
             $table->string('custom_property')->nullable();
             $table->string('pourcentage')->nullable();
-            $table->string('place')->nullable();
+            $table->integer('place')->nullable();
             $table->timestamps();
         });
     }
