@@ -25,7 +25,7 @@ class DevoirEditComponent extends Component
     public Collection $cours;
     public Collection $classes;
     public UploadedFile|string|null $document = null;
-
+    public ?Collection $reponses;
     protected $messages = [
         'cours.nom.required' => 'Le nom est obligatoire',
         'cours.nom.unique' => 'Le nom existe déjà',
@@ -51,6 +51,7 @@ class DevoirEditComponent extends Component
         $this->devoir = $devoir;
         $this->cours = Cours::all();
         $this->classes = Classe::all();
+        $this->reponses = $devoir->reponses;
     }
 
 

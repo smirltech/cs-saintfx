@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\DevoirStatus;
 use App\Traits\HasMedia;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -38,7 +39,7 @@ class Devoir extends Model
     }
 
     // get devoirEleves relation
-    public function devoirEleves(): HasMany
+    public function devoirReponses(): HasMany
     {
         return $this->hasMany(DevoirReponse::class);
     }
@@ -59,5 +60,11 @@ class Devoir extends Model
     public function getEcheanceDisplayAttribute(): string
     {
         return $this->echeance->diffForHumans();
+    }
+
+    // get reponses attribute
+    public function getReponsesAttribute(): Collection
+    {
+        return $this->devoirReponses;
     }
 }

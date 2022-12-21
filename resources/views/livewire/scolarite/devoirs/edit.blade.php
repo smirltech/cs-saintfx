@@ -21,7 +21,7 @@
 <div class="">
     <div class="content mt-3">
         <div class="row">
-            <div class="col-md-7">
+            <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
                         Devoir
@@ -85,7 +85,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
                         Reponses
@@ -94,45 +94,41 @@
                         <table class="table">
                             <thead>
                             <tr>
-                                <th>NO.</th>
-                                <th>TITRE</th>
-                                <th>COURS</th>
-                                <th>CLASSE</th>
-                                <th>ECHEANCE</th>
+                                <th></th>
+                                <th>ELEVE</th>
+                                <th>DATE</th>
                                 <th>STATUS</th>
                                 <th></th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach ($devoirs as $k=>$devoir)
+                            @foreach ($reponses as $k=>$reponse)
                                 <tr>
-                                    <td>{{ $k+1 }}</td>
-                                    <td>{{ $devoir->titre }}</td>
                                     <td>
-                                        {{ $devoir->cours->nom }}
+                                        <x-avatar src="{{$reponse->eleve->avatar}}"/>
                                     </td>
                                     <td>
-                                        {{ $devoir->classe->code }}
+                                        {{ $reponse->eleve->nom_complet }}
                                     </td>
+                                    <td>{{ $reponse->created_at_display }}</td>
                                     <td>
-                                        {{ $devoir->echeance_display }}
-                                    </td>
-                                    <td>
-                                        {{ $devoir->status?->label() }}
+                                        {{ $reponse->status?->label() }}
                                     </td>
 
                                     <td>
                                         <div class="d-flex float-right">
-                                            <a href="{{route('scolarite.devoirs.edit',$devoir )}}"
+                                            @if($reponse->document)
+                                                <a href="{{route()}}
+                                                   title=" Document"
+                                                class="btn btn-outline-primary  ml-2">
+                                                <i class="fas fa-file"></i>
+                                                </a>
+                                            @endif
+                                            <a href="{{route('scolarite.devoirs.edit',$reponse )}}"
                                                title="modifier"
                                                class="btn btn-outline-info  ml-2">
                                                 <i class="fas fa-eye"></i>
                                             </a>
-
-                                            {{--<button wire:click="deleteCours({{ $devoir->id }})"
-                                                    title="supprimer" class="btn btn-outline-danger ml-2">
-                                                <i class="fas fa-trash"></i>
-                                            </button>--}}
                                         </div>
                                     </td>
                                 </tr>
