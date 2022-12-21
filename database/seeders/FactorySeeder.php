@@ -8,7 +8,7 @@ use App\Models\Cours;
 use App\Models\CoursEnseignant;
 use App\Models\Depense;
 use App\Models\Devoir;
-use App\Models\DevoirEleve;
+use App\Models\DevoirReponse;
 use App\Models\Eleve;
 use App\Models\Enseignant;
 use App\Models\Inscription;
@@ -51,7 +51,7 @@ class FactorySeeder extends Seeder
         Resultat::factory(10)->create();
 
         Devoir::factory(10)->create();
-        DevoirEleve::factory(10)->create();
+        DevoirReponse::factory(10)->create();
 
         # Finance
         Revenu::factory(5)->create();

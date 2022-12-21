@@ -40,7 +40,7 @@ class Devoir extends Model
     // get devoirEleves relation
     public function devoirEleves(): HasMany
     {
-        return $this->hasMany(DevoirEleve::class);
+        return $this->hasMany(DevoirReponse::class);
     }
 
     // cours
