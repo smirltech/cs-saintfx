@@ -57,6 +57,7 @@
                 <th>PLACE</th>
                 <th>ÉLÈVE</th>
                 <th>POURCENT</th>
+                <th>CONDUITE</th>
                 <th></th>
             </tr>
             </thead>
@@ -70,6 +71,7 @@
                     <td>{{$resultat?->place}}</td>
                     <td>{{$inscription->eleve->fullName}}</td>
                     <td>{{$resultat?->pourcentage}}%</td>
+                    <td>{{strtoupper($resultat?->conduite->value)}}</td>
                     <td>
                         <div class="d-flex float-right">
                             <button wire:click="selectInscription('{{$inscription->id }}')"

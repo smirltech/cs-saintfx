@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Scolarite\Resultat\Block;
 
+use App\Enums\Conduite;
 use App\Enums\ResultatType;
 use App\Models\Annee;
 use App\Models\Classe;
@@ -27,6 +28,7 @@ class ResultatsBlockComponent extends Component
     protected $rules = [
         'resultat.pourcentage' => 'required',
         'resultat.place' => 'required',
+        'resultat.conduite' => 'nullable',
     ];
 
     protected $listeners = ['onModalClosed'];
@@ -104,6 +106,7 @@ class ResultatsBlockComponent extends Component
         $this->resultat->annee_id = Annee::id();
         $this->resultat->classe_id = $this->classe->id;
         $this->resultat->inscription_id = $this->inscription->id;
+        //$this->resultat->conduite = Conduite::b->name;
 
         $done = Resultat::updateOrCreate(
             [
@@ -115,6 +118,7 @@ class ResultatsBlockComponent extends Component
             [
                 'pourcentage'=>$this->resultat->pourcentage,
                 'place'=>$this->resultat->place,
+                'conduite'=>$this->resultat->conduite,
             ]
         );
 

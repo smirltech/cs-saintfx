@@ -23,6 +23,17 @@
                     :error="$errors->first('resultat.place')">
                 </x-form-input>
             </div>
+            <div class="form-group col-md-6 col-sm-12">
+                <label for="">Conduite</label>
+                <x-form-select wire:model="resultat.conduite"
+                               class="form-control">
+
+                    @foreach (\App\Enums\Conduite::cases() as $es )
+                        <option value="{{$es->name}}">{{strtoupper($es->name)}}</option>
+                    @endforeach
+                </x-form-select>
+
+            </div>
 
         </div>
 

@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Enums\Conduite;
 use App\Enums\MediaType;
+use App\Enums\ResultatType;
 use App\Traits\HasMedia;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -16,6 +18,10 @@ class Resultat extends Model
     use HasFactory, HasUlids, HasMedia;
 
     public $guarded = [];
+    protected $casts = [
+        'custom_property' => ResultatType::class,
+        'conduite' => Conduite::class,
+    ];
 
     public function inscription()
     {

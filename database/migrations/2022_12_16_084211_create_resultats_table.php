@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\Conduite;
 use App\Models\Annee;
 use App\Models\Classe;
 use App\Models\Inscription;
@@ -18,6 +19,7 @@ return new class extends Migration {
             $table->string('custom_property')->nullable();
             $table->string('pourcentage')->nullable();
             $table->integer('place')->nullable();
+            $table->string('conduite')->nullable()->default(Conduite::b->name);
             $table->timestamps();
         });
     }
