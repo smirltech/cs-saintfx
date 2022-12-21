@@ -7,6 +7,7 @@ use App\Traits\HasMedia;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\UploadedFile;
 
 class Resultat extends Model
@@ -14,6 +15,11 @@ class Resultat extends Model
     use HasFactory, HasUlids, HasMedia;
 
     public $guarded = [];
+
+    public function eleve()
+    {
+        return $this->belongsTo(Eleve::class);
+    }
 
     public function getBulletinAttribute(): ?Media
     {

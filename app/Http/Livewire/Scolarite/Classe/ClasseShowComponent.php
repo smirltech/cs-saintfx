@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Scolarite\Classe;
 
+use App\Enums\ResultatType;
 use App\Models\Annee;
 use App\Models\Classe;
 use App\Models\ClasseEnseignant;
@@ -29,6 +30,7 @@ class ClasseShowComponent extends Component
     public Collection $enseignants;
 
 
+
     public function mount(Classe $classe)
     {
 
@@ -53,6 +55,8 @@ class ClasseShowComponent extends Component
             $this->parent = "Section";
         }
     }
+
+
 
     // hydrate
 
