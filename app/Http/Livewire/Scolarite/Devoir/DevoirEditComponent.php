@@ -41,7 +41,7 @@ class DevoirEditComponent extends Component
 
         $this->devoir->save();
         if ($this->document) {
-            $document = $this->devoir->addMedia(file: $this->document, mediaType: MediaType::devoir);
+            $document = $this->devoir->addMedia(file: $this->document, mediaType: MediaType::document);
 
             if ($document->id) {
                 $this->alert('success', "{$document->filename} a été ajouté avec succès");
@@ -70,7 +70,11 @@ class DevoirEditComponent extends Component
 
     public function deleteMedia(Media $media): void
     {
-        $this->deleteModel(model: $media, successMessage: 'Document supprimé avec succès', failureMessage: 'Erreur lors de la suppression du document');
+        if ($media->delete()) {
+            $this->alert('success', 'Document supprimé avec succès');
+        } else {
+            $this->alert('error', 'Une erreur s\'est produite lors de la suppression du document');
+        }
     }
 
     // delete media
@@ -83,7 +87,6 @@ class DevoirEditComponent extends Component
             'devoir.classe_id' => ['required', 'integer'],
             'devoir.cours_id' => ['required', 'integer'],
             'devoir.echeance' => ['required', 'date'],
-            'devoir.' => ['required', 'date'],
             'document' => ['nullable', 'file', 'max:1024'],
         ];
     }
