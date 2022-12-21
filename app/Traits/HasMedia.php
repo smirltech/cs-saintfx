@@ -8,11 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
-use Livewire\WithFileUploads;
 
 trait HasMedia
 {
-    use WithFileUploads;
 
     public function AddMedia(UploadedFile $file, MediaType $mediaType): void
     {
