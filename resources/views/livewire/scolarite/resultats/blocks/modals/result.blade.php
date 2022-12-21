@@ -4,7 +4,7 @@
     <x-validation-errors class="mb-4" :errors="$errors"/>
     <form id="f1a" wire:submit.prevent="updateResultat">
         <div class="row">
-            <div class="form-group col-md-6 col-sm-12">
+            <div class="form-group col-md-5 col-sm-12">
                 <x-form-input
                     type="number"
                     label="Pourcentage"
@@ -14,7 +14,7 @@
                     :error="$errors->first('resultat.pourcentage')">
                 </x-form-input>
             </div>
-            <div class="form-group col-md-6 col-sm-12">
+            <div class="form-group col-md-3 col-sm-12">
                 <x-form-input
                     type="number"
                     label="Place"
@@ -23,7 +23,7 @@
                     :error="$errors->first('resultat.place')">
                 </x-form-input>
             </div>
-            <div class="form-group col-md-6 col-sm-12">
+            <div class="form-group col-md-4 col-sm-12">
                 <label for="">Conduite</label>
                 <x-form-select wire:model="resultat.conduite"
                                class="form-control">

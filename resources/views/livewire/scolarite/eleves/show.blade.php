@@ -225,6 +225,7 @@
                                                                                         <th scope="col">RÉSULTAT</th>
                                                                                         <th scope="col">POURCENTAGE</th>
                                                                                         <th scope="col">PLACE</th>
+                                                                                        <th scope="col">CONDUITE</th>
                                                                                         <th scope="col"></th>
                                                                                     </tr>
                                                                                     </thead>
@@ -236,6 +237,7 @@
                                                                                                 %
                                                                                             </td>
                                                                                             <td>{{$resultat->place}}</td>
+                                                                                            <td>{{strtoupper($resultat?->conduite?->value)}}</td>
                                                                                             <td>
                                                                                                 <div
                                                                                                     class="d-flex float-right">
