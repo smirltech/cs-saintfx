@@ -39,7 +39,7 @@ class ResultatsBlockComponent extends Component
     public function selectResultatType($type)
     {
         $this->resultatType = ResultatType::from($type);
-        $this->resultats = Resultat::with('eleve')
+        $this->resultats = Resultat::with('inscription')
             ->where('classe_id', $this->classe->id)
             ->where('annee_id', Annee::id())
             ->where('custom_property', $this->resultatType)

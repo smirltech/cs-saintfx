@@ -26,7 +26,7 @@ class ResultatFactory extends Factory
             'place' => $this->faker->numberBetween(1, 10),
             'annee_id' => $this->faker->numberBetween(1, Annee::count()),
             'classe_id' => $inscription->classe_id,
-            'eleve_id' => $inscription->eleve_id,
+            'inscription_id' => $inscription->id,
         ];
     }
 }

@@ -17,9 +17,9 @@ class Resultat extends Model
 
     public $guarded = [];
 
-    public function eleve()
+    public function inscription()
     {
-        return $this->belongsTo(Eleve::class);
+        return $this->belongsTo(Inscription::class);
     }
 
     public function getBulletinAttribute(): ?Media

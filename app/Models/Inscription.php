@@ -53,6 +53,10 @@ class Inscription extends Model
         return $this->belongsTo(Classe::class);
     }
 
+    public function resultats()
+    {
+        return $this->hasMany(Resultat::class);
+    }
 
     public function annee()
     {
