@@ -222,7 +222,7 @@
                                                                            <table class="table">
                                                                                <thead>
                                                                                <tr>
-                                                                                   <th scope="col">PÉRIODE</th>
+                                                                                   <th scope="col">RÉSULTAT</th>
                                                                                    <th scope="col">POURCENTAGE</th>
                                                                                    <th scope="col">PLACE</th>
                                                                                    <th scope="col"></th>
@@ -237,13 +237,12 @@
                                                                                        <td>
                                                                                            <div class="d-flex float-right">
                                                                                                <button type="button"
-                                                                                                       title="Modifier" class="btn btn-info btn-xs  ml-2">
-                                                                                                   <span class="fa fa-pen"></span>
+                                                                                                       title="Téléverser bulletin" class="btn btn-outline-info btn-xs  ml-2">
+                                                                                                   <span class="fa fa-upload"></span>
                                                                                                </button>
-
                                                                                                <button type="button"
-                                                                                                       title="supprimer" class="btn btn-danger btn-xs  ml-2">
-                                                                                                   <span class="fa fa-trash"></span>
+                                                                                                       title="Télécharger bulletin" class="btn btn-outline-info btn-xs  ml-2">
+                                                                                                   <span class="fa fa-download"></span>
                                                                                                </button>
                                                                                            </div>
                                                                                        </td>
@@ -252,6 +251,12 @@
 
                                                                                </tbody>
                                                                            </table>
+                                                                                <div class="d-flex">
+                                                                                    <button type="button"
+                                                                                            title="Ajouter Résultat" class="btn btn-outline-primary btn-xs  ml-2">
+                                                                                        <span class="fa fa-plus"></span>
+                                                                                    </button>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                         {{--<div

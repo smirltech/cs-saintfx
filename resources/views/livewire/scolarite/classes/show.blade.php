@@ -99,6 +99,11 @@
                                        aria-controls="custom-tabs-one-messages" aria-selected="false">Enseignants</a>
                                 </li>
                             @endif
+                                <li class="nav-item">
+                                    <a class="nav-link" id="custom-tabs-one-messages-tab" data-toggle="pill"
+                                       href="#custom-tabs-resultats" role="tab"
+                                       aria-controls="custom-tabs-resultats" aria-selected="false">Résultats</a>
+                                </li>
                         </ul>
                     </div>
 
@@ -203,6 +208,24 @@
                                     </div>
                                 </div>
                             @endif
+                            <div class="tab-pane fade" id="custom-tabs-resultats" role="tabpanel"
+                                 aria-labelledby="custom-tabs-one-resultats">
+                                <div class="card-body p-0 table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>PLACE</th>
+                                            <th>ÉLÈVE</th>
+                                            <th>POURCENT</th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
