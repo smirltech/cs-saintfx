@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->foreignIdFor(Inscription::class)->constrained()->restrictOnDelete();
             $table->foreignIdFor(Annee::class)->constrained()->restrictOnDelete();
             $table->foreignIdFor(Classe::class)->constrained()->restrictOnDelete();
-            $table->string('custom_property')->nullable();
+            $table->integer('custom_property')->nullable()->comment("periodes, examens et autres totaux sont attribués un numéro pour pouvoir les trier en ordre");
             $table->string('pourcentage')->nullable();
             $table->integer('place')->nullable();
             $table->string('conduite')->nullable()->default(Conduite::b->name);

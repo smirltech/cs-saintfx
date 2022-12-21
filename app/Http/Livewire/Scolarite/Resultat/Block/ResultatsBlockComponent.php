@@ -63,6 +63,7 @@ class ResultatsBlockComponent extends Component
 
     public function selectResultatType($type)
     {
+       // dd($type);
         $this->resultatType = ResultatType::from($type);
         $this->resultats = Resultat::with('inscription')
             ->where('classe_id', $this->classe->id)
@@ -102,7 +103,7 @@ class ResultatsBlockComponent extends Component
 
     public function updateResultat(){
         $this->validate();
-        $this->resultat->custom_property = $this->resultatType->name;
+        $this->resultat->custom_property = $this->resultatType->value;
         $this->resultat->annee_id = Annee::id();
         $this->resultat->classe_id = $this->classe->id;
         $this->resultat->inscription_id = $this->inscription->id;

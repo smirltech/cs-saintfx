@@ -3,24 +3,24 @@
 namespace App\Enums;
 
 
-enum ResultatType: string
+enum ResultatType: int
 {
-    case p1 = 'p1';
-    case p2 = 'p2';
-    case ex1 = 'ex1';
-    case t1 = 't1';
+    case p1 = 1;
+    case p2 = 2;
+    case ex1 = 3;
+    case t1 = 4;
 
-    case p3 = 'p3';
-    case p4 = 'p4';
-    case ex2 = 'ex2';
-    case t2 = 't2';
+    case p3 = 5;
+    case p4 = 6;
+    case ex2 = 7;
+    case t2 = 8;
 
-    case p5 = 'p5';
-    case p6 = 'p6';
-    case ex3 = 'ex3';
-    case t3 = 't3';
+    case p5 = 9;
+    case p6 = 10;
+    case ex3 = 11;
+    case t3 = 12;
 
-    case tg = 'tg';
+    case tg = 13;
 
 
 
