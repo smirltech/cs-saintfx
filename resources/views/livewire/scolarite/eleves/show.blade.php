@@ -34,7 +34,7 @@
                             <h3 class="profile-username text-center">{{$eleve->fullName}}</h3>
                             <p class="text-muted text-center">CODE : {{$eleve->code}}</p>
                             <p class="text-muted text-center">CLASSE
-                                : {{$inscription?->classe?->shortCode??'Non encore inscrit !'}}</p>
+                                : <a href="{{route('scolarite.classes.show', [$inscription?->classe])}}">{{$inscription?->classe?->shortCode??'Non encore inscrit !'}}</a> </p>
                             <p class="text-muted text-center">ANNEE SCOLAIRE : {{$annee_courante?->nom??''}}</p>
                         </div>
 
@@ -197,10 +197,10 @@
                                                         <div class="timeline">
                                                             @foreach($eleve->inscriptions as $inscription)
                                                                 @php
-                                                                  $resultats =  $eleve->resultatsOfYear(annee_id:$inscription->annee_id);
-                                                                  $lastResultat = $resultats->last();
-                                                                  $mention = "Pas d'info";
-                                                                  if($lastResultat != null)$mention = $lastResultat?->pourcentage >= 50?'Réussite':'Échec';
+                                                                    $resultats =  $eleve->resultatsOfYear(annee_id:$inscription->annee_id);
+                                                                    $lastResultat = $resultats->last();
+                                                                    $mention = "Pas d'info";
+                                                                    if($lastResultat != null)$mention = $lastResultat?->pourcentage >= 50?'Réussite':'Échec';
                                                                 @endphp
                                                                 <div class="time-label">
                                                                     <span
@@ -214,49 +214,61 @@
                                                                     <i class="fas fa-clock bg-maroon"></i>
                                                                     <div class="timeline-item">
                                                                             <span class="time"><i
-                                                                                    class="fas fa-clock mr-1"></i>{{$inscription->created_at->format('d-m-Y')}}</span>
+                                                                                    class="fas fa-clock mr-1"></i>{{$lastResultat->created_at->format('d-m-Y')}}</span>
                                                                         <h3 class="timeline-header"><a>{{$mention}}</a>
                                                                             avec {{$lastResultat?->pourcentage}}%</h3>
                                                                         <div style="width: 100%" class="timeline-body ">
                                                                             <div class="table-responsive-sm">
-                                                                           <table class="table">
-                                                                               <thead>
-                                                                               <tr>
-                                                                                   <th scope="col">RÉSULTAT</th>
-                                                                                   <th scope="col">POURCENTAGE</th>
-                                                                                   <th scope="col">PLACE</th>
-                                                                                   <th scope="col"></th>
-                                                                               </tr>
-                                                                               </thead>
-                                                                               <tbody>
-                                                                               @foreach($resultats as $resultat)
-                                                                                   <tr>
-                                                                                       <th scope="row">{{$resultat->custom_property}}</th>
-                                                                                       <td>{{$resultat->pourcentage}}%</td>
-                                                                                       <td>{{$resultat->place}}</td>
-                                                                                       <td>
-                                                                                           <div class="d-flex float-right">
-                                                                                               <button type="button"
-                                                                                                       title="Téléverser bulletin" class="btn btn-outline-info btn-xs  ml-2">
-                                                                                                   <span class="fa fa-upload"></span>
-                                                                                               </button>
-                                                                                               <button type="button"
-                                                                                                       title="Télécharger bulletin" class="btn btn-outline-info btn-xs  ml-2">
-                                                                                                   <span class="fa fa-download"></span>
-                                                                                               </button>
-                                                                                           </div>
-                                                                                       </td>
-                                                                                   </tr>
-                                                                               @endforeach
+                                                                                <table class="table">
+                                                                                    <thead>
+                                                                                    <tr>
+                                                                                        <th scope="col">RÉSULTAT</th>
+                                                                                        <th scope="col">POURCENTAGE</th>
+                                                                                        <th scope="col">PLACE</th>
+                                                                                        <th scope="col">CONDUITE</th>
+                                                                                        <th scope="col"></th>
+                                                                                    </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                    @foreach($resultats as $resultat)
+                                                                                        <tr>
+                                                                                            <th scope="row">{{$resultat->custom_property->longLabel()}}</th>
+                                                                                            <td>{{$resultat->pourcentage}}
+                                                                                                %
+                                                                                            </td>
+                                                                                            <td>{{$resultat->place}}</td>
+                                                                                            <td>{{strtoupper($resultat?->conduite?->value)}}</td>
+                                                                                            <td>
+                                                                                                <div
+                                                                                                    class="d-flex float-right">
+                                                                                                 {{--   <button
+                                                                                                        type="button"
+                                                                                                        title="Téléverser bulletin"
+                                                                                                        class="btn btn-outline-info btn-xs  ml-2">
+                                                                                                        <span
+                                                                                                            class="fa fa-upload"></span>
+                                                                                                    </button>--}}
+                                                                                                    <button
+                                                                                                        type="button"
+                                                                                                        title="Télécharger bulletin"
+                                                                                                        class="btn btn-outline-info btn-xs  ml-2">
+                                                                                                        <span
+                                                                                                            class="fa fa-download"></span>
+                                                                                                    </button>
+                                                                                                </div>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    @endforeach
 
-                                                                               </tbody>
-                                                                           </table>
-                                                                                <div class="d-flex">
+                                                                                    </tbody>
+                                                                                </table>
+                                                                               {{-- <div class="d-flex">
                                                                                     <button type="button"
-                                                                                            title="Ajouter Résultat" class="btn btn-outline-primary btn-xs  ml-2">
+                                                                                            title="Ajouter Résultat"
+                                                                                            class="btn btn-outline-primary btn-xs  ml-2">
                                                                                         <span class="fa fa-plus"></span>
                                                                                     </button>
-                                                                                </div>
+                                                                                </div>--}}
                                                                             </div>
                                                                         </div>
                                                                         {{--<div

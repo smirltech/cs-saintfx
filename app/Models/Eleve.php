@@ -51,9 +51,9 @@ class Eleve extends Model
         return $this->hasMany(Inscription::class);
     }
 
-    public function resultats(): HasMany
+    public function resultats(): HasManyThrough
     {
-        return $this->hasMany(Resultat::class)->orderBy('created_at');
+        return $this->hasManyThrough(Resultat::class, Inscription::class)->orderBy('custom_property');
     }
 
     public function resultatsThisYear()

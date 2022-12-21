@@ -1,7 +1,9 @@
 <?php
 
+use App\Enums\Conduite;
 use App\Models\Annee;
-use App\Models\Eleve;
+use App\Models\Classe;
+use App\Models\Inscription;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,11 +13,13 @@ return new class extends Migration {
     {
         Schema::create('resultats', function (Blueprint $table) {
             $table->ulid('id')->primary();
-            $table->foreignIdFor(Eleve::class)->constrained()->restrictOnDelete();
+            $table->foreignIdFor(Inscription::class)->constrained()->restrictOnDelete();
             $table->foreignIdFor(Annee::class)->constrained()->restrictOnDelete();
-            $table->string('custom_property')->nullable();
+            $table->foreignIdFor(Classe::class)->constrained()->restrictOnDelete();
+            $table->integer('custom_property')->nullable()->comment("periodes, examens et autres totaux sont attribués un numéro pour pouvoir les trier en ordre");
             $table->string('pourcentage')->nullable();
-            $table->string('place')->nullable();
+            $table->integer('place')->nullable();
+            $table->string('conduite')->nullable()->default(Conduite::b->name);
             $table->timestamps();
         });
     }

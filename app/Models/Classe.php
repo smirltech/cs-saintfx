@@ -122,10 +122,18 @@ class Classe extends Model
     }
 
     // function primaire
-    public function primaire(): bool
+    public function primaire($strict = false): bool
     {
-        return $this->section->primaire();
+        return $this->section->primaire(strict:$strict);
     }
 
+    public function maternelle(): bool
+    {
+        return $this->section->maternelle();
+    }
 
+    public function secondaire(): bool
+    {
+        return $this->section->secondaire();
+    }
 }

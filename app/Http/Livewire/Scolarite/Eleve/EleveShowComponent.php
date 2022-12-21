@@ -12,7 +12,6 @@ use App\Models\Inscription;
 use App\Models\Option;
 use App\Models\Responsable;
 use App\Models\ResponsableEleve;
-use App\Models\Resultat;
 use App\Models\Section;
 use App\Traits\CanHandleEleveUniqueCode;
 use App\Traits\FakeProfileImage;
