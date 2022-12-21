@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\DevoirReponseStatus;
 use App\Models\Devoir;
 use App\Models\Eleve;
 use Illuminate\Database\Migrations\Migration;
@@ -14,6 +15,7 @@ return new class extends Migration {
             $table->foreignIdFor(Devoir::class)->constrained()->restrictOnDelete();
             $table->foreignIdFor(Eleve::class)->constrained()->restrictOnDelete();
             $table->longText('contenu')->nullable();
+            $table->string('status')->default(DevoirReponseStatus::pending->value);
             $table->timestamps();
         });
     }

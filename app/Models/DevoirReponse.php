@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\DevoirReponseStatus;
 use App\Enums\MediaType;
 use App\Traits\HasMedia;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
@@ -18,6 +19,7 @@ class DevoirReponse extends Model
 
     protected $casts = [
         'created_at' => 'datetime',
+        'status' => DevoirReponseStatus::class,
     ];
 
     public function getDocumentAttribute(): ?Media

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\DevoirReponseStatus;
 use App\Models\Devoir;
 use App\Models\DevoirReponse;
 use App\Models\Eleve;
@@ -20,6 +21,7 @@ class DevoirReponseFactory extends Factory
             'devoir_id' => $this->faker->randomElement(Devoir::pluck('id')->toArray()),
             'eleve_id' => $this->faker->randomElement(Eleve::pluck('id')->toArray()),
             'contenu' => $this->faker->paragraphs(5, true),
+            'status' => $this->faker->randomElement(array_column(DevoirReponseStatus::cases(), 'value'))
         ];
     }
 }
