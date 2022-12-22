@@ -80,18 +80,17 @@
                                         rows="10"
                                         :isValid="$errors->has('devoir.contenu') ? false : null"
                                         error="{{$errors->first('devoir.contenu')}}"/>
-
-
                                 </div>
 
                                 <div class="form-group col-md-12">
-                                    <x-form-file-pdf wire:model.defer="document"
+                                    <x-form-file-pdf wire:model="document"
                                                      label="Document du devoir"
+                                                     target="document"
                                                      :isValid="$errors->has('document') ? false : null"
                                                      error="{{$errors->first('document')}}"/>
                                 </div>
                             </div>
-                            <x-button type="submit" class="btn btn-primary float-end">Soumettre</x-button>
+                            <x-button class="btn-primary float-end">Soumettre</x-button>
                         </form>
                     </div>
                 </div>

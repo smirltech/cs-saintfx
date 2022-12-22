@@ -1,4 +1,4 @@
-@props(['disabled' => false,'isValid','label','error'])
+@props(['disabled' => false,'isValid','label','error','target'])
 @php
     if (isset($isValid )) {
         $classes = ($isValid ===true)
@@ -11,6 +11,7 @@
 @include('components.form-label')
 <input accept="application/pdf"
        type="file" {{ $disabled ? 'disabled' : '' }} {!! $attributes->merge(['class' => 'form-control'.$classes]) !!}>
+<div class="valid-feedback" wire:loading wire:target="{{$target}}">Telechargement en cours...</div>
 @if(isset($error))
     <x-form-invalid-feedback>
         {{$error}}

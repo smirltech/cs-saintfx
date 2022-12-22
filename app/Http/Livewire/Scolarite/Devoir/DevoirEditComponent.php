@@ -28,6 +28,8 @@ class DevoirEditComponent extends Component
     public TemporaryUploadedFile|string|null $document = null;
     public $documents = [];
     public ?Collection $reponses;
+
+
     protected $messages = [
         'devoir.titre.required' => 'Le titre est obligatoire',
         'devoir.contenu.required' => 'Le contenu est obligatoire',
@@ -45,7 +47,6 @@ class DevoirEditComponent extends Component
         if ($this->document) {
             $this->devoir->addMedia(file: $this->document, mediaType: MediaType::document);
         }
-        dd($this->document);
 
         $this->alert('success', 'Cours modifiée avec succès');
     }
