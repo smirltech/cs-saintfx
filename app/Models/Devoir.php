@@ -15,12 +15,21 @@ class Devoir extends Model
 {
     use HasFactory, HasUlids, HasMedia;
 
+    // set annee on create in not set in boot
     public $guarded = [];
-
     protected $casts = [
         //'echeance' => 'date',
         'status' => DevoirStatus::class,
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function (Devoir $model) {
+            $model->annee_id = $model->annee_id ?? Annee::id();
+        });
+    }
 
     public function getDocumentAttribute(): ?Media
     {

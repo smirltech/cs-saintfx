@@ -67,7 +67,7 @@
                                 <div class="form-group col-md-12">
                                     <x-form-textarea
                                         placeholder="Saisir le contenu du devoir"
-                                        wire:model.defer="devoir.description"
+                                        wire:model.defer="devoir.contenu"
                                         label="Contenu du devoir"
                                         ckeditor="basic"
                                         :isValid="$errors->has('devoir.contenu') ? false : null"

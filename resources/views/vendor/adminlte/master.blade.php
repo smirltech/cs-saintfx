@@ -50,8 +50,6 @@
         @endif
     @endif
 
-    {{-- Custom Stylesheets (post AdminLTE) --}}
-    @yield('adminlte_css')
 
     {{-- Favicon --}}
     @if(config('adminlte.use_ico_only'))
