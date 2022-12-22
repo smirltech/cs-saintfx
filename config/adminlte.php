@@ -309,7 +309,7 @@ return [
         [
             'text' => 'Classes',
 
-            'icon' => 'fas fa-fw fa-people-roof',
+            'icon' => 'fas fa-fw fa-school',
             'submenu' => [
                 [
                     'text' => 'Liste des classes',
@@ -329,12 +329,12 @@ return [
                     'url' => 'scolarite/devoirs',
                     'shift' => 'ml-3',
                 ],
-              /*  [
-                    'text' => 'Résultats',
-                    'icon' => 'fas fa-fw fa-percent',
-                    'url' => 'scolarite/resultats',
-                    'shift' => 'ml-3',
-                ],*/
+                /*  [
+                      'text' => 'Résultats',
+                      'icon' => 'fas fa-fw fa-percent',
+                      'url' => 'scolarite/resultats',
+                      'shift' => 'ml-3',
+                  ],*/
                 [
                     'text' => 'Enseignants',
                     'icon' => 'fas fa-fw fa-chalkboard-teacher',
