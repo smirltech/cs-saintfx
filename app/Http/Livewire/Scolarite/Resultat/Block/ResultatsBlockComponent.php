@@ -20,10 +20,11 @@ class ResultatsBlockComponent extends Component
 
     public Classe $classe;
     public $inscriptions = [];
-    public $resultats = [];
+    //public $resultats = [];
     public Resultat $resultat;
     public Inscription $inscription;
     public ResultatType $resultatType;
+    public  $resultatTypeValue;
 
     protected $rules = [
         'resultat.pourcentage' => 'required',
@@ -35,6 +36,9 @@ class ResultatsBlockComponent extends Component
 
     public function mount(Classe $classe)
     {
+        $this->resultatTypeValue = ResultatType::p1->value;
+        //$this->resultatType = ResultatType::p1;
+        $this->selectResultatType();
         $this->classe = $classe;
         $this->initResultat();
         $this->initInscription();
@@ -58,19 +62,21 @@ class ResultatsBlockComponent extends Component
 
     public function loadData()
     {
-        $this->inscriptions = $this->classe->inscriptions;
+        // TODO: find a way of sorting the inscriptions as per place of result of selected ResultType
+        $this->inscriptions = $this->classe->inscriptionsAsOfPlaceOfResultats($this->resultatType);
     }
 
-    public function selectResultatType($type)
+    public function selectResultatType()
     {
        // dd($type);
-        $this->resultatType = ResultatType::from($type);
-        $this->resultats = Resultat::with('inscription')
+        $this->resultatType = ResultatType::from($this->resultatTypeValue);
+        /*$this->resultats = Resultat::with('inscription')
             ->where('classe_id', $this->classe->id)
             ->where('annee_id', Annee::id())
             ->where('custom_property', $this->resultatType)
-            ->orderBy('place')->get();
+            ->orderBy('place')->get();*/
         // dd($type);
+        $this->loadData();
     }
 
     public function selectInscription($id)
@@ -129,5 +135,11 @@ class ResultatsBlockComponent extends Component
         } else {
             $this->alert('warning', "Echec de modification de résultat !");
         }
+    }
+
+    public function printIt()
+    {
+        $this->loadData();
+        $this->dispatchBrowserEvent('printIt', ['elementId' => "resultatsPrint", 'type' => 'html', 'maxWidth' => '100%']);
     }
 }
