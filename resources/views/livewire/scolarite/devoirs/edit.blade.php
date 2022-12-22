@@ -24,13 +24,21 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        Devoir
+                        <div class="row">
+                            <div class="col-6">
+                                <span class="ms-3">Devoir</span>
+                            </div>
+
+                            <div class="col-6">
+                                <x-button class="float-right">
+                                    <i class="fa fa-trash-alt text-red"></i>
+                                </x-button>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-body">
                         <form wire:submit.prevent="submit">
                             <div class="row">
-
-
                                 <div class="form-group col-md-4">
                                     <x-form-select required
                                                    wire:model="devoir.classe_id"
@@ -91,9 +99,15 @@
                                     <ol class="list-group mt-3">
                                         @foreach($devoir->media as $m)
                                             <li class="list-group-item">
-                                                <a title="Voir" href="{{route('media.show', $m)}}"
+                                                <a class="" title="Voir"
+                                                   href="{{route('media.show', $m)}}"
                                                    target="_blank">{{$m->filename}}</a>
-                                                | <i wire:click="deleteMedia('{{$m->id}}')" class="fa fa-trash"></i>
+                                                |
+                                                <button class="btn btn-sm btn-outline-danger">
+                                                    <i wire:click="deleteMedia('{{$m->id}}')"
+                                                       class="fa fa-minus"></i>
+                                                </button>
+
                                             </li>
                                         @endforeach
                                     </ol>
