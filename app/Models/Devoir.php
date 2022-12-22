@@ -3,25 +3,34 @@
 namespace App\Models;
 
 use App\Enums\DevoirStatus;
-use App\Enums\MediaType;
 use App\Traits\HasMedia;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Http\UploadedFile;
 
 class Devoir extends Model
 {
     use HasFactory, HasUlids, HasMedia;
 
+    // set annee on create in not set in boot
     public $guarded = [];
-
     protected $casts = [
-        'echeance' => 'datetime',
+        //'echeance' => 'date',
         'status' => DevoirStatus::class,
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function (Devoir $model) {
+            $model->annee_id = $model->annee_id ?? Annee::id();
+        });
+    }
 
     public function getDocumentAttribute(): ?Media
     {
@@ -39,15 +48,10 @@ class Devoir extends Model
         return $this->getFirstMediaUrl();
     }
 
-    public function setDocumentUrlAttribute(UploadedFile $file): void
-    {
-        $this->upload(file: $file, entity: $this, mediaType: MediaType::devoir);
-    }
-
     // get devoirEleves relation
-    public function devoirEleves(): HasMany
+    public function devoirReponses(): HasMany
     {
-        return $this->hasMany(DevoirEleve::class);
+        return $this->hasMany(DevoirReponse::class);
     }
 
     // cours
@@ -65,6 +69,17 @@ class Devoir extends Model
     // display echeance
     public function getEcheanceDisplayAttribute(): string
     {
-        return $this->echeance->diffForHumans();
+        return Carbon::parse($this->getEcheanceAttribute())->diffForHumans();
+    }
+
+    public function getEcheanceAttribute($value = null): string
+    {
+        return Carbon::parse($value)->format('Y-m-d');
+    }
+
+    // get reponses attribute
+    public function getReponsesAttribute(): Collection
+    {
+        return $this->devoirReponses;
     }
 }

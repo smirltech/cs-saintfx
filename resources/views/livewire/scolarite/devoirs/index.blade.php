@@ -40,7 +40,8 @@
                                 <tr>
                                     <th>NO.</th>
                                     <th>TITRE</th>
-                                    <th>CONTENU</th>
+                                    <th>COURS</th>
+                                    <th>DEPOTS</th>
                                     <th>CLASSE</th>
                                     <th>ECHEANCE</th>
                                     <th>STATUS</th>
@@ -53,7 +54,11 @@
                                         <td>{{ $k+1 }}</td>
                                         <td>{{ $devoir->titre }}</td>
                                         <td>
-                                            {{ $devoir->contenu }}
+                                            {{ $devoir->cours->nom }}
+                                        </td>
+                                        <td>
+                                            {{ $devoir->reponses->count() }}
+                                            / {{ $devoir->classe->eleves->count() }}
                                         </td>
                                         <td>
                                             {{ $devoir->classe->code }}

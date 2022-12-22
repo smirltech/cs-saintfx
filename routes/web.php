@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin;
 use App\Http\Controllers\Admin\AuditController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\OtpController;
+use App\Http\Controllers\MediaController;
 use App\Http\Livewire\Finance;
 use App\Http\Livewire\MainDashboardComponent;
 use App\Http\Livewire\Scolarite;
@@ -20,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('media/{media}', [MediaController::class, 'show'])->name('media.show');
 
 Route::get('/', MainDashboardComponent::class)->name('home')->middleware('auth');
 

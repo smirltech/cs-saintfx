@@ -2,34 +2,26 @@
 
 namespace Database\Factories;
 
+use App\Enums\DevoirReponseStatus;
 use App\Models\Devoir;
-use App\Models\DevoirEleve;
+use App\Models\DevoirReponse;
 use App\Models\Eleve;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<DevoirEleve>
+ * @extends Factory<DevoirReponse>
  */
-class DevoirEleveFactory extends Factory
+class DevoirReponseFactory extends Factory
 {
-    protected $model = DevoirEleve::class;
+    protected $model = DevoirReponse::class;
 
-
-    /*id         varchar not null
-    primary key,
-    devoir_id  integer not null
-    references devoirs
-    on delete restrict,
-    eleve_id   varchar not null
-    references eleves
-    on delete restrict,
-    contenu    text,*/
     public function definition(): array
     {
         return [
             'devoir_id' => $this->faker->randomElement(Devoir::pluck('id')->toArray()),
             'eleve_id' => $this->faker->randomElement(Eleve::pluck('id')->toArray()),
             'contenu' => $this->faker->paragraphs(5, true),
+            'status' => $this->faker->randomElement(array_column(DevoirReponseStatus::cases(), 'value'))
         ];
     }
 }

@@ -8,9 +8,7 @@
         $classes = '';
     }
 @endphp
-@if(isset($label))
-    <label class="form-label">{{$label}}</label>
-@endif
+@include('components.form-label')
 <textarea
     @if($ckeditor) id="ckeditor" @endif {{ $disabled ? 'disabled' : '' }} {!! $attributes->merge(['class' => 'form-control'.$classes]) !!}>
 {{$slot}}
@@ -20,14 +18,16 @@
         {{$error}}
     </x-form-invalid-feedback>
 @endif
-@push('js')
-    <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
-    <script>
-        $(document).ready(function () {
-            CKEDITOR.replace('ckeditor');
-        });
-    </script>
-@endpush
+@if($ckeditor)
+    @push('js')
+        <script src="//cdn.ckeditor.com/4.14.1/{{$ckeditor}}/ckeditor.js"></script>
+        <script>
+            $(document).ready(function () {
+                CKEDITOR.replace('ckeditor');
+            });
+        </script>
+    @endpush
+@endif
 
 
 

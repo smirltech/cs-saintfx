@@ -9,15 +9,11 @@
     }
 @endphp
 @include('components.form-label')
-<select {{ $disabled ? 'disabled' : '' }} {!! $attributes->merge(['class' => 'form-control'.$classes]) !!}>
-    <option value="">-- Sélectionner --</option>
-    {{$slot}}
-</select>
+<input type="file" {{ $disabled ? 'disabled' : '' }} {!! $attributes->merge(['class' => 'form-control'.$classes]) !!}>
 @if(isset($error))
     <x-form-invalid-feedback>
         {{$error}}
     </x-form-invalid-feedback>
 @endif
-
 
 

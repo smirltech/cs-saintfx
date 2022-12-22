@@ -34,7 +34,6 @@
 
         {{-- Configured Stylesheets --}}
         @include('adminlte::plugins', ['type' => 'css'])
-
         <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/adminlte.css') }}">
         <link rel="stylesheet"
               href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
@@ -51,8 +50,6 @@
         @endif
     @endif
 
-    {{-- Custom Stylesheets (post AdminLTE) --}}
-    @yield('adminlte_css')
 
     {{-- Favicon --}}
     @if(config('adminlte.use_ico_only'))
@@ -141,11 +138,13 @@
 {{-- Custom Scripts --}}
 @yield('adminlte_js')
 
-@if(!app()->isProduction())
-    <script id="__bs_script__">//<![CDATA[
+{{--@if(!app()->isProduction())
+    <script id="__bs_script__">
+        //<![CDATA[
         document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.2.11.2.js'><\/script>".replace("HOST", location.hostname));
-        //]]></script>
-@endif
+        //]]>
+    </script>
+@endif--}}
 
 </body>
 

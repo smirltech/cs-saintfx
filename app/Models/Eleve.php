@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Eleve extends Model
 {
@@ -68,9 +69,14 @@ class Eleve extends Model
 
     // full_name
 
-    public function currentInscription()
+    public function currentInscription(): Inscription
     {
         return Inscription::where(['eleve_id' => $this->id, 'annee_id' => Annee::encours()->id])->first();
+    }
+
+    public function getNomCompletAttribute(): string
+    {
+        return $this->getFullNameAttribute();
     }
 
     public function getFullNameAttribute(): string
@@ -78,7 +84,7 @@ class Eleve extends Model
         return "{$this->nom} {$this->postnom} {$this->prenom}";
     }
 
-    public function responsable_eleve()
+    public function responsable_eleve(): HasOne
     {
         return $this->hasOne(ResponsableEleve::class);
     }
@@ -96,7 +102,7 @@ class Eleve extends Model
     }
 
 
-    public function getAvatarAttribute()
+    public function getAvatarAttribute(): string
     {
         return Helpers::fetchAvatar($this->full_name);
     }

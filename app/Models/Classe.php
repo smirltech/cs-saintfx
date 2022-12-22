@@ -6,6 +6,7 @@ use App\Enums\ClasseGrade;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Classe extends Model
@@ -28,9 +29,15 @@ class Classe extends Model
         return $this->morphTo();
     }
 
-    public function inscriptions()
+    public function inscriptions(): HasMany
     {
         return $this->hasMany(Inscription::class)->where('annee_id', Annee::encours()->id);
+    }
+
+    // eleves
+    public function eleves(): BelongsToMany
+    {
+        return $this->belongsToMany(Eleve::class, 'inscriptions')->where('annee_id', Annee::encours()->id);
     }
 
     // full_name
