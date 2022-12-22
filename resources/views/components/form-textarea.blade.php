@@ -8,9 +8,7 @@
         $classes = '';
     }
 @endphp
-@if(isset($label))
-    <label class="form-label">{{$label}}</label>
-@endif
+@include('components.form-label')
 <textarea
     @if($ckeditor) id="ckeditor" @endif {{ $disabled ? 'disabled' : '' }} {!! $attributes->merge(['class' => 'form-control'.$classes]) !!}>
 {{$slot}}

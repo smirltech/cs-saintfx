@@ -29,12 +29,16 @@
 
 
                                 <div class="form-group col-md-4">
-                                    <x-form-select required wire:model.defer="devoir.classe_id"
+                                    <x-form-select required
+                                                   wire:model="devoir.classe_id"
                                                    label="Classe"
                                                    :isValid="$errors->has('devoir.classe_id') ? false : null"
                                                    error="{{$errors->first('devoir.classe_id')}}">
                                         @foreach($classes as $classe)
-                                            <option value="{{$classe->id}}">{{$classe->code}}</option>
+                                            <option
+                                                value="{{$classe->id}}">
+                                                {{$classe->code}}
+                                            </option>
                                         @endforeach
                                     </x-form-select>
                                 </div>
@@ -70,7 +74,7 @@
                                         placeholder="Saisir le contenu du devoir"
                                         wire:model.defer="devoir.contenu"
                                         label="Contenu du devoir"
-                                        ckeditor="basic"
+                                        rows="10"
                                         :isValid="$errors->has('devoir.contenu') ? false : null"
                                         error="{{$errors->first('devoir.contenu')}}"/>
 

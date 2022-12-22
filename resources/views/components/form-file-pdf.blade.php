@@ -8,9 +8,7 @@
         $classes = '';
     }
 @endphp
-@if(isset($label))
-    <label class="form-label">{{$label}}</label>
-@endif
+@include('components.form-label')
 <input accept="application/pdf"
        type="file" {{ $disabled ? 'disabled' : '' }} {!! $attributes->merge(['class' => 'form-control'.$classes]) !!}>
 @if(isset($error))

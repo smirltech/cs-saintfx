@@ -6,7 +6,6 @@ namespace App\Http\Livewire\Scolarite\Devoir;
 use App\Enums\MediaType;
 use App\Exceptions\ApplicationAlert;
 use App\Models\Classe;
-use App\Models\Cours;
 use App\Models\Devoir;
 use App\Traits\CanDeleteModel;
 use Illuminate\Contracts\Foundation\Application;
@@ -14,7 +13,6 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;
-use JetBrains\PhpStorm\NoReturn;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -24,7 +22,7 @@ class DevoirCreateComponent extends Component
     use ApplicationAlert, WithFileUploads, CanDeleteModel;
 
     public Devoir $devoir;
-    public Collection $cours;
+    public Collection|array $cours = [];
     public Collection $classes;
     public UploadedFile|string|null $document = null;
 
@@ -37,7 +35,7 @@ class DevoirCreateComponent extends Component
         'document.max' => 'Le fichier ne doit pas dépasser 2Mo',
     ];
 
-    #[NoReturn] public function submit()
+    public function submit(): void
     {
         $this->validate();
 
@@ -58,11 +56,18 @@ class DevoirCreateComponent extends Component
     public function mount()
     {
         $this->devoir = new Devoir();
-        $this->cours = Cours::all();
-        $this->classes = Classe::all();
+        $this->classes = Classe::has('cours')->get();
     }
 
     // delete media
+
+    public function updatedDevoirClasseId($value): void
+    {
+        $classe = Classe::find($value);
+        $this->cours = $classe->cours;
+    }
+
+    // on classe change
 
     protected function rules(): array
     {
@@ -75,5 +80,6 @@ class DevoirCreateComponent extends Component
             'document' => ['nullable', 'file', 'mimes:pdf', 'max:2048'],
         ];
     }
+
 
 }

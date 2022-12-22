@@ -8,9 +8,7 @@
         $classes = '';
     }
 @endphp
-@if(isset($label))
-    <label class="form-label">{{$label}}</label>
-@endif
+@include('components.form-label')
 <input type="file" {{ $disabled ? 'disabled' : '' }} {!! $attributes->merge(['class' => 'form-control'.$classes]) !!}>
 @if(isset($error))
     <x-form-invalid-feedback>
