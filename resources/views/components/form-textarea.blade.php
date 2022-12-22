@@ -18,14 +18,16 @@
         {{$error}}
     </x-form-invalid-feedback>
 @endif
-@push('js')
-    <script src="//cdn.ckeditor.com/4.14.1/{{$ckeditor}}/ckeditor.js"></script>
-    <script>
-        $(document).ready(function () {
-            CKEDITOR.replace('ckeditor');
-        });
-    </script>
-@endpush
+@if($ckeditor)
+    @push('js')
+        <script src="//cdn.ckeditor.com/4.14.1/{{$ckeditor}}/ckeditor.js"></script>
+        <script>
+            $(document).ready(function () {
+                CKEDITOR.replace('ckeditor');
+            });
+        </script>
+    @endpush
+@endif
 
 
 

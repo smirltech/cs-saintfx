@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\DevoirStatus;
 use App\Traits\HasMedia;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,7 +19,7 @@ class Devoir extends Model
     // set annee on create in not set in boot
     public $guarded = [];
     protected $casts = [
-        'echeance' => 'date',
+        //'echeance' => 'date',
         'status' => DevoirStatus::class,
     ];
 
@@ -68,7 +69,12 @@ class Devoir extends Model
     // display echeance
     public function getEcheanceDisplayAttribute(): string
     {
-        return $this->echeance->diffForHumans();
+        return Carbon::parse($this->getEcheanceAttribute())->diffForHumans();
+    }
+
+    public function getEcheanceAttribute($value): string
+    {
+        return Carbon::parse($value)->format('Y-m-d');
     }
 
     // get reponses attribute

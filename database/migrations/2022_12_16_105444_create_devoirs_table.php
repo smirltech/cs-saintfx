@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->foreignIdFor(Annee::class)->constrained()->restrictOnDelete();
             $table->string('titre');
             $table->mediumText('contenu')->nullable();
-            $table->dateTime('echeance');
+            $table->date('echeance');
             $table->string('status')->default(DevoirStatus::draft->name);
             $table->timestamps();
         });

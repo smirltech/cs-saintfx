@@ -85,13 +85,13 @@
                                 </div>
 
                                 <div class="form-group col-md-12">
-                                    <x-form-file-pdf required wire:model.defer="document"
+                                    <x-form-file-pdf wire:model.defer="document"
                                                      label="Document du devoir"
                                                      :isValid="$errors->has('document') ? false : null"
                                                      error="{{$errors->first('document')}}"/>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary float-end">Soumettre</button>
+                            <x-button type="submit" class="btn btn-primary float-end">Soumettre</x-button>
                         </form>
                     </div>
                 </div>

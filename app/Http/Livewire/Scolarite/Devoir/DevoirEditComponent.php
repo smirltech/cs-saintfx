@@ -6,7 +6,6 @@ namespace App\Http\Livewire\Scolarite\Devoir;
 use App\Enums\MediaType;
 use App\Exceptions\ApplicationAlert;
 use App\Models\Classe;
-use App\Models\Cours;
 use App\Models\Devoir;
 use App\Models\Media;
 use App\Traits\CanDeleteModel;
@@ -14,8 +13,8 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Http\UploadedFile;
 use Livewire\Component;
+use Livewire\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
 
 class DevoirEditComponent extends Component
@@ -24,9 +23,9 @@ class DevoirEditComponent extends Component
     use ApplicationAlert, WithFileUploads, CanDeleteModel;
 
     public Devoir $devoir;
-    public Collection $cours;
+    public Collection|array $cours = [];
     public Collection $classes;
-    public UploadedFile|string|null $document = null;
+    public TemporaryUploadedFile|string|null $document = null;
     public $documents = [];
     public ?Collection $reponses;
     protected $messages = [
@@ -35,6 +34,7 @@ class DevoirEditComponent extends Component
         'devoir.echeance.required' => 'L\'échéance est obligatoire',
         'devoir.cours_id.required' => 'Le cours est obligatoire',
         'devoir.classes_id.required' => 'La classe est obligatoire',
+        'document.max' => 'Le fichier ne doit pas dépasser 2Mo',
     ];
 
     public function submit()
@@ -43,14 +43,9 @@ class DevoirEditComponent extends Component
 
         $this->devoir->save();
         if ($this->document) {
-            $document = $this->devoir->addMedia(file: $this->document, mediaType: MediaType::document);
-
-            if ($document->id) {
-                $this->alert('success', "{$document->filename} a été ajouté avec succès");
-            } else {
-                $this->alert('error', "Une erreur s'est produite lors de l'ajout du document");
-            }
+            $this->devoir->addMedia(file: $this->document, mediaType: MediaType::document);
         }
+        dd($this->document);
 
         $this->alert('success', 'Cours modifiée avec succès');
     }
@@ -64,6 +59,12 @@ class DevoirEditComponent extends Component
         }
     }
 
+    public function updatedDevoirClasseId($value): void
+    {
+        $classe = Classe::find($value);
+        $this->cours = $classe->cours;
+    }
+
     public function render(): Factory|View|Application
     {
         return view('livewire.scolarite.devoirs.edit');
@@ -72,9 +73,9 @@ class DevoirEditComponent extends Component
     public function mount(Devoir $devoir)
     {
         $this->devoir = $devoir;
-        $this->cours = Cours::all();
-        $this->classes = Classe::all();
+        $this->classes = Classe::has('cours')->get();
         $this->reponses = $devoir->reponses;
+        $this->cours = $this->devoir->classe->cours;
     }
 
     // delete media
@@ -87,7 +88,7 @@ class DevoirEditComponent extends Component
             'devoir.classe_id' => ['required', 'integer'],
             'devoir.cours_id' => ['required', 'integer'],
             'devoir.echeance' => ['required', 'date'],
-            //  'document' => ['nullable', 'file', 'mimes:pdf', 'max:1024'],
+            'document' => ['nullable', 'file', 'mimes:pdf', 'max:2048'],
         ];
     }
 

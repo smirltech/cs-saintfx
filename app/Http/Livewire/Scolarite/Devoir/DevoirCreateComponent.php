@@ -44,7 +44,7 @@ class DevoirCreateComponent extends Component
             $this->devoir->addMedia(file: $this->document, mediaType: MediaType::document);
         }
 
-        $this->alert('success', 'Devoir créé avec succès');
+        $this->flash('success', 'Devoir créé avec succès', [], route('scolarite.devoirs.index'));
     }
 
     public function render(): Factory|View|Application
