@@ -42,7 +42,7 @@ class ResultatsBlockComponent extends Component
         $this->classe = $classe;
         $this->initResultat();
         $this->initInscription();
-        $this->loadData();
+       // $this->loadData();
 
     }
 
@@ -62,21 +62,13 @@ class ResultatsBlockComponent extends Component
 
     public function loadData()
     {
-        // TODO: find a way of sorting the inscriptions as per place of result of selected ResultType
         $this->inscriptions = $this->classe->inscriptionsAsOfPlaceOfResultats($this->resultatType);
     }
 
     public function selectResultatType()
     {
-       // dd($type);
         $this->resultatType = ResultatType::from($this->resultatTypeValue);
-        /*$this->resultats = Resultat::with('inscription')
-            ->where('classe_id', $this->classe->id)
-            ->where('annee_id', Annee::id())
-            ->where('custom_property', $this->resultatType)
-            ->orderBy('place')->get();*/
-        // dd($type);
-        $this->loadData();
+      //  $this->loadData();
     }
 
     public function selectInscription($id)
@@ -88,11 +80,12 @@ class ResultatsBlockComponent extends Component
         }else{
             $this->initResultat();
         }
+      //  $this->loadData();
     }
 
     public function render()
     {
-
+        $this->loadData();
         return view('livewire.scolarite.resultats.blocks.resultatsBlock');
     }
 
