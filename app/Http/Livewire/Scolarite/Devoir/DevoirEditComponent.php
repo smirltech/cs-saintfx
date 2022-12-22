@@ -47,13 +47,20 @@ class DevoirEditComponent extends Component
         if ($this->document) {
             $this->devoir->addMedia(file: $this->document, mediaType: MediaType::document);
         }
-
+        $this->refreshData();
         $this->alert('success', 'Cours modifiée avec succès');
+    }
+
+    private function refreshData()
+    {
+        $this->devoir->refresh();
+        $this->reponses = $this->devoir->reponses;
     }
 
     public function deleteMedia(Media $media): void
     {
         if ($media->delete()) {
+            $this->refreshData();
             $this->alert('success', 'Document supprimé avec succès');
         } else {
             $this->alert('error', 'Une erreur s\'est produite lors de la suppression du document');
@@ -71,6 +78,8 @@ class DevoirEditComponent extends Component
         return view('livewire.scolarite.devoirs.edit');
     }
 
+    // delete media
+
     public function mount(Devoir $devoir)
     {
         $this->devoir = $devoir;
@@ -78,8 +87,6 @@ class DevoirEditComponent extends Component
         $this->reponses = $devoir->reponses;
         $this->cours = $this->devoir->classe->cours;
     }
-
-    // delete media
 
     protected function rules(): array
     {
