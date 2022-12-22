@@ -18,7 +18,7 @@ class Devoir extends Model
     public $guarded = [];
 
     protected $casts = [
-        'echeance' => 'datetime',
+        //'echeance' => 'date',
         'status' => DevoirStatus::class,
     ];
 
