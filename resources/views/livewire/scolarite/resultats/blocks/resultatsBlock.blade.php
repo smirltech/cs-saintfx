@@ -4,8 +4,11 @@
 
 <div>
     @include('livewire.scolarite.resultats.blocks.modals.result')
-    <div class="form-group">
-        <label for="">Résultat de :</label>
+    @include('livewire.scolarite.resultats.blocks.modals.printable')
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Résultats de : </span>
+        </div>
         <x-form-select wire:change="selectResultatType" wire:model="resultatTypeValue"
                        class="form-control">
             @if(!$classe->maternelle())
@@ -33,55 +36,11 @@
             @endif
                 <option value="{{ResultatType::tg->value}}">{{ResultatType::tg->longLabel()}}</option>
         </x-form-select>
-
-    </div>
-   {{-- <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
-        <div class="btn-group mr-1" role="group" aria-label="first term">
-            @if(!$classe->maternelle())
-                <button wire:click="selectResultatType('{{ResultatType::p1->value }}')"
-                        class="btn btn-secondary btn-xs">{{ResultatType::p1->label()}}</button>
-                <button wire:click="selectResultatType('{{ResultatType::p2->value }}')" type="button"
-                        class="btn btn-secondary btn-xs">{{ResultatType::p2->label()}}</button>
-                <button wire:click="selectResultatType('{{ResultatType::ex1->value }}')" type="button"
-                        class="btn btn-secondary btn-xs">{{ResultatType::ex1->label()}}</button>
-            @endif
-            <button wire:click="selectResultatType('{{ResultatType::t1->value }}')" type="button"
-                    class="btn btn-secondary btn-xs">{{ResultatType::t1->label()}}</button>
-        </div>
-        <div class="btn-group mr-1" role="group" aria-label="second term">
-            @if(!$classe->maternelle())
-                <button wire:click="selectResultatType('{{ResultatType::p3->value }}')" type="button"
-                        class="btn btn-secondary btn-xs">{{ResultatType::p3->label()}}</button>
-                <button wire:click="selectResultatType('{{ResultatType::p4->value }}')" type="button"
-                        class="btn btn-secondary btn-xs">{{ResultatType::p4->label()}}</button>
-                <button wire:click="selectResultatType('{{ResultatType::ex2->value }}')" type="button"
-                        class="btn btn-secondary btn-xs">{{ResultatType::ex2->label()}}</button>
-            @endif
-            <button wire:click="selectResultatType('{{ResultatType::t2->value }}')" type="button"
-                    class="btn btn-secondary btn-xs">{{ResultatType::t2->label()}}</button>
-        </div>
-        @if($classe->primaire())
-
-            <div class="btn-group mr-1" role="group" aria-label="third term">
-                @if($classe->primaire(strict:true))
-                    <button wire:click="selectResultatType('{{ResultatType::p5->value }}')" type="button"
-                            class="btn btn-secondary btn-xs">{{ResultatType::p5->label()}}</button>
-                    <button wire:click="selectResultatType('{{ResultatType::p6->value }}')" type="button"
-                            class="btn btn-secondary btn-xs">{{ResultatType::p6->label()}}</button>
-                    <button wire:click="selectResultatType('{{ResultatType::ex3->value }}')" type="button"
-                            class="btn btn-secondary btn-xs">{{ResultatType::ex3->label()}}</button>
-                @endif
-                <button wire:click="selectResultatType('{{ResultatType::t3->value }}')" type="button"
-                        class="btn btn-secondary btn-xs">{{ResultatType::t3->label()}}</button>
-            </div>
-        @endif
-        <div class="btn-group" role="group" aria-label="final total">
-            <button wire:click="selectResultatType('{{ResultatType::tg->value }}')" type="button"
-                    class="btn btn-secondary btn-xs">{{ResultatType::tg->label()}}</button>
+        <div class="input-group-append ml-1" id="button-addon4">
+            <button wire:click="printIt" title="Imprimer résultats" class="btn btn-outline-secondary" type="button"><i class="fas fa-print"></i></button>
         </div>
     </div>
-    --}}
-    {{--<h5 class="mt-2 mb-2">Résultat - {{$resultatType?->longLabel()}}</h5>--}}
+
     <div class="card-body p-0 table-responsive">
         <table class="table">
             <thead>
@@ -118,7 +77,7 @@
                                 <button
                                     type="button"
                                     title="Téléverser bulletin"
-                                    class="btn btn-outline-info btn-xs  ml-2">
+                                    class="btn btn-outline-info btn-sm  ml-2">
                                     <span class="fa fa-upload"></span>
                                 </button>
                             </div>

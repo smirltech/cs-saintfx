@@ -46,6 +46,11 @@ class Classe extends Model
         return "{$this->filierable->fullName} {$this->grade->value}";
     }
 
+    public function getFullReverseNameAttribute(): string
+    {
+        return "{$this->grade->value} {$this->filierable->fullName}";
+    }
+
     // full_name
     public function getFullCodeAttribute(): string
     {

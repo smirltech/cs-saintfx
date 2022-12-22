@@ -134,4 +134,9 @@ class ResultatsBlockComponent extends Component
             $this->alert('warning', "Echec de modification de résultat !");
         }
     }
+
+    public function printIt()
+    {
+        $this->dispatchBrowserEvent('printIt', ['elementId' => "resultatsPrint", 'type' => 'html', 'maxWidth' => '100%']);
+    }
 }
