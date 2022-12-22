@@ -18,7 +18,7 @@ class Devoir extends Model
     // set annee on create in not set in boot
     public $guarded = [];
     protected $casts = [
-        //'echeance' => 'date',
+        'echeance' => 'date',
         'status' => DevoirStatus::class,
     ];
 

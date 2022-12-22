@@ -22,7 +22,7 @@ trait HasMedia
         return $entity->media()->create([
             'mime_type' => $file->getMimeType(),
             'filename' => $file->getClientOriginalName(),
-            'location' => $file->store("{$mediaType->folder()}/{$entity->getTable()}/{$entity->id}", 'public'),
+            'location' => $file->store("{$entity->getTable()}/{$entity->id}/{$mediaType->folder()}", 'public'),
             'custom_property' => $mediaType->value,
             'size' => $file->getSize(),
         ]);
