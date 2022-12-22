@@ -44,7 +44,7 @@ class Classe extends Model
         usort($inscriptions_temp, function ($insc1, $insc2) use ($resultatType) {
             $r1 = $insc1->resultats->where('custom_property', $resultatType)->first();
             $r2 = $insc2->resultats->where('custom_property', $resultatType)->first();
-            return $r1->place > $r2->place;
+            return $r1?->place > $r2?->place;
         });
         return $inscriptions_temp;
     }

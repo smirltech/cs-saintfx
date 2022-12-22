@@ -20,7 +20,7 @@ class ResultatsBlockComponent extends Component
 
     public Classe $classe;
     public $inscriptions = [];
-    public $resultats = [];
+    //public $resultats = [];
     public Resultat $resultat;
     public Inscription $inscription;
     public ResultatType $resultatType;
@@ -64,28 +64,19 @@ class ResultatsBlockComponent extends Component
     {
         // TODO: find a way of sorting the inscriptions as per place of result of selected ResultType
         $this->inscriptions = $this->classe->inscriptionsAsOfPlaceOfResultats($this->resultatType);
-  /*      $inscriptions_temp = $this->classe->inscriptions->all();
-         usort($inscriptions_temp, function ($insc1, $insc2){
-            $r1 = $insc1->resultats->where('custom_property', $this->resultatType)->first();
-            $r2 = $insc2->resultats->where('custom_property', $this->resultatType)->first();
-            return $r1->place > $r2->place;
-        });
-        $this->inscriptions = $inscriptions_temp;*/
-        //dd($inscriptions_temp);
-        //dd($this->inscriptions);
-        //$this->inscriptions = $this->classe->inscriptions;
     }
 
     public function selectResultatType()
     {
        // dd($type);
         $this->resultatType = ResultatType::from($this->resultatTypeValue);
-        $this->resultats = Resultat::with('inscription')
+        /*$this->resultats = Resultat::with('inscription')
             ->where('classe_id', $this->classe->id)
             ->where('annee_id', Annee::id())
             ->where('custom_property', $this->resultatType)
-            ->orderBy('place')->get();
+            ->orderBy('place')->get();*/
         // dd($type);
+        $this->loadData();
     }
 
     public function selectInscription($id)
@@ -148,6 +139,7 @@ class ResultatsBlockComponent extends Component
 
     public function printIt()
     {
+        $this->loadData();
         $this->dispatchBrowserEvent('printIt', ['elementId' => "resultatsPrint", 'type' => 'html', 'maxWidth' => '100%']);
     }
 }
