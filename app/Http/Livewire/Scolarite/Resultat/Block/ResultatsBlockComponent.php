@@ -24,6 +24,7 @@ class ResultatsBlockComponent extends Component
     public Resultat $resultat;
     public Inscription $inscription;
     public ResultatType $resultatType;
+    public  $resultatTypeValue;
 
     protected $rules = [
         'resultat.pourcentage' => 'required',
@@ -35,6 +36,9 @@ class ResultatsBlockComponent extends Component
 
     public function mount(Classe $classe)
     {
+        $this->resultatTypeValue = ResultatType::p1->value;
+        //$this->resultatType = ResultatType::p1;
+        $this->selectResultatType();
         $this->classe = $classe;
         $this->initResultat();
         $this->initInscription();
@@ -61,10 +65,10 @@ class ResultatsBlockComponent extends Component
         $this->inscriptions = $this->classe->inscriptions;
     }
 
-    public function selectResultatType($type)
+    public function selectResultatType()
     {
        // dd($type);
-        $this->resultatType = ResultatType::from($type);
+        $this->resultatType = ResultatType::from($this->resultatTypeValue);
         $this->resultats = Resultat::with('inscription')
             ->where('classe_id', $this->classe->id)
             ->where('annee_id', Annee::id())
