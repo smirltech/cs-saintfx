@@ -74,16 +74,16 @@
                                 </div>
 
                                 <div class="form-group col-md-12">
-                                    <x-form-file wire:model="document"
+                                    <x-form-file wire:model.defer="document"
                                                  label="Document du devoir"
                                                  :isValid="$errors->has('document') ? false : null"
                                                  error="{{$errors->first('document')}}"/>
                                     <ul class="list-group mt-3">
-                                        @foreach($devoir->media as $m)
+                                        @foreach($documents as $m)
                                             <li class="list-group-item">
                                                 <a title="Voir" href="{{route('media.show', $m)}}"
                                                    target="_blank">{{$m->filename}}</a>
-                                                | <i wire:click="deleteModel({{$m}})" class="fa fa-trash"></i>
+                                                | <i wire:click="deleteMedia('{{$m->id}}')" class="fa fa-trash"></i>
                                             </li>
                                         @endforeach
                                     </ul>

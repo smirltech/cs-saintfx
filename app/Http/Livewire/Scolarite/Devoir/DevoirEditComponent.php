@@ -27,12 +27,14 @@ class DevoirEditComponent extends Component
     public Collection $cours;
     public Collection $classes;
     public UploadedFile|string|null $document = null;
+    public $documents = [];
     public ?Collection $reponses;
     protected $messages = [
-        'cours.nom.required' => 'Le nom est obligatoire',
-        'cours.nom.unique' => 'Le nom existe déjà',
-        'cours.description.required' => 'La description est requise',
-        'cours.section_id.required' => 'La section est requise'
+        'devoir.titre.required' => 'Le titre est obligatoire',
+        'devoir.contenu.required' => 'Le contenu est obligatoire',
+        'devoir.echeance.required' => 'L\'échéance est obligatoire',
+        'devoir.cours_id.required' => 'Le cours est obligatoire',
+        'devoir.classes_id.required' => 'La classe est obligatoire',
     ];
 
     public function submit()
@@ -53,21 +55,6 @@ class DevoirEditComponent extends Component
         $this->alert('success', 'Cours modifiée avec succès');
     }
 
-
-    public function mount(Devoir $devoir)
-    {
-        $this->devoir = $devoir;
-        $this->cours = Cours::all();
-        $this->classes = Classe::all();
-        $this->reponses = $devoir->reponses;
-    }
-
-
-    public function render(): Factory|View|Application
-    {
-        return view('livewire.scolarite.devoirs.edit');
-    }
-
     public function deleteMedia(Media $media): void
     {
         if ($media->delete()) {
@@ -75,6 +62,19 @@ class DevoirEditComponent extends Component
         } else {
             $this->alert('error', 'Une erreur s\'est produite lors de la suppression du document');
         }
+    }
+
+    public function render(): Factory|View|Application
+    {
+        return view('livewire.scolarite.devoirs.edit');
+    }
+
+    public function mount(Devoir $devoir)
+    {
+        $this->devoir = $devoir;
+        $this->cours = Cours::all();
+        $this->classes = Classe::all();
+        $this->reponses = $devoir->reponses;
     }
 
     // delete media
@@ -87,7 +87,7 @@ class DevoirEditComponent extends Component
             'devoir.classe_id' => ['required', 'integer'],
             'devoir.cours_id' => ['required', 'integer'],
             'devoir.echeance' => ['required', 'date'],
-            'document' => ['nullable', 'file', 'max:1024'],
+            //  'document' => ['nullable', 'file', 'mimes:pdf', 'max:1024'],
         ];
     }
 

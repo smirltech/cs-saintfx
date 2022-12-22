@@ -141,9 +141,11 @@
 @yield('adminlte_js')
 
 @if(!app()->isProduction())
-    <script id="__bs_script__">//<![CDATA[
+    <script id="__bs_script__">
+        //<![CDATA[
         document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.2.11.2.js'><\/script>".replace("HOST", location.hostname));
-        //]]></script>
+        //]]>
+    </script>
 @endif
 
 </body>
