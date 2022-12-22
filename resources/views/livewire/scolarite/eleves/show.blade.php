@@ -177,14 +177,45 @@
                     </div>
                 </div>
                 <div class="col-md-9">
-                    <div class="card">
+                    <div class="card card-primary card-tabs">
+                        <div class="card-header p-0 pt-1">
+                            <ul class="nav nav-tabs" id="custom-tabs-tab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="custom-tabs-devoirs-tab" data-toggle="pill"
+                                       href="#custom-tabs-devoirs" role="tab"
+                                       aria-controls="custom-tabs-devoirs"
+                                       aria-selected="true">Devoirs</a>
+
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="custom-tabs-cursus-tab" data-toggle="pill"
+                                       href="#custom-tabs-cursus" role="tab"
+                                       aria-controls="custom-tabs-cursus" aria-selected="false">Cursus</a>
+                                </li>
+                            </ul>
+                        </div>
+
                         <div class="card-body">
-                            <div class="tab-content">
-                                <div class="active tab-pane" id="admission">
-                                    <div class="">
+                            <div class="tab-content" id="custom-tabs-tabContent">
+                                <div class="tab-pane fade active show" id="custom-tabs-devoirs" role="tabpanel"
+                                     aria-labelledby="custom-tabs-devoirs-tab">
+                                    <div class="tab-content">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="custom-tabs-cursus" role="tabpanel"
+                                     aria-labelledby="custom-tabs-cursus-tab">
+                                    <div class="tab-content">
                                         <div class="card">
                                             <div class="card-header">
-                                                <h4 class="card-title">Cursus Scolaire</h4>
                                                 <div class="card-tools">
                                                     <button role="button" class="btn btn-warning"
                                                             data-toggle="modal"
@@ -217,17 +248,29 @@
                                                                     <div class="timeline-item">
                                                                             <span class="time"><i
                                                                                     class="fas fa-clock mr-1"></i>{{$lastResultat->created_at->format('d-m-Y')}}</span>
-                                                                        <h3 class="timeline-header"><a>{{$mention}}</a>
-                                                                            avec {{$lastResultat?->pourcentage}}%</h3>
-                                                                        <div style="width: 100%" class="timeline-body ">
-                                                                            <div class="table-responsive-sm">
+                                                                        <h3 class="timeline-header">
+                                                                            <a>{{$mention}}</a>
+                                                                            avec {{$lastResultat?->pourcentage}}
+                                                                            %</h3>
+                                                                        <div style="width: 100%"
+                                                                             class="timeline-body ">
+                                                                            <div
+                                                                                class="table-responsive-sm">
                                                                                 <table class="table">
                                                                                     <thead>
                                                                                     <tr>
-                                                                                        <th scope="col">RÉSULTAT</th>
-                                                                                        <th scope="col">POURCENTAGE</th>
-                                                                                        <th scope="col">PLACE</th>
-                                                                                        <th scope="col">CONDUITE</th>
+                                                                                        <th scope="col">
+                                                                                            RÉSULTAT
+                                                                                        </th>
+                                                                                        <th scope="col">
+                                                                                            POURCENTAGE
+                                                                                        </th>
+                                                                                        <th scope="col">
+                                                                                            PLACE
+                                                                                        </th>
+                                                                                        <th scope="col">
+                                                                                            CONDUITE
+                                                                                        </th>
                                                                                         <th scope="col"></th>
                                                                                     </tr>
                                                                                     </thead>
@@ -298,20 +341,17 @@
 
                                                 </div>
                                             </div>
-
-
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
-
             </div>
         </div>
     </div>
+</div>
+
 </div>
 
