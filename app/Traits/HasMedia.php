@@ -79,16 +79,20 @@ trait HasMedia
 
     }
 
-    public function delete(): ?bool
+    public function delete(): bool
     {
         // prepare directory
-        $directory = $this->getFirstMedia()->getDirectory();
+        $directory = $this->getFirstMedia()?->getDirectory();
         // delete files
         foreach ($this->media as $media) {
             $media->delete();
         }
         // remove folder and delete model
-        if (Storage::disk('public')->deleteDirectory($directory)) {
+        if ($directory) {
+            if (Storage::disk('public')->deleteDirectory($directory)) {
+                return parent::delete();
+            }
+        } else {
             return parent::delete();
         }
     }

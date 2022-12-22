@@ -72,7 +72,7 @@ class Devoir extends Model
         return Carbon::parse($this->getEcheanceAttribute())->diffForHumans();
     }
 
-    public function getEcheanceAttribute($value): string
+    public function getEcheanceAttribute($value = null): string
     {
         return Carbon::parse($value)->format('Y-m-d');
     }

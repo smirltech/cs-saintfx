@@ -9,6 +9,7 @@ use App\Models\Classe;
 use App\Models\Devoir;
 use App\Models\Media;
 use App\Traits\CanDeleteModel;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -28,6 +29,10 @@ class DevoirEditComponent extends Component
     public TemporaryUploadedFile|string|null $document = null;
     public $documents = [];
     public ?Collection $reponses;
+
+    protected $listeners = [
+        'deleteConfirmed',
+    ];
 
 
     protected $messages = [
@@ -67,18 +72,19 @@ class DevoirEditComponent extends Component
         }
     }
 
+
     public function updatedDevoirClasseId($value): void
     {
         $classe = Classe::find($value);
         $this->cours = $classe->cours;
     }
 
+    // delete media
+
     public function render(): Factory|View|Application
     {
         return view('livewire.scolarite.devoirs.edit');
     }
-
-    // delete media
 
     public function mount(Devoir $devoir)
     {
@@ -87,6 +93,37 @@ class DevoirEditComponent extends Component
         $this->reponses = $devoir->reponses;
         $this->cours = $this->devoir->classe->cours;
     }
+
+    // deleteDevoir
+
+    public function deleteDevoir(): void
+    {
+// has reponses
+        if ($this->devoir->reponses->count() > 0) {
+            $this->alert('error', 'Impossible de supprimer ce devoir car il a des réponses');
+            return;
+        }
+        // alert confirm before delete
+        $this->confirm('Voulez-vous vraiment supprimer ce devoir ?', [
+            'toast' => false,
+            'position' => 'center',
+            'showConfirmButton' => true,
+            'confirmButtonText' => "Oui, supprimer",
+            'cancelButtonText' => "Annuler",
+            'onConfirmed' => 'deleteConfirmed',
+        ]);
+    }
+
+    public function deleteConfirmed(): void
+    {
+        try {
+            $this->devoir->delete();
+            $this->flash(message: 'Devoir supprimé avec succès', redirect: route('scolarite.devoirs.index'));
+        } catch (Exception $e) {
+            $this->error($e->getMessage(), 'Une erreur s\'est produite lors de la suppression du devoir');
+        }
+    }
+
 
     protected function rules(): array
     {

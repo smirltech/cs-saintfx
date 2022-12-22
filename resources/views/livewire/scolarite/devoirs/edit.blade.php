@@ -30,7 +30,7 @@
                             </div>
 
                             <div class="col-6">
-                                <x-button class="float-right">
+                                <x-button wire:click="deleteDevoir" class="float-right">
                                     <i class="fa fa-trash-alt text-red"></i>
                                 </x-button>
                             </div>
