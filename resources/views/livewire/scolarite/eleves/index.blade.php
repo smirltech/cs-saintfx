@@ -20,15 +20,7 @@
 
     foreach ($eleves as $eleve){
 
-            $btn1 = '<a href="' . "/scolarite/eleves/{$eleve->id}" . '" class="btn btn-success btn-sm m-1" title="Voir Élève"><i class="fa fa-eye"></i></a>';
-            $btn2 = '<a hidden href="' . "/scolarite/eleves/{$eleve->id}/edit" . '" class="btn btn-warning btn-sm m-1" title="Edit"><i class="fa fa-edit"></i></a>';
-            $btn3 = '<button hidden wire:click="deleteEleve('.$eleve->id.')"
-                                                    title="supprimer" class="btn btn-danger  btn-sm m-1">
-                                                <i class="fas fa-trash"></i>
-                                            </button>';
-
-        //    $badgeColor = Helpers::admissionStatusColor($inscription->status);
-//if($profile_url == null)$profile_url =Helpers::fakePicsum($eleve->id, 100, 100);
+            $btn1 = '<a href="' . route("scolarite.eleves.show",$eleve) . '" class="btn btn-success btn-sm m-1" title="Voir Élève"><i class="fa fa-eye"></i></a>';
 
             $data[] = [
                 '<img class="img-circle" style="width:50px; height:50px" src="'.$eleve->profile_url.'"></img>',
@@ -42,7 +34,7 @@
                 $eleve->adresse,
                 $eleve->responsable_eleve?->responsable?->nom??'',
                 $eleve->responsable_eleve?->relation?->label()??'',
-                '<nobr>' . $btn1 . $btn2. $btn3 . '</nobr>',
+                '<nobr>' . $btn1. '</nobr>',
             ];
 
         }
