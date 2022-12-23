@@ -9,6 +9,7 @@ use App\Models\Annee;
 use App\Models\Classe;
 use App\Models\Inscription;
 use App\Models\Resultat;
+use App\Traits\CanDeleteMedia;
 use App\Traits\WithFileUploads;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
@@ -20,7 +21,7 @@ use Livewire\WithPagination;
 
 class ResultatsBlockComponent extends Component
 {
-    use ApplicationAlert, WithPagination, WithFileUploads;
+    use ApplicationAlert, WithPagination, WithFileUploads, CanDeleteMedia;
 
 
     public Classe $classe;
@@ -120,6 +121,7 @@ class ResultatsBlockComponent extends Component
             );
             if ($this->bulletin) {
                 $this->resultat->addMedia(file: $this->bulletin, mediaType: MediaType::document);
+                $this->bulletin = null;
             }
             $this->onModalClosing('update-resultat');
             $this->alert('success', "Résultat modifié avec succès !");
@@ -143,5 +145,10 @@ class ResultatsBlockComponent extends Component
     {
         $this->loadData();
         $this->dispatchBrowserEvent('printIt', ['elementId' => "resultatsPrint", 'type' => 'html', 'maxWidth' => '100%']);
+    }
+
+    private function refreshData(): void
+    {
+        $this->resultat->refresh();
     }
 }

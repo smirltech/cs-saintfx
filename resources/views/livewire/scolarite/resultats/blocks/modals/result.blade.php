@@ -35,13 +35,16 @@
                 </x-form-select>
 
             </div>
+
             <div class="form-group col-md-12">
-                <x-form-file-pdf wire:model="bulletin"
-                                 label="Bulletin"
-                                 target="bulletin"
-                                 required
-                                 :isValid="$errors->has('bulletin') ? false : null"
-                                 error="{{$errors->first('bulletin')}}"/>
+                @if(!$resultat->bulletin)
+                    <x-form-file-pdf wire:model="bulletin"
+                                     label="Bulletin"
+                                     target="bulletin"
+                                     required
+                                     :isValid="$errors->has('bulletin') ? false : null"
+                                     error="{{$errors->first('bulletin')}}"/>
+                @endif
                 <ol class="list-group mt-3">
                     @foreach($resultat->media as $m)
                         <li class="list-group-item">
@@ -49,15 +52,16 @@
                                href="{{route('media.show', $m)}}"
                                target="_blank">{{$m->filename}}</a>
                             |
-                            <button class="btn btn-sm btn-outline-danger">
+                            <span class="btn btn-sm btn-outline-danger">
                                 <i wire:click="deleteMedia('{{$m->id}}')"
                                    class="fa fa-minus"></i>
-                            </button>
+                            </span>
 
                         </li>
                     @endforeach
                 </ol>
             </div>
+
 
         </div>
 

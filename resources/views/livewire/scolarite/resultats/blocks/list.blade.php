@@ -77,7 +77,8 @@
                                     <i class="fas fa-edit"></i>
                                 </button>
                                 @if($resultat?->bulletin)
-                                    <a type="button" href="{{ route('media.show',$resultat->bulletin) }}"
+                                    <a target="_blank"
+                                       href="{{ route('media.show',$resultat->bulletin) }}"
                                        title="Voir le bulletin"
                                        class="btn btn-outline-info btn-sm  ml-2">
                                         <i class="fa fa-file"></i>

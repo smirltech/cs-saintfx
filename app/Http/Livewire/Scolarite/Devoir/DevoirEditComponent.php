@@ -7,7 +7,7 @@ use App\Enums\MediaType;
 use App\Exceptions\ApplicationAlert;
 use App\Models\Classe;
 use App\Models\Devoir;
-use App\Traits\CanDeleteModel;
+use App\Traits\CanDeleteMedia;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -20,7 +20,7 @@ use Livewire\WithFileUploads;
 class DevoirEditComponent extends Component
 {
 
-    use ApplicationAlert, WithFileUploads, CanDeleteModel;
+    use ApplicationAlert, WithFileUploads, CanDeleteMedia;
 
     public Devoir $devoir;
     public Collection|array $cours = [];
@@ -55,7 +55,7 @@ class DevoirEditComponent extends Component
         $this->alert('success', 'Cours modifiée avec succès');
     }
 
-    private function refreshData()
+    private function refreshData(): void
     {
         $this->devoir->refresh();
         $this->reponses = $this->devoir->reponses;
