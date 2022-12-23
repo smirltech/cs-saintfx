@@ -8,6 +8,7 @@
                     type="number"
                     label="Pourcentage"
                     step="0.01"
+                    required
                     wire:model="resultat.pourcentage"
                     :is-valid="$errors->has('resultat.pourcentage')?false:null"
                     :error="$errors->first('resultat.pourcentage')">
@@ -17,6 +18,7 @@
                 <x-form-input
                     type="number"
                     label="Place"
+                    required
                     wire:model="resultat.place"
                     :is-valid="$errors->has('resultat.place')?false:null"
                     :error="$errors->first('resultat.place')">
@@ -32,6 +34,29 @@
                     @endforeach
                 </x-form-select>
 
+            </div>
+            <div class="form-group col-md-12">
+                <x-form-file-pdf wire:model="bulletin"
+                                 label="Bulletin"
+                                 target="bulletin"
+                                 required
+                                 :isValid="$errors->has('bulletin') ? false : null"
+                                 error="{{$errors->first('bulletin')}}"/>
+                <ol class="list-group mt-3">
+                    @foreach($resultat->media as $m)
+                        <li class="list-group-item">
+                            <a class="" title="Voir"
+                               href="{{route('media.show', $m)}}"
+                               target="_blank">{{$m->filename}}</a>
+                            |
+                            <button class="btn btn-sm btn-outline-danger">
+                                <i wire:click="deleteMedia('{{$m->id}}')"
+                                   class="fa fa-minus"></i>
+                            </button>
+
+                        </li>
+                    @endforeach
+                </ol>
             </div>
 
         </div>

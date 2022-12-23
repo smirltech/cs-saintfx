@@ -10,13 +10,16 @@ trait ApplicationAlert
     use LivewireAlert;
 
 
-    public function error(string $local, string $production, array $options = []): void
+    public function error(string $local, string $production): void
     {
 
         $this->dispatchOrFlashAlert([
             'type' => 'error',
             'message' => App::hasDebugModeEnabled() ? $local : $production,
-            'options' => $options
+            'options' => [
+                'toast' => false,
+                'duration' => 10000,
+            ]
         ]);
     }
 }

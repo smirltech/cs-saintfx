@@ -7,7 +7,6 @@ use App\Enums\MediaType;
 use App\Exceptions\ApplicationAlert;
 use App\Models\Classe;
 use App\Models\Devoir;
-use App\Models\Media;
 use App\Traits\CanDeleteModel;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
@@ -60,16 +59,6 @@ class DevoirEditComponent extends Component
     {
         $this->devoir->refresh();
         $this->reponses = $this->devoir->reponses;
-    }
-
-    public function deleteMedia(Media $media): void
-    {
-        if ($media->delete()) {
-            $this->refreshData();
-            $this->alert('success', 'Document supprimé avec succès');
-        } else {
-            $this->alert('error', 'Une erreur s\'est produite lors de la suppression du document');
-        }
     }
 
 

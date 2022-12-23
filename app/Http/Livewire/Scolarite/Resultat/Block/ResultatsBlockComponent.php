@@ -2,19 +2,25 @@
 
 namespace App\Http\Livewire\Scolarite\Resultat\Block;
 
+use App\Enums\MediaType;
 use App\Enums\ResultatType;
+use App\Exceptions\ApplicationAlert;
 use App\Models\Annee;
 use App\Models\Classe;
 use App\Models\Inscription;
 use App\Models\Resultat;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use App\Traits\WithFileUploads;
+use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
+use Livewire\TemporaryUploadedFile;
 use Livewire\WithPagination;
 
 class ResultatsBlockComponent extends Component
 {
-    use LivewireAlert;
-    use WithPagination;
+    use ApplicationAlert, WithPagination, WithFileUploads;
 
 
     public Classe $classe;
@@ -24,6 +30,7 @@ class ResultatsBlockComponent extends Component
     public Inscription $inscription;
     public ResultatType $resultatType;
     public $resultatTypeValue;
+    public TemporaryUploadedFile|string|null $bulletin = null;
 
     protected $rules = [
         'resultat.pourcentage' => 'required',
@@ -77,7 +84,7 @@ class ResultatsBlockComponent extends Component
         //  $this->loadData();
     }
 
-    public function render()
+    public function render(): Factory|View|Application
     {
         $this->loadData();
         return view('livewire.scolarite.resultats.blocks.list');
@@ -97,26 +104,29 @@ class ResultatsBlockComponent extends Component
         $this->resultat->inscription_id = $this->inscription->id;
         //$this->resultat->conduite = Conduite::b->name;
 
-        $done = Resultat::updateOrCreate(
-            [
-                'inscription_id' => $this->resultat->inscription_id,
-                'classe_id' => $this->resultat->classe_id,
-                'annee_id' => $this->resultat->annee_id,
-                'custom_property' => $this->resultat->custom_property,
-            ],
-            [
-                'pourcentage' => $this->resultat->pourcentage,
-                'place' => $this->resultat->place,
-                'conduite' => $this->resultat->conduite,
-            ]
-        );
-
-        if ($done) {
+        try {
+            $this->resultat = Resultat::updateOrCreate(
+                [
+                    'inscription_id' => $this->resultat->inscription_id,
+                    'classe_id' => $this->resultat->classe_id,
+                    'annee_id' => $this->resultat->annee_id,
+                    'custom_property' => $this->resultat->custom_property,
+                ],
+                [
+                    'pourcentage' => $this->resultat->pourcentage,
+                    'place' => $this->resultat->place,
+                    'conduite' => $this->resultat->conduite,
+                ]
+            );
+            if ($this->bulletin) {
+                $this->resultat->addMedia(file: $this->bulletin, mediaType: MediaType::document);
+            }
             $this->onModalClosing('update-resultat');
             $this->alert('success', "Résultat modifié avec succès !");
-        } else {
-            $this->alert('warning', "Echec de modification de résultat !");
+        } catch (Exception $e) {
+            $this->error(local: $e->getMessage(), production: "Une erreur s'est produite lors de la modification du résultat !");
         }
+
     }
 
     public function onModalClosing($modalId)
