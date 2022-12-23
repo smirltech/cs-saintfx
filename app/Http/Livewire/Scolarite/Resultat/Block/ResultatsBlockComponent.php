@@ -20,10 +20,11 @@ class ResultatsBlockComponent extends Component
 
     public Classe $classe;
     public $inscriptions = [];
-    public $resultats = [];
+    //public $resultats = [];
     public Resultat $resultat;
     public Inscription $inscription;
     public ResultatType $resultatType;
+    public  $resultatTypeValue;
 
     protected $rules = [
         'resultat.pourcentage' => 'required',
@@ -35,10 +36,13 @@ class ResultatsBlockComponent extends Component
 
     public function mount(Classe $classe)
     {
+        $this->resultatTypeValue = ResultatType::p1->value;
+        //$this->resultatType = ResultatType::p1;
+        $this->selectResultatType();
         $this->classe = $classe;
         $this->initResultat();
         $this->initInscription();
-        $this->loadData();
+       // $this->loadData();
 
     }
 
@@ -58,19 +62,13 @@ class ResultatsBlockComponent extends Component
 
     public function loadData()
     {
-        $this->inscriptions = $this->classe->inscriptions;
+        $this->inscriptions = $this->classe->inscriptionsAsOfPlaceOfResultats($this->resultatType);
     }
 
-    public function selectResultatType($type)
+    public function selectResultatType()
     {
-       // dd($type);
-        $this->resultatType = ResultatType::from($type);
-        $this->resultats = Resultat::with('inscription')
-            ->where('classe_id', $this->classe->id)
-            ->where('annee_id', Annee::id())
-            ->where('custom_property', $this->resultatType)
-            ->orderBy('place')->get();
-        // dd($type);
+        $this->resultatType = ResultatType::from($this->resultatTypeValue);
+      //  $this->loadData();
     }
 
     public function selectInscription($id)
@@ -82,11 +80,12 @@ class ResultatsBlockComponent extends Component
         }else{
             $this->initResultat();
         }
+      //  $this->loadData();
     }
 
     public function render()
     {
-
+        $this->loadData();
         return view('livewire.scolarite.resultats.blocks.resultatsBlock');
     }
 
@@ -129,5 +128,11 @@ class ResultatsBlockComponent extends Component
         } else {
             $this->alert('warning', "Echec de modification de résultat !");
         }
+    }
+
+    public function printIt()
+    {
+        $this->loadData();
+        $this->dispatchBrowserEvent('printIt', ['elementId' => "resultatsPrint", 'type' => 'html', 'maxWidth' => '100%']);
     }
 }

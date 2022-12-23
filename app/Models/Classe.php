@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\ClasseGrade;
+use App\Enums\ResultatType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -34,6 +35,20 @@ class Classe extends Model
         return $this->hasMany(Inscription::class)->where('annee_id', Annee::encours()->id);
     }
 
+    /*
+     * Return a list of inscriptions sorted by place of the results as of type
+     */
+    public function inscriptionsAsOfPlaceOfResultats(ResultatType $resultatType)
+    {
+        $inscriptions_temp = $this->inscriptions->all();
+        usort($inscriptions_temp, function ($insc1, $insc2) use ($resultatType) {
+            $r1 = $insc1->resultats->where('custom_property', $resultatType)->first();
+            $r2 = $insc2->resultats->where('custom_property', $resultatType)->first();
+            return $r1?->place > $r2?->place;
+        });
+        return $inscriptions_temp;
+    }
+
     // eleves
     public function eleves(): BelongsToMany
     {
@@ -44,6 +59,11 @@ class Classe extends Model
     public function getFullNameAttribute(): string
     {
         return "{$this->filierable->fullName} {$this->grade->value}";
+    }
+
+    public function getFullReverseNameAttribute(): string
+    {
+        return "{$this->grade->value} {$this->filierable->fullName}";
     }
 
     // full_name

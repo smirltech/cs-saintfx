@@ -308,8 +308,7 @@ return [
         ],
         [
             'text' => 'Classes',
-
-            'icon' => 'fas fa-fw fa-people-roof',
+            'icon' => 'fas fa-people-roof',
             'submenu' => [
                 [
                     'text' => 'Liste des classes',
