@@ -76,12 +76,13 @@
                                         data-target="#update-resultat">
                                     <i class="fas fa-edit"></i>
                                 </button>
-                                <button
-                                    type="button"
-                                    title="Voir le bulletin"
-                                    class="btn btn-outline-info btn-sm  ml-2">
-                                    <span class="fa fa-file"></span>
-                                </button>
+                                @if($resultat?->bulletin)
+                                    <a type="button" href="{{ route('media.show',$resultat->bulletin) }}"
+                                       title="Voir le bulletin"
+                                       class="btn btn-outline-info btn-sm  ml-2">
+                                        <i class="fa fa-file"></i>
+                                    </a>
+                                @endif
                             </div>
                         </td>
 

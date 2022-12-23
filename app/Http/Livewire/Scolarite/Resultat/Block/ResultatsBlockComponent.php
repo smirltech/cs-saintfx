@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Scolarite\Resultat\Block;
 
-use App\Enums\Conduite;
 use App\Enums\ResultatType;
 use App\Models\Annee;
 use App\Models\Classe;
@@ -24,7 +23,7 @@ class ResultatsBlockComponent extends Component
     public Resultat $resultat;
     public Inscription $inscription;
     public ResultatType $resultatType;
-    public  $resultatTypeValue;
+    public $resultatTypeValue;
 
     protected $rules = [
         'resultat.pourcentage' => 'required',
@@ -42,8 +41,14 @@ class ResultatsBlockComponent extends Component
         $this->classe = $classe;
         $this->initResultat();
         $this->initInscription();
-       // $this->loadData();
+        // $this->loadData();
 
+    }
+
+    public function selectResultatType()
+    {
+        $this->resultatType = ResultatType::from($this->resultatTypeValue);
+        //  $this->loadData();
     }
 
     private function initResultat()
@@ -60,33 +65,58 @@ class ResultatsBlockComponent extends Component
         $this->inscription = new Inscription();
     }
 
-    public function loadData()
-    {
-        $this->inscriptions = $this->classe->inscriptionsAsOfPlaceOfResultats($this->resultatType);
-    }
-
-    public function selectResultatType()
-    {
-        $this->resultatType = ResultatType::from($this->resultatTypeValue);
-      //  $this->loadData();
-    }
-
     public function selectInscription($id)
     {
         $this->inscription = Inscription::find($id);
         $temp = $this->inscription->resultats()->where('custom_property', $this->resultatType)->first();
         if ($temp != null) {
             $this->resultat = $temp;
-        }else{
+        } else {
             $this->initResultat();
         }
-      //  $this->loadData();
+        //  $this->loadData();
     }
 
     public function render()
     {
         $this->loadData();
-        return view('livewire.scolarite.resultats.blocks.resultatsBlock');
+        return view('livewire.scolarite.resultats.blocks.list');
+    }
+
+    public function loadData()
+    {
+        $this->inscriptions = $this->classe->inscriptionsAsOfPlaceOfResultats($this->resultatType);
+    }
+
+    public function updateResultat()
+    {
+        $this->validate();
+        $this->resultat->custom_property = $this->resultatType->value;
+        $this->resultat->annee_id = Annee::id();
+        $this->resultat->classe_id = $this->classe->id;
+        $this->resultat->inscription_id = $this->inscription->id;
+        //$this->resultat->conduite = Conduite::b->name;
+
+        $done = Resultat::updateOrCreate(
+            [
+                'inscription_id' => $this->resultat->inscription_id,
+                'classe_id' => $this->resultat->classe_id,
+                'annee_id' => $this->resultat->annee_id,
+                'custom_property' => $this->resultat->custom_property,
+            ],
+            [
+                'pourcentage' => $this->resultat->pourcentage,
+                'place' => $this->resultat->place,
+                'conduite' => $this->resultat->conduite,
+            ]
+        );
+
+        if ($done) {
+            $this->onModalClosing('update-resultat');
+            $this->alert('success', "Résultat modifié avec succès !");
+        } else {
+            $this->alert('warning', "Echec de modification de résultat !");
+        }
     }
 
     public function onModalClosing($modalId)
@@ -97,37 +127,6 @@ class ResultatsBlockComponent extends Component
         $this->loadData();
 
         //$this->reset(['nom', 'description', 'montant', 'classable_type', 'classable_id']);
-    }
-
-
-    public function updateResultat(){
-        $this->validate();
-        $this->resultat->custom_property = $this->resultatType->value;
-        $this->resultat->annee_id = Annee::id();
-        $this->resultat->classe_id = $this->classe->id;
-        $this->resultat->inscription_id = $this->inscription->id;
-        //$this->resultat->conduite = Conduite::b->name;
-
-        $done = Resultat::updateOrCreate(
-            [
-                'inscription_id'=>$this->resultat->inscription_id,
-                'classe_id'=>$this->resultat->classe_id,
-                'annee_id'=>$this->resultat->annee_id,
-                'custom_property'=>$this->resultat->custom_property,
-                ],
-            [
-                'pourcentage'=>$this->resultat->pourcentage,
-                'place'=>$this->resultat->place,
-                'conduite'=>$this->resultat->conduite,
-            ]
-        );
-
-        if ($done) {
-            $this->onModalClosing('update-resultat');
-            $this->alert('success', "Résultat modifié avec succès !");
-        } else {
-            $this->alert('warning', "Echec de modification de résultat !");
-        }
     }
 
     public function printIt()
