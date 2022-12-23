@@ -1,7 +1,6 @@
-
+@php use App\Enums\Conduite; @endphp
 <x-adminlte-modal wire:ignore.self id="update-resultat" icon="fa fa-cubes"
                   title="Mettre à jour résultat">
-    <x-validation-errors class="mb-4" :errors="$errors"/>
     <form id="f1a" wire:submit.prevent="updateResultat">
         <div class="row">
             <div class="form-group col-md-5 col-sm-12">
@@ -28,7 +27,7 @@
                 <x-form-select wire:model="resultat.conduite"
                                class="form-control">
 
-                    @foreach (\App\Enums\Conduite::cases() as $es )
+                    @foreach (Conduite::cases() as $es )
                         <option value="{{$es->name}}">{{strtoupper($es->name)}}</option>
                     @endforeach
                 </x-form-select>
