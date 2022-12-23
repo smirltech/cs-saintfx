@@ -328,12 +328,12 @@ return [
                     'url' => 'scolarite/devoirs',
                     'shift' => 'ml-3',
                 ],
-              /*  [
-                    'text' => 'Résultats',
-                    'icon' => 'fas fa-fw fa-percent',
-                    'url' => 'scolarite/resultats',
-                    'shift' => 'ml-3',
-                ],*/
+                /*  [
+                      'text' => 'Résultats',
+                      'icon' => 'fas fa-fw fa-percent',
+                      'url' => 'scolarite/resultats',
+                      'shift' => 'ml-3',
+                  ],*/
                 [
                     'text' => 'Enseignants',
                     'icon' => 'fas fa-fw fa-chalkboard-teacher',
@@ -413,7 +413,7 @@ return [
             ],
         ],
         [
-            'text' => 'Rapport Financier',
+            'text' => 'Rapport financier',
             'icon' => 'fas fa-fw fa-chart-line',
             'url' => 'finance/rapports',
             // 'can' => RolePermission::create_user->name,
