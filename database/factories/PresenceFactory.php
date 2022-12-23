@@ -19,7 +19,7 @@ class PresenceFactory extends Factory
     {
         return [
             'inscription_id' => $this->faker->randomElement(Inscription::pluck('id')->toArray()),
-            'date' => Carbon::now()->format('Y-m-d'),
+            'date' => Carbon::now()->subDays($this->faker->numberBetween(1,4))->format('Y-m-d'),
             'observation' => $this->faker->sentence(3),
         ];
     }

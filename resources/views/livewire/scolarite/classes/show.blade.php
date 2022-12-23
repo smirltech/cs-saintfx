@@ -85,8 +85,12 @@
                                 <a class="nav-link active" id="custom-tabs-one-home-tab" data-toggle="pill"
                                    href="#custom-tabs-one-home" role="tab" aria-controls="custom-tabs-one-home"
                                    aria-selected="true">Elèves</a>
-
                             </li>
+                            {{--<li class="nav-item">
+                                <a class="nav-link" id="custom-tabs-one-messages-tab" data-toggle="pill"
+                                   href="#custom-tabs-presences" role="tab"
+                                   aria-controls="custom-tabs-presences" aria-selected="false">Présences</a>
+                            </li>--}}
                             <li class="nav-item">
                                 <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill"
                                    href="#custom-tabs-one-profile" role="tab"
@@ -145,6 +149,10 @@
                                     </table>
                                 </div>
                             </div>
+                            {{--<div class="tab-pane fade" id="custom-tabs-presences" role="tabpanel"
+                                 aria-labelledby="custom-tabs-one-presences">
+                                <livewire:scolarite.presence.block.presences-block-component :classe="$classe"/>--}}{{--:user="$user" :wire:key="$user->id"--}}{{--
+                            </div>--}}
                             <div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel"
                                  aria-labelledby="custom-tabs-one-profile-tab">
                                 <div class="card-body p-0 table-responsive">
@@ -211,7 +219,6 @@
                             <div class="tab-pane fade" id="custom-tabs-resultats" role="tabpanel"
                                  aria-labelledby="custom-tabs-one-resultats">
                                 <livewire:scolarite.resultat.block.resultats-block-component :classe="$classe"/>{{--:user="$user" :wire:key="$user->id"--}}
-
                             </div>
                         </div>
 
