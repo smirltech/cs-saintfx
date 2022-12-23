@@ -23,10 +23,8 @@ class Eleve extends Model
         'updated_at' => 'datetime',
     ];
 
+    // route model binding
 
-    // generate matricule
-    // {annee}{section_id}{count on section+1}
-    //ex: 2022010001
     public static function generateMatricule(string $section_id): string
     {
         $annee = Annee::encours();
@@ -45,6 +43,16 @@ class Eleve extends Model
         $second_part = Helpers::pad($count, 4);
 
         return $first_part . $second_part;
+    }
+
+
+    // generate matricule
+    // {annee}{section_id}{count on section+1}
+    //ex: 2022010001
+
+    public function getRouteKeyName()
+    {
+        return 'matricule';
     }
 
     public function inscriptions(): HasMany
