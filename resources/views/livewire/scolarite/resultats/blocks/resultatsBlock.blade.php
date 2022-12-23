@@ -5,11 +5,12 @@
 <div>
     @include('livewire.scolarite.resultats.blocks.modals.result')
     @include('livewire.scolarite.resultats.blocks.modals.printable')
-    <div class="input-group">
+    <div class="input-group  mb-3">
         <div class="input-group-prepend">
-            <span class="input-group-text">Résultats de : </span>
+            <span class="input-group-text">Résultats </span>
         </div>
-        <x-form-select wire:change="selectResultatType" wire:model="resultatTypeValue"
+        <x-form-select placeholder="----------" wire:change="selectResultatType"
+                       wire:model="resultatTypeValue"
                        class="form-control">
             @if(!$classe->maternelle())
                 <option value="{{ResultatType::p1->value}}">{{ResultatType::p1->longLabel()}}</option>
@@ -34,10 +35,11 @@
                 <option value="{{ResultatType::t3->value}}">{{ResultatType::t3->longLabel()}}</option>
                 <option value="" disabled>----------</option>
             @endif
-                <option value="{{ResultatType::tg->value}}">{{ResultatType::tg->longLabel()}}</option>
+            <option value="{{ResultatType::tg->value}}">{{ResultatType::tg->longLabel()}}</option>
         </x-form-select>
         <div class="input-group-append ml-1" id="button-addon4">
-            <button wire:click="printIt" title="Imprimer résultats" class="btn btn-outline-secondary" type="button"><i class="fas fa-print"></i></button>
+            <button wire:click="printIt" title="Imprimer résultats" class="btn btn-outline-secondary" type="button"><i
+                    class="fas fa-print"></i></button>
         </div>
     </div>
 
@@ -47,7 +49,7 @@
             <tr>
                 <th>PLACE</th>
                 <th>ÉLÈVE</th>
-                <th>POURCENT</th>
+                <th>%</th>
                 <th>CONDUITE</th>
                 <th></th>
             </tr>
@@ -63,7 +65,7 @@
                         <td>
                             <a href="{{route('scolarite.eleves.show', [$inscription->eleve])}}">{{$inscription->eleve->fullName}}</a>
                         </td>
-                        <td>{{$resultat?->pourcentage}}%</td>
+                        <td class="text-center">{{$resultat->pourcentage??'-'}}</td>
                         <td>{{strtoupper($resultat?->conduite?->value)}}</td>
                         <td>
                             <div class="d-flex float-right">
@@ -76,9 +78,9 @@
                                 </button>
                                 <button
                                     type="button"
-                                    title="Téléverser bulletin"
+                                    title="Voir le bulletin"
                                     class="btn btn-outline-info btn-sm  ml-2">
-                                    <span class="fa fa-upload"></span>
+                                    <span class="fa fa-file"></span>
                                 </button>
                             </div>
                         </td>
