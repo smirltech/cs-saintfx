@@ -34,7 +34,9 @@
                             <h3 class="profile-username text-center">{{$eleve->fullName}}</h3>
                             <p class="text-muted text-center">CODE : {{$eleve->code}}</p>
                             <p class="text-muted text-center">CLASSE
-                                : <a href="{{route('scolarite.classes.show', [$inscription?->classe])}}">{{$inscription?->classe?->shortCode??'Non encore inscrit !'}}</a> </p>
+                                : <a
+                                    href="{{route('scolarite.classes.show', [$inscription?->classe])}}">{{$inscription?->classe?->shortCode??'Non encore inscrit !'}}</a>
+                            </p>
                             <p class="text-muted text-center">ANNEE SCOLAIRE : {{$annee_courante?->nom??''}}</p>
                         </div>
 
@@ -241,13 +243,6 @@
                                                                                             <td>
                                                                                                 <div
                                                                                                     class="d-flex float-right">
-                                                                                                 {{--   <button
-                                                                                                        type="button"
-                                                                                                        title="Téléverser bulletin"
-                                                                                                        class="btn btn-outline-info btn-xs  ml-2">
-                                                                                                        <span
-                                                                                                            class="fa fa-upload"></span>
-                                                                                                    </button>--}}
                                                                                                     <button
                                                                                                         type="button"
                                                                                                         title="Télécharger bulletin"
@@ -262,28 +257,8 @@
 
                                                                                     </tbody>
                                                                                 </table>
-                                                                               {{-- <div class="d-flex">
-                                                                                    <button type="button"
-                                                                                            title="Ajouter Résultat"
-                                                                                            class="btn btn-outline-primary btn-xs  ml-2">
-                                                                                        <span class="fa fa-plus"></span>
-                                                                                    </button>
-                                                                                </div>--}}
                                                                             </div>
                                                                         </div>
-                                                                        {{--<div
-                                                                            class="timeline-footer d-flex justify-content-between">
-                                                                                <span title="Changer"
-                                                                                      wire:click="getSelectedInscription({{$inscription}})"
-                                                                                      role="button" data-toggle="modal"
-                                                                                      data-target="#edit-inscription-categorie-modal"
-                                                                                      class="border border-success rounded p-1">{{$inscription->categorie->label()}}</span>
-                                                                            <span title="Changer"
-                                                                                  wire:click="getSelectedInscription({{$inscription}})"
-                                                                                  role="button" data-toggle="modal"
-                                                                                  data-target="#edit-inscription-status-modal"
-                                                                                  class="border border-warning rounded p-1 ">{{$inscription->status->label()}}</span>
-                                                                        </div>--}}
                                                                     </div>
                                                                 </div>
                                                             @endforeach
