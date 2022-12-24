@@ -37,34 +37,49 @@ In this page you will see what modules and their functionalities have been so fa
 - [ ] supprimer relation élève responsable
 - [ ] créer relation élève responsable
 ### Classe
-- [ ] Liste de classes
-- [ ] Ajouter une classe
-- [ ] Modifier une classe
-- [ ] Supprimer une classe
-- [ ] Voir détail d'une classe
+- [ ] Liste de classes : OK
+- [ ] Ajouter une classe : OK
+- [ ] Modifier une classe : OK
+- [ ] Supprimer une classe : bug - violation of foreign key
+- [ ] Voir détail d'une classe : OK
+- [ ] Ajour cours : 
+### Enseignant
+- [ ] Liste d'enseignants : OK
+- [ ] Ajouter un enseignant : OK
+- [ ] Modifier un enseignant : OK
+- [ ] Supprimer un enseignant : OK
+- [ ] Voir détail d'un enseignant : OK
 ### Filière
-- [ ] Liste de filières
-- [ ] Ajouter une filière
-- [ ] Modifier une filière
-- [ ] Supprimer une filière
-- [ ] Voir détail d'une filière
+- [ ] Liste de filières : OK
+- [ ] Ajouter une filière : OK
+- [ ] Modifier une filière : OK
+- [ ] Supprimer une filière : OK
+- [ ] Voir détail d'une filière : OK
 ### Option
-- [ ] Liste d'options
-- [ ] Ajouter une option
-- [ ] Modifier une option
-- [ ] Supprimer une option
-- [ ] Voir détail d'une option
+- [ ] Liste d'options : OK
+- [ ] Ajouter une option : OK
+- [ ] Modifier une option : OK
+- [ ] Supprimer une option : OK
+- [ ] Voir détail d'une option : OK
 ### Section
-- [ ] Liste de sections
-- [ ] Ajouter une section
-- [ ] Modifier une section
-- [ ] Supprimer une section
-- [ ] Voir détail d'une section
+- [ ] Liste de sections : OK
+- [ ] Ajouter une section : OK
+- [ ] Modifier une section : OK
+- [ ] Supprimer une section : OK
+- [ ] Voir détail d'une section : OK
 ### Année
-- [ ] Liste d'année scolaire
-- [ ] Activer l'année scolaire en cours
-- [ ] Ajouter année scolaire
-- [ ] Modifier année scolaire
-- [ ] Supprimer année scolaire
+- [ ] Liste d'année scolaire : OK
+- [ ] Activer l'année scolaire en cours : OK
+- [ ] Ajouter année scolaire : OK
+- [ ] Modifier année scolaire : OK
+- [ ] Supprimer année scolaire : OK
 ### Utilisateur
-- [ ] Liste d'utilisateurs
+- [ ] Liste d'utilisateurs : OK
+- [ ] Ajouter utilisateur : OK
+- [ ] Modifier utilisateur : OK
+- [ ] Supprimer utilisateur : OK
+- [ ] Réinitialiser mot de passe utilisateur : OK
+### Rapport financier
+- [ ] Afficher rapport : OK
+- [ ] Choisir période : OK
+- [ ] Imprimer rapport : OK
