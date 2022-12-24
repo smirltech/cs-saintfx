@@ -51,16 +51,11 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-
-        $user = User::create($request->safe()->only(['name', 'email', 'faculte_id']));
-
-        $user->assignRole($request->role_id);
-
         // Generate a random password for the user
         $password = Str::random(8);
 
-        $user->password = Hash::make($password);
-        $user->save();
+
+        $user = User::create(array_merge($request->validated(), compact('password')));
 
         // Send an email to the user with the password, surround with try/catch to prevent errors
         try {
@@ -125,7 +120,7 @@ class UserController extends Controller
 
         $password = Str::random(8);
 
-        $user->password = Hash::make($password);
+        $user->password = $password;
 
 
         // Send an email to the user with the password, surround with try/catch to prevent errors
@@ -140,25 +135,22 @@ class UserController extends Controller
             return redirect()->back()->with('error', __('Une erreur est survenue lors de l\'envoi du mail. Veuillez réessayer.'));
         }
 
-        return redirect()->back()->with('success', __('Mot de passe réinitialisé avec succès'));
+        return redirect()->back()->with('success', __('Le nouveau mot de passe a été envoyé à votre addresse email :' . $user->email));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param UpdateUserRequest $request
      * @param User $user
-     * @return Application|Redirector|RedirectResponse
+     * @return RedirectResponse
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        //return $user;
 
-        $user->update($request->safe()->only(['name', 'faculte_id']));
-        $user->syncRoles($request->role_id);
-        $user->save();
+        $user->update($request->validated());
 
-        return redirect()->back()->with('success', __('Le nouveau mot de passe a été envoyé à votre addresse email :' . $user->email));
+        return redirect()->back()->with('success', __('Modification réussie'));
     }
 
     /**

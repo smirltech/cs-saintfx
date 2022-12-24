@@ -1,6 +1,7 @@
 @php
     use Carbon\Carbon;
     use App\Enums\GraviteRetard;
+    use \App\Helpers\Helpers;
 @endphp
 @section('title')
     {{Str::upper(config('app.name', 'cenk finance'))}} - Perceptions  {{date('d-m-Y')}}

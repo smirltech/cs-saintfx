@@ -8,7 +8,11 @@ use App\Http\Integrations\Scolarite\Requests\Filiere\GetFiliereRequest;
 use App\Http\Integrations\Scolarite\Requests\Inscription\GetInscriptionRequest;
 use App\Http\Integrations\Scolarite\Requests\Inscription\GetInscriptionsRequest;
 use App\Http\Integrations\Scolarite\Requests\Option\GetOptionRequest;
+use App\Models\Annee;
+use App\Models\Filiere;
 use App\Models\Frais;
+use App\Models\Inscription;
+use App\Models\Option;
 use App\Models\Perception;
 use App\View\Components\AdminLayout;
 use Exception;
@@ -43,7 +47,7 @@ class PerceptionEditComponent extends Component
     public function mount(Perception $perception)
     {
         $this->user_id = Auth::id();
-        $this->annee = (new GetCurrentAnnneRequest())->send()->dto();
+        $this->annee = Annee::encours();
         $this->annee_id = $this->annee->id;
         $this->annee_nom = $this->annee->nom;
         $this->perception = $perception;
@@ -56,8 +60,8 @@ class PerceptionEditComponent extends Component
         $this->custom_property = $perception->custom_property;
 
         if ($this->inscription_id) {
-            $this->inscription = (new GetInscriptionRequest($this->inscription_id))->send()->dto();
-            $this->eleveNom = $this->inscription->eleve->getNomComplet();
+            $this->inscription = Inscription::find($this->inscription_id);
+            $this->eleveNom = $this->inscription->eleve?->nomComplet;
             $this->classe_id = $this->inscription->classe->id;
         }
 
@@ -84,13 +88,13 @@ class PerceptionEditComponent extends Component
 
     private function reloadData()
     {
-        $this->inscriptions = (new GetInscriptionsRequest())->send()->dto();
+        $this->inscriptions = Inscription::where('annee_id', Annee::id())->get();
         $this->inscription_id = (int)$this->inscription_id;
 
         if ($this->inscription_id) {
-            $this->inscription = (new GetInscriptionRequest($this->inscription_id))->send()->dto();
-            $this->eleveNom = $this->inscription->eleve->getNomComplet();
-            $this->classe_id = $this->inscription->classe->id;
+            $this->inscription = Inscription::find($this->inscription_id);
+            $this->eleveNom = $this->inscription?->eleve?->fullName;
+            $this->classe_id = $this->inscription?->classe->id;
         }
 
         if ($this->inscription_id == null) {
@@ -105,7 +109,7 @@ class PerceptionEditComponent extends Component
     private function chooseSuitableFrais()
     {
         if ($this->inscription_id) {
-            $this->inscription = (new GetInscriptionRequest($this->inscription_id))->send()->dto();
+            $this->inscription = Inscription::find($this->inscription_id);
             $this->frais = Frais::
             where('annee_id', $this->annee_id)
                 ->where('classable_type', 'like', '%Classe')
@@ -113,8 +117,8 @@ class PerceptionEditComponent extends Component
                 ->orderBy('nom')
                 ->get();
 
-            if (str_ends_with($this->inscription->classe->filierableType, 'Filiere')) {
-                $filiere_id = $this->inscription->classe->filierable->id;
+            if (str_ends_with($this->inscription?->classe->filierableType, 'Filiere')) {
+                $filiere_id = $this->inscription?->classe->filierable->id;
                 $frais2 = Frais::
                 where('annee_id', $this->annee_id)
                     ->where('classable_type', 'like', '%Filiere')
@@ -124,7 +128,7 @@ class PerceptionEditComponent extends Component
 
                 $this->frais = $this->frais->merge($frais2);
 
-                $filiere2 = (new GetFiliereRequest($filiere_id))->send()->dto();
+                $filiere2 = Filiere::find($filiere_id);
                 if ($filiere2) {
                     $option_id = $filiere2->option_id;
                     $frais3 = Frais::
@@ -136,7 +140,7 @@ class PerceptionEditComponent extends Component
 
                     $this->frais = $this->frais->merge($frais3);
 
-                    $option2 = (new GetOptionRequest($option_id))->send()->dto();
+                    $option2 = Option::find($option_id);
                     if ($option2) {
                         $section_id = $option2->section_id;
 
@@ -152,8 +156,8 @@ class PerceptionEditComponent extends Component
                 }
             }
 
-            if (str_ends_with($this->inscription->classe->filierableType, 'Option')) {
-                $option_id = $this->inscription->classe->filierable->id;
+            if (str_ends_with($this->inscription?->classe->filierableType, 'Option')) {
+                $option_id = $this->inscription?->classe->filierable->id;
                 $frais2 = Frais::
                 where('annee_id', $this->annee_id)
                     ->where('classable_type', 'like', '%Option')
@@ -163,7 +167,7 @@ class PerceptionEditComponent extends Component
 
                 $this->frais = $this->frais->merge($frais2);
 
-                $option2 = (new GetOptionRequest($option_id))->send()->dto();
+                $option2 = Option::find($option_id);
                 if ($option2) {
                     $section_id = $option2->section_id;
 
@@ -178,8 +182,8 @@ class PerceptionEditComponent extends Component
                 }
             }
 
-            if (str_ends_with($this->inscription->classe->filierableType, 'Section')) {
-                $section_id = $this->inscription->classe->filierable->id;
+            if (str_ends_with($this->inscription?->classe->filierableType, 'Section')) {
+                $section_id = $this->inscription?->classe->filierable->id;
                 $frais2 = Frais::
                 where('annee_id', $this->annee_id)
                     ->where('classable_type', 'like', '%Section')

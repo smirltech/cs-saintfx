@@ -328,12 +328,6 @@ return [
                     'url' => 'scolarite/devoirs',
                     'shift' => 'ml-3',
                 ],
-                /*  [
-                      'text' => 'Résultats',
-                      'icon' => 'fas fa-fw fa-percent',
-                      'url' => 'scolarite/resultats',
-                      'shift' => 'ml-3',
-                  ],*/
                 [
                     'text' => 'Enseignants',
                     'icon' => 'fas fa-fw fa-chalkboard-teacher',
@@ -418,17 +412,7 @@ return [
             'url' => 'finance/rapports',
             // 'can' => RolePermission::create_user->name,
         ],
-        /* [
-             'text' => 'Configurations',
-             'icon' => 'fas fa-fw fa-cogs',
-             // 'can' => RolePermission::view_etudiant->name,
-             'submenu' => [
-                 [
-                     'text' => 'Liste de frais',
-                     'url' => 'finance/frais',
-                 ],
-             ],
-         ],*/
+
         ['header' => 'SYSTÊME'],
         [
             'text' => 'Calendrier',
@@ -438,7 +422,7 @@ return [
         [
             'text' => 'Utilisateurs',
             'icon' => 'fas fa-fw fa-users',
-            'url' => '/scolarite/users',
+            'url' => '/users',
             'can' => RolePermission::create_user->name,
         ],
     ],
