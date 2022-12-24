@@ -117,8 +117,8 @@ class PerceptionEditComponent extends Component
                 ->orderBy('nom')
                 ->get();
 
-            if (str_ends_with($this->inscription->classe->filierableType, 'Filiere')) {
-                $filiere_id = $this->inscription->classe->filierable->id;
+            if (str_ends_with($this->inscription?->classe->filierableType, 'Filiere')) {
+                $filiere_id = $this->inscription?->classe->filierable->id;
                 $frais2 = Frais::
                 where('annee_id', $this->annee_id)
                     ->where('classable_type', 'like', '%Filiere')
@@ -156,8 +156,8 @@ class PerceptionEditComponent extends Component
                 }
             }
 
-            if (str_ends_with($this->inscription->classe->filierableType, 'Option')) {
-                $option_id = $this->inscription->classe->filierable->id;
+            if (str_ends_with($this->inscription?->classe->filierableType, 'Option')) {
+                $option_id = $this->inscription?->classe->filierable->id;
                 $frais2 = Frais::
                 where('annee_id', $this->annee_id)
                     ->where('classable_type', 'like', '%Option')
@@ -182,8 +182,8 @@ class PerceptionEditComponent extends Component
                 }
             }
 
-            if (str_ends_with($this->inscription->classe->filierableType, 'Section')) {
-                $section_id = $this->inscription->classe->filierable->id;
+            if (str_ends_with($this->inscription?->classe->filierableType, 'Section')) {
+                $section_id = $this->inscription?->classe->filierable->id;
                 $frais2 = Frais::
                 where('annee_id', $this->annee_id)
                     ->where('classable_type', 'like', '%Section')
