@@ -24,7 +24,6 @@
         @yield('title_postfix', config('adminlte.title_postfix', ''))
     </title>
 
-    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 
     {{-- Custom stylesheets (pre AdminLTE) --}}
     @yield('adminlte_css_pre')
@@ -97,14 +96,6 @@
     <script src="{{ mix(config('adminlte.laravel_mix_js_path', 'js/app.js')) }}"></script>
 @endif
 
-<!-- Alpine v3 -->
-<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
-<!-- Focus plugin -->
-<script defer src="https://unpkg.com/@alpinejs/focus@3.x.x/dist/cdn.min.js"></script>
-
-
-@livewire('livewire-ui-modal')
 {{-- Livewire Script --}}
 @if(config('adminlte.livewire'))
 
@@ -113,7 +104,7 @@
     @else
         <livewire:scripts/>
     @endif
-    @livewire('livewire-ui-modal')
+
 
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     {{--<script src="{{ asset('vendor/livewire-alert/livewire-alert.js') }}"></script>--}}

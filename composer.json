@@ -23,9 +23,7 @@
         "simplesoftwareio/simple-qrcode": "^4.2",
         "spatie/laravel-permission": "^5.5",
         "tailflow/laravel-orion": "^2.16",
-        "pharaonic/laravel-readable": "^1.0",
-        "wire-elements/modal": "^1.0",
-        "ext-http": "*"
+        "pharaonic/laravel-readable": "^1.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.7",
