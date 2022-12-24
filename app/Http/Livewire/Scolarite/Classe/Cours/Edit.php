@@ -2,136 +2,105 @@
 
 namespace App\Http\Livewire\Scolarite\Classe\Cours;
 
+use App\Exceptions\ApplicationAlert;
+use App\Models\Annee;
 use App\Models\Classe;
+use App\Models\ClasseEnseignant;
+use App\Models\CoursEnseignant;
 use App\Models\Filiere;
 use App\Models\Option;
 use App\Models\Section;
-use App\Traits\CanHandleClasseCode;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 
 class Edit extends Component
 {
-    use LivewireAlert;
-    use CanHandleClasseCode;
+    use ApplicationAlert;
 
-    public $options = [];
-    public $sections = [];
-    public $filieres = [];
-
-    public $grade;
-    public $code;
-    public $filiere_id;
-    public $option_id;
-    public $section_id;
+    public Classe $classe;
+    public ?string $parent = "";
+    public ?string $parent_url = "";
+    public ?Collection $inscriptions;
+    public Collection $cours;
+    public ?CoursEnseignant $cours_enseignant;
+    public ?ClasseEnseignant $classe_enseignant;
+    public Collection $enseignants;
 
 
-    protected $rules = [
-        'grade' => 'required',
-        'code' => 'required|unique:classes',
-        'section_id' => 'required',
+    public function mount(CoursEnseignant $coursEnseignant)
+    {
 
-    ];
+        $this->cours_enseignant = $coursEnseignant;
 
-    protected $messages = [
-        'grade.required' => 'Cette grade est obligatoire !',
 
-        'code.required' => 'Ce code est obligatoire !',
-        'code.unique' => 'Ce code est déjà pris, cherchez-en un autre !',
+        $this->enseignants = $classe->enseignants;
+        $this->inscriptions = $this->classe->inscriptions;
+        // $this->admissions = $this->promotion->admissions;
 
-        'section_id.required' => 'La section est obligatoire !',
-    ];
+        $classable = $classe->filierable;
+        if ($classable instanceof Filiere) {
+            $this->parent_url = "/scolarite/filieres/$classe->filierable_id";
+            $this->parent = "Filière";
+        } else if ($classable instanceof Option) {
+            $this->parent_url = "/scolarite/options/$classe->filierable_id";
+            $this->parent = "Option";
+        } else if ($classable instanceof Section) {
+            $this->parent_url = "/scolarite/sections/$classe->filierable_id";
+            $this->parent = "Section";
+        }
+    }
+
+
+    // hydrate
 
     public function submit()
     {
-        $this->validate();
+        $this->validate([
+            'cours_enseignant.cours_id' => [
+                'required',
+                Rule::unique('cours_enseignants', 'cours_id')->where(function ($query) {
+                    return $query->where('classe_id', $this->classe->id)
+                        ->where('annee_id', Annee::encours()->id);
+                })],
+            'cours_enseignant.enseignant_id' => Rule::requiredIf(!$this->classe->primaire()), // si la classe n'est pas primaire
+        ]);
 
-        $classe = new Classe();
-        $classe->grade = $this->grade;
-        $classe->code = $this->code;
+        $this->cours_enseignant->classe_id = $this->classe->id;
+        $this->cours_enseignant->save();
 
-        if ($this->filiere_id > 0) {
-            $filiere = Filiere::find($this->filiere_id);
-            $filiere->classes()->save($classe);
-        } else if ($this->option_id > 0) {
-            $option = Option::find($this->option_id);
-            $option->classes()->save($classe);
-        } else if ($this->section_id > 0) {
-            $section = Section::find($this->section_id);
-            $section->classes()->save($classe);
-        }
-
-        $this->flash('success', 'Classe ajoutée avec succès', [], route('scolarite.classes'));
-        //return redirect()->to(route('scolarite.promotions'));
+        $this->dispatchBrowserEvent('closeModal', ['modal' => 'add-cours-modal']);
+        $this->refreshData();
     }
 
-
-    public function mount()
+    public function refreshData()
     {
-        $this->loadFilieresData();
+        $this->classe->refresh();
+        $this->cours = $this->classe->cours;
+        $this->enseignants = $this->classe->enseignants;
     }
 
-    public function loadFilieresData()
+
+    // ajouter un cours
+
+    public function render(): Factory|View|Application
     {
-
-        $this->sections = Section::orderBy('nom')->get();
-        // $this->options = Option::orderBy('nom')->get();
-        //  $this->filieres = Filiere::orderBy('nom')->get();
+        return view('livewire.scolarite.classes.modals');
     }
 
-    public function render()
+    // function rules
+
+    public function rules()
     {
-
-        return view('livewire.scolarite.classes.cours.edit');
+        return [
+            'cours_enseignant.cours_id' => 'required|exists:cours,id',
+            'cours_enseignant.enseignant_id' => 'required|exists:enseignants,id',
+            'classe_enseignant.enseignant_id' => 'required|exists:enseignants,id',
+        ];
     }
 
-    public function changeSection()
-    {
-        if ($this->section_id > 0) {
-            $section = Section::find($this->section_id);
-
-            $this->options = $section->options;
-            if (count($this->options) > 0) {
-                $option = $this->options[0];
-                //   $this->option_id = $option->id;
-                $this->option_id = null;
-                $this->filiere_id = null;
-
-            } else {
-                $this->option_id = null;
-                $this->options = [];
-
-                $this->filiere_id = null;
-                $this->filieres = [];
-            }
-        } else {
-            $this->option_id = null;
-            $this->options = [];
-
-            $this->filiere_id = null;
-            $this->filieres = [];
-        }
-        $this->setCode();
-    }
-
-    public function changeOption()
-    {
-        if ($this->option_id > 0) {
-            $option = Option::find($this->option_id);
-            //$this->setCode();
-            $this->filieres = $option->filieres;
-            if (count($this->filieres) > 0) {
-                $this->filiere_id = null;
-
-            } else {
-                $this->filiere_id = null;
-                $this->filieres = [];
-            }
-        } else {
-            $this->filiere_id = null;
-            $this->filieres = [];
-        }
-        $this->setCode();
-    }
 
 }
