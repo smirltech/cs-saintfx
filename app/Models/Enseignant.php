@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use App\Helpers\Helpers;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Enseignant extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUlids;
 
     public $guarded = [];
 
@@ -41,6 +43,12 @@ class Enseignant extends Model
     public function cours()
     {
         return $this->belongsToMany(Cours::class, 'cours_enseignants')->where('annee_id', Annee::encours()->id)->withPivot('classe_id');
+    }
+
+    public function scopeClasse(Builder $query, Classe $classe): Builder
+    {
+        // cours where section_id = classe.section_id and not in cours_enseignants where classe_id = classe.id and annee_id = annee encours
+        return $query->where('section_id', $classe->section_id);
     }
 
     // primaire

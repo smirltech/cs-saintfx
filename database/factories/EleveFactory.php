@@ -25,7 +25,7 @@ class EleveFactory extends Factory
             'adresse' => $this->faker->address,
             'telephone' => $this->faker->phoneNumber,
             'email' => $this->faker->email,
-            'code' => $this->faker->unique()->randomNumber(8),
+            //'code' => $this->faker->unique()->randomNumber(8),
         ];
     }
 }

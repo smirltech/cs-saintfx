@@ -3,7 +3,9 @@
 namespace Database\Factories;
 
 use App\Models\Eleve;
+use App\Models\Inscription;
 use App\Models\Presence;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -13,17 +15,11 @@ class PresenceFactory extends Factory
 {
     protected $model = Presence::class;
 
-    /*
-     *
-     eleve_id    bigint unsigned not null,
-    date        date            not null,
-    observation text            null,
-     */
     public function definition()
     {
         return [
-            'eleve_id' => $this->faker->numberBetween(1, Eleve::count()),
-            'date' => $this->faker->date(),
+            'inscription_id' => $this->faker->randomElement(Inscription::pluck('id')->toArray()),
+            'date' => Carbon::now()->format('Y-m-d'),
             'observation' => $this->faker->sentence(3),
         ];
     }

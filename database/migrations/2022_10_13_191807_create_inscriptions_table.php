@@ -13,15 +13,14 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('inscriptions', function (Blueprint $table) {
-            $table->id();
+            $table->ulid('id')->primary();
             $table->foreignIdFor(Eleve::class)->constrained();
             $table->foreignIdFor(Classe::class)->constrained();
             $table->foreignIdFor(Annee::class)->constrained()->restrictOnDelete();
             $table->string('categorie')->default(InscriptionCategorie::normal->name);
             $table->integer('montant')->nullable();
             $table->string('status')->default(InscriptionStatus::pending->value);
-            $table->string('code')->unique();
-            $table->unique(["eleve_id", "annee_id"], 'eleve_annee');
+            $table->unique(['eleve_id', 'annee_id'], 'eleve_annee');
             $table->timestamps();
 
         });

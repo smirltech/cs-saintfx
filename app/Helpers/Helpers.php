@@ -3,8 +3,6 @@
 namespace App\Helpers;
 
 use App\Enums\InscriptionStatus;
-use App\Mail\SendMail;
-use phpseclib3\Math\PrimeField\Integer;
 
 
 class Helpers
@@ -16,7 +14,7 @@ class Helpers
     }
 
     // remove spaces and special characters from a string
-    public static function removeSpaceBetween($string)
+    public static function removeSpaceBetween($string): array|string|null
     {
         return preg_replace('/\s+/', '', $string);
     }
@@ -40,14 +38,14 @@ class Helpers
         return round($bytes, $precision) . ' ' . $units[$pow];
     }
 
-    public static function currencyFormat($amount, $decimal = 0, $symbol = '')
+    public static function currencyFormat($amount, $decimal = 0, $symbol = ''): string
     {
 
         return number_format($amount, $decimal) . ' ' . $symbol;
 
     }
 
-    public static function fakePicsum($user_id, $width = 50, $height = 50)
+    public static function fakePicsum($user_id, $width = 50, $height = 50): string
     {
         /*$req = Http::get("https://picsum.photos/id/{$user_id}/info");
         return json_decode($req->body())->download_url;*/
@@ -56,7 +54,7 @@ class Helpers
 
     }
 
-    public static function admissionStatusColor($admissionStatus)
+    public static function admissionStatusColor($admissionStatus): string
     {
 
         switch ($admissionStatus) {
@@ -77,6 +75,12 @@ class Helpers
     public static function fetchAvatar($name, $width = 50, $height = 50): string
     {
         $name = str_replace(' ', '+', $name);
-        return "https://ui-avatars.com/api/?name={$name}&background=random&size={$width}x{$height}";
+        return "https://ui-avatars.com/api/?name={$name}&background=random&size={$width}x{$height}&color=random";
+    }
+
+    // pad
+    public static function pad($number, $length = 2): string
+    {
+        return str_pad($number, $length, '0', STR_PAD_LEFT);
     }
 }

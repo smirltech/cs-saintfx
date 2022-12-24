@@ -8,12 +8,13 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('media', function (Blueprint $table) {
-            $table->id();
+            $table->ulid('id')->primary();
             $table->morphs('mediable');
             $table->string('mime_type');
             $table->string('filename');
             $table->string('location');
-            $table->longText('custom_property')->nullable();
+            $table->text('custom_property')->nullable();
+            $table->string('collection_name')->nullable();
             $table->string('size')->nullable();
             $table->timestamps();
         });

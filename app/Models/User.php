@@ -4,9 +4,12 @@ namespace App\Models;
 
 
 use App\Helpers\Helpers;
+use Closure;
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Traits\HasRoles;
 
 
@@ -14,7 +17,7 @@ class User extends Authenticatable
 {
 
 
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory, Notifiable, HasRoles, HasUlids;
 
     protected $guarded = [];
 
@@ -28,7 +31,7 @@ class User extends Authenticatable
     ];
 
 
-    public function isAdmin()
+    public function isAdmin(): bool
     {
         return true;
     }
@@ -39,7 +42,7 @@ class User extends Authenticatable
         return $this->avatar;
     }
 
-    public function getAvatarAttribute()
+    public function getAvatarAttribute(): string
     {
         return Helpers::fetchAvatar($this->name);
     }
@@ -50,15 +53,15 @@ class User extends Authenticatable
     }
 
 
-    public function adminlte_desc()
+    public function adminlte_desc(): string
     {
         return $this->roles->first()->name ?? "N/A";
     }
 
 
-    public function adminlte_profile_url()
+    public function adminlte_profile_url(): string
     {
-        return route('admin.users.edit', $this);
+        return route('users.edit', $this);
     }
 
     public function getRoleNameAttribute()
@@ -66,9 +69,15 @@ class User extends Authenticatable
         return $this->role->name ?? 'Non assigné';
     }
 
-    public function getRoleAttribute()
+    public function getRoleAttribute(): Closure|Role|null
     {
         return $this->roles->first();
+    }
+
+    // set password attribute
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = Hash::make($value);
     }
 
 

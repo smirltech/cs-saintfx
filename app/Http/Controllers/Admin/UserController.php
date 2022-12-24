@@ -73,11 +73,11 @@ class UserController extends Controller
             $user->delete();
 
             // redirect to the user creation page with an error message
-            return redirect()->route('admin.users.create')->with('error', __('Une erreur est survenue lors de l\'envoi du mail. Veuillez réessayer.'));
+            return redirect()->route('users.create')->with('error', __('Une erreur est survenue lors de l\'envoi du mail. Veuillez réessayer.'));
         }
 
 
-        return redirect()->route('admin.users.index')->with('success', __('Utilisateur créé avec succès'));
+        return redirect()->route('users.index')->with('success', __('Utilisateur créé avec succès'));
     }
 
     /**
@@ -170,6 +170,6 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect(route('admin.users.index'))->with('success', __('The action ran successfully!'));
+        return redirect(route('users.index'))->with('success', __('The action ran successfully!'));
     }
 }
