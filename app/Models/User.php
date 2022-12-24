@@ -80,5 +80,10 @@ class User extends Authenticatable
         $this->attributes['password'] = Hash::make($value);
     }
 
+    public function setRoleIdAttribute($value)
+    {
+        $this->assignRole($value);
+    }
+
 
 }
