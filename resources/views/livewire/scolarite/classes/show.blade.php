@@ -3,7 +3,7 @@
 @endphp
 
 @section('title')
-    {{Str::upper('cenk')}} - {{$classe->code}}
+    {{$classe->code}}
 @endsection
 @section('content_header')
     <div class="row">
@@ -159,12 +159,12 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach ($cours as $k=>$c)
+                                        @foreach ($classe->coursEnseignants as $k=>$c)
                                             <tr>
                                                 <td>{{ $k+1 }}</td>
-                                                <td>{{ $c->nom }}</td>
+                                                <td>{{ $c->cours->nom }}</td>
                                                 <td>
-                                                    {{ $c->section->nom }}
+                                                    {{ $c->cours->section->nom }}
                                                 </td>
                                                 <td>
                                                     {{ $c->enseignant->nom??'Aucun' }}
@@ -174,8 +174,14 @@
                                                         <button
                                                             wire:click="$emit('showModal', 'scolarite.classe.cours.edit')"
                                                             title="Modifier"
-                                                            class="btn btn-outline-warning ml-2">
+                                                            class="btn btn-sm btn-outline-warning ml-2">
                                                             <i class="fas fa-edit"></i>
+                                                        </button>
+                                                        <button
+                                                            wire:click="deleteCours({{ $c->id }})"
+                                                            title="Supprimer"
+                                                            class="btn btn-sm btn-outline-danger ml-2">
+                                                            <i class="fas fa-trash"></i>
                                                         </button>
                                                     </div>
                                                 </td>
