@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Scolarite\Classe;
 
-use App\Enums\ResultatType;
 use App\Models\Annee;
 use App\Models\Classe;
 use App\Models\ClasseEnseignant;
@@ -28,7 +27,6 @@ class ClasseShowComponent extends Component
     public ?CoursEnseignant $cours_enseignant;
     public ?ClasseEnseignant $classe_enseignant;
     public Collection $enseignants;
-
 
 
     public function mount(Classe $classe)
@@ -57,7 +55,6 @@ class ClasseShowComponent extends Component
     }
 
 
-
     // hydrate
 
     public function addCours()
@@ -84,6 +81,25 @@ class ClasseShowComponent extends Component
         $this->classe->refresh();
         $this->cours = $this->classe->cours;
         $this->enseignants = $this->classe->enseignants;
+    }
+
+    public function editCours()
+    {
+        $this->validate([
+            'cours_enseignant.cours_id' => [
+                'required',
+                Rule::unique('cours_enseignants', 'cours_id')->where(function ($query) {
+                    return $query->where('classe_id', $this->classe->id)
+                        ->where('annee_id', Annee::encours()->id);
+                })],
+            'cours_enseignant.enseignant_id' => Rule::requiredIf(!$this->classe->primaire()), // si la classe n'est pas primaire
+        ]);
+
+        $this->cours_enseignant->classe_id = $this->classe->id;
+        $this->cours_enseignant->save();
+
+        $this->dispatchBrowserEvent('closeModal', ['modal' => 'add-cours-modal']);
+        $this->refreshData();
     }
 
     // ajouter un cours
