@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e249f173945ee00353118c389304721f",
+    "content-hash": "f20dc5a2b0f3a3635657ca5da97ca705",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -2628,6 +2628,55 @@
                 }
             ],
             "time": "2022-12-21T22:28:25+00:00"
+        },
+        {
+            "name": "marcincook/laravel-livewire-modals",
+            "version": "4.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/marcincook/laravel-livewire-modals.git",
+                "reference": "f3a1a45b7d79c707a429bb16a3bedb75add72ef2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/marcincook/laravel-livewire-modals/zipball/f3a1a45b7d79c707a429bb16a3bedb75add72ef2",
+                "reference": "f3a1a45b7d79c707a429bb16a3bedb75add72ef2",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "^9.0",
+                "livewire/livewire": "^2.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Bastinald\\LaravelLivewireModals\\Providers\\LaravelLivewireModalsProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Bastinald\\LaravelLivewireModals\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kevin Dion",
+                    "email": "bastinald@icloud.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Dynamic Laravel Livewire Bootstrap modals.",
+            "homepage": "https://github.com/bastinald/laravel-livewire-modals",
+            "support": {
+                "source": "https://github.com/marcincook/laravel-livewire-modals/tree/4.0.0"
+            },
+            "time": "2022-03-26T08:18:46+00:00"
         },
         {
             "name": "masterminds/html5",
