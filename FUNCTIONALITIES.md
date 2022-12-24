@@ -41,8 +41,12 @@ In this page you will see what modules and their functionalities have been so fa
 - [ ] Ajouter une classe : OK
 - [ ] Modifier une classe : OK
 - [ ] Supprimer une classe : bug - violation of foreign key
-- [ ] Voir détail d'une classe : OK
-- [ ] Ajour cours : 
+- [ ] Voir détail d'une classe : OK, affichage cours ne retourne pas l'enseignant correct
+- [ ] Ajouter cours : bug on cours_id
+- [ ] Ajouter enseignant : OK
+- [ ] Supprimer cours : 
+- [ ] Supprimer enseignant : 
+- [ ] Supprimer cours de l'enseignant : 
 ### Enseignant
 - [ ] Liste d'enseignants : OK
 - [ ] Ajouter un enseignant : OK
