@@ -24,6 +24,7 @@
         @yield('title_postfix', config('adminlte.title_postfix', ''))
     </title>
 
+
     {{-- Custom stylesheets (pre AdminLTE) --}}
     @yield('adminlte_css_pre')
 
@@ -93,11 +94,11 @@
     <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
 @else
     <script src="{{ mix(config('adminlte.laravel_mix_js_path', 'js/app.js')) }}"></script>
-
 @endif
 
+<livewire:modals/>
+<script src="{{ asset('js/app.js') }}"></script>
 
-@livewire('livewire-ui-modal')
 {{-- Livewire Script --}}
 @if(config('adminlte.livewire'))
 
@@ -106,6 +107,7 @@
     @else
         <livewire:scripts/>
     @endif
+
 
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     {{--<script src="{{ asset('vendor/livewire-alert/livewire-alert.js') }}"></script>--}}
