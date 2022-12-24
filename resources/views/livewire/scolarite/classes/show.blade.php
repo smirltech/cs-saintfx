@@ -171,9 +171,10 @@
                                                 </td>
                                                 <td>
                                                     <div class="d-flex float-right">
-                                                        <button wire:click="editCours({{ $c->id }})"
-                                                                title="Modifier"
-                                                                class="btn btn-outline-warning ml-2">
+                                                        <button
+                                                            wire:click="$emit('showModal', 'scolarite.classe.cours.edit')"
+                                                            title="Modifier"
+                                                            class="btn btn-outline-warning ml-2">
                                                             <i class="fas fa-edit"></i>
                                                         </button>
                                                     </div>
@@ -210,7 +211,8 @@
                             @endif
                             <div class="tab-pane fade" id="custom-tabs-resultats" role="tabpanel"
                                  aria-labelledby="custom-tabs-one-resultats">
-                                <livewire:scolarite.resultat.block.resultats-block-component :classe="$classe"/>{{--:user="$user" :wire:key="$user->id"--}}
+                                <livewire:scolarite.resultat.block.resultats-block-component
+                                    :classe="$classe"/>{{--:user="$user" :wire:key="$user->id"--}}
 
                             </div>
                         </div>
