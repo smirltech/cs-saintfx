@@ -243,13 +243,18 @@
                                                                                             <td>
                                                                                                 <div
                                                                                                     class="d-flex float-right">
-                                                                                                    <button
-                                                                                                        type="button"
-                                                                                                        title="Télécharger bulletin"
-                                                                                                        class="btn btn-outline-info btn-xs  ml-2">
+                                                                                                    @if($resultat->bulletin)
+                                                                                                        <a
+                                                                                                            href="{{route('media.show', $resultat->bulletin)}}"
+                                                                                                            target="_blank"
+                                                                                                            type="button"
+                                                                                                            title="Télécharger bulletin"
+                                                                                                            class="btn btn-outline-info btn-xs  ml-2">
                                                                                                         <span
-                                                                                                            class="fa fa-download"></span>
-                                                                                                    </button>
+                                                                                                            class="fa fa-file"></span>
+                                                                                                        </a>
+                                                                                                    @endif
+
                                                                                                 </div>
                                                                                             </td>
                                                                                         </tr>
