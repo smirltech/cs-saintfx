@@ -5,85 +5,84 @@ In this page you will see what modules and their functionalities have been so fa
 ## SCOLARITE (aparitorat)
 
 ### Inscription
-- [ ] Liste d'inscriptions
+- [x] Liste d'inscriptions : OK
 - [ ] Liste d'inscriptions par état d'inscription
-- [ ] Ajouter une inscription
-- [ ] Modifier une inscription
-- [ ] Supprimer une inscription
-- [ ] Voir détail d'une inscription
-- [ ] réinscription d'un élève existant dans le système
-- [ ] exporter la liste d'inscriptions
-- [ ] rechercher dans la liste d'inscriptions
+- [x] Ajouter une inscription : OK
+- [x] Modifier une inscription : OK
+- [x] Supprimer une inscription : OK
+- [x] Voir détail d'une inscription : OK
+- [x] réinscription d'un élève existant dans le système : OK
+- [x] exporter la liste d'inscriptions : OK
+- [x] rechercher dans la liste d'inscriptions : OK
 - [ ] modifier status d'inscription
-- [ ] modifier categorie d'inscription
+- [x] modifier categorie d'inscription : OK
 ### Élève
-- [ ] Liste d'élèves
-- [ ] Ajouter un élève
-- [ ] Modifier un élève
-- [ ] Supprimer un élève
-- [ ] Voir détail d'un élève
-- [ ] exporter la liste d'élèves
-- [ ] rechercher dans la liste d'élèves
-- [ ] modifier relation élève responsable
-- [ ] supprimer relation élève responsable
-- [ ] créer relation élève responsable
+- [x] Liste d'élèves : OK
+- [x] Ajouter un élève : OK
+- [x] Modifier un élève : OK
+- [x] Supprimer un élève : OK
+- [x] Voir détail d'un élève : OK
+- [x] exporter la liste d'élèves : OK
+- [x] rechercher dans la liste d'élèves : OK
+- [x] modifier relation élève responsable : OK
+- [x] supprimer relation élève responsable : OK
+- [x] créer relation élève responsable : OK
 ### Responsable
-- [ ] Liste de responsables
-- [ ] Ajouter un responsable
-- [ ] Modifier un responsable
-- [ ] Supprimer un responsable
-- [ ] Voir détail d'un responsable
-- [ ] modifier relation élève responsable
-- [ ] supprimer relation élève responsable
-- [ ] créer relation élève responsable
+- [x] Liste de responsables : OK
+- [x] Ajouter un responsable : N/A
+- [x] Modifier un responsable : OK
+- [x] Supprimer un responsable : OK
+- [x] Voir détail d'un responsable : OK
+- [x] modifier relation élève responsable : OK
+- [x] supprimer relation élève responsable : OK
 ### Classe
-- [ ] Liste de classes : OK
-- [ ] Ajouter une classe : OK
-- [ ] Modifier une classe : OK
+- [x] Liste de classes : OK
+- [x] Ajouter une classe : OK
+- [x] Modifier une classe : OK
 - [ ] Supprimer une classe : bug - violation of foreign key
 - [ ] Voir détail d'une classe : OK, affichage cours ne retourne pas l'enseignant correct
 - [ ] Ajouter cours : bug on cours_id
-- [ ] Ajouter enseignant : OK
+- [x] Ajouter enseignant : OK
 - [ ] Supprimer cours : 
 - [ ] Supprimer enseignant : 
 - [ ] Supprimer cours de l'enseignant : 
 ### Enseignant
-- [ ] Liste d'enseignants : OK
-- [ ] Ajouter un enseignant : OK
-- [ ] Modifier un enseignant : OK
-- [ ] Supprimer un enseignant : OK
-- [ ] Voir détail d'un enseignant : OK
+- [x] Liste d'enseignants : OK
+- [x] Ajouter un enseignant : OK
+- [x] Modifier un enseignant : OK
+- [x] Supprimer un enseignant : OK
+- [x] Voir détail d'un enseignant : OK
 ### Filière
-- [ ] Liste de filières : OK
-- [ ] Ajouter une filière : OK
-- [ ] Modifier une filière : OK
-- [ ] Supprimer une filière : OK
-- [ ] Voir détail d'une filière : OK
+- [x] Liste de filières : OK
+- [x] Ajouter une filière : OK
+- [x] Modifier une filière : OK
+- [x] Supprimer une filière : OK
+- [x] Voir détail d'une filière : OK
 ### Option
-- [ ] Liste d'options : OK
-- [ ] Ajouter une option : OK
-- [ ] Modifier une option : OK
-- [ ] Supprimer une option : OK
-- [ ] Voir détail d'une option : OK
+- [x] Liste d'options : OK
+- [x] Ajouter une option : OK
+- [x] Modifier une option : OK
+- [x] Supprimer une option : OK
+- [x] Voir détail d'une option : OK
 ### Section
-- [ ] Liste de sections : OK
-- [ ] Ajouter une section : OK
-- [ ] Modifier une section : OK
-- [ ] Supprimer une section : OK
-- [ ] Voir détail d'une section : OK
+- [x] Liste de sections : OK
+- [x] Ajouter une section : OK
+- [x] Modifier une section : OK
+- [x] Supprimer une section : OK
+- [x] Voir détail d'une section : OK
 ### Année
-- [ ] Liste d'année scolaire : OK
-- [ ] Activer l'année scolaire en cours : OK
-- [ ] Ajouter année scolaire : OK
-- [ ] Modifier année scolaire : OK
-- [ ] Supprimer année scolaire : OK
+- [x] Liste d'année scolaire : OK
+- [x] Activer l'année scolaire en cours : OK
+- [x] Ajouter année scolaire : OK
+- [x] Modifier année scolaire : OK
+- [x] Supprimer année scolaire : OK
 ### Utilisateur
-- [ ] Liste d'utilisateurs : OK
-- [ ] Ajouter utilisateur : OK
-- [ ] Modifier utilisateur : OK
-- [ ] Supprimer utilisateur : OK
-- [ ] Réinitialiser mot de passe utilisateur : OK
+- [x] Liste d'utilisateurs : OK
+- [x] Ajouter utilisateur : OK
+- [x] Modifier utilisateur : OK
+- [x] Supprimer utilisateur : OK
+- [x] Réinitialiser mot de passe utilisateur : OK
 ### Rapport financier
-- [ ] Afficher rapport : OK
-- [ ] Choisir période : OK
-- [ ] Imprimer rapport : OK
+- [x] Afficher rapport : OK
+- [x] Choisir période : OK
+- [x] Imprimer rapport : OK
