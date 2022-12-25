@@ -13,7 +13,7 @@
         $data[] =[
             $depense->created_at->format('d-m-Y'),
             $depense->categorie,
-            Helpers::currencyFormat($depense->montant, symbol: 'Fc'),
+            \App\Helpers\Helpers::currencyFormat($depense->montant, symbol: 'Fc'),
             $depense->note,
             $depense->reference,
             $depense->user->name,
