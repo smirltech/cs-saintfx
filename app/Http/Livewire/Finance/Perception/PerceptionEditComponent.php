@@ -229,7 +229,7 @@ class PerceptionEditComponent extends Component
                 $this->alert('warning', "Echec de modification de facture !");
             }
         } catch (Exception $exception) {
-            dd($exception);
+           // dd($exception);
             $this->alert('error', "Echec de modification de facture pour la fréquence déjà existante !");
         }
     }
