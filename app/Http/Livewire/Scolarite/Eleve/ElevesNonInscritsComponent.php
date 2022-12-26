@@ -32,7 +32,7 @@ class ElevesNonInscritsComponent extends Component
         return view('livewire.scolarite.eleves.non_inscrits', [
             'eleves' => $this->eleves
         ])
-            ->layout(AdminLayout::class, ['title' => 'Liste d\'élèves']);
+            ->layout(AdminLayout::class, ['title' => "Liste d'élèves non inscrits"]);
     }
 
 }

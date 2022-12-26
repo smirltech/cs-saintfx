@@ -46,18 +46,18 @@
         ];
 @endphp
 @section('title')
-    {{Str::upper('cenk')}} - élèves
+    - élèves non encore inscrits
 @endsection
 @section('content_header')
     <div class="row">
         <div class="col-6">
-            <h1 class="ms-3">Liste d'élèves</h1>
+            <h1 class="ms-3">Liste d'élèves non encore inscrits</h1>
         </div>
 
         <div class="col-6">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('scolarite') }}">Accueil</a></li>
-                <li class="breadcrumb-item active">Élèves</li>
+                <li class="breadcrumb-item active">Élèves Non Inscrits</li>
             </ol>
         </div>
     </div>

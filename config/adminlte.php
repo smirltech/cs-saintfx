@@ -17,7 +17,7 @@ return [
     */
 
     'title' => 'Collège ENK',
-    'title_prefix' => '',
+    'title_prefix' => 'CENK',
     'title_postfix' => '',
 
     /*
