@@ -60,10 +60,10 @@ class Eleve extends Model
         return $this->hasMany(Inscription::class);
     }
 
-    public static function nonInscriptions()
+    public static function nonInscritsAnneeEnCours()
     {
-        return self::with('inscriptions')->whereHas('inscriptions', function ($q){
-
+        return self::whereDoesntHave('inscriptions', function ($q){
+             $q->where('annee_id', Annee::id());
         })->get();
     }
 

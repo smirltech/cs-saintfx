@@ -22,7 +22,7 @@ class ElevesNonInscritsComponent extends Component
 
     public function loadData()
     {
-        $this->eleves = Eleve::nonInscriptions();
+        $this->eleves = Eleve::nonInscritsAnneeEnCours();
         $this->setFakeProfileImageUrl();
     }
 
