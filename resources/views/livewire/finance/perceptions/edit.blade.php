@@ -59,7 +59,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group col-sm-12 col-md-4">
-                                        <label for="">Raison</label>
+                                        <label for="">Raison  {{$perception->custom_property}}</label>
                                         <select wire:model="perception.custom_property"
                                                 class="form-control">
                                             <option value="">Choisir raison... !</option>
@@ -71,8 +71,8 @@
                                     <div class="form-group col-sm-12 col-md-4">
                                         <label for="">Echéance <i class="text-red">*</i></label>
                                         <input type="date" wire:model="perception.due_date"
-                                               class="form-control @error('due_date') is-invalid @enderror">
-                                        @error('due_date')
+                                               class="form-control @error('perception.due_date') is-invalid @enderror">
+                                        @error('perception.due_date')
                                         <span class="text-red">{{ $message }}</span>
                                         @enderror
                                     </div>

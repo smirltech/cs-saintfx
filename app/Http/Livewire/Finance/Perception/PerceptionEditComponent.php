@@ -40,6 +40,7 @@ class PerceptionEditComponent extends Component
         'perception.custom_property' => 'nullable',
         'perception.inscription_id' => 'nullable',
         'perception.frais_id' => 'nullable',
+        'perception.due_date' => 'nullable',
         'perception.inscription.classe_id' => 'nullable',
     ];
 
