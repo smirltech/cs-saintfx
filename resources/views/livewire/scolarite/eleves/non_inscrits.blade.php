@@ -3,14 +3,10 @@
     use App\Helpers\Helpers;use App\Models\Annee;
     $heads = [
             ['', 'no-export' => false, 'width' => 5],
-            'CODE',
             'MATRICULE',
             'ELEVE',
             'SEXE',
             'AGE',
-            'TELEPHONE',
-            'EMAIL',
-            'ADRESSE',
             'RESPONSABLE',
             'RELATION',
             ['Actions', 'no-export' => true, 'width' => 5],
@@ -21,20 +17,17 @@
     foreach ($eleves as $eleve){
 
             $btn1 = '<a href="' . route("scolarite.eleves.show",$eleve) . '" class="btn btn-success btn-sm m-1" title="Voir Élève"><i class="fa fa-eye"></i></a>';
+ $btn2 = '<a href="' . route("scolarite.eleves.show",$eleve) . '" class="btn btn-warning btn-sm m-1" title="Réinscrire Élève"><i class="fa fa-user-plus"></i></a>';
 
             $data[] = [
                 '<img class="img-circle" style="width:50px; height:50px" src="'.$eleve->profile_url.'"></img>',
-                $eleve->code,
                 $eleve->matricule,
                 $eleve->fullName,
                 $eleve->sexe->value??'',
                 $eleve->date_naissance->age??'',
-                 '<a href="tel:'.$eleve->telephone.'">'.$eleve->telephone.'</a>',
-                '<a href = "mailto:'.$eleve->email.'">'.$eleve->email.'</a>',
-                $eleve->adresse,
                 $eleve->responsable_eleve?->responsable?->nom??'',
                 $eleve->responsable_eleve?->relation?->label()??'',
-                '<nobr>' . $btn1. '</nobr>',
+                '<nobr>' . $btn1. $btn2.'</nobr>',
             ];
 
         }
@@ -42,7 +35,7 @@
         $config = [
             'data' => $data ?? [],
             'order' => [[1, 'asc']],
-            'columns' => [['orderable' => false],['orderable' => true], null,  null, null, null, null, null, null, null, null,['orderable' => false]],
+            'columns' => [['orderable' => false],['orderable' => true], null, null, null, null, null,['orderable' => false]],
         ];
 @endphp
 @section('title')

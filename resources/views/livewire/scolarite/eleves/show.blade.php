@@ -34,9 +34,16 @@
                             <h3 class="profile-username text-center">{{$eleve->fullName}}</h3>
                             <p class="text-muted text-center">CODE : {{$eleve->code}}</p>
                             <p class="text-muted text-center">CLASSE
-                                : <a
-                                    href="{{route('scolarite.classes.show', [$inscription?->classe])}}">{{$inscription?->classe?->shortCode??'Non encore inscrit !'}}</a>
+                                :
+                                @if($inscription)
+                                    <a
+                                        href="{{route('scolarite.classes.show', ['classe'=>$inscription?->classe])}}">{{$inscription?->classe?->shortCode??'Non encore inscrit !'}}</a>
+                                @else
+                                    <span>non encore inscrit cette année</span>
+                                @endif
                             </p>
+
+
                             <p class="text-muted text-center">ANNEE SCOLAIRE : {{$annee_courante?->nom??''}}</p>
                         </div>
 
