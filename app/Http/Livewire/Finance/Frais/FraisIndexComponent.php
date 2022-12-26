@@ -237,15 +237,14 @@ class FraisIndexComponent extends Component
 
     public function changeSection()
     {
+        $this->options = [];
+        $this->filieres = [];
         if ($this->section_id > 0) {
             $section = Section::find($this->section_id);
             $this->options = $section->options ?? [];
-        } else {
-            $this->options = [];
         }
         $this->classable_id = $this->section_id;
         $this->classable_type = Section::class;
-        $this->filieres = [];
         $this->option_id = null;
         $this->filiere_id = null;
         $this->classe_id = null;
@@ -254,12 +253,10 @@ class FraisIndexComponent extends Component
 
     public function changeOption()
     {
-
+        $this->filieres = [];
         if ($this->option_id > 0) {
             $option = Option::find($this->option_id);
             $this->filieres = $option->filieres ?? [];
-        } else {
-            $this->filieres = [];
         }
         $this->classable_id = $this->option_id;
         $this->classable_type = Option::class;
