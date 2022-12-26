@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Scolarite\Inscription;
 
 use App\Enums\FraisFrequence;
-use App\Enums\FraisType;
 use App\Enums\InscriptionCategorie;
 use App\Enums\InscriptionStatus;
 use App\Enums\ResponsableRelation;
@@ -83,6 +82,7 @@ class InscriptionCreateComponent extends Component
     public $responsables;
 
     public $annee_courante;
+    public $has_paid = true;
 
     protected $listeners = ['onModalClosed'];
     protected $rules = [
@@ -247,39 +247,16 @@ class InscriptionCreateComponent extends Component
 
     public function changeSection()
     {
+        $this->options = [];
+        $this->filieres = [];
         if ($this->section_id > 0) {
             $section = Section::find($this->section_id);
-            $ff = Frais::
-            where('annee_id', $this->annee_courante->id)
-                ->where('classable_type', 'like', '%Section')
-                ->where('classable_id', $section->id)
-                ->orderBy('nom')
-                ->first();
-            if($ff != null) {
-                $this->fee_id = $ff->id;
-                $this->fee_montant = $ff->montant;
-            }else{
-                $this->fee_id =null;
-                $this->fee_montant = null;
-            }
-            $this->options = $section->options;
-            if (count($this->options) > 0) {
-                $this->option_id = null;
-                $this->filiere_id = null;
-            } else {
-                $this->option_id = null;
-                $this->options = [];
-
-                $this->filiere_id = null;
-                $this->filieres = [];
-            }
-        } else {
-            $this->option_id = null;
-            $this->options = [];
-
-            $this->filiere_id = null;
-            $this->filieres = [];
+            $this->options = $section?->options ?? [];
         }
+
+        $this->option_id = null;
+        $this->filiere_id = null;
+        $this->classe_id = null;
         $this->loadAvailableClasses();
     }
 
@@ -287,100 +264,130 @@ class InscriptionCreateComponent extends Component
     {
         if ($this->filiere_id > 0) {
             $filiere = Filiere::find($this->filiere_id);
-            $ff = Frais::
-            where('annee_id', $this->annee_courante->id)
-                ->where('classable_type', 'like', '%Filiere')
-                ->where('classable_id', $filiere->id)
-                ->orderBy('nom')
-                ->first();
-            if($ff != null) {
-                $this->fee_id = $ff->id;
-                $this->fee_montant = $ff->montant;
-            }else{
-                $this->fee_id =null;
-                $this->fee_montant = null;
-            }
-            $this->classes = $filiere->classes;
+            $this->classes = $filiere?->classes ?? [];
         } else if ($this->option_id > 0) {
             $option = Option::find($this->option_id);
-            $this->classes = $option->classes;
+            $this->classes = $option?->classes ?? [];
         } else if ($this->section_id > 0) {
             $section = Section::find($this->section_id);
-            $this->classes = $section->classes;
+            $this->classes = $section?->classes ?? [];
         }
+        $this->getAvailableFrais();
     }
 
     public function changeOption()
     {
+        $this->filieres = [];
         if ($this->option_id > 0) {
             $option = Option::find($this->option_id);
-            $ff = Frais::
-            where('annee_id', $this->annee_courante->id)
-                ->where('classable_type', 'like', '%Option')
-                ->where('classable_id', $option->id)
-                ->orderBy('nom')
-                ->first();
-            if($ff != null) {
-                $this->fee_id = $ff->id;
-                $this->fee_montant = $ff->montant;
-            }else{
-                $this->fee_id =null;
-                $this->fee_montant = null;
-            }
-            $this->filieres = $option->filieres;
-            if (count($this->filieres) > 0) {
-                $this->filiere_id = null;
-            } else {
-                $this->filiere_id = null;
-                $this->filieres = [];
-            }
-        } else {
-            $this->filiere_id = null;
-            $this->filieres = [];
+            $this->filieres = $option?->filieres ?? [];
         }
+        $this->filiere_id = null;
+        $this->classe_id = null;
         $this->loadAvailableClasses();
     }
 
     public function changeFiliere()
     {
+        $this->classe_id = null;
         $this->loadAvailableClasses();
+    }
+
+    public function changeClasse()
+    {
+        $this->loadAvailableClasses();
+    }
+
+    private function getAvailableFrais()
+    {
+        $ff = null;
+        if ($this->classe_id != null) {
+            $ff = Frais::
+            where('annee_id', $this->annee_courante->id)
+                ->where('classable_type', 'like', '%Classe')
+                ->where('classable_id', $this->classe_id)
+                ->orderBy('nom')
+                ->first();
+            if ($ff != null) {
+                $this->fee_id = $ff->id;
+                $this->fee_montant = $ff->montant;
+            }
+        }
+        if ($ff == null && $this->filiere_id != null) {
+            $ff = Frais::
+            where('annee_id', $this->annee_courante->id)
+                ->where('classable_type', 'like', '%Filiere')
+                ->where('classable_id', $this->filiere_id)
+                ->orderBy('nom')
+                ->first();
+            if ($ff != null) {
+                $this->fee_id = $ff->id;
+                $this->fee_montant = $ff->montant;
+            }
+        }
+        if ($ff == null && $this->option_id != null) {
+            $ff = Frais::
+            where('annee_id', $this->annee_courante->id)
+                ->where('classable_type', 'like', '%Option')
+                ->where('classable_id', $this->option_id)
+                ->orderBy('nom')
+                ->first();
+            if ($ff != null) {
+                $this->fee_id = $ff->id;
+                $this->fee_montant = $ff->montant;
+            }
+        }
+        if ($ff == null && $this->section_id != null) {
+            $ff = Frais::
+            where('annee_id', $this->annee_courante->id)
+                ->where('classable_type', 'like', '%Section')
+                ->where('classable_id', $this->section_id)
+                ->orderBy('nom')
+                ->first();
+            if ($ff != null) {
+                $this->fee_id = $ff->id;
+                $this->fee_montant = $ff->montant;
+            }
+        }
+        if ($ff == null) {
+            $this->fee_id = null;
+            $this->fee_montant = null;
+        }
+
     }
 
 
     // Perception add for inscription
     public function addPerception($inscription_id)
     {
-       $frai = Frais::where(['annee_id' => $this->annee_courante->id, 'type' => FraisType::inscription])->orderBy('nom')->get();
-        $this->validate([
-            'inscription_id' => "required",
-            'fee_id' => 'required',
-            'user_id' => 'required',
-            'annee_id' => 'required',
-            'due_date' => 'required',
-            'paid' => 'nullable',
-            'paid_by' => 'nullable',
-        ]);
+        if ($this->has_paid) {
+            $this->validate([
+                'fee_id' => 'required',
+                'fee_montant' => 'required',
+                'paid_by' => 'nullable',
+            ]);
 
-        try {
-            Perception::create(
-                [
-                    'user_id' => Auth::id(),
-                    'frais_id' => $this->fee_id,
-                    'inscription_id' => $inscription_id,
-                    'custom_property' => FraisFrequence::annuel,
-                    'annee_id' => $this->annee_courante->id,
-                    'montant' => $this->montant,
-                    'due_date' => Carbon::now()->format('Y-m-d'),
-                    'paid' => $this->montant,
-                    //'paid' => ($this->fee->type == FraisType::inscription and $this->paid == null) ? $this->montant : $this->paid,
-                    'paid_by' => $this->paid_by,
-                ]
-            );
+            try {
+                Perception::create(
+                    [
+                        'user_id' => Auth::id(),
+                        'frais_id' => $this->fee_id,
+                        'inscription_id' => $inscription_id,
+                        'custom_property' => FraisFrequence::annuel,
+                        'annee_id' => $this->annee_courante->id,
+                        'montant' => $this->fee_montant,
+                        'due_date' => Carbon::now()->format('Y-m-d'),
+                        'paid' => $this->fee_montant,
+                        //'paid' => ($this->fee->type == FraisType::inscription and $this->paid == null) ? $this->montant : $this->paid,
+                        'paid_by' => $this->paid_by,
+                    ]
+                );
 
-           // $this->flash('success', "Frais imputé avec succès !", [], route('finance.perceptions'));
+                // $this->flash('success', "Frais imputé avec succès !", [], route('finance.perceptions'));
 
-        } catch (Exception $exception) {
-            $this->error(local: $exception->getMessage(), production: "Echec d'imputation de frais déjà existante !");
+            } catch (Exception $exception) {
+                $this->error(local: $exception->getMessage(), production: "Echec d'imputation de frais déjà existante !");
+            }
         }
     }
 
