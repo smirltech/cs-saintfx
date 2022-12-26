@@ -299,6 +299,12 @@ return [
                     'shift' => 'ml-3',
                 ],
                 [
+                    'text' => 'Elèves non inscrits',
+                    'url' => 'scolarite/non-inscriptions',
+                    'icon' => 'fa fa-people-roof',
+                    'shift' => 'ml-3',
+                ],
+                [
                     'text' => 'Responsables',
                     'url' => 'scolarite/responsables',
                     'icon' => 'fas fa-fw fa-person-pregnant',

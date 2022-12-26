@@ -60,6 +60,13 @@ class Eleve extends Model
         return $this->hasMany(Inscription::class);
     }
 
+    public static function nonInscriptions()
+    {
+        return self::with('inscriptions')->whereHas('inscriptions', function ($q){
+
+        })->get();
+    }
+
     public function resultats(): HasManyThrough
     {
         return $this->hasManyThrough(Resultat::class, Inscription::class)->orderBy('custom_property');
