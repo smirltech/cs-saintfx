@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use App;
+use Jantinnerezo\LivewireAlert\Exceptions\AlertException;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 trait ApplicationAlert
@@ -10,6 +11,9 @@ trait ApplicationAlert
     use LivewireAlert;
 
 
+    /**
+     * @throws AlertException
+     */
     public function error(string $local, string $production): void
     {
 
@@ -20,6 +24,19 @@ trait ApplicationAlert
                 'toast' => false,
                 'duration' => 10000,
             ]
+        ]);
+    }
+
+    /**
+     * @throws AlertException
+     */
+    public function success(string $message, array $options = []): void
+    {
+
+        $this->dispatchOrFlashAlert([
+            'type' => 'success',
+            'message' => $message,
+            'options' => $options
         ]);
     }
 }

@@ -33,4 +33,10 @@ class CoursEnseignant extends Model
     {
         return $this->belongsTo(Enseignant::class);
     }
+
+    // classe
+    public function classe(): BelongsTo
+    {
+        return $this->belongsTo(Classe::class);
+    }
 }

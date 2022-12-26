@@ -97,7 +97,7 @@
 @endif
 
 <livewire:modals/>
-<script src="{{ asset('js/app.js') }}"></script>
+
 
 {{-- Livewire Script --}}
 @if(config('adminlte.livewire'))
@@ -113,30 +113,33 @@
     {{--<script src="{{ asset('vendor/livewire-alert/livewire-alert.js') }}"></script>--}}
     <x-livewire-alert::scripts/>
     <x-livewire-alert::flash/>
-    <script>
-        window.addEventListener('closeModal', event => {
-            $("#" + event.detail.modal).modal('hide');
-        });
-    </script>
-
-    <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
-    <link rel="stylesheet" href="https://printjs-4de6.kxcdn.com/print.min.css">
-
-    <script>
-        window.addEventListener('printIt', event => {
-            // alert(" print home edit");
-            printJS({
-                printable: event.detail.elementId,
-                type: event.detail.type,
-                targetStyles: ['*'],
-                maxWidth: event.detail.maxWidth,
-                style: "text-align:center"
-            });
-        })
-
-    </script>
 
 @endif
+<script>
+    window.addEventListener('closeModal', event => {
+        $("#" + event.detail.modal).modal('hide');
+    });
+</script>
+
+<script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+<link rel="stylesheet" href="https://printjs-4de6.kxcdn.com/print.min.css">
+
+<script>
+    window.addEventListener('printIt', event => {
+        // alert(" print home edit");
+        printJS({
+            printable: event.detail.elementId,
+            type: event.detail.type,
+            targetStyles: ['*'],
+            maxWidth: event.detail.maxWidth,
+            style: "text-align:center"
+        });
+    })
+
+</script>
+
+<script src="{{ asset('js/app.js') }}"></script>
+
 
 {{-- Custom Scripts --}}
 @yield('adminlte_js')

@@ -3,7 +3,7 @@
 @endphp
 
 @section('title')
-    {{Str::upper('cenk')}} - {{$classe->code}}
+    {{$classe->code}}
 @endsection
 @section('content_header')
     <div class="row">
@@ -85,12 +85,8 @@
                                 <a class="nav-link active" id="custom-tabs-one-home-tab" data-toggle="pill"
                                    href="#custom-tabs-one-home" role="tab" aria-controls="custom-tabs-one-home"
                                    aria-selected="true">Elèves</a>
+
                             </li>
-                            {{--<li class="nav-item">
-                                <a class="nav-link" id="custom-tabs-one-messages-tab" data-toggle="pill"
-                                   href="#custom-tabs-presences" role="tab"
-                                   aria-controls="custom-tabs-presences" aria-selected="false">Présences</a>
-                            </li>--}}
                             <li class="nav-item">
                                 <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill"
                                    href="#custom-tabs-one-profile" role="tab"
@@ -149,10 +145,6 @@
                                     </table>
                                 </div>
                             </div>
-                            {{--<div class="tab-pane fade" id="custom-tabs-presences" role="tabpanel"
-                                 aria-labelledby="custom-tabs-one-presences">
-                                <livewire:scolarite.presence.block.presences-block-component :classe="$classe"/>--}}{{--:user="$user" :wire:key="$user->id"--}}{{--
-                            </div>--}}
                             <div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel"
                                  aria-labelledby="custom-tabs-one-profile-tab">
                                 <div class="card-body p-0 table-responsive">
@@ -167,22 +159,31 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach ($cours as $k=>$c)
+                                        @foreach ($classe->coursEnseignants as $k=>$c)
                                             <tr>
                                                 <td>{{ $k+1 }}</td>
-                                                <td>{{ $c->nom }}</td>
+                                                <td>{{ $c->cours->nom }}</td>
                                                 <td>
-                                                    {{ $c->section->nom }}
+                                                    {{ $c->cours->section->nom }}
                                                 </td>
                                                 <td>
                                                     {{ $c->enseignant->nom??'Aucun' }}
                                                 </td>
                                                 <td>
                                                     <div class="d-flex float-right">
-                                                        <button wire:click="editCours({{ $c->id }})"
+                                                        @if(!$classe->primaire())
+                                                            <button
+                                                                wire:click="$emit('showModal', 'scolarite.classe.cours.edit', '{{ $c->id }}')"
                                                                 title="Modifier"
-                                                                class="btn btn-outline-warning ml-2">
-                                                            <i class="fas fa-edit"></i>
+                                                                class="btn btn-sm btn-outline-warning ml-2">
+                                                                <i class="fas fa-edit"></i>
+                                                            </button>
+                                                        @endif
+                                                        <button
+                                                            wire:click="deleteCours({{ $c->id }})"
+                                                            title="Supprimer"
+                                                            class="btn btn-sm btn-outline-danger ml-2">
+                                                            <i class="fas fa-trash"></i>
                                                         </button>
                                                     </div>
                                                 </td>
@@ -201,6 +202,7 @@
                                             <tr>
                                                 <th></th>
                                                 <th>NOM</th>
+                                                <th>COURS</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -209,6 +211,7 @@
                                                     <td><img class="img-circle" style="width:30px; height:auto"
                                                              src="{{$enseignant->avatar}}"></td>
                                                     <td>{{ $enseignant->nom }}</td>
+                                                    <td>{{ implode(',',$enseignant->coursOfClasse($classe->id)) }}</td>
                                                 </tr>
                                             @endforeach
                                             </tbody>
@@ -218,7 +221,9 @@
                             @endif
                             <div class="tab-pane fade" id="custom-tabs-resultats" role="tabpanel"
                                  aria-labelledby="custom-tabs-one-resultats">
-                                <livewire:scolarite.resultat.block.resultats-block-component :classe="$classe"/>{{--:user="$user" :wire:key="$user->id"--}}
+                                <livewire:scolarite.resultat.block.resultats-block-component
+                                    :classe="$classe"/>{{--:user="$user" :wire:key="$user->id"--}}
+
                             </div>
                         </div>
 
