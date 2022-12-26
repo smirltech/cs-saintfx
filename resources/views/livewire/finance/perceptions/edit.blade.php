@@ -29,8 +29,12 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Élève : <strong>{{$eleveNom}}</strong></h4>
+                            <div class="card-title">
+                                <h4 >Élève : <strong>{{$perception->nomComplet}}</strong></h4>
+                                <div class="">Classe : <i>{{$perception->classe}}</i></div>
+                            </div>
                             <div class="card-tools">
+
                                 <button title="Supprimer" role="button" class="btn"
                                 ><span aria-hidden="true">&times;</span></button>
                             </div>
@@ -42,7 +46,8 @@
                                 <div class="row">
                                     <div class="form-group col-sm-12 col-md-4">
                                         <label for="">Frais</label>
-                                        <select wire:ignore.self wire:change="feeSelected" wire:model="fee_id"
+                                        <select wire:ignore.self wire:change="feeSelected"
+                                                wire:model="perception.frais_id"
                                                 class="form-control">
                                             <option value="">Choisir frais... !</option>
                                             @foreach ($frais as $feee )
@@ -55,7 +60,7 @@
                                     </div>
                                     <div class="form-group col-sm-12 col-md-4">
                                         <label for="">Raison</label>
-                                        <select wire:model="custom_property"
+                                        <select wire:model="perception.custom_property"
                                                 class="form-control">
                                             <option value="">Choisir raison... !</option>
                                             @foreach ($raisons as $raison )
@@ -65,7 +70,7 @@
                                     </div>
                                     <div class="form-group col-sm-12 col-md-4">
                                         <label for="">Echéance <i class="text-red">*</i></label>
-                                        <input type="date" wire:model="due_date"
+                                        <input type="date" wire:model="perception.due_date"
                                                class="form-control @error('due_date') is-invalid @enderror">
                                         @error('due_date')
                                         <span class="text-red">{{ $message }}</span>
@@ -75,7 +80,7 @@
                                 <div class="row">
                                     <div class="form-group col-sm-12 col-md-4">
                                         <label for="">Montant à Payer <i class="text-red">*</i></label>
-                                        <input type="number" wire:model="montant"
+                                        <input readonly type="number" wire:model="perception.montant"
                                                class="form-control @error('montant') is-invalid @enderror">
                                         @error('montant')
                                         <span class="text-red">{{ $message }}</span>
@@ -83,12 +88,12 @@
                                     </div>
                                     <div class="form-group col-sm-12 col-md-4">
                                         <label for="">Montant Payé</label>
-                                        <input type="number" wire:model="paid"
+                                        <input type="number" wire:model="perception.paid"
                                                class="form-control">
                                     </div>
                                     <div class="form-group col-sm-12 col-md-4">
                                         <label for="">Payé Par</label>
-                                        <input type="text" wire:model="paid_by"
+                                        <input type="text" wire:model="perception.paid_by"
                                                class="form-control">
                                     </div>
                                 </div>
@@ -98,11 +103,6 @@
                         <div class="card-footer ">
                             <div class="d-flex justify-content-between">
                                 <button form="f1" type="submit" class="btn btn-primary">Valider</button>
-                                {{--<button type="button" class="btn btn-success"
-                                        data-toggle="modal"
-                                        data-target="#recu-modal">
-                                    Valider et Imprimer
-                                </button>--}}
                                 <button wire:click="printIt" type="button" class="btn btn-success">Valider et Imprimer
                                 </button>
                             </div>

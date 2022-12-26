@@ -46,4 +46,19 @@ class Perception extends Model
         $fin = Carbon::parse($dfin)->endOfDay();
         return self::where('annee_id', $annee_id)->whereBetween('created_at', [$debut, $fin])->sum('montant');
     }
+
+    public function getNomCompletAttribute(): string
+    {
+        return $this->getFullNameAttribute();
+    }
+
+    public function getFullNameAttribute(): string
+    {
+        return $this->inscription->fullName;
+    }
+
+    public function getClasseAttribute(): string
+    {
+        return $this->inscription->classe->code;
+    }
 }

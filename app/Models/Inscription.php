@@ -47,6 +47,16 @@ class Inscription extends Model
         return $this->belongsTo(Eleve::class);
     }
 
+    public function getNomCompletAttribute(): string
+    {
+        return $this->getFullNameAttribute();
+    }
+
+    public function getFullNameAttribute(): string
+    {
+        return $this->eleve->fullName;
+    }
+
 
     public function classe()
     {
@@ -103,5 +113,10 @@ class Inscription extends Model
     public static function getCurrentInscriptions(){
         return self::where('annee_id', Annee::id())->get();
 }
+
+    public function getClasseCodeAttribute(): Classe
+    {
+        return $this->classe;
+    }
 
 }
