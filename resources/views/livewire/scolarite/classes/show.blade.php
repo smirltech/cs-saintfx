@@ -202,6 +202,7 @@
                                             <tr>
                                                 <th></th>
                                                 <th>NOM</th>
+                                                <th>COURS</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -210,6 +211,7 @@
                                                     <td><img class="img-circle" style="width:30px; height:auto"
                                                              src="{{$enseignant->avatar}}"></td>
                                                     <td>{{ $enseignant->nom }}</td>
+                                                    <td>{{ implode(',',$enseignant->coursOfClasse($classe->id)) }}</td>
                                                 </tr>
                                             @endforeach
                                             </tbody>
