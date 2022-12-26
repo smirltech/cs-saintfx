@@ -11,7 +11,7 @@
         $data[] =[
             $revenu->created_at->format('d-m-Y'),
             $revenu->nom,
-            Helpers::currencyFormat($revenu->montant, symbol: 'Fc'),
+            \App\Helpers\Helpers::currencyFormat($revenu->montant, symbol: 'Fc'),
             $revenu->description,
             $revenu,
 ];

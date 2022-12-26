@@ -59,6 +59,10 @@ class ClasseShowComponent extends Component
         }
     }
 
+    public function onModalClosed()
+    {
+
+    }
 
     // hydrate
 

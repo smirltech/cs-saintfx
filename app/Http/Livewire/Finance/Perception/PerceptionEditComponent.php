@@ -3,11 +3,6 @@
 namespace App\Http\Livewire\Finance\Perception;
 
 use App\Enums\FraisType;
-use App\Http\Integrations\Scolarite\Requests\Annee\GetCurrentAnnneRequest;
-use App\Http\Integrations\Scolarite\Requests\Filiere\GetFiliereRequest;
-use App\Http\Integrations\Scolarite\Requests\Inscription\GetInscriptionRequest;
-use App\Http\Integrations\Scolarite\Requests\Inscription\GetInscriptionsRequest;
-use App\Http\Integrations\Scolarite\Requests\Option\GetOptionRequest;
 use App\Models\Annee;
 use App\Models\Filiere;
 use App\Models\Frais;
@@ -17,6 +12,7 @@ use App\Models\Perception;
 use App\View\Components\AdminLayout;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
@@ -43,6 +39,12 @@ class PerceptionEditComponent extends Component
     private $frais;
     private $inscriptions = [];
     private $inscription;
+
+    protected $rules = [
+        'inscription_id' => 'nullable',
+        'fee_id' => 'required',
+
+    ];
 
     public function mount(Perception $perception)
     {
@@ -97,75 +99,51 @@ class PerceptionEditComponent extends Component
             $this->classe_id = $this->inscription?->classe->id;
         }
 
-        if ($this->inscription_id == null) {
-            $this->loadInscriptionFrais();
-        } else {
+        //if ($this->inscription_id == null) {
+      //  $this->loadInscriptionFrais();
+        //} else {
 
-            $this->chooseSuitableFrais();
-        }
+        $this->chooseSuitableFrais();
+        //}
 
     }
 
     private function chooseSuitableFrais()
     {
-        if ($this->inscription_id) {
-            $this->inscription = Inscription::find($this->inscription_id);
-            $this->frais = Frais::
+        $this->loadInscriptionFrais();
+
+        $this->inscription = Inscription::find($this->inscription_id);
+        $fofo = Frais::
+        where('annee_id', $this->annee_id)
+            ->where('classable_type', 'like', '%Classe')
+            ->where('classable_id', $this->classe_id)
+            ->orderBy('nom')
+            ->get();
+
+        $this->frais = $this->frais->merge($fofo);
+
+        if (str_ends_with($this->inscription?->classe->filierableType, 'Filiere')) {
+            $filiere_id = $this->inscription?->classe->filierable->id;
+            $frais2 = Frais::
             where('annee_id', $this->annee_id)
-                ->where('classable_type', 'like', '%Classe')
-                ->where('classable_id', $this->classe_id)
+                ->where('classable_type', 'like', '%Filiere')
+                ->where('classable_id', $filiere_id)
                 ->orderBy('nom')
                 ->get();
 
-            if (str_ends_with($this->inscription?->classe->filierableType, 'Filiere')) {
-                $filiere_id = $this->inscription?->classe->filierable->id;
-                $frais2 = Frais::
-                where('annee_id', $this->annee_id)
-                    ->where('classable_type', 'like', '%Filiere')
-                    ->where('classable_id', $filiere_id)
-                    ->orderBy('nom')
-                    ->get();
+            $this->frais = $this->frais->merge($frais2);
 
-                $this->frais = $this->frais->merge($frais2);
-
-                $filiere2 = Filiere::find($filiere_id);
-                if ($filiere2) {
-                    $option_id = $filiere2->option_id;
-                    $frais3 = Frais::
-                    where('annee_id', $this->annee_id)
-                        ->where('classable_type', 'like', '%Option')
-                        ->where('classable_id', $option_id)
-                        ->orderBy('nom')
-                        ->get();
-
-                    $this->frais = $this->frais->merge($frais3);
-
-                    $option2 = Option::find($option_id);
-                    if ($option2) {
-                        $section_id = $option2->section_id;
-
-                        $frais4 = Frais::
-                        where('annee_id', $this->annee_id)
-                            ->where('classable_type', 'like', '%Section')
-                            ->where('classable_id', $section_id)
-                            ->orderBy('nom')
-                            ->get();
-
-                        $this->frais = $this->frais->merge($frais4);
-                    }
-                }
-            }
-
-            if (str_ends_with($this->inscription?->classe->filierableType, 'Option')) {
-                $option_id = $this->inscription?->classe->filierable->id;
-                $frais2 = Frais::
+            $filiere2 = Filiere::find($filiere_id);
+            if ($filiere2) {
+                $option_id = $filiere2->option_id;
+                $frais3 = Frais::
                 where('annee_id', $this->annee_id)
                     ->where('classable_type', 'like', '%Option')
                     ->where('classable_id', $option_id)
                     ->orderBy('nom')
                     ->get();
 
-                $this->frais = $this->frais->merge($frais2);
+                $this->frais = $this->frais->merge($frais3);
 
                 $option2 = Option::find($option_id);
                 if ($option2) {
@@ -181,22 +159,45 @@ class PerceptionEditComponent extends Component
                     $this->frais = $this->frais->merge($frais4);
                 }
             }
+        }
 
-            if (str_ends_with($this->inscription?->classe->filierableType, 'Section')) {
-                $section_id = $this->inscription?->classe->filierable->id;
-                $frais2 = Frais::
+        if (str_ends_with($this->inscription?->classe->filierableType, 'Option')) {
+            $option_id = $this->inscription?->classe->filierable->id;
+            $frais2 = Frais::
+            where('annee_id', $this->annee_id)
+                ->where('classable_type', 'like', '%Option')
+                ->where('classable_id', $option_id)
+                ->orderBy('nom')
+                ->get();
+
+            $this->frais = $this->frais->merge($frais2);
+
+            $option2 = Option::find($option_id);
+            if ($option2) {
+                $section_id = $option2->section_id;
+
+                $frais4 = Frais::
                 where('annee_id', $this->annee_id)
                     ->where('classable_type', 'like', '%Section')
                     ->where('classable_id', $section_id)
                     ->orderBy('nom')
                     ->get();
 
-                $this->frais = $this->frais->merge($frais2);
+                $this->frais = $this->frais->merge($frais4);
             }
-        } else {
-            $this->loadInscriptionFrais();
         }
 
+        if (str_ends_with($this->inscription?->classe->filierableType, 'Section')) {
+            $section_id = $this->inscription?->classe->filierable->id;
+            $frais2 = Frais::
+            where('annee_id', $this->annee_id)
+                ->where('classable_type', 'like', '%Section')
+                ->where('classable_id', $section_id)
+                ->orderBy('nom')
+                ->get();
+
+            $this->frais = $this->frais->merge($frais2);
+        }
     }
 
     public function feeSelected()
@@ -225,23 +226,26 @@ class PerceptionEditComponent extends Component
                 $this->flash('success', "Facture modifiée avec succès !", [], route('scolarite.perceptions'));
 
             } else {
-                $this->alert('warning', "Echec de modofication de facture !");
+                $this->alert('warning', "Echec de modification de facture !");
             }
         } catch (Exception $exception) {
+           // dd($exception);
             $this->alert('error', "Echec de modification de facture pour la fréquence déjà existante !");
         }
     }
 
     private function doTheEdit()
     {
+       // dd($this->fee_id);
         $this->validate([
-            'inscription_id' => $this->fee->type == FraisType::inscription ? 'nullable' : 'required',
-            'fee_id' => 'required',
+            'inscription_id' => $this->fee->type == FraisType::inscription ? 'nullable' : Rule::unique((new Perception())->getTable(), "inscription_id")->ignore($this->perception),
+            'fee_id' => ['required', Rule::unique('perceptions', 'frais_id')->ignore($this->perception, 'frais_id')],
             'user_id' => 'required',
-            'annee_id' => 'required',
             'due_date' => 'required',
             'paid' => 'nullable',
             'paid_by' => 'nullable',
+            'custom_property' => Rule::unique((new Perception())->getTable(), "custom_property")->ignore($this->perception),
+            // 'custom_property' => ['required', Rule::unique('perceptions', 'custom_property')->ignore($this->perception->id),],
         ]);
 
         return $this->perception->update(
