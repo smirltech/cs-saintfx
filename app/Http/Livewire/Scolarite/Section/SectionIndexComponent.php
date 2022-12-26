@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Scolarite\Section;
 use App\Models\Option;
 use App\Models\Section;
 use App\Traits\SectionCode;
+use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -12,6 +13,7 @@ use Livewire\Component;
 
 class SectionIndexComponent extends Component
 {
+    use TopMenuPreview;
     use LivewireAlert;
     use SectionCode;
 

@@ -15,6 +15,7 @@ use App\Models\ResponsableEleve;
 use App\Models\Section;
 use App\Traits\CanHandleEleveUniqueCode;
 use App\Traits\FakeProfileImage;
+use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
@@ -22,6 +23,7 @@ use Throwable;
 
 class EleveShowComponent extends Component
 {
+    use TopMenuPreview;
     use LivewireAlert;
     use FakeProfileImage;
     use CanHandleEleveUniqueCode;

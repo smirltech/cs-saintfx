@@ -6,6 +6,7 @@ use App\Models\Annee;
 use App\Models\Classe;
 use App\Models\Responsable;
 use App\Models\Resultat;
+use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
@@ -13,6 +14,7 @@ use Livewire\WithPagination;
 
 class ResultatIndexComponent extends Component
 {
+    use TopMenuPreview;
     use LivewireAlert;
     use WithPagination;
 

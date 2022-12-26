@@ -10,12 +10,14 @@ use App\Models\Filiere;
 use App\Models\Option;
 use App\Models\Section;
 use App\Traits\CanHandleClasseCode;
+use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 class ClasseEditComponent extends Component
 {
+    use TopMenuPreview;
     use LivewireAlert;
     use CanHandleClasseCode;
 

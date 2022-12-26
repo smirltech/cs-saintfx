@@ -11,12 +11,14 @@ use App\Models\Filiere;
 use App\Models\Frais;
 use App\Models\Option;
 use App\Models\Section;
+use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 class FraisIndexComponent extends Component
 {
+    use TopMenuPreview;
     use LivewireAlert;
 
     public $sections = [];

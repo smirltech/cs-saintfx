@@ -8,6 +8,7 @@ use App\Models\Annee;
 use App\Models\Depense;
 use App\Models\Perception;
 use App\Models\Revenu;
+use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
@@ -19,6 +20,7 @@ use Pharaonic\Laravel\Readable\Readable;
 
 class DashboardComponent extends Component
 {
+    use TopMenuPreview;
     public $dayCount = 30;
     public $boxes = [];
     private $anneeEncours;

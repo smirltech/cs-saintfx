@@ -4,12 +4,14 @@ namespace App\Http\Livewire\Scolarite\Responsable;
 
 use App\Models\Responsable;
 use App\Models\ResponsableEleve;
+use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 class ResponsableShowComponent extends Component
 {
+    use TopMenuPreview;
     use LivewireAlert;
 
     public $responsable;

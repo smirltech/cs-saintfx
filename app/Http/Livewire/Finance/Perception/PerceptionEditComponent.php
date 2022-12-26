@@ -11,6 +11,7 @@ use App\Models\Inscription;
 use App\Models\Option;
 use App\Models\Perception;
 use App\Models\Section;
+use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Exception;
 use Illuminate\Support\Facades\Auth;
@@ -20,6 +21,7 @@ use Livewire\Component;
 
 class PerceptionEditComponent extends Component
 {
+    use TopMenuPreview;
     use LivewireAlert;
 
     public $perception;

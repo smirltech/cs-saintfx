@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Scolarite\Enseignant;
 use App\Enums\Sexe;
 use App\Models\Enseignant;
 use App\Models\Section;
+use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Date;
@@ -14,6 +15,7 @@ use Livewire\Component;
 
 class EnseignantCreateComponent extends Component
 {
+    use TopMenuPreview;
     use LivewireAlert;
 
     public Enseignant $enseignant;

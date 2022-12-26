@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Scolarite\Devoir;
 use App\Models\Cours;
 use App\Models\Devoir;
 use App\Traits\CanDeleteModel;
+use App\Traits\TopMenuPreview;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -14,6 +15,7 @@ use Livewire\Component;
 
 class DevoirIndexComponent extends Component
 {
+    use TopMenuPreview;
     use LivewireAlert, CanDeleteModel;
 
     public Collection $devoirs;
