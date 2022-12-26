@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Scolarite\Classe;
 
-use App\Enums\ResultatType;
 use App\Models\Annee;
 use App\Models\Classe;
 use App\Models\ClasseEnseignant;
@@ -56,6 +55,10 @@ class ClasseShowComponent extends Component
         }
     }
 
+    public function onModalClosed()
+    {
+
+    }
 
 
     // hydrate
