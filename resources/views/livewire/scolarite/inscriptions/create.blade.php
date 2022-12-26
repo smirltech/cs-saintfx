@@ -198,7 +198,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group col-md-6 col-sm-12">
+                                <div class="form-group col-md-4 col-sm-12">
                                     <label for="">Categorie <i class="text-red">*</i></label>
                                     <select wire:model="categorie"
                                             class="form-control  @error('categorie') is-invalid @enderror">
@@ -211,9 +211,14 @@
                                         @enderror
                                     </select>
                                 </div>
-                                <div class="form-group col-md-6 col-sm-12">
+                                <div class="form-group col-md-4 col-sm-12">
                                     <label for="">Montant</label>
-                                    <input placeholder="Saisir frais d'inscription" type="number" wire:model="montant"
+                                    <input readonly placeholder="Saisir frais d'inscription" type="number" wire:model="fee_montant"
+                                           class="form-control">
+                                </div>
+                                <div class="form-group col-md-4 col-sm-12">
+                                    <label for="">Payé par</label>
+                                    <input placeholder="Saisir nom payant" type="text" wire:model="paid_by"
                                            class="form-control">
                                 </div>
                             </div>
