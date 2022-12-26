@@ -6,6 +6,7 @@ use App\Enums\DepenseCategorie;
 use App\Http\Integrations\Scolarite\Requests\Annee\GetCurrentAnnneRequest;
 use App\Models\Annee;
 use App\Models\Depense;
+use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Illuminate\Support\Facades\Auth;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -13,6 +14,7 @@ use Livewire\Component;
 
 class DepenseIndexComponent extends Component
 {
+    use TopMenuPreview;
     use LivewireAlert;
 
     public $annee_id;

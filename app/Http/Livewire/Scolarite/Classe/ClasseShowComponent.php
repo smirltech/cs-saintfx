@@ -10,6 +10,7 @@ use App\Models\CoursEnseignant;
 use App\Models\Filiere;
 use App\Models\Option;
 use App\Models\Section;
+use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
@@ -21,6 +22,7 @@ use Livewire\Component;
 
 class ClasseShowComponent extends Component
 {
+    use TopMenuPreview;
     use ApplicationAlert;
 
     public Classe $classe;

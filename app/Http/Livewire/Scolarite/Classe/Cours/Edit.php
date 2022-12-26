@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Scolarite\Classe\Cours;
 
 use App\Exceptions\ApplicationAlert;
 use App\Models\CoursEnseignant;
+use App\Traits\TopMenuPreview;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -11,6 +12,7 @@ use Livewire\Component;
 
 class Edit extends Component
 {
+    use TopMenuPreview;
     use ApplicationAlert;
 
     public CoursEnseignant $cours_enseignant;

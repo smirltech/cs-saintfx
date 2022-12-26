@@ -17,7 +17,7 @@ return [
     */
 
     'title' => 'Collège ENK',
-    'title_prefix' => '',
+    'title_prefix' => 'CENK',
     'title_postfix' => '',
 
     /*
@@ -296,6 +296,12 @@ return [
                     'text' => 'Elèves inscrits',
                     'url' => 'scolarite/inscriptions',
                     'icon' => 'fa fa-users-line',
+                    'shift' => 'ml-3',
+                ],
+                [
+                    'text' => 'Elèves non inscrits',
+                    'url' => 'scolarite/non-inscriptions',
+                    'icon' => 'fa fa-people-roof',
                     'shift' => 'ml-3',
                 ],
                 [

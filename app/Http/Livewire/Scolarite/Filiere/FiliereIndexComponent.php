@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Scolarite\Filiere;
 use App\Models\Filiere;
 use App\Models\Option;
 use App\Models\Section;
+use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -12,6 +13,7 @@ use Livewire\Component;
 
 class FiliereIndexComponent extends Component
 {
+    use TopMenuPreview;
     use LivewireAlert;
 
     public $options = [];

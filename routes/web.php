@@ -88,6 +88,7 @@ Route::prefix('scolarite')->middleware(['auth:web'])->as('scolarite.')->group(fu
 // Eleves
     Route::get('eleves/{eleve}', Scolarite\Eleve\EleveShowComponent::class)->name('eleves.show');
     Route::get('eleves', Scolarite\Eleve\EleveIndexComponent::class)->name('eleves');
+    Route::get('non-inscriptions', Scolarite\Eleve\ElevesNonInscritsComponent::class)->name('non-inscriptions');
 
     // Inscription
     Route::get('inscriptions/create', Scolarite\Inscription\InscriptionCreateComponent::class)->name('inscriptions.create');

@@ -19,6 +19,7 @@ use App\Models\ResponsableEleve;
 use App\Models\Section;
 use App\Traits\CanHandleEleveUniqueCode;
 use App\Traits\InscriptionUniqueCode;
+use App\Traits\TopMenuPreview;
 use App\Traits\WithFileUploads;
 use App\View\Components\AdminLayout;
 use Carbon\Carbon;
@@ -29,6 +30,7 @@ use Livewire\Component;
 
 class InscriptionCreateComponent extends Component
 {
+    use TopMenuPreview;
     use WithFileUploads;
     use LivewireAlert;
     use CanHandleEleveUniqueCode;

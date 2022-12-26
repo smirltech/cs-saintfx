@@ -3,12 +3,14 @@
 namespace App\Http\Livewire\Scolarite\Annee;
 
 use App\Models\Annee;
+use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 class AnneeComponent extends Component
 {
+    use TopMenuPreview;
     use LivewireAlert;
 
     public $name;

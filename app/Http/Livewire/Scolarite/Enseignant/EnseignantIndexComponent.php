@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Scolarite\Enseignant;
 
 use App\Models\Enseignant;
 use App\Traits\CanDeleteModel;
+use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Illuminate\Database\Eloquent\Collection;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -11,6 +12,7 @@ use Livewire\Component;
 
 class EnseignantIndexComponent extends Component
 {
+    use TopMenuPreview;
     use LivewireAlert;
     use CanDeleteModel;
 
