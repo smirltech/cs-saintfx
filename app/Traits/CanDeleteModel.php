@@ -20,4 +20,8 @@ trait CanDeleteModel
         }
     }
 
+
+    // refresh data after deleting media
+
+
 }

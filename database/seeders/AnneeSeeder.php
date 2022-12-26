@@ -9,7 +9,7 @@ class AnneeSeeder extends Seeder
 {
     public function run()
     {
-        $annee = Annee::updateOrCreate(['nom' => "2022-2023"], [
+        Annee::updateOrCreate(['nom' => "2022-2023"], [
             'nom' => '2022',
             'encours' => true,
         ]);

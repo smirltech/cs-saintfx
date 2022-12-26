@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\DevoirStatus;
 use App\Models\Annee;
 use App\Models\Classe;
 use App\Models\Cours;
@@ -17,6 +18,8 @@ return new class extends Migration {
             $table->foreignIdFor(Annee::class)->constrained()->restrictOnDelete();
             $table->string('titre');
             $table->mediumText('contenu')->nullable();
+            $table->date('echeance');
+            $table->string('status')->default(DevoirStatus::draft->name);
             $table->timestamps();
         });
     }

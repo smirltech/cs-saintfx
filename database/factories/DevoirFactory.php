@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\DevoirStatus;
 use App\Models\Annee;
 use App\Models\Classe;
 use App\Models\Cours;
@@ -15,19 +16,6 @@ class DevoirFactory extends Factory
 {
     protected $model = Devoir::class;
 
-    /*
-     * classe_id  integer not null
-    references classes
-    on delete restrict,
-    cours_id   integer not null
-    references cours
-    on delete restrict,
-    annee_id   integer not null
-    references annees
-    on delete restrict,
-    titre      varchar not null,
-    contenu    text,
-    */
     public function definition()
     {
         return [
@@ -36,6 +24,8 @@ class DevoirFactory extends Factory
             'annee_id' => $this->faker->numberBetween(1, Annee::count()),
             'titre' => $this->faker->words(3, true),
             'contenu' => $this->faker->paragraphs(5, true),
+            'echeance' => $this->faker->dateTimeBetween('now', '+1 week')->format('Y-m-d'),
+            'status' => $this->faker->randomElement(array_column(DevoirStatus::cases(), 'value')),
         ];
     }
 }

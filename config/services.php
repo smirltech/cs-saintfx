@@ -14,16 +14,8 @@ return [
     |
     */
 
-    'sagenet' => [
-        'url' => env('SAGENET_URL', 'http://sagenet-api.test/api'),
-        'token' => env('SAGENET_TOKEN'),
-        'key' => env('SAGENET_KEY'),
-    ],
-
-
-    'e-releve' => [
-        'url' => env('ERELEVE_URL', 'http://e-releve-etudiant.test'),
-        'key' => env('ERELEVE_KEY'),
+    'scolarite' => [
+        'url' => env('SCOLARITE_URL', 'http://cenk-scolarite.test'),
     ],
 
     'mailgun' => [

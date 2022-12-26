@@ -1,0 +1,259 @@
+{{-- Add Section --}}
+@php use App\Enums\FraisType; @endphp
+@php use App\Enums\FraisFrequence; @endphp
+<div wire:ignore.self class="modal fade" tabindex="-1" id="add-frais-modal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Ajouter Frais</h4>
+                <button wire:click="$emit('onModalClosed')" type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <x-validation-errors class="mb-4" :errors="$errors"/>
+                <form id="f1" wire:submit.prevent="addFrais">
+                    <div class="row">
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label for="">Nom <i class="text-red">*</i></label>
+                            <input type="text" wire:model="nom"
+                                   class="form-control @error('nom') is-invalid @enderror">
+                            @error('nom')
+                            <span class="text-red">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label for="">Montant <i class="text-red">*</i></label>
+                            <input type="number" wire:model="montant"
+                                   class="form-control @error('montant') is-invalid @enderror">
+                            @error('montant')
+                            <span class="text-red">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label for="">Type</label>
+                            <select wire:model="type"
+                                    class="form-control">
+                                @foreach (FraisType::cases() as $es )
+                                    <option value="{{$es->value}}">{{ $es->label() }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label for="">Fréquence</label>
+                            <select wire:model="frequence"
+                                    class="form-control">
+                                @foreach (FraisFrequence::cases() as $es )
+                                    <option value="{{$es->value}}">{{ $es->label() }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-3">
+                            <label for="">Section {{$section_id}} <i class="text-red">*</i></label>
+                            <select wire:model="section_id" wire:change="changeSection"
+                                    class="form-control  @error('section_id') is-invalid @enderror">
+                                <option value="">Choisir section</option>
+                                @foreach ($sections as $section )
+                                    <option value="{{ $section->id }}">{{ $section->nom }}</option>
+                                @endforeach
+                            </select>
+                            @error('section_id')
+                            <span class="text-red">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group col-3">
+                            <label for="">Option {{$option_id}}</label>
+                            <select wire:model="option_id" wire:change="changeOption" class="form-control">
+                                <option value="">Choisir option</option>
+                                @foreach ($options as $option )
+                                    <option value="{{ $option->id }}">{{ $option->nom }}</option>
+                                @endforeach
+                            </select>
+
+                        </div>
+                        <div class="form-group col-3">
+                            <label for="">Filière {{$filiere_id}}</label>
+                            <select wire:model="filiere_id"
+                                    wire:change="changeFiliere" class="form-control">
+                                <option value="">Choisir filière</option>
+                                @foreach ($filieres as $filiere )
+                                    <option value="{{ $filiere->id }}">{{ $filiere->nom }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group col-3">
+                            <label for="">Classe {{$classe_id}} <i class="text-red">*</i></label>
+                            <select wire:model="classe_id" wire:change="onClasseSelected"
+                                    class="form-control">
+                                <option value="">Choisir classe</option>
+                                @foreach ($classes as $classe )
+                                    <option value="{{ $classe->id }}">{{ $classe->code }}</option>
+                                @endforeach
+                            </select>
+                            @error('classe_id')
+                            <span class="text-red">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <label for="">Description</label>
+                        <textarea rows="2" wire:model="description" class="form-control"></textarea>
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button wire:click="$emit('onModalClosed')" type="button" class="btn btn-default" data-dismiss="modal">
+                    Fermer
+                </button>
+                <button form="f1" type="submit" class="btn btn-primary">Ajouter</button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{{-- Edit Revenu --}}
+<div wire:ignore.self class="modal fade" tabindex="2" id="edit-frais-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Modifier Revenu</h4>
+                <button wire:click="$emit('onModalClosed')" type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <x-validation-errors class="mb-4" :errors="$errors"/>
+                <form id="f2" wire:submit.prevent="updateFrais">
+                    <div class="row">
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label for="">Nom <i class="text-red">*</i></label>
+                            <input type="text" wire:model="nom"
+                                   class="form-control @error('nom') is-invalid @enderror">
+                            @error('nom')
+                            <span class="text-red">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label for="">Montant <i class="text-red">*</i></label>
+                            <input type="number" wire:model="montant"
+                                   class="form-control @error('montant') is-invalid @enderror">
+                            @error('montant')
+                            <span class="text-red">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label for="">Type</label>
+                            <select wire:model="type"
+                                    class="form-control">
+                                @foreach (FraisType::cases() as $es )
+                                    <option value="{{$es->value}}">{{ $es->label() }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label for="">Fréquence</label>
+                            <select wire:model="frequence"
+                                    class="form-control">
+                                @foreach (FraisFrequence::cases() as $es )
+                                    <option value="{{$es->value}}">{{ $es->label() }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-3">
+                            <label for="">Section {{$section_id}} <i class="text-red">*</i></label>
+                            <select wire:model="section_id" wire:change="changeSection"
+                                    class="form-control  @error('section_id') is-invalid @enderror">
+                                <option value="">Choisir section</option>
+                                @foreach ($sections as $section )
+                                    <option value="{{ $section->id }}">{{ $section->nom }}</option>
+                                @endforeach
+                            </select>
+                            @error('section_id')
+                            <span class="text-red">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group col-3">
+                            <label for="">Option {{$option_id}}</label>
+                            <select wire:model="option_id" wire:change="changeOption" class="form-control">
+                                <option value="">Choisir option</option>
+                                @foreach ($options as $option )
+                                    <option value="{{ $option->id }}">{{ $option->nom }}</option>
+                                @endforeach
+                            </select>
+
+                        </div>
+                        <div class="form-group col-3">
+                            <label for="">Filière {{$filiere_id}}</label>
+                            <select wire:model="filiere_id"
+                                    wire:change="changeFiliere" class="form-control">
+                                <option value="">Choisir filière</option>
+                                @foreach ($filieres as $filiere )
+                                    <option value="{{ $filiere->id }}">{{ $filiere->nom }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group col-3">
+                            <label for="">Classe {{$classe_id}}</label>
+                            <select wire:model="classe_id" wire:change="onClasseSelected"
+                                    class="form-control">
+                                <option value="">Choisir classe</option>
+                                @foreach ($classes as $classe )
+                                    <option value="{{ $classe->id }}">{{ $classe->code }}</option>
+                                @endforeach
+                            </select>
+                            
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <label for="">Description</label>
+                        <textarea rows="2" wire:model="description" class="form-control"></textarea>
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button wire:click="$emit('onModalClosed')" type="button" class="btn btn-default" data-dismiss="modal">
+                    Fermer
+                </button>
+                <button form="f2" type="submit" class="btn btn-primary">Modifier</button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{{-- Delete Section --}}
+<div wire:ignore.self class="modal fade" tabindex="-1" id="delete-frais-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Suppression de Frais</h4>
+                <button wire:click="$emit('onModalClosed')" type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Êtes-vous sûr de vouloir supprimer ce frais ?</p>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button wire:click="$emit('onModalClosed')" type="button" class="btn btn-default" data-dismiss="modal">
+                    Fermer
+                </button>
+                <button wire:click="deleteFrais" class="btn btn-primary">Supprimer</button>
+            </div>
+        </div>
+
+    </div>
+
+</div>

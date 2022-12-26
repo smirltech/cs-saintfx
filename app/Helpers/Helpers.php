@@ -45,7 +45,7 @@ class Helpers
 
     }
 
-    public static function fakePicsum($user_id, $width = 50, $height = 50)
+    public static function fakePicsum($user_id, $width = 50, $height = 50): string
     {
         /*$req = Http::get("https://picsum.photos/id/{$user_id}/info");
         return json_decode($req->body())->download_url;*/
@@ -75,7 +75,7 @@ class Helpers
     public static function fetchAvatar($name, $width = 50, $height = 50): string
     {
         $name = str_replace(' ', '+', $name);
-        return "https://ui-avatars.com/api/?name={$name}&background=random&size={$width}x{$height}";
+        return "https://ui-avatars.com/api/?name={$name}&background=random&size={$width}x{$height}&color=random";
     }
 
     // pad

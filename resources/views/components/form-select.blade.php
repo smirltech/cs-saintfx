@@ -1,4 +1,4 @@
-@props(['disabled' => false,'isValid','label','error'])
+@props(['disabled' => false,'isValid','label','error','placeholder'])
 @php
     if (isset($isValid )) {
         $classes = ($isValid ===true)
@@ -8,11 +8,9 @@
         $classes = '';
     }
 @endphp
-@if(isset($label))
-    <label class="form-label">{{$label}}</label>
-@endif
+@include('components.form-label')
 <select {{ $disabled ? 'disabled' : '' }} {!! $attributes->merge(['class' => 'form-control'.$classes]) !!}>
-    <option value="">-- Sélectionner --</option>
+    <option disabled value="">{{$placeholder??'-- Sélectionner --'}}</option>
     {{$slot}}
 </select>
 @if(isset($error))

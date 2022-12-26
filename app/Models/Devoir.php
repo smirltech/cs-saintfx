@@ -2,19 +2,35 @@
 
 namespace App\Models;
 
-use App\Enums\MediaType;
+use App\Enums\DevoirStatus;
 use App\Traits\HasMedia;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Http\UploadedFile;
 
 class Devoir extends Model
 {
     use HasFactory, HasUlids, HasMedia;
 
+    // set annee on create in not set in boot
     public $guarded = [];
+    protected $casts = [
+        //'echeance' => 'date',
+        'status' => DevoirStatus::class,
+    ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function (Devoir $model) {
+            $model->annee_id = $model->annee_id ?? Annee::id();
+        });
+    }
 
     public function getDocumentAttribute(): ?Media
     {
@@ -32,14 +48,38 @@ class Devoir extends Model
         return $this->getFirstMediaUrl();
     }
 
-    public function setDocumentUrlAttribute(UploadedFile $file): void
+    // get devoirEleves relation
+    public function devoirReponses(): HasMany
     {
-        $this->upload(file: $file, entity: $this, mediaType: MediaType::Document);
+        return $this->hasMany(DevoirReponse::class);
     }
 
-    // get devoirEleves relation
-    public function devoirEleves(): HasMany
+    // cours
+    public function cours(): BelongsTo
     {
-        return $this->hasMany(DevoirEleve::class);
+        return $this->belongsTo(Cours::class);
+    }
+
+    // classe
+    public function classe(): BelongsTo
+    {
+        return $this->belongsTo(Classe::class);
+    }
+
+    // display echeance
+    public function getEcheanceDisplayAttribute(): string
+    {
+        return Carbon::parse($this->getEcheanceAttribute())->diffForHumans();
+    }
+
+    public function getEcheanceAttribute($value = null): string
+    {
+        return Carbon::parse($value)->format('Y-m-d');
+    }
+
+    // get reponses attribute
+    public function getReponsesAttribute(): Collection
+    {
+        return $this->devoirReponses;
     }
 }

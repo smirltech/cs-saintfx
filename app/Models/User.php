@@ -61,7 +61,7 @@ class User extends Authenticatable
 
     public function adminlte_profile_url(): string
     {
-        return route('admin.users.edit', $this);
+        return route('users.edit', $this);
     }
 
     public function getRoleNameAttribute()
@@ -78,6 +78,11 @@ class User extends Authenticatable
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = Hash::make($value);
+    }
+
+    public function setRoleIdAttribute($value)
+    {
+        $this->assignRole($value);
     }
 
 

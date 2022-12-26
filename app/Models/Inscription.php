@@ -53,6 +53,10 @@ class Inscription extends Model
         return $this->belongsTo(Classe::class);
     }
 
+    public function resultats()
+    {
+        return $this->hasMany(Resultat::class);
+    }
 
     public function annee()
     {
@@ -95,5 +99,9 @@ class Inscription extends Model
     {
         return $this?->eleve->matricule;
     }
+
+    public static function getCurrentInscriptions(){
+        return self::where('annee_id', Annee::id())->get();
+}
 
 }

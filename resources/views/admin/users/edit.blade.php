@@ -26,7 +26,7 @@
                                 <div class="mt-3">
                                     @if(Gate::allows(RolePermission::create_user->name) AND auth()->user()->id != $user->id)
                                         <form method="post" class="center"
-                                              action="{{route('admin.users.destroy',$user)}}">
+                                              action="{{route('users.destroy',$user)}}">
                                             @csrf @method('DELETE')
                                             <button class="btn btn-danger btn-sm">
                                                 <i class="fa fa-trash"></i> {{ __('Delete') }}
@@ -44,7 +44,7 @@
                     <div class="card mb-5">
                         <div class="card-body">
                             @if(Gate::allows(RolePermission::create_user->name) || auth()->user()->id == $user->id)
-                                <form action="{{route('admin.users.update',$user)}}" enctype="multipart/form-data"
+                                <form action="{{route('users.update',$user)}}" enctype="multipart/form-data"
                                       method="POST"
                                       class="form-horizontal">
                                     @csrf @method('PUT')
@@ -103,7 +103,7 @@
                                             <label for="role_id" class="col-md-4 col-form-label text-md-right"></label>
 
                                             <div class="col-md-6">
-                                                <a href="{{ route('admin.users.password.autoreset',$user) }}"
+                                                <a href="{{ route('users.password.autoreset',$user) }}"
                                                    class="btn btn-warning btn-sm">
                                                     <i class="fa fa-key"></i> {{ __('Reset Password') }}
                                                 </a>
@@ -115,7 +115,7 @@
                                     <hr hidden>
                                     <div class="card-footer">
 
-                                        <a href="{{route('admin.users.index')}}" class="btn btn-outline-primary btn-sm">
+                                        <a href="{{route('users.index')}}" class="btn btn-outline-primary btn-sm">
                                             <i class="fa fa-chevron-left"></i>
                                         </a>
                                         @can(RolePermission::create_user->name)

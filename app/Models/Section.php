@@ -40,9 +40,27 @@ class Section extends Model
         return substr("{$this->code}", 0, 1);
     }
 
-    public function primaire(): bool
+    public function primaire($strict = false): bool
     {
-        if ($this->id == 1 || $this->id == 2) {
+        if ($strict && $this->id == 2) {
+            return true;
+        } else if (!$strict && ($this->id == 1 || $this->id == 2)) {
+            return true;
+        }
+        return false;
+    }
+
+    public function maternelle(): bool
+    {
+        if ($this->id == 1) {
+            return true;
+        }
+        return false;
+    }
+
+    public function secondaire(): bool
+    {
+        if ($this->id == 3) {
             return true;
         }
         return false;
