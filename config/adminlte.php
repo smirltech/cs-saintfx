@@ -342,7 +342,7 @@ return [
         ['header' => 'FINANCE'],
         [
             'text' => 'Perceptions',
-            'icon' => 'fas fa-fw fa-plus',
+            'icon' => 'fas fa-fw fa-arrow-trend-up',
             // 'can' => RolePermission::view_etudiant->name,
             'submenu' => [
                 [
@@ -365,29 +365,19 @@ return [
         ],
         [
             'text' => 'Revenu Auxiliaire',
-            'icon' => 'fa fa-puzzle-piece',
+            'icon' => 'fas fa-fw fa-money-bill-trend-up',
             'url' => 'finance/revenus',
             // 'can' => RolePermission::create_user->name,
         ],
         [
-            'text' => 'Sorties',
-            'icon' => 'fas fa-fw fa-minus',
+            'text' => 'Dépenses',
+            'icon' => 'fas fa-fw fa-arrow-trend-down',
             // 'can' => RolePermission::view_etudiant->name,
-            'submenu' => [
-                [
-                    'text' => "Liste de dépenses",
-                    'url' => 'finance/depenses',
-                    'shift' => 'ml-3',
-                ],
-                /*[
-                    'text' => "Liste de paiements",
-                    'url' => 'finance/paiements',
-                ],*/
-            ],
+            'url' => 'finance/depenses',
         ],
         [
             'text' => 'Rapport financier',
-            'icon' => 'fas fa-fw fa-chart-line',
+            'icon' => 'fas fa-fw fa-chart-column',
             'url' => 'finance/rapports',
             // 'can' => RolePermission::create_user->name,
         ],
