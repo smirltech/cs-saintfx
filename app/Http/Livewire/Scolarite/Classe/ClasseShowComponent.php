@@ -32,6 +32,7 @@ class ClasseShowComponent extends Component
     public ?ClasseEnseignant $classe_enseignant;
     public Collection $enseignants;
 
+    protected $listeners = ['refreshData'];
 
     public function mount(Classe $classe)
     {

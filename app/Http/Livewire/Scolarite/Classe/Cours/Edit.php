@@ -3,84 +3,36 @@
 namespace App\Http\Livewire\Scolarite\Classe\Cours;
 
 use App\Exceptions\ApplicationAlert;
-use App\Models\Annee;
-use App\Models\Classe;
-use App\Models\ClasseEnseignant;
 use App\Models\CoursEnseignant;
-use App\Models\Filiere;
-use App\Models\Option;
-use App\Models\Section;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Validation\Rule;
 use Livewire\Component;
 
 class Edit extends Component
 {
     use ApplicationAlert;
 
-    public Classe $classe;
-    public ?string $parent = "";
-    public ?string $parent_url = "";
-    public ?Collection $inscriptions;
-    public Collection $cours;
-    public ?CoursEnseignant $cours_enseignant;
-    public ?ClasseEnseignant $classe_enseignant;
-    public Collection $enseignants;
+    public CoursEnseignant $cours_enseignant;
 
 
     public function mount(CoursEnseignant $coursEnseignant)
     {
-
         $this->cours_enseignant = $coursEnseignant;
-
-
-        $this->enseignants = $classe->enseignants;
-        $this->inscriptions = $this->classe->inscriptions;
-        // $this->admissions = $this->promotion->admissions;
-
-        $classable = $classe->filierable;
-        if ($classable instanceof Filiere) {
-            $this->parent_url = "/scolarite/filieres/$classe->filierable_id";
-            $this->parent = "Filière";
-        } else if ($classable instanceof Option) {
-            $this->parent_url = "/scolarite/options/$classe->filierable_id";
-            $this->parent = "Option";
-        } else if ($classable instanceof Section) {
-            $this->parent_url = "/scolarite/sections/$classe->filierable_id";
-            $this->parent = "Section";
-        }
     }
 
 
-    // hydrate
-
     public function submit()
     {
-        $this->validate([
-            'cours_enseignant.cours_id' => [
-                'required',
-                Rule::unique('cours_enseignants', 'cours_id')->where(function ($query) {
-                    return $query->where('classe_id', $this->classe->id)
-                        ->where('annee_id', Annee::encours()->id);
-                })],
-            'cours_enseignant.enseignant_id' => Rule::requiredIf(!$this->classe->primaire()), // si la classe n'est pas primaire
-        ]);
-
-        $this->cours_enseignant->classe_id = $this->classe->id;
         $this->cours_enseignant->save();
-
-        $this->dispatchBrowserEvent('closeModal', ['modal' => 'add-cours-modal']);
         $this->refreshData();
+        $this->success("Cours enseignant modifié avec succès");
+        $this->emit('hideModal');
     }
 
     public function refreshData()
     {
-        $this->classe->refresh();
-        $this->cours = $this->classe->cours;
-        $this->enseignants = $this->classe->enseignants;
+        $this->emit('refreshData',);
     }
 
 
@@ -88,17 +40,15 @@ class Edit extends Component
 
     public function render(): Factory|View|Application
     {
-        return view('livewire.scolarite.classes.modals');
+        return view('livewire.scolarite.classes.cours.edit');
     }
 
     // function rules
 
-    public function rules()
+    public function rules(): array
     {
         return [
-            'cours_enseignant.cours_id' => 'required|exists:cours,id',
             'cours_enseignant.enseignant_id' => 'required|exists:enseignants,id',
-            'classe_enseignant.enseignant_id' => 'required|exists:enseignants,id',
         ];
     }
 

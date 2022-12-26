@@ -171,12 +171,14 @@
                                                 </td>
                                                 <td>
                                                     <div class="d-flex float-right">
-                                                        <button
-                                                            wire:click="$emit('showModal', 'scolarite.classe.cours.edit')"
-                                                            title="Modifier"
-                                                            class="btn btn-sm btn-outline-warning ml-2">
-                                                            <i class="fas fa-edit"></i>
-                                                        </button>
+                                                        @if(!$classe->primaire())
+                                                            <button
+                                                                wire:click="$emit('showModal', 'scolarite.classe.cours.edit', '{{ $c->id }}')"
+                                                                title="Modifier"
+                                                                class="btn btn-sm btn-outline-warning ml-2">
+                                                                <i class="fas fa-edit"></i>
+                                                            </button>
+                                                        @endif
                                                         <button
                                                             wire:click="deleteCours({{ $c->id }})"
                                                             title="Supprimer"
