@@ -19,13 +19,12 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.0",
         "livewire/livewire": "^2.10",
+        "marcincook/laravel-livewire-modals": "^4.0",
         "owen-it/laravel-auditing": "^13.0",
+        "pharaonic/laravel-readable": "^1.0",
         "simplesoftwareio/simple-qrcode": "^4.2",
         "spatie/laravel-permission": "^5.5",
-        "tailflow/laravel-orion": "^2.16",
-        "pharaonic/laravel-readable": "^1.0",
-        "wire-elements/modal": "^1.0",
-        "ext-http": "*"
+        "tailflow/laravel-orion": "^2.16"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.7",

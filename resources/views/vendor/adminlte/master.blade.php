@@ -24,6 +24,7 @@
         @yield('title_postfix', config('adminlte.title_postfix', ''))
     </title>
 
+
     {{-- Custom stylesheets (pre AdminLTE) --}}
     @yield('adminlte_css_pre')
 
@@ -93,11 +94,11 @@
     <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
 @else
     <script src="{{ mix(config('adminlte.laravel_mix_js_path', 'js/app.js')) }}"></script>
-
 @endif
 
+<livewire:modals/>
 
-@livewire('livewire-ui-modal')
+
 {{-- Livewire Script --}}
 @if(config('adminlte.livewire'))
 
@@ -107,34 +108,38 @@
         <livewire:scripts/>
     @endif
 
+
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     {{--<script src="{{ asset('vendor/livewire-alert/livewire-alert.js') }}"></script>--}}
     <x-livewire-alert::scripts/>
     <x-livewire-alert::flash/>
-    <script>
-        window.addEventListener('closeModal', event => {
-            $("#" + event.detail.modal).modal('hide');
-        });
-    </script>
-
-    <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
-    <link rel="stylesheet" href="https://printjs-4de6.kxcdn.com/print.min.css">
-
-    <script>
-        window.addEventListener('printIt', event => {
-            // alert(" print home edit");
-            printJS({
-                printable: event.detail.elementId,
-                type: event.detail.type,
-                targetStyles: ['*'],
-                maxWidth: event.detail.maxWidth,
-                style: "text-align:center"
-            });
-        })
-
-    </script>
 
 @endif
+<script>
+    window.addEventListener('closeModal', event => {
+        $("#" + event.detail.modal).modal('hide');
+    });
+</script>
+
+<script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+<link rel="stylesheet" href="https://printjs-4de6.kxcdn.com/print.min.css">
+
+<script>
+    window.addEventListener('printIt', event => {
+        // alert(" print home edit");
+        printJS({
+            printable: event.detail.elementId,
+            type: event.detail.type,
+            targetStyles: ['*'],
+            maxWidth: event.detail.maxWidth,
+            style: "text-align:center"
+        });
+    })
+
+</script>
+
+<script src="{{ asset('js/app.js') }}"></script>
+
 
 {{-- Custom Scripts --}}
 @yield('adminlte_js')

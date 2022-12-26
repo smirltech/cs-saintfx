@@ -307,11 +307,11 @@ return [
             ],
         ],
         [
-            'text' => 'Classes',
+            'text' => 'Enseignement',
             'icon' => 'fas fa-people-roof',
             'submenu' => [
                 [
-                    'text' => 'Liste des classes',
+                    'text' => 'Classes',
                     'url' => 'scolarite/classes',
                     'shift' => 'ml-3',
                     //      'can' => RolePermission::create_etudiant->name,
@@ -338,28 +338,7 @@ return [
             ],
         ],
 
-        [
-            'text' => 'Sections',
-            'icon' => 'fas fa-fw fa-university',
-            // 'can' => RolePermission::create_faculte->name,
-            'submenu' => [
-                [
-                    'text' => 'Filières',
-                    'url' => 'scolarite/filieres',
-                    'shift' => 'ml-3',
-                ],
-                [
-                    'text' => 'Options',
-                    'url' => 'scolarite/options',
-                    'shift' => 'ml-3',
-                ],
-                [
-                    'text' => 'Sections',
-                    'url' => 'scolarite/sections',
-                    'shift' => 'ml-3',
-                ],
-            ],
-        ],
+
         ['header' => 'FINANCE'],
         [
             'text' => 'Perceptions',
@@ -413,14 +392,36 @@ return [
             // 'can' => RolePermission::create_user->name,
         ],
 
-        ['header' => 'SYSTÊME'],
+        ['header' => 'ECOLE'],
         [
             'text' => 'Calendrier',
             'url' => 'scolarite/annees',
             'icon' => 'fas fa-fw fa-calendar-alt',
         ],
         [
-            'text' => 'Utilisateurs',
+            'text' => 'Programme',
+            'icon' => 'fas fa-fw fa-university',
+            // 'can' => RolePermission::create_faculte->name,
+            'submenu' => [
+                [
+                    'text' => 'Filières',
+                    'url' => 'scolarite/filieres',
+                    'shift' => 'ml-3',
+                ],
+                [
+                    'text' => 'Options',
+                    'url' => 'scolarite/options',
+                    'shift' => 'ml-3',
+                ],
+                [
+                    'text' => 'Sections',
+                    'url' => 'scolarite/sections',
+                    'shift' => 'ml-3',
+                ],
+            ],
+        ],
+        [
+            'text' => 'Personnel',
             'icon' => 'fas fa-fw fa-users',
             'url' => '/users',
             'can' => RolePermission::create_user->name,
