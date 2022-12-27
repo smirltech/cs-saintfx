@@ -1,6 +1,6 @@
 @php
     $heads =[
-        ['label'=>'DATE', 'width'=>8],
+        ['label'=>'DATE', 'width'=>10],
         'TYPE',
         'MONTANT',
         'NOTE',
@@ -30,7 +30,8 @@
 ];
 @endphp
 
-@section('title') - dépenses  {{date('d-m-Y')}}
+@section('title')
+    - dépenses  {{date('d-m-Y')}}
 @endsection
 @section('content_header')
     <div class="row">
@@ -73,7 +74,9 @@
                                 @foreach($config['data'] as $row)
                                     <tr>
                                         <td>{!! $row[0] !!}</td>
-                                        <td><a href="{{route('finance.depenses-types.show', [$row[6]->depense_type_id])}}">{{$row[1]}}</a></td>
+                                        <td>
+                                            <a href="{{route('finance.depenses-types.show', [$row[6]->depense_type_id])}}">{{$row[1]}}</a>
+                                        </td>
 
                                         <td>{!! $row[2] !!}</td>
                                         <td>{!! $row[3] !!}</td>

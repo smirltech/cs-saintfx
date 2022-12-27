@@ -1,6 +1,6 @@
 @php
     $heads =[
-        ['label'=>'DATE', 'width'=>8],
+        ['label'=>'DATE', 'width'=>10],
         'NOM',
         'MONTANT',
         'DESCRIPTION',
@@ -34,7 +34,7 @@
 @endphp
 
 @section('title')
-     - frais  {{date('d-m-Y')}}
+    - frais  {{date('d-m-Y')}}
 @endsection
 @section('content_header')
     <div class="row">
