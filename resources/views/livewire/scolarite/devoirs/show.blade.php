@@ -1,162 +1,112 @@
-@php
-    use App\Enums\InscriptionStatus;use App\Helpers\Helpers;
-@endphp
-
+@php use App\Enums\ClasseGrade;use Carbon\Carbon; @endphp
 @section('title')
-    {{Str::upper('cenk')}} - classe - {{$classe->code}}
+    {{$devoir->titre}}
 @endsection
 @section('content_header')
-    <div class="row">
+    <div hidden class="row mb-3">
         <div class="col-6">
-            <h1 class="ms-3"><span class="fas fa-fw fa-chalkboard-teacher mr-1"></span>Classe</h1>
+            <h1 class="ms-3">{{$devoir->titre}}</h1>
         </div>
 
         <div class="col-6">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('scolarite') }}">Accueil</a></li>
-                <li class="breadcrumb-item"><a href="{{ $parent_url }}">{{$classe->filierable->nom}}</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('scolarite.classes') }}">Classes</a></li>
-                <li class="breadcrumb-item active">{{$classe->grade->label()}}</li>
+                <li class="breadcrumb-item"><a href="{{ route('scolarite.devoirs.index') }}">Devoirs</a></li>
+                <li class="breadcrumb-item active">{{$devoir->titre}}</li>
             </ol>
         </div>
     </div>
 
 @stop
 <div class="">
-
-    <div class="content mt-3">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-3 col-sm-12">
-                    <div class="card card-primary card-outline">
-                        <div class="card-header">
-                            <div class="card-title">
-                                <h4 class="m-0">{{$classe->grade->label()}}</h4>
-                            </div>
-                            <div class="card-tools">
-                                <a href="/scolarite/classes/{{ $classe->id }}/edit" title="modifier"
-                                   class="ml-2">
-                                    <i class="fas fa-pen"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <ul class="list-group list-group-unbordered mb-3">
-                                <li class="list-group-item">
-                                    <b>Grade : </b> <span class="float-right">{{ $classe->grade->label() }}</span>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Code : </b> <span class="float-right">{{ $classe->code }}</span>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Élèves : </b> <span class="float-right">{{ $inscriptions->count() }}</span>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>{{ $parent }} : </b> <span class="float-right"> <a
-                                            href="{{ $parent_url }}">{{  $classe->filierable->nom }}</a>
-         </span>
-                                </li>
-                            </ul>
-
-                            {{-- <div hidden class="row d-flex mt-2">
-
-                                 <div class="col-md-3 col-sm-6 col-6">
-                                     <div class="d-flex align-items-center">
-                                         <div class="bg-info rounded p-2"><i
-                                                 class="fa fa-users align-middle"></i></div>
-                                         <div class="ml-1 d-flex flex-column">
-                                             <span class=""></span>
-                                             <span class=""><strong></strong></span>
-                                         </div>
-                                     </div>
-                                 </div>
-                                 <div class="col-md-3 col-sm-6 col-6">
-                                     <div class="d-flex align-items-center">
-                                         <div class="bg-success rounded p-2"><i
-                                                 class="fa fa-users align-middle"></i></div>
-                                         <div class="ml-1 d-flex flex-column">
-                                             <span class=""></span>
-                                             <span class=""><strong></strong></span>
-                                         </div>
-                                     </div>
-                                 </div>
-                                 <div class="col-md-3 col-sm-6 col-6">
-                                     <div class="d-flex align-items-center">
-                                         <div class="bg-danger rounded p-2"><i
-                                                 class="fa fa-users align-middle"></i></div>
-                                         <div class="ml-1 d-flex flex-column">
-                                             <span class=""></span>
-                                             <span class=""><strong></strong></span>
-                                         </div>
-                                     </div>
-                                 </div>
-                                 <div class="col-md-3 col-sm-6 col-6">
-                                     <div class="d-flex align-items-center">
-                                         <div class="bg-warning rounded p-2"><i
-                                                 class="fa fa-users align-middle"></i></div>
-                                         <div class="ml-1 d-flex flex-column">
-                                             <span class=""></span>
-                                             <span class=""><strong></strong></span>
-                                         </div>
-                                     </div>
-                                 </div>
-
-                             </div>--}}
-                        </div>
+    <div class="content">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">{{$devoir->titre}}</h3>
                     </div>
+
+                    <div class="card-body">
+                        <strong><i class="fas fa-clock mr-1"></i> Date limite</strong>
+                        <p class="text-muted">
+                            {{Carbon::parse($devoir->echeance)->format('d/m/Y H:i')}}
+                            - {{$devoir->echeance_display}}
+
+                        </p>
+                        <hr>
+                        <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
+                        <p class="text-muted">Malibu, California</p>
+                        <hr>
+                        <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
+                        <p class="text-muted">
+                            <span class="tag tag-danger">UI Design</span>
+                            <span class="tag tag-success">Coding</span>
+                            <span class="tag tag-info">Javascript</span>
+                            <span class="tag tag-warning">PHP</span>
+                            <span class="tag tag-primary">Node.js</span>
+                        </p>
+                        <hr>
+                        <strong><i class="far fa-file-alt mr-1"></i>{{$devoir->titre}}</strong>
+                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum
+                            enim neque.</p>
+                    </div>
+
                 </div>
-                <div class="col-md-9 col-sm-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">
-                                <h4 class="m-0">Liste d'inscriptions</h4>
+            </div>
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <form wire:submit.prevent="submit">
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <x-form-input required placeholder="Saisir l'intitulé du devoir"
+                                                  wire:model.defer="devoir.titre"
+                                                  label="Intitulé du devoir"
+                                                  :isValid="$errors->has('devoir.titre') ? false : null"
+                                                  error="{{$errors->first('devoir.titre')}}"/>
+                                </div>
+
+                                <div class="form-group col-md-12">
+                                    <x-form-textarea
+                                        required
+                                        placeholder="Saisir le contenu du devoir"
+                                        wire:model.defer="devoir.contenu"
+                                        label="Contenu du devoir"
+                                        rows="10"
+                                        :isValid="$errors->has('devoir.contenu') ? false : null"
+                                        error="{{$errors->first('devoir.contenu')}}"/>
+                                </div>
+
+                                <div class="form-group col-md-12">
+                                    <x-form-file-pdf wire:model="document"
+                                                     label="Document du devoir"
+                                                     target="document"
+                                                     :isValid="$errors->has('document') ? false : null"
+                                                     error="{{$errors->first('document')}}"/>
+                                    <ol class="list-group mt-3">
+                                        @foreach($devoir->media as $m)
+                                            <li class="list-group-item">
+                                                <a class="" title="Voir"
+                                                   href="{{route('media.show', $m)}}"
+                                                   target="_blank">{{$m->filename}}</a>
+                                                |
+                                                <button class="btn btn-sm btn-outline-danger">
+                                                    <i wire:click="deleteMedia('{{$m->id}}')"
+                                                       class="fa fa-minus"></i>
+                                                </button>
+
+                                            </li>
+                                        @endforeach
+                                    </ol>
+                                </div>
                             </div>
-                            <div class="card-tools d-flex my-auto">
-
-                                {{-- <a href="{{ route('scolarite.admissions.create') }}" title="ajouter"
-                                    class="btn btn-primary mr-2"><span class="fa fa-plus"></span></a>--}}
-
-
-                            </div>
-                        </div>
-
-                        <div class="card-body p-0 table-responsive">
-                            <div class="table-responsive m-b-40">
-                                <table class="table">
-                                    <thead>
-                                    <tr>
-                                        <th style="width: 100px">CODE</th>
-                                        <th>ELEVE</th>
-                                        <th>SEXE</th>
-                                        <th style="width: 100px"></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach ($inscriptions->sortBy(fn ($q) => $q->eleve->fullName) as $inscription)
-                                        <tr>
-                                            <td>{{ $inscription->code }}</td>
-                                            <td>{{ $inscription->eleve->fullName }}</td>
-                                            <td>{{ $inscription->eleve->sexe }}</td>
-                                            <td>
-                                                <div class="d-flex float-right">
-                                                    {{--<a href="/scolarite/eleves/{{ $responsable_eleve->eleve->id }}" title="Voir"
-                                                       class="btn btn-warning">
-                                                        <i class="fas fa-eye"></i>
-                                                    </a>--}}
-
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                            {{-- <x-adminlte-datatable id="table7" :heads="$heads" theme="light" :config="$config" striped
-                                                   hoverable with-buttons/>--}}
-                        </div>
+                            <x-button class="btn-primary float-end">Soumettre</x-button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
