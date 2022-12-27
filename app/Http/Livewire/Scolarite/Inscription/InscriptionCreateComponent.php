@@ -54,6 +54,7 @@ class InscriptionCreateComponent extends Component
     public $code;
     public $fee_id;
     public $fee_montant;
+    public $frequence;
 
 
     //eleve
@@ -313,6 +314,7 @@ class InscriptionCreateComponent extends Component
             if ($ff != null) {
                 $this->fee_id = $ff->id;
                 $this->fee_montant = $ff->montant;
+                $this->frequence = $ff->frequence;
             }
         }
         if ($ff == null && $this->filiere_id != null) {
@@ -325,6 +327,7 @@ class InscriptionCreateComponent extends Component
             if ($ff != null) {
                 $this->fee_id = $ff->id;
                 $this->fee_montant = $ff->montant;
+                $this->frequence = $ff->frequence;
             }
         }
         if ($ff == null && $this->option_id != null) {
@@ -337,6 +340,7 @@ class InscriptionCreateComponent extends Component
             if ($ff != null) {
                 $this->fee_id = $ff->id;
                 $this->fee_montant = $ff->montant;
+                $this->frequence = $ff->frequence;
             }
         }
         if ($ff == null && $this->section_id != null) {
@@ -349,11 +353,13 @@ class InscriptionCreateComponent extends Component
             if ($ff != null) {
                 $this->fee_id = $ff->id;
                 $this->fee_montant = $ff->montant;
+                $this->frequence = $ff->frequence;
             }
         }
         if ($ff == null) {
             $this->fee_id = null;
             $this->fee_montant = null;
+            $this->frequence = null;
         }
 
     }
@@ -375,6 +381,7 @@ class InscriptionCreateComponent extends Component
                         'user_id' => Auth::id(),
                         'frais_id' => $this->fee_id,
                         'inscription_id' => $inscription_id,
+                        'frequence' => $this->frequence->name,
                         'custom_property' => FraisFrequence::annuel,
                         'annee_id' => $this->annee_courante->id,
                         'montant' => $this->fee_montant,

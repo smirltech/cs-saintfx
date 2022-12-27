@@ -243,6 +243,7 @@ class PerceptionCreateComponent extends Component
                     'user_id' => $this->user_id,
                     'frais_id' => $this->fee_id,
                     'inscription_id' => $this->inscription_id,
+                    'frequence' => $this->fee->frequence->name,
                     'custom_property' => $this->custom_property,
                     'annee_id' => $this->annee_id,
                     'montant' => $this->montant,
