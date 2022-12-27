@@ -4,7 +4,7 @@
 
 <div>
    {{-- @include('livewire.scolarite.resultats.blocks.modals.result')--}}
-  {{--  @include('livewire.scolarite.resultats.blocks.modals.printable')--}}
+    @include('livewire.scolarite.presences.blocks.modals.crud')
     <div class="input-group  mb-3">
         <div class="input-group-prepend">
             <span class="input-group-text">Date : </span>
@@ -27,7 +27,7 @@
                 <th>ÉLÈVE</th>
                 <th>ÉTAT</th>
                 <th>OBSERVATION</th>
-                <th style="width: 50px;">ACTIONS</th>
+                <th style="width: 50px;"></th>
 
             </tr>
             </thead>
@@ -50,6 +50,13 @@
                                         data-toggle="modal"
                                         data-target="#update-presence">
                                     <i class="fas fa-edit"></i>
+                                </button>
+                                <button wire:click="selectPresence('{{$presence->id }}')"
+                                        title="supprimer"
+                                        class="btn btn-sm btn-outline-danger ml-2"
+                                        data-toggle="modal"
+                                        data-target="#delete-presence">
+                                    <i class="fas fa-trash"></i>
                                 </button>
                             </div>
                         </td>
