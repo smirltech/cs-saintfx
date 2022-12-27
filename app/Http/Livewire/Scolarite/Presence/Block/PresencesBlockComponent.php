@@ -2,14 +2,13 @@
 
 namespace App\Http\Livewire\Scolarite\Presence\Block;
 
-use App\Enums\ResultatType;
 use App\Models\Annee;
 use App\Models\Classe;
-use App\Models\Inscription;
 use App\Models\Presence;
-use App\Models\Resultat;
 use App\Traits\TopMenuPreview;
 use Carbon\Carbon;
+use Exception;
+use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -46,7 +45,7 @@ class PresencesBlockComponent extends Component
 
     private function initPresence()
     {
-        $this->current_date = Carbon::now()->format('Y-m-d');
+        $this->current_date = $this->current_date ?? Carbon::now()->format('Y-m-d');
         $this->presence = new Presence();
     }
 
@@ -60,12 +59,52 @@ class PresencesBlockComponent extends Component
     public function loadData()
     {
         $this->presences = $this->classe->presences->where('date', $this->current_date)->where('annee_id', Annee::id());
-       // dd($this->presences);
+        // dd($this->presences);
     }
 
-    public function onModalClosing($modalId)
+    public function selectPresence($presence_id)
+    {
+        $this->presence = Presence::find($presence_id);
+    }
+
+    public function updatePresence()
+    {
+        $this->validate([
+            'presence.date' => ['required', Rule::unique('presences', 'date')->ignore($this->presence, 'date'),],
+            'presence.observation' => 'nullable',
+        ]);
+
+        try {
+            $done = $this->presence->update();
+            if ($done) {
+                $this->onModalClosed('update-presence');
+                $this->alert('success', "Présence modifiée avec succès !");
+
+            } else {
+                $this->alert('warning', "Echec de modification de présence !");
+            }
+        } catch (Exception $exception) {
+            //  dd($exception);
+            $this->alert('error', "Echec de modification de présence qui existe sur cette date déjà !");
+        }
+    }
+
+    public function deletePresence()
+    {
+            $done = $this->presence->delete();
+            if ($done) {
+                $this->onModalClosed('delete-presence');
+                $this->alert('success', "Présence supprimée avec succès !");
+
+            } else {
+                $this->alert('warning', "Echec de suppression de présence !");
+            }
+    }
+
+    public function onModalClosed($modalId)
     {
         $this->dispatchBrowserEvent('closeModal', ['modal' => $modalId]);
+        $this->classe->refresh();
         $this->initPresence();
         $this->loadData();
     }
