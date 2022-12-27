@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use App\Enums\InscriptionStatus;
+use Exception;
 
 
 class Helpers
@@ -38,14 +39,18 @@ class Helpers
         return round($bytes, $precision) . ' ' . $units[$pow];
     }
 
-    public static function currencyFormat($amount, $decimal = 0, $symbol = ''): string
+    public static function currencyFormat($amount, $decimal = 0, $symbol = 'Fc'): string
     {
-
-        return number_format($amount, $decimal) . ' ' . $symbol;
-
+        try {
+            if (is_numeric($amount))
+                return trim(number_format($amount, $decimal, ',', ' ') . ' ' . $symbol);
+            else return '0';
+        } catch (Exception $ee) {
+            return '0';
+        }
     }
 
-    public static function fakePicsum($user_id, $width = 50, $height = 50): string
+    public static function fakxePicsum($user_id, $width = 50, $height = 50): string
     {
         /*$req = Http::get("https://picsum.photos/id/{$user_id}/info");
         return json_decode($req->body())->download_url;*/
@@ -71,16 +76,8 @@ class Helpers
         }
     }
 
-    // fetchAvatar
-    public static function fetchAvatar($name, $width = 50, $height = 50): string
+    public static function padStart($value, $length, $pad_string = '0'): string
     {
-        $name = str_replace(' ', '+', $name);
-        return "https://ui-avatars.com/api/?name={$name}&background=random&size={$width}x{$height}&color=random";
-    }
-
-    // pad
-    public static function pad($number, $length = 2): string
-    {
-        return str_pad($number, $length, '0', STR_PAD_LEFT);
+        return str_pad("$value", $length, $pad_string, STR_PAD_LEFT);
     }
 }
