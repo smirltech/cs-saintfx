@@ -43,7 +43,10 @@ class PerceptionEditComponent extends Component
         'perception.inscription_id' => 'nullable',
         'perception.frais_id' => 'nullable',
         'perception.due_date' => 'nullable',
+        'perception.montant' => 'required',
         'perception.inscription.classe_id' => 'nullable',
+        'perception.paid' => 'nullable',
+        'perception.paid_by' => 'nullable',
     ];
 
     public function mount(Perception $perception)
@@ -189,7 +192,7 @@ class PerceptionEditComponent extends Component
     public function feeSelected()
     {
         $this->fee = Frais::find($this->perception->frais_id);
-        $this->montant = $this->fee->montant ?? null;
+        $this->perception->montant = $this->fee->montant ?? null;
         $this->raisons = $this->fee != null ? $this->fee->frequence->children() : [];
     }
 
@@ -208,13 +211,13 @@ class PerceptionEditComponent extends Component
 
             if ($done) {
                 // $this->alert('success', "Facture modifiée avec succès !");
-                $this->flash('success', "Facture modifiée avec succès !", [], route('scolarite.perceptions'));
+                $this->flash('success', "Facture modifiée avec succès !", [], route('finance.perceptions'));
 
             } else {
                 $this->alert('warning', "Echec de modification de facture !");
             }
         } catch (Exception $exception) {
-            // dd($exception);
+             dd($exception);
             $this->alert('error', "Echec de modification de facture pour la fréquence déjà existante !");
         }
     }
@@ -222,27 +225,29 @@ class PerceptionEditComponent extends Component
     private function doTheEdit()
     {
         // dd($this->fee_id);
+       // dd($this->perception);
         $this->validate([
-            'inscription_id' => $this->fee->type == FraisType::inscription ? 'nullable' : Rule::unique((new Perception())->getTable(), "inscription_id")->ignore($this->perception),
+            'perception.inscription_id' => ['required', Rule::unique('perceptions', 'inscription_id')->ignore($this->perception, 'inscription_id'),],
             'perception.frais_id' => ['required', Rule::unique('perceptions', 'frais_id')->ignore($this->perception, 'frais_id')],
-            'user_id' => 'required',
-            'due_date' => 'required',
-            'paid' => 'nullable',
-            'paid_by' => 'nullable',
-            'custom_property' => Rule::unique((new Perception())->getTable(), "custom_property")->ignore($this->perception),
+            'perception.user_id' => 'required',
+            'perception.due_date' => 'required',
+            'perception.paid' => 'nullable',
+            'perception.paid_by' => 'nullable',
+            'perception.custom_property' => Rule::unique((new Perception())->getTable(), "custom_property")->ignore($this->perception, 'custom_property'),
             // 'custom_property' => ['required', Rule::unique('perceptions', 'custom_property')->ignore($this->perception->id),],
         ]);
-      //  dd($this->perception);
+       // dd($this->perception);
         return $this->perception->update(
             [
                 'frais_id' => $this->perception->frais_id,
-                'inscription_id' => $this->inscription_id,
-                'custom_property' => $this->custom_property,
-                'montant' => $this->montant,
-                'due_date' => $this->due_date,
-                'paid' => $this->paid,
+                'inscription_id' => $this->perception->inscription_id,
+                'frequence' => $this->fee->frequence->name,
+                'custom_property' => $this->perception->custom_property,
+                'montant' => $this->perception->montant,
+                'due_date' => $this->perception->due_date,
+                'paid' => $this->perception->paid,
                 // 'paid' => ($this->fee->type == FraisType::inscription and $this->paid == null) ? $this->montant : $this->paid,
-                'paid_by' => $this->paid_by,
+                'paid_by' => $this->perception->paid_by,
             ]
         );
 

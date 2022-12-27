@@ -51,7 +51,7 @@ class FraisIndexComponent extends Component
         'annee_id.required' => 'L\'année est obligatoire !',
     ];
 
-    protected $listeners = ['onModalClosed'];
+    //protected $listeners = ['onModalClosed'];
 
     public function mount()
     {
@@ -117,16 +117,17 @@ class FraisIndexComponent extends Component
         ]);
         $this->onModalClosed('add-frais-modal');
         $this->alert('success', "Frais ajouté avec succès !");
+       // $this->dispatchBrowserEvent('closeModal', ['modal' => 'add-frais-modal']);
     }
 
-    public function onModalClosed($element_id)
+    public function onModalClosed($p_id)
     {
+        $this->dispatchBrowserEvent('closeModal', ['modal' => $p_id]);
         //$this->clearValidation();
         $this->reset(['nom', 'description', 'montant',
             'classable_type', 'classable_id',
             'section_id', 'option_id', 'filiere_id', 'classe_id'
         ]);
-        $this->dispatchBrowserEvent('closeModal', ['modal' => $element_id]);
     }
 
     public function getSelectedFrais(Frais $fee)
