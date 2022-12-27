@@ -2,7 +2,7 @@
 @php use App\Models\Option; @endphp
 @php use App\Models\Section; @endphp
 @section('title')
-    Liste des devoirs
+   - Liste des devoirs
 @endsection
 @section('content_header')
     <div class="row">

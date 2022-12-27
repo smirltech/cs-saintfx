@@ -1,6 +1,6 @@
 @php use App\Enums\ClasseGrade; @endphp
 @section('title')
-    Création d'un devoir
+   - Création d'un devoir
 @endsection
 @section('content_header')
     <div class="row">
