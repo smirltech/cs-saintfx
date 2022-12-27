@@ -7,12 +7,13 @@ use App\Enums\MediaType;
 use App\Exceptions\ApplicationAlert;
 use App\Models\Cours;
 use App\Models\Devoir;
+use App\Models\DevoirReponse;
 use App\Models\Eleve;
 use App\Traits\CanDeleteMedia;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Collection;
+use JetBrains\PhpStorm\NoReturn;
 use Livewire\Component;
 use Livewire\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
@@ -27,52 +28,42 @@ class DevoirShowComponent extends Component
     public Cours $cours;
     public TemporaryUploadedFile|string|null $document = null;
     public $documents = [];
-    public string $matricule = "";
-    public ?Collection $reponses;
+    public string $matricule = "2022020002";
     public ?Eleve $eleve;
-
-    protected $listeners = [
-        'deleteConfirmed',
-    ];
+    public DevoirReponse $devoir_reponse;
     protected $messages = [
-        'devoir.titre.required' => 'Le titre est obligatoire',
-        'devoir.contenu.required' => 'Le contenu est obligatoire',
-        'devoir.echeance.required' => 'L\'échéance est obligatoire',
-        'devoir.cours_id.required' => 'Le cours est obligatoire',
-        'devoir.classes_id.required' => 'La classe est obligatoire',
         'document.max' => 'Le fichier ne doit pas dépasser 2Mo',
     ];
 
-    public function submit()
+    #[NoReturn] public function submit()
     {
         $this->validate();
 
-        $this->devoir->save();
+        $this->devoir_reponse->devoir_id = $this->devoir->id;
+        $this->devoir_reponse->eleve_id = $this->eleve->id;
+
+        $this->devoir_reponse->save();
+
         if ($this->document) {
-            $this->devoir->addMedia(file: $this->document, mediaType: MediaType::document);
+            $this->devoir_reponse->addMedia(file: $this->document, mediaType: MediaType::document);
         }
-        $this->refreshData();
-        $this->alert('success', 'Cours modifiée avec succès');
+        //$this->refreshData();
+        $this->flash('success', 'Réponse envoyée avec succès', [], route('scolarite.devoir.show', $this->devoir));
     }
-
-    private function refreshData(): void
-    {
-        $this->devoir->refresh();
-        $this->reponses = $this->devoir->reponses;
-    }
-
-
-    // delete media
 
     public function render(): Factory|View|Application
     {
         return view('livewire.scolarite.devoirs.show');
     }
 
+
+    // delete media
+
     public function mount(Devoir $devoir)
     {
         $this->devoir = $devoir;
         $this->cours = $this->devoir->cours;
+        $this->devoir_reponse = new DevoirReponse();
     }
 
     public function updatedMatricule()
@@ -97,14 +88,19 @@ class DevoirShowComponent extends Component
         }
     }
 
-    // update matricule
-
     protected function rules(): array
     {
         return [
-            'devoir_reponse.contenu' => ['required', 'string'],
-            'document' => ['nullable', 'file', 'mimes:pdf', 'max:2048'],
+            'devoir_reponse.contenu' => ['nullable', 'string'],
+            'document' => ['nullable', 'file', 'mimes:pdf,image,jpeg,png', 'max:2048'],
         ];
+    }
+
+    // update matricule
+
+    private function refreshData(): void
+    {
+        $this->devoir->refresh();
     }
 
 

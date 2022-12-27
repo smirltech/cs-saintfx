@@ -2,6 +2,10 @@
 @section('title')
     {{$devoir->titre}}
 @endsection
+@section('content_header')
+    <div class="mt-3">
+    </div>
+@endsection
 <div class="">
     <div class="content">
         <div class="row">
@@ -77,12 +81,12 @@
                                 </div>
 
                                 <div class="form-group col-md-12">
-                                    <x-form-file-pdf wire:model="document"
-                                                     label="Pièce jointe"
-                                                     required
-                                                     target="document"
-                                                     :isValid="$errors->has('document') ? false : null"
-                                                     error="{{$errors->first('document')}}"/>
+                                    <x-form-file wire:model="document"
+                                                 label="Pièce jointe"
+                                                 required
+                                                 target="document"
+                                                 :isValid="$errors->has('document') ? false : null"
+                                                 error="{{$errors->first('document')}}"/>
                                     <x-list-files :media="$devoir_reponse->media??[]" delete/>
                                 </div>
                             </div>
