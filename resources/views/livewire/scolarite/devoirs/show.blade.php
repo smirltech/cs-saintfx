@@ -1,9 +1,20 @@
 @php use App\Enums\ClasseGrade;use Carbon\Carbon; @endphp
 @section('title')
-    {{$devoir->titre}}
+    - {{$devoir->titre}}
 @endsection
 @section('content_header')
-    <div class="mt-3">
+    <div class="row">
+        <div class="col-6">
+            <h1 class="ms-3">Devoir : {{mb_strtoupper($devoir->titre)}}</h1>
+        </div>
+
+        <div class="col-6">
+            <ol class="breadcrumb float-right">
+                <li class="breadcrumb-item"><a href="{{ route('scolarite') }}">Accueil</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('scolarite.devoirs.index') }}">Devoirs</a></li>
+                <li class="breadcrumb-item active">{{$devoir->titre}}</li>
+            </ol>
+        </div>
     </div>
 @endsection
 <div class="">

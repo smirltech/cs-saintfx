@@ -25,7 +25,7 @@
 @endphp
 
 @section('title')
-    {{Str::upper('cenk')}} - revenus auxiliaires
+     - revenus auxiliaires
 @endsection
 @section('content_header')
     <div class="row">

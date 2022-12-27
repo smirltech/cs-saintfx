@@ -1,6 +1,6 @@
 @php use Carbon\Carbon; @endphp
 @section('title')
-    {{Str::upper('cenk')}} - élève - {{$eleve->fullName}}
+     - élève - {{$eleve->fullName}}
 @endsection
 @section('content_header')
     <div class="row">

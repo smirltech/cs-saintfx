@@ -1,6 +1,6 @@
 @php use App\Enums\ClasseGrade; @endphp
 @section('title')
-    {{$devoir->titre}}
+    - {{$devoir->titre}}
 @endsection
 @section('content_header')
     <div class="row">

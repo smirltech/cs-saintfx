@@ -12,7 +12,7 @@
    foreach ($depenses as $depense){
         $data[] =[
             $depense->created_at->format('d-m-Y'),
-            $depense->categorie,
+            $depense->categorie->label(),
             \App\Helpers\Helpers::currencyFormat($depense->montant, symbol: 'Fc'),
             $depense->note,
             $depense->reference,
@@ -30,8 +30,7 @@
 ];
 @endphp
 
-@section('title')
-    {{Str::upper('cenk')}} - dépenses  {{date('d-m-Y')}}
+@section('title') - dépenses  {{date('d-m-Y')}}
 @endsection
 @section('content_header')
     <div class="row">

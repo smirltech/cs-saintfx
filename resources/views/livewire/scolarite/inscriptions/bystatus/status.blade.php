@@ -45,7 +45,7 @@
         ];
 @endphp
 @section('title')
-    {{Str::upper('cenk')}} - inscriptions {{strtolower($status->pluralLabel(\App\Enums\Sexe::f))}} {{date('d-m-Y')}}
+     - inscriptions {{strtolower($status->pluralLabel(\App\Enums\Sexe::f))}} {{date('d-m-Y')}}
 @endsection
 @section('content_header')
     <div class="row">

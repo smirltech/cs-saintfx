@@ -4,7 +4,7 @@
     use \App\Helpers\Helpers;
 @endphp
 @section('title')
-    {{Str::upper(config('app.name', 'cenk finance'))}} - Perceptions  {{date('d-m-Y')}}
+     - Perceptions  {{date('d-m-Y')}}
 @endsection
 @section('content_header')
     <div class="row">

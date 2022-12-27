@@ -2,18 +2,18 @@
 @php use App\Models\Option; @endphp
 @php use App\Models\Section; @endphp
 @section('title')
-    Liste des devoirs
+   - Liste des devoirs
 @endsection
 @section('content_header')
     <div class="row">
         <div class="col-6">
-            <h1 class="ms-3">Liste des devoirs</h1>
+            <h1 class="ms-3">Liste de devoirs</h1>
         </div>
 
         <div class="col-6">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('scolarite') }}">Accueil</a></li>
-                <li class="breadcrumb-item active">Cours</li>
+                <li class="breadcrumb-item active">Devoirs</li>
             </ol>
         </div>
     </div>

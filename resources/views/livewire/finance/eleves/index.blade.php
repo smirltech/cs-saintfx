@@ -1,6 +1,6 @@
 @php use App\Models\Perception; @endphp
 @section('title')
-    {{Str::upper(env('APP_NAME', 'cenk finance'))}} - Élèves  {{date('d-m-Y')}}
+     - Élèves  {{date('d-m-Y')}}
 @endsection
 @section('content_header')
     <div class="row">
