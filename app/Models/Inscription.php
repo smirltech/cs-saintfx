@@ -68,6 +68,11 @@ class Inscription extends Model
         return $this->hasMany(Resultat::class);
     }
 
+    public function presences()
+    {
+        return $this->hasMany(Presence::class);
+    }
+
     public function annee()
     {
         return $this->belongsTo(Annee::class);

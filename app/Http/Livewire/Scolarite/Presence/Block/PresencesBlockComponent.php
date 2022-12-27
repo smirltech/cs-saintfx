@@ -22,12 +22,14 @@ class PresencesBlockComponent extends Component
 
     public Classe $classe;
     public $presences = [];
+    public $nonInscriptions = [];
     //public $resultats = [];
     public Presence $presence;
     public $current_date;
 
     protected $rules = [
-        'presence.date' => 'required',
+        'presence.inscription_id' => 'required',
+        'presence.date' => 'nullable',
         'presence.status' => 'required',
         'presence.observation' => 'nullable',
 
@@ -43,7 +45,7 @@ class PresencesBlockComponent extends Component
     }
 
 
-    private function initPresence()
+    public function initPresence()
     {
         $this->current_date = $this->current_date ?? Carbon::now()->format('Y-m-d');
         $this->presence = new Presence();
@@ -53,18 +55,52 @@ class PresencesBlockComponent extends Component
     public function render()
     {
         $this->loadData();
-        return view('livewire.scolarite.presences.blocks.list');
+        return view('livewire.scolarite.presences.blocks.list',
+            [
+                'presences' => $this->presences,
+                'nonInscriptions' => $this->nonInscriptions,
+            ]
+        );
     }
 
     public function loadData()
     {
         $this->presences = $this->classe->presences->where('date', $this->current_date)->where('annee_id', Annee::id());
+        $this->nonInscriptions = $this->classe->nonInscriptions($this->current_date);
         // dd($this->presences);
     }
 
     public function selectPresence($presence_id)
     {
         $this->presence = Presence::find($presence_id);
+    }
+
+    public function addPresence()
+    {
+        $this->presence->date = $this->current_date;
+        $this->presence->annee_id = Annee::id();
+        $this->validate([
+            'presence.inscription_id' => 'required',
+            'presence.date' => 'required',
+            'presence.status' => 'required',
+            'presence.observation' => 'nullable',
+        ]);
+        //dd($this->presence);
+        try {
+            $done = $this->presence->save();
+            if ($done) {
+                $this->initPresence();
+                $this->classe->update();
+                $this->loadData();
+                $this->alert('success', "Présence ajoutée avec succès !");
+
+            } else {
+                $this->alert('warning', "Echec d'ajout de présence !");
+            }
+        } catch (Exception $exception) {
+              //dd($exception);
+            $this->alert('error', "Echec de d'ajout de présence qui existe sur cette date déjà !");
+        }
     }
 
     public function updatePresence()
@@ -91,14 +127,14 @@ class PresencesBlockComponent extends Component
 
     public function deletePresence()
     {
-            $done = $this->presence->delete();
-            if ($done) {
-                $this->onModalClosed('delete-presence');
-                $this->alert('success', "Présence supprimée avec succès !");
+        $done = $this->presence->delete();
+        if ($done) {
+            $this->onModalClosed('delete-presence');
+            $this->alert('success', "Présence supprimée avec succès !");
 
-            } else {
-                $this->alert('warning', "Echec de suppression de présence !");
-            }
+        } else {
+            $this->alert('warning', "Echec de suppression de présence !");
+        }
     }
 
     public function onModalClosed($modalId)
