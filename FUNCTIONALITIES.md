@@ -97,7 +97,7 @@ In this page you will see what modules and their functionalities have been so fa
 ### Perception
 - [x] Liste de perceptions : OK
 - [x] Ajouter perception : OK
-- [x] Modifier perception : BUG : échec de modification de facture pour la fréquence déjà existante
+- [x] Modifier perception : OK
 - [x] Supprimer perception : OK
 ### Revenu Auxiliaire
 - [x] Liste de revenus : OK

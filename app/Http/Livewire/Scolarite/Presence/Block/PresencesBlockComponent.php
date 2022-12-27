@@ -8,12 +8,14 @@ use App\Models\Classe;
 use App\Models\Inscription;
 use App\Models\Presence;
 use App\Models\Resultat;
+use App\Traits\TopMenuPreview;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class PresencesBlockComponent extends Component
 {
+    use TopMenuPreview;
     use LivewireAlert;
     use WithPagination;
 

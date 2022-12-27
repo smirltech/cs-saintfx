@@ -8,6 +8,7 @@ use App\Exceptions\ApplicationAlert;
 use App\Models\Classe;
 use App\Models\Devoir;
 use App\Traits\CanDeleteMedia;
+use App\Traits\TopMenuPreview;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -19,6 +20,7 @@ use Livewire\WithFileUploads;
 
 class DevoirEditComponent extends Component
 {
+    use TopMenuPreview;
 
     use ApplicationAlert, WithFileUploads, CanDeleteMedia;
 

@@ -9,7 +9,7 @@ use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
-class EleveIndexComponent extends Component
+class ElevesNonInscritsComponent extends Component
 {
     use TopMenuPreview;
     use LivewireAlert;
@@ -24,17 +24,17 @@ class EleveIndexComponent extends Component
 
     public function loadData()
     {
-        $this->eleves = Eleve::orderBy('nom')->get();
+        $this->eleves = Eleve::nonInscritsAnneeEnCours();
         $this->setFakeProfileImageUrl();
     }
 
     public function render()
     {
 
-        return view('livewire.scolarite.eleves.index', [
+        return view('livewire.scolarite.eleves.non_inscrits', [
             'eleves' => $this->eleves
         ])
-            ->layout(AdminLayout::class, ['title' => 'Liste d\'élèves']);
+            ->layout(AdminLayout::class, ['title' => "Liste d'élèves non inscrits"]);
     }
 
 }

@@ -5,12 +5,14 @@ namespace App\Http\Livewire\Finance\Revenu;
 use App\Http\Integrations\Scolarite\Requests\Annee\GetCurrentAnnneRequest;
 use App\Models\Annee;
 use App\Models\Revenu;
+use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 class RevenuIndexComponent extends Component
 {
+    use TopMenuPreview;
     use LivewireAlert;
 
     public $revenus = [];

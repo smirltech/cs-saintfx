@@ -9,6 +9,7 @@ use App\Http\Integrations\Scolarite\Requests\Inscription\GetInscriptionRequest;
 use App\Http\Integrations\Scolarite\Requests\Option\GetOptionRequest;
 use App\Models\Frais;
 use App\Models\Perception;
+use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Exception;
 use Illuminate\Support\Facades\Auth;
@@ -17,6 +18,7 @@ use Livewire\Component;
 
 class EleveShowComponent extends Component
 {
+    use TopMenuPreview;
     use LivewireAlert;
 
     public $fee_id;

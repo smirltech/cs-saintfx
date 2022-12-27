@@ -3,12 +3,14 @@
 namespace App\Http\Livewire\Scolarite\Classe;
 
 use App\Models\Classe;
+use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 class ClasseIndexComponent extends Component
 {
+    use TopMenuPreview;
     use LivewireAlert;
 
     public $classes = [];

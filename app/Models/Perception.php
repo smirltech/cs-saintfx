@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\FraisFrequence;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,6 +17,7 @@ class Perception extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',
+        'frequence' => FraisFrequence::class,
     ];
 
     protected $with = ['frais'];
@@ -45,5 +47,20 @@ class Perception extends Model
         $debut = Carbon::parse($ddebut)->startOfDay();
         $fin = Carbon::parse($dfin)->endOfDay();
         return self::where('annee_id', $annee_id)->whereBetween('created_at', [$debut, $fin])->sum('montant');
+    }
+
+    public function getNomCompletAttribute(): string
+    {
+        return $this->getFullNameAttribute();
+    }
+
+    public function getFullNameAttribute(): string
+    {
+        return $this->inscription->fullName;
+    }
+
+    public function getClasseAttribute(): string
+    {
+        return $this->inscription->classe->code;
     }
 }

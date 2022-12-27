@@ -221,7 +221,7 @@
                                     <div class="form-group col-md-3 col-sm-12">
                                         <label for="">Payé</label>
                                         <div class="form-check">
-                                            <input wire:model="has_paid" type="checkbox" class="form-check-input"
+                                            <input disabled wire:model="has_paid" type="checkbox" class=" form-check-input"
                                                    id="exampleCheck2">
                                             <label class="form-check-label" for="exampleCheck2">Cocher si frais
                                                 d'inscription payé</label>
