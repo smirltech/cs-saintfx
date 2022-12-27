@@ -62,12 +62,15 @@ In this page you will see what modules and their functionalities have been so fa
 - [x] Voir le document d'un devoir : OK
 - [x] Supprimer un devoir : OK
 - [x] Voir les reponses à un devoir : OK
-- [x] Repondre à un devoir : OK
-- [x] Voir de document d'une réponse : OK
-- [x] Ajouter un document à une reponse à un devoir
-- [x] Supprimer un document à une reponse à un devoir
 - [x] Ajouter un document à un devoir
 - [x] Supprimer un document à un devoir
+
+### Devoir reponse
+
+- [x] Ajouter un document à une reponse à un devoir
+- [x] Supprimer un document à une reponse à un devoir
+- [x] Repondre à un devoir : OK
+- [x] Voir de document d'une réponse : OK
 - [ ] Modifier une reponse à un devoir
 - [ ] Supprimer une reponse à un devoir
 
