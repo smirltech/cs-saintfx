@@ -72,16 +72,16 @@
 
                                         <td>
                                             <div class="d-flex float-right">
-                                                <a href="{{route('scolarite.devoirs.edit',$devoir )}}"
+                                                <a href="{{route('scolarite.devoirs.show',$devoir )}}"
                                                    title="modifier"
-                                                   class="btn btn-outline-info  ml-2">
+                                                   class="btn btn-sm btn-primary ml-2">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
-
-                                                {{--<button wire:click="deleteCours({{ $devoir->id }})"
-                                                        title="supprimer" class="btn btn-outline-danger ml-2">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>--}}
+                                                <a href="{{route('scolarite.devoirs.edit',$devoir )}}"
+                                                   title="modifier"
+                                                   class="btn btn-sm btn-warning  ml-2">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
                                             </div>
                                         </td>
                                     </tr>
