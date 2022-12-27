@@ -97,21 +97,7 @@
                                                      target="document"
                                                      :isValid="$errors->has('document') ? false : null"
                                                      error="{{$errors->first('document')}}"/>
-                                    <ol class="list-group mt-3">
-                                        @foreach($devoir->media as $m)
-                                            <li class="list-group-item">
-                                                <a class="" title="Voir"
-                                                   href="{{route('media.show', $m)}}"
-                                                   target="_blank">{{$m->filename}}</a>
-                                                |
-                                                <button type="button" class="btn btn-sm btn-outline-danger">
-                                                    <i wire:click="deleteMedia('{{$m->id}}')"
-                                                       class="fa fa-minus"></i>
-                                                </button>
-
-                                            </li>
-                                        @endforeach
-                                    </ol>
+                                    <x-list-files :media="$devoir->media" delete/>
                                 </div>
                             </div>
                             <x-button class="btn-primary float-end">Soumettre</x-button>
