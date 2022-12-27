@@ -4,7 +4,7 @@ In this page you will see what modules and their functionalities have been so fa
 
 ## Module 1: Gestion des eleves
 
-### Inscription
+### 1. Inscription
 
 - [x] Liste d'inscriptions : OK
 - [ ] Liste d'inscriptions par état d'inscription
@@ -18,7 +18,7 @@ In this page you will see what modules and their functionalities have been so fa
 - [ ] modifier status d'inscription
 - [x] modifier categorie d'inscription : OK
 
-### Élève
+### 2. Élève
 
 - [x] Liste d'élèves : OK
 - [x] Ajouter un élève : OK
@@ -31,7 +31,7 @@ In this page you will see what modules and their functionalities have been so fa
 - [x] supprimer relation élève responsable : OK
 - [x] créer relation élève responsable : OK
 
-### Responsable
+### 3. Responsable
 
 - [x] Liste de responsables : OK
 - [x] Ajouter un responsable : N/A
@@ -41,36 +41,46 @@ In this page you will see what modules and their functionalities have been so fa
 - [x] modifier relation élève responsable : OK
 - [x] supprimer relation élève responsable : OK
 
+### 4. Presence
+
+- [ ] Liste de présences : N/A
+- [ ] Ajouter une présence : N/A
+- [ ] Modifier une présence : N/A
+- [ ] Supprimer une présence : N/A
+- [ ] Voir détail d'une présence : N/A
+- [ ] exporter la liste de présences : N/A
+- [ ] rechercher dans la liste de présences : N/A
+
 ## Module 2: Gestion financière
 
-### Rapport financier
+### 1. Rapport financier
 
 - [x] Afficher rapport : OK
 - [x] Choisir période : OK
 - [x] Imprimer rapport : OK
 
-### Plan de frais
+### 2. Plan de frais
 
 - [x] Liste de plans : OK
 - [x] Ajouter plan : OK
 - [x] Modifier plan : OK
 - [x] Supprimer plan : OK
 
-### Perception
+### 3. Perception
 
 - [x] Liste de perceptions : OK
 - [x] Ajouter perception : OK
 - [x] Modifier perception : OK
 - [x] Supprimer perception : OK
 
-### Revenu Auxiliaire
+### 4. Revenu Auxiliaire
 
 - [x] Liste de revenus : OK
 - [x] Ajouter revenu : OK
 - [x] Modifier revenu : OK
 - [x] Supprimer revenu : OK
 
-### Dépenses
+### 5. Dépenses
 
 - [x] Liste de dépenses : OK
 - [x] Ajouter dépense : OK
@@ -79,7 +89,7 @@ In this page you will see what modules and their functionalities have been so fa
 
 ## Module 3 : Gestions scolaire
 
-### Classe
+### 1. Classe
 
 - [x] Liste de classes : OK
 - [x] Ajouter une classe : OK
@@ -92,7 +102,7 @@ In this page you will see what modules and their functionalities have been so fa
 - [ ] Supprimer enseignant :
 - [ ] Supprimer cours de l'enseignant :
 
-### Devoir
+### 2. Devoir
 
 - [x] Liste de devoirs : OK
 - [x] Ajouter un devoir : OK
@@ -110,7 +120,7 @@ In this page you will see what modules and their functionalities have been so fa
 - [ ] Modifier une reponse à un devoir
 - [ ] Supprimer une reponse à un devoir
 
-### Enseignant
+### 3. Enseignant
 
 - [x] Liste d'enseignants : OK
 - [x] Ajouter un enseignant : OK
@@ -118,7 +128,7 @@ In this page you will see what modules and their functionalities have been so fa
 - [x] Supprimer un enseignant : OK
 - [x] Voir détail d'un enseignant : OK
 
-### Filière
+### 4. Filière
 
 - [x] Liste de filières : OK
 - [x] Ajouter une filière : OK
@@ -126,7 +136,7 @@ In this page you will see what modules and their functionalities have been so fa
 - [x] Supprimer une filière : OK
 - [x] Voir détail d'une filière : OK
 
-### Option
+### 5. Option
 
 - [x] Liste d'options : OK
 - [x] Ajouter une option : OK
@@ -134,7 +144,7 @@ In this page you will see what modules and their functionalities have been so fa
 - [x] Supprimer une option : OK
 - [x] Voir détail d'une option : OK
 
-### Section
+### 6. Section
 
 - [x] Liste de sections : OK
 - [x] Ajouter une section : OK
@@ -142,7 +152,7 @@ In this page you will see what modules and their functionalities have been so fa
 - [x] Supprimer une section : OK
 - [x] Voir détail d'une section : OK
 
-### Année
+### 7. Année
 
 - [x] Liste d'année scolaire : OK
 - [x] Activer l'année scolaire en cours : OK
@@ -150,7 +160,7 @@ In this page you will see what modules and their functionalities have been so fa
 - [x] Modifier année scolaire : OK
 - [x] Supprimer année scolaire : OK
 
-### Utilisateur
+### 8. Utilisateur
 
 - [x] Liste d'utilisateurs : OK
 - [x] Ajouter utilisateur : OK
