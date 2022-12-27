@@ -104,7 +104,7 @@
                                                    href="{{route('media.show', $m)}}"
                                                    target="_blank">{{$m->filename}}</a>
                                                 |
-                                                <button class="btn btn-sm btn-outline-danger">
+                                                <button type="button" class="btn btn-sm btn-outline-danger">
                                                     <i wire:click="deleteMedia('{{$m->id}}')"
                                                        class="fa fa-minus"></i>
                                                 </button>
