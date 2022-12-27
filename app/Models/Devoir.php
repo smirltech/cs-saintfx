@@ -27,6 +27,15 @@ class Devoir extends Model
     {
         parent::boot();
 
+        static::retrieved(function (Devoir $devoir) {
+            // change status to closed if echance is after now
+            // use carbon to compare dates
+            if (Carbon::now()->greaterThan($devoir->echeance)) {
+                $devoir->status = DevoirStatus::closed();
+                $devoir->save();
+            }
+        });
+
         static::creating(function (Devoir $model) {
             $model->annee_id = $model->annee_id ?? Annee::id();
         });
@@ -69,17 +78,23 @@ class Devoir extends Model
     // display echeance
     public function getEcheanceDisplayAttribute(): string
     {
-        return Carbon::parse($this->getEcheanceAttribute())->diffForHumans();
+        return Carbon::parse($this->echeance)->diffForHumans();
     }
 
-    public function getEcheanceAttribute($value = null): string
-    {
-        return Carbon::parse($value)->format('Y-m-d');
-    }
+    /* public function getEcheanceAttribute($value = null): string
+     {
+         return Carbon::parse($value)->format('Y-m-d');
+     }*/
 
     // get reponses attribute
     public function getReponsesAttribute(): Collection
     {
         return $this->devoirReponses;
+    }
+
+    // isClosed
+    public function isClosed(): bool
+    {
+        return $this->status == DevoirStatus::closed;
     }
 }

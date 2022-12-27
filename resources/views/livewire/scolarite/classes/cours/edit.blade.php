@@ -19,7 +19,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <x-button type="submit" class="btn btn-primary">Save changes</x-button>
+                <x-button type="submit" class="btn btn-primary">Soumettre</x-button>
             </div>
         </div>
     </form>

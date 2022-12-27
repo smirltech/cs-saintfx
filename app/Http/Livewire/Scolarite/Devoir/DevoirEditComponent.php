@@ -52,6 +52,7 @@ class DevoirEditComponent extends Component
         $this->devoir->save();
         if ($this->document) {
             $this->devoir->addMedia(file: $this->document, mediaType: MediaType::document);
+            $this->document = null;
         }
         $this->refreshData();
         $this->alert('success', 'Cours modifiée avec succès');

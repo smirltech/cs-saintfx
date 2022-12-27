@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use JetBrains\PhpStorm\Pure;
 
 class Eleve extends Model
 {
@@ -89,7 +90,7 @@ class Eleve extends Model
         return Inscription::where(['eleve_id' => $this->id, 'annee_id' => Annee::encours()->id])->first();
     }
 
-    public function getNomCompletAttribute(): string
+    #[Pure] public function getNomCompletAttribute(): string
     {
         return $this->getFullNameAttribute();
     }
