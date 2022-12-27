@@ -1,6 +1,6 @@
 @php use App\Enums\ClasseGrade; @endphp
 @section('title')
-    {{Str::upper('cenk')}} - ajouter classe
+     - ajouter classe
 @endsection
 @section('content_header')
     <div class="row">
