@@ -34,7 +34,7 @@
 @endphp
 
 @section('title')
-    {{Str::upper('cenk finance')}} - frais  {{date('d-m-Y')}}
+     - frais  {{date('d-m-Y')}}
 @endsection
 @section('content_header')
     <div class="row">

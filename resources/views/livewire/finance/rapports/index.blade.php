@@ -1,6 +1,6 @@
 @php use Carbon\Carbon; @endphp
 @section('title')
-    {{Str::upper('cenk')}} - rapports
+     - rapports
 @endsection
 @section('content_header')
     <div class="row">

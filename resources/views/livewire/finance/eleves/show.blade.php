@@ -3,7 +3,7 @@
     use App\Enums\GraviteRetard;
 @endphp
 @section('title')
-    {{Str::upper('cenk')}} - élève - {{$eleve->getNomComplet()}}
+     - élève - {{$eleve->getNomComplet()}}
 @endsection
 @section('content_header')
     <div class="row">

@@ -30,8 +30,7 @@
 ];
 @endphp
 
-@section('title')
-    {{Str::upper('cenk')}} - dépenses  {{date('d-m-Y')}}
+@section('title') - dépenses  {{date('d-m-Y')}}
 @endsection
 @section('content_header')
     <div class="row">
