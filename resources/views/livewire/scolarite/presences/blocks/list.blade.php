@@ -6,6 +6,9 @@
    {{-- @include('livewire.scolarite.resultats.blocks.modals.result')--}}
     @include('livewire.scolarite.presences.blocks.modals.crud')
     <div class="input-group  mb-3">
+        <div class="input-group-prepend mr-2">
+            <span class="input-group-text">{{$presences->count()}} / {{$classe->inscriptions->count()}} </span>
+        </div>
         <div class="input-group-prepend">
             <span class="input-group-text">Date : </span>
         </div>
