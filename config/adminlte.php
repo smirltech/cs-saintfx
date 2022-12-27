@@ -301,7 +301,7 @@ return [
                 [
                     'text' => 'Elèves non inscrits',
                     'url' => 'scolarite/non-inscriptions',
-                    'icon' => 'fa fa-people-roof',
+                    'icon' => 'fa fa-users-rays',
                     'shift' => 'ml-3',
                 ],
                 [
@@ -339,6 +339,7 @@ return [
                 ],
                 [
                     'text' => 'Classes',
+                    'icon' => 'fas fa-fw fa-person-chalkboard',
                     'url' => 'scolarite/classes',
                     'shift' => 'ml-3',
                     //      'can' => RolePermission::create_etudiant->name,
