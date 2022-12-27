@@ -1,5 +1,5 @@
 @section('title')
-    {{Str::upper('cenk')}} - filière - {{$filiere->nom}}
+     - filière - {{$filiere->nom}}
 @endsection
 @section('content_header')
     <div class="row">
