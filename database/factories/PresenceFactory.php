@@ -19,12 +19,14 @@ class PresenceFactory extends Factory
 
     public function definition()
     {
-        return [
-            'inscription_id' => $this->faker->randomElement(Inscription::pluck('id')->toArray()),
-            'status' => $this->faker->randomElement(PresenceStatus::cases()),
-            'date' => Carbon::now()->subDays($this->faker->numberBetween(1,4))->format('Y-m-d'),
-            'observation' => $this->faker->sentence(3),
-            'annee_id' => Annee::id(),
-        ];
+       try {
+            return [
+                'inscription_id' => $this->faker->randomElement(Inscription::pluck('id')->toArray()),
+                'status' => $this->faker->randomElement(PresenceStatus::cases()),
+                'date' => Carbon::now()->subDays($this->faker->numberBetween(1, 4))->format('Y-m-d'),
+                'observation' => $this->faker->sentence(3),
+                'annee_id' => Annee::id(),
+            ];
+        }catch (\Exception $e){}
     }
 }

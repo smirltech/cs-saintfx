@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->string('status')->default(PresenceStatus::present->name);
             $table->text('observation')->nullable();
             $table->timestamps();
+            $table->unique([ 'inscription_id', 'date', 'annee_id'], 'inscription_date_annee');
         });
     }
 };
