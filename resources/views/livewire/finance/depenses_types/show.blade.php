@@ -1,6 +1,6 @@
 @php
     $heads =[
-        ['label'=>'DATE', 'width'=>8],
+        ['label'=>'DATE'],
         'MONTANT',
         'NOTE',
         'REFERENCE',
@@ -88,7 +88,7 @@
                                     <h4 class="m-0">Dépenses</h4>
                                 </div>
                                 <div class="card-tools d-flex my-auto">
-                                    <button type="button"
+                                    <button hidden="" type="button"
                                             class="btn btn-primary  ml-2" data-toggle="modal"
                                             data-target="#add-option-modal"><span
                                             class="fa fa-plus"></span></button>
@@ -107,13 +107,13 @@
                                             <td>{!! $row[4] !!}</td>
                                             <td>
                                                 <div class="d-flex float-right">
-                                                    <button wire:click="getSelectedDepense({{$row[5]}})" type="button"
+                                                    <button hidden="" wire:click="getSelectedDepense({{$row[5]}})" type="button"
                                                             title="Modifier" class="btn btn-info  ml-2" data-toggle="modal"
                                                             data-target="#edit-depense-modal">
                                                         <span class="fa fa-pen"></span>
                                                     </button>
 
-                                                    <button wire:click="getSelectedDepense({{$row[5]}})" type="button"
+                                                    <button hidden="" wire:click="getSelectedDepense({{$row[5]}})" type="button"
                                                             title="supprimer" class="btn btn-danger  ml-2"
                                                             data-toggle="modal"
                                                             data-target="#delete-depense-modal">
