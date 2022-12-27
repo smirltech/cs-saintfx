@@ -82,13 +82,13 @@ class DevoirShowComponent extends Component
                 'matricule' => ['required', 'string', 'exists:eleves,matricule'],
             ]);
             //2022030003
-            $this->eleve = Eleve::hasWhere('inscriptions', function ($query) {
+            $this->eleve = Eleve::whereHas('inscriptions', function ($query) {
                 $query->where('classe_id', $this->devoir->classe_id)
                     ->where('annee_id', $this->devoir->annee_id);
             })->where('matricule', $this->matricule)->first();
 
             if (!$this->eleve) {
-                $this->alert('error', "L'élève n'est pas inscrit dans cette classe");
+                $this->warning("L'élève n'est pas inscrit dans cette classe");
             }
         } /*else {
             $this->validate([
@@ -107,5 +107,6 @@ class DevoirShowComponent extends Component
             'document' => ['nullable', 'file', 'mimes:pdf', 'max:2048'],
         ];
     }
+
 
 }
