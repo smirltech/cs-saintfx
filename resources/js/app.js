@@ -39,7 +39,7 @@ window.addEventListener('closeModal', event => {
 
 
 window.addEventListener('printIt', event => {
-    alert(" print home edit");
+    console.log(event.detail.elementId);
     printJS({
         printable: event.detail.elementId,
         type: event.detail.type,

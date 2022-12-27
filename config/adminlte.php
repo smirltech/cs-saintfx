@@ -354,7 +354,7 @@ return [
             // 'can' => RolePermission::view_etudiant->name,
             'submenu' => [
                 [
-                    'text' => 'Revenus',
+                    'text' => 'Perceptions',
                     'icon' => 'fas fa-fw fa-coins',
                     'shift' => 'ml-3',
                     // 'can' => RolePermission::view_etudiant->name,
