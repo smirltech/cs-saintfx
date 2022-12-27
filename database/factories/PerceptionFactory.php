@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\FraisFrequence;
 use App\Models\Annee;
 use App\Models\Frais;
 use App\Models\Inscription;
@@ -18,11 +19,14 @@ class PerceptionFactory extends Factory
 
     public function definition(): array
     {
+        $freq = $this->faker->randomElement(FraisFrequence::cases());
+       // dd($freq);
         return [
             'user_id' => $this->faker->randomElement(User::pluck('id')->toArray()),
             'frais_id' => $this->faker->numberBetween(1, Frais::count()),
             'inscription_id' => $this->faker->randomElement(Inscription::pluck('id')->toArray()),
-            'custom_property' => $this->faker->word,
+            'frequence' => $freq->name,
+            'custom_property' => $this->faker->randomElement($freq->children()),
             'annee_id' => $this->faker->numberBetween(1, Annee::count()),
             'montant' => 50000,
             'paid' => $this->faker->numberBetween(30000, 55000),
