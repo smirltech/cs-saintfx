@@ -40,7 +40,7 @@ class UserController extends Controller
         // get user not super admins, use spatie permission
         $users = User::orderByDesc('id')->get();
 
-        return view('admin.users.index', compact('users'))->with('title', __('Utilisateurs'));
+        return view('admin.users.index', compact('users'))->with('title', ' - '. __('Utilisateurs'));
     }
 
     /**
