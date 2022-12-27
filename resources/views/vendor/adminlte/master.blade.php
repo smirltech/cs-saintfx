@@ -100,26 +100,6 @@
 
 <livewire:modals/>
 
-<script>
-    import printJS from "print-js";
-
-    window.addEventListener('closeModal', event=>{
-        $("#"+event.detail.modal).modal('hide');
-    });
-
-    window.addEventListener('printIt', event => {
-        //alert(" print home edit");
-        printJS({
-            printable: event.detail.elementId,
-            type: event.detail.type,
-            targetStyles: ['*'],
-            maxWidth: event.detail.maxWidth,
-            style: "text-align:center"
-        });
-    })
-</script>
-
-
 {{-- Livewire Script --}}
 @if(config('adminlte.livewire'))
 

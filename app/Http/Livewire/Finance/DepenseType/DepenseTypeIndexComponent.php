@@ -54,13 +54,13 @@ class DepenseTypeIndexComponent extends Component
 
         //dd($this->depenseType);
         $this->depenseType->save();
-
+        $this->onModalClosed('add-type-modal');
         $this->alert('success', "Dépense Type ajoutée avec succès !");
-        $this->onModalClosed('add-option-modal');
     }
 
     public function onModalClosed($modal_id)
     {
+       // $this->dispatchBrowserEvent('closeModal', ['modal' => 'edit-depense-modal']);
         $this->dispatchBrowserEvent('closeModal', ['modal' => $modal_id]);
     }
 
@@ -87,7 +87,7 @@ class DepenseTypeIndexComponent extends Component
         } else {
             $this->alert('warning', "Echec de modification de Dépense Type !");
         }
-        $this->onModalClosed('edit-option-modal');
+        $this->onModalClosed('edit-type-modal');
 
     }
 
@@ -101,7 +101,7 @@ class DepenseTypeIndexComponent extends Component
         } else {
             $this->alert('warning', "Dépense Type n'a pas été supprimée, il y a des Dépenses attachées !");
         }
-        $this->onModalClosed('delete-option-modal');
+        $this->onModalClosed('delete-type-modal');
 
     }
 }
