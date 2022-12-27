@@ -12,6 +12,11 @@ class Depense extends Model
     use HasFactory;
 
     public $guarded = [];
+    protected $casts = [
+        'categorie' => DepenseCategorie::class,
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
 
     protected $with = ['user'];
 

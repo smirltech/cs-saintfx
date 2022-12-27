@@ -12,7 +12,7 @@
    foreach ($depenses as $depense){
         $data[] =[
             $depense->created_at->format('d-m-Y'),
-            $depense->categorie,
+            $depense->categorie->label(),
             \App\Helpers\Helpers::currencyFormat($depense->montant, symbol: 'Fc'),
             $depense->note,
             $depense->reference,
