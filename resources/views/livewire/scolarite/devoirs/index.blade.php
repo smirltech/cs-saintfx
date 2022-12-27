@@ -67,7 +67,9 @@
                                             {{ $devoir->echeance_display }}
                                         </td>
                                         <td>
-                                            {{ $devoir->status?->label() }}
+                                            <span class="badge bg-{{$devoir->status?->variant()}}">
+                                                 {{ $devoir->status?->label() }}
+                                            </span>
                                         </td>
 
                                         <td>

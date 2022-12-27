@@ -81,7 +81,6 @@ class DevoirShowComponent extends Component
             $this->validate([
                 'matricule' => ['required', 'string', 'exists:eleves,matricule'],
             ]);
-            //2022030003
             $this->eleve = Eleve::whereHas('inscriptions', function ($query) {
                 $query->where('classe_id', $this->devoir->classe_id)
                     ->where('annee_id', $this->devoir->annee_id);

@@ -6,7 +6,7 @@
     <div class="content">
         <div class="row">
             <div class="col-md-4">
-                <div class="card card-primary">
+                <div class="card card-{{$devoir->status->variant()}}">
                     <div class="card-header">
                         <h3 class="card-title">Devoir à domicile</h3>
                     </div>
@@ -86,7 +86,14 @@
                                     <x-list-files :media="$devoir_reponse->media??[]" delete/>
                                 </div>
                             </div>
-                            <x-button class="btn-primary float-end">Soumettre</x-button>
+                            @if($devoir->isClosed())
+                                <div class="alert alert-danger">
+                                    <i class="fa fa-exclamation-triangle"></i>
+                                    Ce devoir est fermé. Vous ne pouvez plus y répondre.
+                                </div>
+                            @else
+                                <x-button class="btn-primary float-end">Soumettre</x-button>
+                            @endif
                         </form>
                     </div>
                 </div>

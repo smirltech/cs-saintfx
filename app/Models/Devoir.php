@@ -27,6 +27,15 @@ class Devoir extends Model
     {
         parent::boot();
 
+        static::retrieved(function (Devoir $devoir) {
+            // change status to closed if echance is after now
+            // use carbon to compare dates
+            if (Carbon::now()->greaterThan($devoir->echeance)) {
+                $devoir->status = DevoirStatus::closed();
+                $devoir->save();
+            }
+        });
+
         static::creating(function (Devoir $model) {
             $model->annee_id = $model->annee_id ?? Annee::id();
         });
@@ -81,5 +90,11 @@ class Devoir extends Model
     public function getReponsesAttribute(): Collection
     {
         return $this->devoirReponses;
+    }
+
+    // isClosed
+    public function isClosed(): bool
+    {
+        return $this->status == DevoirStatus::closed;
     }
 }
