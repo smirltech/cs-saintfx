@@ -6,6 +6,7 @@ use App\Enums\DepenseCategorie;
 use App\Http\Integrations\Scolarite\Requests\Annee\GetCurrentAnnneRequest;
 use App\Models\Annee;
 use App\Models\Depense;
+use App\Models\DepenseType;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Illuminate\Support\Facades\Auth;
@@ -21,15 +22,20 @@ class DepenseIndexComponent extends Component
     public $depenses = [];
     public $depense;
 
-    public $categorie = DepenseCategorie::autre;
+    public $types = [];
+    public $type;
+
     public $montant;
     public $note;
     public $reference;
+    protected $rules = [
+        'type.id' => 'required',
+    ];
 
     protected $messages = [
         'montant.required' => 'Le montant est obligatoire !',
         'nom.required' => 'Le nom est obligatoire !',
-        'categorie.required' => 'La categorie est obligatoire !',
+        'type.id.required' => 'La type est obligatoire !',
     ];
 
     protected $listeners = ['onModalClosed'];
@@ -37,6 +43,8 @@ class DepenseIndexComponent extends Component
     public function mount()
     {
         $this->annee_id = Annee::id();
+        $this->types = DepenseType::orderBy('nom')->get();
+        $this->type = $this->types[0]??new DepenseType();
     }
 
     public function render()
@@ -48,7 +56,7 @@ class DepenseIndexComponent extends Component
 
     public function loadData()
     {
-        // todo: we should consider annee_id when fetching data
+        $this->types = DepenseType::orderBy('nom')->get();
         $this->depenses = Depense::where('annee_id', $this->annee_id)->orderBy('created_at', 'DESC')->get();
     }
 
@@ -57,7 +65,7 @@ class DepenseIndexComponent extends Component
         // dd($this->nom);
 
         $this->validate([
-            'categorie' => 'required',
+            'type.id' => 'required',
             'montant' => 'required',
             'note' => 'nullable',
             'reference' => 'nullable',
@@ -65,7 +73,7 @@ class DepenseIndexComponent extends Component
         ]);
 
         Depense::create([
-            'categorie' => $this->categorie,
+            'depense_type_id' => $this->type->id,
             'montant' => $this->montant,
             'note' => $this->note,
             'reference' => $this->reference,
@@ -83,13 +91,13 @@ class DepenseIndexComponent extends Component
     public function onModalClosed()
     {
         $this->clearValidation();
-        $this->reset(['categorie', 'montant', 'note', 'reference']);
+        $this->reset([ 'montant', 'note', 'reference']);
     }
 
     public function getSelectedDepense(Depense $depense)
     {
         $this->depense = $depense;
-        $this->categorie = $depense->categorie;
+        $this->type = $depense->type;
         $this->montant = $depense->montant;
         $this->note = $depense->note;
         $this->reference = $depense->reference;
@@ -98,14 +106,14 @@ class DepenseIndexComponent extends Component
     public function updateDepense()
     {
         $this->validate([
-            'categorie' => 'required',
+            'type.id' => 'required',
             'montant' => 'required',
             'note' => 'required',
             'reference' => 'nullable',
         ]);
 
         $done = $this->depense->update([
-            'categorie' => $this->categorie,
+            'depense_type_id' => $this->type->id,
             'montant' => $this->montant,
             'note' => $this->note,
             'reference' => $this->reference,

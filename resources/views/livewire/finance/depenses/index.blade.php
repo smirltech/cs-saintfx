@@ -1,7 +1,7 @@
 @php
     $heads =[
         ['label'=>'DATE', 'width'=>8],
-        'CATEGORIE',
+        'TYPE',
         'MONTANT',
         'NOTE',
         'REFERENCE',
@@ -12,7 +12,7 @@
    foreach ($depenses as $depense){
         $data[] =[
             $depense->created_at->format('d-m-Y'),
-            $depense->categorie->label(),
+            $depense->type->nom,
             \App\Helpers\Helpers::currencyFormat($depense->montant, symbol: 'Fc'),
             $depense->note,
             $depense->reference,
