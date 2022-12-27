@@ -46,7 +46,7 @@
         ];
 @endphp
 @section('title')
-    {{Str::upper('cenk')}} - élèves
+     - élèves
 @endsection
 @section('content_header')
     <div class="row">
