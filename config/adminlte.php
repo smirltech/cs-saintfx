@@ -311,29 +311,31 @@ return [
             'icon' => 'fas fa-people-roof',
             'submenu' => [
                 [
-                    'text' => 'Classes',
-                    'url' => 'scolarite/classes',
+                    'text' => 'Devoirs',
+                    'icon' => 'fas fa-fw fa-tasks',
+                    'url' => 'scolarite/devoirs',
                     'shift' => 'ml-3',
-                    //      'can' => RolePermission::create_etudiant->name,
                 ],
+
                 [
                     'text' => 'Cours',
                     'url' => 'scolarite/cours',
                     'icon' => 'fas fa-fw fa-book-open',
                     'shift' => 'ml-3',
                 ],
-                [
-                    'text' => 'Devoirs',
-                    'icon' => 'fas fa-fw fa-tasks',
-                    'url' => 'scolarite/devoirs',
-                    'shift' => 'ml-3',
-                ],
+
                 [
                     'text' => 'Enseignants',
                     'icon' => 'fas fa-fw fa-chalkboard-teacher',
                     // 'can' => RolePermission::create_promotion->name,
                     'url' => 'scolarite/enseignants',
                     'shift' => 'ml-3',
+                ],
+                [
+                    'text' => 'Classes',
+                    'url' => 'scolarite/classes',
+                    'shift' => 'ml-3',
+                    //      'can' => RolePermission::create_etudiant->name,
                 ],
             ],
         ],

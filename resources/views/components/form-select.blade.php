@@ -10,7 +10,7 @@
 @endphp
 @include('components.form-label')
 <select {{ $disabled ? 'disabled' : '' }} {!! $attributes->merge(['class' => 'form-control'.$classes]) !!}>
-    <option disabled>{{$placeholder??'-- Sélectionner --'}}</option>
+    <option>{{$placeholder??'-- Sélectionner --'}}</option>
     {{$slot}}
 </select>
 @if(isset($error))
