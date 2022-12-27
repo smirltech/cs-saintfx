@@ -69,13 +69,13 @@ class Devoir extends Model
     // display echeance
     public function getEcheanceDisplayAttribute(): string
     {
-        return Carbon::parse($this->getEcheanceAttribute())->diffForHumans();
+        return Carbon::parse($this->echeance)->diffForHumans();
     }
 
-    public function getEcheanceAttribute($value = null): string
-    {
-        return Carbon::parse($value)->format('Y-m-d');
-    }
+    /* public function getEcheanceAttribute($value = null): string
+     {
+         return Carbon::parse($value)->format('Y-m-d');
+     }*/
 
     // get reponses attribute
     public function getReponsesAttribute(): Collection

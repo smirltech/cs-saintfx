@@ -66,10 +66,11 @@
                                 </div>
 
                                 <div class="form-group col-md-4">
-                                    <x-form-input required min="{{date('Y-m-d')}}" wire:model.defer="devoir.echeance"
+                                    <x-form-input required min="{{date('Y-m-d H:i')}}"
+                                                  wire:model.defer="devoir.echeance"
                                                   label="Date limite de dépôt"
                                                   :isValid="$errors->has('devoir.echeance') ? false : null"
-                                                  error="{{$errors->first('devoir.echeance')}}" type="date"/>
+                                                  error="{{$errors->first('devoir.echeance')}}" type="datetime-local"/>
                                 </div>
                                 <div class="form-group col-md-12">
                                     <x-form-input required placeholder="Saisir l'intitulé du devoir"

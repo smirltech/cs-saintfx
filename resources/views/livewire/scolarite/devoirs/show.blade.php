@@ -24,10 +24,17 @@
             <div class="col-md-4">
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">{{$devoir->titre}}</h3>
+                        <h3 class="card-title">Devoir à domicile</h3>
                     </div>
 
                     <div class="card-body">
+                        <strong><i class="fas fa-book-open mr-1"></i>Intitulé</strong>
+                        <p class="text-muted">
+                            {{$cours->nom}}
+                            -
+                            {{$devoir->titre}}
+                        </p>
+                        <hr>
                         <strong><i class="fas fa-clock mr-1"></i> Date limite</strong>
                         <p class="text-muted">
                             {{Carbon::parse($devoir->echeance)->format('d/m/Y H:i')}}
@@ -35,21 +42,23 @@
 
                         </p>
                         <hr>
-                        <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
-                        <p class="text-muted">Malibu, California</p>
+                        <strong><i class="fas fa-school mr-1"></i>Classe</strong>
+                        <p class="text-muted">{{$devoir->classe->code}}</p>
                         <hr>
-                        <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
-                        <p class="text-muted">
-                            <span class="tag tag-danger">UI Design</span>
-                            <span class="tag tag-success">Coding</span>
-                            <span class="tag tag-info">Javascript</span>
-                            <span class="tag tag-warning">PHP</span>
-                            <span class="tag tag-primary">Node.js</span>
-                        </p>
-                        <hr>
-                        <strong><i class="far fa-file-alt mr-1"></i>{{$devoir->titre}}</strong>
-                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum
-                            enim neque.</p>
+                        @if($devoir->contenu)
+                            <strong><i class="far fa-file-alt mr-1"></i>Contenu</strong>
+                            <p class="text-muted">
+                                {{$devoir->contenu}}
+                            </p>
+                            <hr>
+                        @endif
+                        @if($devoir->document)
+                            <strong><i class="fas fa-file-pdf mr-1"></i>Pièce jointe</strong>
+                            <p class="text-muted">
+                                <a href="{{route('media.show',$devoir->document)}}">{{$devoir->document->filename}}</a>
+                            </p>
+                        @endif
+
                     </div>
 
                 </div>
@@ -60,11 +69,11 @@
                         <form wire:submit.prevent="submit">
                             <div class="row">
                                 <div class="form-group col-md-12">
-                                    <x-form-input required placeholder="Saisir l'intitulé du devoir"
-                                                  wire:model.defer="devoir.titre"
-                                                  label="Intitulé du devoir"
-                                                  :isValid="$errors->has('devoir.titre') ? false : null"
-                                                  error="{{$errors->first('devoir.titre')}}"/>
+                                    <x-form-input required placeholder="Saisir le numéro de l'élève"
+                                                  wire:model="matricule" type="number"
+                                                  label="Matricule de l'élève"
+                                                  :isValid="$errors->has('matricule') ? false : null"
+                                                  error="{{$errors->first('matricule')}}"/>
                                 </div>
 
                                 <div class="form-group col-md-12">
