@@ -1,5 +1,5 @@
 @section('title')
-    {{Str::upper('cenk')}} - option - {{$option->nom}}
+     - option - {{$option->nom}}
 @endsection
 @section('content_header')
     <div class="row">
