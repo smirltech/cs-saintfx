@@ -94,13 +94,14 @@ class DepenseIndexComponent extends Component
         $this->reset([ 'montant', 'note', 'reference']);
     }
 
-    public function getSelectedDepense(Depense $depense)
+    public function getSelectedDepense($depense_id)
     {
-        $this->depense = $depense;
-        $this->type = $depense->type;
-        $this->montant = $depense->montant;
-        $this->note = $depense->note;
-        $this->reference = $depense->reference;
+        //dd($depense_id);
+        $this->depense = Depense::find($depense_id);
+        $this->type = $this->depense->type;
+        $this->montant = $this->depense->montant;
+        $this->note = $this->depense->note;
+        $this->reference = $this->depense->reference;
     }
 
     public function updateDepense()

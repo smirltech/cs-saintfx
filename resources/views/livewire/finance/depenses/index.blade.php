@@ -81,7 +81,7 @@
                                         <td>{!! $row[5] !!}</td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                <button wire:click="getSelectedDepense({{$row[6]}})" type="button"
+                                                <button wire:click="getSelectedDepense({{$row[6]->id}})" type="button"
                                                         title="Modifier" class="btn btn-info  ml-2" data-toggle="modal"
                                                         data-target="#edit-depense-modal">
                                                     <span class="fa fa-pen"></span>
