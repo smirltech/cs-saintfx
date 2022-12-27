@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Depense extends Model
 {
@@ -31,6 +32,16 @@ class Depense extends Model
         return $data;
     }
 
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function type(): BelongsTo
+    {
+        return $this->belongsTo(DepenseType::class,'depense_type_id');
+    }
+
     public static function sommeBetween($annee_id, $ddebut, $dfin)
     {
         $debut = Carbon::parse($ddebut)->startOfDay();
@@ -48,10 +59,5 @@ class Depense extends Model
         }
 
         return $data;
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
     }
 }
