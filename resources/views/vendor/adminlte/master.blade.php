@@ -87,7 +87,8 @@
 {{-- Base Scripts --}}
 @if(!config('adminlte.enabled_laravel_mix'))
     <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
-    <script src="https://code.jquery.com/jquery-3.6.2.min.js" integrity="sha256-2krYZKh//PcchRtd+H+VyyQoZ/e3EcrkxhM8ycwASPA=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.2.min.js"
+            integrity="sha256-2krYZKh//PcchRtd+H+VyyQoZ/e3EcrkxhM8ycwASPA=" crossorigin="anonymous"></script>
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
     @include('adminlte::plugins', ['type' => 'js'])
@@ -99,26 +100,6 @@
 
 
 <livewire:modals/>
-
-<script>
-    import printJS from "print-js";
-
-    window.addEventListener('closeModal', event=>{
-        $("#"+event.detail.modal).modal('hide');
-    });
-
-    window.addEventListener('printIt', event => {
-        //alert(" print home edit");
-        printJS({
-            printable: event.detail.elementId,
-            type: event.detail.type,
-            targetStyles: ['*'],
-            maxWidth: event.detail.maxWidth,
-            style: "text-align:center"
-        });
-    })
-</script>
-
 
 {{-- Livewire Script --}}
 @if(config('adminlte.livewire'))
@@ -137,7 +118,6 @@
 @endif
 
 <script src="{{ asset('js/app.js') }}"></script>
-
 
 
 {{--
