@@ -55,7 +55,15 @@
                         @if($devoir->document)
                             <strong><i class="fas fa-file-pdf mr-1"></i>Pièce jointe</strong>
                             <p class="text-muted">
-                                <a href="{{route('media.show',$devoir->document)}}">{{$devoir->document->filename}}</a>
+                            <ol class="list-group mt-3">
+                                @foreach($devoir->media as $m)
+                                    <li class="list-group-item">
+                                        <a class="" title="Voir"
+                                           href="{{route('media.show', $m)}}"
+                                           target="_blank">{{$m->filename}}</a>
+                                    </li>
+                                @endforeach
+                            </ol>
                             </p>
                         @endif
 
