@@ -27,7 +27,7 @@
                 <th>ÉLÈVE</th>
                 <th>ÉTAT</th>
                 <th>OBSERVATION</th>
-                <th>ACTIONS</th>
+                <th style="width: 50px;">ACTIONS</th>
 
             </tr>
             </thead>
@@ -44,13 +44,13 @@
                         <td>{{$presence->observation}}</td>
                         <td>
                             <div class="d-flex float-right">
-                                {{--<button wire:click="selectInscription('{{$inscription->id }}')"
-                                        title="supprimer"
+                                <button wire:click="selectPresence('{{$presence->id }}')"
+                                        title="modifier"
                                         class="btn btn-sm btn-outline-warning ml-2"
                                         data-toggle="modal"
-                                        data-target="#update-resultat">
+                                        data-target="#update-presence">
                                     <i class="fas fa-edit"></i>
-                                </button>--}}
+                                </button>
                             </div>
                         </td>
 
