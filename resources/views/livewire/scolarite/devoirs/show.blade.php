@@ -2,22 +2,6 @@
 @section('title')
     {{$devoir->titre}}
 @endsection
-@section('content_header')
-    <div hidden class="row mb-3">
-        <div class="col-6">
-            <h1 class="ms-3">{{$devoir->titre}}</h1>
-        </div>
-
-        <div class="col-6">
-            <ol class="breadcrumb float-right">
-                <li class="breadcrumb-item"><a href="{{ route('scolarite') }}">Accueil</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('scolarite.devoirs.index') }}">Devoirs</a></li>
-                <li class="breadcrumb-item active">{{$devoir->titre}}</li>
-            </ol>
-        </div>
-    </div>
-
-@stop
 <div class="">
     <div class="content">
         <div class="row">
@@ -69,31 +53,37 @@
                         <form wire:submit.prevent="submit">
                             <div class="row">
                                 <div class="form-group col-md-12">
-                                    <x-form-input required placeholder="Saisir le numéro de l'élève"
-                                                  wire:model="matricule" type="number"
-                                                  label="Matricule de l'élève"
-                                                  :isValid="$errors->has('matricule') ? false : null"
-                                                  error="{{$errors->first('matricule')}}"/>
+                                    <x-form-input
+                                        required placeholder="Saisir le numéro de l'élève"
+                                        wire:model="matricule" type="number"
+                                        label="Matricule de l'élève"
+                                        minlenght="10" maxlength="10"
+                                        :isValid="$errors->has('matricule') ? false : null"
+                                        error="{{$errors->first('matricule')}}"/>
+                                    <div class="valid-feedback">
+                                        {{$eleve?->nom_complet}}
+                                    </div>
                                 </div>
 
                                 <div class="form-group col-md-12">
                                     <x-form-textarea
-                                        required
-                                        placeholder="Saisir le contenu du devoir"
-                                        wire:model.defer="devoir.contenu"
-                                        label="Contenu du devoir"
+                                        placeholder="Saisir le contenu de la réponse"
+                                        wire:model.defer="devoir_reponse.contenu"
+                                        label="Contenu de la réponse"
                                         rows="10"
-                                        :isValid="$errors->has('devoir.contenu') ? false : null"
-                                        error="{{$errors->first('devoir.contenu')}}"/>
+                                        :isValid="$errors->has('devoir_reponse.contenu') ? false : null"
+                                        error="{{$errors->first('devoir_reponse.contenu')}}"/>
+
                                 </div>
 
                                 <div class="form-group col-md-12">
                                     <x-form-file-pdf wire:model="document"
-                                                     label="Document du devoir"
+                                                     label="Pièce jointe"
+                                                     required
                                                      target="document"
                                                      :isValid="$errors->has('document') ? false : null"
                                                      error="{{$errors->first('document')}}"/>
-                                    <x-list-files :media="$devoir->media" delete/>
+                                    <x-list-files :media="$devoir_reponse->media??[]" delete/>
                                 </div>
                             </div>
                             <x-button class="btn-primary float-end">Soumettre</x-button>

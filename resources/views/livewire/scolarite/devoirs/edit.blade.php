@@ -30,8 +30,8 @@
                             </div>
 
                             <div class="col-6">
-                                <x-button wire:click="deleteDevoir" class="float-right">
-                                    <i class="fa fa-trash-alt text-red"></i>
+                                <x-button wire:click="deleteDevoir" class="btn btn-sm btn-danger float-right">
+                                    <i class="fa fa-trash-alt"></i>
                                 </x-button>
                             </div>
                         </div>
@@ -108,8 +108,20 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        Reponses
+                        <div class="row">
+                            <div class="col-6">
+                                Reponses
+                            </div>
+                            <div class="col-6">
+                                <a title="Repondre au devoir" href="{{ route('scolarite.devoirs.show',$devoir) }}"
+                                   class="btn  btn-sm btn-info float-right">
+                                    <i class="fa fa-add"></i>
+                                </a>
+                            </div>
+                        </div>
+
                     </div>
+
                     <div class="card-body p-0 table-responsive">
                         <table class="table">
                             <thead>
