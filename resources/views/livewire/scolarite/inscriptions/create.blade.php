@@ -1,7 +1,7 @@
-@php use App\Enums\Sexe;use App\Enums\EtudiantSexe; @endphp
+@php use App\Enums\Sexe; @endphp
 @php use App\Enums\EtatCivil;use App\Enums\InscriptionCategorie;use App\Enums\ResponsableRelation; @endphp
 @section('title')
-    {{Str::upper('cenk')}} - inscrire élève
+     - inscrire élève
 @endsection
 @section('content_header')
     <div class="row">

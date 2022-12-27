@@ -42,7 +42,7 @@
         ];
 @endphp
 @section('title')
-    {{Str::upper('cenk')}} - inscriptions {{date('d-m-Y')}}
+     - inscriptions {{date('d-m-Y')}}
 @endsection
 @section('content_header')
     <div class="row">
