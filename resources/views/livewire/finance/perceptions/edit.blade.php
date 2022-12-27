@@ -2,7 +2,7 @@
 @php use App\Enums\FraisFrequence; @endphp
 
 @section('title')
-    {{Str::upper(env('APP_NAME', 'cenk finance'))}} - Modifier Facture  {{date('d-m-Y')}}
+     - Modifier Facture  {{date('d-m-Y')}}
 @endsection
 @section('content_header')
     <div class="row">
