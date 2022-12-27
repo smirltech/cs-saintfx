@@ -74,7 +74,11 @@
                                         <td>{!! $row[2] !!}</td>
                                         <td>
                                             <div class="d-flex float-right">
-
+                                                <a href="{{route('finance.depenses-types.show', [$row[3]])}}"
+                                                   title="voir"
+                                                   class="btn btn-success  ml-2">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
                                                 <button wire:click="getSelectedTypeDepense({{$row[3]}})" type="button"
                                                         title="Modifier" class="btn btn-info  ml-2" data-toggle="modal"
                                                         data-target="#edit-type-modal">

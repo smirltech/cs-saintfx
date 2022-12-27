@@ -22,4 +22,9 @@ class DepenseType extends Model
     {
         return $this->hasMany(Depense::class);
     }
+
+    public function total(): int
+    {
+        return $this->depenses->where('annee_id', Annee::id())->sum('montant');
+    }
 }
