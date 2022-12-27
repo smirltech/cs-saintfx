@@ -349,40 +349,66 @@ return [
 
         ['header' => 'FINANCE'],
         [
-            'text' => 'Perceptions',
+            'text' => 'Encaissements',
             'icon' => 'fas fa-fw fa-arrow-trend-up',
             // 'can' => RolePermission::view_etudiant->name,
             'submenu' => [
                 [
-                    'text' => 'Ajouter perception',
-                    'url' => 'finance/perceptions/create',
+                    'text' => 'Revenus',
+                    'icon' => 'fas fa-fw fa-coins',
                     'shift' => 'ml-3',
-                    //      'can' => RolePermission::create_etudiant->name,
+                    // 'can' => RolePermission::view_etudiant->name,
+                    'submenu' => [
+                        [
+                            'text' => 'Ajouter perception',
+                            'url' => 'finance/perceptions/create',
+                            'shift' => 'ml-5',
+                            //      'can' => RolePermission::create_etudiant->name,
+                        ],
+                        [
+                            'text' => 'Liste de perceptions',
+                            'url' => 'finance/perceptions',
+                            'shift' => 'ml-5',
+                        ],
+                        [
+                            'text' => 'Plans de frais',
+                            'url' => 'finance/frais',
+                            'shift' => 'ml-5',
+                        ],
+                    ],
                 ],
+
                 [
-                    'text' => 'Liste de perceptions',
-                    'url' => 'finance/perceptions',
+                    'text' => 'Revenu Auxiliaire',
+                    'icon' => 'fas fa-fw fa-money-bill-trend-up',
+                    'url' => 'finance/revenus',
                     'shift' => 'ml-3',
-                ],
-                [
-                    'text' => 'Plans de frais',
-                    'url' => 'finance/frais',
-                    'shift' => 'ml-3',
+                    // 'can' => RolePermission::create_user->name,
                 ],
             ],
         ],
         [
-            'text' => 'Revenu Auxiliaire',
-            'icon' => 'fas fa-fw fa-money-bill-trend-up',
-            'url' => 'finance/revenus',
-            // 'can' => RolePermission::create_user->name,
-        ],
-        [
-            'text' => 'Dépenses',
+            'text' => 'Décaissements',
             'icon' => 'fas fa-fw fa-arrow-trend-down',
             // 'can' => RolePermission::view_etudiant->name,
-            'url' => 'finance/depenses',
+            'submenu' => [
+                [
+                    'text' => 'Dépenses',
+                    'icon' => 'fas fa-fw fa-coins',
+                    // 'can' => RolePermission::view_etudiant->name,
+                    'url' => 'finance/depenses',
+                    'shift' => 'ml-3',
+                ],
+                [
+                    'text' => 'Types de Dépenses',
+                    'icon' => 'fas fa-fw fa-list-check',
+                    // 'can' => RolePermission::view_etudiant->name,
+                    'url' => 'finance/depenses-types',
+                    'shift' => 'ml-3',
+                ],
+            ]
         ],
+
         [
             'text' => 'Rapport financier',
             'icon' => 'fas fa-fw fa-chart-column',

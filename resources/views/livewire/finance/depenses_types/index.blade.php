@@ -1,54 +1,49 @@
 @php
     $heads =[
-        ['label'=>'DATE', 'width'=>8],
+        ['label'=>'#', 'width'=>5],
         'TYPE',
-        'MONTANT',
-        'NOTE',
-        'REFERENCE',
-        'PAR',
+        'DESCRIPTION',
         ['label'=>'', 'no-export'=>true, 'width'=>5]
 ];
-   $data =[];
-   foreach ($depenses as $depense){
-        $data[] =[
-            $depense->created_at->format('d-m-Y'),
-            $depense->type->nom,
-            \App\Helpers\Helpers::currencyFormat($depense->montant, symbol: 'Fc'),
-            $depense->note,
-            $depense->reference,
-            $depense->user->name,
-            $depense,
+   //$datas =[];
+   foreach ($depenseTypes as $i=>$depenseType){
+        $datas[] =[
+            $i+1,
+            $depenseType->nom,
+            $depenseType->description,
+            $depenseType,
 ];
    }
 
     $config =[
-  'data'=>$data,
+  'data'=>$datas,
   'order'=>[[1, 'asc']],
-  'columns'=>[null, null, null,null,null, null, ['orderable'=>false]],
-  'destroy'=>true,
+  'columns'=>[null,null, null, ['orderable'=>false]],
+  'destroy'=>false,
 
 ];
 @endphp
 
-@section('title') - dépenses  {{date('d-m-Y')}}
+@section('title')
+     - Types de Dépenses
 @endsection
 @section('content_header')
     <div class="row">
         <div class="col-6">
-            <h1 class="ms-3">Liste de dépenses</h1>
+            <h1 class="ms-3">Liste de types de dépenses</h1>
         </div>
 
         <div class="col-6">
             <ol class="breadcrumb float-right">
-                <li class="breadcrumb-item"><a href="{{ route('finance') }}">Accueil</a></li>
-                <li class="breadcrumb-item active">Dépenses</li>
+                <li class="breadcrumb-item"><a href="{{ route('scolarite') }}">Accueil</a></li>
+                <li class="breadcrumb-item active">Types de Dépenses</li>
             </ol>
         </div>
     </div>
 
 @stop
 <div wire:ignore.self class="">
-    @include('livewire.finance.depenses.modals.crud')
+    @include('livewire.finance.depenses_types.modals.crud')
 
     <div class="content mt-3">
         <div class="container-fluid">
@@ -60,37 +55,40 @@
 
                             </div>
                             <div class="card-tools d-flex my-auto">
+                                {{-- <livewire:scolarite.section.section-create-component/>--}}
                                 <button type="button"
                                         class="btn btn-primary  ml-2" data-toggle="modal"
-                                        data-target="#add-depense-modal"><span
+                                        data-target="#add-type-modal"><span
                                         class="fa fa-plus"></span></button>
                             </div>
                         </div>
 
                         <div class="card-body m-b-40 table-responsive">
                             <x-adminlte-datatable wire:ignore.self theme="light" id="table1" :heads="$heads" striped
-                                                  hoverable with-buttons>
+                                                  hoverable
+                                                  with-buttons>
                                 @foreach($config['data'] as $row)
                                     <tr>
                                         <td>{!! $row[0] !!}</td>
-                                        <td><a href="{{route('finance.depenses-types.show', [$row[6]->depense_type_id])}}">{{$row[1]}}</a></td>
-
+                                        <td>{!! $row[1] !!}</td>
                                         <td>{!! $row[2] !!}</td>
-                                        <td>{!! $row[3] !!}</td>
-                                        <td>{!! $row[4] !!}</td>
-                                        <td>{!! $row[5] !!}</td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                <button wire:click="getSelectedDepense({{$row[6]}})" type="button"
+                                                <a href="{{route('finance.depenses-types.show', [$row[3]])}}"
+                                                   title="voir"
+                                                   class="btn btn-success  ml-2">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                <button wire:click="getSelectedTypeDepense({{$row[3]}})" type="button"
                                                         title="Modifier" class="btn btn-info  ml-2" data-toggle="modal"
-                                                        data-target="#edit-depense-modal">
+                                                        data-target="#edit-type-modal">
                                                     <span class="fa fa-pen"></span>
                                                 </button>
 
-                                                <button wire:click="getSelectedDepense({{$row[6]}})" type="button"
+                                                <button wire:click="getSelectedTypeDepense({{$row[3]}})" type="button"
                                                         title="supprimer" class="btn btn-danger  ml-2"
                                                         data-toggle="modal"
-                                                        data-target="#delete-depense-modal">
+                                                        data-target="#delete-type-modal">
                                                     <span class="fa fa-trash"></span>
                                                 </button>
                                             </div>
