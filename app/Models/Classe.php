@@ -168,4 +168,9 @@ class Classe extends Model
     {
         return $this->section->secondaire();
     }
+
+    public  function presences()
+    {
+        return $this->hasManyThrough(Presence::class, Inscription::class)->with('inscription');
+    }
 }
