@@ -9,7 +9,7 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('paiments', function (Blueprint $table) {
-            $table->id();
+            $table->ulid('id')->primary();
             $table->morphs('paimentable');
             $table->float('montant');
             $table->string('mois'); //App\Enum\Mois

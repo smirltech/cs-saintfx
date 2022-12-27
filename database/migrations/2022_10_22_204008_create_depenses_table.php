@@ -10,7 +10,7 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('depenses', function (Blueprint $table) {
-            $table->id();
+            $table->ulid('id')->primary();
             $table->string('categorie'); //App\Enum\DepenseCategorie
             $table->float('montant');
             $table->mediumText('note')->nullable();

@@ -4,12 +4,13 @@ namespace App\Models;
 
 use App\Enums\FraisFrequence;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Perception extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUlids;
 
     public $guarded = [];
 
@@ -32,6 +33,13 @@ class Perception extends Model
         return $data;
     }
 
+    public static function sommeBetween($annee_id, $ddebut, $dfin)
+    {
+        $debut = Carbon::parse($ddebut)->startOfDay();
+        $fin = Carbon::parse($dfin)->endOfDay();
+        return self::where('annee_id', $annee_id)->whereBetween('created_at', [$debut, $fin])->sum('montant');
+    }
+
     public function frais()
     {
         return $this->belongsTo(Frais::class);
@@ -40,13 +48,6 @@ class Perception extends Model
     public function inscription()
     {
         return $this->belongsTo(Inscription::class);
-    }
-
-    public static function sommeBetween($annee_id, $ddebut, $dfin)
-    {
-        $debut = Carbon::parse($ddebut)->startOfDay();
-        $fin = Carbon::parse($dfin)->endOfDay();
-        return self::where('annee_id', $annee_id)->whereBetween('created_at', [$debut, $fin])->sum('montant');
     }
 
     public function getNomCompletAttribute(): string

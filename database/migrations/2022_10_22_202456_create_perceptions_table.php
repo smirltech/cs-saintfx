@@ -14,7 +14,7 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('perceptions', function (Blueprint $table) {
-            $table->id();
+            $table->ulid('id')->primary();
             $table->foreignIdFor(User::class)->constrained();
             $table->foreignIdFor(Frais::class)->constrained();
             $table->foreignIdFor(Inscription::class)->constrained();

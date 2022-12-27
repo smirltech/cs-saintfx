@@ -9,7 +9,7 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('revenus', function (Blueprint $table) {
-            $table->id();
+            $table->ulid('id')->primary();
             $table->string('nom');
             $table->string('description')->nullable();
             $table->float('montant');

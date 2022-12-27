@@ -4,12 +4,13 @@ namespace App\Models;
 
 use App\Enums\DepenseCategorie;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Depense extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUlids;
 
     public $guarded = [];
     protected $casts = [
@@ -30,11 +31,6 @@ class Depense extends Model
         return $data;
     }
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
     public static function sommeBetween($annee_id, $ddebut, $dfin)
     {
         $debut = Carbon::parse($ddebut)->startOfDay();
@@ -52,5 +48,10 @@ class Depense extends Model
         }
 
         return $data;
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
