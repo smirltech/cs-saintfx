@@ -53,9 +53,9 @@
                                 </thead>
                                 <tbody>
                                 <tr class="text-dark">
-                                    <td>{{$fee?->nom}}</td>
+                                    <td>{{$perception->frais?->nom}}</td>
                                     <td>{{$perception?->custom_property}}</td>
-                                    <td style="text-align:right">{{Helpers::currencyFormat($montant)}}</td>
+                                    <td style="text-align:right">{{Helpers::currencyFormat($perception->montant)}}</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -64,9 +64,10 @@
                         {{--<div class="text-right">Total :
                             <strong>{{Helpers::currencyFormat($montant)}}</strong></div>--}}
                         <div style="text-align:right" class="text-right">Cash :
-                            <strong>{{Helpers::currencyFormat($paid)}}</strong></div>
+                            <strong>{{Helpers::currencyFormat($perception->paid)}}</strong></div>
                         <div style="text-align:right" class="text-right">Solde :
-                            <strong>{{Helpers::currencyFormat($montant - (int)($paid))}}</strong></div>
+                            <strong>{{Helpers::currencyFormat($perception->montant - (int)($perception->paid))}}</strong>
+                        </div>
                         @if($perception?->paid_by != null)
                             <div style="text-align:right" class="text-right">Payé par :
                                 <strong>{{$perception?->paid_by}}</strong></div>
