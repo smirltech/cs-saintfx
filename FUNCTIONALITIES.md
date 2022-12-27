@@ -1,4 +1,4 @@
-# FUNCTIONALITIES
+# DICTIONNAIRE DE FUNCTIONALITIES
 
 In this page you will see what modules and their functionalities have been so far implemented
 
