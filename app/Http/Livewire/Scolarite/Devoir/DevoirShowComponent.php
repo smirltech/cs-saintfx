@@ -88,14 +88,14 @@ class DevoirShowComponent extends Component
             })->where('matricule', $this->matricule)->first();
 
             if (!$this->eleve) {
-                $this->warning("L'élève n'est pas inscrit dans cette classe");
+                $this->warning("L'élève n'est pas actuellement inscrit dans cette classe");
             }
-        } /*else {
+        } else {
             $this->validate([
                 'matricule' => ['required', 'string', 'digits:10']
             ]);
-            $this->eleve = new Eleve();
-        }*/
+            $this->eleve = null;
+        }
     }
 
     // update matricule

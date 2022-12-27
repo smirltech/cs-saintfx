@@ -60,8 +60,8 @@
                                         minlenght="10" maxlength="10"
                                         :isValid="$errors->has('matricule') ? false : null"
                                         error="{{$errors->first('matricule')}}"/>
-                                    <div class="valid-feedback">
-                                        {{$eleve?->nom_complet}}
+                                    <div class="text-green">
+                                        {{$eleve?->full_name}}
                                     </div>
                                 </div>
 
