@@ -16,6 +16,10 @@ class DepenseTypeIndexComponent extends Component
 
     public $depenseTypes = [];
     public $depenseType;
+    protected $rules = [
+        'depenseType.nom' => 'required',
+        'depenseType.description' => 'nullable',
+    ];
     protected $messages = [
         'depenseType.nom.required' => 'Ce nom est obligatoire !',
     ];
@@ -39,16 +43,17 @@ class DepenseTypeIndexComponent extends Component
             ->layout(AdminLayout::class);
     }
 
-    public function addDepense()
+    public function addTypeDepense()
     {
         // dd($this->nom);
 
         $this->validate([
-            'nom' => 'required|unique:depenses_types',
-            'description' => 'nullable',
+            'depenseType.nom' => 'required|unique:depense_types, nom',
+            'depenseType.description' => 'nullable',
         ]);
 
-        $this->depenseType->create();
+        //dd($this->depenseType);
+        $this->depenseType->save();
 
         $this->alert('success', "Dépense Type ajoutée avec succès !");
         $this->onModalClosed('add-option-modal');
@@ -59,21 +64,21 @@ class DepenseTypeIndexComponent extends Component
         $this->dispatchBrowserEvent('closeModal', ['modal' => $modal_id]);
     }
 
-    public function getSelectedDepenseType(DepenseType $depenseType)
+    public function getSelectedTypeDepense(DepenseType $depenseType)
     {
         $this->depenseType = $depenseType;
     }
 
-    public function updateDepenseType()
+    public function updateTypeDepense()
     {
         $this->validate([
-            'nom' => [
+            'depenseType.nom' => [
                 "required",
                 Rule::unique((new DepenseType())->getTable(), "nom")->ignore($this->depenseType->id)
 
             ],
 
-            'description' => 'nullable',
+            'depenseType.description' => 'nullable',
         ]);
 
         $done = $this->depenseType->update();
@@ -86,7 +91,7 @@ class DepenseTypeIndexComponent extends Component
 
     }
 
-    public function deleteDepense()
+    public function deleteTypeDepense()
     {
         if (count($this->depenseType->depenses) == 0) {
             if ($this->depenseType->delete()) {
@@ -99,18 +104,4 @@ class DepenseTypeIndexComponent extends Component
         $this->onModalClosed('delete-option-modal');
 
     }
-
-
-    /* public function deleteOption($id)
-     {
-         $option = Option::find($id);
-         if (count($option->filieres) == 0) {
-             if ($option->delete()) {
-                 $this->loadData();
-                 $this->alert('success', "Option supprimée avec succès !");
-             }
-         } else {
-             $this->alert('warning', "Section n'a pas été supprimée, il y a des filières attachées !");
-         }
-     }*/
 }

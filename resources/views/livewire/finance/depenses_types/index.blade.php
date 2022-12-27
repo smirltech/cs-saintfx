@@ -1,7 +1,7 @@
 @php
     $heads =[
         ['label'=>'#', 'width'=>5],
-        'NOM',
+        'TYPE',
         'DESCRIPTION',
         ['label'=>'', 'no-export'=>true, 'width'=>5]
 ];
@@ -25,25 +25,25 @@
 @endphp
 
 @section('title')
-     - sections
+     - Types de Dépenses
 @endsection
 @section('content_header')
     <div class="row">
         <div class="col-6">
-            <h1 class="ms-3">Liste de sections</h1>
+            <h1 class="ms-3">Liste de types de dépenses</h1>
         </div>
 
         <div class="col-6">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('scolarite') }}">Accueil</a></li>
-                <li class="breadcrumb-item active">Sections</li>
+                <li class="breadcrumb-item active">Types de Dépenses</li>
             </ol>
         </div>
     </div>
 
 @stop
 <div wire:ignore.self class="">
-    @include('livewire.scolarite.sections.modals.crud')
+    @include('livewire.finance.depenses_types.modals.crud')
 
     <div class="content mt-3">
         <div class="container-fluid">
@@ -58,7 +58,7 @@
                                 {{-- <livewire:scolarite.section.section-create-component/>--}}
                                 <button type="button"
                                         class="btn btn-primary  ml-2" data-toggle="modal"
-                                        data-target="#add-section-modal"><span
+                                        data-target="#add-type-modal"><span
                                         class="fa fa-plus"></span></button>
                             </div>
                         </div>
@@ -74,20 +74,17 @@
                                         <td>{!! $row[2] !!}</td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                <a href="/scolarite/sections/{{ $row[3]->id }}" title="Voir"
-                                                   class="btn btn-warning">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                                <button wire:click="getSelectedSection({{$row[3]}})" type="button"
+
+                                                <button wire:click="getSelectedTypeDepense({{$row[3]}})" type="button"
                                                         title="Modifier" class="btn btn-info  ml-2" data-toggle="modal"
-                                                        data-target="#edit-section-modal">
+                                                        data-target="#edit-type-modal">
                                                     <span class="fa fa-pen"></span>
                                                 </button>
 
-                                                <button wire:click="getSelectedSection({{$row[3]}})" type="button"
+                                                <button wire:click="getSelectedTypeDepense({{$row[3]}})" type="button"
                                                         title="supprimer" class="btn btn-danger  ml-2"
                                                         data-toggle="modal"
-                                                        data-target="#delete-section-modal">
+                                                        data-target="#delete-type-modal">
                                                     <span class="fa fa-trash"></span>
                                                 </button>
                                             </div>
