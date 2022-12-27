@@ -23,7 +23,7 @@
 @endphp
 
 @section('title')
-    {{Str::upper('cenk')}} - sections
+     - sections
 @endsection
 @section('content_header')
     <div class="row">
