@@ -2,7 +2,7 @@
 
 In this page you will see what modules and their functionalities have been so far implemented
 
-## SCOLARITE (aparitorat)
+## Module 1: Gestion des eleves
 
 ### Inscription
 
@@ -41,6 +41,44 @@ In this page you will see what modules and their functionalities have been so fa
 - [x] modifier relation élève responsable : OK
 - [x] supprimer relation élève responsable : OK
 
+## Module 2: Gestion financière
+
+### Rapport financier
+
+- [x] Afficher rapport : OK
+- [x] Choisir période : OK
+- [x] Imprimer rapport : OK
+
+### Plan de frais
+
+- [x] Liste de plans : OK
+- [x] Ajouter plan : OK
+- [x] Modifier plan : OK
+- [x] Supprimer plan : OK
+
+### Perception
+
+- [x] Liste de perceptions : OK
+- [x] Ajouter perception : OK
+- [x] Modifier perception : OK
+- [x] Supprimer perception : OK
+
+### Revenu Auxiliaire
+
+- [x] Liste de revenus : OK
+- [x] Ajouter revenu : OK
+- [x] Modifier revenu : OK
+- [x] Supprimer revenu : OK
+
+### Dépenses
+
+- [x] Liste de dépenses : OK
+- [x] Ajouter dépense : OK
+- [x] Modifier dépense : OK
+- [x] Supprimer dépense : OK
+
+## Module 3 : Gestions scolaire
+
 ### Classe
 
 - [x] Liste de classes : OK
@@ -64,8 +102,6 @@ In this page you will see what modules and their functionalities have been so fa
 - [x] Voir les reponses à un devoir : OK
 - [x] Ajouter un document à un devoir
 - [x] Supprimer un document à un devoir
-
-### Devoir reponse
 
 - [x] Ajouter un document à une reponse à un devoir
 - [x] Supprimer un document à une reponse à un devoir
@@ -122,39 +158,4 @@ In this page you will see what modules and their functionalities have been so fa
 - [x] Supprimer utilisateur : OK
 - [x] Réinitialiser mot de passe utilisateur : OK
 
-## FINANCE (finance)
-
-### Rapport financier
-
-- [x] Afficher rapport : OK
-- [x] Choisir période : OK
-- [x] Imprimer rapport : OK
-
-### Plan de frais
-
-- [x] Liste de plans : OK
-- [x] Ajouter plan : OK
-- [x] Modifier plan : OK
-- [x] Supprimer plan : OK
-
-### Perception
-
-- [x] Liste de perceptions : OK
-- [x] Ajouter perception : OK
-- [x] Modifier perception : OK
-- [x] Supprimer perception : OK
-
-### Revenu Auxiliaire
-
-- [x] Liste de revenus : OK
-- [x] Ajouter revenu : OK
-- [x] Modifier revenu : OK
-- [x] Supprimer revenu : OK
-
-### Dépenses
-
-- [x] Liste de dépenses : OK
-- [x] Ajouter dépense : OK
-- [x] Modifier dépense : OK
-- [x] Supprimer dépense : OK
 
