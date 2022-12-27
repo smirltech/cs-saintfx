@@ -1,22 +1,24 @@
 @php
     $heads =[
-        ['label'=>'CODE', 'width'=>5],
-        'SECTION',
+        ['label'=>'#', 'width'=>5],
+        'NOM',
+        'DESCRIPTION',
         ['label'=>'', 'no-export'=>true, 'width'=>5]
 ];
    //$datas =[];
-   foreach ($sections as $section){
+   foreach ($depenseTypes as $i=>$depenseType){
         $datas[] =[
-            $section->code,
-            $section->nom,
-            $section,
+            $i+1,
+            $depenseType->nom,
+            $depenseType->description,
+            $depenseType,
 ];
    }
 
     $config =[
   'data'=>$datas,
   'order'=>[[1, 'asc']],
-  'columns'=>[null, null, ['orderable'=>false]],
+  'columns'=>[null,null, null, ['orderable'=>false]],
   'destroy'=>false,
 
 ];
@@ -69,19 +71,20 @@
                                     <tr>
                                         <td>{!! $row[0] !!}</td>
                                         <td>{!! $row[1] !!}</td>
+                                        <td>{!! $row[2] !!}</td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                <a href="/scolarite/sections/{{ $row[2]->id }}" title="Voir"
+                                                <a href="/scolarite/sections/{{ $row[3]->id }}" title="Voir"
                                                    class="btn btn-warning">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
-                                                <button wire:click="getSelectedSection({{$row[2]}})" type="button"
+                                                <button wire:click="getSelectedSection({{$row[3]}})" type="button"
                                                         title="Modifier" class="btn btn-info  ml-2" data-toggle="modal"
                                                         data-target="#edit-section-modal">
                                                     <span class="fa fa-pen"></span>
                                                 </button>
 
-                                                <button wire:click="getSelectedSection({{$row[2]}})" type="button"
+                                                <button wire:click="getSelectedSection({{$row[3]}})" type="button"
                                                         title="supprimer" class="btn btn-danger  ml-2"
                                                         data-toggle="modal"
                                                         data-target="#delete-section-modal">

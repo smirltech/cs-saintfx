@@ -2,9 +2,7 @@
 
 namespace App\Http\Livewire\Finance\DepenseType;
 
-use App\Models\Option;
-use App\Models\Section;
-use App\Traits\OptionCode;
+use App\Models\DepenseType;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Illuminate\Validation\Rule;
@@ -15,55 +13,22 @@ class DepenseTypeIndexComponent extends Component
 {
     use TopMenuPreview;
     use LivewireAlert;
-    use OptionCode;
 
-    public $nom;
-    public $code;
-    public $section_id;
-
-    public $sections = [];
-    public $options = [];
-    public $option;
+    public $depenseTypes = [];
+    public $depenseType;
     protected $messages = [
-        'nom.required' => 'Ce nom est obligatoire !',
-        'nom.unique' => 'Ce nom est déjà pris, cherchez-en un autre !',
-
-        'code.required' => 'Ce code est obligatoire !',
-        'code.unique' => 'Ce code est déjà pris, cherchez-en un autre !',
+        'depenseType.nom.required' => 'Ce nom est obligatoire !',
     ];
-    protected $listeners = ['onSaved', 'onUpdated', 'onDeleted', 'onModalOpened', 'onModalClosed'];
 
     public function mount()
     {
-        if (request()->has('section_id')) {
-            $this->section_id = request()->section_id;
-        }
-        $this->sections = Section::orderBy('nom')->get();
+        $this->depenseType = new DepenseType();
     }
 
-    public function onModalOpened()
-    {
-        $this->clearValidation();
-    }
-
-    public function onSaved()
-    {
-        $this->loadData();
-    }
 
     public function loadData()
     {
-        $this->options = Option::orderBy('nom', 'ASC')->get();
-    }
-
-    public function onUpdated()
-    {
-        $this->loadData();
-    }
-
-    public function onDeleted()
-    {
-        $this->loadData();
+        $this->depenseTypes = DepenseType::orderBy('nom')->get();
     }
 
 
@@ -71,98 +36,67 @@ class DepenseTypeIndexComponent extends Component
     {
         $this->loadData();
         return view('livewire.finance.depenses_types.index')
-            ->layout(AdminLayout::class, ['title' => 'Liste d\'options']);
+            ->layout(AdminLayout::class);
     }
 
-    public function addOption()
+    public function addDepense()
     {
         // dd($this->nom);
 
         $this->validate([
-            'nom' => 'required|unique:options',
-            'code' => 'required|unique:options',
-            'section_id' => 'required|numeric',
+            'nom' => 'required|unique:depenses_types',
+            'description' => 'nullable',
         ]);
 
-        Option::create([
-            'nom' => $this->nom,
-            'code' => $this->code,
-            'section_id' => $this->section_id,
-        ]);
-        $this->emit('onSaved');
-        $this->alert('success', "Section ajoutée avec succès !");
+        $this->depenseType->create();
 
-        $this->reset(['nom', 'code']);
-
-        // close the modal by specifying the id of the modal
-        $this->dispatchBrowserEvent('closeModal', ['modal' => 'add-option-modal']);
-        $this->onModalClosed();
+        $this->alert('success', "Dépense Type ajoutée avec succès !");
+        $this->onModalClosed('add-option-modal');
     }
 
-    public function onModalClosed()
+    public function onModalClosed($modal_id)
     {
-        $this->clearValidation();
-        $this->reset(['nom', 'code', 'section_id']);
+        $this->dispatchBrowserEvent('closeModal', ['modal' => $modal_id]);
     }
 
-    public function getSelectedOption(Option $option)
+    public function getSelectedDepenseType(DepenseType $depenseType)
     {
-        // dd($section);
-        $this->option = $option;
-        $this->nom = $option->nom;
-        $this->code = $option->code;
-        $this->section_id = $option->section_id;
+        $this->depenseType = $depenseType;
     }
 
-    public function updateOption()
+    public function updateDepenseType()
     {
         $this->validate([
             'nom' => [
                 "required",
-                Rule::unique((new Option)->getTable(), "nom")->ignore($this->option->id)
+                Rule::unique((new DepenseType())->getTable(), "nom")->ignore($this->depenseType->id)
 
             ],
-            'code' => [
-                "required",
-                Rule::unique((new Option)->getTable(), "code")->ignore($this->option->id)
 
-            ],
-            'section_id' => 'required|numeric',
+            'description' => 'nullable',
         ]);
 
-        $done = $this->option->update([
-            'nom' => $this->nom,
-            'code' => $this->code,
-            'section_id' => $this->section_id,
-        ]);
+        $done = $this->depenseType->update();
         if ($done) {
-            $this->emit('onUpdated');
-            $this->alert('success', "Option modifiée avec succès !");
-
-            $this->reset(['nom', 'code', 'section_id']);
-
-            // close the modal by specifying the id of the modal
-            $this->dispatchBrowserEvent('closeModal', ['modal' => 'edit-option-modal']);
-            //$this->flash('success', 'Section modifiée avec succès', [], route('scolarite.sections'));
+            $this->alert('success', "Dépense Type modifiée avec succès !");
         } else {
-            $this->alert('warning', "Echec de modification d'option !");
+            $this->alert('warning', "Echec de modification de Dépense Type !");
         }
-        $this->onModalClosed();
+        $this->onModalClosed('edit-option-modal');
 
     }
 
-    public function deleteOption()
+    public function deleteDepense()
     {
-        if (count($this->option->filieres) == 0) {
-            if ($this->option->delete()) {
+        if (count($this->depenseType->depenses) == 0) {
+            if ($this->depenseType->delete()) {
                 $this->loadData();
-                $this->alert('success', "Option supprimée avec succès !");
-                $this->dispatchBrowserEvent('closeModal', ['modal' => 'delete-option-modal']);
+                $this->alert('success', "Dépense Type supprimée avec succès !");
             }
         } else {
-            $this->alert('warning', "Option n'a pas été supprimée, il y a des filières attachées !");
+            $this->alert('warning', "Dépense Type n'a pas été supprimée, il y a des Dépenses attachées !");
         }
-        $this->onModalClosed();
+        $this->onModalClosed('delete-option-modal');
 
     }
 
