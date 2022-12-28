@@ -46,7 +46,7 @@ class FactorySeeder extends Seeder
         Cours::factory(10)->create();
         CoursEnseignant::factory(20)->create();
 
-        Presence::factory(10)->create();
+        Presence::factory(100)->create();
 
         Resultat::factory(10)->create();
 
