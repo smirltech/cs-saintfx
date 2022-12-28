@@ -168,4 +168,18 @@ class Classe extends Model
     {
         return $this->section->secondaire();
     }
+
+    public  function presences()
+    {
+        return $this->hasManyThrough(Presence::class, Inscription::class)->with('inscription');
+    }
+
+    public function nonInscriptions($date)
+    {
+        $df = $this->inscriptions()->whereDoesntHave('presences', function ($q) use ($date) {
+$q->where('date', $date);
+        })->get();
+      //  dd($df);
+        return $df;
+    }
 }

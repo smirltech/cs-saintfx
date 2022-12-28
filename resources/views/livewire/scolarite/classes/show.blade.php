@@ -85,7 +85,11 @@
                                 <a class="nav-link active" id="custom-tabs-one-home-tab" data-toggle="pill"
                                    href="#custom-tabs-one-home" role="tab" aria-controls="custom-tabs-one-home"
                                    aria-selected="true">Elèves</a>
-
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="custom-tabs-one-presences-tab" data-toggle="pill"
+                                   href="#custom-tabs-one-presences" role="tab"
+                                   aria-controls="custom-tabs-one-presences" aria-selected="false">Présences</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill"
@@ -100,10 +104,11 @@
                                 </li>
                             @endif
                             <li class="nav-item">
-                                <a class="nav-link" id="custom-tabs-one-messages-tab" data-toggle="pill"
-                                   href="#custom-tabs-resultats" role="tab"
-                                   aria-controls="custom-tabs-resultats" aria-selected="false">Résultats</a>
+                                <a class="nav-link" id="custom-tabs-one-resultats-tab" data-toggle="pill"
+                                   href="#custom-tabs-one-resultats" role="tab"
+                                   aria-controls="custom-tabs-one-resultats" aria-selected="false">Résultats</a>
                             </li>
+
                         </ul>
                     </div>
 
@@ -143,6 +148,13 @@
                                         @endforeach
                                         </tbody>
                                     </table>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="custom-tabs-one-presences" role="tabpanel"
+                                 aria-labelledby="custom-tabs-one-presences-tab">
+                                <div class="card-body p-0 table-responsive">
+                                    <livewire:scolarite.presence.block.presences-block-component
+                                        :classe="$classe"/>
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel"
@@ -219,19 +231,15 @@
                                     </div>
                                 </div>
                             @endif
-                            <div class="tab-pane fade" id="custom-tabs-resultats" role="tabpanel"
-                                 aria-labelledby="custom-tabs-one-resultats">
+                            <div class="tab-pane fade" id="custom-tabs-one-resultats" role="tabpanel"
+                                 aria-labelledby="custom-tabs-resultats-tab">
                                 <livewire:scolarite.resultat.block.resultats-block-component
-                                    :classe="$classe"/>{{--:user="$user" :wire:key="$user->id"--}}
-
+                                    :classe="$classe"/>
                             </div>
+
                         </div>
-
                     </div>
-
-
                 </div>
-
             </div>
         </div>
     </div>
