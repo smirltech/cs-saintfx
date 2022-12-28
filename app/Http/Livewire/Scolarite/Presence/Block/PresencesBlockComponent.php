@@ -98,7 +98,7 @@ class PresencesBlockComponent extends Component
                 $this->alert('warning', "Echec d'ajout de présence !");
             }
         } catch (Exception $exception) {
-              //dd($exception);
+              dd($exception);
             $this->alert('error', "Echec de d'ajout de présence qui existe sur cette date déjà !");
         }
     }
