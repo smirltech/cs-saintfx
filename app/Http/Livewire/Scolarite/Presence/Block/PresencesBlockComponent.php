@@ -2,13 +2,13 @@
 
 namespace App\Http\Livewire\Scolarite\Presence\Block;
 
-use App\Enums\ResultatType;
 use App\Models\Annee;
 use App\Models\Classe;
-use App\Models\Inscription;
 use App\Models\Presence;
-use App\Models\Resultat;
 use App\Traits\TopMenuPreview;
+use Carbon\Carbon;
+use Exception;
+use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -21,109 +21,128 @@ class PresencesBlockComponent extends Component
 
 
     public Classe $classe;
-    public $inscriptions = [];
+    public $presences = [];
+    public $nonInscriptions = [];
     //public $resultats = [];
     public Presence $presence;
-    public Inscription $inscription;
+    public $current_date;
 
     protected $rules = [
-        'presence.date' => 'required',
+        'presence.inscription_id' => 'required',
+        'presence.date' => 'nullable',
+        'presence.status' => 'required',
         'presence.observation' => 'nullable',
 
     ];
 
-    protected $listeners = ['onModalClosed'];
 
     public function mount(Classe $classe)
     {
-
-        //$this->resultatType = ResultatType::p1;
-     //   $this->selectResultatType();
         $this->classe = $classe;
         $this->initPresence();
-     //   $this->initInscription();
-        // $this->loadData();
+        $this->loadData();
 
     }
 
-/*    public function selectResultatType()
-    {
-        $this->resultatType = ResultatType::from($this->resultatTypeValue);
-        //  $this->loadData();
-    }*/
 
-    private function initPresence()
+    public function initPresence()
     {
+        $this->current_date = $this->current_date ?? Carbon::now()->format('Y-m-d');
         $this->presence = new Presence();
     }
 
- /*   private function initInscription()
-    {
-        $this->inscription = new Inscription();
-    }*/
-
- /*   public function selectInscription($id)
-    {
-        $this->inscription = Inscription::find($id);
-        $temp = $this->inscription->resultats()->where('custom_property', $this->resultatType)->first();
-        if ($temp != null) {
-            $this->resultat = $temp;
-        } else {
-            $this->initResultat();
-        }
-        //  $this->loadData();
-    }*/
 
     public function render()
     {
         $this->loadData();
-        return view('livewire.scolarite.presences.blocks.list');
+        return view('livewire.scolarite.presences.blocks.list',
+            [
+                'presences' => $this->presences,
+                'nonInscriptions' => $this->nonInscriptions,
+            ]
+        );
     }
 
     public function loadData()
     {
-        $this->inscriptions = $this->classe->inscriptions;
+        $this->presences = $this->classe->presences->where('date', $this->current_date)->where('annee_id', Annee::id());
+        $this->nonInscriptions = $this->classe->nonInscriptions($this->current_date);
+        // dd($this->presences);
     }
 
-   /* public function updateResultat()
+    public function selectPresence($presence_id)
     {
-        $this->validate();
-        $this->resultat->custom_property = $this->resultatType->value;
-        $this->resultat->annee_id = Annee::id();
-        $this->resultat->classe_id = $this->classe->id;
-        $this->resultat->inscription_id = $this->inscription->id;
-        //$this->resultat->conduite = Conduite::b->name;
+        $this->presence = Presence::find($presence_id);
+    }
 
-        $done = Resultat::updateOrCreate(
-            [
-                'inscription_id' => $this->resultat->inscription_id,
-                'classe_id' => $this->resultat->classe_id,
-                'annee_id' => $this->resultat->annee_id,
-                'custom_property' => $this->resultat->custom_property,
-            ],
-            [
-                'pourcentage' => $this->resultat->pourcentage,
-                'place' => $this->resultat->place,
-                'conduite' => $this->resultat->conduite,
-            ]
-        );
+    public function addPresence()
+    {
+        $this->presence->date = $this->current_date;
+        $this->presence->annee_id = Annee::id();
+        $this->validate([
+            'presence.inscription_id' => 'required',
+            'presence.date' => 'required',
+            'presence.status' => 'required',
+            'presence.observation' => 'nullable',
+        ]);
+        //dd($this->presence);
+        try {
+            $done = $this->presence->save();
+            if ($done) {
+                $this->initPresence();
+                $this->classe->update();
+                $this->loadData();
+                $this->alert('success', "Présence ajoutée avec succès !");
 
-        if ($done) {
-            $this->onModalClosing('update-resultat');
-            $this->alert('success', "Résultat modifié avec succès !");
-        } else {
-            $this->alert('warning', "Echec de modification de résultat !");
+            } else {
+                $this->alert('warning', "Echec d'ajout de présence !");
+            }
+        } catch (Exception $exception) {
+              //dd($exception);
+            $this->alert('error', "Echec de d'ajout de présence qui existe sur cette date déjà !");
         }
-    }*/
+    }
 
-    public function onModalClosing($modalId)
+    public function updatePresence()
+    {
+        $this->validate([
+            'presence.date' => ['required', Rule::unique('presences', 'date')->ignore($this->presence, 'date'),],
+            'presence.observation' => 'nullable',
+        ]);
+
+        try {
+            $done = $this->presence->update();
+            if ($done) {
+                $this->onModalClosed('update-presence');
+                $this->alert('success', "Présence modifiée avec succès !");
+
+            } else {
+                $this->alert('warning', "Echec de modification de présence !");
+            }
+        } catch (Exception $exception) {
+            //  dd($exception);
+            $this->alert('error', "Echec de modification de présence qui existe sur cette date déjà !");
+        }
+    }
+
+    public function deletePresence()
+    {
+        $done = $this->presence->delete();
+        if ($done) {
+            $this->onModalClosed('delete-presence');
+            $this->alert('success', "Présence supprimée avec succès !");
+
+        } else {
+            $this->alert('warning', "Echec de suppression de présence !");
+        }
+    }
+
+    public function onModalClosed($modalId)
     {
         $this->dispatchBrowserEvent('closeModal', ['modal' => $modalId]);
+        $this->classe->refresh();
         $this->initPresence();
-      //  $this->initInscription();
         $this->loadData();
-
-        //$this->reset(['nom', 'description', 'montant', 'classable_type', 'classable_id']);
     }
 
     public function printIt()

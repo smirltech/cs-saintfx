@@ -16,7 +16,7 @@ Alpine.start();
 
 
 window.addEventListener('closeModal', event => {
-    // alert(event.detail.modal);
+     //alert(event.detail.modal);
     //event.detail.modal.style.display = "none"
     //   var modal = document.getElementById(event.detail.modal);
     //   modal.hide();
