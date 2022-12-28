@@ -1,6 +1,6 @@
 @php use Carbon\Carbon; @endphp
 @section('title')
-     - élève - {{$eleve->fullName}}
+    - élève - {{$eleve->fullName}}
 @endsection
 @section('content_header')
     <div class="row">
@@ -193,7 +193,10 @@
                                             <div class="card-header">
                                                 <h4 class="card-title">Cursus Scolaire</h4>
                                                 <div class="card-tools">
-                                                    <button role="button" class="btn btn-warning"
+                                                    <a href="{{ route('scolarite.eleves.presence',$eleve) }}"
+                                                       class="btn btn-default"><span
+                                                            class="fas fa-calendar-alt"></span></a>
+                                                    <button role="button" class="btn btn-warning ml-2"
                                                             data-toggle="modal"
                                                             data-target="#add-inscription-modal"><span
                                                             class="fas fa-plus"></span></button>
