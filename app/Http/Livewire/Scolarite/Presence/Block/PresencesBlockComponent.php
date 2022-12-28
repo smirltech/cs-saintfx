@@ -39,8 +39,8 @@ class PresencesBlockComponent extends Component
     public function mount(Classe $classe)
     {
         $this->classe = $classe;
-        $this->initPresence();
         $this->loadData();
+        $this->initPresence();
 
     }
 
@@ -49,6 +49,8 @@ class PresencesBlockComponent extends Component
     {
         $this->current_date = $this->current_date ?? Carbon::now()->format('Y-m-d');
         $this->presence = new Presence();
+        $this->presence->inscription_id = $this->nonInscriptions[0]->id??null;
+       // dd($this->presence->inscription_id);
     }
 
 
@@ -75,8 +77,9 @@ class PresencesBlockComponent extends Component
         $this->presence = Presence::find($presence_id);
     }
 
-    public function addPresence()
+    public function addPresence($status)
     {
+        $this->presence->status = $status;
         $this->presence->date = $this->current_date;
         $this->presence->annee_id = Annee::id();
         $this->validate([
@@ -89,9 +92,9 @@ class PresencesBlockComponent extends Component
         try {
             $done = $this->presence->save();
             if ($done) {
-                $this->initPresence();
                 $this->classe->refresh();
                 $this->loadData();
+                $this->initPresence();
                 $this->alert('success', "Présence ajoutée avec succès !");
 
             } else {
@@ -141,8 +144,8 @@ class PresencesBlockComponent extends Component
     {
         $this->dispatchBrowserEvent('closeModal', ['modal' => $modalId]);
         $this->classe->refresh();
-        $this->initPresence();
         $this->loadData();
+        $this->initPresence();
     }
 
     public function printIt()
