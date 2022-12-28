@@ -39,8 +39,8 @@ class PresencesBlockComponent extends Component
     public function mount(Classe $classe)
     {
         $this->classe = $classe;
-        $this->initPresence();
         $this->loadData();
+        $this->initPresence();
 
     }
 
@@ -90,9 +90,9 @@ class PresencesBlockComponent extends Component
         try {
             $done = $this->presence->save();
             if ($done) {
-                $this->initPresence();
                 $this->classe->refresh();
                 $this->loadData();
+                $this->initPresence();
                 $this->alert('success', "Présence ajoutée avec succès !");
 
             } else {
@@ -142,8 +142,8 @@ class PresencesBlockComponent extends Component
     {
         $this->dispatchBrowserEvent('closeModal', ['modal' => $modalId]);
         $this->classe->refresh();
-        $this->initPresence();
         $this->loadData();
+        $this->initPresence();
     }
 
     public function printIt()

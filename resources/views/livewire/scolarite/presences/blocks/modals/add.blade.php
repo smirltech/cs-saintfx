@@ -32,12 +32,11 @@
         </div>
     </form>
     <x-slot name="footerSlot">
-        <div style="display: flex; align-items: center; width: 100%" class="btn-group">
+        <div style="width: 100%" class="d-flex btn-group">
             @foreach(\App\Enums\PresenceStatus::cases() as $es)
                     <button wire:click.debounce="addPresence('{{$es->name}}')" type="button" class="btn btn-outline-{{$es->color()}} mr-3">{{$es->label()}}</button>
             @endforeach
         </div>
-       {{-- <button form="f1a" type="submit" class="btn btn-primary">Confirmer</button>--}}
     </x-slot>
 </x-adminlte-modal>
 
