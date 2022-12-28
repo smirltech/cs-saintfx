@@ -90,7 +90,7 @@ class PresencesBlockComponent extends Component
             $done = $this->presence->save();
             if ($done) {
                 $this->initPresence();
-                $this->classe->update();
+                $this->classe->refresh();
                 $this->loadData();
                 $this->alert('success', "Présence ajoutée avec succès !");
 
