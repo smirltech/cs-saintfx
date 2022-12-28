@@ -196,10 +196,10 @@
                                                     <a href="{{ route('scolarite.eleves.presence',$eleve) }}"
                                                        class="btn btn-default"><span
                                                             class="fas fa-calendar-alt"></span></a>
-                                                    <button role="button" class="btn btn-warning ml-2"
+                                                    {{--<button role="button" class="btn btn-warning ml-2"
                                                             data-toggle="modal"
                                                             data-target="#add-inscription-modal"><span
-                                                            class="fas fa-plus"></span></button>
+                                                            class="fas fa-plus"></span></button>--}}
                                                 </div>
                                             </div>
                                             <div class="card-body">
@@ -216,10 +216,11 @@
                                                                 @endphp
                                                                 <div class="time-label">
                                                                     <span
-                                                                        wire:click="getSelectedInscription({{$inscription}})"
-                                                                        role="button" class="bg-green"
-                                                                        data-toggle="modal"
-                                                                        data-target="#edit-inscription-modal">{{$inscription->classe->shortCode}}</span>
+                                                                        {{--wire:click="getSelectedInscription({{$inscription}})"--}}
+                                                                       {{-- role="button"--}} class="bg-green"
+                                                                        {{--data-toggle="modal"
+                                                                        data-target="#edit-inscription-modal"--}}
+                                                                    >{{$inscription->classe->shortCode}} ({{$inscription->annee->nom}})</span>
                                                                 </div>
 
                                                                 <div>
