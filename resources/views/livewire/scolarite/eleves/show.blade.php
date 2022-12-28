@@ -1,6 +1,6 @@
 @php use Carbon\Carbon; @endphp
 @section('title')
-    {{Str::upper('cenk')}} - élève - {{$eleve->fullName}}
+     - élève - {{$eleve->fullName}}
 @endsection
 @section('content_header')
     <div class="row">
@@ -12,7 +12,7 @@
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('scolarite') }}">Accueil</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('scolarite.eleves') }}">Élèves</a></li>
-                <li class="breadcrumb-item active">{{$eleve->nom_complet}}</li>
+                <li class="breadcrumb-item active">Élève</li>
             </ol>
         </div>
     </div>
@@ -34,9 +34,16 @@
                             <h3 class="profile-username text-center">{{$eleve->fullName}}</h3>
                             <p class="text-muted text-center">CODE : {{$eleve->code}}</p>
                             <p class="text-muted text-center">CLASSE
-                                : <a
-                                    href="{{route('scolarite.classes.show', [$inscription?->classe])}}">{{$inscription?->classe?->shortCode??'Non encore inscrit !'}}</a>
+                                :
+                                @if($inscription)
+                                    <a
+                                        href="{{route('scolarite.classes.show', ['classe'=>$inscription?->classe])}}">{{$inscription?->classe?->shortCode??'Non encore inscrit !'}}</a>
+                                @else
+                                    <span>non encore inscrit cette année</span>
+                                @endif
                             </p>
+
+
                             <p class="text-muted text-center">ANNEE SCOLAIRE : {{$annee_courante?->nom??''}}</p>
                         </div>
 
@@ -177,45 +184,14 @@
                     </div>
                 </div>
                 <div class="col-md-9">
-                    <div class="card card-primary card-tabs">
-                        <div class="card-header p-0 pt-1">
-                            <ul class="nav nav-tabs" id="custom-tabs-tab" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="custom-tabs-devoirs-tab" data-toggle="pill"
-                                       href="#custom-tabs-devoirs" role="tab"
-                                       aria-controls="custom-tabs-devoirs"
-                                       aria-selected="true">Devoirs</a>
-
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="custom-tabs-cursus-tab" data-toggle="pill"
-                                       href="#custom-tabs-cursus" role="tab"
-                                       aria-controls="custom-tabs-cursus" aria-selected="false">Cursus</a>
-                                </li>
-                            </ul>
-                        </div>
-
+                    <div class="card">
                         <div class="card-body">
-                            <div class="tab-content" id="custom-tabs-tabContent">
-                                <div class="tab-pane fade active show" id="custom-tabs-devoirs" role="tabpanel"
-                                     aria-labelledby="custom-tabs-devoirs-tab">
-                                    <div class="tab-content">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="custom-tabs-cursus" role="tabpanel"
-                                     aria-labelledby="custom-tabs-cursus-tab">
-                                    <div class="tab-content">
+                            <div class="tab-content">
+                                <div class="active tab-pane" id="admission">
+                                    <div class="">
                                         <div class="card">
                                             <div class="card-header">
+                                                <h4 class="card-title">Cursus Scolaire</h4>
                                                 <div class="card-tools">
                                                     <button role="button" class="btn btn-warning"
                                                             data-toggle="modal"
@@ -247,30 +223,18 @@
                                                                     <i class="fas fa-clock bg-maroon"></i>
                                                                     <div class="timeline-item">
                                                                             <span class="time"><i
-                                                                                    class="fas fa-clock mr-1"></i>{{$lastResultat->created_at->format('d-m-Y')}}</span>
-                                                                        <h3 class="timeline-header">
-                                                                            <a>{{$mention}}</a>
-                                                                            avec {{$lastResultat?->pourcentage}}
-                                                                            %</h3>
-                                                                        <div style="width: 100%"
-                                                                             class="timeline-body ">
-                                                                            <div
-                                                                                class="table-responsive-sm">
+                                                                                    class="fas fa-clock mr-1"></i>{{$lastResultat?->created_at->format('d-m-Y')}}</span>
+                                                                        <h3 class="timeline-header"><a>{{$mention}}</a>
+                                                                            avec {{$lastResultat?->pourcentage}}%</h3>
+                                                                        <div style="width: 100%" class="timeline-body ">
+                                                                            <div class="table-responsive-sm">
                                                                                 <table class="table">
                                                                                     <thead>
                                                                                     <tr>
-                                                                                        <th scope="col">
-                                                                                            RÉSULTAT
-                                                                                        </th>
-                                                                                        <th scope="col">
-                                                                                            POURCENTAGE
-                                                                                        </th>
-                                                                                        <th scope="col">
-                                                                                            PLACE
-                                                                                        </th>
-                                                                                        <th scope="col">
-                                                                                            CONDUITE
-                                                                                        </th>
+                                                                                        <th scope="col">RÉSULTAT</th>
+                                                                                        <th scope="col">POURCENTAGE</th>
+                                                                                        <th scope="col">PLACE</th>
+                                                                                        <th scope="col">CONDUITE</th>
                                                                                         <th scope="col"></th>
                                                                                     </tr>
                                                                                     </thead>
@@ -286,20 +250,18 @@
                                                                                             <td>
                                                                                                 <div
                                                                                                     class="d-flex float-right">
-                                                                                                    {{--   <button
-                                                                                                           type="button"
-                                                                                                           title="Téléverser bulletin"
-                                                                                                           class="btn btn-outline-info btn-xs  ml-2">
-                                                                                                           <span
-                                                                                                               class="fa fa-upload"></span>
-                                                                                                       </button>--}}
-                                                                                                    <button
-                                                                                                        type="button"
-                                                                                                        title="Télécharger bulletin"
-                                                                                                        class="btn btn-outline-info btn-xs  ml-2">
+                                                                                                    @if($resultat->bulletin)
+                                                                                                        <a
+                                                                                                            href="{{route('media.show', $resultat->bulletin)}}"
+                                                                                                            target="_blank"
+                                                                                                            type="button"
+                                                                                                            title="Télécharger bulletin"
+                                                                                                            class="btn btn-outline-info btn-xs  ml-2">
                                                                                                         <span
-                                                                                                            class="fa fa-download"></span>
-                                                                                                    </button>
+                                                                                                            class="fa fa-file"></span>
+                                                                                                        </a>
+                                                                                                    @endif
+
                                                                                                 </div>
                                                                                             </td>
                                                                                         </tr>
@@ -307,28 +269,8 @@
 
                                                                                     </tbody>
                                                                                 </table>
-                                                                                {{-- <div class="d-flex">
-                                                                                     <button type="button"
-                                                                                             title="Ajouter Résultat"
-                                                                                             class="btn btn-outline-primary btn-xs  ml-2">
-                                                                                         <span class="fa fa-plus"></span>
-                                                                                     </button>
-                                                                                 </div>--}}
                                                                             </div>
                                                                         </div>
-                                                                        {{--<div
-                                                                            class="timeline-footer d-flex justify-content-between">
-                                                                                <span title="Changer"
-                                                                                      wire:click="getSelectedInscription({{$inscription}})"
-                                                                                      role="button" data-toggle="modal"
-                                                                                      data-target="#edit-inscription-categorie-modal"
-                                                                                      class="border border-success rounded p-1">{{$inscription->categorie->label()}}</span>
-                                                                            <span title="Changer"
-                                                                                  wire:click="getSelectedInscription({{$inscription}})"
-                                                                                  role="button" data-toggle="modal"
-                                                                                  data-target="#edit-inscription-status-modal"
-                                                                                  class="border border-warning rounded p-1 ">{{$inscription->status->label()}}</span>
-                                                                        </div>--}}
                                                                     </div>
                                                                 </div>
                                                             @endforeach
@@ -341,17 +283,20 @@
 
                                                 </div>
                                             </div>
+
+
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
+
             </div>
         </div>
     </div>
-</div>
-
 </div>
 

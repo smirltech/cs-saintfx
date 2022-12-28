@@ -1,7 +1,7 @@
 @php
     $heads =[
-        ['label'=>'DATE', 'width'=>8],
-        'CATEGORIE',
+        ['label'=>'DATE', 'width'=>10],
+        'TYPE',
         'MONTANT',
         'NOTE',
         'REFERENCE',
@@ -12,8 +12,8 @@
    foreach ($depenses as $depense){
         $data[] =[
             $depense->created_at->format('d-m-Y'),
-            $depense->categorie,
-            Helpers::currencyFormat($depense->montant, symbol: 'Fc'),
+            $depense->type->nom,
+            \App\Helpers\Helpers::currencyFormat($depense->montant, symbol: 'Fc'),
             $depense->note,
             $depense->reference,
             $depense->user->name,
@@ -31,7 +31,7 @@
 @endphp
 
 @section('title')
-    {{Str::upper('cenk')}} - dépenses  {{date('d-m-Y')}}
+    - dépenses  {{date('d-m-Y')}}
 @endsection
 @section('content_header')
     <div class="row">
@@ -74,14 +74,17 @@
                                 @foreach($config['data'] as $row)
                                     <tr>
                                         <td>{!! $row[0] !!}</td>
-                                        <td>{!! $row[1] !!}</td>
+                                        <td>
+                                            <a href="{{route('finance.depenses-types.show', [$row[6]->depense_type_id])}}">{{$row[1]}}</a>
+                                        </td>
+
                                         <td>{!! $row[2] !!}</td>
                                         <td>{!! $row[3] !!}</td>
                                         <td>{!! $row[4] !!}</td>
                                         <td>{!! $row[5] !!}</td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                <button wire:click="getSelectedDepense({{$row[6]}})" type="button"
+                                                <button wire:click="getSelectedDepense({{$row[6]->id}})" type="button"
                                                         title="Modifier" class="btn btn-info  ml-2" data-toggle="modal"
                                                         data-target="#edit-depense-modal">
                                                     <span class="fa fa-pen"></span>

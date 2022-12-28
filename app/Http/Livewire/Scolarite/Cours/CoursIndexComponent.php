@@ -4,12 +4,14 @@ namespace App\Http\Livewire\Scolarite\Cours;
 
 use App\Models\Cours;
 use App\Traits\CanDeleteModel;
+use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 class CoursIndexComponent extends Component
 {
+    use TopMenuPreview;
     use LivewireAlert, CanDeleteModel;
 
     public $cours = [];

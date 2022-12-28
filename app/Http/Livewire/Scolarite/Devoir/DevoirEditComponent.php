@@ -7,8 +7,8 @@ use App\Enums\MediaType;
 use App\Exceptions\ApplicationAlert;
 use App\Models\Classe;
 use App\Models\Devoir;
-use App\Models\Media;
-use App\Traits\CanDeleteModel;
+use App\Traits\CanDeleteMedia;
+use App\Traits\TopMenuPreview;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -20,8 +20,9 @@ use Livewire\WithFileUploads;
 
 class DevoirEditComponent extends Component
 {
+    use TopMenuPreview;
 
-    use ApplicationAlert, WithFileUploads, CanDeleteModel;
+    use ApplicationAlert, WithFileUploads, CanDeleteMedia;
 
     public Devoir $devoir;
     public Collection|array $cours = [];
@@ -51,25 +52,16 @@ class DevoirEditComponent extends Component
         $this->devoir->save();
         if ($this->document) {
             $this->devoir->addMedia(file: $this->document, mediaType: MediaType::document);
+            $this->document = null;
         }
         $this->refreshData();
         $this->alert('success', 'Cours modifiée avec succès');
     }
 
-    private function refreshData()
+    private function refreshData(): void
     {
         $this->devoir->refresh();
         $this->reponses = $this->devoir->reponses;
-    }
-
-    public function deleteMedia(Media $media): void
-    {
-        if ($media->delete()) {
-            $this->refreshData();
-            $this->alert('success', 'Document supprimé avec succès');
-        } else {
-            $this->alert('error', 'Une erreur s\'est produite lors de la suppression du document');
-        }
     }
 
 

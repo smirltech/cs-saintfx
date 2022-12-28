@@ -4,14 +4,21 @@ namespace App\Models;
 
 use App\Enums\DepenseCategorie;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Depense extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUlids;
 
     public $guarded = [];
+    protected $casts = [
+        'categorie' => DepenseCategorie::class,
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
 
     protected $with = ['user'];
 
@@ -25,9 +32,14 @@ class Depense extends Model
         return $data;
     }
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function type(): BelongsTo
+    {
+        return $this->belongsTo(DepenseType::class,'depense_type_id');
     }
 
     public static function sommeBetween($annee_id, $ddebut, $dfin)

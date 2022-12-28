@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\FraisFrequence;
 use App\Models\Annee;
 use App\Models\Frais;
 use App\Models\Inscription;
@@ -13,13 +14,14 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('perceptions', function (Blueprint $table) {
-            $table->id();
+            $table->ulid('id')->primary();
             $table->foreignIdFor(User::class)->constrained();
             $table->foreignIdFor(Frais::class)->constrained();
             $table->foreignIdFor(Inscription::class)->constrained();
             $table->foreignIdFor(Annee::class)->constrained();
 
-            $table->string('custom_property')->nullable();
+            $table->string('frequence')->default(FraisFrequence::mensuel->name)->nullable()->comment('Fréquence de perception');
+            $table->string('custom_property')->nullable()->comment('Par rapport à la fréquence, la perception concerne quelle periode');
             $table->integer('montant')->nullable()->default(0);
             $table->integer('paid')->nullable()->default(0);
             $table->string('paid_by')->nullable();
@@ -28,7 +30,7 @@ return new class extends Migration {
             $table->timestamps();
             $table->softDeletes();
 
-            $table->unique(['frais_id', 'inscription_id', 'custom_property', 'annee_id']);
+            $table->unique(['frais_id', 'inscription_id', 'custom_property', 'annee_id'], 'perceptions_frais_id_inscription_id_custom_property_annee_id_unique');
         });
     }
 };

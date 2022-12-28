@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use JetBrains\PhpStorm\Pure;
 
 class Eleve extends Model
 {
@@ -23,10 +24,8 @@ class Eleve extends Model
         'updated_at' => 'datetime',
     ];
 
+    // route model binding
 
-    // generate matricule
-    // {annee}{section_id}{count on section+1}
-    //ex: 2022010001
     public static function generateMatricule(string $section_id): string
     {
         $annee = Annee::encours();
@@ -47,9 +46,26 @@ class Eleve extends Model
         return $first_part . $second_part;
     }
 
+
+    // generate matricule
+    // {annee}{section_id}{count on section+1}
+    //ex: 2022010001
+
+    public function getRouteKeyName()
+    {
+        return 'matricule';
+    }
+
     public function inscriptions(): HasMany
     {
         return $this->hasMany(Inscription::class);
+    }
+
+    public static function nonInscritsAnneeEnCours()
+    {
+        return self::whereDoesntHave('inscriptions', function ($q){
+             $q->where('annee_id', Annee::id());
+        })->get();
     }
 
     public function resultats(): HasManyThrough
@@ -74,7 +90,7 @@ class Eleve extends Model
         return Inscription::where(['eleve_id' => $this->id, 'annee_id' => Annee::encours()->id])->first();
     }
 
-    public function getNomCompletAttribute(): string
+    #[Pure] public function getNomCompletAttribute(): string
     {
         return $this->getFullNameAttribute();
     }

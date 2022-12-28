@@ -1,9 +1,10 @@
 @php
     use Carbon\Carbon;
     use App\Enums\GraviteRetard;
+    use App\Helpers\Helpers;
 @endphp
 @section('title')
-    {{Str::upper(config('app.name', 'cenk finance'))}} - Perceptions  {{date('d-m-Y')}}
+    - Perceptions  {{date('d-m-Y')}}
 @endsection
 @section('content_header')
     <div class="row">
@@ -24,7 +25,7 @@
     @php
         $heads =[
             ['label'=>'NO.', 'width'=>2],
-            ['label'=>'DATE', 'width'=>8],
+            ['label'=>'DATE', 'width'=>10],
             'FRAIS',
 
             'ELEVE',

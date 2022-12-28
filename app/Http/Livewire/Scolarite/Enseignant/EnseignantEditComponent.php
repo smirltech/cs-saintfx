@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Scolarite\Enseignant;
 
 use App\Models\Enseignant;
 use App\Models\Section;
+use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Illuminate\Database\Eloquent\Collection;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -12,6 +13,7 @@ use Livewire\Component;
 
 class EnseignantEditComponent extends Component
 {
+    use TopMenuPreview;
     use LivewireAlert;
 
     public Enseignant $enseignant;

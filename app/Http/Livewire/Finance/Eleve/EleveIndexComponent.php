@@ -8,12 +8,14 @@ use App\Http\Integrations\Scolarite\Requests\Annee\GetCurrentAnnneRequest;
 use App\Http\Integrations\Scolarite\Requests\Inscription\GetInscriptionsRequest;
 use App\Models\Frais;
 use App\Models\Perception;
+use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 class EleveIndexComponent extends Component
 {
+    use TopMenuPreview;
     use LivewireAlert;
 
     // public $perceptions = [];

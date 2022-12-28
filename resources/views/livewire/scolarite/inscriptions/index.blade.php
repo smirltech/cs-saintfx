@@ -16,12 +16,7 @@
 
     foreach ($inscriptions->sortBy(fn ($q) => $q->eleve->fullName) as $inscription){
 
-            $btn1 = '<a href="' . "/scolarite/eleves/{$inscription->eleve_id}" . '" class="btn btn-success btn-sm m-1" title="Voir Élève"><i class="fa fa-eye"></i></a>';
-            $btn2 = '<a hidden href="' . "/scolarite/eleves/{$inscription->eleve_id}/edit" . '" class="btn btn-warning btn-sm m-1" title="Edit"><i class="fa fa-edit"></i></a>';
-            $btn3 = '<button hidden wire:click="deleteInscription('.$inscription->id.')"
-                                                    title="supprimer" class="btn btn-danger  btn-sm m-1">
-                                                <i class="fas fa-trash"></i>
-                                            </button>';
+            $btn1 = '<a href="' . route("scolarite.eleves.show",$inscription->eleve). '" class="btn btn-success btn-sm m-1" title="Voir Élève"><i class="fa fa-eye"></i></a>';
 
             $badgeColor = Helpers::admissionStatusColor($inscription->status);
 
@@ -35,7 +30,7 @@
                 $inscription->classe->code,
                '<a href="'.route('scolarite.inscriptions.status',['status'=>$inscription->status->name]).'"><span class="badge bg-gradient-'.$badgeColor.'">'. $inscription->status->label(Sexe::f).'</span></a>',
                 $inscription->created_at->format('d/m/Y'),
-                '<nobr>' . $btn1 . $btn2. $btn3 . '</nobr>',
+                '<nobr>' . $btn1. '</nobr>',
             ];
 
         }
@@ -47,7 +42,7 @@
         ];
 @endphp
 @section('title')
-    {{Str::upper('cenk')}} - inscriptions {{date('d-m-Y')}}
+     - inscriptions {{date('d-m-Y')}}
 @endsection
 @section('content_header')
     <div class="row">

@@ -1,6 +1,6 @@
 @php use App\Enums\ClasseGrade; @endphp
 @section('title')
-    Création d'un devoir
+   - Création d'un devoir
 @endsection
 @section('content_header')
     <div class="row">
@@ -82,7 +82,7 @@
                                 </div>
 
                                 <div class="form-group col-md-12">
-                                    <x-form-file-pdf required wire:model.defer="document"
+                                    <x-form-file-pdf required wire:model="document"
                                                      label="Document du devoir"
                                                      :isValid="$errors->has('document') ? false : null"
                                                      error="{{$errors->first('document')}}"/>

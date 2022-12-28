@@ -1,5 +1,5 @@
 @section('title')
-    {{Str::upper('cenk')}} - années scolaires
+     - années scolaires
 @endsection
 @section('content_header')
     <div class="row">

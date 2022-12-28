@@ -8,6 +8,7 @@ use App\Exceptions\ApplicationAlert;
 use App\Models\Classe;
 use App\Models\Devoir;
 use App\Traits\CanDeleteModel;
+use App\Traits\TopMenuPreview;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -18,6 +19,7 @@ use Livewire\WithFileUploads;
 
 class DevoirCreateComponent extends Component
 {
+    use TopMenuPreview;
 
     use ApplicationAlert, WithFileUploads, CanDeleteModel;
 

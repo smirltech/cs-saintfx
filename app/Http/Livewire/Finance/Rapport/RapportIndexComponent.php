@@ -8,6 +8,7 @@ use App\Models\Depense;
 use App\Models\Frais;
 use App\Models\Perception;
 use App\Models\Revenu;
+use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Carbon\Carbon;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -15,6 +16,7 @@ use Livewire\Component;
 
 class RapportIndexComponent extends Component
 {
+    use TopMenuPreview;
     use LivewireAlert;
 
     public $ddebut;

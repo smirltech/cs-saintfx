@@ -1,0 +1,85 @@
+@php
+    use App\Enums\ResultatType;
+@endphp
+
+<div>
+   {{-- @include('livewire.scolarite.resultats.blocks.modals.result')--}}
+    @include('livewire.scolarite.presences.blocks.modals.crud')
+    @include('livewire.scolarite.presences.blocks.modals.add')
+    <div class="input-group  mb-3">
+        <div class="input-group-prepend mr-2">
+            <span class="input-group-text">{{$presences->count()}} / {{$classe->inscriptions->count()}} </span>
+        </div>
+        <div class="input-group-prepend">
+            <span class="input-group-text">Date : </span>
+        </div>
+
+            <input type="date" wire:model="current_date" max="{{Carbon\Carbon::now()->format('Y-m-d')}}"
+                   class="form-control">
+
+        <div class="input-group-append ml-1" id="button-addon4">
+            <button wire:click="initPresence"
+                    title="Prendre la présence"
+                    class="btn rounded btn-outline-primary"
+                    type="button"
+                    data-toggle="modal"
+                    data-target="#add-presence"
+            >
+                <i class="fas fa-bell"></i>
+            </button>
+        </div>
+        {{--<div class="input-group-append ml-3" id="button-addon4">
+            <button wire:click="printIt" title="Imprimer liste de présence" class="btn btn-outline-secondary" type="button"><i
+                    class="fas fa-print"></i></button>
+        </div>--}}
+    </div>
+
+    <div class="card-body p-0 table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th></th>
+                <th>ÉLÈVE</th>
+                <th>ÉTAT</th>
+                <th>OBSERVATION</th>
+                <th style="width: 50px;"></th>
+
+            </tr>
+            </thead>
+            <tbody>
+
+                @foreach($presences as $i=>$presence)
+
+                    <tr>
+                        <td>{{$i+1}}</td>
+                        <td>
+                            <a href="{{route('scolarite.eleves.show', [$presence->inscription?->eleve])}}">{{$presence->inscription->eleve?->fullName}}</a>
+                        </td>
+                        <td >{{$presence->status->label()}}</td>
+                        <td>{{$presence->observation}}</td>
+                        <td>
+                            <div class="d-flex float-right">
+                                <button wire:click="selectPresence('{{$presence->id }}')"
+                                        title="modifier"
+                                        class="btn btn-sm btn-outline-warning ml-2"
+                                        data-toggle="modal"
+                                        data-target="#update-presence">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button wire:click="selectPresence('{{$presence->id }}')"
+                                        title="supprimer"
+                                        class="btn btn-sm btn-outline-danger ml-2"
+                                        data-toggle="modal"
+                                        data-target="#delete-presence">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+
+                    </tr>
+                @endforeach
+
+            </tbody>
+        </table>
+    </div>
+</div>

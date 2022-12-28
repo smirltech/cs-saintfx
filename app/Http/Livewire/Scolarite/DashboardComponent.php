@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Scolarite;
 use App\Enums\InscriptionStatus;
 use App\Models\Annee;
 use App\Models\Inscription;
+use App\Traits\TopMenuPreview;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
@@ -14,6 +15,7 @@ use Livewire\Component;
 
 class DashboardComponent extends Component
 {
+    use TopMenuPreview;
     public $boxes = [];
     public $inscrits = [];
     public $annee_courante;

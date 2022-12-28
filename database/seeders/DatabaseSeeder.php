@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             ClasseSeeder::class,
             RevenuSeeder::class,
             FraisSeeder::class,
+            DepenseTypeSeeder::class,
         ]);
 
         // create admin

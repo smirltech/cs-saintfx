@@ -1,6 +1,6 @@
 @php use App\Enums\ClasseGrade; @endphp
 @section('title')
-    {{$devoir->titre}}
+    - {{$devoir->titre}}
 @endsection
 @section('content_header')
     <div class="row">
@@ -30,8 +30,8 @@
                             </div>
 
                             <div class="col-6">
-                                <x-button wire:click="deleteDevoir" class="float-right">
-                                    <i class="fa fa-trash-alt text-red"></i>
+                                <x-button wire:click="deleteDevoir" class="btn btn-sm btn-danger float-right">
+                                    <i class="fa fa-trash-alt"></i>
                                 </x-button>
                             </div>
                         </div>
@@ -66,10 +66,11 @@
                                 </div>
 
                                 <div class="form-group col-md-4">
-                                    <x-form-input required min="{{date('Y-m-d')}}" wire:model.defer="devoir.echeance"
+                                    <x-form-input step="1" required min="{{date('Y-m-d')}}T{{date('h:i')}}"
+                                                  wire:model.defer="devoir.echeance"
                                                   label="Date limite de dépôt"
                                                   :isValid="$errors->has('devoir.echeance') ? false : null"
-                                                  error="{{$errors->first('devoir.echeance')}}" type="date"/>
+                                                  error="{{$errors->first('devoir.echeance')}}" type="datetime-local"/>
                                 </div>
                                 <div class="form-group col-md-12">
                                     <x-form-input required placeholder="Saisir l'intitulé du devoir"
@@ -96,21 +97,7 @@
                                                      target="document"
                                                      :isValid="$errors->has('document') ? false : null"
                                                      error="{{$errors->first('document')}}"/>
-                                    <ol class="list-group mt-3">
-                                        @foreach($devoir->media as $m)
-                                            <li class="list-group-item">
-                                                <a class="" title="Voir"
-                                                   href="{{route('media.show', $m)}}"
-                                                   target="_blank">{{$m->filename}}</a>
-                                                |
-                                                <button class="btn btn-sm btn-outline-danger">
-                                                    <i wire:click="deleteMedia('{{$m->id}}')"
-                                                       class="fa fa-minus"></i>
-                                                </button>
-
-                                            </li>
-                                        @endforeach
-                                    </ol>
+                                    <x-list-files :media="$devoir->media" delete/>
                                 </div>
                             </div>
                             <x-button class="btn-primary float-end">Soumettre</x-button>
@@ -121,8 +108,20 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        Reponses
+                        <div class="row">
+                            <div class="col-6">
+                                Reponses
+                            </div>
+                            <div class="col-6">
+                                <a title="Repondre au devoir" href="{{ route('scolarite.devoirs.show',$devoir) }}"
+                                   class="btn  btn-sm btn-info float-right">
+                                    <i class="fa fa-add"></i>
+                                </a>
+                            </div>
+                        </div>
+
                     </div>
+
                     <div class="card-body p-0 table-responsive">
                         <table class="table">
                             <thead>

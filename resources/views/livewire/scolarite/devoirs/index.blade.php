@@ -2,18 +2,18 @@
 @php use App\Models\Option; @endphp
 @php use App\Models\Section; @endphp
 @section('title')
-    Liste des devoirs
+   - Liste des devoirs
 @endsection
 @section('content_header')
     <div class="row">
         <div class="col-6">
-            <h1 class="ms-3">Liste des devoirs</h1>
+            <h1 class="ms-3">Liste de devoirs</h1>
         </div>
 
         <div class="col-6">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('scolarite') }}">Accueil</a></li>
-                <li class="breadcrumb-item active">Cours</li>
+                <li class="breadcrumb-item active">Devoirs</li>
             </ol>
         </div>
     </div>
@@ -67,21 +67,23 @@
                                             {{ $devoir->echeance_display }}
                                         </td>
                                         <td>
-                                            {{ $devoir->status?->label() }}
+                                            <span class="badge bg-{{$devoir->status?->variant()}}">
+                                                 {{ $devoir->status?->label() }}
+                                            </span>
                                         </td>
 
                                         <td>
                                             <div class="d-flex float-right">
-                                                <a href="{{route('scolarite.devoirs.edit',$devoir )}}"
+                                                <a href="{{route('scolarite.devoirs.show',$devoir )}}"
                                                    title="modifier"
-                                                   class="btn btn-outline-info  ml-2">
+                                                   class="btn btn-sm btn-primary ml-2">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
-
-                                                {{--<button wire:click="deleteCours({{ $devoir->id }})"
-                                                        title="supprimer" class="btn btn-outline-danger ml-2">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>--}}
+                                                <a href="{{route('scolarite.devoirs.edit',$devoir )}}"
+                                                   title="modifier"
+                                                   class="btn btn-sm btn-warning  ml-2">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
                                             </div>
                                         </td>
                                     </tr>

@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Scolarite\Cours;
 
 use App\Models\Cours;
 use App\Models\Section;
+use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Validation\Rule;
@@ -13,6 +14,7 @@ use Livewire\Component;
 
 class CoursEditComponent extends Component
 {
+    use TopMenuPreview;
     use LivewireAlert;
 
     public Cours $cours;

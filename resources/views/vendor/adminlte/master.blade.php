@@ -24,12 +24,14 @@
         @yield('title_postfix', config('adminlte.title_postfix', ''))
     </title>
 
+
     {{-- Custom stylesheets (pre AdminLTE) --}}
     @yield('adminlte_css_pre')
 
     {{-- Base Stylesheets --}}
     @if(!config('adminlte.enabled_laravel_mix'))
         <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
         <link rel="stylesheet" href="{{ asset('vendor/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
 
         {{-- Configured Stylesheets --}}
@@ -85,6 +87,8 @@
 {{-- Base Scripts --}}
 @if(!config('adminlte.enabled_laravel_mix'))
     <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.2.min.js"
+            integrity="sha256-2krYZKh//PcchRtd+H+VyyQoZ/e3EcrkxhM8ycwASPA=" crossorigin="anonymous"></script>
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
     @include('adminlte::plugins', ['type' => 'js'])
@@ -92,11 +96,11 @@
     <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
 @else
     <script src="{{ mix(config('adminlte.laravel_mix_js_path', 'js/app.js')) }}"></script>
-
 @endif
 
 
-@livewire('livewire-ui-modal')
+<livewire:modals/>
+
 {{-- Livewire Script --}}
 @if(config('adminlte.livewire'))
 
@@ -110,41 +114,20 @@
     {{--<script src="{{ asset('vendor/livewire-alert/livewire-alert.js') }}"></script>--}}
     <x-livewire-alert::scripts/>
     <x-livewire-alert::flash/>
-    <script>
-        window.addEventListener('closeModal', event => {
-            $("#" + event.detail.modal).modal('hide');
-        });
-    </script>
-
-    <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
-    <link rel="stylesheet" href="https://printjs-4de6.kxcdn.com/print.min.css">
-
-    <script>
-        window.addEventListener('printIt', event => {
-            // alert(" print home edit");
-            printJS({
-                printable: event.detail.elementId,
-                type: event.detail.type,
-                targetStyles: ['*'],
-                maxWidth: event.detail.maxWidth,
-                style: "text-align:center"
-            });
-        })
-
-    </script>
 
 @endif
 
+<script src="{{ asset('js/app.js') }}"></script>
+
+
+{{--
+<script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+<link rel="stylesheet" href="https://printjs-4de6.kxcdn.com/print.min.css">
+--}}
+
+
 {{-- Custom Scripts --}}
 @yield('adminlte_js')
-
-{{--@if(!app()->isProduction())
-    <script id="__bs_script__">
-        //<![CDATA[
-        document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.2.11.2.js'><\/script>".replace("HOST", location.hostname));
-        //]]>
-    </script>
-@endif--}}
 
 </body>
 

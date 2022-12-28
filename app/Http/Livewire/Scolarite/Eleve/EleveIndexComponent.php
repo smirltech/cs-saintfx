@@ -4,12 +4,14 @@ namespace App\Http\Livewire\Scolarite\Eleve;
 
 use App\Models\Eleve;
 use App\Traits\FakeProfileImage;
+use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 class EleveIndexComponent extends Component
 {
+    use TopMenuPreview;
     use LivewireAlert;
     use FakeProfileImage;
 
