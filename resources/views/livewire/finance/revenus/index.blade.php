@@ -1,6 +1,6 @@
 @php
     $heads =[
-        ['label'=>'DATE', 'width'=>8],
+        ['label'=>'DATE', 'width'=>10],
         'TITRE',
         'MONTANT',
         'DESCRIPTION',
@@ -25,7 +25,7 @@
 @endphp
 
 @section('title')
-     - revenus auxiliaires
+    - revenus auxiliaires
 @endsection
 @section('content_header')
     <div class="row">
