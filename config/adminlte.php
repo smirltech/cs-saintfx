@@ -282,52 +282,52 @@ return [
         ['header' => 'SCOLARITÉ'],
         [
             'text' => 'Élèves',
-            'icon' => 'fas fa-fw fa-graduation-cap',
+            'icon' => 'fas fa-fw fa-user-graduate',
             // 'can' => RolePermission::view_etudiant->name,
             'submenu' => [
                 [
                     'text' => 'Inscrire un élève',
                     'url' => 'scolarite/inscriptions/create',
                     'icon' => 'fa fa-plus',
-                    'shift' => 'ml-3',
+                    'shift' => 'ml-1',
                     //      'can' => RolePermission::create_etudiant->name,
                 ],
                 [
                     'text' => 'Elèves inscrits',
                     'url' => 'scolarite/inscriptions',
                     'icon' => 'fa fa-users-line',
-                    'shift' => 'ml-3',
+                    'shift' => 'ml-1',
                 ],
                 [
                     'text' => 'Elèves non inscrits',
                     'url' => 'scolarite/non-inscriptions',
                     'icon' => 'fa fa-users-rays',
-                    'shift' => 'ml-3',
+                    'shift' => 'ml-1',
                 ],
                 [
                     'text' => 'Responsables',
                     'url' => 'scolarite/responsables',
                     'icon' => 'fas fa-fw fa-person-pregnant',
-                    'shift' => 'ml-3',
+                    'shift' => 'ml-1',
                 ],
             ],
         ],
         [
             'text' => 'Enseignement',
-            'icon' => 'fas fa-people-roof',
+            'icon' => 'fas fa-fw fa-chalkboard-teacher',
             'submenu' => [
                 [
                     'text' => 'Devoirs',
                     'icon' => 'fas fa-fw fa-tasks',
                     'url' => 'scolarite/devoirs',
-                    'shift' => 'ml-3',
+                    'shift' => 'ml-1',
                 ],
 
                 [
                     'text' => 'Cours',
                     'url' => 'scolarite/cours',
                     'icon' => 'fas fa-fw fa-book-open',
-                    'shift' => 'ml-3',
+                    'shift' => 'ml-1',
                 ],
 
                 [
@@ -335,13 +335,13 @@ return [
                     'icon' => 'fas fa-fw fa-chalkboard-teacher',
                     // 'can' => RolePermission::create_promotion->name,
                     'url' => 'scolarite/enseignants',
-                    'shift' => 'ml-3',
+                    'shift' => 'ml-1',
                 ],
                 [
                     'text' => 'Classes',
                     'icon' => 'fas fa-fw fa-person-chalkboard',
                     'url' => 'scolarite/classes',
-                    'shift' => 'ml-3',
+                    'shift' => 'ml-1',
                     //      'can' => RolePermission::create_etudiant->name,
                 ],
             ],
@@ -357,7 +357,7 @@ return [
                 [
                     'text' => 'Perceptions',
                     'icon' => 'fas fa-fw fa-coins',
-                    'shift' => 'ml-3',
+                    'shift' => 'ml-1',
                     // 'can' => RolePermission::view_etudiant->name,
                     'submenu' => [
                         [
@@ -383,7 +383,7 @@ return [
                     'text' => 'Revenu Auxiliaire',
                     'icon' => 'fas fa-fw fa-money-bill-trend-up',
                     'url' => 'finance/revenus',
-                    'shift' => 'ml-3',
+                    'shift' => 'ml-1',
                     // 'can' => RolePermission::create_user->name,
                 ],
             ],
@@ -398,14 +398,14 @@ return [
                     'icon' => 'fas fa-fw fa-coins',
                     // 'can' => RolePermission::view_etudiant->name,
                     'url' => 'finance/depenses',
-                    'shift' => 'ml-3',
+                    'shift' => 'ml-1',
                 ],
                 [
                     'text' => 'Types de Dépenses',
                     'icon' => 'fas fa-fw fa-list-check',
                     // 'can' => RolePermission::view_etudiant->name,
                     'url' => 'finance/depenses-types',
-                    'shift' => 'ml-3',
+                    'shift' => 'ml-1',
                 ],
             ]
         ],
@@ -431,17 +431,17 @@ return [
                 [
                     'text' => 'Filières',
                     'url' => 'scolarite/filieres',
-                    'shift' => 'ml-3',
+                    'shift' => 'ml-1',
                 ],
                 [
                     'text' => 'Options',
                     'url' => 'scolarite/options',
-                    'shift' => 'ml-3',
+                    'shift' => 'ml-1',
                 ],
                 [
                     'text' => 'Sections',
                     'url' => 'scolarite/sections',
-                    'shift' => 'ml-3',
+                    'shift' => 'ml-1',
                 ],
             ],
         ],

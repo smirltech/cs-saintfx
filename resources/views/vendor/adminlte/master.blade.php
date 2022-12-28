@@ -43,6 +43,10 @@
         <link rel="stylesheet" href="{{ mix(config('adminlte.laravel_mix_css_path', 'css/app.css')) }}">
     @endif
 
+    @stack('js_top')
+
+    {{-- Custom stylesheets (post AdminLTE) --}}
+
     {{-- Livewire Styles --}}
     @if(config('adminlte.livewire'))
         @if(app()->version() >= 7)

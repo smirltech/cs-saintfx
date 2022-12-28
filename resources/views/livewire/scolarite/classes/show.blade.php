@@ -137,9 +137,10 @@
                                                 <td>{{ $inscription->eleve->sexe }}</td>
                                                 <td>
                                                     <div class="d-flex float-right">
+
                                                         <a href="{{route('scolarite.eleves.show',$inscription->eleve)}}"
                                                            title="Voir"
-                                                           class="btn btn-warning btn-sm">
+                                                           class="btn btn-warning btn-sm m-1">
                                                             <i class="fas fa-eye"></i>
                                                         </a>
                                                     </div>

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\Sexe;
 use App\Helpers\Helpers;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -51,21 +52,31 @@ class Eleve extends Model
     // {annee}{section_id}{count on section+1}
     //ex: 2022010001
 
+    public static function nonInscritsAnneeEnCours()
+    {
+        return self::whereDoesntHave('inscriptions', function ($q) {
+            $q->where('annee_id', Annee::id());
+        })->get();
+    }
+
     public function getRouteKeyName()
     {
         return 'matricule';
     }
 
+    public function getPresencesAttribute(): Collection
+    {
+        return $this->inscription->presences;
+    }
+
+    public function getInscriptionAttribute(): Inscription
+    {
+        return $this->inscriptions()->where('annee_id', Annee::id())->first();
+    }
+
     public function inscriptions(): HasMany
     {
         return $this->hasMany(Inscription::class);
-    }
-
-    public static function nonInscritsAnneeEnCours()
-    {
-        return self::whereDoesntHave('inscriptions', function ($q){
-             $q->where('annee_id', Annee::id());
-        })->get();
     }
 
     public function resultats(): HasManyThrough

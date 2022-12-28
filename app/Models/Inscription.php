@@ -8,6 +8,8 @@ use App\Enums\InscriptionStatus;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 //use Illuminate\Database\Eloquent\SoftDeletes;
@@ -16,9 +18,9 @@ class Inscription extends Model
 {
     use HasFactory, HasUlids;
 
-    //, SoftDeletes;
-
     public $guarded = [];
+
+    //, SoftDeletes;
     protected $casts = [
         'type' => AdmissionType::class,
         'status' => InscriptionStatus::class,
@@ -26,6 +28,11 @@ class Inscription extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    public static function getCurrentInscriptions(): array
+    {
+        return self::where('annee_id', Annee::id())->get();
+    }
 
     protected static function boot()
     {
@@ -41,8 +48,7 @@ class Inscription extends Model
         });
     }
 
-
-    public function eleve()
+    public function eleve(): BelongsTo
     {
         return $this->belongsTo(Eleve::class);
     }
@@ -57,38 +63,41 @@ class Inscription extends Model
         return $this->eleve->fullName;
     }
 
-
-    public function classe()
+    public function classe(): BelongsTo
     {
         return $this->belongsTo(Classe::class);
     }
 
-    public function resultats()
+    public function resultats(): HasMany
     {
         return $this->hasMany(Resultat::class);
     }
 
-    public function presences()
+    public function presence(?string $date = null)
+    {
+        $date = $date ?? date('Y-m-d');
+        return $this->presences()->where('date', $date)->first();
+    }
+
+    public function presences(): HasMany
     {
         return $this->hasMany(Presence::class);
     }
 
-    public function presence($date)
-    {
-        return $this->presences()->where('date', $date)->first();
-    }
-
-    public function annee()
+    public function annee(): BelongsTo
     {
         return $this->belongsTo(Annee::class);
     }
+
+    // scope annee
 
     public function media(): MorphMany
     {
         return $this->morphMany(Media::class, 'mediable');
     }
 
-    // scope annee
+    // scope eleve
+
     public function scopeAnnee($query, $annee_id = null)
     {
         if ($annee_id) {
@@ -97,7 +106,8 @@ class Inscription extends Model
         return $query->where('annee_id', Annee::encours()->id);
     }
 
-    // scope eleve
+    // scope classe
+
     public function scopeEleve($query, $eleve_id = null)
     {
         if ($eleve_id) {
@@ -106,7 +116,6 @@ class Inscription extends Model
         return $query;
     }
 
-    // scope classe
     public function scopeClasse($query, $classe_id = null)
     {
         if ($classe_id) {
@@ -119,10 +128,6 @@ class Inscription extends Model
     {
         return $this?->eleve->matricule;
     }
-
-    public static function getCurrentInscriptions(){
-        return self::where('annee_id', Annee::id())->get();
-}
 
     public function getClasseCodeAttribute(): Classe
     {
