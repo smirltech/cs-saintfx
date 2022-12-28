@@ -90,7 +90,7 @@ class PresencesBlockComponent extends Component
             $done = $this->presence->save();
             if ($done) {
                 $this->initPresence();
-                $this->classe->update();
+                $this->classe->refresh();
                 $this->loadData();
                 $this->alert('success', "Présence ajoutée avec succès !");
 
@@ -98,7 +98,7 @@ class PresencesBlockComponent extends Component
                 $this->alert('warning', "Echec d'ajout de présence !");
             }
         } catch (Exception $exception) {
-              //dd($exception);
+              dd($exception);
             $this->alert('error', "Echec de d'ajout de présence qui existe sur cette date déjà !");
         }
     }

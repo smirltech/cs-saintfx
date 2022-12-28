@@ -2,7 +2,6 @@
 
 use App\Enums\PresenceStatus;
 use App\Models\Annee;
-use App\Models\Eleve;
 use App\Models\Inscription;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -19,7 +18,7 @@ return new class extends Migration {
             $table->string('status')->default(PresenceStatus::present->name);
             $table->text('observation')->nullable();
             $table->timestamps();
-            $table->unique([ 'inscription_id', 'date', 'annee_id'], 'inscription_date_annee');
+            $table->unique(['inscription_id', 'date', 'annee_id']);
         });
     }
 };
