@@ -1,29 +1,22 @@
 <x-adminlte-modal wire:ignore.self id="update-presence" icon="fa fa-cubes"
                   title="Modifier État de Présence">
     <x-validation-errors class="mb-4" :errors="$errors"/>
-    <form id="f2a" wire:submit.prevent="updatePresence">
         <div class="row">
             <div class="form-group col-md-12 col-sm-12">
-                <label for="">État </label>
-                <x-form-select wire:model="presence.status"
-                               class="form-control">
-                    @foreach (\App\Enums\PresenceStatus::cases() as $es )
-                            <option value="{{$es->name}}">{{$es->label()}}</option>
-                    @endforeach
-                </x-form-select>
-
+             <h3 style="text-align: center;">{{$presence->inscription?->nomComplet}}</h3>
             </div>
             <div class="form-group col-md-12 col-sm-12">
-                <x-form-input
-                    type="text"
-                    label="Observation"
-                    wire:model="presence.observation">
-                </x-form-input>
+               <div style="text-align: center;"><h4 class="p-2 badge badge-{{$presence->status?->color()}} text-lg">{{$presence->status?->label()}}</h4></div>
             </div>
         </div>
-    </form>
     <x-slot name="footerSlot">
-        <button form="f2a" type="submit" class="btn btn-primary">Modifier</button>
+        <div style="width: 100%" class="d-flex btn-group">
+            @foreach(\App\Enums\PresenceStatus::cases() as $es)
+                @if($es != $presence->status)
+                <button wire:click.debounce="updatePresence('{{$es->name}}')" type="button" class="btn btn-outline-{{$es->color()}} mr-3">{{$es->label()}}</button>
+                @endif
+            @endforeach
+        </div>
     </x-slot>
 </x-adminlte-modal>
 

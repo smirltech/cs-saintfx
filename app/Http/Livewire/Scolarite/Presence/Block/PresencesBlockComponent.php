@@ -106,8 +106,9 @@ class PresencesBlockComponent extends Component
         }
     }
 
-    public function updatePresence()
+    public function updatePresence($status)
     {
+        $this->presence->status = $status;
         $this->validate([
             'presence.date' => ['required', Rule::unique('presences', 'date')->ignore($this->presence, 'date'),],
             'presence.observation' => 'nullable',

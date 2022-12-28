@@ -38,10 +38,9 @@
         <table class="table">
             <thead>
             <tr>
-                <th></th>
+                <th style="width: 50px;">#</th>
                 <th>ÉLÈVE</th>
-                <th>ÉTAT</th>
-                <th>OBSERVATION</th>
+                <th>ÉTAT DE PRÉSENCE</th>
                 <th style="width: 50px;"></th>
 
             </tr>
@@ -55,8 +54,7 @@
                         <td>
                             <a href="{{route('scolarite.eleves.show', [$presence->inscription?->eleve])}}">{{$presence->inscription->eleve?->fullName}}</a>
                         </td>
-                        <td >{{$presence->status->label()}}</td>
-                        <td>{{$presence->observation}}</td>
+                        <td ><span class=" pl-2 pr-2 badge badge-{{$presence->status->color()}}">{{$presence->status->label()}}</span></td>
                         <td>
                             <div class="d-flex float-right">
                                 <button wire:click="selectPresence('{{$presence->id }}')"
@@ -68,7 +66,7 @@
                                 </button>
                                 <button wire:click="selectPresence('{{$presence->id }}')"
                                         title="supprimer"
-                                        class="btn btn-sm btn-outline-danger ml-2"
+                                        class="btn btn-sm btn-outline-danger ml-4"
                                         data-toggle="modal"
                                         data-target="#delete-presence">
                                     <i class="fas fa-trash"></i>
