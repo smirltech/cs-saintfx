@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('media/{media}', [MediaController::class, 'show'])->name('media.show');
 
+
 Route::get('/', MainDashboardComponent::class)->name('home')->middleware('auth');
 
 Route::get('scolarite', Scolarite\DashboardComponent::class)->name('scolarite')->middleware('auth');
@@ -87,6 +88,7 @@ Route::prefix('scolarite')->middleware(['auth:web'])->as('scolarite.')->group(fu
 
 // Eleves
     Route::get('eleves/{eleve}', Scolarite\Eleve\EleveShowComponent::class)->name('eleves.show');
+    Route::get('eleves/{eleve}/presence', Scolarite\Eleve\PresenceComponent::class)->name('eleves.presence');
     Route::get('eleves', Scolarite\Eleve\EleveIndexComponent::class)->name('eleves');
     Route::get('non-inscriptions', Scolarite\Eleve\ElevesNonInscritsComponent::class)->name('non-inscriptions');
 

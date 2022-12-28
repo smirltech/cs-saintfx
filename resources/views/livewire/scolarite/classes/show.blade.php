@@ -137,12 +137,11 @@
                                                 <td>{{ $inscription->eleve->sexe }}</td>
                                                 <td>
                                                     <div class="d-flex float-right">
-                                                        <x-button
-                                                            wire:click="$emit('showModal', 'scolarite.eleve.modals.calendar-modal')"
-                                                            title="Voir les présences"
-                                                            class="btn btn-default btn-sm m-1">
+                                                        <a href="{{route('scolarite.eleves.presence',$inscription->eleve)}}"
+                                                           title="Voir les présences"
+                                                           class="btn btn-default btn-sm m-1">
                                                             <i class="fas fa-calendar-alt"></i>
-                                                        </x-button>
+                                                        </a>
                                                         <a href="{{route('scolarite.eleves.show',$inscription->eleve)}}"
                                                            title="Voir"
                                                            class="btn btn-warning btn-sm m-1">
