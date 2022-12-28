@@ -48,9 +48,11 @@
                         </div>
 
                     </div>
+                    <div class="accordion" id="accordionPerso">
                     <div class="card card-primary">
-                        <div class="card-header">
-                            <h3 class="card-title">Information Personnelle</h3>
+                        <div class="card-header"  id="headingPerso">
+                            <h3 class="card-title btn btn-link text-white" data-toggle="collapse" data-target="#infoPerso" aria-expanded="true"
+                                aria-controls="infoPerso">Information Personnelle</h3>
                             <div class="card-tools">
                                 <span role="button" class="mr-1"
                                       data-toggle="modal"
@@ -58,60 +60,63 @@
                                         class="fas fa-pen"></span></span>
                             </div>
                         </div>
-                        <div class="card-body">
-                            <strong><i class="fas fa-id-card-alt mr-1"></i> No. Permanent</strong>
-                            <p class="text-muted">
-                                {{$eleve->numero_permanent??''}}
-                            </p>
-                            <hr>
-                            <strong><i class="fas fa-user mr-1"></i> Nom</strong>
-                            <p class="text-muted">
-                                {{$eleve->nom}}
-                            </p>
-                            <hr>
-                            <strong><i class="fas fa-user mr-1"></i> Postnom</strong>
-                            <p class="text-muted">
-                                {{$eleve->postnom}}
-                            </p>
-                            <hr>
-                            <strong><i class="fas fa-user mr-1"></i> Prenom</strong>
-                            <p class="text-muted">
-                                {{$eleve->prenom}}
-                            </p>
-                            <hr>
-                            <strong><i class="fas fa-venus-mars mr-1"></i> Sexe</strong>
-                            <p class="text-muted">
-                                {{$eleve->sexe->value??''}}
-                            </p>
-                            <hr>
-                            <strong><i class="fas fa-map-marker-alt mr-1"></i> Lieu de naissance</strong>
-                            <p class="text-muted">
-                                {{$eleve->lieu_naissance}}
-                            </p>
-                            <hr>
-                            <strong><i class="fas fa-calendar-alt mr-1"></i> Date de naissance</strong>
-                            <p class="text-muted">
-                                {{$eleve->date_naissance?->format('d/m/Y')??''}}
-                                <strong
-                                    class="float-right badge bg-gradient-info">{{Carbon::now()->diffInYears($eleve->date_naissance)}}
-                                    ans</strong>
-                            </p>
-                            <hr>
-                            <strong><i class="fas fa-phone-alt mr-1"></i> Téléphone</strong>
-                            <p class="text-muted">{{$eleve->telephone}}</p>
-                            <hr>
-                            <strong><i class="fas fa-envelope mr-1"></i> E-mail</strong>
-                            <p class="text-muted">{{$eleve->email}}</p>
-                            <hr>
-                            <strong><i class="fas fa-map-marker-alt mr-1"></i> Adresse</strong>
-                            <p class="text-muted">{{$eleve->adresse}}</p>
+                        <div id="infoPerso" class="collapse show" aria-labelledby="headingPerso"
+                             data-parent="#accordionPerso">
+                            <div class="card-body">
+                                <strong><i class="fas fa-id-card-alt mr-1"></i> No. Permanent</strong>
+                                <p class="text-muted">
+                                    {{$eleve->numero_permanent??''}}
+                                </p>
+                                <hr>
+                                <strong><i class="fas fa-user mr-1"></i> Nom</strong>
+                                <p class="text-muted">
+                                    {{$eleve->nom}}
+                                </p>
+                                <hr>
+                                <strong><i class="fas fa-user mr-1"></i> Postnom</strong>
+                                <p class="text-muted">
+                                    {{$eleve->postnom}}
+                                </p>
+                                <hr>
+                                <strong><i class="fas fa-user mr-1"></i> Prenom</strong>
+                                <p class="text-muted">
+                                    {{$eleve->prenom}}
+                                </p>
+                                <hr>
+                                <strong><i class="fas fa-venus-mars mr-1"></i> Sexe</strong>
+                                <p class="text-muted">
+                                    {{$eleve->sexe->value??''}}
+                                </p>
+                                <hr>
+                                <strong><i class="fas fa-map-marker-alt mr-1"></i> Lieu de naissance</strong>
+                                <p class="text-muted">
+                                    {{$eleve->lieu_naissance}}
+                                </p>
+                                <hr>
+                                <strong><i class="fas fa-calendar-alt mr-1"></i> Date de naissance</strong>
+                                <p class="text-muted">
+                                    {{$eleve->date_naissance?->format('d/m/Y')??''}}
+                                    <strong
+                                        class="float-right badge bg-gradient-info">{{Carbon::now()->diffInYears($eleve->date_naissance)}}
+                                        ans</strong>
+                                </p>
+                                <hr>
+                                <strong><i class="fas fa-phone-alt mr-1"></i> Téléphone</strong>
+                                <p class="text-muted">{{$eleve->telephone}}</p>
+                                <hr>
+                                <strong><i class="fas fa-envelope mr-1"></i> E-mail</strong>
+                                <p class="text-muted">{{$eleve->email}}</p>
+                                <hr>
+                                <strong><i class="fas fa-map-marker-alt mr-1"></i> Adresse</strong>
+                                <p class="text-muted">{{$eleve->adresse}}</p>
 
+                            </div>
                         </div>
-
+                    </div>
                     </div>
                     <div class="card card-secondary">
                         <div class="card-header">
-                            <h3 class="card-title">État Financier</h3>
+                            <h3 class="card-title">État Financier ({{$annee_courante->nom}})</h3>
                         </div>
                         <div class="card-body">
                             <ul class="list-group list-group-unbordered mb-3">
@@ -120,25 +125,50 @@
                                         class="float-right">{{\App\Helpers\Helpers::currencyFormat($inscription?->montant, symbol: 'Fc')}}</span>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Facture : </b> <span
-                                        class="float-right">{{\App\Helpers\Helpers::currencyFormat(39000, symbol: 'Fc')}}</span>
+                                    <b>À Recevoir : </b> <span
+                                        class="float-right">{{\App\Helpers\Helpers::currencyFormat($inscription->perceptionsDues, symbol: 'Fc')}}</span>
                                 </li>
                                 <li class="list-group-item">
                                     <b>Reçu : </b> <span
-                                        class="float-right">{{\App\Helpers\Helpers::currencyFormat(9000, symbol: 'Fc')}}</span>
+                                        class="float-right">{{\App\Helpers\Helpers::currencyFormat($inscription->perceptionsPaid, symbol: 'Fc')}}</span>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Balance : </b> <span class="float-right"><i
-                                            class="badge bg-warning">{{\App\Helpers\Helpers::currencyFormat(30000, symbol: 'Fc')}}</i></span>
+                                    <b>Solde : </b> <span class="float-right"><i
+                                            class="badge bg-warning">{{\App\Helpers\Helpers::currencyFormat(($inscription->perceptionsBalance), symbol: 'Fc')}}</i></span>
                                 </li>
                             </ul>
-                            <a hidden href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+
                         </div>
 
                     </div>
-                    <div class="card card-info">
+                    <div class="card card-secondary">
                         <div class="card-header">
-                            <h3 class="card-title"> Responsable / Tuteur</h3>
+                            <h3 class="card-title">État Financier Général</h3>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group list-group-unbordered mb-3">
+                                <li class="list-group-item">
+                                    <b>À Recevoir : </b> <span
+                                        class="float-right">{{\App\Helpers\Helpers::currencyFormat($eleve->perceptionsDues, symbol: 'Fc')}}</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Reçu : </b> <span
+                                        class="float-right">{{\App\Helpers\Helpers::currencyFormat($eleve->perceptionsPaid, symbol: 'Fc')}}</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Solde : </b> <span class="float-right"><i
+                                            class="badge bg-warning">{{\App\Helpers\Helpers::currencyFormat(($eleve->perceptionsBalance), symbol: 'Fc')}}</i></span>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                    <div class="accordion" id="accordionTuto">
+                    <div class="card card-info">
+                        <div class="card-header"  id="headingTuto">
+                            <h3 class="card-title btn btn-link text-white" data-toggle="collapse" data-target="#infoTuto" aria-expanded="true"
+                                aria-controls="infoTuto"> Responsable / Tuteur</h3>
                             @if(!$eleve->responsable_eleve)
                                 <div class="card-tools">
                                 <span title="Attacher" role="button" class="mr-2"
@@ -149,6 +179,8 @@
                             @endif
                         </div>
                         @if($eleve->responsable_eleve)
+                            <div id="infoTuto" class="collapse show" aria-labelledby="headingTuto"
+                                 data-parent="#accordionTuto">
                             <div class="card-body">
                                 <ul class="list-group list-group-unbordered mb-3">
                                     <li class="list-group-item">
@@ -182,6 +214,8 @@
                             </div>
                         @endif
                     </div>
+                    </div>
+                </div>
                 </div>
                 <div class="col-md-9">
                     <div class="card">
@@ -217,7 +251,7 @@
                                                                 <div class="time-label">
                                                                     <span
                                                                         {{--wire:click="getSelectedInscription({{$inscription}})"--}}
-                                                                       {{-- role="button"--}} class="bg-green"
+                                                                        {{-- role="button"--}} class="bg-green"
                                                                         {{--data-toggle="modal"
                                                                         data-target="#edit-inscription-modal"--}}
                                                                     >{{$inscription->classe->shortCode}} ({{$inscription->annee->nom}})</span>

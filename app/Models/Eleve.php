@@ -144,4 +144,19 @@ class Eleve extends Model
         return $this->matricule;
     }
 
+    // MONTANTS
+    public function getPerceptionsDuesAttribute(): int
+    {
+        return $this->inscriptions->sum('perceptionsDues');
+    }
+
+    public function getPerceptionsPaidAttribute(): int
+    {
+        return $this->inscriptions->sum('perceptionsPaid');
+    }
+
+    public function getPerceptionsBalanceAttribute(): int
+    {
+        return $this->inscriptions->sum('perceptionsBalance');
+    }
 }

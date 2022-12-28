@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\AdmissionType;
+use App\Enums\FraisType;
 use App\Enums\InscriptionCategorie;
 use App\Enums\InscriptionStatus;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
@@ -11,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Support\Collection;
 
 //use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -29,7 +31,7 @@ class Inscription extends Model
         'updated_at' => 'datetime',
     ];
 
-    public static function getCurrentInscriptions(): array
+    public static function getCurrentInscriptions(): Collection
     {
         return self::where('annee_id', Annee::id())->get();
     }
@@ -71,6 +73,11 @@ class Inscription extends Model
     public function resultats(): HasMany
     {
         return $this->hasMany(Resultat::class);
+    }
+
+    public function perceptions(): HasMany
+    {
+        return $this->hasMany(Perception::class)->with('frais');
     }
 
     public function presence(?string $date = null)
@@ -132,6 +139,32 @@ class Inscription extends Model
     public function getClasseCodeAttribute(): Classe
     {
         return $this->classe;
+    }
+
+
+    // SOMMES
+    public function getMontantAttribute(): int|null
+    {
+        return $this->perceptions()
+            ->whereHas('frais', function ($q){
+                $q->where('type', FraisType::inscription);
+            })
+            ->first()?->paid;
+    }
+
+    public function getPerceptionsDuesAttribute(): int
+    {
+        return $this->perceptions->sum('montant');
+    }
+
+    public function getPerceptionsPaidAttribute(): int
+    {
+        return $this->perceptions->sum('paid');
+    }
+
+    public function getPerceptionsBalanceAttribute(): int
+    {
+        return $this->perceptionsDues - $this->perceptionsPaid;
     }
 
 }

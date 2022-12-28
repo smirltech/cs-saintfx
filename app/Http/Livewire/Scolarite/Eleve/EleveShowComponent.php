@@ -10,6 +10,7 @@ use App\Models\Eleve;
 use App\Models\Filiere;
 use App\Models\Inscription;
 use App\Models\Option;
+use App\Models\Perception;
 use App\Models\Responsable;
 use App\Models\ResponsableEleve;
 use App\Models\Section;
@@ -64,6 +65,7 @@ class EleveShowComponent extends Component
     public $responsable;
     public $responsables;
     public $responsable_relation2;
+
     protected $listeners = ['onModalClosed', 'refreshComponent' => '$refresh'];
 
     public function runSearchResponsables()
@@ -138,9 +140,9 @@ class EleveShowComponent extends Component
 
     public function mount(Eleve $eleve)
     {
+        $this->eleve = $eleve;
         $this->annee_courante = Annee::where('encours', true)->first();
         $this->inscription = Inscription::where(['eleve_id' => $this->eleve->id, 'annee_id' => $this->annee_courante->id])->first();
-        $this->eleve = $eleve;
         $this->responsable_relation = $this->eleve->responsable_eleve?->relation ?? null;
         $this->responsable_relation2 = ResponsableRelation::pere;
         // $this->profile_url =Helpers::fakePicsum($this->eleve->id, 120, 120);
