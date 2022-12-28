@@ -18,9 +18,9 @@ class Inscription extends Model
 {
     use HasFactory, HasUlids;
 
-    //, SoftDeletes;
-
     public $guarded = [];
+
+    //, SoftDeletes;
     protected $casts = [
         'type' => AdmissionType::class,
         'status' => InscriptionStatus::class,

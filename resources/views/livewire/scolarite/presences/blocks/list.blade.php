@@ -84,14 +84,14 @@
                                 </a>
                                 <button wire:click="selectPresence('{{$presence->id }}')"
                                         title="modifier"
-                                        class="btn btn-sm btn-outline-warning ml-2"
+                                        class="btn btn-sm btn-outline-warning m-1"
                                         data-toggle="modal"
                                         data-target="#update-presence">
                                     <i class="fas fa-edit"></i>
                                 </button>
                                 <button wire:click="selectPresence('{{$presence->id }}')"
                                         title="supprimer"
-                                        class="btn btn-sm btn-outline-danger ml-4"
+                                        class="btn btn-sm btn-outline-danger m-1"
                                         data-toggle="modal"
                                         data-target="#delete-presence">
                                     <i class="fas fa-trash"></i>

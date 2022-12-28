@@ -1,7 +1,11 @@
 @section('content_header')
-    <h1 class="m-0 text-dark">Presence
+    <h1>Elève : {{$eleve->fullName}}</h1>
 @stop
-{!! $calendar_view !!}
+<div class="card">
+    <div class="card-body m-b-40 table-responsive">
+        {!! $calendar_view !!}
+    </div>
+</div>
 @push('js_top')
     {!! $calendar_script !!}
 @endpush

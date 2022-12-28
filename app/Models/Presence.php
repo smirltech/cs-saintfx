@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\PresenceStatus;
+use Carbon\Carbon;
 use DateTime;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -25,12 +26,19 @@ class Presence extends Model implements Event
         return $this->belongsTo(Inscription::class);
     }
 
+    // get eleve attribute from inscription
+    public function getEleveAttribute()
+    {
+        return $this->inscription->eleve;
+    }
+
+
     /**
      * @inheritDoc
      */
     public function getTitle(): string
     {
-        // TODO: Implement getTitle() method.
+        return $this->status->label();
     }
 
     /**
@@ -38,7 +46,7 @@ class Presence extends Model implements Event
      */
     public function isAllDay(): bool
     {
-        // TODO: Implement isAllDay() method.
+        return true;
     }
 
     /**
@@ -46,7 +54,8 @@ class Presence extends Model implements Event
      */
     public function getStart(): DateTime
     {
-        // TODO: Implement getStart() method.
+        // set start time to 8:00 from presence date
+        return Carbon::parse($this->date)->setTime(8, 0);
     }
 
     /**
@@ -54,6 +63,15 @@ class Presence extends Model implements Event
      */
     public function getEnd(): DateTime
     {
-        // TODO: Implement getEnd() method.
+        //set start time to 13:00 from presence date
+        return Carbon::parse($this->date)->setTime(13, 0);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getId(): int|string|null
+    {
+        return $this->id;
     }
 }
