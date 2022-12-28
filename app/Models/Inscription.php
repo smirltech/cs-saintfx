@@ -73,6 +73,11 @@ class Inscription extends Model
         return $this->hasMany(Presence::class);
     }
 
+    public function presence($date)
+    {
+        return $this->presences()->where('date', $date)->first();
+    }
+
     public function annee()
     {
         return $this->belongsTo(Annee::class);

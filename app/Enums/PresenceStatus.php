@@ -19,4 +19,14 @@ enum PresenceStatus: string
             self::autre => 'Autre',
         };
     }
+
+    public function color(): string
+    {
+        return match ($this) {
+            self::present => 'success',
+            self::absent => 'danger',
+            self::malade => 'warning',
+            self::autre => 'info',
+        };
+    }
 }

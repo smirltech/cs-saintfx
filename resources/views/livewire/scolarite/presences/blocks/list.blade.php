@@ -10,6 +10,15 @@
         <div class="input-group-prepend mr-2">
             <span class="input-group-text">{{$presences->count()}} / {{$classe->inscriptions->count()}} </span>
         </div>
+        <div class="input-group-prepend mr-1">
+            <button wire:click="previousDate"
+                    title="Date précédente"
+                    class="btn btn-secondary"
+                    type="button"
+            >
+                <i class="fas fa-angle-left"></i>
+            </button>
+        </div>
         <div class="input-group-prepend">
             <span class="input-group-text">Date : </span>
         </div>
@@ -17,6 +26,15 @@
             <input type="date" wire:model="current_date" max="{{Carbon\Carbon::now()->format('Y-m-d')}}"
                    class="form-control">
 
+        <div class="input-group-append ml-1" id="button-addon4">
+            <button @disabled(!$hasNextDay) wire:click="nextDate"
+                    title="Date suivante"
+                    class="btn btn-secondary mr-1"
+                    type="button"
+            >
+                <i class="fas fa-angle-right"></i>
+            </button>
+        </div>
         <div class="input-group-append ml-1" id="button-addon4">
             <button wire:click="initPresence"
                     title="Prendre la présence"
@@ -33,15 +51,14 @@
                     class="fas fa-print"></i></button>
         </div>--}}
     </div>
-
+    <div class="card">
     <div class="card-body p-0 table-responsive">
         <table class="table">
             <thead>
             <tr>
-                <th></th>
+                <th style="width: 50px;">#</th>
                 <th>ÉLÈVE</th>
-                <th>ÉTAT</th>
-                <th>OBSERVATION</th>
+                <th>ÉTAT DE PRÉSENCE</th>
                 <th style="width: 50px;"></th>
 
             </tr>
@@ -55,8 +72,7 @@
                         <td>
                             <a href="{{route('scolarite.eleves.show', [$presence->inscription?->eleve])}}">{{$presence->inscription->eleve?->fullName}}</a>
                         </td>
-                        <td >{{$presence->status->label()}}</td>
-                        <td>{{$presence->observation}}</td>
+                        <td ><span class=" pl-2 pr-2 badge badge-{{$presence->status->color()}}">{{$presence->status->label()}}</span></td>
                         <td>
                             <div class="d-flex float-right">
                                 <button wire:click="selectPresence('{{$presence->id }}')"
@@ -68,7 +84,7 @@
                                 </button>
                                 <button wire:click="selectPresence('{{$presence->id }}')"
                                         title="supprimer"
-                                        class="btn btn-sm btn-outline-danger ml-2"
+                                        class="btn btn-sm btn-outline-danger ml-4"
                                         data-toggle="modal"
                                         data-target="#delete-presence">
                                     <i class="fas fa-trash"></i>
@@ -81,5 +97,6 @@
 
             </tbody>
         </table>
+    </div>
     </div>
 </div>
