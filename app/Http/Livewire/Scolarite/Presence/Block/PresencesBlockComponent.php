@@ -92,16 +92,19 @@ class PresencesBlockComponent extends Component
         try {
             $done = $this->presence->save();
             if ($done) {
+
                 $this->classe->refresh();
                 $this->loadData();
                 $this->initPresence();
                 $this->alert('success', "Présence ajoutée avec succès !");
-
+                if($this->nonInscriptions->count() == 0) {
+                    $this->onModalClosed('add-presence');
+                }
             } else {
                 $this->alert('warning', "Echec d'ajout de présence !");
             }
         } catch (Exception $exception) {
-              dd($exception);
+            //  dd($exception);
             $this->alert('error', "Echec de d'ajout de présence qui existe sur cette date déjà !");
         }
     }
