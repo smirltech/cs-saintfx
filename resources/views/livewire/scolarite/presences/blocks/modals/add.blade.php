@@ -12,7 +12,7 @@
                     @endforeach
                 </x-form-select>
             </div>
-            <div class="form-group col-md-12 col-sm-12">
+          {{--  <div class="form-group col-md-12 col-sm-12">
                 <label for="">État </label>
                 <x-form-select wire:model="presence.status"
                                class="form-control">
@@ -20,18 +20,23 @@
                             <option value="{{$es->name}}">{{$es->label()}}</option>
                     @endforeach
                 </x-form-select>
-            </div>
-            <div class="form-group col-md-12 col-sm-12">
+
+            </div>--}}
+            {{--<div class="form-group col-md-12 col-sm-12">
                 <x-form-input
                     type="text"
                     label="Observation"
                     wire:model="presence.observation">
                 </x-form-input>
-            </div>
+            </div>--}}
         </div>
     </form>
     <x-slot name="footerSlot">
-        <button form="f1a" type="submit" class="btn btn-primary">Confirmer</button>
+        <div style="width: 100%" class="d-flex btn-group">
+            @foreach(\App\Enums\PresenceStatus::cases() as $es)
+                    <button wire:click.debounce="addPresence('{{$es->name}}')" type="button" class="btn btn-outline-{{$es->color()}} mr-3">{{$es->label()}}</button>
+            @endforeach
+        </div>
     </x-slot>
 </x-adminlte-modal>
 
