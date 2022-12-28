@@ -75,8 +75,9 @@ class PresencesBlockComponent extends Component
         $this->presence = Presence::find($presence_id);
     }
 
-    public function addPresence()
+    public function addPresence($status)
     {
+        $this->presence->status = $status;
         $this->presence->date = $this->current_date;
         $this->presence->annee_id = Annee::id();
         $this->validate([
