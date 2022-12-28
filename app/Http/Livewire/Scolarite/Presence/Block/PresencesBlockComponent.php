@@ -25,6 +25,8 @@ class PresencesBlockComponent extends Component
     public $nonInscriptions = [];
     //public $resultats = [];
     public Presence $presence;
+
+    public bool $hasNextDay = false;
     public $current_date;
 
     protected $rules = [
@@ -69,7 +71,25 @@ class PresencesBlockComponent extends Component
     {
         $this->presences = $this->classe->presences->where('date', $this->current_date)->where('annee_id', Annee::id());
         $this->nonInscriptions = $this->classe->nonInscriptions($this->current_date);
+
+       $this->hasNextDay = Carbon::parse($this->current_date)->isBefore(Carbon::now()->startOfDay());
         // dd($this->presences);
+    }
+
+    public function previousDate()
+    {
+        //->format('Y-m-d')
+        $dd = Carbon::parse($this->current_date) ?? Carbon::now();
+        $this->current_date = $dd->subDay()->format('Y-m-d');
+    }
+    public function nextDate()
+    {
+        //->format('Y-m-d')
+        $dd = Carbon::parse($this->current_date) ?? Carbon::now();
+          $ddo = $dd->addDay();
+      if( $ddo->isBefore(Carbon::now()->endOfDay())) {
+          $this->current_date = $ddo->format('Y-m-d');
+      }
     }
 
     public function selectPresence($presence_id)

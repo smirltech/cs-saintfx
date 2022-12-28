@@ -8,7 +8,7 @@
 @section('content_header')
     <div class="row">
         <div class="col-6">
-            <h1 class="ms-3"><span class="fas fa-fw fa-chalkboard-teacher mr-1"></span>Classe</h1>
+            <h1 class="ms-3"><span class="fas fa-fw fa-person-chalkboard mr-1"></span>Classe</h1>
         </div>
 
         <div class="col-6">

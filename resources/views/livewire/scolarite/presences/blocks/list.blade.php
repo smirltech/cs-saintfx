@@ -10,6 +10,15 @@
         <div class="input-group-prepend mr-2">
             <span class="input-group-text">{{$presences->count()}} / {{$classe->inscriptions->count()}} </span>
         </div>
+        <div class="input-group-prepend mr-1">
+            <button wire:click="previousDate"
+                    title="Date précédente"
+                    class="btn btn-secondary"
+                    type="button"
+            >
+                <i class="fas fa-angle-left"></i>
+            </button>
+        </div>
         <div class="input-group-prepend">
             <span class="input-group-text">Date : </span>
         </div>
@@ -17,6 +26,15 @@
             <input type="date" wire:model="current_date" max="{{Carbon\Carbon::now()->format('Y-m-d')}}"
                    class="form-control">
 
+        <div class="input-group-append ml-1" id="button-addon4">
+            <button @disabled(!$hasNextDay) wire:click="nextDate"
+                    title="Date suivante"
+                    class="btn btn-secondary mr-1"
+                    type="button"
+            >
+                <i class="fas fa-angle-right"></i>
+            </button>
+        </div>
         <div class="input-group-append ml-1" id="button-addon4">
             <button wire:click="initPresence"
                     title="Prendre la présence"
