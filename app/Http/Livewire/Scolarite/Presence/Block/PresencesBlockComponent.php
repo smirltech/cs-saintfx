@@ -49,6 +49,8 @@ class PresencesBlockComponent extends Component
     {
         $this->current_date = $this->current_date ?? Carbon::now()->format('Y-m-d');
         $this->presence = new Presence();
+        $this->presence->inscription_id = $this->nonInscriptions[0]->id??null;
+       // dd($this->presence->inscription_id);
     }
 
 
