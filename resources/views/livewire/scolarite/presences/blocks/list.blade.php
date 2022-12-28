@@ -51,7 +51,7 @@
                     class="fas fa-print"></i></button>
         </div>--}}
     </div>
-
+    <div class="card">
     <div class="card-body p-0 table-responsive">
         <table class="table">
             <thead>
@@ -97,5 +97,6 @@
 
             </tbody>
         </table>
+    </div>
     </div>
 </div>

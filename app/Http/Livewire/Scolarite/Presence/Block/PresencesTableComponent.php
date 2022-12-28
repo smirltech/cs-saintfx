@@ -8,13 +8,12 @@ use App\Models\Presence;
 use App\Traits\TopMenuPreview;
 use Carbon\Carbon;
 use Exception;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class PresencesBlockComponent extends Component
+class PresencesTableComponent extends Component
 {
     use TopMenuPreview;
     use LivewireAlert;
@@ -61,7 +60,7 @@ class PresencesBlockComponent extends Component
     public function render()
     {
         $this->loadData();
-        return view('livewire.scolarite.presences.blocks.list',
+        return view('livewire.scolarite.presences.blocks.table',
             [
                 'presences' => $this->presences,
                 'nonInscriptions' => $this->nonInscriptions,
