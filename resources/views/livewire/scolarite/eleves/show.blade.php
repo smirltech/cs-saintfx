@@ -1,4 +1,4 @@
-@php use Carbon\Carbon; @endphp
+@php use Carbon\Carbon, App\Enums\GraviteRetard, App\Helpers\Helpers; @endphp
 @section('title')
     - élève - {{$eleve->fullName}}
 @endsection
@@ -226,11 +226,14 @@
                         <div class="card-header p-2">
                             <div class="card-title">
                                 <ul class="nav nav-pills">
-                                    <li class="nav-item"><a class="nav-link active" href="#cursus"
-                                                            data-toggle="tab">Cursus Scolaire</a>
-                                    </li>
-                                    <li class="nav-item"><a class="nav-link" href="#presences"
+                                    <li class="nav-item"><a class="nav-link active" href="#presences"
                                                             data-toggle="tab">Présences</a>
+                                    </li>
+                                    <li class="nav-item"><a class="nav-link" href="#perceptions"
+                                                            data-toggle="tab">Frais</a>
+                                    </li>
+                                    <li class="nav-item"><a class="nav-link" href="#cursus"
+                                                            data-toggle="tab">Cursus Scolaire</a>
                                     </li>
                                 </ul>
                             </div>
@@ -244,7 +247,53 @@
                         </div><!-- /.card-header -->
                         <div class="card-body">
                             <div class="tab-content">
-                                <div class="active tab-pane" id="cursus">
+                                <div class="active tab-pane" id="presences">
+                                    <livewire:scolarite.eleve.presence-component :eleve="$eleve"/>
+                                </div>
+                                <div class=" tab-pane" id="perceptions">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th>DATE</th>
+                                                <th>FRAIS</th>
+                                                <th>RAISON</th>
+                                                <th>MONTANT</th>
+                                                <th>PAYÉ</th>
+                                                <th>PAYÉ PAR</th>
+                                                <th>PAYÉ LE</th>
+                                                <th>ECHEANCE</th>
+                                                <th style="width: 50px"></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            @foreach ($eleve->perceptions as $perception)
+                                                <tr class="@if($perception->montant > $perception->paid) bg- @endif table-{{GraviteRetard::color(Carbon::parse($perception->due_date))}}">
+                                                    <td>{{ $perception->created_at->format('d-m-Y') }}</td>
+                                                    <td>{{ $perception->frais->nom }}</td>
+                                                    <td>{{ $perception->custom_property }}</td>
+                                                    <td>{{Helpers::currencyFormat($perception->montant)  }}</td>
+                                                    <td>{{Helpers::currencyFormat($perception->paid)  }}</td>
+                                                    <td>{{  $perception->paid<=0?'':$perception->paid_by }}</td>
+                                                    <td>{{ $perception->paid<=0?'':$perception->updated_at->format('d-m-Y') }}</td>
+                                                    <td>{!!$perception->montant<=$perception->paid?'OK':GraviteRetard::retard(Carbon::parse($perception->due_date))!!}</td>
+                                                    <td>
+                                                        @if($perception->montant > $perception->paid)
+                                                            <span
+                                                                class="fa fa-thumbs-down text-warning"></span>
+                                                        @else
+                                                            <span
+                                                                class="fa fa-thumbs-up text-success"></span>
+                                                        @endif
+
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class=" tab-pane" id="cursus">
                                     <div class="row">
                                         <div class="col-md-12">
 
@@ -329,11 +378,6 @@
 
                                     </div>
                                 </div>
-
-                                <div class=" tab-pane" id="presences">
-                                    <livewire:scolarite.eleve.presence-component :eleve="$eleve"/>
-                                </div>
-
                             </div>
                             <!-- /.tab-content -->
                         </div><!-- /.card-body -->

@@ -123,6 +123,11 @@ class Eleve extends Model
         return $this->hasManyThrough(Responsable::class, ResponsableEleve::class, 'eleve_id', 'id', 'id', 'responsable_id');
     }
 
+    public function perceptions(): HasManyThrough
+    {
+        return $this->hasManyThrough(Perception::class, Inscription::class);
+    }
+
     public function getProfileUrlAttribute(): ?string
     {
         return $this->avatar;
