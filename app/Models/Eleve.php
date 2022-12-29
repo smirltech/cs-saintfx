@@ -69,6 +69,15 @@ class Eleve extends Model
         return $this->inscription->presences;
     }
 
+    public function getPresenceColorsAttribute(): array
+    {
+        $aa = [];
+        foreach($this->inscription->presences as $p){
+            $aa[] = $p->getColor();
+        }
+        return $aa;
+    }
+
     public function getInscriptionAttribute(): Inscription
     {
         return $this->inscriptions()->where('annee_id', Annee::id())->first();

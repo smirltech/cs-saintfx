@@ -27,7 +27,17 @@ class PresenceComponent extends Component
     {
 
         $this->eleve = $eleve;
-        $this->calendar = \Calendar::addEvents($eleve->presences)->setOptions([ //set fullcalendar options
+
+        $evt = [];
+        $this->calendar = \Calendar::addEvents($evt);
+
+        foreach ($eleve->presences as $pre) {
+            $this->calendar->addEvent($pre, [ //set custom color fo this event
+                'color' => $pre->getColor(),
+            ]);
+        }
+
+        $this->calendar->setOptions([ //set fullcalendar options
             'initialView' => 'listWeek',
         ])->setCallbacks([ //set fullcalendar callback options (will not be JSON encoded)
             'eventClick' => 'function(info) {alert(info.event.id);}'

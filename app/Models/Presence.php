@@ -41,6 +41,11 @@ class Presence extends Model implements Event
         return $this->status->label();
     }
 
+    public function getColor(): string
+    {
+        return $this->status->color2();
+    }
+
     /**
      * @inheritDoc
      */
