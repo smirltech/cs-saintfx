@@ -31,9 +31,14 @@ class Devoir extends Model
             // change status to closed if echance is after now
             // use carbon to compare dates
             if (Carbon::now()->greaterThan($devoir->echeance)) {
-                $devoir->status = DevoirStatus::closed();
+                $devoir->status = DevoirStatus::closed;
                 $devoir->save();
             }
+            if (Carbon::now()->lessThan($devoir->echeance) and $devoir->status == DevoirStatus::closed) {
+                $devoir->status = DevoirStatus::open;
+                $devoir->save();
+            }
+
         });
 
         static::creating(function (Devoir $model) {

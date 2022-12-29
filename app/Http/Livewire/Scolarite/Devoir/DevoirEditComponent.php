@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Scolarite\Devoir;
 
 
+use App\Enums\DevoirStatus;
 use App\Enums\MediaType;
 use App\Exceptions\ApplicationAlert;
 use App\Models\Classe;
@@ -14,6 +15,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
@@ -125,6 +127,7 @@ class DevoirEditComponent extends Component
             'devoir.classe_id' => ['required', 'integer'],
             'devoir.cours_id' => ['required', 'integer'],
             'devoir.echeance' => ['required', 'date'],
+            'devoir.status' => ['required', Rule::enum(DevoirStatus::class)],
             'document' => ['nullable', 'file', 'mimes:pdf', 'max:2048'],
         ];
     }

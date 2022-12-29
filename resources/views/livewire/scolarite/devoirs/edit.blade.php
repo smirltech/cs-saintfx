@@ -1,4 +1,4 @@
-@php use App\Enums\ClasseGrade; @endphp
+@php use App\Enums\ClasseGrade;use App\Enums\DevoirStatus; @endphp
 @section('title')
     - {{$devoir->titre}}
 @endsection
@@ -22,7 +22,7 @@
     <div class="content mt-3">
         <div class="row">
             <div class="col-md-6">
-                <div class="card">
+                <div class="card card-{{$devoir->status->variant()}}">
                     <div class="card-header">
                         <div class="row">
                             <div class="col-6">
@@ -90,6 +90,21 @@
                                         :isValid="$errors->has('devoir.contenu') ? false : null"
                                         error="{{$errors->first('devoir.contenu')}}"/>
                                 </div>
+                                @if($devoir->status!=DevoirStatus::closed)
+                                    <div class="form-group col-md-12">
+                                        <x-form-select required wire:model.defer="devoir.status"
+                                                       label="Statut"
+                                                       :isValid="$errors->has('devoir.status') ? false : null"
+                                                       error="{{$errors->first('devoir.status')}}">
+                                            @foreach(DevoirStatus::cases() as $s)
+                                                @if($s==DevoirStatus::closed)
+                                                    @continue
+                                                @endif
+                                                <option value="{{$s}}">{{$s->label()}}</option>
+                                            @endforeach
+                                        </x-form-select>
+                                    </div>
+                                @endif
 
                                 <div class="form-group col-md-12">
                                     <x-form-file-pdf wire:model="document"
@@ -99,6 +114,7 @@
                                                      error="{{$errors->first('document')}}"/>
                                     <x-list-files :media="$devoir->media" delete/>
                                 </div>
+
                             </div>
                             <x-button class="btn-primary float-end">Soumettre</x-button>
                         </form>
