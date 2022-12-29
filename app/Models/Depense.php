@@ -49,13 +49,14 @@ class Depense extends Model
         return self::where('annee_id', $annee_id)->whereBetween('created_at', [$debut, $fin])->sum('montant');
     }
 
-    public static function sommeDepensesByCategoryBetween(int $annee_id, $ddebut, $dfin)
+    public static function sommeDepensesByTypeBetween(int $annee_id, $ddebut, $dfin)
     {
         $debut = Carbon::parse($ddebut)->startOfDay();
         $fin = Carbon::parse($dfin)->endOfDay();
         $data = [];
-        foreach (DepenseCategorie::cases() as $category) {
-            $data[$category->label()] = self::where('annee_id', $annee_id)->where('categorie', $category)->whereBetween('created_at', [$debut, $fin])->sum('montant');
+        $depTypes = DepenseType::all();
+        foreach ($depTypes as $ty) {
+            $data[$ty->nom] = self::where('annee_id', $annee_id)->where('depense_type_id', $ty->id)->whereDate('created_at', '>=', $debut)->whereDate('created_at', '<=', $fin)->sum('montant');
         }
 
         return $data;

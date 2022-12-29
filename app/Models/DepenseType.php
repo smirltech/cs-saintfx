@@ -27,4 +27,6 @@ class DepenseType extends Model
     {
         return $this->depenses->where('annee_id', Annee::id())->sum('montant');
     }
+
+
 }

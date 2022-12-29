@@ -29,7 +29,7 @@ class RapportIndexComponent extends Component
     public $perception = 0;
     public $frais = [];
     public $depenses = 0;
-    public $categories = [];
+    public $depensesTypes = [];
     public $annee_id;
     public $anneeNom;
     protected $rules = [
@@ -62,8 +62,7 @@ class RapportIndexComponent extends Component
         $this->frais = Frais::sommeFraisByTypeBetween(annee_id: $this->annee_id, ddebut: $this->ddebut, dfin: $this->dfin);
 
         $this->depenses = Depense::sommeBetween(annee_id: $this->annee_id, ddebut: $this->ddebut, dfin: $this->dfin);
-        $this->categories = Depense::sommeDepensesByCategoryBetween(annee_id: $this->annee_id, ddebut: $this->ddebut, dfin: $this->dfin);
-
+        $this->depensesTypes = Depense::sommeDepensesByTypeBetween(annee_id: $this->annee_id, ddebut: $this->ddebut, dfin: $this->dfin);
     }
 
     public function updateReport()
@@ -75,7 +74,7 @@ class RapportIndexComponent extends Component
     {
         //$this->dispatchBrowserEvent('printIt', ['elementId' => "factPrint", 'type' => 'html', 'maxWidth' => '100%']);
 
-        return $this->printToPdf('livewire.finance.rapports.index', $this->all(), 'print_pdf.pdf');
+        return $this->printToPdf('livewire.finance.rapports.modals.printable', $this->all(), 'print_pdf.pdf');
 
     }
 }
