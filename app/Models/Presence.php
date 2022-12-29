@@ -47,6 +47,19 @@ class Presence extends Model implements Event
     }
 
     /**
+     * Optional FullCalendar.io settings for this event
+     *
+     * @return array
+     */
+    public function getEventOptions()
+    {
+        return [
+            'color' => $this->status->color2(),
+            //etc
+        ];
+    }
+
+    /**
      * @inheritDoc
      */
     public function isAllDay(): bool
