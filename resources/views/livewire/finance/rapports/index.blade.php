@@ -1,6 +1,6 @@
 @php use Carbon\Carbon; @endphp
 @section('title')
-     - rapports
+    - rapports
 @endsection
 @section('content_header')
     <div class="row">
@@ -50,14 +50,13 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
+            <div class="card mb-5">
+                <div class="card-body">
                     @include('livewire.finance.rapports.modals.printable')
                 </div>
-                <div class="col-md-12">
+                <div class="card-footer">
                     <button wire:click="printIt" class="btn btn-primary">Imprimer</button>
                 </div>
-
             </div>
         </div>
     </div>

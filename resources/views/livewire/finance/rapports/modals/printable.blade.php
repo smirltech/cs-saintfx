@@ -1,27 +1,22 @@
 @php use Carbon\Carbon; @endphp
 <div>
-    <div id="factPrint" class="card">
 
-        <div class="card-header">
-            <div style="text-align: center;" class="card-title justify-content-center">
+        <div class="">
+            <div style="text-align: center;" class=" justify-content-center">
                 CENK FINANCE - {{$anneeNom}}
             </div>
             <br>
         </div>
-        <div class="card-body">
+        <div class="">
             <div class="card">
                 <div style="display: flex; justify-content: space-between" class="card-header">
                     <div class="card-title">Rapport financier de la période</div>
                     <div class="card-tools d-flex">
-
                             <div class="mr-2">Debut : {{Carbon::parse($ddebut)->format('d-m-Y')}}</div>
-
-
                             <div class="ml-2"> Fin : {{Carbon::parse($dfin)->format('d-m-Y')}}</div>
-
                     </div>
                 </div>
-                <div class="card-body m-b-40">
+                <div class="card-body m-b-5">
                     <div class="row">
                         <div class="col-md-6">
                             <h4>Entrées</h4>
@@ -84,6 +79,5 @@
                 </div>
             </div>
         </div>
-    </div>
 </div>
 
