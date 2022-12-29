@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Traits;
 
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
@@ -6,7 +7,6 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 trait WithPrintToPdf
 {
-
     /**
      * @param string $view the view in which data will be displayed
      * @param array $data the data that is required to populate the view
@@ -18,5 +18,4 @@ trait WithPrintToPdf
         $pdf = PDF::loadView($view, $data)->output();
         return response()->streamDownload(static fn()=>print ($pdf), $filename);
     }
-
 }

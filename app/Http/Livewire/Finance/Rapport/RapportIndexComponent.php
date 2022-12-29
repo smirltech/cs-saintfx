@@ -9,6 +9,7 @@ use App\Models\Frais;
 use App\Models\Perception;
 use App\Models\Revenu;
 use App\Traits\TopMenuPreview;
+
 use App\Traits\WithPrintToPdf;
 use App\View\Components\AdminLayout;
 use Carbon\Carbon;

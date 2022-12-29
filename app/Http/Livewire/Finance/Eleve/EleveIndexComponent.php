@@ -4,11 +4,13 @@ namespace App\Http\Livewire\Finance\Eleve;
 
 use App\Enums\FraisFrequence;
 use App\Enums\FraisType;
-use App\Http\Integrations\Scolarite\Requests\Annee\GetCurrentAnnneRequest;
-use App\Http\Integrations\Scolarite\Requests\Inscription\GetInscriptionsRequest;
+
+use App\Models\Annee;
 use App\Models\Frais;
+use App\Models\Inscription;
 use App\Models\Perception;
 use App\Traits\TopMenuPreview;
+use App\Traits\WithPrintToPdf;
 use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
@@ -17,6 +19,7 @@ class EleveIndexComponent extends Component
 {
     use TopMenuPreview;
     use LivewireAlert;
+    use WithPrintToPdf;
 
     // public $perceptions = [];
     public $perception;
@@ -39,16 +42,14 @@ class EleveIndexComponent extends Component
     public function mount()
     {
         //Annee::class
-        $this->annee_id = (new GetCurrentAnnneRequest())->send()->dto()->id;
+        $this->annee_id = Annee::id();
 
     }
 
     public function render()
     {
-        // $this->loadData();
-        $request = new GetInscriptionsRequest(anneeId: $this->annee_id);
-        //$request->disableCaching();
-        $inscriptions = $request->send()->dto();
+
+        $inscriptions = Inscription::getCurrentInscriptions();
 
         //dd($inscriptions);
         return view('livewire.finance.eleves.index', ['inscriptions' => $inscriptions])
