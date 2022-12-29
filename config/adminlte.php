@@ -363,18 +363,18 @@ return [
                         [
                             'text' => 'Ajouter perception',
                             'url' => 'finance/perceptions/create',
-                            'shift' => 'ml-5',
+                            'shift' => 'ml-4',
                             //      'can' => RolePermission::create_etudiant->name,
                         ],
                         [
                             'text' => 'Liste de perceptions',
                             'url' => 'finance/perceptions',
-                            'shift' => 'ml-5',
+                            'shift' => 'ml-4',
                         ],
                         [
                             'text' => 'Plans de frais',
                             'url' => 'finance/frais',
-                            'shift' => 'ml-5',
+                            'shift' => 'ml-4',
                         ],
                     ],
                 ],

@@ -9,6 +9,7 @@ use App\Models\Frais;
 use App\Models\Perception;
 use App\Models\Revenu;
 use App\Traits\TopMenuPreview;
+use App\Traits\WithPrintToPdf;
 use App\View\Components\AdminLayout;
 use Carbon\Carbon;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -18,6 +19,7 @@ class RapportIndexComponent extends Component
 {
     use TopMenuPreview;
     use LivewireAlert;
+    use WithPrintToPdf;
 
     public $ddebut;
     public $dfin;
@@ -70,6 +72,9 @@ class RapportIndexComponent extends Component
 
     public function printIt()
     {
-        $this->dispatchBrowserEvent('printIt', ['elementId' => "factPrint", 'type' => 'html', 'maxWidth' => '100%']);
+        //$this->dispatchBrowserEvent('printIt', ['elementId' => "factPrint", 'type' => 'html', 'maxWidth' => '100%']);
+
+        return $this->printToPdf('livewire.finance.rapports.index', $this->all(), 'print_pdf.pdf');
+
     }
 }
