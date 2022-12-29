@@ -223,117 +223,122 @@
                 </div>
                 <div class="col-md-9">
                     <div class="card">
+                        <div class="card-header p-2">
+                            <div class="card-title">
+                                <ul class="nav nav-pills">
+                                    <li class="nav-item"><a class="nav-link active" href="#cursus"
+                                                            data-toggle="tab">Cursus Scolaire</a>
+                                    </li>
+                                    <li class="nav-item"><a class="nav-link" href="#presences"
+                                                            data-toggle="tab">Présences</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="card-tools mr-1">
+
+                                <a href="{{ route('scolarite.eleves.presence',$eleve) }}"
+                                   class="btn btn-default"><span
+                                        class="fas fa-calendar-alt"></span></a>
+
+                            </div>
+                        </div><!-- /.card-header -->
                         <div class="card-body">
                             <div class="tab-content">
-                                <div class="active tab-pane" id="admission">
-                                    <div class="">
-                                        <div class="card">
-                                            <div class="card-header">
-                                                <h4 class="card-title">Cursus Scolaire</h4>
-                                                <div class="card-tools">
-                                                    <a href="{{ route('scolarite.eleves.presence',$eleve) }}"
-                                                       class="btn btn-default"><span
-                                                            class="fas fa-calendar-alt"></span></a>
-                                                    {{--<button role="button" class="btn btn-warning ml-2"
-                                                            data-toggle="modal"
-                                                            data-target="#add-inscription-modal"><span
-                                                            class="fas fa-plus"></span></button>--}}
-                                                </div>
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-md-12">
+                                <div class="active tab-pane" id="cursus">
+                                    <div class="row">
+                                        <div class="col-md-12">
 
-                                                        <div class="timeline">
-                                                            @foreach($eleve->inscriptions as $inscription)
-                                                                @php
-                                                                    $resultats =  $eleve->resultatsOfYear(annee_id:$inscription->annee_id);
-                                                                    $lastResultat = $resultats->last();
-                                                                    $mention = "Pas d'info";
-                                                                    if($lastResultat != null)$mention = $lastResultat?->pourcentage >= 50?'Réussite':'Échec';
-                                                                @endphp
-                                                                <div class="time-label">
+                                            <div class="timeline">
+                                                @foreach($eleve->inscriptions as $inscription)
+                                                    @php
+                                                        $resultats =  $eleve->resultatsOfYear(annee_id:$inscription->annee_id);
+                                                        $lastResultat = $resultats->last();
+                                                        $mention = "Pas d'info";
+                                                        if($lastResultat != null)$mention = $lastResultat?->pourcentage >= 50?'Réussite':'Échec';
+                                                    @endphp
+                                                    <div class="time-label">
                                                                     <span
                                                                         {{--wire:click="getSelectedInscription({{$inscription}})"--}}
                                                                         {{-- role="button"--}} class="bg-green"
                                                                         {{--data-toggle="modal"
                                                                         data-target="#edit-inscription-modal"--}}
                                                                     >{{$inscription->classe->shortCode}} ({{$inscription->annee->nom}})</span>
-                                                                </div>
+                                                    </div>
 
-                                                                <div>
-                                                                    <i class="fas fa-clock bg-maroon"></i>
-                                                                    <div class="timeline-item">
+                                                    <div>
+                                                        <i class="fas fa-clock bg-maroon"></i>
+                                                        <div class="timeline-item">
                                                                             <span class="time"><i
                                                                                     class="fas fa-clock mr-1"></i>{{$lastResultat?->created_at->format('d-m-Y')}}</span>
-                                                                        <h3 class="timeline-header"><a>{{$mention}}</a>
-                                                                            avec {{$lastResultat?->pourcentage}}%</h3>
-                                                                        <div style="width: 100%" class="timeline-body ">
-                                                                            <div class="table-responsive-sm">
-                                                                                <table class="table">
-                                                                                    <thead>
-                                                                                    <tr>
-                                                                                        <th scope="col">RÉSULTAT</th>
-                                                                                        <th scope="col">POURCENTAGE</th>
-                                                                                        <th scope="col">PLACE</th>
-                                                                                        <th scope="col">CONDUITE</th>
-                                                                                        <th scope="col"></th>
-                                                                                    </tr>
-                                                                                    </thead>
-                                                                                    <tbody>
-                                                                                    @foreach($resultats as $resultat)
-                                                                                        <tr>
-                                                                                            <th scope="row">{{$resultat->custom_property->longLabel()}}</th>
-                                                                                            <td>{{$resultat->pourcentage}}
-                                                                                                %
-                                                                                            </td>
-                                                                                            <td>{{$resultat->place}}</td>
-                                                                                            <td>{{strtoupper($resultat?->conduite?->value)}}</td>
-                                                                                            <td>
-                                                                                                <div
-                                                                                                    class="d-flex float-right">
-                                                                                                    @if($resultat->bulletin)
-                                                                                                        <a
-                                                                                                            href="{{route('media.show', $resultat->bulletin)}}"
-                                                                                                            target="_blank"
-                                                                                                            type="button"
-                                                                                                            title="Télécharger bulletin"
-                                                                                                            class="btn btn-outline-info btn-xs  ml-2">
+                                                            <h3 class="timeline-header"><a>{{$mention}}</a>
+                                                                avec {{$lastResultat?->pourcentage}}%</h3>
+                                                            <div style="width: 100%" class="timeline-body ">
+                                                                <div class="table-responsive-sm">
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                        <tr>
+                                                                            <th scope="col">RÉSULTAT</th>
+                                                                            <th scope="col">POURCENTAGE</th>
+                                                                            <th scope="col">PLACE</th>
+                                                                            <th scope="col">CONDUITE</th>
+                                                                            <th scope="col"></th>
+                                                                        </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                        @foreach($resultats as $resultat)
+                                                                            <tr>
+                                                                                <th scope="row">{{$resultat->custom_property->longLabel()}}</th>
+                                                                                <td>{{$resultat->pourcentage}}
+                                                                                    %
+                                                                                </td>
+                                                                                <td>{{$resultat->place}}</td>
+                                                                                <td>{{strtoupper($resultat?->conduite?->value)}}</td>
+                                                                                <td>
+                                                                                    <div
+                                                                                        class="d-flex float-right">
+                                                                                        @if($resultat->bulletin)
+                                                                                            <a
+                                                                                                href="{{route('media.show', $resultat->bulletin)}}"
+                                                                                                target="_blank"
+                                                                                                type="button"
+                                                                                                title="Télécharger bulletin"
+                                                                                                class="btn btn-outline-info btn-xs  ml-2">
                                                                                                         <span
                                                                                                             class="fa fa-file"></span>
-                                                                                                        </a>
-                                                                                                    @endif
+                                                                                            </a>
+                                                                                        @endif
 
-                                                                                                </div>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                    @endforeach
+                                                                                    </div>
+                                                                                </td>
+                                                                            </tr>
+                                                                        @endforeach
 
-                                                                                    </tbody>
-                                                                                </table>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
+                                                                        </tbody>
+                                                                    </table>
                                                                 </div>
-                                                            @endforeach
-
-                                                            <div>
-                                                                <i class="fas fa-clock bg-gray"></i>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                @endforeach
 
+                                                <div>
+                                                    <i class="fas fa-clock bg-gray"></i>
                                                 </div>
                                             </div>
-
-
                                         </div>
 
                                     </div>
                                 </div>
+
+                                <div class=" tab-pane" id="presences">
+                                    <livewire:scolarite.eleve.presence-component :eleve="$eleve"/>
+                                </div>
+
                             </div>
-                        </div>
+                            <!-- /.tab-content -->
+                        </div><!-- /.card-body -->
                     </div>
+
                 </div>
 
             </div>
