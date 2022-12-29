@@ -54,7 +54,7 @@ class Presence extends Model implements Event
     public function getEventOptions()
     {
         return [
-            'color' => $this->status->color2(),
+            'color' => $this->status->colorNonBootstrap(),
             //etc
         ];
     }

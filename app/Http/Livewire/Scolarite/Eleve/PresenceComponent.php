@@ -32,6 +32,7 @@ class PresenceComponent extends Component
         $this->calendar = \Calendar::addEvents($eleve->presences)
             ->setOptions([ //set fullcalendar options
                 'initialView' => 'listWeek',
+                'locale', 'fr'
             ])
             ->setCallbacks([ //set fullcalendar callback options (will not be JSON encoded)
                 'eventClick' => 'function(info) {alert(info.event.id);}'

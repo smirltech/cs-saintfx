@@ -30,7 +30,7 @@ enum PresenceStatus: string
         };
     }
 
-    public function color2(): string
+    public function colorNonBootstrap(): string
     {
         return match ($this) {
             self::present => 'green',
