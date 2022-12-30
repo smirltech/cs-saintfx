@@ -30,4 +30,14 @@ class MaterielCategory extends Model
     {
         return $this->hasMany(self::class);
     }
+
+    public function getMaterielsCountAttribute():int
+    {
+        return $this->materiels->count();
+    }
+
+    public function getMaterielsCountAggregateAttribute():int
+    {
+        return $this->materiels->count() + $this->categories->sum('materielsCountAggregate');
+    }
 }

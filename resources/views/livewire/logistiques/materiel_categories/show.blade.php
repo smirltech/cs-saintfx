@@ -51,6 +51,26 @@
                             </ul>
                         </div>
                     </div>
+                    <div class="card card-primary card-outline">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <h5 class="">Statistiques</h5>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group list-group-unbordered mb-3">
+                                <li class="list-group-item">
+                                    <b>Materiels : </b> <span class="float-right">{{ $category->materielsCount }}</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Materiels Aggrégat : </b> <span class="float-right">{{ $category->materielsCountAggregate }}</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Sous Catégories : </b> <span class="float-right">{{$category->categories->count()}}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="col-md-9 col-sm-12">
@@ -65,7 +85,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link" id="custom-tabs-one-categories-tab" data-toggle="pill"
                                        href="#custom-tabs-one-categories" role="tab"
-                                       aria-controls="custom-tabs-one-categories" aria-selected="false">Catégories</a>
+                                       aria-controls="custom-tabs-one-categories" aria-selected="false">Sous Catégories</a>
                                 </li>
                             </ul>
                         </div>
@@ -113,6 +133,9 @@
                                             <tr>
                                                 <th style="width: 50px">#</th>
                                                 <th>CATÉGORIE</th>
+                                                <th>DESCRIPTION</th>
+                                                <th>MATÉRIELS</th>
+                                                <th>AGGRÉGAT</th>
                                                 <th style="width: 50px"></th>
                                             </tr>
                                             </thead>
@@ -123,6 +146,9 @@
                                                     <td>
                                                         <a href="{{route('logistiques.categories.show',[$categ->id])}}">{!! $categ->nom !!}</a>
                                                     </td>
+                                                    <td>{{ $categ->description }}</td>
+                                                    <td>{{ $categ->materielsCount }}</td>
+                                                    <td>{{ $categ->materielsCountAggregate }}</td>
                                                     <td>
                                                         <div class="d-flex float-right">
                                                             <button title="Supprimer"
