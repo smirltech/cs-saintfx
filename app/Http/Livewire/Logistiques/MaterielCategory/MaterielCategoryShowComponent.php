@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Logistiques\MaterielCategory;
 
+use App\Models\MaterielCategory;
 use App\Models\Option;
 use App\Models\Section;
 use App\Traits\SectionCode;
@@ -15,150 +16,60 @@ class MaterielCategoryShowComponent extends Component
 {
     use TopMenuPreview;
     use LivewireAlert;
-    use SectionCode;
 
-    public $section;
-    public $classes = [];
+    public MaterielCategory $category;
+    public $categories = [];
 
-    public $nom;
-    public $code;
-
-    public $option_nom;
-    public $option_code;
-
-    protected $messages = [
-        'nom.required' => 'Ce nom est obligatoire !',
-        'nom.unique' => 'Ce nom est déjà pris, cherchez-en un autre !',
-
-        'code.required' => 'Ce code est obligatoire !',
-        'code.unique' => 'Ce code est déjà pris, cherchez-en un autre !',
-
-        'option_nom.required' => 'Ce nom d\'option est obligatoire !',
-        'option_nom.unique' => 'Ce nom d\'option est déjà pris, cherchez-en un autre !',
-
-        'option_code.required' => 'Ce code d\'option est obligatoire !',
-        'option_code.unique' => 'Ce code d\'option est déjà pris, cherchez-en un autre !',
+    protected $rules = [
+        'category.nom' => 'required|unique:materiel_categories, nom',
+        'category.materiel_category_id' => 'nullable',
+        'category.description' => 'nullable',
     ];
 
-    protected $listeners = ['onSaved', 'onUpdated', 'onDeleted', 'onModalOpened', 'onModalClosed'];
-
-    public function onModalOpened()
+    public function mount(MaterielCategory $category)
     {
-        $this->clearValidation();
-    }
-
-    public function onSaved()
-    {
-        $this->loadData();
-    }
-
-    public function loadData()
-    {
-        $this->section = Section::find($this->section->id);
-        $this->nom = $this->section->nom;
-        $this->code = $this->section->code;
-
-        $this->classes = $this->section->classes;
-    }
-
-    public function onUpdated()
-    {
-        $this->loadData();
-    }
-
-    public function onDeleted()
-    {
-        $this->loadData();
-    }
-
-    public function mount(Section $section)
-    {
-        $this->section = $section;
-        $this->nom = $section->nom;
-        $this->code = $section->code;
-        $this->classes = $this->section->classes;
+        $this->category = $category;
     }
 
     public function render()
     {
-        return view('livewire.scolarite.sections.show')
-            ->layout(AdminLayout::class, ['title' => 'Détail sur la section']);
+        $this->loadData();
+        return view('livewire.logistiques.materiel_categories.show')
+            ->layout(AdminLayout::class, ['title' => 'Détail sur la catégorie de matériel']);
     }
 
-    public function updateSection()
+    public function loadData()
+    {
+        $this->categories = MaterielCategory::where('id','!=', $this->category->id)->orderBy('nom', 'ASC')->get();
+        //  dd($this->categories);
+    }
+
+    public function onModalClosed($p_id)
+    {
+        $this->dispatchBrowserEvent('closeModal', ['modal' => $p_id]);
+
+    }
+
+    public function updateCategory()
     {
         $this->validate([
-            'nom' => [
+            'category.nom' => [
                 "required",
-                Rule::unique((new Section)->getTable(), "nom")->ignore($this->section->id)
-
+                Rule::unique((new MaterielCategory())->getTable(), "nom")->ignore($this->category->id)
             ],
-            'code' => [
-                "required",
-                Rule::unique((new Section)->getTable(), "code")->ignore($this->section->id)
-
-            ],
+            'category.description' => 'nullable',
+            'category.materiel_category_id' => 'nullable',
         ]);
 
-        $done = $this->section->update([
-            'nom' => $this->nom,
-            'code' => $this->code,
-        ]);
+        $done = $this->category->save();
         if ($done) {
-            $this->emit('onUpdated');
-            $this->alert('success', "Section modifiée avec succès !");
-
-            $this->reset(['nom', 'code']);
-
-            // close the modal by specifying the id of the modal
-            $this->dispatchBrowserEvent('closeModal', ['modal' => 'edit-section-modal']);
-            //$this->flash('success', 'Section modifiée avec succès', [], route('scolarite.sections'));
+            $this->onModalClosed('update-category-modal');
+            $this->alert('success', "Catégorie modifiée avec succès !");
         } else {
-            $this->alert('warning', "Echec de modification de section !");
+            $this->alert('warning', "Échec de modification de catégorie !");
         }
-        $this->onModalClosed();
-
-    }
-
-    public function onModalClosed()
-    {
-        $this->clearValidation();
-        $this->reset(['nom', 'code']);
+        $this->category->refresh();
     }
 
 
-    // ---------------------------
-
-    public function addOption()
-    {
-        // dd($this->nom);
-
-        $this->validate([
-            'option_nom' => [
-                "required",
-                Rule::unique((new Option)->getTable(), "nom")
-
-            ],
-            'option_code' => [
-                "required",
-                Rule::unique((new Option())->getTable(), "code")
-
-            ],
-
-        ]);
-
-        Option::create([
-            'nom' => $this->option_nom,
-            'code' => $this->option_code,
-            'section_id' => $this->section->id,
-        ]);
-        $this->emit('onSaved');
-        $this->alert('success', "Option ajoutée avec succès !");
-
-        $this->reset(['option_nom', 'option_code']);
-
-        // close the modal by specifying the id of the modal
-        $this->dispatchBrowserEvent('closeModal', ['modal' => 'add-option-modal']);
-        $this->onModalClosed();
-    }
 }

@@ -63,7 +63,7 @@
         <div class="row">
             <div class="form-group col-md-6 col-sm-12">
                 <label for="">Groupe </label>
-                <x-form-select :select-placeholder='true' wire:model="category.materiel_category_id"
+                <x-form-select :select-placeholder='true' wire:model.defer="category.materiel_category_id"
                                class="form-control">
                     @foreach ($categories as $es )
                         <option value="{{$es->id}}">{{$es->nom}}</option>
@@ -74,7 +74,7 @@
                 <x-form-input
                     type="text"
                     label="Nom"
-                    wire:model="category.nom"
+                    wire:model.defer="category.nom"
                     :is-valid="$errors->has('category.nom')?false:null"
                     :error="$errors->first('category.nom')">
                 </x-form-input>
@@ -83,26 +83,9 @@
                 <x-form-input
                     type="text"
                     label="Description"
-                    wire:model="category.description">
+                    wire:model.defer="category.description">
                 </x-form-input>
             </div>
-            {{--  <div class="form-group col-md-12 col-sm-12">
-                  <label for="">État </label>
-                  <x-form-select wire:model="presence.status"
-                                 class="form-control">
-                      @foreach (\App\Enums\PresenceStatus::cases() as $es )
-                              <option value="{{$es->name}}">{{$es->label()}}</option>
-                      @endforeach
-                  </x-form-select>
-
-              </div>--}}
-            {{--<div class="form-group col-md-12 col-sm-12">
-                <x-form-input
-                    type="text"
-                    label="Observation"
-                    wire:model="presence.observation">
-                </x-form-input>
-            </div>--}}
         </div>
     </form>
     <x-slot name="footerSlot">
