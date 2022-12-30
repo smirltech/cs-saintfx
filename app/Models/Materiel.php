@@ -6,6 +6,7 @@ use App\Enums\MaterialStatus;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Materiel extends Model
 {
@@ -17,6 +18,16 @@ class Materiel extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(self::class, 'materiel_category_id', 'id');
+    }
+
+    public function getCategoryNomAttribute():string|null
+    {
+        return $this->category?->nom;
+    }
 
     public function getVieRestanteAttribute(): int|null
     {

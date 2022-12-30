@@ -1,0 +1,121 @@
+@php
+    $heads =[
+        ['label'=>'#', 'width'=>5],
+        'MATÉRIEL',
+        'CATÉGORIE',
+        'DESCRIPTION',
+        ['label'=>'DATE', 'width'=>10],
+        'VIE',
+        'RESTE',
+        'STATUS',
+        ['label'=>'', 'no-export'=>true, 'width'=>5]
+];
+   //$datas =[];
+   foreach ($materiels as $i=>$materiel){
+        $datas[] =[
+            $i+1,
+            $materiel->nom,
+            $materiel->category,
+            $materiel->description,
+            $materiel->date,
+            $materiel->vie,
+            $materiel->vieRestante,
+            $materiel->status->label(),
+            $materiel,
+];
+   }
+
+    $config =[
+  'data'=>$datas,
+  'order'=>[[1, 'asc']],
+  'columns'=>[null,null,null, null, null, null, null, null, ['orderable'=>false]],
+  'destroy'=>false,
+
+];
+@endphp
+
+@section('title')
+    - matériels de patrimoine
+@endsection
+@section('content_header')
+    <div class="row">
+        <div class="col-6">
+            <h1 class="ms-3">Liste de matériels</h1>
+        </div>
+
+        <div class="col-6">
+            <ol class="breadcrumb float-right">
+                <li class="breadcrumb-item"><a href="{{ route('scolarite') }}">Accueil</a></li>
+                <li class="breadcrumb-item active">Matériels</li>
+            </ol>
+        </div>
+    </div>
+
+@stop
+<div wire:ignore.self class="">
+    @include('livewire.logistiques.materiels.modals.crud')
+
+    <div class="content mt-3">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">
+
+                            </div>
+                            <div class="card-tools d-flex my-auto">
+                                {{-- <livewire:scolarite.section.section-create-component/>--}}
+                                <button type="button"
+                                        class="btn btn-primary  ml-2" data-toggle="modal"
+                                        data-target="#add-materiel-modal"><span
+                                        class="fa fa-plus"></span></button>
+                            </div>
+                        </div>
+
+                        <div class="card-body m-b-40 table-responsive">
+                            <x-adminlte-datatable wire:ignore.self theme="light" id="table1" :heads="$heads" striped
+                                                  hoverable
+                                                  with-buttons>
+                                @foreach($config['data'] as $row)
+                                    <tr>
+                                        <td>{!! $row[0] !!}</td>
+                                        <td>{!! $row[1] !!}</td>
+                                        <td><a href="{{$row[2]==null?'#':route('logistiques.categories.show',[$row[2]?->id])}}">{!! $row[2]?->nom !!}</a></td>
+                                        <td>{!! $row[3] !!}</td>
+                                        <td>{!! $row[4] !!}</td>
+                                        <td>{!! $row[5] !!}</td>
+                                        <td>{!! $row[6] !!}</td>
+                                        <td>{!! $row[7] !!}</td>
+                                        <td>
+                                            <div class="d-flex float-right">
+                                                <a href="{{route('logistiques.materiels.show',[$row[8]->id])}}" title="Voir"
+                                                   class="btn btn-warning">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                <button wire:click="getSelectedMateriel({{$row[8]}})" type="button"
+                                                        title="Modifier" class="btn btn-info  ml-2" data-toggle="modal"
+                                                        data-target="#update-materiel-modal">
+                                                    <span class="fa fa-pen"></span>
+                                                </button>
+
+                                                <button wire:click="getSelectedMateriel({{$row[8]}})" type="button"
+                                                        title="supprimer" class="btn btn-danger  ml-2"
+                                                        data-toggle="modal"
+                                                        data-target="#delete-materiel-modal">
+                                                    <span class="fa fa-trash"></span>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </x-adminlte-datatable>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
