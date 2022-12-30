@@ -6,7 +6,7 @@
         <div class="row">
             <div class="form-group col-md-6 col-sm-12">
                 <label for="">Groupe </label>
-                <x-form-select :select-placeholder='false' wire:model="category.materiel_category_id"
+                <x-form-select :select-placeholder='true' wire:model="category.materiel_category_id"
                                class="form-control">
                     @foreach ($categories as $es )
                         <option value="{{$es->id}}">{{$es->nom}}</option>

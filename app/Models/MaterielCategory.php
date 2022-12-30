@@ -14,9 +14,11 @@ class MaterielCategory extends Model
 
     public $guarded = [];
 
+    protected $with = ['groupe'];
+
     public function groupe(): BelongsTo
     {
-        return $this->belongsTo(self::class);
+        return $this->belongsTo(self::class, 'materiel_category_id', 'id');
     }
 
     public function materiels(): HasMany

@@ -19,7 +19,7 @@ class MaterielCategoryIndexComponent extends Component
     public MaterielCategory $category;
 
     protected $rules = [
-        'category.nom' => 'required|unique:materiel_categories',
+        'category.nom' => 'required|unique:materiel_categories, nom',
         'category.materiel_category_id' => 'nullable',
         'category.description' => 'nullable',
     ];
@@ -32,6 +32,7 @@ class MaterielCategoryIndexComponent extends Component
     public function loadData()
     {
         $this->categories = MaterielCategory::orderBy('nom', 'ASC')->get();
+      //  dd($this->categories);
     }
 
     public function initCategory()

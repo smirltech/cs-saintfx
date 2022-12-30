@@ -11,7 +11,7 @@
         $datas[] =[
             $i+1,
             $categorie->nom,
-            $categorie->groupe?->name,
+            $categorie->groupe,
             $categorie->description,
             $categorie,
 ];
@@ -73,7 +73,7 @@
                                     <tr>
                                         <td>{!! $row[0] !!}</td>
                                         <td>{!! $row[1] !!}</td>
-                                        <td>{!! $row[2] !!}</td>
+                                        <td><a href="{{$row[2]==null?'#':route('logistiques.categories.show',[$row[2]?->id])}}">{!! $row[2]?->nom !!}</a></td>
                                         <td>{!! $row[3] !!}</td>
                                         <td>
                                             <div class="d-flex float-right">
