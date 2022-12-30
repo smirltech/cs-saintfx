@@ -1,4 +1,6 @@
 @php
+use Carbon\Carbon;
+
     $heads =[
         ['label'=>'#', 'width'=>5],
         'MATÉRIEL',
@@ -17,7 +19,7 @@
             $materiel->nom,
             $materiel->category,
             $materiel->description,
-            $materiel->date,
+           $materiel->date == null?'': Carbon::parse($materiel->date)->format('d-m-Y'),
             $materiel->vie,
             $materiel->vieRestante,
             $materiel->status->label(),

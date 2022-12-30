@@ -1,12 +1,12 @@
 {{--add category--}}
-<x-adminlte-modal wire:ignore.self id="add-category-modal" icon="fa fa-people-group"
-                  title="Ajout de Catégorie de Matériel">
+<x-adminlte-modal wire:ignore.self id="add-materiel-modal" icon="fa fa-people-group"
+                  title="Ajout de Matériel">
     <x-validation-errors class="mb-4" :errors="$errors"/>
-    <form id="f1a" wire:submit.prevent="addCategory">
+    <form id="f1a" wire:submit.prevent="addMateriel">
         <div class="row">
             <div class="form-group col-md-6 col-sm-12">
-                <label for="">Groupe </label>
-                <x-form-select :select-placeholder='true' wire:model="category.materiel_category_id"
+                <label for="">Catégorie </label>
+                <x-form-select :select-placeholder='false' wire:model="materiel.materiel_category_id"
                                class="form-control">
                     @foreach ($categories as $es )
                         <option value="{{$es->id}}">{{$es->nom}}</option>
@@ -17,16 +17,39 @@
                 <x-form-input
                     type="text"
                     label="Nom"
-                    wire:model="category.nom"
-                    :is-valid="$errors->has('category.nom')?false:null"
-                    :error="$errors->first('category.nom')">
+                    wire:model="materiel.nom"
+                    :is-valid="$errors->has('materiel.nom')?false:null"
+                    :error="$errors->first('materiel.nom')">
+                </x-form-input>
+            </div>
+            <div class="form-group col-md-4 col-sm-12">
+                <x-form-input
+                    type="number"
+                    label="Montant"
+                    wire:model="materiel.montant"
+                    :is-valid="$errors->has('materiel.montant')?false:null"
+                    :error="$errors->first('materiel.montant')">
+                </x-form-input>
+            </div>
+            <div class="form-group col-md-4 col-sm-12">
+                <x-form-input
+                    type="date"
+                    label="Date"
+                    wire:model="materiel.date">
+                </x-form-input>
+            </div>
+            <div class="form-group col-md-4 col-sm-12">
+                <x-form-input
+                    type="number"
+                    label="Vie"
+                    wire:model="materiel.vie">
                 </x-form-input>
             </div>
             <div class="form-group col-md-12 col-sm-12">
                <x-form-input
                    type="text"
                    label="Description"
-                   wire:model="category.description">
+                   wire:model="materiel.description">
                </x-form-input>
            </div>
             {{--  <div class="form-group col-md-12 col-sm-12">
@@ -56,7 +79,7 @@
 </x-adminlte-modal>
 
 {{--update category--}}
-<x-adminlte-modal wire:ignore.self id="update-category-modal" icon="fa fa-people-group"
+<x-adminlte-modal wire:ignore.self id="update-materiel-modal" icon="fa fa-people-group"
                   title="Modification de Catégorie de Matériel">
     <x-validation-errors class="mb-4" :errors="$errors"/>
     <form id="f2a" wire:submit.prevent="updateCategory">
@@ -96,7 +119,7 @@
 </x-adminlte-modal>
 
 {{--delete category--}}
-<x-adminlte-modal wire:ignore.self id="delete-category-modal" icon="fa fa-cubes"
+<x-adminlte-modal wire:ignore.self id="delete-materiel-modal" icon="fa fa-cubes"
                   title="Suppression de Catégorie de Matériel">
     <x-validation-errors class="mb-4" :errors="$errors"/>
     <div>Êtes-vous sûr de vouloir supprimer cette catégorie</div>

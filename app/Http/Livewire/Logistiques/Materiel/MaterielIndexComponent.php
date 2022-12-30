@@ -2,10 +2,13 @@
 
 namespace App\Http\Livewire\Logistiques\Materiel;
 
+use App\Enums\MaterialStatus;
 use App\Models\Materiel;
 use App\Models\MaterielCategory;
+use App\Models\User;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
+use Illuminate\Support\Facades\Auth;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
@@ -19,13 +22,18 @@ class MaterielIndexComponent extends Component
     public Materiel $materiel;
 
     protected $rules = [
+        'materiel.materiel_category_id' => 'required',
         'materiel.nom' => 'required',
-        'materiel.materiel_category_id' => 'nullable',
         'materiel.description' => 'nullable',
+        'materiel.montant' => 'required',
+        'materiel.date' => 'nullable',
+        'materiel.vie' => 'required',
+        'materiel.status' => 'nullable',
     ];
 
     public function mount()
     {
+        $this->loadData();
         $this->initMateriel();
     }
 
@@ -38,6 +46,8 @@ class MaterielIndexComponent extends Component
     public function initMateriel()
     {
         $this->materiel = new Materiel();
+       if($this->categories->count()>0) $this->materiel->materiel_category_id = $this->categories[0]->id;
+
     }
 
 
@@ -50,8 +60,13 @@ class MaterielIndexComponent extends Component
 
     public function addMateriel()
     {
+        $this->materiel->user_id = Auth::id();
+        $this->materiel->edited_by = Auth::id();
+        $this->materiel->status = MaterialStatus::ok->name;
+
         $this->validate();
 
+       // dd($this->materiel);
         $done = $this->materiel->save();
         if ($done) {
             $this->onModalClosed('add-materiel-modal');
