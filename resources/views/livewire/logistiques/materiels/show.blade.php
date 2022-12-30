@@ -61,13 +61,22 @@
                         <div class="card-body">
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
-                                    <b>Materiels : </b> <span class="float-right"></span>
+                                    <b>Valeur Initiale : </b> <span class="float-right">{{number_format($materiel->montant)}} Fc</span>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Materiels Aggrégat : </b> <span class="float-right"></span>
+                                    <b>Année Mise en Service : </b> <span class="float-right">{{$materiel->dateFormatted}}</span>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Sous Catégories : </b> <span class="float-right"></span>
+                                    <b>Durée de Vie : </b> <span class="float-right">{{$materiel->vie}} ans</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Methode d'Amortissement : </b> <span class="float-right">Linéaire</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Taux d'Amortissement : </b> <span class="float-right">{{number_format($materiel->amortissementTaux)}} %</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Amortissement Annuelle : </b> <span class="float-right">{{number_format($materiel->amortissement)}} Fc</span>
                                 </li>
                             </ul>
                         </div>
@@ -100,13 +109,10 @@
                                                     <thead>
                                                     <tr>
                                                         <th style="width: 50px">#</th>
-                                                        <th>NOM</th>
-                                                        <th>DESCRIPTION</th>
-                                                        <th style="width: 100px">DATE</th>
-                                                        <th>VIE</th>
-                                                        <th>RESTE</th>
-                                                        <th>ÉTAT</th>
-                                                        <th style="width: 50px"></th>
+                                                        <th>ANNÉE</th>
+                                                        <th>AMORTISSEMENT</th>
+                                                        <th>RÉSIDU</th>
+
                                                     </tr>
                                                     </thead>
                                                     <tbody>

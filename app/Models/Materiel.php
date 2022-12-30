@@ -24,12 +24,12 @@ class Materiel extends Model
         return $this->belongsTo(MaterielCategory::class, 'materiel_category_id', 'id');
     }
 
-    public function getCategoryIdAttribute():int|null
+    public function getCategoryIdAttribute(): int|null
     {
         return $this->category->id;
     }
 
-    public function getCategoryNomAttribute():string|null
+    public function getCategoryNomAttribute(): string|null
     {
         return $this->category->nom;
     }
@@ -42,5 +42,20 @@ class Materiel extends Model
         $d = $n->diffInYears($n0, absolute: true);
 
         return $d > $this->vie ? $this->vie : $this->vie - $d;
+    }
+
+    public function getDateFormattedAttribute(): string|null
+    {
+        return $this->date == null ? null : Carbon::parse($this->date)->format('d-m-Y');
+    }
+
+    public function getAmortissementAttribute(): string|null
+    {
+        return $this->amortissementTaux == null ? null : ($this->montant * $this->amortissementTaux/100);
+    }
+
+    public function getAmortissementTauxAttribute(): float|null
+    {
+        return $this->vie == null ? null : number_format((100 / $this->vie), 2);
     }
 }
