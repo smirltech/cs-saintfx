@@ -81,12 +81,12 @@
                                 <li class="nav-item">
                                     <a class="nav-link active" id="custom-tabs-one-materiels-tab" data-toggle="pill"
                                        href="#custom-tabs-one-materiels" role="tab" aria-controls="custom-tabs-one-materiels"
-                                       aria-selected="true">Matériels</a>
+                                       aria-selected="true">Amortissement</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="custom-tabs-one-categories-tab" data-toggle="pill"
                                        href="#custom-tabs-one-categories" role="tab"
-                                       aria-controls="custom-tabs-one-categories" aria-selected="false">Sous Catégories</a>
+                                       aria-controls="custom-tabs-one-categories" aria-selected="false">Cession</a>
                                 </li>
                             </ul>
                         </div>
