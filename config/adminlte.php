@@ -423,7 +423,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Materiels',
-                    'icon' => 'fas fa-fw fa-microscope',
+                    'icon' => 'fas fa-fw fa-screwdriver-wrench',
                     'shift' => 'ml-2',
                     'url' => '#',
                 ],
