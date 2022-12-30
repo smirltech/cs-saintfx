@@ -49,6 +49,9 @@
                                 <li class="list-group-item">
                                     <b>Description : </b> <span class="float-right">{{ $materiel->description }}</span>
                                 </li>
+                                <li class="list-group-item">
+                                    <b>État : </b> <span class="float-right">{{$materiel->status->label()}}</span>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -69,6 +72,10 @@
                                 </li>
                                 <li class="list-group-item">
                                     <b>Durée de Vie : </b> <span class="float-right">{{$materiel->vie}} ans</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Vie Consommée : </b> <span
+                                        class="float-right">{{$materiel->vieConsommee}} ans</span>
                                 </li>
                                 <li class="list-group-item">
                                     <b>Vie Restante : </b> <span
@@ -99,23 +106,43 @@
                         <div class="card-header p-0 pt-1">
                             <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="custom-tabs-one-materiels-tab" data-toggle="pill"
-                                       href="#custom-tabs-one-materiels" role="tab"
-                                       aria-controls="custom-tabs-one-materiels"
-                                       aria-selected="true">Amortissement</a>
+                                    <a class="nav-link active" id="custom-tabs-one-mouvements-tab" data-toggle="pill"
+                                       href="#custom-tabs-one-mouvements" role="tab"
+                                       aria-controls="custom-tabs-one-mouvements"
+                                       aria-selected="true">Mouvements</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="custom-tabs-one-categories-tab" data-toggle="pill"
-                                       href="#custom-tabs-one-categories" role="tab"
-                                       aria-controls="custom-tabs-one-categories" aria-selected="false">Cession</a>
+                                    <a class="nav-link" id="custom-tabs-one-amortissement-tab" data-toggle="pill"
+                                       href="#custom-tabs-one-amortissement" role="tab"
+                                       aria-controls="custom-tabs-one-amortissement" aria-selected="false">Amortissement</a>
                                 </li>
                             </ul>
                         </div>
 
                         <div class="card-body">
                             <div class="tab-content" id="custom-tabs-one-tabContent">
-                                <div class="tab-pane fade active show" id="custom-tabs-one-materiels" role="tabpanel"
-                                     aria-labelledby="custom-tabs-one-materiels-tab">
+                                <div class="tab-pane fade active show" id="custom-tabs-one-mouvements" role="tabpanel"
+                                     aria-labelledby="custom-tabs-one-mouvements-tab">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th style="width: 50px">#</th>
+                                                <th>CATÉGORIE</th>
+                                                <th>DESCRIPTION</th>
+                                                <th>MATÉRIELS</th>
+                                                <th>AGGRÉGAT</th>
+                                                <th style="width: 50px"></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="custom-tabs-one-amortissement" role="tabpanel"
+                                     aria-labelledby="custom-tabs-one-amortissement-tab">
                                     <div class="table-responsive">
                                         <table class="table">
                                             <thead>
@@ -138,26 +165,6 @@
                                                     <td>{{number_format($amo->residu, 2)}} Fc</td>
                                                 </tr>
                                             @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="custom-tabs-one-categories" role="tabpanel"
-                                     aria-labelledby="custom-tabs-one-categories-tab">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                            <tr>
-                                                <th style="width: 50px">#</th>
-                                                <th>CATÉGORIE</th>
-                                                <th>DESCRIPTION</th>
-                                                <th>MATÉRIELS</th>
-                                                <th>AGGRÉGAT</th>
-                                                <th style="width: 50px"></th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-
                                             </tbody>
                                         </table>
                                     </div>
