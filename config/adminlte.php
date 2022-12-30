@@ -425,7 +425,7 @@ return [
                     'text' => 'Materiels',
                     'icon' => 'fas fa-fw fa-screwdriver-wrench',
                     'shift' => 'ml-2',
-                    'url' => '#',
+                    'url' => 'logistiques/materiels',
                 ],
                 [
                     'text' => 'Categories',

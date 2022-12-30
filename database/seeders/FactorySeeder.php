@@ -65,7 +65,6 @@ class FactorySeeder extends Seeder
         Perception::factory(5)->create();
         MaterielCategory::factory(5)->create();
         Materiel::factory(10)->create();
-        Amortissement::factory(10)->create();
         Mouvement::factory(15)->create();
         Cession::factory(3)->create();
 

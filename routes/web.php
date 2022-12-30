@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\OtpController;
 use App\Http\Controllers\MediaController;
 use App\Http\Livewire\Finance;
+use App\Http\Livewire\Logistiques\Materiel\MaterielIndexComponent;
+use App\Http\Livewire\Logistiques\Materiel\MaterielShowComponent;
 use App\Http\Livewire\Logistiques\MaterielCategory\MaterielCategoryShowComponent;
 use App\Http\Livewire\MainDashboardComponent;
 use App\Http\Livewire\Logistiques\MaterielCategory\MaterielCategoryIndexComponent;
@@ -146,6 +148,12 @@ Route::prefix('logistiques')->middleware(['auth:web'])->as('logistiques.')->grou
     // materiel categories
     Route::get('categories', MaterielCategoryIndexComponent::class)->name('categories');
     Route::get('categories/{category}', MaterielCategoryShowComponent::class)->name('categories.show');
+
+    // materiels
+    Route::get('materiels', MaterielIndexComponent::class)->name('materiels');
+    Route::get('materiels/{materiel}', MaterielShowComponent::class)->name('materiels.show');
+
+
 });
 
 
