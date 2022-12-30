@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Patrimoine\MaterielCategory;
+namespace App\Http\Livewire\Logistiques\MaterielCategory;
 
 use App\Models\MaterielCategory;
 use App\Traits\TopMenuPreview;
@@ -43,7 +43,7 @@ class MaterielCategoryIndexComponent extends Component
     public function render()
     {
         $this->loadData();
-        return view('livewire.patrimoine.materiel_categories.index')
+        return view('livewire.logistiques.materiel_categories.index')
             ->layout(AdminLayout::class, ['title' => 'Liste de Categories des Matériels']);
     }
 

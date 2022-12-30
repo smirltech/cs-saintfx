@@ -27,7 +27,7 @@
 @endphp
 
 @section('title')
-     - catégories de patrimoine
+    - catégories de patrimoine
 @endsection
 @section('content_header')
     <div class="row">
@@ -45,7 +45,7 @@
 
 @stop
 <div wire:ignore.self class="">
-    @include('livewire.patrimoine.materiel_categories.modals.crud')
+    @include('livewire.logistiques.materiel_categories.modals.crud')
 
     <div class="content mt-3">
         <div class="container-fluid">

@@ -7,7 +7,7 @@ use App\Http\Controllers\Auth\OtpController;
 use App\Http\Controllers\MediaController;
 use App\Http\Livewire\Finance;
 use App\Http\Livewire\MainDashboardComponent;
-use App\Http\Livewire\Patrimoine\MaterielCategory\MaterielCategoryIndexComponent;
+use App\Http\Livewire\Logistiques\MaterielCategory\MaterielCategoryIndexComponent;
 use App\Http\Livewire\Scolarite;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;

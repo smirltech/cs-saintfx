@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Patrimoine\MaterielCategory;
+namespace App\Http\Livewire\Logistiques\MaterielCategory;
 
 use App\Models\Option;
 use App\Models\Section;
