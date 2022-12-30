@@ -25,4 +25,9 @@ class MaterielCategory extends Model
     {
         return $this->hasMany(Materiel::class);
     }
+
+    public function categories(): HasMany|null
+    {
+        return $this->hasMany(self::class);
+    }
 }

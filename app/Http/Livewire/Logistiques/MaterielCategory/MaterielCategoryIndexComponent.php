@@ -77,8 +77,8 @@ class MaterielCategoryIndexComponent extends Component
 
     public function getSelectedCategory(MaterielCategory $category)
     {
-
         $this->category = $category;
+       // dd($this->category->categories);
     }
 
     public function updateCategory()
@@ -87,7 +87,6 @@ class MaterielCategoryIndexComponent extends Component
             'category.nom' => [
                 "required",
                 Rule::unique((new MaterielCategory())->getTable(), "nom")->ignore($this->category->id)
-
             ],
             'category.description' => 'nullable',
             'category.materiel_category_id' => 'nullable',
@@ -95,16 +94,15 @@ class MaterielCategoryIndexComponent extends Component
 
         $done = $this->category->save();
         if ($done) {
-
+            $this->onModalClosed('update-category-modal');
             $this->alert('success', "Catégorie modifiée avec succès !");
         } else {
             $this->alert('warning', "Échec de modification de catégorie !");
         }
-        $this->onModalClosed('update-category-modal');
 
     }
 
-    public function deleteSection()
+    public function deleteCategory()
     {
         if ($this->category->categories->count() == 0 && $this->category->materiels->count() == 0) {
             if ($this->category->delete()) {

@@ -1,7 +1,7 @@
 @php
     $heads =[
         ['label'=>'#', 'width'=>5],
-        'CATEGORIE',
+        'CATÉGORIE',
         'GROUPE',
         'DESCRIPTION',
         ['label'=>'', 'no-export'=>true, 'width'=>5]
@@ -77,13 +77,13 @@
                                         <td>{!! $row[3] !!}</td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                <a href="/patrimoine/categories/{{ $row[4]->id }}" title="Voir"
+                                                <a href="{{route('logistiques.categories.show',[$row[4]->id])}}" title="Voir"
                                                    class="btn btn-warning">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
                                                 <button wire:click="getSelectedCategory({{$row[4]}})" type="button"
                                                         title="Modifier" class="btn btn-info  ml-2" data-toggle="modal"
-                                                        data-target="#edit-category-modal">
+                                                        data-target="#update-category-modal">
                                                     <span class="fa fa-pen"></span>
                                                 </button>
 
