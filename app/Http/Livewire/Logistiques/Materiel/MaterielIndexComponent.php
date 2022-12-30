@@ -87,7 +87,7 @@ class MaterielIndexComponent extends Component
     public function getSelectedMateriel(Materiel $materiel)
     {
         $this->materiel = $materiel;
-        // dd($this->category->categories);
+       //  dd($this->materiel);
     }
 
     public function updateMateriel()
@@ -107,7 +107,7 @@ class MaterielIndexComponent extends Component
     public function deleteMateriel()
     {
 
-        if ($this->category->delete()) {
+        if ($this->materiel->delete()) {
             $this->loadData();
             $this->alert('success', "Matériel supprimé avec succès !");
         } else {

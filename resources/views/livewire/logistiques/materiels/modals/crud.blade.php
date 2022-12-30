@@ -80,13 +80,13 @@
 
 {{--update category--}}
 <x-adminlte-modal wire:ignore.self id="update-materiel-modal" icon="fa fa-people-group"
-                  title="Modification de Catégorie de Matériel">
+                  title="Modification de Matériel">
     <x-validation-errors class="mb-4" :errors="$errors"/>
-    <form id="f2a" wire:submit.prevent="updateCategory">
+    <form id="f2a" wire:submit.prevent="updateMateriel">
         <div class="row">
             <div class="form-group col-md-6 col-sm-12">
-                <label for="">Groupe </label>
-                <x-form-select :select-placeholder='true' wire:model.defer="category.materiel_category_id"
+                <label for="">Catégorie </label>
+                <x-form-select :select-placeholder='false' wire:model="materiel.materiel_category_id"
                                class="form-control">
                     @foreach ($categories as $es )
                         <option value="{{$es->id}}">{{$es->nom}}</option>
@@ -97,18 +97,58 @@
                 <x-form-input
                     type="text"
                     label="Nom"
-                    wire:model.defer="category.nom"
-                    :is-valid="$errors->has('category.nom')?false:null"
-                    :error="$errors->first('category.nom')">
+                    wire:model="materiel.nom"
+                    :is-valid="$errors->has('materiel.nom')?false:null"
+                    :error="$errors->first('materiel.nom')">
+                </x-form-input>
+            </div>
+            <div class="form-group col-md-4 col-sm-12">
+                <x-form-input
+                    type="number"
+                    label="Montant"
+                    wire:model="materiel.montant"
+                    :is-valid="$errors->has('materiel.montant')?false:null"
+                    :error="$errors->first('materiel.montant')">
+                </x-form-input>
+            </div>
+            <div class="form-group col-md-4 col-sm-12">
+                <x-form-input
+                    type="date"
+                    label="Date"
+                    wire:model="materiel.date">
+                </x-form-input>
+            </div>
+            <div class="form-group col-md-4 col-sm-12">
+                <x-form-input
+                    type="number"
+                    label="Vie"
+                    wire:model="materiel.vie">
                 </x-form-input>
             </div>
             <div class="form-group col-md-12 col-sm-12">
                 <x-form-input
                     type="text"
                     label="Description"
-                    wire:model.defer="category.description">
+                    wire:model="materiel.description">
                 </x-form-input>
             </div>
+            {{--  <div class="form-group col-md-12 col-sm-12">
+                  <label for="">État </label>
+                  <x-form-select wire:model="presence.status"
+                                 class="form-control">
+                      @foreach (\App\Enums\PresenceStatus::cases() as $es )
+                              <option value="{{$es->name}}">{{$es->label()}}</option>
+                      @endforeach
+                  </x-form-select>
+
+              </div>--}}
+            {{--<div class="form-group col-md-12 col-sm-12">
+                <x-form-input
+                    type="text"
+                    label="Observation"
+                    wire:model="presence.observation">
+                </x-form-input>
+            </div>--}}
         </div>
     </form>
     <x-slot name="footerSlot">
@@ -120,11 +160,11 @@
 
 {{--delete category--}}
 <x-adminlte-modal wire:ignore.self id="delete-materiel-modal" icon="fa fa-cubes"
-                  title="Suppression de Catégorie de Matériel">
+                  title="Suppression de Matériel">
     <x-validation-errors class="mb-4" :errors="$errors"/>
-    <div>Êtes-vous sûr de vouloir supprimer cette catégorie</div>
+    <div>Êtes-vous sûr de vouloir supprimer ce matériel</div>
     <x-slot name="footerSlot">
-        <x-adminlte-button wire:click="deleteCategory" type="button" theme="primary"
+        <x-adminlte-button wire:click="deleteMateriel" type="button" theme="primary"
                            label="Supprimer"></x-adminlte-button>
     </x-slot>
 </x-adminlte-modal>
