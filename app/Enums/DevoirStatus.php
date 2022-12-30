@@ -18,4 +18,13 @@ enum DevoirStatus: string
             self::closed => 'Fermé',
         };
     }
+
+    public function variant(): string
+    {
+        return match ($this) {
+            self::draft => 'secondary',
+            self::open => 'success',
+            self::closed => 'danger',
+        };
+    }
 }

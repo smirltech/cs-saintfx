@@ -3,7 +3,7 @@
 @endphp
 
 @section('title')
-    {{Str::upper('cenk')}} - classe - {{$classe->code}}
+     - classe - {{$classe->code}}
 @endsection
 @section('content_header')
     <div class="row">

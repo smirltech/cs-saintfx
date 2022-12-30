@@ -1,6 +1,6 @@
 @php
     $heads =[
-        ['label'=>'DATE', 'width'=>8],
+        ['label'=>'DATE', 'width'=>10],
         'TITRE',
         'MONTANT',
         'DESCRIPTION',
@@ -11,7 +11,7 @@
         $data[] =[
             $revenu->created_at->format('d-m-Y'),
             $revenu->nom,
-            Helpers::currencyFormat($revenu->montant, symbol: 'Fc'),
+            \App\Helpers\Helpers::currencyFormat($revenu->montant, symbol: 'Fc'),
             $revenu->description,
             $revenu,
 ];
@@ -25,7 +25,7 @@
 @endphp
 
 @section('title')
-    {{Str::upper('cenk')}} - revenus auxiliaires
+    - revenus auxiliaires
 @endsection
 @section('content_header')
     <div class="row">

@@ -61,7 +61,7 @@ class HomeController extends Controller
         ];
 
 
-        return view('admin.dashboard', compact('boxes'))->with('title', 'Dashboard');
+        return view('admin.dashboard', compact('boxes'))->with('title', ' - Dashboard');
 
     }
 }

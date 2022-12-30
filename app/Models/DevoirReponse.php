@@ -11,6 +11,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Http\UploadedFile;
 
+/**
+ * @property mixed $devoir_id
+ * @property mixed $eleve_id
+ */
 class DevoirReponse extends Model
 {
     use HasFactory, HasUlids, HasMedia;

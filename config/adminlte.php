@@ -17,7 +17,7 @@ return [
     */
 
     'title' => 'Collège ENK',
-    'title_prefix' => '',
+    'title_prefix' => 'CENK',
     'title_postfix' => '',
 
     /*
@@ -282,145 +282,171 @@ return [
         ['header' => 'SCOLARITÉ'],
         [
             'text' => 'Élèves',
-            'icon' => 'fas fa-fw fa-graduation-cap',
+            'icon' => 'fas fa-fw fa-user-graduate',
             // 'can' => RolePermission::view_etudiant->name,
             'submenu' => [
                 [
                     'text' => 'Inscrire un élève',
                     'url' => 'scolarite/inscriptions/create',
                     'icon' => 'fa fa-plus',
-                    'shift' => 'ml-3',
+                    'shift' => 'ml-1',
                     //      'can' => RolePermission::create_etudiant->name,
                 ],
                 [
                     'text' => 'Elèves inscrits',
                     'url' => 'scolarite/inscriptions',
                     'icon' => 'fa fa-users-line',
-                    'shift' => 'ml-3',
+                    'shift' => 'ml-1',
+                ],
+                [
+                    'text' => 'Elèves non inscrits',
+                    'url' => 'scolarite/non-inscriptions',
+                    'icon' => 'fa fa-users-rays',
+                    'shift' => 'ml-1',
                 ],
                 [
                     'text' => 'Responsables',
                     'url' => 'scolarite/responsables',
                     'icon' => 'fas fa-fw fa-person-pregnant',
-                    'shift' => 'ml-3',
+                    'shift' => 'ml-1',
                 ],
             ],
         ],
         [
-            'text' => 'Classes',
-            'icon' => 'fas fa-people-roof',
+            'text' => 'Enseignement',
+            'icon' => 'fas fa-fw fa-chalkboard-teacher',
             'submenu' => [
-                [
-                    'text' => 'Liste des classes',
-                    'url' => 'scolarite/classes',
-                    'shift' => 'ml-3',
-                    //      'can' => RolePermission::create_etudiant->name,
-                ],
-                [
-                    'text' => 'Cours',
-                    'url' => 'scolarite/cours',
-                    'icon' => 'fas fa-fw fa-book-open',
-                    'shift' => 'ml-3',
-                ],
                 [
                     'text' => 'Devoirs',
                     'icon' => 'fas fa-fw fa-tasks',
                     'url' => 'scolarite/devoirs',
-                    'shift' => 'ml-3',
+                    'shift' => 'ml-1',
                 ],
+
+                [
+                    'text' => 'Cours',
+                    'url' => 'scolarite/cours',
+                    'icon' => 'fas fa-fw fa-book-open',
+                    'shift' => 'ml-1',
+                ],
+
                 [
                     'text' => 'Enseignants',
                     'icon' => 'fas fa-fw fa-chalkboard-teacher',
                     // 'can' => RolePermission::create_promotion->name,
                     'url' => 'scolarite/enseignants',
-                    'shift' => 'ml-3',
+                    'shift' => 'ml-1',
+                ],
+                [
+                    'text' => 'Classes',
+                    'icon' => 'fas fa-fw fa-person-chalkboard',
+                    'url' => 'scolarite/classes',
+                    'shift' => 'ml-1',
+                    //      'can' => RolePermission::create_etudiant->name,
                 ],
             ],
         ],
 
-        [
-            'text' => 'Sections',
-            'icon' => 'fas fa-fw fa-university',
-            // 'can' => RolePermission::create_faculte->name,
-            'submenu' => [
-                [
-                    'text' => 'Filières',
-                    'url' => 'scolarite/filieres',
-                    'shift' => 'ml-3',
-                ],
-                [
-                    'text' => 'Options',
-                    'url' => 'scolarite/options',
-                    'shift' => 'ml-3',
-                ],
-                [
-                    'text' => 'Sections',
-                    'url' => 'scolarite/sections',
-                    'shift' => 'ml-3',
-                ],
-            ],
-        ],
+
         ['header' => 'FINANCE'],
         [
-            'text' => 'Perceptions',
-            'icon' => 'fas fa-fw fa-plus',
+            'text' => 'Encaissements',
+            'icon' => 'fas fa-fw fa-arrow-trend-up',
             // 'can' => RolePermission::view_etudiant->name,
             'submenu' => [
                 [
-                    'text' => 'Ajouter perception',
-                    'url' => 'finance/perceptions/create',
-                    'shift' => 'ml-3',
-                    //      'can' => RolePermission::create_etudiant->name,
+                    'text' => 'Perceptions',
+                    'icon' => 'fas fa-fw fa-coins',
+                    'shift' => 'ml-1',
+                    // 'can' => RolePermission::view_etudiant->name,
+                    'submenu' => [
+                        [
+                            'text' => 'Ajouter perception',
+                            'url' => 'finance/perceptions/create',
+                            'shift' => 'ml-4',
+                            //      'can' => RolePermission::create_etudiant->name,
+                        ],
+                        [
+                            'text' => 'Liste de perceptions',
+                            'url' => 'finance/perceptions',
+                            'shift' => 'ml-4',
+                        ],
+                        [
+                            'text' => 'Plans de frais',
+                            'url' => 'finance/frais',
+                            'shift' => 'ml-4',
+                        ],
+                    ],
                 ],
+
                 [
-                    'text' => 'Liste de perceptions',
-                    'url' => 'finance/perceptions',
-                    'shift' => 'ml-3',
-                ],
-                [
-                    'text' => 'Plans de frais',
-                    'url' => 'finance/frais',
-                    'shift' => 'ml-3',
+                    'text' => 'Revenu Auxiliaire',
+                    'icon' => 'fas fa-fw fa-money-bill-trend-up',
+                    'url' => 'finance/revenus',
+                    'shift' => 'ml-1',
+                    // 'can' => RolePermission::create_user->name,
                 ],
             ],
         ],
         [
-            'text' => 'Revenu Auxiliaire',
-            'icon' => 'fa fa-puzzle-piece',
-            'url' => 'finance/revenus',
-            // 'can' => RolePermission::create_user->name,
-        ],
-        [
-            'text' => 'Sorties',
-            'icon' => 'fas fa-fw fa-minus',
+            'text' => 'Décaissements',
+            'icon' => 'fas fa-fw fa-arrow-trend-down',
             // 'can' => RolePermission::view_etudiant->name,
             'submenu' => [
                 [
-                    'text' => "Liste de dépenses",
+                    'text' => 'Dépenses',
+                    'icon' => 'fas fa-fw fa-coins',
+                    // 'can' => RolePermission::view_etudiant->name,
                     'url' => 'finance/depenses',
-                    'shift' => 'ml-3',
+                    'shift' => 'ml-1',
                 ],
-                /*[
-                    'text' => "Liste de paiements",
-                    'url' => 'finance/paiements',
-                ],*/
-            ],
+                [
+                    'text' => 'Types de Dépenses',
+                    'icon' => 'fas fa-fw fa-list-check',
+                    // 'can' => RolePermission::view_etudiant->name,
+                    'url' => 'finance/depenses-types',
+                    'shift' => 'ml-1',
+                ],
+            ]
         ],
+
         [
             'text' => 'Rapport financier',
-            'icon' => 'fas fa-fw fa-chart-line',
+            'icon' => 'fas fa-fw fa-chart-column',
             'url' => 'finance/rapports',
             // 'can' => RolePermission::create_user->name,
         ],
 
-        ['header' => 'SYSTÊME'],
+        ['header' => 'ECOLE'],
         [
             'text' => 'Calendrier',
             'url' => 'scolarite/annees',
             'icon' => 'fas fa-fw fa-calendar-alt',
         ],
         [
-            'text' => 'Utilisateurs',
+            'text' => 'Programme',
+            'icon' => 'fas fa-fw fa-university',
+            // 'can' => RolePermission::create_faculte->name,
+            'submenu' => [
+                [
+                    'text' => 'Filières',
+                    'url' => 'scolarite/filieres',
+                    'shift' => 'ml-1',
+                ],
+                [
+                    'text' => 'Options',
+                    'url' => 'scolarite/options',
+                    'shift' => 'ml-1',
+                ],
+                [
+                    'text' => 'Sections',
+                    'url' => 'scolarite/sections',
+                    'shift' => 'ml-1',
+                ],
+            ],
+        ],
+        [
+            'text' => 'Personnel',
             'icon' => 'fas fa-fw fa-users',
             'url' => '/users',
             'can' => RolePermission::create_user->name,

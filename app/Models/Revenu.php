@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Revenu extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUlids;
 
     public $guarded = [];
 

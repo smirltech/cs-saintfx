@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Scolarite\Responsable;
 
 use App\Models\Responsable;
+use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
@@ -10,6 +11,7 @@ use Livewire\WithPagination;
 
 class ResponsableIndexComponent extends Component
 {
+    use TopMenuPreview;
     use LivewireAlert;
     use WithPagination;
 

@@ -3,7 +3,6 @@
     use App\Helpers\Helpers;use App\Models\Annee;
     $heads = [
             ['', 'no-export' => false, 'width' => 5],
-            'CODE',
             'MATRICULE',
             'ELEVE',
             'SEXE',
@@ -24,7 +23,6 @@
 
             $data[] = [
                 '<img class="img-circle" style="width:50px; height:50px" src="'.$eleve->profile_url.'"></img>',
-                $eleve->code,
                 $eleve->matricule,
                 $eleve->fullName,
                 $eleve->sexe->value??'',
@@ -42,11 +40,11 @@
         $config = [
             'data' => $data ?? [],
             'order' => [[1, 'asc']],
-            'columns' => [['orderable' => false],['orderable' => true], null,  null, null, null, null, null, null, null, null,['orderable' => false]],
+            'columns' => [['orderable' => false],['orderable' => true],  null, null, null, null, null, null, null, null,['orderable' => false]],
         ];
 @endphp
 @section('title')
-    {{Str::upper('cenk')}} - élèves
+     - élèves
 @endsection
 @section('content_header')
     <div class="row">

@@ -24,7 +24,7 @@ class DevoirFactory extends Factory
             'annee_id' => $this->faker->numberBetween(1, Annee::count()),
             'titre' => $this->faker->words(3, true),
             'contenu' => $this->faker->paragraphs(5, true),
-            'echeance' => $this->faker->dateTimeBetween('now', '+1 week')->format('Y-m-d'),
+            'echeance' => $this->faker->dateTimeBetween('now', '+1 week'),
             'status' => $this->faker->randomElement(array_column(DevoirStatus::cases(), 'value')),
         ];
     }

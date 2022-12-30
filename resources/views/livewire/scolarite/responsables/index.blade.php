@@ -45,7 +45,7 @@
         ];
 @endphp
 @section('title')
-    {{Str::upper('cenk')}} - responsables
+     - responsables
 @endsection
 @section('content_header')
     <div class="row">

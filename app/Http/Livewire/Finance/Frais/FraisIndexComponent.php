@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Finance\Frais;
 
 
-
 use App\Enums\FraisFrequence;
 use App\Enums\FraisType;
 use App\Models\Annee;
@@ -12,12 +11,14 @@ use App\Models\Filiere;
 use App\Models\Frais;
 use App\Models\Option;
 use App\Models\Section;
+use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 class FraisIndexComponent extends Component
 {
+    use TopMenuPreview;
     use LivewireAlert;
 
     public $sections = [];
@@ -50,7 +51,7 @@ class FraisIndexComponent extends Component
         'annee_id.required' => 'L\'année est obligatoire !',
     ];
 
-    protected $listeners = ['onModalClosed'];
+    //protected $listeners = ['onModalClosed'];
 
     public function mount()
     {
@@ -76,7 +77,7 @@ class FraisIndexComponent extends Component
     private function loadAvailableClasses()
     {
         if ($this->filiere_id > 0) {
-            $filiere =  Filiere::find($this->filiere_id);
+            $filiere = Filiere::find($this->filiere_id);
             $this->classes = $filiere->classes ?? [];
         } else if ($this->option_id > 0) {
             $option = Option::find($this->option_id);
@@ -89,7 +90,7 @@ class FraisIndexComponent extends Component
         }
 
         $this->sections = Section::orderBy('nom')->get();
-        $this->options = ($this->section_id > 0) ?Option::where('section_id',$this->section_id)->get():[];
+        $this->options = ($this->section_id > 0) ? Option::where('section_id', $this->section_id)->get() : [];
         $this->filieres = ($this->option_id > 0) ? Option::find($this->option_id)->filieres ?? [] : [];
     }
 
@@ -114,18 +115,19 @@ class FraisIndexComponent extends Component
             'classable_id' => $this->classable_id,
             'classable_type' => $this->classable_type,
         ]);
-
+        $this->onModalClosed('add-frais-modal');
         $this->alert('success', "Frais ajouté avec succès !");
-
-        // close the modal by specifying the id of the modal
-        $this->dispatchBrowserEvent('closeModal', ['modal' => 'add-frais-modal']);
-        $this->onModalClosed();
+       // $this->dispatchBrowserEvent('closeModal', ['modal' => 'add-frais-modal']);
     }
 
-    public function onModalClosed()
+    public function onModalClosed($p_id)
     {
-        $this->clearValidation();
-        $this->reset(['nom', 'description', 'montant', 'classable_type', 'classable_id']);
+        $this->dispatchBrowserEvent('closeModal', ['modal' => $p_id]);
+        //$this->clearValidation();
+        $this->reset(['nom', 'description', 'montant',
+            'classable_type', 'classable_id',
+            'section_id', 'option_id', 'filiere_id', 'classe_id'
+        ]);
     }
 
     public function getSelectedFrais(Frais $fee)
@@ -206,13 +208,12 @@ class FraisIndexComponent extends Component
             'classable_type' => $this->classable_type,
         ]);
         if ($done) {
+            $this->onModalClosed('edit-frais-modal');
             $this->alert('success', "Frais modifié avec succès !");
-
-            $this->dispatchBrowserEvent('closeModal', ['modal' => 'edit-frais-modal']);
         } else {
             $this->alert('warning', "Echec de modification de frais !");
         }
-        $this->onModalClosed();
+
 
     }
 
@@ -224,28 +225,26 @@ class FraisIndexComponent extends Component
 
         if (count($this->fee->perceptions) == 0) {
             if ($this->fee->delete()) {
+                $this->onModalClosed('delete-frais-modal');
                 $this->loadData();
                 $this->alert('success', "Frais supprimé avec succès !");
-                $this->dispatchBrowserEvent('closeModal', ['modal' => 'delete-frais-modal']);
             }
         } else {
             $this->alert('warning', "Frais n'a pas été supprimé, il y a des perceptions attachées !");
         }
-        $this->onModalClosed();
 
     }
 
     public function changeSection()
     {
+        $this->options = [];
+        $this->filieres = [];
         if ($this->section_id > 0) {
             $section = Section::find($this->section_id);
             $this->options = $section->options ?? [];
-        } else {
-            $this->options = [];
         }
         $this->classable_id = $this->section_id;
         $this->classable_type = Section::class;
-        $this->filieres = [];
         $this->option_id = null;
         $this->filiere_id = null;
         $this->classe_id = null;
@@ -254,12 +253,10 @@ class FraisIndexComponent extends Component
 
     public function changeOption()
     {
-
+        $this->filieres = [];
         if ($this->option_id > 0) {
             $option = Option::find($this->option_id);
             $this->filieres = $option->filieres ?? [];
-        } else {
-            $this->filieres = [];
         }
         $this->classable_id = $this->option_id;
         $this->classable_type = Option::class;

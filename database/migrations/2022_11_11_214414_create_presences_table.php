@@ -1,6 +1,7 @@
 <?php
 
-use App\Models\Eleve;
+use App\Enums\PresenceStatus;
+use App\Models\Annee;
 use App\Models\Inscription;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -12,9 +13,12 @@ return new class extends Migration {
         Schema::create('presences', function (Blueprint $table) {
             $table->ulid('id')->primary();
             $table->foreignIdFor(Inscription::class)->constrained()->restrictOnDelete();
+            $table->foreignIdFor(Annee::class)->constrained()->restrictOnDelete();
             $table->date('date');
+            $table->string('status')->default(PresenceStatus::present->name);
             $table->text('observation')->nullable();
             $table->timestamps();
+            $table->unique(['inscription_id', 'date', 'annee_id']);
         });
     }
 };

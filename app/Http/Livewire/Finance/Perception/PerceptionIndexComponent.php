@@ -5,12 +5,14 @@ namespace App\Http\Livewire\Finance\Perception;
 use App\Http\Integrations\Scolarite\Requests\Annee\GetCurrentAnnneRequest;
 use App\Models\Annee;
 use App\Models\Perception;
+use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 class PerceptionIndexComponent extends Component
 {
+    use TopMenuPreview;
     use LivewireAlert;
 
     public $perceptions = [];

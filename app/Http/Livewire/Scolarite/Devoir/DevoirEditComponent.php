@@ -3,22 +3,26 @@
 namespace App\Http\Livewire\Scolarite\Devoir;
 
 
+use App\Enums\DevoirStatus;
 use App\Enums\MediaType;
 use App\Exceptions\ApplicationAlert;
 use App\Models\Classe;
 use App\Models\Devoir;
 use App\Traits\CanDeleteMedia;
+use App\Traits\TopMenuPreview;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
 
 class DevoirEditComponent extends Component
 {
+    use TopMenuPreview;
 
     use ApplicationAlert, WithFileUploads, CanDeleteMedia;
 
@@ -50,6 +54,7 @@ class DevoirEditComponent extends Component
         $this->devoir->save();
         if ($this->document) {
             $this->devoir->addMedia(file: $this->document, mediaType: MediaType::document);
+            $this->document = null;
         }
         $this->refreshData();
         $this->alert('success', 'Cours modifiée avec succès');
@@ -122,6 +127,7 @@ class DevoirEditComponent extends Component
             'devoir.classe_id' => ['required', 'integer'],
             'devoir.cours_id' => ['required', 'integer'],
             'devoir.echeance' => ['required', 'date'],
+            'devoir.status' => ['required', Rule::enum(DevoirStatus::class)],
             'document' => ['nullable', 'file', 'mimes:pdf', 'max:2048'],
         ];
     }

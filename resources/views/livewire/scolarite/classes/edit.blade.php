@@ -1,6 +1,6 @@
 @php use App\Enums\ClasseGrade;use App\Models\Enseignant; @endphp
 @section('title')
-    {{Str::upper('cenk')}} - modifier classe - {{$classe->code}}
+     - modifier classe - {{$classe->code}}
 @endsection
 @section('content_header')
     <div class="row">
