@@ -409,12 +409,49 @@ return [
                 ],
             ]
         ],
-
         [
             'text' => 'Rapport financier',
             'icon' => 'fas fa-fw fa-chart-column',
             'url' => 'finance/rapports',
             // 'can' => RolePermission::create_user->name,
+        ],
+
+        [
+            'text' => 'LOGISTIQUES',
+            'icon' => 'fas fa-fw fa-hand-holding-dollar',
+            // 'can' => RolePermission::view_etudiant->name,
+            'submenu' => [
+                [
+                    'text' => 'Materiels',
+                    'icon' => 'fas fa-fw fa-screwdriver-wrench',
+                    'shift' => 'ml-2',
+                    'url' => '#',
+                ],
+                [
+                    'text' => 'Categories',
+                    'icon' => 'fas fa-fw fa-layer-group',
+                    'shift' => 'ml-2',
+                    'url' => 'logistiques/categories',
+                ],
+                [
+                    'text' => 'Mouvements',
+                    'icon' => 'fas fa-fw fa-people-carry-box',
+                    'shift' => 'ml-2',
+                    'url' => '#',
+                ],
+                [
+                    'text' => 'Amortissements',
+                    'icon' => 'fas fa-fw fa-business-time',
+                    'shift' => 'ml-2',
+                    'url' => '#',
+                ],
+                [
+                    'text' => 'Cessions',
+                    'icon' => 'fas fa-fw fa-hand-holding-hand',
+                    'shift' => 'ml-2',
+                    'url' => '#',
+                ],
+            ],
         ],
 
         ['header' => 'ECOLE'],

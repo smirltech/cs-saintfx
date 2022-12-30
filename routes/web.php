@@ -6,7 +6,9 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\OtpController;
 use App\Http\Controllers\MediaController;
 use App\Http\Livewire\Finance;
+use App\Http\Livewire\Logistiques\MaterielCategory\MaterielCategoryShowComponent;
 use App\Http\Livewire\MainDashboardComponent;
+use App\Http\Livewire\Logistiques\MaterielCategory\MaterielCategoryIndexComponent;
 use App\Http\Livewire\Scolarite;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +27,7 @@ Route::get('media/{media}', [MediaController::class, 'show'])->name('media.show'
 
 
 Route::get('/', MainDashboardComponent::class)->name('home')->middleware('auth');
+Route::get('dashboard', MainDashboardComponent::class)->name('dashboard')->middleware('auth');
 
 Route::get('scolarite', Scolarite\DashboardComponent::class)->name('scolarite')->middleware('auth');
 Route::get('finance', Finance\Dashboard\DashboardComponent::class)->name('finance')->middleware('auth');
@@ -136,5 +139,14 @@ Route::prefix('finance')->middleware(['auth:web'])->as('finance.')->group(functi
     Route::get('eleves', Finance\Eleve\EleveIndexComponent::class)->name('eleves');
     Route::get('eleves/{id}', Finance\Eleve\EleveShowComponent::class)->name('eleves.show');
 });
+
+# Logistiques
+Route::prefix('logistiques')->middleware(['auth:web'])->as('logistiques.')->group(function () {
+
+    // materiel categories
+    Route::get('categories', MaterielCategoryIndexComponent::class)->name('categories');
+    Route::get('categories/{category}', MaterielCategoryShowComponent::class)->name('categories.show');
+});
+
 
 Auth::routes();
