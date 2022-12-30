@@ -417,7 +417,7 @@ return [
         ],
 
         [
-            'text' => 'PATRIMOINE',
+            'text' => 'LOGISTIQUES',
             'icon' => 'fas fa-fw fa-hand-holding-dollar',
             // 'can' => RolePermission::view_etudiant->name,
             'submenu' => [
@@ -431,7 +431,7 @@ return [
                     'text' => 'Categories',
                     'icon' => 'fas fa-fw fa-layer-group',
                     'shift' => 'ml-2',
-                    'url' => '#',
+                    'url' => 'logistiques/categories',
                 ],
                 [
                     'text' => 'Mouvements',
