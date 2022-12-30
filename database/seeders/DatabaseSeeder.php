@@ -2,12 +2,13 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Enums\UserRole;
+use App\Models\MaterielCategory;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
-use Schema;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -41,7 +42,7 @@ class DatabaseSeeder extends Seeder
             'remember_token' => Str::random(10),
         ])->assignRole(UserRole::super_admin->value);
 
-
+        MaterielCategory::factory()->count(3)->make();
         // if local env
         if (!app()->isProduction()) {
             $this->call([

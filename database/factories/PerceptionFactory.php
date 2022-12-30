@@ -23,7 +23,7 @@ class PerceptionFactory extends Factory
        // dd($freq);
         return [
             'user_id' => $this->faker->randomElement(User::pluck('id')->toArray()),
-            'frais_id' => $this->faker->numberBetween(1, Frais::count()),
+            'frais_id' => $this->faker->randomElement(Frais::pluck('id')->toArray()),
             'inscription_id' => $this->faker->randomElement(Inscription::pluck('id')->toArray()),
             'frequence' => $freq->name,
             'custom_property' => $this->faker->randomElement($freq->children()),
