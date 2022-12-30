@@ -11,7 +11,7 @@
         $datas[] =[
             $i+1,
             $categorie->nom,
-            $categorie->groupe,
+            $categorie->groupe?->name,
             $categorie->description,
             $categorie,
 ];
