@@ -1,6 +1,6 @@
-@php use Carbon\Carbon; @endphp
+@php  @endphp
 @section('title')
-     - Matériel - {{$materiel->nom}}
+    - Matériel - {{$materiel->nom}}
 @endsection
 @section('content_header')
     <div class="row">
@@ -55,28 +55,39 @@
                     <div class="card card-primary card-outline">
                         <div class="card-header">
                             <div class="card-title">
-                                <h5 class="">Statistiques</h5>
+                                <h5 class="">Résumé Financier</h5>
                             </div>
                         </div>
                         <div class="card-body">
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
-                                    <b>Valeur Initiale : </b> <span class="float-right">{{number_format($materiel->montant)}} Fc</span>
+                                    <b>Valeur Initiale : </b> <span class="float-right">{{number_format($materiel->montant, 2)}} Fc</span>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Année Mise en Service : </b> <span class="float-right">{{$materiel->dateFormatted}}</span>
+                                    <b>Année Mise en Service : </b> <span
+                                        class="float-right">{{$materiel->dateFormatted}}</span>
                                 </li>
                                 <li class="list-group-item">
                                     <b>Durée de Vie : </b> <span class="float-right">{{$materiel->vie}} ans</span>
                                 </li>
                                 <li class="list-group-item">
+                                    <b>Vie Restante : </b> <span
+                                        class="float-right">{{$materiel->vieRestante}} ans</span>
+                                </li>
+                                <li class="list-group-item">
                                     <b>Methode d'Amortissement : </b> <span class="float-right">Linéaire</span>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Taux d'Amortissement : </b> <span class="float-right">{{number_format($materiel->amortissementTaux)}} %</span>
+                                    <b>Taux d'Amortissement : </b> <span class="float-right">{{number_format($materiel->amortissementTaux, 2)}} %</span>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Amortissement Annuelle : </b> <span class="float-right">{{number_format($materiel->amortissement)}} Fc</span>
+                                    <b>Amortissement Annuelle : </b> <span class="float-right">{{number_format($materiel->amortissement, 2)}} Fc</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Amortissement Cumulé : </b> <span class="float-right">{{number_format($materiel->amortissementCumule, 2)}} Fc</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Valeur Résiduelle : </b> <span class="float-right">{{number_format($materiel->valeurResiduelle, 2)}} Fc</span>
                                 </li>
                             </ul>
                         </div>
@@ -89,7 +100,8 @@
                             <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" id="custom-tabs-one-materiels-tab" data-toggle="pill"
-                                       href="#custom-tabs-one-materiels" role="tab" aria-controls="custom-tabs-one-materiels"
+                                       href="#custom-tabs-one-materiels" role="tab"
+                                       aria-controls="custom-tabs-one-materiels"
                                        aria-selected="true">Amortissement</a>
                                 </li>
                                 <li class="nav-item">
@@ -105,20 +117,29 @@
                                 <div class="tab-pane fade active show" id="custom-tabs-one-materiels" role="tabpanel"
                                      aria-labelledby="custom-tabs-one-materiels-tab">
                                     <div class="table-responsive">
-                                                <table class="table">
-                                                    <thead>
-                                                    <tr>
-                                                        <th style="width: 50px">#</th>
-                                                        <th>ANNÉE</th>
-                                                        <th>AMORTISSEMENT</th>
-                                                        <th>RÉSIDU</th>
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th style="width: 50px">#</th>
+                                                <th>ANNÉE</th>
+                                                <th>AMORTISSEMENT</th>
+                                                <th>CUMULÉ</th>
+                                                <th>RÉSIDU</th>
 
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-
-                                                    </tbody>
-                                                </table>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            @foreach($materiel->genererTableAmortissements() as $i=>$amo)
+                                                <tr class="@if(!$amo->atteint) table-secondary text-info @endif">
+                                                    <td>{{$i+1}}</td>
+                                                    <td>{{$amo->annee}}</td>
+                                                    <td>{{number_format($amo->amortissement, 2)}} Fc</td>
+                                                    <td>{{number_format($amo->amortissementCumul, 2)}} Fc</td>
+                                                    <td>{{number_format($amo->residu, 2)}} Fc</td>
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="custom-tabs-one-categories" role="tabpanel"

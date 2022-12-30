@@ -34,6 +34,14 @@ class Materiel extends Model
         return $this->category->nom;
     }
 
+    public function getVieConsommeeAttribute(): int|null
+    {
+        if ($this->date == null) return null;
+        $n0 = Carbon::parse($this->date);
+        $n = Carbon::now();
+        return $n->diffInYears($n0, absolute: true);
+    }
+
     public function getVieRestanteAttribute(): int|null
     {
         if ($this->date == null) return null;
@@ -49,13 +57,46 @@ class Materiel extends Model
         return $this->date == null ? null : Carbon::parse($this->date)->format('d-m-Y');
     }
 
-    public function getAmortissementAttribute(): string|null
+    public function getAmortissementAttribute(): float|null
     {
-        return $this->amortissementTaux == null ? null : ($this->montant * $this->amortissementTaux/100);
+        return $this->amortissementTaux == null ? null : ($this->montant * $this->amortissementTaux / 100);
+    }
+
+    public function getAmortissementCumuleAttribute(): float|null
+    {
+        return $this->amortissement == null ? null : $this->amortissement * $this->vie_consommee;
+    }
+
+    public function getValeurResiduelleAttribute(): float|null
+    {
+        return $this->amortissement_cumule == null ? null : $this->montant - $this->amortissement_cumule;
     }
 
     public function getAmortissementTauxAttribute(): float|null
     {
-        return $this->vie == null ? null : number_format((100 / $this->vie), 2);
+        return $this->vie == null ? null : (100 / $this->vie);
+    }
+
+    public function genererTableAmortissements(): array
+    {
+        $base = [];
+        if ($this->date == null) return $base;
+        $annee0 = Carbon::parse($this->date)->year;
+        $amoCum = 0;
+        for ($i = 1; $i <= $this->vie; $i++) {
+            $anneeX = $annee0 + $i;
+            $amoCum += $this->amortissement;
+
+            $amo = new \App\Helpers\Amortissement();
+            $amo->annee = $anneeX;
+            $amo->amortissement = $this->amortissement;
+            $amo->amortissementCumul = $amoCum;
+            $amo->residu = $this->montant - $amoCum;
+            $amo->atteint = $this->vie_consommee >= $i;
+
+            $base[] = $amo;
+        }
+        // an array of arrays
+        return $base;
     }
 }
