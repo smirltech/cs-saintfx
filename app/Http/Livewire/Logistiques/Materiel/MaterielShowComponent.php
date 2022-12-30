@@ -2,13 +2,10 @@
 
 namespace App\Http\Livewire\Logistiques\Materiel;
 
+use App\Models\Materiel;
 use App\Models\MaterielCategory;
-use App\Models\Option;
-use App\Models\Section;
-use App\Traits\SectionCode;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
-use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
@@ -17,30 +14,35 @@ class MaterielShowComponent extends Component
     use TopMenuPreview;
     use LivewireAlert;
 
-    public MaterielCategory $category;
+    public Materiel $materiel;
     public $categories = [];
 
     protected $rules = [
-        'category.nom' => 'required|unique:materiel_categories, nom',
-        'category.materiel_category_id' => 'nullable',
-        'category.description' => 'nullable',
+        'materiel.materiel_category_id' => 'required',
+        'materiel.nom' => 'required',
+        'materiel.description' => 'nullable',
+        'materiel.montant' => 'required',
+        'materiel.date' => 'nullable',
+        'materiel.vie' => 'required',
+        'materiel.status' => 'nullable',
     ];
 
-    public function mount(MaterielCategory $category)
+    public function mount(Materiel $materiel)
     {
-        $this->category = $category;
+        $this->loadData();
+        $this->materiel = $materiel;
     }
 
     public function render()
     {
         $this->loadData();
-        return view('livewire.logistiques.materiel_categories.show')
-            ->layout(AdminLayout::class, ['title' => 'Détail sur la catégorie de matériel']);
+        return view('livewire.logistiques.materiels.show')
+            ->layout(AdminLayout::class, ['title' => 'Détail sur le matériel']);
     }
 
     public function loadData()
     {
-        $this->categories = MaterielCategory::where('id','!=', $this->category->id)->orderBy('nom', 'ASC')->get();
+        $this->categories = MaterielCategory::orderBy('nom', 'ASC')->get();
         //  dd($this->categories);
     }
 
@@ -50,26 +52,17 @@ class MaterielShowComponent extends Component
 
     }
 
-    public function updateCategory()
+    public function updateMateriel()
     {
-        $this->validate([
-            'category.nom' => [
-                "required",
-                Rule::unique((new MaterielCategory())->getTable(), "nom")->ignore($this->category->id)
-            ],
-            'category.description' => 'nullable',
-            'category.materiel_category_id' => 'nullable',
-        ]);
+        $this->validate();
 
-        $done = $this->category->save();
+        $done = $this->materiel->save();
         if ($done) {
-            $this->onModalClosed('update-category-modal');
-            $this->alert('success', "Catégorie modifiée avec succès !");
+            $this->onModalClosed('update-materiel-modal');
+            $this->alert('success', "Matériel modifié avec succès !");
         } else {
-            $this->alert('warning', "Échec de modification de catégorie !");
+            $this->alert('warning', "Échec de modification de matériel !");
         }
-        $this->category->refresh();
+        $this->materiel->refresh();
     }
-
-
 }

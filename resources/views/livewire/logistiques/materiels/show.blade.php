@@ -1,18 +1,18 @@
 @php use Carbon\Carbon; @endphp
 @section('title')
-     - Categorie - {{$category->nom}}
+     - Matériel - {{$materiel->nom}}
 @endsection
 @section('content_header')
     <div class="row">
         <div class="col-6">
-            <h1 class="ms-3"><span class="fas fa-fw fa-university mr-1"></span>Catégorie de Matériel</h1>
+            <h1 class="ms-3"><span class="fas fa-fw fa-university mr-1"></span>Matériel</h1>
         </div>
 
         <div class="col-6">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('scolarite') }}">Accueil</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('logistiques.categories') }}">Catégories</a></li>
-                <li class="breadcrumb-item active">{{$category->nom}}</li>
+                <li class="breadcrumb-item"><a href="{{ route('logistiques.materiels') }}">Matériels</a></li>
+                <li class="breadcrumb-item active">{{$materiel->nom}}</li>
             </ol>
         </div>
     </div>
@@ -28,12 +28,12 @@
                     <div class="card card-primary card-outline">
                         <div class="card-header">
                             <div class="card-title">
-                                <h4 class="m-0">{{$category->nom}}</h4>
+                                <h4 class="m-0">{{$materiel->nom}}</h4>
                             </div>
                             <div class="card-tools">
                                 <span
                                     title="Modifier" role="button" class="ml-2 mr-2" data-toggle="modal"
-                                    data-target="#update-category-modal">
+                                    data-target="#update-materiel-modal">
                                     <span class="fa fa-pen"></span>
                                 </span>
 
@@ -42,12 +42,12 @@
                         <div class="card-body">
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
-                                    <b>Groupe : </b> <span class="float-right">
-                                        <a href="{{$category->groupe==null?'#':route('logistiques.categories.show',[$category->groupe?->id])}}">{!! $category->groupe?->nom !!}</a>
+                                    <b>Catégorie : </b> <span class="float-right">
+                                        <a href="{{route('logistiques.categories.show',[$materiel->categoryId])}}">{!! $materiel->categoryNom !!}</a>
                                     </span>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Description : </b> <span class="float-right">{{ $category->description }}</span>
+                                    <b>Description : </b> <span class="float-right">{{ $materiel->description }}</span>
                                 </li>
                             </ul>
                         </div>
@@ -61,13 +61,13 @@
                         <div class="card-body">
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
-                                    <b>Materiels : </b> <span class="float-right">{{ $category->materielsCount }}</span>
+                                    <b>Materiels : </b> <span class="float-right"></span>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Materiels Aggrégat : </b> <span class="float-right">{{ $category->materielsCountAggregate }}</span>
+                                    <b>Materiels Aggrégat : </b> <span class="float-right"></span>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Sous Catégories : </b> <span class="float-right">{{$category->categories->count()}}</span>
+                                    <b>Sous Catégories : </b> <span class="float-right"></span>
                                 </li>
                             </ul>
                         </div>
@@ -110,27 +110,7 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    @foreach ($category->materiels as $i=>$materiel)
-                                                        <tr>
-                                                            <td>{{ $i+1 }}</td>
-                                                            <td>{{ $materiel->nom }}</td>
-                                                            <td>{{ $materiel->description }}</td>
-                                                            <td>{{ Carbon::parse($materiel->date)->format('d-m-Y') }}</td>
-                                                            <td>{{ $materiel->vie }}</td>
-                                                            <td>{{ $materiel->vieRestante }}</td>
-                                                            <td>{{ $materiel->status->label() }}</td>
 
-                                                            <td>
-                                                                <div class="d-flex float-right">
-                                                                    <a href="#" title="Voir"
-                                                                       class="btn btn-warning">
-                                                                        <i class="fas fa-eye"></i>
-                                                                    </a>
-
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
                                                     </tbody>
                                                 </table>
                                     </div>
@@ -150,26 +130,7 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            @foreach ($category->categories as $i=>$categ)
-                                                <tr>
-                                                    <td>{{ $i+1 }}</td>
-                                                    <td>
-                                                        <a href="{{route('logistiques.categories.show',[$categ->id])}}">{!! $categ->nom !!}</a>
-                                                    </td>
-                                                    <td>{{ $categ->description }}</td>
-                                                    <td>{{ $categ->materielsCount }}</td>
-                                                    <td>{{ $categ->materielsCountAggregate }}</td>
-                                                    <td>
-                                                        <div class="d-flex float-right">
-                                                            <button title="Supprimer"
-                                                               class="btn btn-danger">
-                                                                <i class="fas fa-trash"></i>
-                                                            </button>
 
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
                                             </tbody>
                                         </table>
                                     </div>

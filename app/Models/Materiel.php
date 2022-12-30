@@ -21,12 +21,17 @@ class Materiel extends Model
 
     public function category(): BelongsTo
     {
-        return $this->belongsTo(self::class, 'materiel_category_id', 'id');
+        return $this->belongsTo(MaterielCategory::class, 'materiel_category_id', 'id');
+    }
+
+    public function getCategoryIdAttribute():int|null
+    {
+        return $this->category->id;
     }
 
     public function getCategoryNomAttribute():string|null
     {
-        return $this->category?->nom;
+        return $this->category->nom;
     }
 
     public function getVieRestanteAttribute(): int|null
