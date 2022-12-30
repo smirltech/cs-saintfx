@@ -440,12 +440,6 @@ return [
                     'url' => '#',
                 ],
                 [
-                    'text' => 'Amortissements',
-                    'icon' => 'fas fa-fw fa-business-time',
-                    'shift' => 'ml-2',
-                    'url' => '#',
-                ],
-                [
                     'text' => 'Cessions',
                     'icon' => 'fas fa-fw fa-hand-holding-hand',
                     'shift' => 'ml-2',
