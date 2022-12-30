@@ -1,3 +1,4 @@
+@php use Carbon\Carbon; @endphp
 @section('title')
      - Categorie - {{$category->nom}}
 @endsection
@@ -100,6 +101,11 @@
                                                     <tr>
                                                         <th style="width: 50px">#</th>
                                                         <th>NOM</th>
+                                                        <th>DESCRIPTION</th>
+                                                        <th style="width: 100px">DATE</th>
+                                                        <th>VIE</th>
+                                                        <th>RESTE</th>
+                                                        <th>ÉTAT</th>
                                                         <th style="width: 50px"></th>
                                                     </tr>
                                                     </thead>
@@ -108,7 +114,11 @@
                                                         <tr>
                                                             <td>{{ $i+1 }}</td>
                                                             <td>{{ $materiel->nom }}</td>
-
+                                                            <td>{{ $materiel->description }}</td>
+                                                            <td>{{ Carbon::parse($materiel->date)->format('d-m-Y') }}</td>
+                                                            <td>{{ $materiel->vie }}</td>
+                                                            <td>{{ $materiel->vieRestante }}</td>
+                                                            <td>{{ $materiel->status->label() }}</td>
 
                                                             <td>
                                                                 <div class="d-flex float-right">

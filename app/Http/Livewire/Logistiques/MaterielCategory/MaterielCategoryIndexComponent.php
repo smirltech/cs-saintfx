@@ -31,7 +31,9 @@ class MaterielCategoryIndexComponent extends Component
 
     public function loadData()
     {
-        $this->categories = MaterielCategory::orderBy('nom', 'ASC')->get();
+        $this->categories = MaterielCategory::orderBy('nom', 'ASC')->get()
+           /* ->sortBy('groupe_nom')*/
+        ;
       //  dd($this->categories);
     }
 

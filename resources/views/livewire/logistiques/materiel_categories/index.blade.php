@@ -4,6 +4,7 @@
         'CATÉGORIE',
         'GROUPE',
         'DESCRIPTION',
+        'MATÉRIELS',
         ['label'=>'', 'no-export'=>true, 'width'=>5]
 ];
    //$datas =[];
@@ -13,6 +14,7 @@
             $categorie->nom,
             $categorie->groupe,
             $categorie->description,
+            $categorie->materielsCount,
             $categorie,
 ];
    }
@@ -20,7 +22,7 @@
     $config =[
   'data'=>$datas,
   'order'=>[[1, 'asc']],
-  'columns'=>[null,null,null, null, ['orderable'=>false]],
+  'columns'=>[null,null,null, null, null, ['orderable'=>false]],
   'destroy'=>false,
 
 ];
@@ -75,19 +77,20 @@
                                         <td>{!! $row[1] !!}</td>
                                         <td><a href="{{$row[2]==null?'#':route('logistiques.categories.show',[$row[2]?->id])}}">{!! $row[2]?->nom !!}</a></td>
                                         <td>{!! $row[3] !!}</td>
+                                        <td>{!! $row[4] !!}</td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                <a href="{{route('logistiques.categories.show',[$row[4]->id])}}" title="Voir"
+                                                <a href="{{route('logistiques.categories.show',[$row[5]->id])}}" title="Voir"
                                                    class="btn btn-warning">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
-                                                <button wire:click="getSelectedCategory({{$row[4]}})" type="button"
+                                                <button wire:click="getSelectedCategory({{$row[5]}})" type="button"
                                                         title="Modifier" class="btn btn-info  ml-2" data-toggle="modal"
                                                         data-target="#update-category-modal">
                                                     <span class="fa fa-pen"></span>
                                                 </button>
 
-                                                <button wire:click="getSelectedCategory({{$row[4]}})" type="button"
+                                                <button wire:click="getSelectedCategory({{$row[5]}})" type="button"
                                                         title="supprimer" class="btn btn-danger  ml-2"
                                                         data-toggle="modal"
                                                         data-target="#delete-category-modal">

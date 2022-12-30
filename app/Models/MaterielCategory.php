@@ -15,6 +15,7 @@ class MaterielCategory extends Model
     public $guarded = [];
 
     protected $with = ['groupe'];
+    protected $appends = ['groupe_nom'];
 
     public function groupe(): BelongsTo
     {
@@ -29,6 +30,11 @@ class MaterielCategory extends Model
     public function categories(): HasMany|null
     {
         return $this->hasMany(self::class);
+    }
+
+    public function getGroupeNomAttribute():string|null
+    {
+        return $this->groupe?->nom;
     }
 
     public function getMaterielsCountAttribute():int
