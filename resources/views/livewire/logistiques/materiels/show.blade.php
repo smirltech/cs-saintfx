@@ -53,6 +53,9 @@
                                 <li class="list-group-item">
                                     <b>État : </b> <span class="float-right">{{$materiel->status->label()}}</span>
                                 </li>
+                                <li class="list-group-item">
+                                    <b>Direction : </b> <span class="float-right badge badge-{{$materiel->direction?->color()}}">{{$materiel->direction?->label()}}</span>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -128,7 +131,7 @@
                                     <div class="card">
                                         <div class="card-header">
                                             <div class="card-title">
-                                                <h4 class="m-0">Mouvement du matériel</h4>
+                                                <h4 class="m-0">Mouvements du matériel</h4>
                                             </div>
                                             <div class="card-tools">
                                                 <button

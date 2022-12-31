@@ -457,7 +457,7 @@ return [
                     'text' => 'Mouvements',
                     'icon' => 'fas fa-fw fa-people-carry-box',
                     'shift' => 'ml-2',
-                    'url' => '#',
+                    'url' => 'logistiques/mouvements',
                 ],
                 [
                     'text' => 'Cessions',

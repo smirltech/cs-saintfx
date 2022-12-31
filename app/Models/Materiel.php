@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\MaterialStatus;
+use App\Enums\MouvementStatus;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -65,6 +66,11 @@ class Materiel extends Model
     public function getDateFormattedAttribute(): string|null
     {
         return $this->date == null ? null : Carbon::parse($this->date)->format('d-m-Y');
+    }
+
+    public function getDirectionAttribute(): MouvementStatus|null
+    {
+        return $this->mouvements?->first()?->direction;
     }
 
     public function getAmortissementAttribute(): float|null

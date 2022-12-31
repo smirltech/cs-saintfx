@@ -19,7 +19,7 @@ enum MouvementStatus: string
     public function color(): string
     {
         return match ($this) {
-            self::in => 'success',
+            self::in => 'info',
             self::out => 'warning',
         };
     }

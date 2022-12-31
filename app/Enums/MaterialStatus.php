@@ -19,4 +19,14 @@ enum MaterialStatus: string
             self::lost => 'Perdu',
         };
     }
+
+    public function color(): string
+    {
+        return match ($this) {
+            self::ok => 'primary',
+            self::damaged => 'danger',
+            self::repairing => 'warning',
+            self::lost => 'secondary',
+        };
+    }
 }

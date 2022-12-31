@@ -1,5 +1,5 @@
 {{--add category--}}
-<x-adminlte-modal wire:ignore.self id="add-materiel-modal" icon="fa fa-people-group"
+<x-adminlte-modal wire:ignore.self id="add-materiel-modal" icon="fa fa-wrench"
                   title="Ajout de Matériel">
     <x-validation-errors class="mb-4" :errors="$errors"/>
     <form id="f1a" wire:submit.prevent="addMateriel">
@@ -79,7 +79,7 @@
 </x-adminlte-modal>
 
 {{--update category--}}
-<x-adminlte-modal wire:ignore.self id="update-materiel-modal" icon="fa fa-people-group"
+<x-adminlte-modal wire:ignore.self id="update-materiel-modal" icon="fa fa-wrench"
                   title="Modification de Matériel">
     <x-validation-errors class="mb-4" :errors="$errors"/>
     <form id="f2a" wire:submit.prevent="updateMateriel">
@@ -102,7 +102,7 @@
                     :error="$errors->first('materiel.nom')">
                 </x-form-input>
             </div>
-            <div class="form-group col-md-4 col-sm-12">
+            <div class="form-group col-md-6 col-sm-12">
                 <x-form-input
                     type="number"
                     label="Montant"
@@ -111,19 +111,28 @@
                     :error="$errors->first('materiel.montant')">
                 </x-form-input>
             </div>
-            <div class="form-group col-md-4 col-sm-12">
+            <div class="form-group col-md-6 col-sm-12">
                 <x-form-input
                     type="date"
                     label="Date"
                     wire:model.defer="materiel.date">
                 </x-form-input>
             </div>
-            <div class="form-group col-md-4 col-sm-12">
+            <div class="form-group col-md-6 col-sm-12">
                 <x-form-input
                     type="number"
                     label="Vie"
                     wire:model.defer="materiel.vie">
                 </x-form-input>
+            </div>
+            <div class="form-group col-md-6 col-sm-12">
+                <label for="">État </label>
+                <x-form-select :select-placeholder='false' wire:model.defer="materiel.status"
+                               class="form-control">
+                    @foreach (\App\Enums\MaterialStatus::cases() as $es )
+                        <option value="{{$es->name}}">{{$es->label()}}</option>
+                    @endforeach
+                </x-form-select>
             </div>
             <div class="form-group col-md-12 col-sm-12">
                 <x-form-input
@@ -142,7 +151,7 @@
 </x-adminlte-modal>
 
 {{--delete category--}}
-<x-adminlte-modal wire:ignore.self id="delete-materiel-modal" icon="fa fa-cubes"
+<x-adminlte-modal wire:ignore.self id="delete-materiel-modal" icon="fa fa-wrench"
                   title="Suppression de Matériel">
     <x-validation-errors class="mb-4" :errors="$errors"/>
     <div>Êtes-vous sûr de vouloir supprimer ce matériel</div>
