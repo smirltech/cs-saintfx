@@ -166,6 +166,22 @@
                                                             <td>{{$mouvement->facilitateur->name}}</td>
                                                             <td><span class="badge badge-{{$mouvement->direction->color()}}">{{$mouvement->direction->label()}}</span></td>
                                                             <td>{{$mouvement->materiel_status->label()}}</td>
+                                                            <td>
+                                                                <div class="d-flex float-right">
+                                                                    <button wire:click="getSelectedMouvement({{$mouvement}})" type="button"
+                                                                            title="Modifier" class="btn btn-warning  ml-4"
+                                                                            data-toggle="modal"
+                                                                            data-target="#update-mouvement-modal">
+                                                                        <span class="fa fa-edit"></span>
+                                                                    </button>
+                                                                    <button wire:click="getSelectedMouvement({{$mouvement}})" type="button"
+                                                                            title="Supprimer" class="btn btn-danger  ml-4"
+                                                                            data-toggle="modal"
+                                                                            data-target="#delete-mouvement-modal">
+                                                                        <span class="fa fa-trash"></span>
+                                                                    </button>
+                                                                </div>
+                                                            </td>
                                                         </tr>
                                                     @endforeach
                                                     </tbody>
@@ -197,6 +213,7 @@
                                                     <td>{{number_format($amo->amortissement, 2)}} Fc</td>
                                                     <td>{{number_format($amo->amortissementCumul, 2)}} Fc</td>
                                                     <td>{{number_format($amo->residu, 2)}} Fc</td>
+
                                                 </tr>
                                             @endforeach
                                             </tbody>

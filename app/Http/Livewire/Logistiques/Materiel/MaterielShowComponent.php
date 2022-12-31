@@ -81,6 +81,11 @@ class MaterielShowComponent extends Component
         $this->initMouvement();
     }
 
+    public function getSelectedMouvement(Mouvement $mouvement)
+    {
+        $this->mouvement = $mouvement;
+    }
+
     public function updateMateriel()
     {
         $this->validate();
@@ -123,4 +128,30 @@ class MaterielShowComponent extends Component
 
         $this->materiel->refresh();
     }
+
+    public function updateMouvement()
+    {
+        $this->validate();
+        $done = $this->mouvement->save();
+        if ($done) {
+            $this->onModalClosed('update-mouvement-modal');
+            $this->alert('success', "Mouvement modifié avec succès !");
+        } else {
+            $this->alert('warning', "Échec de modification de mouvement !");
+        }
+        $this->materiel->refresh();
+    }
+
+    public function deleteMouvement()
+    {
+        if ($this->mouvement->delete()) {
+            $this->loadData();
+            $this->alert('success', "Mouvement supprimé avec succès !");
+        } else {
+            $this->alert('warning', "Échec de suppression de mouvement !");
+        }
+        $this->onModalClosed('delete-mouvement-modal');
+        $this->materiel->refresh();
+    }
+
 }

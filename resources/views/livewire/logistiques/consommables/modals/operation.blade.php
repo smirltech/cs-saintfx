@@ -1,21 +1,21 @@
 {{--add category--}}
-<x-adminlte-modal wire:ignore.self id="add-mouvement-modal" icon="fa fa-wrench"
+<x-adminlte-modal wire:ignore.self id="add-operation-modal" icon="fa fa-wrench"
                   title="Ajout de Mouvement du Matériel">
     <x-validation-errors class="mb-4" :errors="$errors"/>
-    <form id="fmm1a" wire:submit.prevent="addMouvement">
+    <form id="fmo1a" wire:submit.prevent="addOperation">
         <div class="row">
             <div class="form-group col-md-12 col-sm-12">
                 <x-form-input
                     type="text"
                     label="Bénéficiaire"
-                    wire:model.defer="mouvement.beneficiaire"
-                    :is-valid="$errors->has('mouvement.beneficiaire')?false:null"
-                    :error="$errors->first('mouvement.beneficiaire')">
+                    wire:model.defer="operation.beneficiaire"
+                    :is-valid="$errors->has('operation.beneficiaire')?false:null"
+                    :error="$errors->first('operation.beneficiaire')">
                 </x-form-input>
             </div>
             <div class="form-group col-md-6 col-sm-12">
                 <label for="">Facilitateur </label>
-                <x-form-select :select-placeholder='false' wire:model.defer="mouvement.facilitateur_id"
+                <x-form-select :select-placeholder='false' wire:model.defer="operation.facilitateur_id"
                                class="form-control">
                     @foreach ($users as $es )
                         <option value="{{$es->id}}">{{$es->name}}</option>
@@ -27,12 +27,12 @@
                 <x-form-input
                     type="date"
                     label="Date"
-                    wire:model.defer="mouvement.date">
+                    wire:model.defer="operation.date">
                 </x-form-input>
             </div>
             <div class="form-group col-md-6 col-sm-12">
                 <label for="">Direction </label>
-                <x-form-select :select-placeholder='false' wire:model.defer="mouvement.direction"
+                <x-form-select :select-placeholder='false' wire:model.defer="operation.direction"
                                class="form-control">
                     @foreach (\App\Enums\MouvementStatus::cases() as $es )
                         <option value="{{$es->name}}">{{$es->label()}}</option>
@@ -40,48 +40,46 @@
                 </x-form-select>
             </div>
             <div class="form-group col-md-6 col-sm-12">
-                <label for="">État du matériel </label>
-                <x-form-select :select-placeholder='false' wire:model.defer="mouvement.materiel_status"
-                               class="form-control">
-                    @foreach (\App\Enums\MaterialStatus::cases() as $es )
-                        <option value="{{$es->name}}">{{$es->label()}}</option>
-                    @endforeach
-                </x-form-select>
+                <x-form-input
+                    type="number"
+                    label="Quantité"
+                    wire:model.defer="operation.quantite">
+                </x-form-input>
             </div>
             <div class="form-group col-md-12 col-sm-12">
                <x-form-input
                    type="text"
                    label="Description"
-                   wire:model.defer="mouvement.observation">
+                   wire:model.defer="operation.observation">
                </x-form-input>
            </div>
         </div>
     </form>
     <x-slot name="footerSlot">
         <div class="d-flex">
-                <button form="fmm1a" type="submit" class="btn btn-outline-primary mr-3">Soumettre</button>
+                <button form="fmo1a" type="submit" class="btn btn-outline-primary mr-3">Soumettre</button>
         </div>
     </x-slot>
 </x-adminlte-modal>
 
 {{--update category--}}
-<x-adminlte-modal wire:ignore.self id="update-mouvement-modal" icon="fa fa-people-group"
-                  title="Modification de Matériel">
+<x-adminlte-modal wire:ignore.self id="update-operation-modal" icon="fa fa-people-group"
+                  title="Modification d'operation">
     <x-validation-errors class="mb-4" :errors="$errors"/>
-    <form id="fmm2a" wire:submit.prevent="updateMouvement">
+    <form id="fmo2a" wire:submit.prevent="updateOperation">
         <div class="row">
             <div class="form-group col-md-12 col-sm-12">
                 <x-form-input
                     type="text"
                     label="Bénéficiaire"
-                    wire:model.defer="mouvement.beneficiaire"
-                    :is-valid="$errors->has('mouvement.beneficiaire')?false:null"
-                    :error="$errors->first('mouvement.beneficiaire')">
+                    wire:model.defer="operation.beneficiaire"
+                    :is-valid="$errors->has('operation.beneficiaire')?false:null"
+                    :error="$errors->first('operation.beneficiaire')">
                 </x-form-input>
             </div>
             <div class="form-group col-md-6 col-sm-12">
                 <label for="">Facilitateur </label>
-                <x-form-select :select-placeholder='false' wire:model.defer="mouvement.facilitateur_id"
+                <x-form-select :select-placeholder='false' wire:model.defer="operation.facilitateur_id"
                                class="form-control">
                     @foreach ($users as $es )
                         <option value="{{$es->id}}">{{$es->name}}</option>
@@ -93,12 +91,12 @@
                 <x-form-input
                     type="date"
                     label="Date"
-                    wire:model.defer="mouvement.date">
+                    wire:model.defer="operation.date">
                 </x-form-input>
             </div>
             <div class="form-group col-md-6 col-sm-12">
                 <label for="">Direction </label>
-                <x-form-select :select-placeholder='false' wire:model.defer="mouvement.direction"
+                <x-form-select :select-placeholder='false' wire:model.defer="operation.direction"
                                class="form-control">
                     @foreach (\App\Enums\MouvementStatus::cases() as $es )
                         <option value="{{$es->name}}">{{$es->label()}}</option>
@@ -106,37 +104,35 @@
                 </x-form-select>
             </div>
             <div class="form-group col-md-6 col-sm-12">
-                <label for="">État du matériel </label>
-                <x-form-select :select-placeholder='false' wire:model.defer="mouvement.materiel_status"
-                               class="form-control">
-                    @foreach (\App\Enums\MaterialStatus::cases() as $es )
-                        <option value="{{$es->name}}">{{$es->label()}}</option>
-                    @endforeach
-                </x-form-select>
+                <x-form-input
+                    type="number"
+                    label="Quantité"
+                    wire:model.defer="operation.quantite">
+                </x-form-input>
             </div>
             <div class="form-group col-md-12 col-sm-12">
                 <x-form-input
                     type="text"
                     label="Description"
-                    wire:model.defer="mouvement.observation">
+                    wire:model.defer="operation.observation">
                 </x-form-input>
             </div>
         </div>
     </form>
     <x-slot name="footerSlot">
         <div class="d-flex">
-            <button form="fmm2a" type="submit" class="btn btn-outline-primary mr-3">Soumettre</button>
+            <button form="fmo2a" type="submit" class="btn btn-outline-primary mr-3">Soumettre</button>
         </div>
     </x-slot>
 </x-adminlte-modal>
 
 {{--delete category--}}
-<x-adminlte-modal wire:ignore.self id="delete-mouvement-modal" icon="fa fa-cubes"
-                  title="Suppression de Mouvement">
+<x-adminlte-modal wire:ignore.self id="delete-operation-modal" icon="fa fa-cubes"
+                  title="Suppression d'Operation">
     <x-validation-errors class="mb-4" :errors="$errors"/>
-    <div>Êtes-vous sûr de vouloir supprimer ce mouvement</div>
+    <div>Êtes-vous sûr de vouloir supprimer cette operation</div>
     <x-slot name="footerSlot">
-        <x-adminlte-button wire:click="deleteMouvement" type="button" theme="primary"
+        <x-adminlte-button wire:click="deleteOperation" type="button" theme="primary"
                            label="Supprimer"></x-adminlte-button>
     </x-slot>
 </x-adminlte-modal>

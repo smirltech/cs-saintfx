@@ -14,6 +14,7 @@ use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
@@ -95,6 +96,10 @@ class ConsommableShowComponent extends Component
         $this->consommable->refresh();
     }
 
+    public function getSelectedOperation(Operation $operation)
+    {
+        $this->operation = $operation;
+    }
 
 
     // Mouvement du matériel
@@ -116,11 +121,37 @@ class ConsommableShowComponent extends Component
         $done = $this->operation->save();
         if ($done) {
             $this->alert('success', $this->operation->direction->label() ." operation ajoutée avec succès !");
-            $this->onModalClosed('add-mouvement-modal');
+            $this->onModalClosed('add-operation-modal');
         } else {
             $this->alert('warning', "Échec d'ajout de ".$this->operation->direction->label() ." operation !");
         }
 
         $this->consommable->refresh();
     }
+
+    public function updateOperation()
+    {
+        $this->validate();
+        $done = $this->operation->save();
+        if ($done) {
+            $this->onModalClosed('update-operation-modal');
+            $this->alert('success', "Operation modifiée avec succès !");
+        } else {
+            $this->alert('warning', "Échec de modification d'operation !");
+        }
+        $this->consommable->refresh();
+    }
+
+    public function deleteOperation()
+    {
+        if ($this->operation->delete()) {
+            $this->loadData();
+            $this->alert('success', "Operation supprimée avec succès !");
+        } else {
+            $this->alert('warning', "Échec de suppression d'operation !");
+        }
+        $this->onModalClosed('delete-operation-modal');
+        $this->consommable->refresh();
+    }
+
 }

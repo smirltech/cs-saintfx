@@ -20,7 +20,7 @@
 @stop
 <div class="">
     @include('livewire.logistiques.consommables.modals.crud')
-    @include('livewire.logistiques.consommables.modals.mouvement')
+    @include('livewire.logistiques.consommables.modals.operation')
 
     <div class="content mt-3">
         <div class="container-fluid">
@@ -124,6 +124,22 @@
                                                             <td>{{$operation->facilitateur->name}}</td>
                                                             <td><span class="badge badge-{{$operation->direction->color()}}">{{$operation->direction->label()}}</span></td>
                                                             <td>{{$operation->quantite}} {{$consommable->unit->abreviation}}</td>
+                                                        <td>
+                                                            <div class="d-flex float-right">
+                                                                <button wire:click="getSelectedOperation({{$operation}})" type="button"
+                                                                        title="Modifier" class="btn btn-warning  ml-4"
+                                                                        data-toggle="modal"
+                                                                        data-target="#update-operation-modal">
+                                                                    <span class="fa fa-edit"></span>
+                                                                </button>
+                                                                <button wire:click="getSelectedOperation({{$operation}})" type="button"
+                                                                        title="Supprimer" class="btn btn-danger  ml-4"
+                                                                        data-toggle="modal"
+                                                                        data-target="#delete-operation-modal">
+                                                                    <span class="fa fa-trash"></span>
+                                                                </button>
+                                                            </div>
+                                                        </td>
                                                         </tr>
                                                     @endforeach
                                                     </tbody>
