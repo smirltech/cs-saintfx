@@ -54,11 +54,17 @@
                     <div class="card card-primary card-outline">
                         <div class="card-header">
                             <div class="card-title">
-                                <h5 class="">Résumé Financier</h5>
+                                <h5 class="">Résumé de Quantité</h5>
                             </div>
                         </div>
                         <div class="card-body">
                             <ul class="list-group list-group-unbordered mb-3">
+                                <li class="list-group-item">
+                                    <b>Quantité Acquise : </b> <span class="float-right">{{$consommable->quantiteIn}} {{$consommable->unit->abreviation}}</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Quantité Consommée : </b> <span class="float-right">{{$consommable->quantiteOut}} {{$consommable->unit->abreviation}}</span>
+                                </li>
                                 <li class="list-group-item">
                                     <b>Quantité : </b> <span class="float-right">{{$consommable->quantite}} {{$consommable->unit->abreviation}}</span>
                                 </li>
