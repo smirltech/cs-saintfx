@@ -426,7 +426,7 @@ return [
                     'text' => 'Consommables',
                     'icon' => 'fas fa-fw fa-screwdriver-wrench',
                     'shift' => 'ml-2',
-                    'url' => '#',
+                    'url' => 'logistiques/consommables',
                 ],
                 [
                     'text' => 'Opérations',
@@ -438,7 +438,7 @@ return [
                     'text' => 'Unités de mesure',
                     'icon' => 'fas fa-fw fa-ruler-combined',
                     'shift' => 'ml-2',
-                    'url' => '#',
+                    'url' => 'logistiques/units',
                 ],
             ],
         ],

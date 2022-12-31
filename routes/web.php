@@ -6,10 +6,13 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\OtpController;
 use App\Http\Controllers\MediaController;
 use App\Http\Livewire\Finance;
+use App\Http\Livewire\Logistiques\Consommable\ConsommableIndexComponent;
+use App\Http\Livewire\Logistiques\Consommable\ConsommableShowComponent;
 use App\Http\Livewire\Logistiques\Materiel\MaterielIndexComponent;
 use App\Http\Livewire\Logistiques\Materiel\MaterielShowComponent;
 use App\Http\Livewire\Logistiques\MaterielCategory\MaterielCategoryShowComponent;
 use App\Http\Livewire\Logistiques\Mouvement\MouvementIndexComponent;
+use App\Http\Livewire\Logistiques\Unit\UnitIndexComponent;
 use App\Http\Livewire\MainDashboardComponent;
 use App\Http\Livewire\Logistiques\MaterielCategory\MaterielCategoryIndexComponent;
 use App\Http\Livewire\Scolarite;
@@ -156,6 +159,12 @@ Route::prefix('logistiques')->middleware(['auth:web'])->as('logistiques.')->grou
 
     // materiels
     Route::get('mouvements', MouvementIndexComponent::class)->name('mouvements');
+    Route::get('units', UnitIndexComponent::class)->name('units');
+
+    // materiels
+    Route::get('consommables', ConsommableIndexComponent::class)->name('consommables');
+    Route::get('consommables/{consommable}', ConsommableShowComponent::class)->name('consommables.show');
+
 
 });
 
