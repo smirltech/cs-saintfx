@@ -10,6 +10,7 @@ use App\Http\Livewire\Logistiques\Materiel\MaterielIndexComponent;
 use App\Http\Livewire\Logistiques\Materiel\MaterielShowComponent;
 use App\Http\Livewire\Logistiques\MaterielCategory\MaterielCategoryShowComponent;
 use App\Http\Livewire\Logistiques\Mouvement\MouvementIndexComponent;
+use App\Http\Livewire\Logistiques\Unit\UnitIndexComponent;
 use App\Http\Livewire\MainDashboardComponent;
 use App\Http\Livewire\Logistiques\MaterielCategory\MaterielCategoryIndexComponent;
 use App\Http\Livewire\Scolarite;
@@ -156,6 +157,7 @@ Route::prefix('logistiques')->middleware(['auth:web'])->as('logistiques.')->grou
 
     // materiels
     Route::get('mouvements', MouvementIndexComponent::class)->name('mouvements');
+    Route::get('units', UnitIndexComponent::class)->name('units');
 
 });
 
