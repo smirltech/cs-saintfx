@@ -434,6 +434,12 @@ return [
                     'shift' => 'ml-2',
                     'url' => '#',
                 ],
+                [
+                    'text' => 'Unités de mesure',
+                    'icon' => 'fas fa-fw fa-ruler-combined',
+                    'shift' => 'ml-2',
+                    'url' => '#',
+                ],
             ],
         ],
         [
@@ -463,7 +469,7 @@ return [
                     'text' => 'Cessions',
                     'icon' => 'fas fa-fw fa-hand-holding-hand',
                     'shift' => 'ml-2',
-                    'url' => '#',
+                   // 'url' => '#',
                 ],
             ],
         ],
