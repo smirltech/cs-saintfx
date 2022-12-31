@@ -111,7 +111,7 @@ class ConsommableShowComponent extends Component
             'operation.consommable_id'=>'required',
             'operation.user_id'=>'required',
             'operation.facilitateur_id'=>'required',
-            'operation.beneficiaire'=>'required',
+            'operation.beneficiaire'=>'nullable',
             'operation.quantite'=>'required',
             'operation.date'=>'required',
             'operation.direction'=>'required',
