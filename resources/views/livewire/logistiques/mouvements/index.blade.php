@@ -4,6 +4,7 @@
         $heads =[
             ['label'=>'#', 'width'=>5],
             'DATE',
+            'MATÉRIEL',
             'BÉNÉFICIAIRE',
             'FACILITATEUR',
             'DIRECTION',
@@ -15,6 +16,7 @@
             $datas[] =[
                 $i+1,
                 $mouvement->dateFormatted,
+                $mouvement->materiel->nom,
                 $mouvement->beneficiaire,
                 $mouvement->facilitateur->name,
                 $mouvement->direction,
@@ -27,7 +29,7 @@
         $config =[
       'data'=>$datas,
       'order'=>[[1, 'asc']],
-      'columns'=>[null, null, null, null, null, null, ['orderable'=>false]],
+      'columns'=>[null, null, null, null, null, null, null, ['orderable'=>false]],
       'destroy'=>false,
 
     ];
@@ -81,13 +83,14 @@
                                         <td>{!! $row[1] !!}</td>
                                         <td>{!! $row[2] !!}</td>
                                         <td>{!! $row[3] !!}</td>
-                                        <td><span
-                                                class="badge badge-{!! $row[4]->color() !!}">{!! $row[4]->label() !!}</span>
-                                        </td>
+                                        <td>{!! $row[4] !!}</td>
                                         <td><span
                                                 class="badge badge-{!! $row[5]->color() !!}">{!! $row[5]->label() !!}</span>
                                         </td>
-                                        <td>{!! $row[6] !!}</td>
+                                        <td><span
+                                                class="badge badge-{!! $row[6]->color() !!}">{!! $row[6]->label() !!}</span>
+                                        </td>
+                                        <td>{!! $row[7] !!}</td>
                                     </tr>
                                 @endforeach
                             </x-adminlte-datatable>
