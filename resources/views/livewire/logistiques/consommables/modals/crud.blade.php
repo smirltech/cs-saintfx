@@ -44,7 +44,34 @@
                   title="Modification de Consommable">
     <x-validation-errors class="mb-4" :errors="$errors"/>
     <form id="f2a" wire:submit.prevent="updateConsommable">
+        <div class="row">
+            <div class="form-group col-md-8 col-sm-12">
+                <x-form-input
+                    type="text"
+                    label="Nom"
+                    wire:model="consommable.nom"
+                    :is-valid="$errors->has('consommable.nom')?false:null"
+                    :error="$errors->first('consommable.nom')">
+                </x-form-input>
+            </div>
+            <div class="form-group col-md-4 col-sm-12">
+                <label for="">Unité de mesure </label>
+                <x-form-select :select-placeholder='false' wire:model="consommable.unit_id"
+                               class="form-control">
+                    @foreach ($units as $es )
+                        <option value="{{$es->id}}">{{$es->nom}}</option>
+                    @endforeach
+                </x-form-select>
+            </div>
 
+            <div class="form-group col-md-12 col-sm-12">
+                <x-form-input
+                    type="text"
+                    label="Description"
+                    wire:model="consommable.description">
+                </x-form-input>
+            </div>
+        </div>
     </form>
     <x-slot name="footerSlot">
         <div class="d-flex">
