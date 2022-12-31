@@ -8,14 +8,14 @@
                 <x-form-input
                     type="text"
                     label="Nom"
-                    wire:model="consommable.nom"
+                    wire:model.defer="consommable.nom"
                     :is-valid="$errors->has('consommable.nom')?false:null"
                     :error="$errors->first('consommable.nom')">
                 </x-form-input>
             </div>
             <div class="form-group col-md-4 col-sm-12">
                 <label for="">Unité de mesure </label>
-                <x-form-select :select-placeholder='false' wire:model="consommable.unit_id"
+                <x-form-select :select-placeholder='false' wire:model.defer="consommable.unit_id"
                                class="form-control">
                     @foreach ($units as $es )
                         <option value="{{$es->id}}">{{$es->nom}}</option>
@@ -27,7 +27,7 @@
                <x-form-input
                    type="text"
                    label="Description"
-                   wire:model="consommable.description">
+                   wire:model.defer="consommable.description">
                </x-form-input>
            </div>
         </div>
@@ -49,14 +49,14 @@
                 <x-form-input
                     type="text"
                     label="Nom"
-                    wire:model="consommable.nom"
+                    wire:model.defer="consommable.nom"
                     :is-valid="$errors->has('consommable.nom')?false:null"
                     :error="$errors->first('consommable.nom')">
                 </x-form-input>
             </div>
             <div class="form-group col-md-4 col-sm-12">
                 <label for="">Unité de mesure </label>
-                <x-form-select :select-placeholder='false' wire:model="consommable.unit_id"
+                <x-form-select :select-placeholder='false' wire:model.defer="consommable.unit_id"
                                class="form-control">
                     @foreach ($units as $es )
                         <option value="{{$es->id}}">{{$es->nom}}</option>
@@ -68,7 +68,7 @@
                 <x-form-input
                     type="text"
                     label="Description"
-                    wire:model="consommable.description">
+                    wire:model.defer="consommable.description">
                 </x-form-input>
             </div>
         </div>

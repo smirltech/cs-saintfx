@@ -18,7 +18,7 @@ class Consommable extends Model
 
     public function operations(): HasMany
     {
-        return $this->hasMany(Operation::class);
+        return $this->hasMany(Operation::class)->orderBy('date', 'DESC');
     }
 
     public function unit(): BelongsTo
@@ -28,13 +28,13 @@ class Consommable extends Model
 
     public function getQuantiteInAttribute(): int|null
     {
-        return $this->operations->where('direction', MouvementStatus::in->name)->sum('quantite');
+        return $this->operations()->where('direction', MouvementStatus::in->name)->sum('quantite');
 
     }
 
     public function getQuantiteOutAttribute(): int|null
     {
-        return $this->operations->where('direction', MouvementStatus::out->name)->sum('quantite');
+        return $this->operations()->where('direction', MouvementStatus::out->name)->sum('quantite');
 
     }
 

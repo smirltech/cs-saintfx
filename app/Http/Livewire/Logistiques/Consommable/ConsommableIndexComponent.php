@@ -10,6 +10,7 @@ use App\Models\Unit;
 use App\Models\User;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
+use Exception;
 use Faker\Factory;
 use Illuminate\Support\Facades\Auth;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -105,12 +106,17 @@ class ConsommableIndexComponent extends Component
     public function deleteConsommable()
     {
 
-        if ($this->consommable->delete()) {
-            $this->loadData();
-            $this->alert('success', "Consommable supprimé avec succès !");
-        } else {
-            $this->alert('warning', "Consommable n'a pas été supprimé, il y a des éléments attachés !");
+        try{
+            if ($this->consommable->delete()) {
+                $this->loadData();
+                $this->alert('success', "Consommable supprimé avec succès !");
+            } else {
+                $this->alert('warning', "Échec de suppression de consommable !");
+            }
+        }catch (Exception $e){
+            $this->alert('error', "Consommable n'a pas été supprimé, il y a des éléments attachés !");
         }
+
         $this->onModalClosed('delete-consommable-modal');
 
     }

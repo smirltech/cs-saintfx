@@ -3,9 +3,12 @@
 namespace App\Http\Livewire\Logistiques\Consommable;
 
 use App\Enums\MouvementStatus;
+use App\Models\Consommable;
 use App\Models\Materiel;
 use App\Models\MaterielCategory;
 use App\Models\Mouvement;
+use App\Models\Operation;
+use App\Models\Unit;
 use App\Models\User;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
@@ -19,108 +22,105 @@ class ConsommableShowComponent extends Component
     use TopMenuPreview;
     use LivewireAlert;
 
-    public Materiel $materiel;
-    public Mouvement $mouvement;
-    public $categories = [];
+    public Consommable $consommable;
+    public Operation $operation;
     public $users = [];
+    public $units = [];
 
     protected $rules = [
-        'materiel.materiel_category_id' => 'required',
-        'materiel.nom' => 'required',
-        'materiel.description' => 'nullable',
-        'materiel.montant' => 'required',
-        'materiel.date' => 'nullable',
-        'materiel.vie' => 'required',
-        'materiel.status' => 'nullable',
+        'consommable.unit_id' => 'required',
+        'consommable.nom' => 'required',
+        'consommable.code' => 'nullable',
+        'consommable.description' => 'nullable',
 
         // Mouvement
-        'mouvement.materiel_id'=>'nullable',
-        'mouvement.user_id'=>'nullable',
-        'mouvement.facilitateur_id'=>'nullable',
-        'mouvement.beneficiaire'=>'nullable',
-        'mouvement.date'=>'nullable',
-        'mouvement.direction'=>'nullable',
-        'mouvement.materiel_status'=>'nullable',
-        'mouvement.observation'=>'nullable',
+        'operation.consommable_id'=>'nullable',
+        'operation.user_id'=>'nullable',
+        'operation.facilitateur_id'=>'nullable',
+        'operation.beneficiaire'=>'nullable',
+        'operation.date'=>'nullable',
+        'operation.direction'=>'nullable',
+        'operation.quantite'=>'nullable',
+        'operation.observation'=>'nullable',
     ];
 
-    public function mount(Materiel $materiel)
+    public function mount(Consommable $consommable)
     {
-        $this->materiel = $materiel;
+        $this->consommable = $consommable;
        // dd($this->materiel);
         $this->loadData();
-        $this->initMouvement();
+        $this->initOperation();
     }
 
     public function render()
     {
         $this->loadData();
-        return view('livewire.logistiques.materiels.show')
-            ->layout(AdminLayout::class, ['title' => 'Détail sur le matériel']);
+        return view('livewire.logistiques.consommables.show')
+            ->layout(AdminLayout::class, ['title' => 'Détail sur le consommable']);
     }
 
     public function loadData()
     {
-        $this->categories = MaterielCategory::orderBy('nom', 'ASC')->get();
-        $this->users = User::orderBy('nom', 'ASC')->get();
+        $this->units = Unit::orderBy('nom', 'ASC')->get();
+       $this->users = User::orderBy('nom', 'ASC')->get();
          // dd($this->users);
     }
 
-    public function initMouvement()
+    public function initOperation()
     {
-        $this->mouvement = new Mouvement();
-        $this->mouvement->date = Carbon::now()->format('Y-m-d');
-        $this->mouvement->facilitateur_id = $this->users[0]->id;
-        $this->mouvement->direction = MouvementStatus::in->name;
-        $this->mouvement->materiel_status = $this->materiel->status->name;
+        $this->operation = new Operation();
+        $this->operation->date = Carbon::now()->format('Y-m-d');
+        $this->operation->facilitateur_id = $this->users[0]->id;
+        $this->operation->direction = MouvementStatus::in->name;
+        $this->operation->quantite = null;
     }
 
     public function onModalClosed($p_id)
     {
         $this->dispatchBrowserEvent('closeModal', ['modal' => $p_id]);
-        $this->initMouvement();
+        $this->initOperation();
     }
 
-    public function updateMateriel()
+    public function updateConsommable()
     {
         $this->validate();
 
-        $done = $this->materiel->save();
+        $done = $this->consommable->save();
         if ($done) {
-            $this->onModalClosed('update-materiel-modal');
-            $this->alert('success', "Matériel modifié avec succès !");
+            $this->onModalClosed('update-consommable-modal');
+            $this->alert('success', "Consommable modifié avec succès !");
         } else {
-            $this->alert('warning', "Échec de modification de matériel !");
+            $this->alert('warning', "Échec de modification de consommable !");
         }
-        $this->materiel->refresh();
+        $this->consommable->refresh();
     }
 
 
 
     // Mouvement du matériel
-    public function addMouvement()
+    public function addOperation()
     {
-        $this->mouvement->materiel_id = $this->materiel->id;
-        $this->mouvement->user_id = Auth::id();
+        $this->operation->consommable_id = $this->consommable->id;
+        $this->operation->user_id = Auth::id();
         $this->validate([
-            'mouvement.materiel_id'=>'required',
-            'mouvement.user_id'=>'required',
-            'mouvement.facilitateur_id'=>'required',
-            'mouvement.beneficiaire'=>'required',
-            'mouvement.date'=>'required',
-            'mouvement.direction'=>'required',
-            'mouvement.materiel_status'=>'required',
-            'mouvement.observation'=>'nullable',
+            'operation.consommable_id'=>'required',
+            'operation.user_id'=>'required',
+            'operation.facilitateur_id'=>'required',
+            'operation.beneficiaire'=>'required',
+            'operation.quantite'=>'required',
+            'operation.date'=>'required',
+            'operation.direction'=>'required',
+            'operation.observation'=>'nullable',
         ]);
 
-        $done = $this->mouvement->save();
+        $done = $this->operation->save();
         if ($done) {
-            $this->alert('success', $this->mouvement->direction->label() ." matériel ajoutée avec succès !");
+            $this->alert('success', $this->operation->direction->label() ." operation ajoutée avec succès !");
             $this->onModalClosed('add-mouvement-modal');
         } else {
-            $this->alert('warning', "Échec d'ajout de ".$this->mouvement->direction->label() ." matériel !");
+            $this->alert('warning', "Échec d'ajout de ".$this->operation->direction->label() ." operation !");
         }
 
-        $this->materiel->refresh();
+        $this->consommable->refresh();
     }
 }
