@@ -25,7 +25,7 @@ class MouvementFactory extends Factory
             'facilitateur_id' => $this->faker->randomElement(User::pluck('id')->toArray()),
             'beneficiaire' => $this->faker->name,
             'date' => $this->faker->dateTimeBetween('-2 years', 'now')->format('Y-m-d'),
-            'direction' => MouvementStatus::in->name,
+            'direction' => $this->faker->randomElement(MouvementStatus::cases()),
             'materiel_status' => $this->faker->randomElement(MaterialStatus::cases()),
             'observation' => $this->faker->sentence,
         ];

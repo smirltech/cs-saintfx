@@ -416,14 +416,40 @@ return [
             // 'can' => RolePermission::create_user->name,
         ],
 
+        ['header' => 'LOGISTIQUES'],
         [
-            'text' => 'LOGISTIQUES',
-            'icon' => 'fas fa-fw fa-hand-holding-dollar',
+            'text' => 'Fongibles',
+            'icon' => 'fas fa-fw fa-recycle',
+            // 'can' => RolePermission::view_etudiant->name,
+            'submenu' => [
+                [
+                    'text' => 'Consommables',
+                    'icon' => 'fas fa-fw fa-screwdriver-wrench',
+                    'shift' => 'ml-2',
+                    'url' => '#',
+                ],
+                [
+                    'text' => 'Opérations',
+                    'icon' => 'fas fa-fw fa-layer-group',
+                    'shift' => 'ml-2',
+                    'url' => '#',
+                ],
+                [
+                    'text' => 'Unités de mesure',
+                    'icon' => 'fas fa-fw fa-ruler-combined',
+                    'shift' => 'ml-2',
+                    'url' => '#',
+                ],
+            ],
+        ],
+        [
+            'text' => 'Non Fongibles',
+            'icon' => 'fas fa-fw fa-screwdriver-wrench',
             // 'can' => RolePermission::view_etudiant->name,
             'submenu' => [
                 [
                     'text' => 'Materiels',
-                    'icon' => 'fas fa-fw fa-screwdriver-wrench',
+                    'icon' => 'fas fa-fw fa-wrench',
                     'shift' => 'ml-2',
                     'url' => 'logistiques/materiels',
                 ],
@@ -437,13 +463,13 @@ return [
                     'text' => 'Mouvements',
                     'icon' => 'fas fa-fw fa-people-carry-box',
                     'shift' => 'ml-2',
-                    'url' => '#',
+                    'url' => 'logistiques/mouvements',
                 ],
                 [
                     'text' => 'Cessions',
                     'icon' => 'fas fa-fw fa-hand-holding-hand',
                     'shift' => 'ml-2',
-                    'url' => '#',
+                   // 'url' => '#',
                 ],
             ],
         ],

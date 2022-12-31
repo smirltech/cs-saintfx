@@ -10,6 +10,7 @@ use Carbon\Carbon;
         'VIE',
         'RESTE',
         'STATUS',
+        'DIRECTION',
         ['label'=>'', 'no-export'=>true, 'width'=>5]
 ];
    //$datas =[];
@@ -22,7 +23,8 @@ use Carbon\Carbon;
            $materiel->date == null?'': Carbon::parse($materiel->date)->format('d-m-Y'),
             $materiel->vie,
             $materiel->vieRestante,
-            $materiel->status->label(),
+            $materiel->status,
+            $materiel->direction,
             $materiel,
 ];
    }
@@ -30,7 +32,7 @@ use Carbon\Carbon;
     $config =[
   'data'=>$datas,
   'order'=>[[1, 'asc']],
-  'columns'=>[null,null,null, null, null, null, null, null, ['orderable'=>false]],
+  'columns'=>[null,null,null, null, null, null, null, null, null, ['orderable'=>false]],
   'destroy'=>false,
 
 ];
@@ -88,20 +90,21 @@ use Carbon\Carbon;
                                         <td>{!! $row[4] !!}</td>
                                         <td>{!! $row[5] !!}</td>
                                         <td>{!! $row[6] !!}</td>
-                                        <td>{!! $row[7] !!}</td>
+                                        <td><span class="badge badge-{!! $row[7]?->color() !!}">{!! $row[7]?->label() !!}</span></td>
+                                        <td><span class="badge badge-{!! $row[8]?->color() !!}">{!! $row[8]?->label() !!}</span></td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                <a href="{{route('logistiques.materiels.show',[$row[8]->id])}}" title="Voir"
+                                                <a href="{{route('logistiques.materiels.show',[$row[9]->id])}}" title="Voir"
                                                    class="btn btn-warning">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
-                                                <button wire:click="getSelectedMateriel({{$row[8]}})" type="button"
+                                                <button wire:click="getSelectedMateriel({{$row[9]}})" type="button"
                                                         title="Modifier" class="btn btn-info  ml-2" data-toggle="modal"
                                                         data-target="#update-materiel-modal">
                                                     <span class="fa fa-pen"></span>
                                                 </button>
 
-                                                <button wire:click="getSelectedMateriel({{$row[8]}})" type="button"
+                                                <button wire:click="getSelectedMateriel({{$row[9]}})" type="button"
                                                         title="supprimer" class="btn btn-danger  ml-2"
                                                         data-toggle="modal"
                                                         data-target="#delete-materiel-modal">

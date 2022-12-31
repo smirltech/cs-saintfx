@@ -3,10 +3,12 @@
 namespace App\Models;
 
 use App\Enums\MaterialStatus;
+use App\Enums\MouvementStatus;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Materiel extends Model
 {
@@ -19,9 +21,18 @@ class Materiel extends Model
         'updated_at' => 'datetime',
     ];
 
+    protected $with = [
+       'mouvements'
+    ];
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(MaterielCategory::class, 'materiel_category_id', 'id');
+    }
+
+    public function mouvements(): HasMany
+    {
+        return $this->hasMany(Mouvement::class)->orderBy('date', 'DESC');
     }
 
     public function getCategoryIdAttribute(): int|null
@@ -55,6 +66,11 @@ class Materiel extends Model
     public function getDateFormattedAttribute(): string|null
     {
         return $this->date == null ? null : Carbon::parse($this->date)->format('d-m-Y');
+    }
+
+    public function getDirectionAttribute(): MouvementStatus|null
+    {
+        return $this->mouvements?->first()?->direction;
     }
 
     public function getAmortissementAttribute(): float|null
