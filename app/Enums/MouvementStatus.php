@@ -15,4 +15,12 @@ enum MouvementStatus: string
             self::out => 'Sortie',
         };
     }
+
+    public function color(): string
+    {
+        return match ($this) {
+            self::in => 'success',
+            self::out => 'warning',
+        };
+    }
 }

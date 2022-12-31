@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Materiel extends Model
 {
@@ -19,9 +20,18 @@ class Materiel extends Model
         'updated_at' => 'datetime',
     ];
 
+    protected $with = [
+       'mouvements'
+    ];
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(MaterielCategory::class, 'materiel_category_id', 'id');
+    }
+
+    public function mouvements(): HasMany
+    {
+        return $this->hasMany(Mouvement::class)->orderBy('date', 'DESC');
     }
 
     public function getCategoryIdAttribute(): int|null

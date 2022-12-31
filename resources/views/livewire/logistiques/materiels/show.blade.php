@@ -20,6 +20,7 @@
 @stop
 <div class="">
     @include('livewire.logistiques.materiels.modals.crud')
+    @include('livewire.logistiques.materiels.modals.mouvement')
 
     <div class="content mt-3">
         <div class="container-fluid">
@@ -114,7 +115,8 @@
                                 <li class="nav-item">
                                     <a class="nav-link" id="custom-tabs-one-amortissement-tab" data-toggle="pill"
                                        href="#custom-tabs-one-amortissement" role="tab"
-                                       aria-controls="custom-tabs-one-amortissement" aria-selected="false">Amortissement</a>
+                                       aria-controls="custom-tabs-one-amortissement"
+                                       aria-selected="false">Amortissement</a>
                                 </li>
                             </ul>
                         </div>
@@ -123,23 +125,52 @@
                             <div class="tab-content" id="custom-tabs-one-tabContent">
                                 <div class="tab-pane fade active show" id="custom-tabs-one-mouvements" role="tabpanel"
                                      aria-labelledby="custom-tabs-one-mouvements-tab">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                            <tr>
-                                                <th style="width: 50px">#</th>
-                                                <th>CATÉGORIE</th>
-                                                <th>DESCRIPTION</th>
-                                                <th>MATÉRIELS</th>
-                                                <th>AGGRÉGAT</th>
-                                                <th style="width: 50px"></th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <div class="card-title">
+                                                <h4 class="m-0">Mouvement du matériel</h4>
+                                            </div>
+                                            <div class="card-tools">
+                                                <button
+                                                    title="Ajouter" role="button"
+                                                    class="btn btn-outline-primary ml-2 mr-2" data-toggle="modal"
+                                                    data-target="#add-mouvement-modal">
+                                                    <span class="fa fa-plus"></span>
+                                                </button>
 
-                                            </tbody>
-                                        </table>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead>
+                                                    <tr>
+                                                        <th style="width: 50px">#</th>
+                                                        <th>DATE</th>
+                                                        <th>BÉNÉFICIAIRE</th>
+                                                        <th>FACILITATEUR</th>
+                                                        <th>DIRECTION</th>
+                                                        <th>ÉTAT</th>
+                                                        <th style="width: 50px"></th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    @foreach($materiel->mouvements as $i=>$mouvement)
+                                                        <tr>
+                                                            <td>{{$i+1}}</td>
+                                                            <td>{{$mouvement->dateFormatted}}</td>
+                                                            <td>{{$mouvement->beneficiaire}}</td>
+                                                            <td>{{$mouvement->facilitateur->name}}</td>
+                                                            <td><span class="badge badge-{{$mouvement->direction->color()}}">{{$mouvement->direction->label()}}</span></td>
+                                                            <td>{{$mouvement->materiel_status->label()}}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
                                     </div>
+
                                 </div>
                                 <div class="tab-pane fade" id="custom-tabs-one-amortissement" role="tabpanel"
                                      aria-labelledby="custom-tabs-one-amortissement-tab">
