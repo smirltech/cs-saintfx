@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('materiels', function (Blueprint $table) {
             $table->id();
+            $table->string('code')->unique()->nullable();
             $table->foreignIdFor(MaterielCategory::class)->constrained()->restrictOnDelete();
             $table->foreignIdFor(User::class)->constrained()->restrictOnDelete();
             $table->foreignIdFor(User::class, 'edited_by')->constrained('users', 'id')->restrictOnDelete();

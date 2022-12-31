@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Enums\MaterialStatus;
+use App\Enums\MouvementStatus;
 use App\Models\Materiel;
 use App\Models\Mouvement;
 use App\Models\User;
@@ -20,10 +21,13 @@ class MouvementFactory extends Factory
 
         return [
             'materiel_id' => $this->faker->randomElement(Materiel::pluck('id')->toArray()),
-            'borrower_id' => $this->faker->randomElement(User::pluck('id')->toArray()),
-            'lender_out_id' => $this->faker->randomElement(User::pluck('id')->toArray()),
-            'date_out' => $this->faker->dateTimeBetween('-2 years', 'now')->format('Y-m-d'),
-            'status_out' => $this->faker->randomElement(MaterialStatus::cases()),
+            'user_id' => $this->faker->randomElement(User::pluck('id')->toArray()),
+            'facilitateur_id' => $this->faker->randomElement(User::pluck('id')->toArray()),
+            'beneficiaire' => $this->faker->name,
+            'date' => $this->faker->dateTimeBetween('-2 years', 'now')->format('Y-m-d'),
+            'direction' => MouvementStatus::in->name,
+            'materiel_status' => $this->faker->randomElement(MaterialStatus::cases()),
+            'observation' => $this->faker->sentence,
         ];
     }
 }
