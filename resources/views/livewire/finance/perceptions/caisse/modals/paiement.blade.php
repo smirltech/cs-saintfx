@@ -10,14 +10,14 @@
                     type="number"
                     label="Montant payé (max : {{$perception->montant??''}})"
                     max="{{$perception->montant??0}}"
-                    wire:model="perception.paid"
+                    wire:model.defer="perception.paid"
                     :is-valid="$errors->has('perception.paid')?false:null"
                     :error="$errors->first('perception.paid')">
                 </x-form-input>
             </div>
             <div class="form-group col-sm-12">
                 <label for="">Payé par</label>
-                <input type="text" wire:model="perception.paid_by"
+                <input type="text" wire:model.defer="perception.paid_by"
                        class="form-control">
             </div>
         </div>

@@ -150,11 +150,13 @@ class Inscription extends Model
     // SOMMES
     public function getMontantAttribute(): int|null
     {
-        return $this->perceptions()
+        $perc = $this->perceptions()
             ->whereHas('frais', function ($q){
                 $q->where('type', FraisType::inscription);
             })
             ->first()?->paid;
+       // dd((int)($perc));
+        return (int)($perc);
     }
 
     public function getPerceptionsDuesAttribute(): int
