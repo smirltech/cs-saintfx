@@ -10,11 +10,11 @@ use App\Http\Livewire\Logistiques\Consommable\ConsommableIndexComponent;
 use App\Http\Livewire\Logistiques\Consommable\ConsommableShowComponent;
 use App\Http\Livewire\Logistiques\Materiel\MaterielIndexComponent;
 use App\Http\Livewire\Logistiques\Materiel\MaterielShowComponent;
+use App\Http\Livewire\Logistiques\MaterielCategory\MaterielCategoryIndexComponent;
 use App\Http\Livewire\Logistiques\MaterielCategory\MaterielCategoryShowComponent;
 use App\Http\Livewire\Logistiques\Mouvement\MouvementIndexComponent;
 use App\Http\Livewire\Logistiques\Unit\UnitIndexComponent;
 use App\Http\Livewire\MainDashboardComponent;
-use App\Http\Livewire\Logistiques\MaterielCategory\MaterielCategoryIndexComponent;
 use App\Http\Livewire\Scolarite;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -148,7 +148,7 @@ Route::prefix('finance')->middleware(['auth:web'])->as('finance.')->group(functi
 });
 
 # Logistiques
-Route::prefix('logistiques')->middleware(['auth:web'])->as('logistiques.')->group(function () {
+Route::prefix('logistique')->middleware(['auth:web'])->as('logistique.')->group(function () {
 
     // materiel categories
     Route::get('categories', MaterielCategoryIndexComponent::class)->name('categories');

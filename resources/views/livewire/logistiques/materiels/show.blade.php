@@ -11,7 +11,7 @@
         <div class="col-6">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('scolarite') }}">Accueil</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('logistiques.materiels') }}">Matériels</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('logistique.materiels') }}">Matériels</a></li>
                 <li class="breadcrumb-item active">{{$materiel->nom}}</li>
             </ol>
         </div>
@@ -44,7 +44,7 @@
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
                                     <b>Catégorie : </b> <span class="float-right">
-                                        <a href="{{route('logistiques.categories.show',[$materiel->categoryId])}}">{!! $materiel->categoryNom !!}</a>
+                                        <a href="{{route('logistique.categories.show',[$materiel->categoryId])}}">{!! $materiel->categoryNom !!}</a>
                                     </span>
                                 </li>
                                 <li class="list-group-item">
@@ -54,7 +54,8 @@
                                     <b>État : </b> <span class="float-right">{{$materiel->status->label()}}</span>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Direction : </b> <span class="float-right badge badge-{{$materiel->direction?->color()}}">{{$materiel->direction?->label()}}</span>
+                                    <b>Direction : </b> <span
+                                        class="float-right badge badge-{{$materiel->direction?->color()}}">{{$materiel->direction?->label()}}</span>
                                 </li>
                             </ul>
                         </div>
@@ -164,20 +165,26 @@
                                                             <td>{{$mouvement->dateFormatted}}</td>
                                                             <td>{{$mouvement->beneficiaire}}</td>
                                                             <td>{{$mouvement->facilitateur->name}}</td>
-                                                            <td><span class="badge badge-{{$mouvement->direction->color()}}">{{$mouvement->direction->label()}}</span></td>
+                                                            <td><span
+                                                                    class="badge badge-{{$mouvement->direction->color()}}">{{$mouvement->direction->label()}}</span>
+                                                            </td>
                                                             <td>{{$mouvement->materiel_status->label()}}</td>
                                                             <td>
                                                                 <div class="d-flex float-right">
-                                                                    <button wire:click="getSelectedMouvement({{$mouvement}})" type="button"
-                                                                            title="Modifier" class="btn btn-warning  ml-4"
-                                                                            data-toggle="modal"
-                                                                            data-target="#update-mouvement-modal">
+                                                                    <button
+                                                                        wire:click="getSelectedMouvement({{$mouvement}})"
+                                                                        type="button"
+                                                                        title="Modifier" class="btn btn-warning  ml-4"
+                                                                        data-toggle="modal"
+                                                                        data-target="#update-mouvement-modal">
                                                                         <span class="fa fa-edit"></span>
                                                                     </button>
-                                                                    <button wire:click="getSelectedMouvement({{$mouvement}})" type="button"
-                                                                            title="Supprimer" class="btn btn-danger  ml-4"
-                                                                            data-toggle="modal"
-                                                                            data-target="#delete-mouvement-modal">
+                                                                    <button
+                                                                        wire:click="getSelectedMouvement({{$mouvement}})"
+                                                                        type="button"
+                                                                        title="Supprimer" class="btn btn-danger  ml-4"
+                                                                        data-toggle="modal"
+                                                                        data-target="#delete-mouvement-modal">
                                                                         <span class="fa fa-trash"></span>
                                                                     </button>
                                                                 </div>

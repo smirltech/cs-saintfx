@@ -75,12 +75,15 @@
                                     <tr>
                                         <td>{!! $row[0] !!}</td>
                                         <td>{!! $row[1] !!}</td>
-                                        <td><a href="{{$row[2]==null?'#':route('logistiques.categories.show',[$row[2]?->id])}}">{!! $row[2]?->nom !!}</a></td>
+                                        <td>
+                                            <a href="{{$row[2]==null?'#':route('logistique.categories.show',[$row[2]?->id])}}">{!! $row[2]?->nom !!}</a>
+                                        </td>
                                         <td>{!! $row[3] !!}</td>
                                         <td>{!! $row[4] !!}</td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                <a href="{{route('logistiques.categories.show',[$row[5]->id])}}" title="Voir"
+                                                <a href="{{route('logistique.categories.show',[$row[5]->id])}}"
+                                                   title="Voir"
                                                    class="btn btn-warning">
                                                     <i class="fas fa-eye"></i>
                                                 </a>

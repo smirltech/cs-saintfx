@@ -1,35 +1,35 @@
 @php
-use Carbon\Carbon;
+    use Carbon\Carbon;
 
-    $heads =[
-        ['label'=>'#', 'width'=>5],
-        'CODE',
-        'CONSOMMABLE',
-        'DESCRIPTION',
-        'QUANTITÉ',
-        ['label'=>'UNIT', 'width'=>5],
-        ['label'=>'', 'no-export'=>true, 'width'=>5]
-];
-   //$datas =[];
-   foreach ($consommables as $i=>$consommable){
-        $datas[] =[
-            $i+1,
-            $consommable->code,
-            $consommable->nom,
-            $consommable->description,
-            $consommable->quantite,
-            $consommable->unit->abreviation,
-            $consommable,
-];
-   }
+        $heads =[
+            ['label'=>'#', 'width'=>5],
+            'CODE',
+            'CONSOMMABLE',
+            'DESCRIPTION',
+            'QUANTITÉ',
+            ['label'=>'UNIT', 'width'=>5],
+            ['label'=>'', 'no-export'=>true, 'width'=>5]
+    ];
+       //$datas =[];
+       foreach ($consommables as $i=>$consommable){
+            $datas[] =[
+                $i+1,
+                $consommable->code,
+                $consommable->nom,
+                $consommable->description,
+                $consommable->quantite,
+                $consommable->unit->abreviation,
+                $consommable,
+    ];
+       }
 
-    $config =[
-  'data'=>$datas,
-  'order'=>[[1, 'asc']],
-  'columns'=>[null, null, null, null, null, null, ['orderable'=>false]],
-  'destroy'=>false,
+        $config =[
+      'data'=>$datas,
+      'order'=>[[1, 'asc']],
+      'columns'=>[null, null, null, null, null, null, ['orderable'=>false]],
+      'destroy'=>false,
 
-];
+    ];
 @endphp
 
 @section('title')
@@ -85,7 +85,8 @@ use Carbon\Carbon;
                                         <td>{!! $row[5] !!}</td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                <a href="{{route('logistiques.consommables.show',[$row[6]->id])}}" title="Voir"
+                                                <a href="{{route('logistique.consommables.show',[$row[6]->id])}}"
+                                                   title="Voir"
                                                    class="btn btn-warning">
                                                     <i class="fas fa-eye"></i>
                                                 </a>

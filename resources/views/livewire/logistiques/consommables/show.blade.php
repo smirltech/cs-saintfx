@@ -11,7 +11,7 @@
         <div class="col-6">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('scolarite') }}">Accueil</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('logistiques.consommables') }}">Consommables</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('logistique.consommables') }}">Consommables</a></li>
                 <li class="breadcrumb-item active">{{$consommable->nom}}</li>
             </ol>
         </div>
@@ -43,7 +43,8 @@
                         <div class="card-body">
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
-                                    <b>Description : </b> <span class="float-right">{{ $consommable->description }}</span>
+                                    <b>Description : </b> <span
+                                        class="float-right">{{ $consommable->description }}</span>
                                 </li>
                                 <li class="list-group-item">
                                     <b>Unité : </b> <span class="float-right">{{$consommable->unit->nom}}</span>
@@ -60,13 +61,16 @@
                         <div class="card-body">
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
-                                    <b>Quantité Acquise : </b> <span class="float-right">{{$consommable->quantiteIn}} {{$consommable->unit->abreviation}}</span>
+                                    <b>Quantité Acquise : </b> <span
+                                        class="float-right">{{$consommable->quantiteIn}} {{$consommable->unit->abreviation}}</span>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Quantité Consommée : </b> <span class="float-right">{{$consommable->quantiteOut}} {{$consommable->unit->abreviation}}</span>
+                                    <b>Quantité Consommée : </b> <span
+                                        class="float-right">{{$consommable->quantiteOut}} {{$consommable->unit->abreviation}}</span>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Quantité : </b> <span class="float-right">{{$consommable->quantite}} {{$consommable->unit->abreviation}}</span>
+                                    <b>Quantité : </b> <span
+                                        class="float-right">{{$consommable->quantite}} {{$consommable->unit->abreviation}}</span>
                                 </li>
 
                             </ul>
@@ -128,24 +132,30 @@
                                                             <td>{{$operation->dateFormatted}}</td>
                                                             <td>{{$operation->beneficiaire}}</td>
                                                             <td>{{$operation->facilitateur->name}}</td>
-                                                            <td><span class="badge badge-{{$operation->direction->color()}}">{{$operation->direction->label()}}</span></td>
+                                                            <td><span
+                                                                    class="badge badge-{{$operation->direction->color()}}">{{$operation->direction->label()}}</span>
+                                                            </td>
                                                             <td>{{$operation->quantite}} {{$consommable->unit->abreviation}}</td>
-                                                        <td>
-                                                            <div class="d-flex float-right">
-                                                                <button wire:click="getSelectedOperation({{$operation}})" type="button"
+                                                            <td>
+                                                                <div class="d-flex float-right">
+                                                                    <button
+                                                                        wire:click="getSelectedOperation({{$operation}})"
+                                                                        type="button"
                                                                         title="Modifier" class="btn btn-warning  ml-4"
                                                                         data-toggle="modal"
                                                                         data-target="#update-operation-modal">
-                                                                    <span class="fa fa-edit"></span>
-                                                                </button>
-                                                                <button wire:click="getSelectedOperation({{$operation}})" type="button"
+                                                                        <span class="fa fa-edit"></span>
+                                                                    </button>
+                                                                    <button
+                                                                        wire:click="getSelectedOperation({{$operation}})"
+                                                                        type="button"
                                                                         title="Supprimer" class="btn btn-danger  ml-4"
                                                                         data-toggle="modal"
                                                                         data-target="#delete-operation-modal">
-                                                                    <span class="fa fa-trash"></span>
-                                                                </button>
-                                                            </div>
-                                                        </td>
+                                                                        <span class="fa fa-trash"></span>
+                                                                    </button>
+                                                                </div>
+                                                            </td>
                                                         </tr>
                                                     @endforeach
                                                     </tbody>
@@ -155,7 +165,7 @@
                                     </div>
 
                                 </div>
-                             </div>
+                            </div>
                         </div>
                     </div>
                 </div>
