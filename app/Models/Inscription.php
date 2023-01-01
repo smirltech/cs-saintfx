@@ -65,6 +65,11 @@ class Inscription extends Model
         return $this->eleve->fullName;
     }
 
+    public function getMatriculeAttribute(): string
+    {
+        return $this->eleve->matricule;
+    }
+
     public function classe(): BelongsTo
     {
         return $this->belongsTo(Classe::class);
