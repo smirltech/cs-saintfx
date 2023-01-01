@@ -62,15 +62,15 @@
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
                                     <b>Quantité Acquise : </b> <span
-                                        class="float-right">{{$consommable->quantiteIn}} {{$consommable->unit->abreviation}}</span>
+                                        class="float-right">{{$consommable->quantiteIn}} {{$consommable->unit->code}}</span>
                                 </li>
                                 <li class="list-group-item">
                                     <b>Quantité Consommée : </b> <span
-                                        class="float-right">{{$consommable->quantiteOut}} {{$consommable->unit->abreviation}}</span>
+                                        class="float-right">{{$consommable->quantiteOut}} {{$consommable->unit->code}}</span>
                                 </li>
                                 <li class="list-group-item">
                                     <b>Quantité : </b> <span
-                                        class="float-right">{{$consommable->quantite}} {{$consommable->unit->abreviation}}</span>
+                                        class="float-right">{{$consommable->quantite}} {{$consommable->unit->code}}</span>
                                 </li>
 
                             </ul>
@@ -135,7 +135,7 @@
                                                             <td><span
                                                                     class="badge badge-{{$operation->direction->color()}}">{{$operation->direction->label()}}</span>
                                                             </td>
-                                                            <td>{{$operation->quantite}} {{$consommable->unit->abreviation}}</td>
+                                                            <td>{{$operation->quantite}} {{$consommable->unit->code}}</td>
                                                             <td>
                                                                 <div class="d-flex float-right">
                                                                     <button

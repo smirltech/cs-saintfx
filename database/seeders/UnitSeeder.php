@@ -19,39 +19,39 @@ class UnitSeeder extends Seeder
         return [
             [
                 'nom' => 'Kilogramme',
-                'abreviation' => 'Kg',
+                'code' => 'Kg',
             ],
             [
                 'nom' => 'Mètre',
-                'abreviation' => 'm',
+                'code' => 'm',
             ],
             [
                 'nom' => 'Litre',
-                'abreviation' => 'L',
+                'code' => 'L',
             ],
             [
                 'nom' => 'Carton',
-                'abreviation' => 'Ctn',
+                'code' => 'Ctn',
             ],
             [
                 'nom' => 'Pièce',
-                'abreviation' => 'Pc',
+                'code' => 'Pc',
             ],
             [
                 'nom' => 'Bouteille',
-                'abreviation' => 'Btl',
+                'code' => 'Btl',
             ],
             [
                 'nom' => 'Boîte',
-                'abreviation' => 'Bte',
+                'code' => 'Bte',
             ],
             [
                 'nom' => 'Paquet',
-                'abreviation' => 'Pqt',
+                'code' => 'Pqt',
             ],
             [
                 'nom' => 'Sac',
-                'abreviation' => 'Sac',
+                'code' => 'Sac',
             ]
         ];
     }

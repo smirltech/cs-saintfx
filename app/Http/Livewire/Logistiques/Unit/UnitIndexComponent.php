@@ -20,7 +20,7 @@ class UnitIndexComponent extends Component
 
     protected $rules = [
         'unit.nom' => 'required|unique:units, nom',
-        'unit.abreviation' => 'required',
+        'unit.code' => 'required',
     ];
 
     public function mount()
@@ -86,7 +86,7 @@ class UnitIndexComponent extends Component
                 "required",
                 Rule::unique((new Unit())->getTable(), "nom")->ignore($this->unit->id)
             ],
-            'unit.abreviation' => 'required',
+            'unit.code' => 'required',
         ]);
 
         $done = $this->unit->save();

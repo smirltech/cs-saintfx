@@ -1,4 +1,3 @@
-
 @section('title')
     - unités de mesure
 @endsection
@@ -53,11 +52,12 @@
                                         <tr>
                                             <td>{{$i+1}}</td>
                                             <td>{{$unit->nom}}</td>
-                                            <td>{{$unit->abreviation}}</td>
+                                            <td>{{$unit->code}}</td>
                                             <td>
                                                 <div class="d-flex float-right">
                                                     <button wire:click="getSelectedUnit({{$unit}})" type="button"
-                                                            title="Modifier" class="btn btn-info  ml-2" data-toggle="modal"
+                                                            title="Modifier" class="btn btn-info  ml-2"
+                                                            data-toggle="modal"
                                                             data-target="#update-unit-modal">
                                                         <span class="fa fa-pen"></span>
                                                     </button>

@@ -15,17 +15,17 @@
                 </x-form-input>
             </div>
             <div class="form-group col-md-4 col-sm-12">
-               <x-form-input
-                   type="text"
-                   label="Abréviation"
-                   wire:model="unit.abreviation">
-               </x-form-input>
-           </div>
+                <x-form-input
+                    type="text"
+                    label="Abréviation"
+                    wire:model="unit.code">
+                </x-form-input>
+            </div>
         </div>
     </form>
     <x-slot name="footerSlot">
         <div class="d-flex">
-                <button form="f1a" type="submit" class="btn btn-outline-primary mr-3">Soumettre</button>
+            <button form="f1a" type="submit" class="btn btn-outline-primary mr-3">Soumettre</button>
         </div>
     </x-slot>
 </x-adminlte-modal>
@@ -50,7 +50,7 @@
                 <x-form-input
                     type="text"
                     label="Abréviation"
-                    wire:model="unit.abreviation">
+                    wire:model="unit.code">
                 </x-form-input>
             </div>
         </div>

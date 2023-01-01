@@ -18,7 +18,7 @@
                 $consommable->nom,
                 $consommable->description,
                 $consommable->quantite,
-                $consommable->unit->abreviation,
+                $consommable->unit->code,
                 $consommable,
     ];
        }
