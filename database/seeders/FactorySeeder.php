@@ -26,7 +26,6 @@ use App\Models\Responsable;
 use App\Models\ResponsableEleve;
 use App\Models\Resultat;
 use App\Models\Revenu;
-use App\Models\Unit;
 use App\Models\User;
 use Database\Factories\UnitFactory;
 use Illuminate\Database\Seeder;
@@ -71,7 +70,6 @@ class FactorySeeder extends Seeder
         Materiel::factory(10)->create();
         Mouvement::factory(15)->create();
         Cession::factory(3)->create();
-        Unit::factory(5)->create();
         Consommable::factory(10)->create();
         Operation::factory(10)->create();
 

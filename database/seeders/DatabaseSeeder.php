@@ -28,9 +28,9 @@ class DatabaseSeeder extends Seeder
             FiliereSeeder::class,
             AnneeSeeder::class,
             ClasseSeeder::class,
-            RevenuSeeder::class,
             FraisSeeder::class,
             DepenseTypeSeeder::class,
+            UnitSeeder::class,
         ]);
 
         // create admin
