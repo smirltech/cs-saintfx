@@ -172,4 +172,13 @@ class Inscription extends Model
         return $this->perceptionsDues - $this->perceptionsPaid;
     }
 
+    // SOMMES
+    public function getPerceptionsEncoursAttribute()
+    {
+        return $this->perceptions->where('balance', '>', 0);
+    }
+    public function getPerceptionsEncoursCountAttribute()
+    {
+        return $this->perceptionsEncours->count();
+    }
 }

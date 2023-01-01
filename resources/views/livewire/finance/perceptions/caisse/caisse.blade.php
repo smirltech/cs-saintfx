@@ -49,8 +49,14 @@
 
                                 <div class="input-group-append" id="button-addon4">
                                     <button wire:click.debounce="searchInscription" title="Rechercher"
-                                            class="input-group-text btn">
+                                            class="input-group-texte rounded btn btn-default">
                                         <i class="fas fa-play"></i>
+                                    </button>
+                                </div>
+                                <div class="input-group-append" id="button-addon4">
+                                    <button wire:click.debounce="clearSearch" title="Annuler recherche"
+                                            class="btn btn-default  ml-2">
+                                        <i class="fas fa-close"></i>
                                     </button>
                                 </div>
                             </div>
@@ -98,7 +104,7 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="card-title">
-                                <h4>{{$inscription?->fullName}}</h4>
+                                <h4>Élève : {{$inscription?->fullName}}</h4>
                             </div>
                             <div class="card-tools d-flex my-auto">
                                 @if($inscription != null)
@@ -111,12 +117,19 @@
                             </div>
                         </div>
                         <div class="card-body m-b-40">
+
                             <div class="">
                                 <ul class="list-group list-group-unbordered mb-3">
-                                    @foreach($perceptions as $perception)
+                                    @foreach($perceptions as $percept)
                                         <li class="list-group-item">
-                                            <b>Facture info : {{$perception->frais->nom}} </b> <span
-                                                class="float-right">{{number_format($perception->balance, 2)}} Fc</span>
+                                            <b>Facture info : {{$percept->frais->nom}} </b> <span
+                                                class="float-right">{{number_format($percept->balance, 2)}} Fc
+                                            <button wire:click="getSelectedPerception('{{$percept->id}}')"
+                                                    title="Payer facture"
+                                                    class="btn btn-default btn-sm ml-2">
+                                                        <i class="fas fa-hand-holding-dollar"></i>
+                                                    </button>
+                                            </span>
                                         </li>
                                     @endforeach
 

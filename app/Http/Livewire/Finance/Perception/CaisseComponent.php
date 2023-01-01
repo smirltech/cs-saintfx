@@ -38,12 +38,14 @@ class CaisseComponent extends Component
     public function getSelectedInscription($id)
     {
         $this->inscription = Inscription::find($id);
-        $this->perceptions = $this->inscription->perceptions;
+        // $this->perceptions = $this->inscription->perceptions;
+        $this->perceptions = $this->inscription->perceptionsEncours;
     }
 
     public function getSelectedPerception($id)
     {
         $this->perception = Perception::find($id);
+        dd($this->perception);
     }
 
     public function clearSelection()
@@ -53,6 +55,16 @@ class CaisseComponent extends Component
         $this->perception = null;
     }
 
+    public function clearSearch()
+    {
+        $this->searchTerm = '';
+        $this->inscription = null;
+        $this->perceptions = [];
+        $this->inscriptions = [];
+        $this->perception = null;
+    }
+
+
     public function searchInscription()
     {
         $terms = trim($this->searchTerm);
@@ -60,14 +72,14 @@ class CaisseComponent extends Component
         if ($terms != null && Str::length($terms) > 1) {
             $this->inscriptions = Inscription::where('annee_id', $this->annee_id)
                 ->whereHas('eleve', function ($q) use ($terms) {
-                     $q->where('nom' , 'like', '%'.$terms.'%')
-                         ->orWhere('postnom' , 'like', '%'.$terms.'%')
-                         ->orWhere('prenom' , 'like', '%'.$terms.'%')
-                         ->orWhere('matricule' , 'like', '%'.$terms.'%')
-                     ;
+                    $q->where('nom', 'like', '%' . $terms . '%')
+                        ->orWhere('postnom', 'like', '%' . $terms . '%')
+                        ->orWhere('prenom', 'like', '%' . $terms . '%')
+                        ->orWhere('matricule', 'like', '%' . $terms . '%');
 
                 })
-                ->get();
+                ->get()
+                ->where('perceptions_encours_count', '>', 0);
         } else {
             $this->inscriptions = [];
         }
