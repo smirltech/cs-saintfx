@@ -3,7 +3,10 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Amortissement;
+use App\Models\Cession;
 use App\Models\ClasseEnseignant;
+use App\Models\Consommable;
 use App\Models\Cours;
 use App\Models\CoursEnseignant;
 use App\Models\Depense;
@@ -12,6 +15,10 @@ use App\Models\DevoirReponse;
 use App\Models\Eleve;
 use App\Models\Enseignant;
 use App\Models\Inscription;
+use App\Models\Materiel;
+use App\Models\MaterielCategory;
+use App\Models\Mouvement;
+use App\Models\Operation;
 use App\Models\Paiment;
 use App\Models\Perception;
 use App\Models\Presence;
@@ -19,7 +26,9 @@ use App\Models\Responsable;
 use App\Models\ResponsableEleve;
 use App\Models\Resultat;
 use App\Models\Revenu;
+use App\Models\Unit;
 use App\Models\User;
+use Database\Factories\UnitFactory;
 use Illuminate\Database\Seeder;
 
 class FactorySeeder extends Seeder
@@ -58,6 +67,13 @@ class FactorySeeder extends Seeder
         Depense::factory(5)->create();
         Paiment::factory(5)->create();
         Perception::factory(5)->create();
+        MaterielCategory::factory(5)->create();
+        Materiel::factory(10)->create();
+        Mouvement::factory(15)->create();
+        Cession::factory(3)->create();
+        Unit::factory(5)->create();
+        Consommable::factory(10)->create();
+        Operation::factory(10)->create();
 
     }
 }

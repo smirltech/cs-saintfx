@@ -41,6 +41,24 @@ class Presence extends Model implements Event
         return $this->status->label();
     }
 
+    public function getColor(): string
+    {
+        return $this->status->color2();
+    }
+
+    /**
+     * Optional FullCalendar.io settings for this event
+     *
+     * @return array
+     */
+    public function getEventOptions()
+    {
+        return [
+            'color' => $this->status->colorNonBootstrap(),
+            //etc
+        ];
+    }
+
     /**
      * @inheritDoc
      */

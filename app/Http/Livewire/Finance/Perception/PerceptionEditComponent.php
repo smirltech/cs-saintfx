@@ -211,7 +211,7 @@ class PerceptionEditComponent extends Component
                 $this->alert('warning', "Echec de modification de facture !");
             }
         } catch (Exception $exception) {
-            dd($exception);
+           // dd($exception);
             $this->alert('error', "Echec de modification de facture pour la fréquence déjà existante !");
         }
     }
@@ -249,13 +249,14 @@ class PerceptionEditComponent extends Component
 
     public function printIt()
     {
-        try {
+      /*  try {
             $this->doTheEdit();
         } catch (Exception $ex) {
             $this->error($ex->getMessage(), "Echec de modification de facture pour la fréquence déjà existante !");
         }
         $this->dispatchBrowserEvent('closeModal', ['modal' => 'recu-modal']);
         $this->dispatchBrowserEvent('printIt', ['elementId' => "factPrint", 'type' => 'html', 'maxWidth' => 301]);
+    */
     }
 
     private function loadInscriptionFrais()

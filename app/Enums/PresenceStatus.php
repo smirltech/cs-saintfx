@@ -29,4 +29,14 @@ enum PresenceStatus: string
             self::autre => 'info',
         };
     }
+
+    public function colorNonBootstrap(): string
+    {
+        return match ($this) {
+            self::present => 'green',
+            self::absent => 'red',
+            self::malade => 'orange',
+            self::autre => 'teal',
+        };
+    }
 }
