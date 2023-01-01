@@ -50,6 +50,11 @@ class Perception extends Model
         return $this->belongsTo(Inscription::class);
     }
 
+    public function getBalanceAttribute(): int
+    {
+        return $this->montant - $this->paid;
+    }
+
     public function getNomCompletAttribute(): string
     {
         return $this->getFullNameAttribute();

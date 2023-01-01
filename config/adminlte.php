@@ -361,13 +361,19 @@ return [
                     // 'can' => RolePermission::view_etudiant->name,
                     'submenu' => [
                         [
-                            'text' => 'Ajouter perception',
+                            'text' => 'Caisse',
+                            'url' => 'finance/caisse',
+                            'shift' => 'ml-4',
+                            //      'can' => RolePermission::create_etudiant->name,
+                        ],
+                        [
+                            'text' => 'Ajouter facture',
                             'url' => 'finance/perceptions/create',
                             'shift' => 'ml-4',
                             //      'can' => RolePermission::create_etudiant->name,
                         ],
                         [
-                            'text' => 'Liste de perceptions',
+                            'text' => 'Liste de factures',
                             'url' => 'finance/perceptions',
                             'shift' => 'ml-4',
                         ],

@@ -29,8 +29,6 @@ class PerceptionFactory extends Factory
             'custom_property' => $this->faker->randomElement($freq->children()),
             'annee_id' => $this->faker->numberBetween(1, Annee::count()),
             'montant' => 50000,
-            'paid' => $this->faker->numberBetween(30000, 55000),
-            'paid_by' => $this->faker->word,
         ];
     }
 }

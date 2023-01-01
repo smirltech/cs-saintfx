@@ -48,7 +48,7 @@
 
                 $perception->inscription?->classe->code,
                 $perception->montant,
-                $perception->paid,
+                (int)($perception->paid),
                 ( $perception->montant-(int)($perception->paid)),
                 Carbon::parse($perception->due_date),
                 $perception->id,
