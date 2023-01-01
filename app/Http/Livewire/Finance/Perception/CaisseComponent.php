@@ -21,11 +21,17 @@ class CaisseComponent extends Component
     public $inscription;
     public $perception;
     public $searchTerm = '';
-    public $annee_id;
+    public $annee;
+    public $fee;
+
+    protected $rules = [
+        'perception.paid' => 'nullable',
+        'perception.paid_by' => 'nullable',
+    ];
 
     public function mount()
     {
-        $this->annee_id = Annee::id();
+        $this->annee = Annee::encours();
     }
 
     public function render()
@@ -45,7 +51,8 @@ class CaisseComponent extends Component
     public function getSelectedPerception($id)
     {
         $this->perception = Perception::find($id);
-        dd($this->perception);
+        $this->fee = $this->perception->frais;
+        //  dd($this->perception);
     }
 
     public function clearSelection()
@@ -53,6 +60,7 @@ class CaisseComponent extends Component
         $this->inscription = null;
         $this->perceptions = [];
         $this->perception = null;
+        $this->fee = null;
     }
 
     public function clearSearch()
@@ -62,6 +70,7 @@ class CaisseComponent extends Component
         $this->perceptions = [];
         $this->inscriptions = [];
         $this->perception = null;
+        $this->fee = null;
     }
 
 
@@ -70,7 +79,7 @@ class CaisseComponent extends Component
         $terms = trim($this->searchTerm);
 
         if ($terms != null && Str::length($terms) > 1) {
-            $this->inscriptions = Inscription::where('annee_id', $this->annee_id)
+            $this->inscriptions = Inscription::where('annee_id', $this->annee->id)
                 ->whereHas('eleve', function ($q) use ($terms) {
                     $q->where('nom', 'like', '%' . $terms . '%')
                         ->orWhere('postnom', 'like', '%' . $terms . '%')
@@ -84,7 +93,35 @@ class CaisseComponent extends Component
             $this->inscriptions = [];
         }
 
+    }
 
+    public function onModalClosed($p_id)
+    {
+        $this->dispatchBrowserEvent('closeModal', ['modal' => $p_id]);
+      //  $this->clearSearch();
+       // $this->searchInscription();
+       // $this->perception = Perception::find($this->perception->id);
+    }
+
+    // paiement et impression facture
+    public function payFacture()
+    {
+        $this->validate();
+        $done = $this->perception->save();
+
+        if ($done) {
+            $this->onModalClosed('paiement-facture');
+            $this->alert('success', "Facture payée avec succès !");
+            $this->printIt();
+        } else {
+            $this->alert('warning', "Echec de paiement de facture !");
+        }
+    }
+
+    private function printIt()
+    {
+
+        $this->dispatchBrowserEvent('printIt', ['elementId' => "factPrint", 'type' => 'html', 'maxWidth' => 301]);
     }
 
 }

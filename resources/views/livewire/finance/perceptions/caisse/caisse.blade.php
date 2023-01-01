@@ -22,7 +22,8 @@
 
 @stop
 <div wire:ignore.self class="">
-
+    @include('livewire.finance.perceptions.caisse.modals.paiement')
+    @include('livewire.finance.cards.recu')
     <div class="content mt-3">
         <div class="container-fluid">
             <div class="row">
@@ -122,11 +123,13 @@
                                 <ul class="list-group list-group-unbordered mb-3">
                                     @foreach($perceptions as $percept)
                                         <li class="list-group-item">
-                                            <b>Facture info : {{$percept->frais->nom}} </b> <span
-                                                class="float-right">{{number_format($percept->balance, 2)}} Fc
+                                            <b>Facture : {{$percept->frais->nom}} {{$percept->custom_property}}</b> <span
+                                                class="float-right">{{number_format($percept->balance)}} Fc
                                             <button wire:click="getSelectedPerception('{{$percept->id}}')"
                                                     title="Payer facture"
-                                                    class="btn btn-default btn-sm ml-2">
+                                                    class="btn btn-default btn-sm ml-2"
+                                                    data-toggle="modal"
+                                                    data-target="#paiement-facture">
                                                         <i class="fas fa-hand-holding-dollar"></i>
                                                     </button>
                                             </span>
