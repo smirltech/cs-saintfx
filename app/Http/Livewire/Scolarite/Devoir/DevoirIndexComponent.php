@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Scolarite\Devoir;
 
+use App\Models\Annee;
 use App\Models\Cours;
 use App\Models\Devoir;
 use App\Traits\CanDeleteModel;
@@ -29,7 +30,7 @@ class DevoirIndexComponent extends Component
 
     public function loadData(): void
     {
-        $this->devoirs = Devoir::latest()->get();
+        $this->devoirs = Devoir::where('annee_id', Annee::id())->latest()->get();
     }
 
     public function deleteCours(Cours $cours)

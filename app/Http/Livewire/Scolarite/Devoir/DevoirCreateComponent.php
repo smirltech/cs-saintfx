@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Scolarite\Devoir;
 
 use App\Enums\MediaType;
 use App\Exceptions\ApplicationAlert;
+use App\Models\Annee;
 use App\Models\Classe;
 use App\Models\Devoir;
 use App\Traits\CanDeleteModel;
@@ -39,6 +40,7 @@ class DevoirCreateComponent extends Component
 
     public function submit(): void
     {
+        $this->devoir->annee_id = Annee::id();
         $this->validate();
 
         $this->devoir->save();
