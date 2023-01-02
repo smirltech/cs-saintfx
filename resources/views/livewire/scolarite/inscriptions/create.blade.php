@@ -21,7 +21,7 @@
 @stop
 <div class="">
     @include('livewire.scolarite.inscriptions.modals.add_responsable')
-
+  {{--  @include('livewire.finance.cards.recu')--}}
     <div class="content mt-3">
         <div class="container-fluid">
             <div class="card">

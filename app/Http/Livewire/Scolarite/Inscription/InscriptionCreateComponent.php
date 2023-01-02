@@ -86,6 +86,7 @@ class InscriptionCreateComponent extends Component
 
     public $annee_courante;
     public $has_paid = true;
+    public Perception $perception;
 
     protected $listeners = ['onModalClosed'];
     protected $rules = [
@@ -136,6 +137,7 @@ class InscriptionCreateComponent extends Component
 
     public function mount()
     {
+        $this->perception = new Perception();
         $this->responsables = Responsable::orderBy('nom')->get();
 
         $this->annee_courante = Annee::where('encours', true)->first();
@@ -376,7 +378,7 @@ class InscriptionCreateComponent extends Component
             ]);
 
             try {
-                Perception::create(
+            $this->perception =    Perception::create(
                     [
                         'user_id' => Auth::id(),
                         'frais_id' => $this->fee_id,
@@ -400,4 +402,9 @@ class InscriptionCreateComponent extends Component
         }
     }
 
+    /*private function printIt()
+    {
+
+        $this->dispatchBrowserEvent('printIt', ['elementId' => "factPrint", 'type' => 'html', 'maxWidth' => 301]);
+    }*/
 }
