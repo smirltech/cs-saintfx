@@ -13,7 +13,7 @@
             'DIRECTION',
             ['label'=>'', 'no-export'=>true, 'width'=>5]
     ];
-       //$datas =[];
+       $datas =[];
        foreach ($materiels as $i=>$materiel){
             $datas[] =[
                 $i+1,

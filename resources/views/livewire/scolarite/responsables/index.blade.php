@@ -13,7 +13,7 @@
         ];
 
 
-
+$data=[];
     foreach ($responsables as $key=>$responsable){
 
             $btn1 = '<a href="' . "/scolarite/responsables/{$responsable->id}" . '" class="btn btn-success btn-sm m-1" title="Voir Responsable"><i class="fa fa-eye"></i></a>';

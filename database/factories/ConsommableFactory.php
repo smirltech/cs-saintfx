@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Annee;
 use App\Models\Consommable;
 use App\Models\Unit;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -20,6 +21,7 @@ class ConsommableFactory extends Factory
             'description' => $this->faker->paragraph,
             'code' => $this->faker->unique()->creditCardNumber,
             'unit_id' => $this->faker->randomElement(Unit::pluck('id')->toArray()),
+            'annee_id' => Annee::id(),
         ];
     }
 }

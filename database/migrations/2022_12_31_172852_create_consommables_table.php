@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Annee;
 use App\Models\Unit;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -15,6 +16,7 @@ return new class extends Migration
             $table->string('code')->unique()->nullable();
             $table->text('description')->nullable();
             $table->foreignIdFor(Unit::class)->constrained()->restrictOnDelete();
+            $table->foreignIdFor(Annee::class)->constrained()->restrictOnDelete();
             $table->timestamps();
         });
     }

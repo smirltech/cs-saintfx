@@ -7,7 +7,7 @@
         'MATÉRIELS',
         ['label'=>'', 'no-export'=>true, 'width'=>5]
 ];
-   //$datas =[];
+   $datas =[];
    foreach ($categories as $i=>$categorie){
         $datas[] =[
             $i+1,

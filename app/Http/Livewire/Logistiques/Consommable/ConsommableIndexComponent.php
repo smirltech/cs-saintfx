@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Logistiques\Consommable;
 
 use App\Enums\MaterialStatus;
+use App\Models\Annee;
 use App\Models\Consommable;
 use App\Models\Materiel;
 use App\Models\MaterielCategory;
@@ -41,7 +42,7 @@ class ConsommableIndexComponent extends Component
     public function loadData()
     {
         $this->units = Unit::orderBy('nom', 'ASC')->get();
-        $this->consommables = Consommable::orderBy('nom', 'ASC')->get();
+        $this->consommables = Consommable::where('annee_id', Annee::id())->orderBy('nom', 'ASC')->get();
     }
 
     public function initConsommable()
@@ -63,6 +64,7 @@ class ConsommableIndexComponent extends Component
     {
         // Todo: generate proper code
         $this->consommable->code = Factory::create()->unique()->creditCardNumber;
+        $this->consommable->annee_id = Annee::id();
 
         $this->validate();
 

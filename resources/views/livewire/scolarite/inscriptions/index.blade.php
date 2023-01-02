@@ -13,7 +13,7 @@
         ];
 
 
-
+$data=[];
     foreach ($inscriptions->sortBy(fn ($q) => $q->eleve->fullName) as $inscription){
 
             $btn1 = '<a href="' . route("scolarite.eleves.show",$inscription->eleve). '" class="btn btn-success btn-sm m-1" title="Voir Élève"><i class="fa fa-eye"></i></a>';

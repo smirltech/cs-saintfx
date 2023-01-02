@@ -11,7 +11,7 @@
             'ÉTAT',
             'OBSERVATION',
     ];
-       //$datas =[];
+       $datas =[];
        foreach ($mouvements as $i=>$mouvement){
             $datas[] =[
                 $i+1,

@@ -10,7 +10,7 @@
             ['label'=>'UNIT', 'width'=>5],
             ['label'=>'', 'no-export'=>true, 'width'=>5]
     ];
-       //$datas =[];
+       $datas =[];
        foreach ($consommables as $i=>$consommable){
             $datas[] =[
                 $i+1,
