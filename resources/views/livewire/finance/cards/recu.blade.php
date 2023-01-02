@@ -23,7 +23,7 @@
                         </div>
 
                         <div style="text-align:center" class="text-center">Reçu
-                            No.{{$perception->code}}</div>
+                            No.{{$perception->reference}}</div>
                         <div style="text-align:center" class="text-center">
                             Date: {{Carbon::now()->format("d-m-Y à H:i:s")}}
                         </div>

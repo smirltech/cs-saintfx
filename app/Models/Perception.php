@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Perception extends Model
 {
@@ -22,6 +23,8 @@ class Perception extends Model
     ];
 
     protected $with = ['frais'];
+
+    // boot
 
     public static function dataOfLast($days = 7)
     {
@@ -39,6 +42,31 @@ class Perception extends Model
         $fin = Carbon::parse($dfin)->endOfDay();
         return self::where('annee_id', $annee_id)->whereBetween('created_at', [$debut, $fin])->sum('montant');
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function (Perception $model) {
+            $model->reference = self::generateReference();
+        });
+    }
+
+    /**
+     * Create a reference for the perception based on the current month and year and the number of perceptions for the current month
+     * Model: {count:4 digits}{month:2 digits}{year:2 digits}
+     * Ex : 00010123
+     * @return string
+     */
+    public static function generateReference(): string
+    {
+        $count = self::where('annee_id', Annee::id())->whereMonth('created_at', Carbon::now()->month)->count();
+        $count = Str::padLeft($count, 4, '0');
+        $month = Carbon::now()->month;
+        $year = Carbon::now()->year;
+        return $count . $month . $year;
+    }
+
 
     public function frais()
     {
