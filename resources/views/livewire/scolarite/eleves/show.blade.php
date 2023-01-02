@@ -129,15 +129,15 @@
                                 </li>
                                 <li class="list-group-item">
                                     <b>À Recevoir : </b> <span
-                                        class="float-right">{{\App\Helpers\Helpers::currencyFormat($inscription->perceptionsDues, symbol: 'Fc')}}</span>
+                                        class="float-right">{{\App\Helpers\Helpers::currencyFormat($inscription?->perceptionsDues, symbol: 'Fc')}}</span>
                                 </li>
                                 <li class="list-group-item">
                                     <b>Reçu : </b> <span
-                                        class="float-right">{{\App\Helpers\Helpers::currencyFormat($inscription->perceptionsPaid, symbol: 'Fc')}}</span>
+                                        class="float-right">{{\App\Helpers\Helpers::currencyFormat($inscription?->perceptionsPaid, symbol: 'Fc')}}</span>
                                 </li>
                                 <li class="list-group-item">
                                     <b>Solde : </b> <span class="float-right"><i
-                                            class="badge bg-warning">{{\App\Helpers\Helpers::currencyFormat(($inscription->perceptionsBalance), symbol: 'Fc')}}</i></span>
+                                            class="badge bg-warning">{{\App\Helpers\Helpers::currencyFormat(($inscription?->perceptionsBalance), symbol: 'Fc')}}</i></span>
                                 </li>
                             </ul>
 

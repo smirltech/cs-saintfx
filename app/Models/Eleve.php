@@ -66,7 +66,7 @@ class Eleve extends Model
 
     public function getPresencesAttribute(): Collection
     {
-        return $this->inscription->presences;
+        return $this->inscription?->presences??new Collection();
     }
 
     public function getPresenceColorsAttribute(): array
@@ -78,7 +78,7 @@ class Eleve extends Model
         return $aa;
     }
 
-    public function getInscriptionAttribute(): Inscription
+    public function getInscriptionAttribute(): Inscription|null
     {
         return $this->inscriptions()->where('annee_id', Annee::id())->first();
     }
@@ -105,7 +105,7 @@ class Eleve extends Model
 
     // full_name
 
-    public function currentInscription(): Inscription
+    public function currentInscription(): Inscription|null
     {
         return Inscription::where(['eleve_id' => $this->id, 'annee_id' => Annee::encours()->id])->first();
     }
