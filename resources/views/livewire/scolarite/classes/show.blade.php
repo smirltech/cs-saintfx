@@ -1,14 +1,14 @@
 @php
-    use App\Enums\InscriptionStatus;use App\Helpers\Helpers;
+    use App\Enums\InscriptionStatus;use App\Helpers\Helpers; use App\Enums\ResultatType;
 @endphp
 
 @section('title')
-    {{Str::upper('cenk')}} - {{$classe->code}}
+    {{$classe->code}}
 @endsection
 @section('content_header')
     <div class="row">
         <div class="col-6">
-            <h1 class="ms-3"><span class="fas fa-fw fa-chalkboard-teacher mr-1"></span>Classe</h1>
+            <h1 class="ms-3"><span class="fas fa-fw fa-person-chalkboard mr-1"></span>Classe</h1>
         </div>
 
         <div class="col-6">
@@ -85,7 +85,11 @@
                                 <a class="nav-link active" id="custom-tabs-one-home-tab" data-toggle="pill"
                                    href="#custom-tabs-one-home" role="tab" aria-controls="custom-tabs-one-home"
                                    aria-selected="true">Elèves</a>
-
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="custom-tabs-one-presences-tab" data-toggle="pill"
+                                   href="#custom-tabs-one-presences" role="tab"
+                                   aria-controls="custom-tabs-one-presences" aria-selected="false">Présences</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill"
@@ -99,6 +103,12 @@
                                        aria-controls="custom-tabs-one-messages" aria-selected="false">Enseignants</a>
                                 </li>
                             @endif
+                            <li class="nav-item">
+                                <a class="nav-link" id="custom-tabs-one-resultats-tab" data-toggle="pill"
+                                   href="#custom-tabs-one-resultats" role="tab"
+                                   aria-controls="custom-tabs-one-resultats" aria-selected="false">Résultats</a>
+                            </li>
+
                         </ul>
                     </div>
 
@@ -127,9 +137,10 @@
                                                 <td>{{ $inscription->eleve->sexe }}</td>
                                                 <td>
                                                     <div class="d-flex float-right">
+
                                                         <a href="{{route('scolarite.eleves.show',$inscription->eleve)}}"
                                                            title="Voir"
-                                                           class="btn btn-warning btn-sm">
+                                                           class="btn btn-warning btn-sm m-1">
                                                             <i class="fas fa-eye"></i>
                                                         </a>
                                                     </div>
@@ -138,6 +149,13 @@
                                         @endforeach
                                         </tbody>
                                     </table>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="custom-tabs-one-presences" role="tabpanel"
+                                 aria-labelledby="custom-tabs-one-presences-tab">
+                                <div class="card-body p-0 table-responsive">
+                                    <livewire:scolarite.presence.block.presences-block-component
+                                        :classe="$classe"/>
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel"
@@ -149,19 +167,38 @@
                                             <th>NO.</th>
                                             <th>NOM</th>
                                             <th>SECTION</th>
-                                            <th>DESCRIPTION</th>
+                                            <th>ENSEIGNANT</th>
+                                            <th></th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach ($cours as $k=>$c)
+                                        @foreach ($classe->coursEnseignants as $k=>$c)
                                             <tr>
                                                 <td>{{ $k+1 }}</td>
-                                                <td>{{ $c->nom }}</td>
+                                                <td>{{ $c->cours->nom }}</td>
                                                 <td>
-                                                    {{ $c->section->nom }}
+                                                    {{ $c->cours->section->nom }}
                                                 </td>
                                                 <td>
-                                                    {{ Str::limit($c->description, 50) }}
+                                                    {{ $c->enseignant->nom??'Aucun' }}
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex float-right">
+                                                        @if(!$classe->primaire())
+                                                            <button
+                                                                wire:click="$emit('showModal', 'scolarite.classe.cours.edit', '{{ $c->id }}')"
+                                                                title="Modifier"
+                                                                class="btn btn-sm btn-outline-warning ml-2">
+                                                                <i class="fas fa-edit"></i>
+                                                            </button>
+                                                        @endif
+                                                        <button
+                                                            wire:click="deleteCours({{ $c->id }})"
+                                                            title="Supprimer"
+                                                            class="btn btn-sm btn-outline-danger ml-2">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -179,7 +216,6 @@
                                                 <th></th>
                                                 <th>NOM</th>
                                                 <th>COURS</th>
-                                                {{--   <th></th>--}}
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -188,25 +224,7 @@
                                                     <td><img class="img-circle" style="width:30px; height:auto"
                                                              src="{{$enseignant->avatar}}"></td>
                                                     <td>{{ $enseignant->nom }}</td>
-                                                    @if(!$enseignant->primaire())
-                                                        <td>
-                                                            {{ $enseignant->cours->count()??'-' }} Cours
-                                                        </td>
-                                                    @else
-                                                        <td>
-                                                            {{ $enseignant->classe->code??'-' }}
-                                                        </td>
-                                                    @endif
-
-                                                    {{-- <td>
-                                                         <div class="d-flex float-right">
-                                                             <button wire:click="delete({{ $enseignant->id }})"
-                                                                     title="supprimer"
-                                                                     class="btn btn-outline-danger ml-2">
-                                                                 <i class="fas fa-trash"></i>
-                                                             </button>
-                                                         </div>
-                                                     </td>--}}
+                                                    <td>{{ implode(',',$enseignant->coursOfClasse($classe->id)) }}</td>
                                                 </tr>
                                             @endforeach
                                             </tbody>
@@ -214,13 +232,15 @@
                                     </div>
                                 </div>
                             @endif
+                            <div class="tab-pane fade" id="custom-tabs-one-resultats" role="tabpanel"
+                                 aria-labelledby="custom-tabs-resultats-tab">
+                                <livewire:scolarite.resultat.block.resultats-block-component
+                                    :classe="$classe"/>
+                            </div>
+
                         </div>
-
                     </div>
-
-
                 </div>
-
             </div>
         </div>
     </div>

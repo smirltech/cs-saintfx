@@ -3,7 +3,7 @@
     use App\Enums\GraviteRetard;
 @endphp
 @section('title')
-    {{Str::upper('cenk')}} - élève - {{$eleve->getNomComplet()}}
+     - élève - {{$eleve->getNomComplet()}}
 @endsection
 @section('content_header')
     <div class="row">
@@ -74,10 +74,6 @@
                         </div>
                         <div class="card-body">
                             <ul class="list-group list-group-unbordered mb-3">
-                                {{--<li class="list-group-item">
-                                    <b>Inscription : </b> <span
-                                        class="float-right">{{\App\Helpers\Helpers::currencyFormat(0, symbol: 'Fc')}}</span>
-                                </li>--}}
                                 <li class="list-group-item">
                                     <b>Factures : </b> <span
                                         class="float-right">{{Helpers::currencyFormat($perceptionsDues, symbol: 'Fc')}}</span>

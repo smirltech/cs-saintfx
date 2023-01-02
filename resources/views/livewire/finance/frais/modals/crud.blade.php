@@ -52,10 +52,10 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-3">
-                            <label for="">Section {{$section_id}} <i class="text-red">*</i></label>
+                            <label for="">Section <i class="text-red">*</i></label>
                             <select wire:model="section_id" wire:change="changeSection"
                                     class="form-control  @error('section_id') is-invalid @enderror">
-                                <option value="">Choisir section</option>
+                                <option value=null>Choisir section</option>
                                 @foreach ($sections as $section )
                                     <option value="{{ $section->id }}">{{ $section->nom }}</option>
                                 @endforeach
@@ -65,9 +65,9 @@
                             @enderror
                         </div>
                         <div class="form-group col-3">
-                            <label for="">Option {{$option_id}}</label>
+                            <label for="">Option</label>
                             <select wire:model="option_id" wire:change="changeOption" class="form-control">
-                                <option value="">Choisir option</option>
+                                <option value=null>Choisir option</option>
                                 @foreach ($options as $option )
                                     <option value="{{ $option->id }}">{{ $option->nom }}</option>
                                 @endforeach
@@ -75,20 +75,20 @@
 
                         </div>
                         <div class="form-group col-3">
-                            <label for="">Filière {{$filiere_id}}</label>
+                            <label for="">Filière</label>
                             <select wire:model="filiere_id"
                                     wire:change="changeFiliere" class="form-control">
-                                <option value="">Choisir filière</option>
+                                <option value=null>Choisir filière</option>
                                 @foreach ($filieres as $filiere )
                                     <option value="{{ $filiere->id }}">{{ $filiere->nom }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="form-group col-3">
-                            <label for="">Classe {{$classe_id}} <i class="text-red">*</i></label>
+                            <label for="">Classe <i class="text-red">*</i></label>
                             <select wire:model="classe_id" wire:change="onClasseSelected"
                                     class="form-control">
-                                <option value="">Choisir classe</option>
+                                <option value=null>Choisir classe</option>
                                 @foreach ($classes as $classe )
                                     <option value="{{ $classe->id }}">{{ $classe->code }}</option>
                                 @endforeach
@@ -169,10 +169,10 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-3">
-                            <label for="">Section {{$section_id}} <i class="text-red">*</i></label>
+                            <label for="">Section <i class="text-red">*</i></label>
                             <select wire:model="section_id" wire:change="changeSection"
                                     class="form-control  @error('section_id') is-invalid @enderror">
-                                <option value="">Choisir section</option>
+                                <option value=null>Choisir section</option>
                                 @foreach ($sections as $section )
                                     <option value="{{ $section->id }}">{{ $section->nom }}</option>
                                 @endforeach
@@ -182,9 +182,9 @@
                             @enderror
                         </div>
                         <div class="form-group col-3">
-                            <label for="">Option {{$option_id}}</label>
+                            <label for="">Option</label>
                             <select wire:model="option_id" wire:change="changeOption" class="form-control">
-                                <option value="">Choisir option</option>
+                                <option value=null>Choisir option</option>
                                 @foreach ($options as $option )
                                     <option value="{{ $option->id }}">{{ $option->nom }}</option>
                                 @endforeach
@@ -192,25 +192,25 @@
 
                         </div>
                         <div class="form-group col-3">
-                            <label for="">Filière {{$filiere_id}}</label>
+                            <label for="">Filière</label>
                             <select wire:model="filiere_id"
                                     wire:change="changeFiliere" class="form-control">
-                                <option value="">Choisir filière</option>
+                                <option value=null>Choisir filière</option>
                                 @foreach ($filieres as $filiere )
                                     <option value="{{ $filiere->id }}">{{ $filiere->nom }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="form-group col-3">
-                            <label for="">Classe {{$classe_id}}</label>
+                            <label for="">Classe</label>
                             <select wire:model="classe_id" wire:change="onClasseSelected"
                                     class="form-control">
-                                <option value="">Choisir classe</option>
+                                <option value=null>Choisir classe</option>
                                 @foreach ($classes as $classe )
                                     <option value="{{ $classe->id }}">{{ $classe->code }}</option>
                                 @endforeach
                             </select>
-                            
+
                         </div>
                     </div>
                     <div class="form-group col-sm-12">

@@ -13,11 +13,12 @@
                 <form id="f1" wire:submit.prevent="addDepense">
                     <div class="row">
                         <div class="form-group col-md-4 col-sm-12">
-                            <label for="">Categorie</label>
-                            <select wire:model="categorie"
+                            <label for="">Type</label>
+                            <select wire:model="type.id"
                                     class="form-control">
-                                @foreach (\App\Enums\DepenseCategorie::cases() as $es )
-                                    <option value="{{$es->value}}">{{ $es->label() }}</option>
+                                <option value=null>Choisir type...</option>
+                                @foreach ($types as $es )
+                                    <option value="{{$es->id}}">{{ $es->nom }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -56,7 +57,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Modifier Revenu</h4>
+                <h4 class="modal-title">Modifier Dépense</h4>
                 <button wire:click="$emit('onModalClosed')" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -66,11 +67,11 @@
                 <form id="f2" wire:submit.prevent="updateDepense">
                     <div class="row">
                         <div class="form-group col-md-4 col-sm-12">
-                            <label for="">Categorie</label>
-                            <select wire:model="categorie"
+                            <label for="">Type</label>
+                            <select wire:model="type.id"
                                     class="form-control">
-                                @foreach (\App\Enums\DepenseCategorie::cases() as $es )
-                                    <option value="{{$es->value}}">{{ $es->label() }}</option>
+                                @foreach ($types as $es )
+                                    <option value="{{$es->id}}">{{ $es->nom }}</option>
                                 @endforeach
                             </select>
                         </div>

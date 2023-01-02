@@ -14,7 +14,7 @@
                 <form id="modal1" wire:submit.prevent="addCours">
                     <div class="row">
                         <div class="form-group @if(!$classe->primaire()) col-md-6 @else col-md-12 @endif">
-                            <x-form-select wire:model="cours_enseignant.cours_id"
+                            <x-form-select wire:model.lazy="cours_enseignant.cours_id"
                                            label="Cours"
                                            :isValid="$errors->has('cours_enseignant.cours_id') ? false : null"
                                            error="{{$errors->first('cours_enseignant.cours_id')}}">

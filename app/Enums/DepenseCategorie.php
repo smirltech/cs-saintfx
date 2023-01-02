@@ -17,11 +17,11 @@ enum DepenseCategorie: string
     {
         // match the enum value with the label, using match expression
         return match ($this) {
-            DepenseCategorie::equipement=>"Équipement",
-            DepenseCategorie::consommable=>"Consommable",
-            DepenseCategorie::frais_direct=>"Frais Direct",
-            DepenseCategorie::frais_administratif=>"Frais Administratif",
-            DepenseCategorie::autre=>"Autre",
+            self::equipement=>"Équipement",
+            self::consommable=>"Consommable",
+            self::frais_direct=>"Frais Direct",
+            self::frais_administratif=>"Frais Administratif",
+            self::autre=>"Autre",
         };
     }
 }

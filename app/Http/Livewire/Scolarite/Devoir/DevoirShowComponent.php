@@ -1,0 +1,107 @@
+<?php
+
+namespace App\Http\Livewire\Scolarite\Devoir;
+
+
+use App\Enums\MediaType;
+use App\Exceptions\ApplicationAlert;
+use App\Models\Cours;
+use App\Models\Devoir;
+use App\Models\DevoirReponse;
+use App\Models\Eleve;
+use App\Traits\CanDeleteMedia;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use JetBrains\PhpStorm\NoReturn;
+use Livewire\Component;
+use Livewire\TemporaryUploadedFile;
+use Livewire\WithFileUploads;
+use Str;
+
+class DevoirShowComponent extends Component
+{
+
+    use ApplicationAlert, WithFileUploads, CanDeleteMedia;
+
+    public Devoir $devoir;
+    public Cours $cours;
+    public TemporaryUploadedFile|string|null $document = null;
+    public $documents = [];
+    public string $matricule = "2022020002";
+    public ?Eleve $eleve;
+    public DevoirReponse $devoir_reponse;
+    protected $messages = [
+        'document.max' => 'Le fichier ne doit pas dépasser 2Mo',
+    ];
+
+    #[NoReturn] public function submit()
+    {
+        $this->validate();
+
+        $this->devoir_reponse->devoir_id = $this->devoir->id;
+        $this->devoir_reponse->eleve_id = $this->eleve->id;
+
+        $this->devoir_reponse->save();
+
+        if ($this->document) {
+            $this->devoir_reponse->addMedia(file: $this->document, mediaType: MediaType::document);
+        }
+        //$this->refreshData();
+        $this->flash('success', 'Réponse envoyée avec succès', [], route('scolarite.devoir.show', $this->devoir));
+    }
+
+    public function render(): Factory|View|Application
+    {
+        return view('livewire.scolarite.devoirs.show');
+    }
+
+
+    // delete media
+
+    public function mount(Devoir $devoir)
+    {
+        $this->devoir = $devoir;
+        $this->cours = $this->devoir->cours;
+        $this->devoir_reponse = new DevoirReponse();
+    }
+
+    public function updatedMatricule()
+    {
+        if (Str::length($this->matricule) == 10) {
+            $this->validate([
+                'matricule' => ['required', 'string', 'exists:eleves,matricule'],
+            ]);
+            $this->eleve = Eleve::whereHas('inscriptions', function ($query) {
+                $query->where('classe_id', $this->devoir->classe_id)
+                    ->where('annee_id', $this->devoir->annee_id);
+            })->where('matricule', $this->matricule)->first();
+
+            if (!$this->eleve) {
+                $this->warning("L'élève n'est pas actuellement inscrit dans cette classe");
+            }
+        } else {
+            $this->validate([
+                'matricule' => ['required', 'string', 'digits:10']
+            ]);
+            $this->eleve = null;
+        }
+    }
+
+    protected function rules(): array
+    {
+        return [
+            'devoir_reponse.contenu' => ['nullable', 'string'],
+            'document' => ['nullable', 'file', 'mimes:pdf,image,jpeg,png', 'max:2048'],
+        ];
+    }
+
+    // update matricule
+
+    private function refreshData(): void
+    {
+        $this->devoir->refresh();
+    }
+
+
+}

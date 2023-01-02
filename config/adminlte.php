@@ -17,7 +17,7 @@ return [
     */
 
     'title' => 'Collège ENK',
-    'title_prefix' => '',
+    'title_prefix' => 'CENK',
     'title_postfix' => '',
 
     /*
@@ -129,7 +129,7 @@ return [
     'layout_topnav' => null,
     'layout_boxed' => null,
     'layout_fixed_sidebar' => null,
-    'layout_fixed_navbar' => null,
+    'layout_fixed_navbar' => true,
     'layout_fixed_footer' => null,
     'layout_dark_mode' => null,
 
@@ -188,9 +188,9 @@ return [
     |
     */
 
-    'sidebar_mini' => 'xs',
+    'sidebar_mini' => 'lg',
     'sidebar_collapse' => true,
-    'sidebar_collapse_auto_size' => true,
+    'sidebar_collapse_auto_size' => false,
     'sidebar_collapse_remember' => false,
     'sidebar_collapse_remember_no_transition' => false,
     'sidebar_scrollbar_theme' => 'os-theme-light',
@@ -279,120 +279,239 @@ return [
             'topnav_right' => true,
         ],
 
+        ['header' => 'SCOLARITÉ'],
         [
             'text' => 'Élèves',
-            'icon' => 'fas fa-fw fa-graduation-cap',
+            'icon' => 'fas fa-fw fa-user-graduate',
             // 'can' => RolePermission::view_etudiant->name,
             'submenu' => [
                 [
                     'text' => 'Inscrire un élève',
                     'url' => 'scolarite/inscriptions/create',
+                    'icon' => 'fa fa-plus',
+                    'shift' => 'ml-1',
                     //      'can' => RolePermission::create_etudiant->name,
                 ],
                 [
                     'text' => 'Elèves inscrits',
                     'url' => 'scolarite/inscriptions',
+                    'icon' => 'fa fa-users-line',
+                    'shift' => 'ml-1',
+                ],
+                [
+                    'text' => 'Elèves non inscrits',
+                    'url' => 'scolarite/non-inscriptions',
+                    'icon' => 'fa fa-users-rays',
+                    'shift' => 'ml-1',
                 ],
                 [
                     'text' => 'Responsables',
                     'url' => 'scolarite/responsables',
                     'icon' => 'fas fa-fw fa-person-pregnant',
+                    'shift' => 'ml-1',
                 ],
             ],
         ],
         [
-            'text' => 'Classes',
-            'url' => 'scolarite/classes',
-            'icon' => 'fas fa-fw fa-school',
-        ],
-        [
-            'text' => 'Cours',
-            'url' => 'scolarite/cours',
-            'icon' => 'fas fa-fw fa-book-open',
-        ],
-        [
-            'text' => 'Enseignants',
+            'text' => 'Enseignement',
             'icon' => 'fas fa-fw fa-chalkboard-teacher',
-            // 'can' => RolePermission::create_promotion->name,
-            'url' => 'scolarite/enseignants',
+            'submenu' => [
+                [
+                    'text' => 'Devoirs',
+                    'icon' => 'fas fa-fw fa-tasks',
+                    'url' => 'scolarite/devoirs',
+                    'shift' => 'ml-1',
+                ],
+
+                [
+                    'text' => 'Cours',
+                    'url' => 'scolarite/cours',
+                    'icon' => 'fas fa-fw fa-book-open',
+                    'shift' => 'ml-1',
+                ],
+
+                [
+                    'text' => 'Enseignants',
+                    'icon' => 'fas fa-fw fa-chalkboard-teacher',
+                    // 'can' => RolePermission::create_promotion->name,
+                    'url' => 'scolarite/enseignants',
+                    'shift' => 'ml-1',
+                ],
+                [
+                    'text' => 'Classes',
+                    'icon' => 'fas fa-fw fa-person-chalkboard',
+                    'url' => 'scolarite/classes',
+                    'shift' => 'ml-1',
+                    //      'can' => RolePermission::create_etudiant->name,
+                ],
+            ],
         ],
 
+
+        ['header' => 'FINANCE'],
         [
-            'text' => 'Sections',
+            'text' => 'Encaissements',
+            'icon' => 'fas fa-fw fa-arrow-trend-up',
+            // 'can' => RolePermission::view_etudiant->name,
+            'submenu' => [
+                [
+                    'text' => 'Perceptions',
+                    'icon' => 'fas fa-fw fa-coins',
+                    'shift' => 'ml-1',
+                    // 'can' => RolePermission::view_etudiant->name,
+                    'submenu' => [
+                        [
+                            'text' => 'Caisse',
+                            'url' => 'finance/caisse',
+                            'shift' => 'ml-4',
+                            //      'can' => RolePermission::create_etudiant->name,
+                        ],
+                        [
+                            'text' => 'Ajouter facture',
+                            'url' => 'finance/perceptions/create',
+                            'shift' => 'ml-4',
+                            //      'can' => RolePermission::create_etudiant->name,
+                        ],
+                        [
+                            'text' => 'Liste de factures',
+                            'url' => 'finance/perceptions',
+                            'shift' => 'ml-4',
+                        ],
+                        [
+                            'text' => 'Plans de frais',
+                            'url' => 'finance/frais',
+                            'shift' => 'ml-4',
+                        ],
+                    ],
+                ],
+
+                [
+                    'text' => 'Revenu Auxiliaire',
+                    'icon' => 'fas fa-fw fa-money-bill-trend-up',
+                    'url' => 'finance/revenus',
+                    'shift' => 'ml-1',
+                    // 'can' => RolePermission::create_user->name,
+                ],
+            ],
+        ],
+        [
+            'text' => 'Décaissements',
+            'icon' => 'fas fa-fw fa-arrow-trend-down',
+            // 'can' => RolePermission::view_etudiant->name,
+            'submenu' => [
+                [
+                    'text' => 'Dépenses',
+                    'icon' => 'fas fa-fw fa-coins',
+                    // 'can' => RolePermission::view_etudiant->name,
+                    'url' => 'finance/depenses',
+                    'shift' => 'ml-1',
+                ],
+                [
+                    'text' => 'Types de Dépenses',
+                    'icon' => 'fas fa-fw fa-list-check',
+                    // 'can' => RolePermission::view_etudiant->name,
+                    'url' => 'finance/depenses-types',
+                    'shift' => 'ml-1',
+                ],
+            ]
+        ],
+        [
+            'text' => 'Rapport financier',
+            'icon' => 'fas fa-fw fa-chart-column',
+            'url' => 'finance/rapports',
+            // 'can' => RolePermission::create_user->name,
+        ],
+
+        ['header' => 'LOGISTIQUE'],
+        [
+            'text' => 'Fongibles',
+            'icon' => 'fas fa-fw fa-recycle',
+            // 'can' => RolePermission::view_etudiant->name,
+            'submenu' => [
+                [
+                    'text' => 'Consommables',
+                    'icon' => 'fas fa-fw fa-screwdriver-wrench',
+                    'shift' => 'ml-2',
+                    'url' => 'logistique/consommables',
+                ],
+                [
+                    'text' => 'Opérations',
+                    'icon' => 'fas fa-fw fa-layer-group',
+                    'shift' => 'ml-2',
+                    'url' => '#',
+                ],
+                [
+                    'text' => 'Unités de mesure',
+                    'icon' => 'fas fa-fw fa-ruler-combined',
+                    'shift' => 'ml-2',
+                    'url' => 'logistique/units',
+                ],
+            ],
+        ],
+        [
+            'text' => 'Non Fongibles',
+            'icon' => 'fas fa-fw fa-screwdriver-wrench',
+            // 'can' => RolePermission::view_etudiant->name,
+            'submenu' => [
+                [
+                    'text' => 'Materiels',
+                    'icon' => 'fas fa-fw fa-wrench',
+                    'shift' => 'ml-2',
+                    'url' => 'logistique/materiels',
+                ],
+                [
+                    'text' => 'Categories',
+                    'icon' => 'fas fa-fw fa-layer-group',
+                    'shift' => 'ml-2',
+                    'url' => 'logistique/categories',
+                ],
+                [
+                    'text' => 'Mouvements',
+                    'icon' => 'fas fa-fw fa-people-carry-box',
+                    'shift' => 'ml-2',
+                    'url' => 'logistique/mouvements',
+                ],
+                [
+                    'text' => 'Cessions',
+                    'icon' => 'fas fa-fw fa-hand-holding-hand',
+                    'shift' => 'ml-2',
+                    // 'url' => '#',
+                ],
+            ],
+        ],
+
+        ['header' => 'ECOLE'],
+        [
+            'text' => 'Calendrier',
+            'url' => 'scolarite/annees',
+            'icon' => 'fas fa-fw fa-calendar-alt',
+        ],
+        [
+            'text' => 'Programme',
             'icon' => 'fas fa-fw fa-university',
             // 'can' => RolePermission::create_faculte->name,
             'submenu' => [
                 [
                     'text' => 'Filières',
                     'url' => 'scolarite/filieres',
+                    'shift' => 'ml-1',
                 ],
                 [
                     'text' => 'Options',
                     'url' => 'scolarite/options',
+                    'shift' => 'ml-1',
                 ],
                 [
                     'text' => 'Sections',
                     'url' => 'scolarite/sections',
+                    'shift' => 'ml-1',
                 ],
             ],
         ],
         [
-            'text' => 'Perceptions',
-            'icon' => 'fas fa-fw fa-plus',
-            // 'can' => RolePermission::view_etudiant->name,
-            'submenu' => [
-                [
-                    'text' => 'Ajouter perception',
-                    'url' => 'finance/perceptions/create',
-                    //      'can' => RolePermission::create_etudiant->name,
-                ],
-                [
-                    'text' => 'Liste de perceptions',
-                    'url' => 'finance/perceptions',
-                ],
-            ],
-        ],
-        [
-            'text' => 'Revenu Auxiliaire',
-            'icon' => 'fa fa-puzzle-piece',
-            'url' => '/finance/revenus',
-            // 'can' => RolePermission::create_user->name,
-        ],
-        [
-            'text' => 'Sorties',
-            'icon' => 'fas fa-fw fa-minus',
-            // 'can' => RolePermission::view_etudiant->name,
-            'submenu' => [
-                [
-                    'text' => "Liste de dépenses",
-                    'url' => 'finance/depenses',
-                ],
-                /*[
-                    'text' => "Liste de paiements",
-                    'url' => 'finance/paiements',
-                ],*/
-            ],
-        ],
-        [
-            'text' => 'Configurations',
-            'icon' => 'fas fa-fw fa-cogs',
-            // 'can' => RolePermission::view_etudiant->name,
-            'submenu' => [
-                [
-                    'text' => 'Liste de frais',
-                    'url' => 'finance/frais',
-                ],
-            ],
-        ],
-        [
-            'text' => 'Calendrier scolaire',
-            'url' => 'scolarite/annees',
-            'icon' => 'fas fa-fw fa-calendar-alt',
-        ],
-        [
-            'text' => 'Utilisateurs',
+            'text' => 'Personnel',
             'icon' => 'fas fa-fw fa-users',
-            'url' => '/scolarite/users',
+            'url' => '/users',
             'can' => RolePermission::create_user->name,
         ],
     ],

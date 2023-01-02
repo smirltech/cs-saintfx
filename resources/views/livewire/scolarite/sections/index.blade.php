@@ -4,7 +4,7 @@
         'SECTION',
         ['label'=>'', 'no-export'=>true, 'width'=>5]
 ];
-   //$datas =[];
+   $datas =[];
    foreach ($sections as $section){
         $datas[] =[
             $section->code,
@@ -23,7 +23,7 @@
 @endphp
 
 @section('title')
-    {{Str::upper('cenk')}} - sections
+     - sections
 @endsection
 @section('content_header')
     <div class="row">

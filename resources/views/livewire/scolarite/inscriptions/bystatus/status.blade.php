@@ -12,7 +12,7 @@
         ];
 
 
-
+$data=[];
     foreach ($inscriptions->sortBy(fn ($q) => $q->eleve->fullName) as $inscription){
 
             $btn1 = '<a href="' . "/scolarite/eleves/{$inscription->eleve_id}" . '" class="btn btn-success btn-sm m-1" title="Voir Élève"><i class="fa fa-eye"></i></a>';
@@ -45,7 +45,7 @@
         ];
 @endphp
 @section('title')
-    {{Str::upper('cenk')}} - inscriptions {{strtolower($status->pluralLabel(\App\Enums\Sexe::f))}} {{date('d-m-Y')}}
+     - inscriptions {{strtolower($status->pluralLabel(\App\Enums\Sexe::f))}} {{date('d-m-Y')}}
 @endsection
 @section('content_header')
     <div class="row">

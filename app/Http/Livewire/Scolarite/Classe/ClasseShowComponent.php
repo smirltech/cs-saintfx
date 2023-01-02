@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Scolarite\Classe;
 
+use App\Exceptions\ApplicationAlert;
 use App\Models\Annee;
 use App\Models\Classe;
 use App\Models\ClasseEnseignant;
@@ -9,13 +10,21 @@ use App\Models\CoursEnseignant;
 use App\Models\Filiere;
 use App\Models\Option;
 use App\Models\Section;
+use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
+use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 
 class ClasseShowComponent extends Component
 {
+    use TopMenuPreview;
+    use ApplicationAlert;
+
     public Classe $classe;
     public ?string $parent = "";
     public ?string $parent_url = "";
@@ -25,6 +34,7 @@ class ClasseShowComponent extends Component
     public ?ClasseEnseignant $classe_enseignant;
     public Collection $enseignants;
 
+    protected $listeners = ['refreshData'];
 
     public function mount(Classe $classe)
     {
@@ -49,6 +59,11 @@ class ClasseShowComponent extends Component
             $this->parent_url = "/scolarite/sections/$classe->filierable_id";
             $this->parent = "Section";
         }
+    }
+
+    public function onModalClosed()
+    {
+
     }
 
     // hydrate
@@ -79,9 +94,10 @@ class ClasseShowComponent extends Component
         $this->enseignants = $this->classe->enseignants;
     }
 
+
     // ajouter un cours
 
-    public function render()
+    public function render(): Factory|View|Application
     {
         return view('livewire.scolarite.classes.show')
             ->layout(AdminLayout::class, ['title' => 'Détail sur la classe']);
@@ -96,5 +112,18 @@ class ClasseShowComponent extends Component
             'cours_enseignant.enseignant_id' => 'required|exists:enseignants,id',
             'classe_enseignant.enseignant_id' => 'required|exists:enseignants,id',
         ];
+    }
+
+    // deleteCours
+    public function deleteCours(CoursEnseignant $cours_enseignant)
+    {
+        try {
+            $cours_enseignant->delete();
+            $this->refreshData();
+
+            $this->alert('success', 'Le cours a été supprimé avec succès');
+        } catch (Exception $e) {
+            $this->error(local: $e->getMessage(), production: "Impossible de supprimer ce cours");
+        }
     }
 }

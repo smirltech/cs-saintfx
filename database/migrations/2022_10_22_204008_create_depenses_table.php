@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Annee;
+use App\Models\DepenseType;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -10,8 +11,8 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('depenses', function (Blueprint $table) {
-            $table->id();
-            $table->string('categorie'); //App\Enum\DepenseCategorie
+            $table->ulid('id')->primary();
+            $table->foreignIdFor(DepenseType::class)->constrained();
             $table->float('montant');
             $table->mediumText('note')->nullable();
             $table->string('reference')->nullable();

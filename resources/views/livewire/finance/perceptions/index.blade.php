@@ -1,10 +1,10 @@
 @php
-    use App\Http\Integrations\Scolarite\Requests\Inscription\GetInscriptionRequest;
     use Carbon\Carbon;
     use App\Enums\GraviteRetard;
+    use App\Helpers\Helpers;
 @endphp
 @section('title')
-    {{Str::upper(config('app.name', 'cenk finance'))}} - Perceptions  {{date('d-m-Y')}}
+    - Perceptions  {{date('d-m-Y')}}
 @endsection
 @section('content_header')
     <div class="row">
@@ -25,13 +25,13 @@
     @php
         $heads =[
             ['label'=>'NO.', 'width'=>2],
-            ['label'=>'DATE', 'width'=>8],
+            ['label'=>'DATE', 'width'=>10],
             'FRAIS',
 
             'ELEVE',
 
             'CLASSE',
-            'MONTANT DU',
+            'MONTANT',
             'PAYE',
             'SOLDE',
              ['label'=>'ECHEANCE', 'width'=>8],
@@ -39,18 +39,16 @@
     ];
        $data =[];
        foreach ($perceptions as $key=>$perception){
-            $inscription = null;
-        if($perception->inscription_id != null) $inscription = (new GetInscriptionRequest($perception->inscription_id))->send()->dto();
 
             $data[] =[
                 $key+1,
                 $perception->created_at->format('d-m-Y'),
                 $perception->frais->nom,
-                $inscription?->eleve->getNomComplet(),
+                $perception->inscription?->eleve->fullName,
 
-                $inscription?->classe->code,
+                $perception->inscription?->classe->code,
                 $perception->montant,
-                $perception->paid,
+                (int)($perception->paid),
                 ( $perception->montant-(int)($perception->paid)),
                 Carbon::parse($perception->due_date),
                 $perception->id,
@@ -78,7 +76,7 @@
                             </div>
                             <div class="card-tools d-flex my-auto">
 
-                                <a href="/finance/perceptions/create" title="voir"
+                                <a href="{{route('finance.perceptions.create')}}" title="voir"
                                    class="btn btn-primary  ml-2">
                                     <i class="fas fa-plus"></i>
                                 </a>
@@ -106,7 +104,8 @@
                                         <td title="{!! $row[8]->format('d-m-Y') !!}">{!!$row[7]<=0?'OK':GraviteRetard::retard($row[8])!!}</td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                <a href="/finance/perceptions/{{ $row[9] }}/edit" title="voir"
+                                                <a href="{{route('finance.perceptions.edit', ['perception'=>$row[9]])}}"
+                                                   title="voir"
                                                    class="btn btn-success  ml-2">
                                                     <i class="fas fa-edit"></i>
                                                 </a>

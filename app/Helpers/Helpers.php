@@ -38,14 +38,7 @@ class Helpers
         return round($bytes, $precision) . ' ' . $units[$pow];
     }
 
-    public static function currencyFormat($amount, $decimal = 0, $symbol = ''): string
-    {
-
-        return number_format($amount, $decimal) . ' ' . $symbol;
-
-    }
-
-    public static function fakePicsum($user_id, $width = 50, $height = 50)
+    public static function fakxePicsum($user_id, $width = 50, $height = 50): string
     {
         /*$req = Http::get("https://picsum.photos/id/{$user_id}/info");
         return json_decode($req->body())->download_url;*/
@@ -70,6 +63,28 @@ class Helpers
                 return "primary";
         }
     }
+
+    public static function padStart($value, $length, $pad_string = '0'): string
+    {
+        return str_pad("$value", $length, $pad_string, STR_PAD_LEFT);
+    }
+
+    public static function currencyFormat($amount, $decimal = 0, $symbol = ''): string
+    {
+
+        return number_format($amount, $decimal) . ' ' . $symbol;
+
+    }
+
+    public static function fakePicsum($user_id, $width = 50, $height = 50): string
+    {
+        /*$req = Http::get("https://picsum.photos/id/{$user_id}/info");
+        return json_decode($req->body())->download_url;*/
+
+        return "https://picsum.photos/id/{$user_id}/{$width}/{$height}";
+
+    }
+
 
     // fetchAvatar
     public static function fetchAvatar($name, $width = 50, $height = 50): string

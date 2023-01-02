@@ -1,6 +1,6 @@
 @php
     $heads =[
-        ['label'=>'DATE', 'width'=>8],
+        ['label'=>'DATE', 'width'=>10],
         'NOM',
         'MONTANT',
         'DESCRIPTION',
@@ -15,7 +15,7 @@
         $data[] =[
             $fee->created_at->format('d-m-Y'),
             $fee->nom,
-            Helpers::currencyFormat($fee->montant, symbol: 'Fc'),
+            \App\Helpers\Helpers::currencyFormat($fee->montant, symbol: 'Fc'),
             $fee->description,
             $fee->type->label(),
             $fee->frequence->label(),
@@ -34,12 +34,12 @@
 @endphp
 
 @section('title')
-    {{Str::upper('cenk finance')}} - frais  {{date('d-m-Y')}}
+    - frais  {{date('d-m-Y')}}
 @endsection
 @section('content_header')
     <div class="row">
         <div class="col-6">
-            <h1 class="ms-3">Liste de frais</h1>
+            <h1 class="ms-3">Plans de frais</h1>
         </div>
 
         <div class="col-6">

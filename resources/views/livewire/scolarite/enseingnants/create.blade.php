@@ -9,7 +9,7 @@
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('scolarite') }}">Accueil</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('scolarite.enseignants.index') }}">Enseignants</a></li>
-                <li class="breadcrumb-item active">Nouvel enseingnant</li>
+                <li class="breadcrumb-item active">Nouvel enseignant</li>
             </ol>
         </div>
     </div>

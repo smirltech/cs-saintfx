@@ -1,10 +1,10 @@
 @section('title')
-    {{Str::upper('cenk')}} - années scolaires
+     - années scolaires
 @endsection
 @section('content_header')
     <div class="row">
         <div class="col-6">
-            <h1 class="ms-3">Liste d'années</h1>
+            <h1 class="ms-3"><span class="fas fa-fw fa-calendar-alt"></span> Liste d'années</h1>
         </div>
 
         <div class="col-6">
@@ -26,7 +26,8 @@
                             <div class="card-title">
                             </div>
                             <div class="card-tools d-flex my-auto">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add-annee-modal">
+                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal"
+                                        data-target="#add-annee-modal">
                                     <span
                                         class="fa fa-plus"></span></button>
                             </div>
@@ -47,24 +48,32 @@
                                         <td>
                                             <div class="d-flex">{{ $annee->nom}}</div>
                                         </td>
-                                        <td>{{ $annee->encours ? 'EN COURS' : '' }}</td>
+                                        <td>
+                                            @if($annee->encours)
+                                            <span class="badge badge-success p-1">EN COURS</span>
+                                            @else
+                                                <button title="Metter en cours"
+                                                        wire:click="setAnneeEnCours({{ $annee->id }})"
+                                                        class="btn btn-warning btn-sm mr-2">
+                                                    <i class="fa fa-check"></i>
+                                                </button>
+                                            @endif
+                                        </td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                    @if (!$annee->encours)
-                                                        <button title="metter en cours"
-                                                                wire:click="setAnneeEnCours({{ $annee->id }})"
-                                                                class="btn bg-yellow mr-2">
-                                                            <i class="fas fa-check"></i>
-                                                        </button>
-                                                        <button wire:click="editAnnee({{ $annee->id }})" type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit-annee-modal">
-                                                            <i class="fas fa-pen"></i></button>
+                                                @if (!$annee->encours)
+                                                    <button wire:click="editAnnee({{ $annee->id }})" type="button"
+                                                            title="Modifier"
+                                                            class="btn btn-info btn-sm" data-toggle="modal"
+                                                            data-target="#edit-annee-modal">
+                                                        <i class="fas fa-pen"></i></button>
 
-                                                        <button title="supprimer"
-                                                                wire:click="deleteAnnee({{ $annee->id }})"
-                                                                class="btn btn-danger ml-2">
-                                                            <i class="fas fa-trash"></i>
-                                                        </button>
-                                                    @endif
+                                                    <button title="supprimer"
+                                                            wire:click="deleteAnnee({{ $annee->id }})"
+                                                            class="btn btn-danger btn-sm ml-1">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                @endif
 
                                             </div>
 
@@ -95,7 +104,8 @@
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button  wire:click="addAnnee" type="submit" data-dismiss="modal" class="btn btn-primary">Soumettre</button>
+                    <button wire:click="addAnnee" type="submit" data-dismiss="modal" class="btn btn-primary">Soumettre
+                    </button>
                 </div>
             </div>
 
@@ -118,7 +128,9 @@
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button wire:click="updateAnnee" type="button" class="btn btn-primary"  data-dismiss="modal">Soumettre</button>
+                    <button wire:click="updateAnnee" type="button" class="btn btn-primary" data-dismiss="modal">
+                        Soumettre
+                    </button>
                 </div>
             </div>
 

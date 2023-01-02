@@ -4,7 +4,10 @@ namespace App\Http\Livewire\Finance\Depense;
 
 use App\Enums\DepenseCategorie;
 use App\Http\Integrations\Scolarite\Requests\Annee\GetCurrentAnnneRequest;
+use App\Models\Annee;
 use App\Models\Depense;
+use App\Models\DepenseType;
+use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Illuminate\Support\Facades\Auth;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -12,28 +15,36 @@ use Livewire\Component;
 
 class DepenseIndexComponent extends Component
 {
+    use TopMenuPreview;
     use LivewireAlert;
 
     public $annee_id;
     public $depenses = [];
     public $depense;
 
-    public $categorie = DepenseCategorie::autre;
+    public $types = [];
+    public $type;
+
     public $montant;
     public $note;
     public $reference;
+    protected $rules = [
+        'type.id' => 'required',
+    ];
 
     protected $messages = [
         'montant.required' => 'Le montant est obligatoire !',
         'nom.required' => 'Le nom est obligatoire !',
-        'categorie.required' => 'La categorie est obligatoire !',
+        'type.id.required' => 'La type est obligatoire !',
     ];
 
     protected $listeners = ['onModalClosed'];
 
     public function mount()
     {
-        $this->annee_id = (new GetCurrentAnnneRequest())->send()->dto()->id;
+        $this->annee_id = Annee::id();
+        $this->types = DepenseType::orderBy('nom')->get();
+        $this->type = $this->types[0]??new DepenseType();
     }
 
     public function render()
@@ -45,7 +56,7 @@ class DepenseIndexComponent extends Component
 
     public function loadData()
     {
-        // todo: we should consider annee_id when fetching data
+        $this->types = DepenseType::orderBy('nom')->get();
         $this->depenses = Depense::where('annee_id', $this->annee_id)->orderBy('created_at', 'DESC')->get();
     }
 
@@ -54,7 +65,7 @@ class DepenseIndexComponent extends Component
         // dd($this->nom);
 
         $this->validate([
-            'categorie' => 'required',
+            'type.id' => 'required',
             'montant' => 'required',
             'note' => 'nullable',
             'reference' => 'nullable',
@@ -62,7 +73,7 @@ class DepenseIndexComponent extends Component
         ]);
 
         Depense::create([
-            'categorie' => $this->categorie,
+            'depense_type_id' => $this->type->id,
             'montant' => $this->montant,
             'note' => $this->note,
             'reference' => $this->reference,
@@ -80,29 +91,30 @@ class DepenseIndexComponent extends Component
     public function onModalClosed()
     {
         $this->clearValidation();
-        $this->reset(['categorie', 'montant', 'note', 'reference']);
+        $this->reset([ 'montant', 'note', 'reference']);
     }
 
-    public function getSelectedDepense(Depense $depense)
+    public function getSelectedDepense($depense_id)
     {
-        $this->depense = $depense;
-        $this->categorie = $depense->categorie;
-        $this->montant = $depense->montant;
-        $this->note = $depense->note;
-        $this->reference = $depense->reference;
+        //dd($depense_id);
+        $this->depense = Depense::find($depense_id);
+        $this->type = $this->depense->type;
+        $this->montant = $this->depense->montant;
+        $this->note = $this->depense->note;
+        $this->reference = $this->depense->reference;
     }
 
     public function updateDepense()
     {
         $this->validate([
-            'categorie' => 'required',
+            'type.id' => 'required',
             'montant' => 'required',
             'note' => 'required',
             'reference' => 'nullable',
         ]);
 
         $done = $this->depense->update([
-            'categorie' => $this->categorie,
+            'depense_type_id' => $this->type->id,
             'montant' => $this->montant,
             'note' => $this->note,
             'reference' => $this->reference,

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Scolarite\Inscription;
 
+use App\Enums\FraisFrequence;
 use App\Enums\InscriptionCategorie;
 use App\Enums\InscriptionStatus;
 use App\Enums\ResponsableRelation;
@@ -9,21 +10,27 @@ use App\Enums\Sexe;
 use App\Models\Annee;
 use App\Models\Eleve;
 use App\Models\Filiere;
+use App\Models\Frais;
 use App\Models\Inscription;
 use App\Models\Option;
+use App\Models\Perception;
 use App\Models\Responsable;
 use App\Models\ResponsableEleve;
 use App\Models\Section;
 use App\Traits\CanHandleEleveUniqueCode;
 use App\Traits\InscriptionUniqueCode;
+use App\Traits\TopMenuPreview;
 use App\Traits\WithFileUploads;
 use App\View\Components\AdminLayout;
 use Carbon\Carbon;
+use Exception;
+use Illuminate\Support\Facades\Auth;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 class InscriptionCreateComponent extends Component
 {
+    use TopMenuPreview;
     use WithFileUploads;
     use LivewireAlert;
     use CanHandleEleveUniqueCode;
@@ -42,8 +49,12 @@ class InscriptionCreateComponent extends Component
 
     public $categorie;
     public $montant;
+    public $paid_by;
     public $status;
     public $code;
+    public $fee_id;
+    public $fee_montant;
+    public $frequence;
 
 
     //eleve
@@ -74,6 +85,8 @@ class InscriptionCreateComponent extends Component
     public $responsables;
 
     public $annee_courante;
+    public $has_paid = true;
+    public Perception $perception;
 
     protected $listeners = ['onModalClosed'];
     protected $rules = [
@@ -92,6 +105,8 @@ class InscriptionCreateComponent extends Component
         'section_id' => 'required|numeric|min:1|not_in:0',
 
         'categorie' => 'required|string',
+        'fee_id' => 'nullable',
+        'fee_montant' => 'nullable',
     ];
     protected $messages = [
         'nom.required' => 'Ce nom est obligatoire !',
@@ -122,6 +137,7 @@ class InscriptionCreateComponent extends Component
 
     public function mount()
     {
+        $this->perception = new Perception();
         $this->responsables = Responsable::orderBy('nom')->get();
 
         $this->annee_courante = Annee::where('encours', true)->first();
@@ -140,6 +156,13 @@ class InscriptionCreateComponent extends Component
         $ele = $this->submitEleve();
         if ($this->responsable != null) $res_ele = $this->submitResponsableEleve($this->responsable, $ele);
         $insc = $this->submitInscription($ele);
+        $this->addPerception($insc->id);
+
+        // Todo: uncomment block below to enable the printing of the inscription form
+       /* $this->printIt();
+        $this->alert('success', "Élève inscrit avec succès !");*/
+
+        // Todo: Comment line below when the printing above is to be considered
         $this->flash('success', 'Élève inscrit avec succès', [], route('scolarite.inscriptions'));
 
 
@@ -181,7 +204,7 @@ class InscriptionCreateComponent extends Component
             'annee_id' => $this->annee_courante->id,
             'categorie' => $this->categorie,
             'montant' => $this->montant,
-            'status' => InscriptionStatus::pending->value,
+            'status' => InscriptionStatus::approved->value,
         ]);
     }
 
@@ -235,26 +258,16 @@ class InscriptionCreateComponent extends Component
 
     public function changeSection()
     {
+        $this->options = [];
+        $this->filieres = [];
         if ($this->section_id > 0) {
             $section = Section::find($this->section_id);
-            $this->options = $section->options;
-            if (count($this->options) > 0) {
-                $this->option_id = null;
-                $this->filiere_id = null;
-            } else {
-                $this->option_id = null;
-                $this->options = [];
-
-                $this->filiere_id = null;
-                $this->filieres = [];
-            }
-        } else {
-            $this->option_id = null;
-            $this->options = [];
-
-            $this->filiere_id = null;
-            $this->filieres = [];
+            $this->options = $section?->options ?? [];
         }
+
+        $this->option_id = null;
+        $this->filiere_id = null;
+        $this->classe_id = null;
         $this->loadAvailableClasses();
     }
 
@@ -262,37 +275,142 @@ class InscriptionCreateComponent extends Component
     {
         if ($this->filiere_id > 0) {
             $filiere = Filiere::find($this->filiere_id);
-            $this->classes = $filiere->classes;
+            $this->classes = $filiere?->classes ?? [];
         } else if ($this->option_id > 0) {
             $option = Option::find($this->option_id);
-            $this->classes = $option->classes;
+            $this->classes = $option?->classes ?? [];
         } else if ($this->section_id > 0) {
             $section = Section::find($this->section_id);
-            $this->classes = $section->classes;
+            $this->classes = $section?->classes ?? [];
         }
+        $this->getAvailableFrais();
     }
 
     public function changeOption()
     {
+        $this->filieres = [];
         if ($this->option_id > 0) {
             $option = Option::find($this->option_id);
-            $this->filieres = $option->filieres;
-            if (count($this->filieres) > 0) {
-                $this->filiere_id = null;
-            } else {
-                $this->filiere_id = null;
-                $this->filieres = [];
-            }
-        } else {
-            $this->filiere_id = null;
-            $this->filieres = [];
+            $this->filieres = $option?->filieres ?? [];
         }
+        $this->filiere_id = null;
+        $this->classe_id = null;
         $this->loadAvailableClasses();
     }
 
     public function changeFiliere()
     {
+        $this->classe_id = null;
         $this->loadAvailableClasses();
     }
 
+    public function changeClasse()
+    {
+        $this->loadAvailableClasses();
+    }
+
+    private function getAvailableFrais()
+    {
+        $ff = null;
+        if ($this->classe_id != null) {
+            $ff = Frais::
+            where('annee_id', $this->annee_courante->id)
+                ->where('classable_type', 'like', '%Classe')
+                ->where('classable_id', $this->classe_id)
+                ->orderBy('nom')
+                ->first();
+            if ($ff != null) {
+                $this->fee_id = $ff->id;
+                $this->fee_montant = $ff->montant;
+                $this->frequence = $ff->frequence;
+            }
+        }
+        if ($ff == null && $this->filiere_id != null) {
+            $ff = Frais::
+            where('annee_id', $this->annee_courante->id)
+                ->where('classable_type', 'like', '%Filiere')
+                ->where('classable_id', $this->filiere_id)
+                ->orderBy('nom')
+                ->first();
+            if ($ff != null) {
+                $this->fee_id = $ff->id;
+                $this->fee_montant = $ff->montant;
+                $this->frequence = $ff->frequence;
+            }
+        }
+        if ($ff == null && $this->option_id != null) {
+            $ff = Frais::
+            where('annee_id', $this->annee_courante->id)
+                ->where('classable_type', 'like', '%Option')
+                ->where('classable_id', $this->option_id)
+                ->orderBy('nom')
+                ->first();
+            if ($ff != null) {
+                $this->fee_id = $ff->id;
+                $this->fee_montant = $ff->montant;
+                $this->frequence = $ff->frequence;
+            }
+        }
+        if ($ff == null && $this->section_id != null) {
+            $ff = Frais::
+            where('annee_id', $this->annee_courante->id)
+                ->where('classable_type', 'like', '%Section')
+                ->where('classable_id', $this->section_id)
+                ->orderBy('nom')
+                ->first();
+            if ($ff != null) {
+                $this->fee_id = $ff->id;
+                $this->fee_montant = $ff->montant;
+                $this->frequence = $ff->frequence;
+            }
+        }
+        if ($ff == null) {
+            $this->fee_id = null;
+            $this->fee_montant = null;
+            $this->frequence = null;
+        }
+
+    }
+
+
+    // Perception add for inscription
+    public function addPerception($inscription_id)
+    {
+        if ($this->has_paid) {
+            $this->validate([
+                'fee_id' => 'required',
+                'fee_montant' => 'required',
+                'paid_by' => 'nullable',
+            ]);
+
+            try {
+                $this->perception = Perception::create(
+                    [
+                        'user_id' => Auth::id(),
+                        'frais_id' => $this->fee_id,
+                        'inscription_id' => $inscription_id,
+                        'frequence' => $this->frequence->name,
+                        'custom_property' => FraisFrequence::annuel,
+                        'annee_id' => $this->annee_courante->id,
+                        'montant' => $this->fee_montant,
+                        'due_date' => Carbon::now()->format('Y-m-d'),
+                        'paid' => $this->fee_montant,
+                        //'paid' => ($this->fee->type == FraisType::inscription and $this->paid == null) ? $this->montant : $this->paid,
+                        'paid_by' => $this->paid_by,
+                    ]
+                );
+
+                // $this->flash('success', "Frais imputé avec succès !", [], route('finance.perceptions'));
+
+            } catch (Exception $exception) {
+                $this->error(local: $exception->getMessage(), production: "Echec d'imputation de frais déjà existante !");
+            }
+        }
+    }
+
+    private function printIt()
+    {
+
+        $this->dispatchBrowserEvent('printIt', ['elementId' => "inscriptionPrint", 'type' => 'html', 'maxWidth' => '100%']);
+    }
 }
