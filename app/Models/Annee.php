@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Throwable;
@@ -13,7 +14,7 @@ class Annee extends Model
     public $guarded = [];
     protected $appends = [
         'start_year',
-        'end_year'
+        'end_year',
     ];
 
     /**
@@ -30,7 +31,7 @@ class Annee extends Model
      * Renvoie l'année scolaire en cours
      * @return Annee
      */
-    public static function encours(): Annee
+    public static function encours(): self
     {
         return self::where('encours', true)->latest()->first();
 
@@ -40,7 +41,7 @@ class Annee extends Model
     {
         parent::boot();
 
-        static::creating(function ($model) {
+        /*static::creating(function ($model) {
             $model->nom .= "-" . ($model->nom + 1);
         });
         static::updating(function ($model) {
@@ -49,21 +50,34 @@ class Annee extends Model
             } catch (Throwable $th) {
                 //throw $th;
             }
-        });
+        });*/
     }
 
     public function getNomEditAttribute(): string
     {
-        return explode("-", $this->nom)[0];
+        return '';
+    }
+
+    /**
+     * @deprecated deprecated since version 2.0
+     */
+    public function getNomAttribute(): string
+    {
+        return $this->code;
+    }
+
+    public function getCodeAttribute(): string
+    {
+        return $this->start_year . '-'.$this->end_year;
     }
 
     public function getStartYearAttribute(): string
     {
-        return explode("-", $this->nom)[0];
+        return Carbon::parse($this->date_debut)->year;
     }
 
     public function getEndYearAttribute(): string
     {
-        return explode("-", $this->nom)[1];
+        return Carbon::parse($this->date_fin)->year;
     }
 }
