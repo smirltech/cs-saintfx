@@ -32,12 +32,19 @@
                             <form id="f1" wire:submit.prevent="addPerception">
                                 <div class="row">
 
-                                    {{-- <div class="form-group col-sm-12 col-md-4">
-                                         <label for="">Rechercher élève</label>
-                                         <input type="text" wire:model="searchName"
-                                                class="form-control">
-                                     </div>--}}
                                     <div class="form-group col-sm-12 col-md-6">
+                                         <label for="">Rechercher code élève</label>
+                                         <input type="text" wire:model="searchCode" wire:change="eleveSelected"
+                                                class="form-control" list="elevesList">
+                                        <datalist id="elevesList">
+                                            @foreach ($inscriptions as $inscription )
+                                                <option
+                                                    value="{{$inscription->id}}" label="{{$inscription->eleve->fullName}} {{ $inscription->classe->code }}">
+                                                </option>
+                                            @endforeach
+                                        </datalist>
+                                     </div>
+                                   {{-- <div class="form-group col-sm-12 col-md-6">
                                         <label for="">Selectionner élève</label>
                                         <select wire:change="eleveSelected" wire:model="inscription_id"
                                                 class="form-control">
@@ -49,7 +56,7 @@
                                                 </option>
                                             @endforeach
                                         </select>
-                                    </div>
+                                    </div>--}}
                                     <div class="form-group col-sm-12 col-md-6">
                                         <label for="">Élève selectionné</label>
                                         <input readonly type="text" wire:model="eleveNom"

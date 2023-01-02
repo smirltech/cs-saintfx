@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Annee;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -22,7 +23,7 @@ class PaimentFactory extends Factory
             'montant' => $this->faker->randomNumber(2) * 1000,
             'mois' => '',
             'motif' => $this->faker->sentence(6),
-            'annee_id' => 1,
+            'annee_id' => Annee::id(),
         ];
     }
 }

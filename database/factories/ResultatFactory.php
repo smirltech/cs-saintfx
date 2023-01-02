@@ -24,7 +24,7 @@ class ResultatFactory extends Factory
             'custom_property' => $this->faker->randomElement(ResultatType::cases()), //$this->faker->word,
             'pourcentage' => $this->faker->randomFloat(2, 0, 100),
             'place' => $this->faker->numberBetween(1, 10),
-            'annee_id' => $this->faker->numberBetween(1, Annee::count()),
+            'annee_id' => Annee::id(),
             'classe_id' => $inscription->classe_id,
             'inscription_id' => $inscription->id,
         ];

@@ -27,7 +27,7 @@ class PerceptionFactory extends Factory
             'inscription_id' => $this->faker->randomElement(Inscription::pluck('id')->toArray()),
             'frequence' => $freq->name,
             'custom_property' => $this->faker->randomElement($freq->children()),
-            'annee_id' => $this->faker->numberBetween(1, Annee::count()),
+            'annee_id' => Annee::id(),
             'montant' => 50000,
         ];
     }
