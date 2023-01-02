@@ -34,7 +34,7 @@
 
                                     <div class="form-group col-sm-12 col-md-6">
                                          <label for="">Rechercher code élève</label>
-                                         <input type="text" wire:model="searchCode" wire:change="eleveSelected"
+                                         <input type="search" wire:model="searchCode" wire:change.debounce="eleveSelected"
                                                 class="form-control" list="elevesList">
                                         <datalist id="elevesList">
                                             @foreach ($inscriptions as $inscription )
