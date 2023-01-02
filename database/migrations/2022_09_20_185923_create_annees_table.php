@@ -12,7 +12,10 @@ return new class extends Migration {
             $table->date('date_debut');
             $table->date('date_fin');
             $table->boolean('encours')->default(false);
+
             $table->timestamps();
+
+            $table->unique(['date_debut', 'date_fin']);
         });
     }
 };
