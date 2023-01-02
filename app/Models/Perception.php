@@ -60,11 +60,10 @@ class Perception extends Model
      */
     public static function generateReference(): string
     {
-        $count = self::where('annee_id', Annee::id())->whereMonth('created_at', Carbon::now()->month)->count();
-        $count = Str::padLeft($count, 4, '0');
-        $month = Carbon::now()->month;
-        $year = Carbon::now()->year;
-        return $count . $month . $year;
+        $count = self::whereMonth('created_at', Carbon::now()->month)->count();
+        $count = Str::padLeft($count + 1, 4, '0');
+        $month = Carbon::now()->format('ym');
+        return $month . $count;
     }
 
 
