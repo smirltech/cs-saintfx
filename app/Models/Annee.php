@@ -3,13 +3,10 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Throwable;
 
 class Annee extends Model
 {
-    use HasFactory;
 
     public $guarded = [];
 
@@ -17,6 +14,7 @@ class Annee extends Model
         'start_year',
         'end_year',
     ];
+
 
     /**
      * Renvoie l'id de l'année scolaire en cours
@@ -38,22 +36,10 @@ class Annee extends Model
 
     }
 
-    protected static function boot()
+    public function getNomEditAttribute(): string
     {
-        parent::boot();
-
-        /*static::creating(function ($model) {
-            $model->nom .= "-" . ($model->nom + 1);
-        });
-        static::updating(function ($model) {
-            try {
-                $model->nom .= "-" . ($model->nom + 1);
-            } catch (Throwable $th) {
-                //throw $th;
-            }
-        });*/
+        return '';
     }
-
 
     /**
      * @deprecated deprecated since version 1.0
@@ -65,7 +51,7 @@ class Annee extends Model
 
     public function getCodeAttribute(): string
     {
-        return $this->start_year . '-'.$this->end_year;
+        return $this->start_year . '-' . $this->end_year;
     }
 
     public function getStartYearAttribute(): string

@@ -23,16 +23,19 @@
                         </div>
 
                         <div style="text-align:center" class="text-center">Reçu
-                            No.{{Helpers::padStart($perception?->id,4)}}</div>
+                            No.{{$perception?->reference}}</div>
                         <div style="text-align:center" class="text-center">
                             Date: {{Carbon::now()->format("d-m-Y à H:i:s")}}
                         </div>
                         <br>
-                        <div style="text-align:center" class="text-center">Élève : <strong>{{$inscription?->fullName}}</strong></div>
+                        <div style="text-align:center" class="text-center">Élève :
+                            <strong>{{$inscription?->fullName}}</strong></div>
                         <br>
                         <div style="text-align:center; width: 100%">
-                            <span style="text-align:left; margin-right: 10px" class="">{{$inscription?->classe->grade}} </span>
-                            <span style="text-align:center; margin-right: 10px" class=""> {{$inscription?->classe->filierable->nom}} </span>
+                            <span style="text-align:left; margin-right: 10px"
+                                  class="">{{$inscription?->classe->grade}} </span>
+                            <span style="text-align:center; margin-right: 10px"
+                                  class=""> {{$inscription?->classe->filierable->nom}} </span>
                             <span style="text-align:right" class=""> {{$annee->nom}}</span>
 
                         </div>
@@ -64,7 +67,8 @@
                         <div style="text-align:right" class="text-right">Cash :
                             <strong>{{Helpers::currencyFormat($perception?->paid)}} Fc</strong></div>
                         <div style="text-align:right" class="text-right">Solde :
-                            <strong>{{Helpers::currencyFormat($perception?->montant - (int)($perception?->paid))}} Fc</strong>
+                            <strong>{{Helpers::currencyFormat($perception?->montant - (int)($perception?->paid))}}
+                                Fc</strong>
                         </div>
                         @if($perception?->paid_by != null)
                             <div style="text-align:right" class="text-right">Payé par :
