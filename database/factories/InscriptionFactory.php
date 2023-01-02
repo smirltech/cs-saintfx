@@ -26,7 +26,7 @@ class InscriptionFactory extends Factory
             'annee_id' => Annee::encours()->id,
             'categorie' => $this->faker->randomElement(array_column(InscriptionCategorie::cases(), 'value')),
             'montant' => 10000,
-            'status' => $this->faker->randomElement(array_column(InscriptionStatus::cases(), 'value')),
+            'status' => InscriptionStatus::approved,
         ];
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Scolarite\Annee;
 use App\Models\Annee;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
+use Exception;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
@@ -13,120 +14,105 @@ class AnneeComponent extends Component
     use TopMenuPreview;
     use LivewireAlert;
 
-    public $name;
     public $annees;
-    public $annee_id = -1;
-    public $nom = "";
-    public $iconB = "fa fa-plus";
-    public bool $isAdding = false;
+    public Annee $annee;
 
 
     protected $rules = [
-        'nom' => 'required',
-        'name' => 'required',
+        'annee.date_debut' => 'required',
+        'annee.date_fin' => 'required',
     ];
 
     public function mount()
     {
+        $this->initAnnee();
         $this->loadData();
+    }
+
+    public function initAnnee()
+    {
+        $this->annee = new Annee();
+    }
+
+    public function getSelectedAnnee($id)
+    {
+        $this->annee = Annee::find($id);
     }
 
     public function loadData()
     {
-        $this->annees = Annee::/* orderBy('encours', 'DESC')-> */ orderBy('nom', 'DESC')->get();
+        $this->annees = Annee::orderBy('encours', 'DESC')->orderBy('date_debut', 'DESC')->get();
     }
 
     public function render()
     {
+        $this->loadData();
         return view('livewire.scolarite.annees.index')
             ->layout(AdminLayout::class, ['title' => "Liste d'années scolaires"]);
     }
 
-    public function nameSetter($name)
-    {
-        $this->name = $name;
-
-    }
-
-    public function toggleIsAdding()
-    {
-        $this->isAdding = !$this->isAdding;
-        if ($this->isAdding) {
-            $iconB = "fa fa-plus";
-        } else {
-            $iconB = "fa fa-minus";
-        }
-        $this->annee_id = -1;
-    }
-
     public function addAnnee()
     {
-        $validatedData = $this->validate([
-            'nom' => 'required',
-        ]);
-//dd($validatedData);
-        Annee::create(['nom' => $validatedData['nom']]);
+        $this->validate();
 
-        $this->loadData();
-        $this->isAdding = false;
-        $this->nom = '';
-
-        $this->alert('success', 'Année ajoutée avec succès');
-    }
-
-    public function deleteAnnee($id)
-    {
-        $aa = Annee::find($id);
-        if ($aa->delete()) {
-            $this->loadData();
-            $this->resetAnneeId();
-            $this->alert('success', 'Année supprimée avec succès');
+        $done = $this->annee->save();
+        if ($done) {
+            $this->onModalClosed('add-annee-modal');
+            $this->initAnnee();
+            $this->alert('success', "Consommable ajouté avec succès !");
+        } else {
+            $this->alert('warning', "Échec d'ajout de consommable !");
         }
     }
 
-    public function resetAnneeId()
+    public function deleteAnnee()
     {
-        $this->annee_id = -1;
-        $this->isAdding = false;
+
+        try{
+            if ($this->annee->delete()) {
+                $this->onModalClosed('delete-annee-modal');
+                $this->initAnnee();
+                $this->alert('success', "Année scolaire supprimée avec succès !");
+            } else {
+                $this->alert('warning', "Échec de suppression d'année scolaire !");
+            }
+        }catch (Exception $e){
+            $this->alert('error', "Année scolaire n'a pas été supprimée, il y a des éléments attachés !");
+        }
     }
+
 
     public function setAnneeEnCours($id)
     {
 
         $aa = Annee::find($id);
-        //if ($aa != null) {
+
         Annee::query()->where('encours', true)->update(['encours' => false]);
         $aa->encours = true;
         $aa->save();
-        $this->loadData();
-        $this->resetAnneeId();
         $this->alert('success', 'Année en cours modifiée avec succès');
         // }
-
+        //$this->onModalClosed('delete-consommable-modal');
     }
 
-    public function editAnnee($id)
-    {
-        $this->annee_id = $id;
-        $aa = Annee::find($id);
-        $this->nom = $aa->nom_edit;
-        $this->loadData();
-    }
 
     public function updateAnnee()
     {
-        $validatedData = $this->validate([
-            'nom' => 'required',
-        ]);
+        $this->validate();
 
-        $aa = Annee::find($this->annee_id);
-        $aa->nom = $this->nom;
-        $aa->save();
+        $done = $this->annee->save();
+        if ($done) {
+            $this->onModalClosed('update-annee-modal');
+            $this->alert('success', "Année modifiée avec succès !");
+        } else {
+            $this->alert('warning', "Échec de modification d'année !");
+        }
 
-        $this->loadData();
-        $this->resetAnneeId();
-        $this->nom = '';
+    }
 
-        $this->alert('success', 'Année modifiée avec succès');
+    public function onModalClosed($p_id)
+    {
+        $this->dispatchBrowserEvent('closeModal', ['modal' => $p_id]);
+
     }
 }
