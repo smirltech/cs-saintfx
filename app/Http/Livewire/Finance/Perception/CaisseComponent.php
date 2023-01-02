@@ -32,6 +32,7 @@ class CaisseComponent extends Component
     public function mount()
     {
         $this->annee = Annee::encours();
+        $this->annee->nom;
     }
 
     public function render()

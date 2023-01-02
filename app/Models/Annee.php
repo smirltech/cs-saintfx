@@ -12,7 +12,7 @@ class Annee extends Model
     use HasFactory;
 
     public $guarded = [];
-    protected $fillable = ['date_debut', 'date_fin'];
+
     protected $appends = [
         'start_year',
         'end_year',
@@ -54,10 +54,6 @@ class Annee extends Model
         });*/
     }
 
-    public function getNomEditAttribute(): string
-    {
-        return '';
-    }
 
     /**
      * @deprecated deprecated since version 1.0
