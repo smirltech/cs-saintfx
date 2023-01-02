@@ -26,7 +26,7 @@
         <div class="container-fluid">
             <div class="card">
 
-                <div class="card-body">
+                <div id="inscriptionPrint" class="card-body">
                     <x-validation-errors class="mb-4" :errors="$errors"/>
                     <form wire:submit.prevent="submit">
                         {{-- Information Personnelle--}}
