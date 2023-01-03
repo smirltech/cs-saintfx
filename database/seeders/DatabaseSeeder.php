@@ -19,8 +19,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-
-        Schema::disableForeignKeyConstraints();
         $this->call([
             PermissionSeeder::class,
             SectionSeeder::class,
@@ -42,15 +40,12 @@ class DatabaseSeeder extends Seeder
             'remember_token' => Str::random(10),
         ])->assignRole(UserRole::super_admin->value);
 
-        MaterielCategory::factory()->count(3)->make();
-        // if local env
-        if (!app()->isProduction()) {
-            $this->call([
-                FactorySeeder::class,
-            ]);
+            if (!app()->isProduction()) {
+                $this->call([
+                    FactorySeeder::class,
+                ]);
+            }
         }
-
-        Schema::enableForeignKeyConstraints();
 
     }
 }

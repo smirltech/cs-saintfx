@@ -66,12 +66,15 @@ class FactorySeeder extends Seeder
         Depense::factory(5)->create();
         Paiment::factory(5)->create();
         Perception::factory(5)->create();
+
+        # Logistique
         MaterielCategory::factory(5)->create();
         Materiel::factory(10)->create();
         Mouvement::factory(15)->create();
         Cession::factory(3)->create();
         Consommable::factory(10)->create();
         Operation::factory(10)->create();
+        MaterielCategory::factory()->count(3)->make();
 
     }
 }
