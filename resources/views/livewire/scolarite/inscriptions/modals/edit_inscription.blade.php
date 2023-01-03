@@ -17,7 +17,7 @@
                         <h4 class="font-weight-bold"><u>Choix de classe</u></h4>
                         <p>Procédez à l'inscription de ce candidat pour l'année scolaire <span
                                 class="text-red">{{$annee_courante->nom}}</span>, dans la classe que vous
-                            sélectionnerez ici-dessous.
+                            sélectionnerez ci-dessous.
                             Pour choisir la classe, vous devez commencer par sélectionner la section, puis l'option,
                             ensuite la filière et finalement la classe.</p>
                         <p>Il y a des sections sans options ni filières, dans ce cas choisir seulement la section,
@@ -76,12 +76,12 @@
                         </div>
                         <div class="row">
                             <div class="form-group col-md-6 col-sm-12">
-                                <label for="">Categorie <i class="text-red">*</i></label>
+                                <label for="">Catégorie <i class="text-red">*</i></label>
                                 <select wire:model="categorie"
                                         class="form-control  @error('categorie') is-invalid @enderror">
-                                    <option value="" disabled>Choisir categorie...</option>
+                                    <option value="" disabled>Choisir catégorie...</option>
                                     @foreach (InscriptionCategorie::cases() as $es )
-                                        <option value="{{ strtoupper($es->value)}}">{{ $es->label() }}</option>
+                                        <option value="{{ $es->name}}">{{ $es->label() }}</option>
                                     @endforeach
                                     @error('categorie')
                                     <span class="text-red">{{ $message }}</span>
