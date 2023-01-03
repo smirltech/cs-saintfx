@@ -55,19 +55,19 @@ class Inscription extends Model
         return $this->belongsTo(Eleve::class);
     }
 
-    public function getNomCompletAttribute(): string
+    public function getNomCompletAttribute(): string|null
     {
         return $this->getFullNameAttribute();
     }
 
-    public function getFullNameAttribute(): string
+    public function getFullNameAttribute(): string|null
     {
-        return $this->eleve->fullName;
+        return $this->eleve?->fullName;
     }
 
-    public function getMatriculeAttribute(): string
+    public function getMatriculeAttribute(): string|null
     {
-        return $this->eleve->matricule;
+        return $this->eleve?->matricule;
     }
 
     public function classe(): BelongsTo
@@ -136,9 +136,9 @@ class Inscription extends Model
         return $query;
     }
 
-    public function getCodeAttribute(): ?string
+    public function getCodeAttribute(): string|null
     {
-        return $this?->eleve->matricule;
+        return $this?->eleve?->matricule;
     }
 
     public function getClasseCodeAttribute(): Classe
