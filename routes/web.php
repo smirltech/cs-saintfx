@@ -170,4 +170,5 @@ Route::prefix('logistique')->middleware(['auth:web'])->as('logistique.')->group(
 });
 
 
-Auth::routes();
+// auth routes except register
+Auth::routes(['register' => false]);
