@@ -24,14 +24,14 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             PermissionSeeder::class,
-              AnneeSeeder::class,
-              SectionSeeder::class,
-              OptionSeeder::class,
-              FiliereSeeder::class,
-              ClasseSeeder::class,
-              FraisSeeder::class,
-              DepenseTypeSeeder::class,
-              UnitSeeder::class,
+            AnneeSeeder::class,
+            SectionSeeder::class,
+            OptionSeeder::class,
+            FiliereSeeder::class,
+            ClasseSeeder::class,
+            FraisSeeder::class,
+            DepenseTypeSeeder::class,
+            UnitSeeder::class,
         ]);
 
 
