@@ -33,3 +33,12 @@ test('users can not authenticate with invalid password', function () {
     $response->assertRedirect();
 });
 
+test('logout screen can be rendered', function () {
+    $response = $this->actingAs($this->user)->post('/logout');
+
+    $this->assertGuest();
+    $response->assertRedirect();
+});
+
+
+
