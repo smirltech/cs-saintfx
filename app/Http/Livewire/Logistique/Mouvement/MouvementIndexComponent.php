@@ -1,15 +1,10 @@
 <?php
 
-namespace App\Http\Livewire\Logistiques\Mouvement;
+namespace App\Http\Livewire\Logistique\Mouvement;
 
-use App\Enums\MaterialStatus;
-use App\Models\Materiel;
-use App\Models\MaterielCategory;
 use App\Models\Mouvement;
-use App\Models\User;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
-use Illuminate\Support\Facades\Auth;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 

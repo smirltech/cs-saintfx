@@ -1,19 +1,14 @@
 <?php
 
-namespace App\Http\Livewire\Logistiques\Consommable;
+namespace App\Http\Livewire\Logistique\Consommable;
 
-use App\Enums\MaterialStatus;
 use App\Models\Annee;
 use App\Models\Consommable;
-use App\Models\Materiel;
-use App\Models\MaterielCategory;
 use App\Models\Unit;
-use App\Models\User;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Exception;
 use Faker\Factory;
-use Illuminate\Support\Facades\Auth;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
@@ -48,7 +43,7 @@ class ConsommableIndexComponent extends Component
     public function initConsommable()
     {
         $this->consommable = new Consommable();
-       if($this->units->count()>0) $this->consommable->unit_id = $this->units[0]->id;
+        if ($this->units->count() > 0) $this->consommable->unit_id = $this->units[0]->id;
 
     }
 
@@ -88,7 +83,7 @@ class ConsommableIndexComponent extends Component
     public function getSelectedConsommable(Consommable $consommable)
     {
         $this->consommable = $consommable;
-       //  dd($this->materiel);
+        //  dd($this->materiel);
     }
 
     public function updateConsommable()
@@ -108,14 +103,14 @@ class ConsommableIndexComponent extends Component
     public function deleteConsommable()
     {
 
-        try{
+        try {
             if ($this->consommable->delete()) {
                 $this->loadData();
                 $this->alert('success', "Consommable supprimé avec succès !");
             } else {
                 $this->alert('warning', "Échec de suppression de consommable !");
             }
-        }catch (Exception $e){
+        } catch (Exception $e) {
             $this->alert('error', "Consommable n'a pas été supprimé, il y a des éléments attachés !");
         }
 

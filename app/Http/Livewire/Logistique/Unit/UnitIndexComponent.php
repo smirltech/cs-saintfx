@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Logistiques\Unit;
+namespace App\Http\Livewire\Logistique\Unit;
 
 use App\Models\Unit;
 use App\Traits\TopMenuPreview;

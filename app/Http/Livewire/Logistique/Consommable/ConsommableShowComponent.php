@@ -1,12 +1,9 @@
 <?php
 
-namespace App\Http\Livewire\Logistiques\Consommable;
+namespace App\Http\Livewire\Logistique\Consommable;
 
 use App\Enums\MouvementStatus;
 use App\Models\Consommable;
-use App\Models\Materiel;
-use App\Models\MaterielCategory;
-use App\Models\Mouvement;
 use App\Models\Operation;
 use App\Models\Unit;
 use App\Models\User;
@@ -14,7 +11,6 @@ use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
@@ -35,36 +31,29 @@ class ConsommableShowComponent extends Component
         'consommable.description' => 'nullable',
 
         // Mouvement
-        'operation.consommable_id'=>'nullable',
-        'operation.user_id'=>'nullable',
-        'operation.facilitateur_id'=>'nullable',
-        'operation.beneficiaire'=>'nullable',
-        'operation.date'=>'nullable',
-        'operation.direction'=>'nullable',
-        'operation.quantite'=>'nullable',
-        'operation.observation'=>'nullable',
+        'operation.consommable_id' => 'nullable',
+        'operation.user_id' => 'nullable',
+        'operation.facilitateur_id' => 'nullable',
+        'operation.beneficiaire' => 'nullable',
+        'operation.date' => 'nullable',
+        'operation.direction' => 'nullable',
+        'operation.quantite' => 'nullable',
+        'operation.observation' => 'nullable',
     ];
 
     public function mount(Consommable $consommable)
     {
         $this->consommable = $consommable;
-       // dd($this->materiel);
+        // dd($this->materiel);
         $this->loadData();
         $this->initOperation();
-    }
-
-    public function render()
-    {
-        $this->loadData();
-        return view('livewire.logistiques.consommables.show')
-            ->layout(AdminLayout::class, ['title' => 'Détail sur le consommable']);
     }
 
     public function loadData()
     {
         $this->units = Unit::orderBy('nom', 'ASC')->get();
-       $this->users = User::orderBy('nom', 'ASC')->get();
-         // dd($this->users);
+        $this->users = User::orderBy('nom', 'ASC')->get();
+        // dd($this->users);
     }
 
     public function initOperation()
@@ -76,10 +65,11 @@ class ConsommableShowComponent extends Component
         $this->operation->quantite = null;
     }
 
-    public function onModalClosed($p_id)
+    public function render()
     {
-        $this->dispatchBrowserEvent('closeModal', ['modal' => $p_id]);
-        $this->initOperation();
+        $this->loadData();
+        return view('livewire.logistiques.consommables.show')
+            ->layout(AdminLayout::class, ['title' => 'Détail sur le consommable']);
     }
 
     public function updateConsommable()
@@ -96,6 +86,12 @@ class ConsommableShowComponent extends Component
         $this->consommable->refresh();
     }
 
+    public function onModalClosed($p_id)
+    {
+        $this->dispatchBrowserEvent('closeModal', ['modal' => $p_id]);
+        $this->initOperation();
+    }
+
     public function getSelectedOperation(Operation $operation)
     {
         $this->operation = $operation;
@@ -108,22 +104,22 @@ class ConsommableShowComponent extends Component
         $this->operation->consommable_id = $this->consommable->id;
         $this->operation->user_id = Auth::id();
         $this->validate([
-            'operation.consommable_id'=>'required',
-            'operation.user_id'=>'required',
-            'operation.facilitateur_id'=>'required',
-            'operation.beneficiaire'=>'nullable',
-            'operation.quantite'=>'required',
-            'operation.date'=>'required',
-            'operation.direction'=>'required',
-            'operation.observation'=>'nullable',
+            'operation.consommable_id' => 'required',
+            'operation.user_id' => 'required',
+            'operation.facilitateur_id' => 'required',
+            'operation.beneficiaire' => 'nullable',
+            'operation.quantite' => 'required',
+            'operation.date' => 'required',
+            'operation.direction' => 'required',
+            'operation.observation' => 'nullable',
         ]);
 
         $done = $this->operation->save();
         if ($done) {
-            $this->alert('success', $this->operation->direction->label() ." operation ajoutée avec succès !");
+            $this->alert('success', $this->operation->direction->label() . " operation ajoutée avec succès !");
             $this->onModalClosed('add-operation-modal');
         } else {
-            $this->alert('warning', "Échec d'ajout de ".$this->operation->direction->label() ." operation !");
+            $this->alert('warning', "Échec d'ajout de " . $this->operation->direction->label() . " operation !");
         }
 
         $this->consommable->refresh();

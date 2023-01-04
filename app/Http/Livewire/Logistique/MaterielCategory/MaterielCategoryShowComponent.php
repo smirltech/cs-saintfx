@@ -1,11 +1,8 @@
 <?php
 
-namespace App\Http\Livewire\Logistiques\MaterielCategory;
+namespace App\Http\Livewire\Logistique\MaterielCategory;
 
 use App\Models\MaterielCategory;
-use App\Models\Option;
-use App\Models\Section;
-use App\Traits\SectionCode;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Illuminate\Validation\Rule;
@@ -40,14 +37,8 @@ class MaterielCategoryShowComponent extends Component
 
     public function loadData()
     {
-        $this->categories = MaterielCategory::where('id','!=', $this->category->id)->orderBy('nom', 'ASC')->get();
+        $this->categories = MaterielCategory::where('id', '!=', $this->category->id)->orderBy('nom', 'ASC')->get();
         //  dd($this->categories);
-    }
-
-    public function onModalClosed($p_id)
-    {
-        $this->dispatchBrowserEvent('closeModal', ['modal' => $p_id]);
-
     }
 
     public function updateCategory()
@@ -69,6 +60,12 @@ class MaterielCategoryShowComponent extends Component
             $this->alert('warning', "Échec de modification de catégorie !");
         }
         $this->category->refresh();
+    }
+
+    public function onModalClosed($p_id)
+    {
+        $this->dispatchBrowserEvent('closeModal', ['modal' => $p_id]);
+
     }
 
 

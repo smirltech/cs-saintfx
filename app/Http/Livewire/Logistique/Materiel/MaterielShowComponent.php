@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Logistiques\Materiel;
+namespace App\Http\Livewire\Logistique\Materiel;
 
 use App\Enums\MouvementStatus;
 use App\Models\Materiel;
@@ -34,36 +34,29 @@ class MaterielShowComponent extends Component
         'materiel.status' => 'nullable',
 
         // Mouvement
-        'mouvement.materiel_id'=>'nullable',
-        'mouvement.user_id'=>'nullable',
-        'mouvement.facilitateur_id'=>'nullable',
-        'mouvement.beneficiaire'=>'nullable',
-        'mouvement.date'=>'nullable',
-        'mouvement.direction'=>'nullable',
-        'mouvement.materiel_status'=>'nullable',
-        'mouvement.observation'=>'nullable',
+        'mouvement.materiel_id' => 'nullable',
+        'mouvement.user_id' => 'nullable',
+        'mouvement.facilitateur_id' => 'nullable',
+        'mouvement.beneficiaire' => 'nullable',
+        'mouvement.date' => 'nullable',
+        'mouvement.direction' => 'nullable',
+        'mouvement.materiel_status' => 'nullable',
+        'mouvement.observation' => 'nullable',
     ];
 
     public function mount(Materiel $materiel)
     {
         $this->materiel = $materiel;
-       // dd($this->materiel);
+        // dd($this->materiel);
         $this->loadData();
         $this->initMouvement();
-    }
-
-    public function render()
-    {
-        $this->loadData();
-        return view('livewire.logistiques.materiels.show')
-            ->layout(AdminLayout::class, ['title' => 'Détail sur le matériel']);
     }
 
     public function loadData()
     {
         $this->categories = MaterielCategory::orderBy('nom', 'ASC')->get();
         $this->users = User::orderBy('nom', 'ASC')->get();
-         // dd($this->users);
+        // dd($this->users);
     }
 
     public function initMouvement()
@@ -75,10 +68,11 @@ class MaterielShowComponent extends Component
         $this->mouvement->materiel_status = $this->materiel->status->name;
     }
 
-    public function onModalClosed($p_id)
+    public function render()
     {
-        $this->dispatchBrowserEvent('closeModal', ['modal' => $p_id]);
-        $this->initMouvement();
+        $this->loadData();
+        return view('livewire.logistiques.materiels.show')
+            ->layout(AdminLayout::class, ['title' => 'Détail sur le matériel']);
     }
 
     public function getSelectedMouvement(Mouvement $mouvement)
@@ -100,30 +94,36 @@ class MaterielShowComponent extends Component
         $this->materiel->refresh();
     }
 
+    public function onModalClosed($p_id)
+    {
+        $this->dispatchBrowserEvent('closeModal', ['modal' => $p_id]);
+        $this->initMouvement();
+    }
 
 
     // Mouvement du matériel
+
     public function addMouvement()
     {
         $this->mouvement->materiel_id = $this->materiel->id;
         $this->mouvement->user_id = Auth::id();
         $this->validate([
-            'mouvement.materiel_id'=>'required',
-            'mouvement.user_id'=>'required',
-            'mouvement.facilitateur_id'=>'required',
-            'mouvement.beneficiaire'=>'required',
-            'mouvement.date'=>'required',
-            'mouvement.direction'=>'required',
-            'mouvement.materiel_status'=>'required',
-            'mouvement.observation'=>'nullable',
+            'mouvement.materiel_id' => 'required',
+            'mouvement.user_id' => 'required',
+            'mouvement.facilitateur_id' => 'required',
+            'mouvement.beneficiaire' => 'required',
+            'mouvement.date' => 'required',
+            'mouvement.direction' => 'required',
+            'mouvement.materiel_status' => 'required',
+            'mouvement.observation' => 'nullable',
         ]);
 
         $done = $this->mouvement->save();
         if ($done) {
-            $this->alert('success', $this->mouvement->direction->label() ." matériel ajoutée avec succès !");
+            $this->alert('success', $this->mouvement->direction->label() . " matériel ajoutée avec succès !");
             $this->onModalClosed('add-mouvement-modal');
         } else {
-            $this->alert('warning', "Échec d'ajout de ".$this->mouvement->direction->label() ." matériel !");
+            $this->alert('warning', "Échec d'ajout de " . $this->mouvement->direction->label() . " matériel !");
         }
 
         $this->materiel->refresh();

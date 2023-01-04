@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Livewire\Logistiques\Materiel;
+namespace App\Http\Livewire\Logistique\Materiel;
 
 use App\Enums\MaterialStatus;
 use App\Models\Materiel;
 use App\Models\MaterielCategory;
-use App\Models\User;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Illuminate\Support\Facades\Auth;
@@ -46,7 +45,7 @@ class MaterielIndexComponent extends Component
     public function initMateriel()
     {
         $this->materiel = new Materiel();
-       if($this->categories->count()>0) $this->materiel->materiel_category_id = $this->categories[0]->id;
+        if ($this->categories->count() > 0) $this->materiel->materiel_category_id = $this->categories[0]->id;
 
     }
 
@@ -66,7 +65,7 @@ class MaterielIndexComponent extends Component
 
         $this->validate();
 
-       // dd($this->materiel);
+        // dd($this->materiel);
         $done = $this->materiel->save();
         if ($done) {
             $this->onModalClosed('add-materiel-modal');
@@ -87,7 +86,7 @@ class MaterielIndexComponent extends Component
     public function getSelectedMateriel(Materiel $materiel)
     {
         $this->materiel = $materiel;
-       //  dd($this->materiel);
+        //  dd($this->materiel);
     }
 
     public function updateMateriel()

@@ -6,14 +6,14 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\OtpController;
 use App\Http\Controllers\MediaController;
 use App\Http\Livewire\Finance;
-use App\Http\Livewire\Logistiques\Consommable\ConsommableIndexComponent;
-use App\Http\Livewire\Logistiques\Consommable\ConsommableShowComponent;
-use App\Http\Livewire\Logistiques\Materiel\MaterielIndexComponent;
-use App\Http\Livewire\Logistiques\Materiel\MaterielShowComponent;
-use App\Http\Livewire\Logistiques\MaterielCategory\MaterielCategoryIndexComponent;
-use App\Http\Livewire\Logistiques\MaterielCategory\MaterielCategoryShowComponent;
-use App\Http\Livewire\Logistiques\Mouvement\MouvementIndexComponent;
-use App\Http\Livewire\Logistiques\Unit\UnitIndexComponent;
+use App\Http\Livewire\Logistique\Consommable\ConsommableIndexComponent;
+use App\Http\Livewire\Logistique\Consommable\ConsommableShowComponent;
+use App\Http\Livewire\Logistique\Materiel\MaterielIndexComponent;
+use App\Http\Livewire\Logistique\Materiel\MaterielShowComponent;
+use App\Http\Livewire\Logistique\MaterielCategory\MaterielCategoryIndexComponent;
+use App\Http\Livewire\Logistique\MaterielCategory\MaterielCategoryShowComponent;
+use App\Http\Livewire\Logistique\Mouvement\MouvementIndexComponent;
+use App\Http\Livewire\Logistique\Unit\UnitIndexComponent;
 use App\Http\Livewire\MainDashboardComponent;
 use App\Http\Livewire\Scolarite;
 use Illuminate\Support\Facades\Auth;
@@ -147,7 +147,7 @@ Route::prefix('finance')->middleware(['auth:web'])->as('finance.')->group(functi
     Route::get('eleves/{id}', Finance\Eleve\EleveShowComponent::class)->name('eleves.show');
 });
 
-# Logistiques
+# Logistique
 Route::prefix('logistique')->middleware(['auth:web'])->as('logistique.')->group(function () {
 
     // materiel categories

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Logistiques\MaterielCategory;
+namespace App\Http\Livewire\Logistique\MaterielCategory;
 
 use App\Models\MaterielCategory;
 use App\Traits\TopMenuPreview;
@@ -29,25 +29,23 @@ class MaterielCategoryIndexComponent extends Component
         $this->initCategory();
     }
 
-    public function loadData()
-    {
-        $this->categories = MaterielCategory::orderBy('nom', 'ASC')->get()
-           /* ->sortBy('groupe_nom')*/
-        ;
-      //  dd($this->categories);
-    }
-
     public function initCategory()
     {
         $this->category = new MaterielCategory();
     }
-
 
     public function render()
     {
         $this->loadData();
         return view('livewire.logistiques.materiel_categories.index')
             ->layout(AdminLayout::class, ['title' => 'Liste de Categories des Matériels']);
+    }
+
+    public function loadData()
+    {
+        $this->categories = MaterielCategory::orderBy('nom', 'ASC')->get()/* ->sortBy('groupe_nom')*/
+        ;
+        //  dd($this->categories);
     }
 
     public function addCategory()
@@ -80,7 +78,7 @@ class MaterielCategoryIndexComponent extends Component
     public function getSelectedCategory(MaterielCategory $category)
     {
         $this->category = $category;
-       // dd($this->category->categories);
+        // dd($this->category->categories);
     }
 
     public function updateCategory()
