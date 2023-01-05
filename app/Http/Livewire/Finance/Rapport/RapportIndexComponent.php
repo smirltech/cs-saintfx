@@ -8,6 +8,9 @@ use App\Models\Depense;
 use App\Models\Frais;
 use App\Models\Perception;
 use App\Models\Revenu;
+use App\Traits\TopMenuPreview;
+
+use App\Traits\WithPrintToPdf;
 use App\View\Components\AdminLayout;
 use Carbon\Carbon;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -15,7 +18,9 @@ use Livewire\Component;
 
 class RapportIndexComponent extends Component
 {
+    use TopMenuPreview;
     use LivewireAlert;
+    use WithPrintToPdf;
 
     public $ddebut;
     public $dfin;
@@ -24,7 +29,7 @@ class RapportIndexComponent extends Component
     public $perception = 0;
     public $frais = [];
     public $depenses = 0;
-    public $categories = [];
+    public $depensesTypes = [];
     public $annee_id;
     public $anneeNom;
     protected $rules = [
@@ -57,8 +62,7 @@ class RapportIndexComponent extends Component
         $this->frais = Frais::sommeFraisByTypeBetween(annee_id: $this->annee_id, ddebut: $this->ddebut, dfin: $this->dfin);
 
         $this->depenses = Depense::sommeBetween(annee_id: $this->annee_id, ddebut: $this->ddebut, dfin: $this->dfin);
-        $this->categories = Depense::sommeDepensesByCategoryBetween(annee_id: $this->annee_id, ddebut: $this->ddebut, dfin: $this->dfin);
-
+        $this->depensesTypes = Depense::sommeDepensesByTypeBetween(annee_id: $this->annee_id, ddebut: $this->ddebut, dfin: $this->dfin);
     }
 
     public function updateReport()
@@ -68,6 +72,9 @@ class RapportIndexComponent extends Component
 
     public function printIt()
     {
-        $this->dispatchBrowserEvent('printIt', ['elementId' => "factPrint", 'type' => 'html', 'maxWidth' => '100%']);
+        //$this->dispatchBrowserEvent('printIt', ['elementId' => "factPrint", 'type' => 'html', 'maxWidth' => '100%']);
+
+        return $this->printToPdf('livewire.finance.rapports.modals.printable', $this->all(), 'print_pdf.pdf');
+
     }
 }

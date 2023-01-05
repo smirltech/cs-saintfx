@@ -15,6 +15,7 @@ use App\Models\Frais;
 use App\Models\Inscription;
 use App\Models\Option;
 use App\Models\Perception;
+use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Carbon\Carbon;
 use Exception;
@@ -23,6 +24,7 @@ use Livewire\Component;
 
 class PerceptionCreateComponent extends Component
 {
+    use TopMenuPreview;
     use ApplicationAlert;
 
     public $searchName;
@@ -241,6 +243,7 @@ class PerceptionCreateComponent extends Component
                     'user_id' => $this->user_id,
                     'frais_id' => $this->fee_id,
                     'inscription_id' => $this->inscription_id,
+                    'frequence' => $this->fee->frequence->name,
                     'custom_property' => $this->custom_property,
                     'annee_id' => $this->annee_id,
                     'montant' => $this->montant,

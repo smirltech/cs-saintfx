@@ -4,12 +4,14 @@ namespace App\Models;
 
 use App\Enums\Sexe;
 use App\Helpers\Helpers;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use JetBrains\PhpStorm\Pure;
 
 class Eleve extends Model
 {
@@ -50,9 +52,35 @@ class Eleve extends Model
     // {annee}{section_id}{count on section+1}
     //ex: 2022010001
 
+    public static function nonInscritsAnneeEnCours()
+    {
+        return self::whereDoesntHave('inscriptions', function ($q) {
+            $q->where('annee_id', Annee::id());
+        })->get();
+    }
+
     public function getRouteKeyName()
     {
         return 'matricule';
+    }
+
+    public function getPresencesAttribute(): Collection
+    {
+        return $this->inscription->presences;
+    }
+
+    public function getPresenceColorsAttribute(): array
+    {
+        $aa = [];
+        foreach($this->inscription->presences as $p){
+            $aa[] = $p->getColor();
+        }
+        return $aa;
+    }
+
+    public function getInscriptionAttribute(): Inscription
+    {
+        return $this->inscriptions()->where('annee_id', Annee::id())->first();
     }
 
     public function inscriptions(): HasMany
@@ -82,7 +110,7 @@ class Eleve extends Model
         return Inscription::where(['eleve_id' => $this->id, 'annee_id' => Annee::encours()->id])->first();
     }
 
-    public function getNomCompletAttribute(): string
+    #[Pure] public function getNomCompletAttribute(): string
     {
         return $this->getFullNameAttribute();
     }
@@ -102,6 +130,11 @@ class Eleve extends Model
     public function responsables(): HasManyThrough
     {
         return $this->hasManyThrough(Responsable::class, ResponsableEleve::class, 'eleve_id', 'id', 'id', 'responsable_id');
+    }
+
+    public function perceptions(): HasManyThrough
+    {
+        return $this->hasManyThrough(Perception::class, Inscription::class);
     }
 
     public function getProfileUrlAttribute(): ?string
@@ -125,4 +158,19 @@ class Eleve extends Model
         return $this->matricule;
     }
 
+    // MONTANTS
+    public function getPerceptionsDuesAttribute(): int
+    {
+        return $this->inscriptions->sum('perceptionsDues');
+    }
+
+    public function getPerceptionsPaidAttribute(): int
+    {
+        return $this->inscriptions->sum('perceptionsPaid');
+    }
+
+    public function getPerceptionsBalanceAttribute(): int
+    {
+        return $this->inscriptions->sum('perceptionsBalance');
+    }
 }

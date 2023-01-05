@@ -6,6 +6,7 @@ use App\Models\Annee;
 use App\Models\Enseignant;
 use App\Traits\CanHandleEleveUniqueCode;
 use App\Traits\FakeProfileImage;
+use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -16,6 +17,7 @@ use Livewire\Component;
 
 class EnseignantShowComponent extends Component
 {
+    use TopMenuPreview;
     use LivewireAlert;
     use FakeProfileImage;
     use CanHandleEleveUniqueCode;

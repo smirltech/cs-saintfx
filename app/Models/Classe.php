@@ -112,6 +112,11 @@ class Classe extends Model
         return $this->belongsToMany(Cours::class, 'cours_enseignants')->where('annee_id', Annee::encours()->id)->withPivot('classe_id');
     }
 
+    public function coursEnseignants(): HasMany
+    {
+        return $this->hasMany(CoursEnseignant::class)->where('annee_id', Annee::encours()->id);
+    }
+
 
     // get section id from filierable attribute
     public function getSectionIdAttribute(): ?int
@@ -151,7 +156,7 @@ class Classe extends Model
     // function primaire
     public function primaire($strict = false): bool
     {
-        return $this->section->primaire(strict:$strict);
+        return $this->section->primaire(strict: $strict);
     }
 
     public function maternelle(): bool
@@ -162,5 +167,19 @@ class Classe extends Model
     public function secondaire(): bool
     {
         return $this->section->secondaire();
+    }
+
+    public  function presences()
+    {
+        return $this->hasManyThrough(Presence::class, Inscription::class)->with('inscription');
+    }
+
+    public function nonInscriptions($date)
+    {
+        $df = $this->inscriptions()->whereDoesntHave('presences', function ($q) use ($date) {
+$q->where('date', $date);
+        })->get();
+      //  dd($df);
+        return $df;
     }
 }

@@ -7,6 +7,7 @@ use App\Models\Annee;
 use App\Models\Filiere;
 use App\Models\Inscription;
 use App\Models\Option;
+use App\Traits\TopMenuPreview;
 use App\Traits\WithFileUploads;
 use App\View\Components\AdminLayout;
 use Illuminate\Validation\Rule;
@@ -15,6 +16,7 @@ use Livewire\Component;
 
 class InscriptionEditComponent extends Component
 {
+    use TopMenuPreview;
     use WithFileUploads;
     use LivewireAlert;
 

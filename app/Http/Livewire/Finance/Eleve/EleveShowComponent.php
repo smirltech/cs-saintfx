@@ -2,13 +2,11 @@
 
 namespace App\Http\Livewire\Finance\Eleve;
 
-use App\Data\Annee;
-use App\Http\Integrations\Scolarite\Requests\Annee\GetCurrentAnnneRequest;
-use App\Http\Integrations\Scolarite\Requests\Filiere\GetFiliereRequest;
-use App\Http\Integrations\Scolarite\Requests\Inscription\GetInscriptionRequest;
-use App\Http\Integrations\Scolarite\Requests\Option\GetOptionRequest;
+use App\Models\Annee;
 use App\Models\Frais;
+use App\Models\Inscription;
 use App\Models\Perception;
+use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Exception;
 use Illuminate\Support\Facades\Auth;
@@ -17,6 +15,7 @@ use Livewire\Component;
 
 class EleveShowComponent extends Component
 {
+    use TopMenuPreview;
     use LivewireAlert;
 
     public $fee_id;
@@ -50,9 +49,9 @@ class EleveShowComponent extends Component
 
     public function render()
     {
-        $this->annee_courante = (new GetCurrentAnnneRequest())->send()->dto();
+        $this->annee_courante = Annee::encours();
         $this->annee_id = $this->annee_courante->id;
-        $this->inscription = (new GetInscriptionRequest($this->inscription_id))->send()->dto();
+        $this->inscription = Inscription::find($this->inscription_id);
         $this->inscription_id = $this->inscription->id;
         // dd($this->inscription);
         $this->chooseSuitableFrais();

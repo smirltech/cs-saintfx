@@ -2,10 +2,11 @@
 
 namespace Database\Factories;
 
-use App\Models\Eleve;
+use App\Enums\PresenceStatus;
+use App\Models\Annee;
 use App\Models\Inscription;
 use App\Models\Presence;
-use Carbon\Carbon;
+use Exception;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,10 +18,15 @@ class PresenceFactory extends Factory
 
     public function definition()
     {
-        return [
-            'inscription_id' => $this->faker->randomElement(Inscription::pluck('id')->toArray()),
-            'date' => Carbon::now()->subDays($this->faker->numberBetween(1,4))->format('Y-m-d'),
-            'observation' => $this->faker->sentence(3),
-        ];
+        try {
+            return [
+                'inscription_id' => $this->faker->randomElement(Inscription::pluck('id')->toArray()),
+                'status' => $this->faker->randomElement(PresenceStatus::cases()),
+                'date' => $this->faker->dateTimeBetween('-6 month', 'now'),
+                'observation' => $this->faker->sentence(3),
+                'annee_id' => Annee::id(),
+            ];
+        } catch (Exception $e) {
+        }
     }
 }

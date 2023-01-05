@@ -42,7 +42,7 @@
         ];
 @endphp
 @section('title')
-    {{Str::upper('cenk')}} - inscriptions {{date('d-m-Y')}}
+     - inscriptions {{date('d-m-Y')}}
 @endsection
 @section('content_header')
     <div class="row">
@@ -53,6 +53,7 @@
         <div class="col-6">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('scolarite') }}">Accueil</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('scolarite.eleves') }}">Élèves</a></li>
                 <li class="breadcrumb-item active">Inscriptions</li>
             </ol>
         </div>

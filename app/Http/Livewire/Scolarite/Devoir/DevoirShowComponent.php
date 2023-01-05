@@ -3,60 +3,105 @@
 namespace App\Http\Livewire\Scolarite\Devoir;
 
 
+use App\Enums\MediaType;
+use App\Exceptions\ApplicationAlert;
 use App\Models\Cours;
-use App\Models\Section;
-use App\View\Components\AdminLayout;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Validation\Rule;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use App\Models\Devoir;
+use App\Models\DevoirReponse;
+use App\Models\Eleve;
+use App\Traits\CanDeleteMedia;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use JetBrains\PhpStorm\NoReturn;
 use Livewire\Component;
+use Livewire\TemporaryUploadedFile;
+use Livewire\WithFileUploads;
+use Str;
 
 class DevoirShowComponent extends Component
 {
-    use LivewireAlert;
 
+    use ApplicationAlert, WithFileUploads, CanDeleteMedia;
+
+    public Devoir $devoir;
     public Cours $cours;
-    public Collection $sections;
-
+    public TemporaryUploadedFile|string|null $document = null;
+    public $documents = [];
+    public string $matricule = "2022020002";
+    public ?Eleve $eleve;
+    public DevoirReponse $devoir_reponse;
     protected $messages = [
-        'cours.nom.required' => 'Le nom est obligatoire',
-        'cours.nom.unique' => 'Le nom existe déjà',
-        'cours.description.required' => 'La description est requise',
-        'cours.section_id.required' => 'La section est requise'
+        'document.max' => 'Le fichier ne doit pas dépasser 2Mo',
     ];
 
-    public function submit()
+    #[NoReturn] public function submit()
     {
         $this->validate();
 
-        $this->cours->save();
+        $this->devoir_reponse->devoir_id = $this->devoir->id;
+        $this->devoir_reponse->eleve_id = $this->eleve->id;
 
-        $this->alert('success', 'Cours modifiée avec succès');
+        $this->devoir_reponse->save();
+
+        if ($this->document) {
+            $this->devoir_reponse->addMedia(file: $this->document, mediaType: MediaType::document);
+        }
+        //$this->refreshData();
+        $this->flash('success', 'Réponse envoyée avec succès', [], route('scolarite.devoir.show', $this->devoir));
     }
 
-
-    public function mount(Cours $cours)
+    public function render(): Factory|View|Application
     {
-        $this->cours = $cours;
-        $this->sections = Section::all();
+        return view('livewire.scolarite.devoirs.show');
     }
 
 
-    public function render()
+    // delete media
+
+    public function mount(Devoir $devoir)
     {
-        return view('livewire.scolarite.cours.edit')
-            ->layout(AdminLayout::class, ['title' => 'Ajout de classe']);
+        $this->devoir = $devoir;
+        $this->cours = $this->devoir->cours;
+        $this->devoir_reponse = new DevoirReponse();
     }
 
+    public function updatedMatricule()
+    {
+        if (Str::length($this->matricule) == 10) {
+            $this->validate([
+                'matricule' => ['required', 'string', 'exists:eleves,matricule'],
+            ]);
+            $this->eleve = Eleve::whereHas('inscriptions', function ($query) {
+                $query->where('classe_id', $this->devoir->classe_id)
+                    ->where('annee_id', $this->devoir->annee_id);
+            })->where('matricule', $this->matricule)->first();
+
+            if (!$this->eleve) {
+                $this->warning("L'élève n'est pas actuellement inscrit dans cette classe");
+            }
+        } else {
+            $this->validate([
+                'matricule' => ['required', 'string', 'digits:10']
+            ]);
+            $this->eleve = null;
+        }
+    }
 
     protected function rules(): array
     {
         return [
-            'cours.nom' => ['required', Rule::unique('cours')->where(fn($query) => $query->where('section_id', $this->cours->section_id)
-                ->where('nom', $this->cours->nom))
-                ->ignore($this->cours->id)],
-            'cours.description' => 'required',
-            'cours.section_id' => 'required'
+            'devoir_reponse.contenu' => ['nullable', 'string'],
+            'document' => ['nullable', 'file', 'mimes:pdf,image,jpeg,png', 'max:2048'],
         ];
     }
+
+    // update matricule
+
+    private function refreshData(): void
+    {
+        $this->devoir->refresh();
+    }
+
+
 }

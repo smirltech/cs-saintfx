@@ -9,7 +9,10 @@
     }
 @endphp
 @include('components.form-label')
-<input type="file" {{ $disabled ? 'disabled' : '' }} {!! $attributes->merge(['class' => 'form-control'.$classes]) !!}>
+<input
+    accept="application/pdf, image/*"
+    type="file" {{ $disabled ? 'disabled' : '' }} {!! $attributes->merge(['class' => 'form-control'.$classes]) !!}>
+@include('components.form-upload-feedback')
 @if(isset($error))
     <x-form-invalid-feedback>
         {{$error}}

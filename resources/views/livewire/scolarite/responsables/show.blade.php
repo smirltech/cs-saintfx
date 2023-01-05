@@ -3,7 +3,7 @@
     use App\Helpers\Helpers;use App\Models\Annee;
 @endphp
 @section('title')
-    {{Str::upper('cenk')}} - responsable - {{$responsable->nom}}
+     - responsable - {{$responsable->nom}}
 @endsection
 @section('content_header')
     <div class="row">

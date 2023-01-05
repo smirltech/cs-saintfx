@@ -5,15 +5,17 @@ namespace App\Http\Livewire\Scolarite;
 use App\Enums\InscriptionStatus;
 use App\Models\Annee;
 use App\Models\Inscription;
-use Auth;
+use App\Traits\TopMenuPreview;
 use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class DashboardComponent extends Component
 {
+    use TopMenuPreview;
     public $boxes = [];
     public $inscrits = [];
     public $annee_courante;
@@ -51,7 +53,7 @@ class DashboardComponent extends Component
                 'title' => count($moisInscrits),
                 'text' => 'Inscrits',
                 'icon' => 'far fa-bookmark',
-                'url' => "#",
+                'url' => route('scolarite.inscriptions'),
                 'theme' => 'danger',
                 'rate' => "$rateInscritsMois%",
                 'subtitle' => "+{$rateInscritsMois}% en 1 mois",
@@ -61,7 +63,7 @@ class DashboardComponent extends Component
                 'title' => count($moisInscritsValid),
                 'text' => 'Validés',
                 'icon' => 'far fa-bookmark',
-                'url' => "scolarite/inscriptions/status/approved",
+                'url' => route("scolarite.inscriptions.status",'approved'),
                 'theme' => 'primary',
                 'rate' => "$rateInscritsMoisValid%",
                 'subtitle' => "+$rateInscritsMoisValid% en 1 mois",
@@ -70,7 +72,7 @@ class DashboardComponent extends Component
                 'title' => count($moisInscritsReject),
                 'text' => 'Rejetés',
                 'icon' => 'far fa-bookmark',
-                'url' => "scolarite/inscriptions/status/rejected",
+                'url' => route("scolarite.inscriptions.status",'rejected'),
                 'theme' => 'warning',
                 'rate' => "$rateInscritsMoisReject%",
                 'subtitle' => "+$rateInscritsMoisReject% en 1 mois",
@@ -79,7 +81,7 @@ class DashboardComponent extends Component
                 'title' => count($moisInscritspending),
                 'text' => 'En Attente',
                 'icon' => 'far fa-bookmark',
-                'url' => "scolarite/inscriptions/status/pending",
+                'url' => route("scolarite.inscriptions.status",'pending'),
                 'theme' => 'success',
                 'rate' => "$rateInscritsMoisPending%",
                 'subtitle' => "+$rateInscritsMoisPending% en 1 mois",

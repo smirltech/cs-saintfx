@@ -10,16 +10,36 @@ trait ApplicationAlert
     use LivewireAlert;
 
 
+    /**
+     * @param string $local
+     * @param string $production
+     */
     public function error(string $local, string $production): void
     {
-
-        $this->dispatchOrFlashAlert([
-            'type' => 'error',
-            'message' => App::hasDebugModeEnabled() ? $local : $production,
-            'options' => [
-                'toast' => false,
-                'duration' => 10000,
-            ]
+        $this->alert('error', App::hasDebugModeEnabled() ? $local : $production, [
+            'toast' => false,
+            'duration' => 10000,
         ]);
+    }
+
+    /**
+     * @param string $message
+     * @param array $options
+     */
+    public function success(string $message, array $options = []): void
+    {
+
+        $this->alert('success', $message, $options);
+    }
+
+    /**
+     * @param string $message
+     * @param array $options
+     * @return void
+     */
+    private function warning(string $message, array $options = []): void
+    {
+
+        $this->alert('warning', $message, $options);
     }
 }

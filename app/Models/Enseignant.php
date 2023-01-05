@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Enseignant extends Model
 {
@@ -38,11 +39,28 @@ class Enseignant extends Model
         return $this->belongsToMany(Classe::class, 'classe_enseignants');
     }
 
-    // cours
+    // get cours of a classe to array
 
-    public function cours()
+    public function coursOfClasse($classe_id)
     {
-        return $this->belongsToMany(Cours::class, 'cours_enseignants')->where('annee_id', Annee::encours()->id)->withPivot('classe_id');
+        $cours = $this->cours($classe_id)->get();
+        $cours_array = [];
+        foreach ($cours as $cour) {
+            $cours_array[$cour->id] = $cour->nom;
+        }
+        return $cours_array;
+    }
+
+    // get name of cours of a classe to array
+
+    public function cours($classe_id = null): BelongsToMany
+    {
+        $query = $this->belongsToMany(Cours::class, 'cours_enseignants')
+            ->where('annee_id', Annee::encours()->id);
+        if ($classe_id) {
+            $query->where('classe_id', $classe_id);
+        }
+        return $query;
     }
 
     public function scopeClasse(Builder $query, Classe $classe): Builder

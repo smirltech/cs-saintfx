@@ -1,7 +1,7 @@
-@php use App\Enums\Sexe;use App\Enums\EtudiantSexe; @endphp
+@php use App\Enums\Sexe; @endphp
 @php use App\Enums\EtatCivil;use App\Enums\InscriptionCategorie;use App\Enums\ResponsableRelation; @endphp
 @section('title')
-    {{Str::upper('cenk')}} - inscrire élève
+     - inscrire élève
 @endsection
 @section('content_header')
     <div class="row">
@@ -154,7 +154,7 @@
                                     <label for="">Section <i class="text-red">*</i></label>
                                     <select wire:model="section_id" wire:change="changeSection"
                                             class="form-control  @error('section_id') is-invalid @enderror">
-                                        <option value="">Choisir section</option>
+                                        <option value=null>Choisir section</option>
                                         @foreach ($sections as $section )
                                             <option value="{{ $section->id }}">{{ $section->nom }}</option>
                                         @endforeach
@@ -166,7 +166,7 @@
                                 <div class="form-group col-3">
                                     <label for="">Option</label>
                                     <select wire:model="option_id" wire:change="changeOption" class="form-control">
-                                        <option value="">Choisir option</option>
+                                        <option value=null>Choisir option</option>
                                         @foreach ($options as $option )
                                             <option value="{{ $option->id }}">{{ $option->nom }}</option>
                                         @endforeach
@@ -177,7 +177,7 @@
                                     <label for="">Filière</label>
                                     <select wire:model="filiere_id"
                                             wire:change="changeFiliere" class="form-control">
-                                        <option value="">Choisir filière</option>
+                                        <option value=null>Choisir filière</option>
                                         @foreach ($filieres as $filiere )
                                             <option value="{{ $filiere->id }}">{{ $filiere->nom }}</option>
                                         @endforeach
@@ -185,9 +185,9 @@
                                 </div>
                                 <div class="form-group col-3">
                                     <label for="">Classe <i class="text-red">*</i></label>
-                                    <select wire:model="classe_id"
+                                    <select wire:change="changeClasse" wire:model="classe_id"
                                             class="form-control">
-                                        <option value="">Choisir classe</option>
+                                        <option value=null>Choisir classe</option>
                                         @foreach ($classes as $classe )
                                             <option value="{{ $classe->id }}">{{ $classe->code }}</option>
                                         @endforeach
@@ -198,7 +198,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group col-md-6 col-sm-12">
+                                <div class="form-group col-md-3 col-sm-12">
                                     <label for="">Categorie <i class="text-red">*</i></label>
                                     <select wire:model="categorie"
                                             class="form-control  @error('categorie') is-invalid @enderror">
@@ -211,11 +211,31 @@
                                         @enderror
                                     </select>
                                 </div>
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <label for="">Montant</label>
-                                    <input placeholder="Saisir frais d'inscription" type="number" wire:model="montant"
+                                <div class="form-group col-md-3 col-sm-12">
+                                    <label for="">Frais d'inscription</label>
+                                    <input readonly placeholder="Saisir frais d'inscription" type="number"
+                                           wire:model="fee_montant"
                                            class="form-control">
                                 </div>
+                                @if($fee_id)
+                                    <div class="form-group col-md-3 col-sm-12">
+                                        <label for="">Payé</label>
+                                        <div class="form-check">
+                                            <input disabled wire:model="has_paid" type="checkbox" class=" form-check-input"
+                                                   id="exampleCheck2">
+                                            <label class="form-check-label" for="exampleCheck2">Cocher si frais
+                                                d'inscription payé</label>
+                                        </div>
+                                    </div>
+                                @endif
+                                @if($has_paid && $fee_id)
+                                    <div class="form-group col-md-3 col-sm-12">
+                                        <label for="">Payé par</label>
+                                        <input placeholder="Saisir nom de celui qui paie" type="text" wire:model="paid_by"
+                                               class="form-control">
+                                    </div>
+                                @endif
+
                             </div>
                         </div>
                         {{-- ./Choix de classe --}}

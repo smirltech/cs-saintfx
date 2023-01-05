@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('media/{media}', [MediaController::class, 'show'])->name('media.show');
 
+
 Route::get('/', MainDashboardComponent::class)->name('home')->middleware('auth');
 
 Route::get('scolarite', Scolarite\DashboardComponent::class)->name('scolarite')->middleware('auth');
@@ -87,7 +88,9 @@ Route::prefix('scolarite')->middleware(['auth:web'])->as('scolarite.')->group(fu
 
 // Eleves
     Route::get('eleves/{eleve}', Scolarite\Eleve\EleveShowComponent::class)->name('eleves.show');
+    Route::get('eleves/{eleve}/presence', Scolarite\Eleve\PresenceComponent::class)->name('eleves.presence');
     Route::get('eleves', Scolarite\Eleve\EleveIndexComponent::class)->name('eleves');
+    Route::get('non-inscriptions', Scolarite\Eleve\ElevesNonInscritsComponent::class)->name('non-inscriptions');
 
     // Inscription
     Route::get('inscriptions/create', Scolarite\Inscription\InscriptionCreateComponent::class)->name('inscriptions.create');
@@ -117,6 +120,9 @@ Route::prefix('finance')->middleware(['auth:web'])->as('finance.')->group(functi
 
     //Depense
     Route::get('depenses', Finance\Depense\DepenseIndexComponent::class)->name('depenses');
+
+    Route::get('depenses-types', Finance\DepenseType\DepenseTypeIndexComponent::class)->name('depenses-types');
+    Route::get('depenses-types/{depenseType}', Finance\DepenseType\DepenseTypeShowComponent::class)->name('depenses-types.show');
 
     //Frais
     Route::get('frais', Finance\Frais\FraisIndexComponent::class)->name('frais');
