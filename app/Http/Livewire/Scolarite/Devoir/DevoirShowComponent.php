@@ -70,6 +70,7 @@ class DevoirShowComponent extends Component
         $this->devoir = $devoir;
         $this->cours = $this->devoir->cours;
         $this->devoir_reponse = new DevoirReponse();
+        $this->updatedMatricule();
     }
 
     public function updatedMatricule()
