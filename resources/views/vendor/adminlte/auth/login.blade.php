@@ -36,7 +36,7 @@
             </div>
 
             @error('email')
-                <span class="invalid-feedback" role="alert">
+            <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
@@ -54,7 +54,7 @@
             </div>
 
             @error('password')
-                <span class="invalid-feedback" role="alert">
+            <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
             @enderror
@@ -73,7 +73,8 @@
             </div>
 
             <div class="col-5">
-                <button type=submit class="btn btn-block {{ config('adminlte.classes_auth_btn', 'btn-flat btn-primary') }}">
+                <button type=submit
+                        class="btn btn-block {{ config('adminlte.classes_auth_btn', 'btn-flat btn-primary') }}">
                     <span class="fas fa-sign-in-alt"></span>
                     {{ __('adminlte::adminlte.sign_in') }}
                 </button>
@@ -83,8 +84,8 @@
     </form>
 @stop
 
-@section('auth_footer')
-    {{-- Password reset link --}}
+{{--@section('auth_footer')
+    --}}{{-- Password reset link --}}{{--
     @if($password_reset_url)
         <p class="my-0">
             <a href="{{ $password_reset_url }}">
@@ -93,7 +94,7 @@
         </p>
     @endif
 
-    {{-- Register link --}}
+    --}}{{-- Register link --}}{{--
     @if($register_url)
         <p class="my-0">
             <a href="{{ $register_url }}">
@@ -101,4 +102,4 @@
             </a>
         </p>
     @endif
-@stop
+@stop--}}
