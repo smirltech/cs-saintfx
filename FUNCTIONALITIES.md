@@ -7,7 +7,7 @@ In this page you will see what modules and their functionalities have been so fa
 ### 1. Inscription
 
 - [x] Liste d'inscriptions : OK
-- [x] Liste d'inscriptions par état d'inscription
+- [x] Liste d'inscriptions par état d'inscription : OK
 - [x] Ajouter une inscription : OK
 - [x] Modifier une inscription : OK
 - [x] Supprimer une inscription : OK
@@ -16,7 +16,7 @@ In this page you will see what modules and their functionalities have been so fa
 - [x] exporter la liste d'inscriptions : OK
 - [x] rechercher dans la liste d'inscriptions : OK
 - [ ] modifier status d'inscription
-- [x] modifier categorie d'inscription : OK
+- [x] modifier catégorie d'inscription : OK
 
 ### 2. Élève
 
@@ -39,6 +39,10 @@ In this page you will see what modules and their functionalities have been so fa
 - [x] Modifier un responsable : OK
 - [x] Supprimer un responsable : OK
 - [x] Voir détail d'un responsable : OK
+  - [x] Voir presence : OK
+  - [x] Voir et soumettre devoir : OK
+  - [x] Voir frais : OK
+  - [x] Voir cursus scolaire et résultats : OK
 - [x] modifier relation élève responsable : OK
 - [x] supprimer relation élève responsable : OK
 
@@ -52,7 +56,7 @@ In this page you will see what modules and their functionalities have been so fa
 - [x] exporter la liste de présences : N/A
 - [x] rechercher dans la liste de présences : N/A
 
-## Module 2: Gestion financière
+## Module 2 : Gestion financière
 
 ### 1. Rapport financier
 
@@ -88,20 +92,25 @@ In this page you will see what modules and their functionalities have been so fa
 - [x] Modifier dépense : OK
 - [x] Supprimer dépense : OK
 
-## Module 3 : Gestions scolaire
+## Module 3 : Gestions scolaires
 
 ### 1. Classe
 
 - [x] Liste de classes : OK
 - [x] Ajouter une classe : OK
 - [x] Modifier une classe : OK
-- [x] Supprimer une classe
-- [x] Voir détail d'une classe : OK, affichage cours ne retourne pas l'enseignant correct
+- [x] Supprimer une classe : OK
+- [x] Voir détail d'une classe : OK
+  - [x] Voir élèves de la classe : OK
+  - [x] Voir et gérer la présence : OK
+  - [x] Voir cours : OK
+  - [x] Voir enseignants : OK
+  - [x] Voir et gérer les résultats : OK
 - [x] Ajouter cours : OK
 - [x] Ajouter enseignant : OK
-- [ ] Supprimer cours :
-- [ ] Supprimer enseignant :
-- [ ] Supprimer cours de l'enseignant :
+- [x] Supprimer cours : OK
+- [x] Supprimer enseignant : OK
+- [x] Supprimer cours de l'enseignant : OK
 
 ### 2. Devoir
 
@@ -110,16 +119,16 @@ In this page you will see what modules and their functionalities have been so fa
 - [x] Modifier un devoir : OK
 - [x] Voir le document d'un devoir : OK
 - [x] Supprimer un devoir : OK
-- [x] Voir les reponses à un devoir : OK
+- [x] Voir les réponses à un devoir : OK
 - [x] Ajouter un document à un devoir
 - [x] Supprimer un document à un devoir
 
-- [x] Ajouter un document à une reponse à un devoir
-- [x] Supprimer un document à une reponse à un devoir
-- [x] Repondre à un devoir : OK
+- [x] Ajouter un document à une réponse à un devoir
+- [x] Supprimer un document à une réponse à un devoir
+- [x] Répondre à un devoir : OK
 - [x] Voir de document d'une réponse : OK
-- [ ] Modifier une reponse à un devoir
-- [ ] Supprimer une reponse à un devoir
+- [x] Modifier une réponse à un devoir : OK
+- [ ] Supprimer une réponse à un devoir
 
 ### 3. Enseignant
 
@@ -169,7 +178,48 @@ In this page you will see what modules and their functionalities have been so fa
 - [x] Supprimer utilisateur : OK
 - [x] Réinitialiser mot de passe utilisateur : OK
 
-## Module 4 : Logistique
+## Module 4 : Gestions de patrimoine
 
+### 1. Fongibles
 
+#### 1. Unités de mesure
 
+- [x] Liste d'unités : OK
+- [x] Ajouter une unité : OK
+- [x] Modifier une unité : OK
+- [x] Supprimer une unité : OK
+
+#### 2. Consommables
+
+- [x] Liste de consommables : OK
+- [x] Ajouter un consommable : OK
+- [x] Modifier un consommable : OK
+- [x] Supprimer un consommable : OK
+- [x] Enregistrement des entrées et des sorties (Opérations) : OK
+- [x] Constatation de stock : OK
+
+### 2. Non-Fongibles
+
+#### 1. Catégories de materiels
+
+- [x] Liste de catégories : OK
+- [x] Ajouter une catégorie : OK
+- [x] Modifier une catégorie : OK
+- [x] Supprimer une catégorie : OK
+- [x] Grouper les catégories : OK
+
+#### 2. Materiels
+
+- [x] Liste de materiels : OK
+- [x] Ajouter une materiel : OK
+- [x] Modifier une materiel : OK
+- [x] Supprimer une materiel : OK
+- [x] Grouper les materiels : OK
+- [x] Voir détail du materiel : OK
+  - [x] Calcul automatisé de l'amortissement du materiel (méthode linéaire) : OK
+  - [x] Enregistrement des entrées et des sorties du materiel : OK
+- [ ] Enregistrement de la cession du materiel
+
+#### 3. Mouvements des materiels
+
+- [x] Liste de mouvements : OK
