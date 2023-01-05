@@ -108,7 +108,9 @@
                                     Ce devoir est fermé. Vous ne pouvez plus y répondre.
                                 </div>
                             @else
-                                <x-button class="btn-primary float-end">Soumettre</x-button>
+                                @if($eleve)
+                                    <x-button class="btn-primary float-end">Soumettre</x-button>
+                                @endif
                             @endif
                         </form>
                     </div>

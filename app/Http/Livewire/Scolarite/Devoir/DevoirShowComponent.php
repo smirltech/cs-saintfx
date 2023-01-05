@@ -28,7 +28,7 @@ class DevoirShowComponent extends Component
     public Cours $cours;
     public TemporaryUploadedFile|string|null $document = null;
     public $documents = [];
-    public ?string $matricule = null;
+    public ?string $matricule = '';
     public ?Eleve $eleve;
     public DevoirReponse $devoir_reponse;
     protected $messages = [
@@ -77,7 +77,7 @@ class DevoirShowComponent extends Component
     {
         if (Str::length($this->matricule) == 10) {
             $this->validate([
-                'matricule' => ['required', 'string', 'exists:eleves,matricule'],
+                'matricule' => ['nullable', 'string', 'exists:eleves,matricule'],
             ]);
             $this->eleve = Eleve::whereHas('inscriptions', function ($query) {
                 $query->where('classe_id', $this->devoir->classe_id)
@@ -89,7 +89,8 @@ class DevoirShowComponent extends Component
             }
         } else {
             $this->validate([
-                'matricule' => ['required', 'string', 'digits:10']
+                // je mets ici nullable et je garde requiered du cote forumalire
+                'matricule' => ['nullable', 'string', 'digits:10']
             ]);
             $this->eleve = null;
         }
