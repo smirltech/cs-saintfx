@@ -26,7 +26,7 @@ In this page you will see what modules and their functionalities have been so fa
 - [x] Supprimer un élève : OK
 - [x] Voir détail d'un élève : OK
 - [x] exporter la liste d'élèves : OK
-- [ ] Photo de profil
+- [ ] photo de profil
 - [x] rechercher dans la liste d'élèves : OK
 - [x] modifier relation élève responsable : OK
 - [x] supprimer relation élève responsable : OK
@@ -39,22 +39,22 @@ In this page you will see what modules and their functionalities have been so fa
 - [x] Modifier un responsable : OK
 - [x] Supprimer un responsable : OK
 - [x] Voir détail d'un responsable : OK
-  - [x] Voir presence : OK
-  - [x] Voir et soumettre devoir : OK
-  - [x] Voir frais : OK
-  - [x] Voir cursus scolaire et résultats : OK
+    - [x] Voir presence : OK
+    - [x] Voir et soumettre devoir : OK
+    - [x] Voir frais : OK
+    - [x] Voir cursus scolaire et résultats : OK
 - [x] modifier relation élève responsable : OK
 - [x] supprimer relation élève responsable : OK
 
 ### 4. Presence
 
-- [x] Liste de présences : N/A
-- [x] Ajouter une présence : N/A
-- [x] Modifier une présence : N/A
-- [x] Supprimer une présence : N/A
-- [x] Voir détail d'une présence : N/A
-- [x] exporter la liste de présences : N/A
-- [x] rechercher dans la liste de présences : N/A
+- [x] Liste de présences : OK
+- [x] Ajouter une présence : OK
+- [x] Modifier une présence : OK
+- [x] Supprimer une présence : OK
+- [x] Voir détail d'une présence : OK
+- [x] exporter la liste de présences : OK
+- [x] rechercher dans la liste de présences : OK
 
 ## Module 2 : Gestion financière
 
@@ -101,11 +101,11 @@ In this page you will see what modules and their functionalities have been so fa
 - [x] Modifier une classe : OK
 - [x] Supprimer une classe : OK
 - [x] Voir détail d'une classe : OK
-  - [x] Voir élèves de la classe : OK
-  - [x] Voir et gérer la présence : OK
-  - [x] Voir cours : OK
-  - [x] Voir enseignants : OK
-  - [x] Voir et gérer les résultats : OK
+    - [x] Voir élèves de la classe : OK
+    - [x] Voir et gérer la présence : OK
+    - [x] Voir cours : OK
+    - [x] Voir enseignants : OK
+    - [x] Voir et gérer les résultats : OK
 - [x] Ajouter cours : OK
 - [x] Ajouter enseignant : OK
 - [x] Supprimer cours : OK
@@ -216,8 +216,8 @@ In this page you will see what modules and their functionalities have been so fa
 - [x] Supprimer une materiel : OK
 - [x] Grouper les materiels : OK
 - [x] Voir détail du materiel : OK
-  - [x] Calcul automatisé de l'amortissement du materiel (méthode linéaire) : OK
-  - [x] Enregistrement des entrées et des sorties du materiel : OK
+    - [x] Calcul automatisé de l'amortissement du materiel (méthode linéaire) : OK
+    - [x] Enregistrement des entrées et des sorties du materiel : OK
 - [ ] Enregistrement de la cession du materiel
 
 #### 3. Mouvements des materiels
