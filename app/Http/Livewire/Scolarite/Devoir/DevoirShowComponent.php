@@ -28,7 +28,7 @@ class DevoirShowComponent extends Component
     public Cours $cours;
     public TemporaryUploadedFile|string|null $document = null;
     public $documents = [];
-    public string $matricule = "2022020002";
+    public ?string $matricule = '';
     public ?Eleve $eleve;
     public DevoirReponse $devoir_reponse;
     protected $messages = [
@@ -39,16 +39,22 @@ class DevoirShowComponent extends Component
     {
         $this->validate();
 
-        $this->devoir_reponse->devoir_id = $this->devoir->id;
-        $this->devoir_reponse->eleve_id = $this->eleve->id;
+        $this->eleve = Eleve::where('matricule', $this->matricule)->first();
 
-        $this->devoir_reponse->save();
+        if ($this->eleve) {
+            $this->devoir_reponse->devoir_id = $this->devoir->id;
+            $this->devoir_reponse->eleve_id = $this->eleve->id;
 
-        if ($this->document) {
-            $this->devoir_reponse->addMedia(file: $this->document, mediaType: MediaType::document);
+            $this->devoir_reponse->save();
+
+            if ($this->document) {
+                $this->devoir_reponse->addMedia(file: $this->document, mediaType: MediaType::document);
+            }
+            //$this->refreshData();
+            $this->flash('success', 'Réponse envoyée avec succès', [], route('scolarite.devoirs.index'));
+        } else {
+            $this->alert('warning', "Cet élève n'existe pas !");
         }
-        //$this->refreshData();
-        $this->flash('success', 'Réponse envoyée avec succès', [], route('scolarite.devoir.show', $this->devoir));
     }
 
     public function render(): Factory|View|Application
@@ -64,13 +70,14 @@ class DevoirShowComponent extends Component
         $this->devoir = $devoir;
         $this->cours = $this->devoir->cours;
         $this->devoir_reponse = new DevoirReponse();
+        $this->updatedMatricule();
     }
 
     public function updatedMatricule()
     {
         if (Str::length($this->matricule) == 10) {
             $this->validate([
-                'matricule' => ['required', 'string', 'exists:eleves,matricule'],
+                'matricule' => ['nullable', 'string', 'exists:eleves,matricule'],
             ]);
             $this->eleve = Eleve::whereHas('inscriptions', function ($query) {
                 $query->where('classe_id', $this->devoir->classe_id)
@@ -82,7 +89,8 @@ class DevoirShowComponent extends Component
             }
         } else {
             $this->validate([
-                'matricule' => ['required', 'string', 'digits:10']
+                // je mets ici nullable et je garde requiered du cote forumalire
+                'matricule' => ['nullable', 'string', 'digits:10']
             ]);
             $this->eleve = null;
         }
@@ -91,8 +99,8 @@ class DevoirShowComponent extends Component
     protected function rules(): array
     {
         return [
-            'devoir_reponse.contenu' => ['nullable', 'string'],
-            'document' => ['nullable', 'file', 'mimes:pdf,image,jpeg,png', 'max:2048'],
+            'devoir_reponse.contenu' => ['required', 'string'],
+            'document' => ['required', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:2048'],
         ];
     }
 

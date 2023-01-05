@@ -7,7 +7,7 @@ In this page you will see what modules and their functionalities have been so fa
 ### 1. Inscription
 
 - [x] Liste d'inscriptions : OK
-- [ ] Liste d'inscriptions par état d'inscription
+- [x] Liste d'inscriptions par état d'inscription
 - [x] Ajouter une inscription : OK
 - [x] Modifier une inscription : OK
 - [x] Supprimer une inscription : OK
@@ -26,6 +26,7 @@ In this page you will see what modules and their functionalities have been so fa
 - [x] Supprimer un élève : OK
 - [x] Voir détail d'un élève : OK
 - [x] exporter la liste d'élèves : OK
+- [ ] Photo de profil
 - [x] rechercher dans la liste d'élèves : OK
 - [x] modifier relation élève responsable : OK
 - [x] supprimer relation élève responsable : OK
@@ -43,13 +44,13 @@ In this page you will see what modules and their functionalities have been so fa
 
 ### 4. Presence
 
-- [ ] Liste de présences : N/A
-- [ ] Ajouter une présence : N/A
-- [ ] Modifier une présence : N/A
-- [ ] Supprimer une présence : N/A
-- [ ] Voir détail d'une présence : N/A
-- [ ] exporter la liste de présences : N/A
-- [ ] rechercher dans la liste de présences : N/A
+- [x] Liste de présences : N/A
+- [x] Ajouter une présence : N/A
+- [x] Modifier une présence : N/A
+- [x] Supprimer une présence : N/A
+- [x] Voir détail d'une présence : N/A
+- [x] exporter la liste de présences : N/A
+- [x] rechercher dans la liste de présences : N/A
 
 ## Module 2: Gestion financière
 
@@ -94,8 +95,8 @@ In this page you will see what modules and their functionalities have been so fa
 - [x] Liste de classes : OK
 - [x] Ajouter une classe : OK
 - [x] Modifier une classe : OK
-- [ ] Supprimer une classe : bug - violation of foreign key
-- [ ] Voir détail d'une classe : OK, affichage cours ne retourne pas l'enseignant correct
+- [x] Supprimer une classe
+- [x] Voir détail d'une classe : OK, affichage cours ne retourne pas l'enseignant correct
 - [x] Ajouter cours : OK
 - [x] Ajouter enseignant : OK
 - [ ] Supprimer cours :
@@ -167,5 +168,8 @@ In this page you will see what modules and their functionalities have been so fa
 - [x] Modifier utilisateur : OK
 - [x] Supprimer utilisateur : OK
 - [x] Réinitialiser mot de passe utilisateur : OK
+
+## Module 4 : Logistique
+
 
 

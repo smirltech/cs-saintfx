@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\AdmissionType;
+use App\Enums\DevoirStatus;
 use App\Enums\FraisType;
 use App\Enums\InscriptionCategorie;
 use App\Enums\InscriptionStatus;
@@ -189,6 +190,6 @@ class Inscription extends Model
     /** Devoirs */
     public function getDevoirsAttribute(): ?Collection
     {
-        return Devoir::where('classe_id', $this->classe_id)->get();
+        return Devoir::where('classe_id', $this->classe_id)->where('status','!=', DevoirStatus::draft)->get();
     }
 }

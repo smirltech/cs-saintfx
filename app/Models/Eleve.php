@@ -40,7 +40,7 @@ class Eleve extends Model
                $query->where('section_id', $section_id);
            })->where('annee_id', $annee->id)->count();*/
 
-        $count = Eleve::where('matricule', 'like', $first_part . '%')->count() + 1;
+        $count = self::where('matricule', 'like', $first_part . '%')->count() + 1;
 
         $second_part = Helpers::pad($count, 4);
 

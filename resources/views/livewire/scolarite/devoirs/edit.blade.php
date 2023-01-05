@@ -66,7 +66,7 @@
                                 </div>
 
                                 <div class="form-group col-md-4">
-                                    <x-form-input step="1" required min="{{date('Y-m-d')}}T{{date('h:i')}}"
+                                    <x-form-input step="1" required min="{{date('Y-m-d')}} {{date('h:i')}}"
                                                   wire:model.defer="devoir.echeance"
                                                   label="Date limite de dépôt"
                                                   :isValid="$errors->has('devoir.echeance') ? false : null"
