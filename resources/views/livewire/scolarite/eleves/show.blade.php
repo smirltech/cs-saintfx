@@ -125,19 +125,19 @@
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
                                     <b>Inscription : </b> <span
-                                        class="float-right">{{\App\Helpers\Helpers::currencyFormat($inscription?->montant, symbol: 'Fc')}}</span>
+                                        class="float-right">{{Helpers::currencyFormat($inscription?->montant, symbol: 'Fc')}}</span>
                                 </li>
                                 <li class="list-group-item">
                                     <b>À Recevoir : </b> <span
-                                        class="float-right">{{\App\Helpers\Helpers::currencyFormat($inscription?->perceptionsDues, symbol: 'Fc')}}</span>
+                                        class="float-right">{{Helpers::currencyFormat($inscription?->perceptionsDues, symbol: 'Fc')}}</span>
                                 </li>
                                 <li class="list-group-item">
                                     <b>Reçu : </b> <span
-                                        class="float-right">{{\App\Helpers\Helpers::currencyFormat($inscription?->perceptionsPaid, symbol: 'Fc')}}</span>
+                                        class="float-right">{{Helpers::currencyFormat($inscription?->perceptionsPaid, symbol: 'Fc')}}</span>
                                 </li>
                                 <li class="list-group-item">
                                     <b>Solde : </b> <span class="float-right"><i
-                                            class="badge bg-warning">{{\App\Helpers\Helpers::currencyFormat(($inscription?->perceptionsBalance), symbol: 'Fc')}}</i></span>
+                                            class="badge bg-warning">{{Helpers::currencyFormat(($inscription?->perceptionsBalance), symbol: 'Fc')}}</i></span>
                                 </li>
                             </ul>
 
@@ -152,15 +152,15 @@
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
                                     <b>À Recevoir : </b> <span
-                                        class="float-right">{{\App\Helpers\Helpers::currencyFormat($eleve->perceptionsDues, symbol: 'Fc')}}</span>
+                                        class="float-right">{{Helpers::currencyFormat($eleve->perceptionsDues, symbol: 'Fc')}}</span>
                                 </li>
                                 <li class="list-group-item">
                                     <b>Reçu : </b> <span
-                                        class="float-right">{{\App\Helpers\Helpers::currencyFormat($eleve->perceptionsPaid, symbol: 'Fc')}}</span>
+                                        class="float-right">{{Helpers::currencyFormat($eleve->perceptionsPaid, symbol: 'Fc')}}</span>
                                 </li>
                                 <li class="list-group-item">
                                     <b>Solde : </b> <span class="float-right"><i
-                                            class="badge bg-warning">{{\App\Helpers\Helpers::currencyFormat(($eleve->perceptionsBalance), symbol: 'Fc')}}</i></span>
+                                            class="badge bg-warning">{{Helpers::currencyFormat(($eleve->perceptionsBalance), symbol: 'Fc')}}</i></span>
                                 </li>
                             </ul>
                         </div>
@@ -222,28 +222,22 @@
                     </div>
                 </div>
                 <div class="col-md-9">
-                    <div class="card">
-                        <div class="card-header p-2">
-                            <div class="card-title">
-                                <ul class="nav nav-pills">
-                                    <li class="nav-item"><a class="nav-link active" href="#presences"
-                                                            data-toggle="tab">Présences</a>
-                                    </li>
-                                    <li class="nav-item"><a class="nav-link" href="#perceptions"
-                                                            data-toggle="tab">Frais</a>
-                                    </li>
-                                    <li class="nav-item"><a class="nav-link" href="#cursus"
-                                                            data-toggle="tab">Cursus Scolaire</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="card-tools mr-1">
-
-                                <a href="{{ route('scolarite.eleves.presence',$eleve) }}"
-                                   class="btn btn-default"><span
-                                        class="fas fa-calendar-alt"></span></a>
-
-                            </div>
+                    <div class="card card-primary card-tabs">
+                        <div class="card-header p-0 pt-1">
+                            <ul class="nav nav-tabs">
+                                <li class="nav-item"><a class="nav-link active" href="#presences"
+                                                        data-toggle="tab">Présences</a>
+                                </li>
+                                <li class="nav-item"><a class="nav-link" href="#devoirs"
+                                                        data-toggle="tab">Devoirs</a>
+                                </li>
+                                <li class="nav-item"><a class="nav-link" href="#perceptions"
+                                                        data-toggle="tab">Frais</a>
+                                </li>
+                                <li class="nav-item"><a class="nav-link" href="#cursus"
+                                                        data-toggle="tab">Cursus Scolaire</a>
+                                </li>
+                            </ul>
                         </div><!-- /.card-header -->
                         <div class="card-body">
                             <div class="tab-content">

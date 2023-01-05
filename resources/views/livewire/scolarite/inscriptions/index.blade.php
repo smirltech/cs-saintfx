@@ -22,7 +22,7 @@ $data=[];
 
             $data[] = [
                  $inscription->code,
-                 '<img class="img-circle" style="width:50px; height:50px" src="'.$inscription->eleve->profile_url.'"></img>',
+                 '<img class="img-circle" style="width:40px; height:auto" src="'.$inscription->eleve->profile_url.'"></img>',
 
                 $inscription->eleve->fullName,
                $inscription->eleve->sexe->value??'',
@@ -42,7 +42,7 @@ $data=[];
         ];
 @endphp
 @section('title')
-     - inscriptions {{date('d-m-Y')}}
+    - inscriptions {{date('d-m-Y')}}
 @endsection
 @section('content_header')
     <div class="row">
