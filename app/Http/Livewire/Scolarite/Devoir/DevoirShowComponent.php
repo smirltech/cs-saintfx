@@ -39,16 +39,22 @@ class DevoirShowComponent extends Component
     {
         $this->validate();
 
-        $this->devoir_reponse->devoir_id = $this->devoir->id;
-        $this->devoir_reponse->eleve_id = $this->eleve->id;
+        $this->eleve = Eleve::where('matricule', $this->matricule)->first();
 
-        $this->devoir_reponse->save();
+       if($this->eleve) {
+            $this->devoir_reponse->devoir_id = $this->devoir->id;
+            $this->devoir_reponse->eleve_id = $this->eleve->id;
 
-        if ($this->document) {
-            $this->devoir_reponse->addMedia(file: $this->document, mediaType: MediaType::document);
-        }
-        //$this->refreshData();
-        $this->flash('success', 'Réponse envoyée avec succès', [], route('scolarite.devoir.show', $this->devoir));
+            $this->devoir_reponse->save();
+
+            if ($this->document) {
+                $this->devoir_reponse->addMedia(file: $this->document, mediaType: MediaType::document);
+            }
+            //$this->refreshData();
+            $this->flash('success', 'Réponse envoyée avec succès', [], route('scolarite.devoirs.index'));
+        }else{
+           $this->alert('warning', "Cet élève n'existe pas !");
+       }
     }
 
     public function render(): Factory|View|Application
