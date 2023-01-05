@@ -10,7 +10,6 @@ use App\Models\Eleve;
 use App\Models\Filiere;
 use App\Models\Inscription;
 use App\Models\Option;
-use App\Models\Perception;
 use App\Models\Responsable;
 use App\Models\ResponsableEleve;
 use App\Models\Section;
@@ -140,6 +139,8 @@ class EleveShowComponent extends Component
 
     public function mount(Eleve $eleve)
     {
+        $this->devoirs = $eleve->devoirs;
+
         $this->eleve = $eleve;
         $this->annee_courante = Annee::where('encours', true)->first();
         $this->inscription = Inscription::where(['eleve_id' => $this->eleve->id, 'annee_id' => $this->annee_courante->id])->first();

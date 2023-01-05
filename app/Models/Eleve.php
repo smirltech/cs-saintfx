@@ -66,13 +66,13 @@ class Eleve extends Model
 
     public function getPresencesAttribute(): Collection
     {
-        return $this->inscription?->presences??new Collection();
+        return $this->inscription?->presences ?? new Collection();
     }
 
     public function getPresenceColorsAttribute(): array
     {
         $aa = [];
-        foreach($this->inscription->presences as $p){
+        foreach ($this->inscription->presences as $p) {
             $aa[] = $p->getColor();
         }
         return $aa;
@@ -107,7 +107,7 @@ class Eleve extends Model
 
     public function currentInscription(): Inscription|null
     {
-        return Inscription::where(['eleve_id' => $this->id, 'annee_id' => Annee::encours()->id])->first();
+        return $this->inscription;
     }
 
     #[Pure] public function getNomCompletAttribute(): string
@@ -172,5 +172,13 @@ class Eleve extends Model
     public function getPerceptionsBalanceAttribute(): int
     {
         return $this->inscriptions->sum('perceptionsBalance');
+    }
+
+    /** Devoirs for this eleve on this year and a specific class
+     * @return string
+     */
+    public function getDevoirsAttribute(): Collection
+    {
+        return $this->inscription?->devoirs ?? new Collection();
     }
 }

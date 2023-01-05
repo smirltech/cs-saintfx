@@ -80,11 +80,6 @@ class Inscription extends Model
         return $this->hasMany(Resultat::class);
     }
 
-    public function perceptions(): HasMany
-    {
-        return $this->hasMany(Perception::class)->with('frais');
-    }
-
     public function presence(?string $date = null)
     {
         $date = $date ?? date('Y-m-d');
@@ -101,14 +96,12 @@ class Inscription extends Model
         return $this->belongsTo(Annee::class);
     }
 
-    // scope annee
-
     public function media(): MorphMany
     {
         return $this->morphMany(Media::class, 'mediable');
     }
 
-    // scope eleve
+    // scope annee
 
     public function scopeAnnee($query, $annee_id = null)
     {
@@ -118,7 +111,7 @@ class Inscription extends Model
         return $query->where('annee_id', Annee::encours()->id);
     }
 
-    // scope classe
+    // scope eleve
 
     public function scopeEleve($query, $eleve_id = null)
     {
@@ -127,6 +120,8 @@ class Inscription extends Model
         }
         return $query;
     }
+
+    // scope classe
 
     public function scopeClasse($query, $classe_id = null)
     {
@@ -146,17 +141,23 @@ class Inscription extends Model
         return $this->classe;
     }
 
-
-    // SOMMES
     public function getMontantAttribute(): int|null
     {
         $perc = $this->perceptions()
-            ->whereHas('frais', function ($q){
+            ->whereHas('frais', function ($q) {
                 $q->where('type', FraisType::inscription);
             })
             ->first()?->paid;
-       // dd((int)($perc));
+        // dd((int)($perc));
         return (int)($perc);
+    }
+
+
+    // SOMMES
+
+    public function perceptions(): HasMany
+    {
+        return $this->hasMany(Perception::class)->with('frais');
     }
 
     public function getPerceptionsDuesAttribute(): int
@@ -179,8 +180,15 @@ class Inscription extends Model
     {
         return $this->perceptions->where('balance', '>', 0);
     }
+
     public function getPerceptionsEncoursCountAttribute()
     {
         return $this->perceptionsEncours->count();
+    }
+
+    /** Devoirs */
+    public function getDevoirsAttribute(): ?Collection
+    {
+        return Devoir::where('classe_id', $this->classe_id)->get();
     }
 }
