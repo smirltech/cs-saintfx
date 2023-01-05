@@ -16,7 +16,7 @@
         ];
 
 
-
+$data=[];
     foreach ($eleves as $eleve){
 
             $btn1 = '<a href="' . route("scolarite.eleves.show",$eleve) . '" class="btn btn-success btn-sm m-1" title="Voir Élève"><i class="fa fa-eye"></i></a>';

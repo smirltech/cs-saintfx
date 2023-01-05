@@ -23,17 +23,20 @@
                         </div>
 
                         <div style="text-align:center" class="text-center">Reçu
-                            No.{{Helpers::padStart($perception?->id,4)}}</div>
+                            No.{{$perception?->reference}}</div>
                         <div style="text-align:center" class="text-center">
                             Date: {{Carbon::now()->format("d-m-Y à H:i:s")}}
                         </div>
                         <br>
-                        <div style="text-align:center" class="text-center">Élève : <strong>{{$eleveNom}}</strong></div>
+                        <div style="text-align:center" class="text-center">Élève :
+                            <strong>{{$inscription?->fullName}}</strong></div>
                         <br>
-                        <div style="text-align:center" class="d-flex  justify-content-evenly">
-                            <span style="text-align:left" class="">{{$inscription->classe->grade}}</span>
-                            <span style="text-align:center" class="">{{$inscription->classe->filierable->nom}}</span>
-                            <span style="text-align:right" class="">{{$annee_nom}}</span>
+                        <div style="text-align:center; width: 100%">
+                            <span style="text-align:left; margin-right: 10px"
+                                  class="">{{$inscription?->classe->grade}} </span>
+                            <span style="text-align:center; margin-right: 10px"
+                                  class=""> {{$inscription?->classe->filierable->nom}} </span>
+                            <span style="text-align:right" class=""> {{$annee->nom}}</span>
 
                         </div>
                         <br>
@@ -46,16 +49,14 @@
                             <table style="width:100%" class="table">
                                 <thead>
                                 <tr>
-                                    <th>FRAIS</th>
-                                    <th>PERIODE</th>
+                                    <th style="text-align:left">FRAIS</th>
                                     <th style="text-align:right">MONTANT</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr class="text-dark">
-                                    <td>{{$perception->frais?->nom}}</td>
-                                    <td>{{$perception?->custom_property}}</td>
-                                    <td style="text-align:right">{{Helpers::currencyFormat($perception->montant)}}</td>
+                                    <td style="text-align:left">{{$perception?->frais?->nom}} {{$perception?->custom_property}}</td>
+                                    <td style="text-align:right">{{Helpers::currencyFormat($perception?->montant)}}</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -64,9 +65,10 @@
                         {{--<div class="text-right">Total :
                             <strong>{{Helpers::currencyFormat($montant)}}</strong></div>--}}
                         <div style="text-align:right" class="text-right">Cash :
-                            <strong>{{Helpers::currencyFormat($perception->paid)}}</strong></div>
+                            <strong>{{Helpers::currencyFormat($perception?->paid)}} Fc</strong></div>
                         <div style="text-align:right" class="text-right">Solde :
-                            <strong>{{Helpers::currencyFormat($perception->montant - (int)($perception->paid))}}</strong>
+                            <strong>{{Helpers::currencyFormat($perception?->montant - (int)($perception?->paid))}}
+                                Fc</strong>
                         </div>
                         @if($perception?->paid_by != null)
                             <div style="text-align:right" class="text-right">Payé par :

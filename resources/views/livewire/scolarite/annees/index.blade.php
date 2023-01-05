@@ -4,7 +4,7 @@
 @section('content_header')
     <div class="row">
         <div class="col-6">
-            <h1 class="ms-3"><span class="fas fa-fw fa-calendar-alt"></span> Liste d'années</h1>
+            <h1 class="ms-3"><span class="fas fa-fw fa-calendar-alt"></span> Liste d'années scolaires</h1>
         </div>
 
         <div class="col-6">
@@ -17,6 +17,7 @@
 
 @stop
 <div class="">
+    @include('livewire.scolarite.annees.modals.crud')
     <div class="content mt-3">
         <div class="container-fluid">
             <div class="row">
@@ -26,7 +27,8 @@
                             <div class="card-title">
                             </div>
                             <div class="card-tools d-flex my-auto">
-                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                <button type="button" class="btn btn-primary btn-sm"
+                                        data-toggle="modal"
                                         data-target="#add-annee-modal">
                                     <span
                                         class="fa fa-plus"></span></button>
@@ -34,37 +36,49 @@
                         </div>
 
                         <div class="card-body p-0 table-responsive">
-                            <table class="table">
-                                <thead>
+                            <table class="table table-striped-columns table-hover">
+                                <thead class="table-dark">
                                 <tr>
+                                    <th style="width: 50px">#</th>
                                     <th>Année Scolaire</th>
+                                    <th>Date Debut</th>
+                                    <th>Date Fin</th>
                                     <th style="width: 100px">État</th>
-                                    <th style="width: 100px"></th>
+                                    <th style="width: 50px"></th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ($annees as $annee)
+                                @foreach ($annees as $i=>$annee)
                                     <tr>
+                                        <td>{{ $i+1}}</td>
+                                        <td>{{ $annee->nom}}</td>
+                                        <td>{{ Carbon\Carbon::parse($annee->date_debut)->format('d-m-Y')}}</td>
+                                        <td>{{  Carbon\Carbon::parse($annee->date_fin)->format('d-m-Y')}}</td>
                                         <td>
-                                            <div class="d-flex">{{ $annee->nom}}</div>
+                                            @if($annee->encours)
+                                            <span class="badge badge-success p-1">EN COURS</span>
+                                            @else
+                                                <button title="Metter en cours"
+                                                        wire:click="setAnneeEnCours({{ $annee->id }})"
+                                                        class="btn btn-warning btn-sm mr-2">
+                                                    <i class="fa fa-check"></i>
+                                                </button>
+                                            @endif
                                         </td>
-                                        <td>{{ $annee->encours ? 'EN COURS' : '' }}</td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                @if (!$annee->encours)
-                                                    <button title="metter en cours"
-                                                            wire:click="setAnneeEnCours({{ $annee->id }})"
-                                                            class="btn bg-yellow mr-2">
-                                                        <i class="fas fa-check"></i>
-                                                    </button>
-                                                    <button wire:click="editAnnee({{ $annee->id }})" type="button"
-                                                            class="btn btn-primary" data-toggle="modal"
+
+                                                    <button wire:click="getSelectedAnnee({{ $annee->id }})" type="button"
+                                                            title="Modifier"
+                                                            class="btn btn-info btn-sm" data-toggle="modal"
                                                             data-target="#edit-annee-modal">
                                                         <i class="fas fa-pen"></i></button>
-
-                                                    <button title="supprimer"
-                                                            wire:click="deleteAnnee({{ $annee->id }})"
-                                                            class="btn btn-danger ml-2">
+                                                @if (!$annee->encours)
+                                                    <button title="Supprimer"
+                                                            wire:click="getSelectedAnnee({{ $annee->id }})"
+                                                            class="btn btn-danger btn-sm ml-1"
+                                                            data-toggle="modal"
+                                                            data-target="#delete-annee-modal">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
                                                 @endif
@@ -81,55 +95,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div wire:ignore.self class="modal fade" id="add-annee-modal">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Ajouter Année Scolaire</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <input class="form-control" type="number" wire:model="nom"
-                           placeholder="Année debut">
-                </div>
-                <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button wire:click="addAnnee" type="submit" data-dismiss="modal" class="btn btn-primary">Soumettre
-                    </button>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
-    <div wire:ignore.self class="modal fade" id="edit-annee-modal">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Modifier Année Scolaire</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <input class="form-control" type="text" wire:model="nom"
-                           placeholder="Année debut">
-                </div>
-                <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button wire:click="updateAnnee" type="button" class="btn btn-primary" data-dismiss="modal">
-                        Soumettre
-                    </button>
-                </div>
-            </div>
-
-        </div>
-
     </div>
 
 </div>

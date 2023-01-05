@@ -82,7 +82,7 @@ dd($this->resultats);
     public function deleteResponsable($responsable_id)
     {
         $responsable = Responsable::find($responsable_id);
-        dd($responsable);
+       // dd($responsable);
         if (count($responsable->responsable_eleves) == 0) {
             if ($responsable->delete()) {
                 $this->loadData();

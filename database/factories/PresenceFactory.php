@@ -22,7 +22,7 @@ class PresenceFactory extends Factory
             return [
                 'inscription_id' => $this->faker->randomElement(Inscription::pluck('id')->toArray()),
                 'status' => $this->faker->randomElement(PresenceStatus::cases()),
-                'date' => $this->faker->dateTimeBetween('-6 month', 'now'),
+                'date' => $this->faker->unique()->dateTimeBetween('-6 month', 'now'),
                 'observation' => $this->faker->sentence(3),
                 'annee_id' => Annee::id(),
             ];

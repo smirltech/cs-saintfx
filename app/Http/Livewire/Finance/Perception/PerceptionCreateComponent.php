@@ -27,7 +27,7 @@ class PerceptionCreateComponent extends Component
     use TopMenuPreview;
     use ApplicationAlert;
 
-    public $searchName;
+    public $searchCode;
 
     public $annee_id;
     public $user_id;
@@ -45,6 +45,7 @@ class PerceptionCreateComponent extends Component
     public $inscription;
     protected $rules = [
         'inscription_id' => 'nullable',
+        'inscription.full_name' => 'nullable',
     ];
     private $frais;
     private $inscriptions = [];
@@ -62,11 +63,6 @@ class PerceptionCreateComponent extends Component
     private function loadInscriptionFrais()
     {
         $this->frais = Frais::where(['annee_id' => $this->annee_id, 'type' => FraisType::inscription])->orderBy('nom')->get();
-    }
-
-    public function onSearchName()
-    {
-
     }
 
     public function render()
@@ -93,8 +89,6 @@ class PerceptionCreateComponent extends Component
     private function chooseSuitableFrais()
     {
         if ($this->inscription_id != null) {
-            //$this->inscription = Inscription::find($this->inscription_id);
-            //   dd($this->inscription->classe);
             $this->frais = Frais::
             where('annee_id', $this->annee_id)
                 ->where('classable_type', 'like', '%Classe')
@@ -188,13 +182,13 @@ class PerceptionCreateComponent extends Component
     public function eleveSelected()
     {
 
-        // $this->inscription_id = intval($this->inscription_id);
+         $this->inscription_id = $this->searchCode;
         if ($this->inscription_id == null) {
             $this->eleveNom = null;
             $this->inscription = null;
             $this->classe_id = null;
-            // $this->loadInscriptionFrais();
         } else {
+           // dd('eleve selected '. $this->inscription_id);
             $this->inscription = Inscription::find($this->inscription_id);
             if ($this->inscription != null) {
                 $this->eleveNom = $this->inscription?->eleve->fullName;

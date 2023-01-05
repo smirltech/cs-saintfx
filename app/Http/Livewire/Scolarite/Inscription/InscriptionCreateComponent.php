@@ -86,6 +86,7 @@ class InscriptionCreateComponent extends Component
 
     public $annee_courante;
     public $has_paid = true;
+    public Perception $perception;
 
     protected $listeners = ['onModalClosed'];
     protected $rules = [
@@ -136,6 +137,7 @@ class InscriptionCreateComponent extends Component
 
     public function mount()
     {
+        $this->perception = new Perception();
         $this->responsables = Responsable::orderBy('nom')->get();
 
         $this->annee_courante = Annee::where('encours', true)->first();
@@ -155,6 +157,12 @@ class InscriptionCreateComponent extends Component
         if ($this->responsable != null) $res_ele = $this->submitResponsableEleve($this->responsable, $ele);
         $insc = $this->submitInscription($ele);
         $this->addPerception($insc->id);
+
+        // Todo: uncomment block below to enable the printing of the inscription form
+       /* $this->printIt();
+        $this->alert('success', "Élève inscrit avec succès !");*/
+
+        // Todo: Comment line below when the printing above is to be considered
         $this->flash('success', 'Élève inscrit avec succès', [], route('scolarite.inscriptions'));
 
 
@@ -196,7 +204,7 @@ class InscriptionCreateComponent extends Component
             'annee_id' => $this->annee_courante->id,
             'categorie' => $this->categorie,
             'montant' => $this->montant,
-            'status' => InscriptionStatus::pending->value,
+            'status' => InscriptionStatus::approved->value,
         ]);
     }
 
@@ -376,7 +384,7 @@ class InscriptionCreateComponent extends Component
             ]);
 
             try {
-                Perception::create(
+                $this->perception = Perception::create(
                     [
                         'user_id' => Auth::id(),
                         'frais_id' => $this->fee_id,
@@ -400,4 +408,9 @@ class InscriptionCreateComponent extends Component
         }
     }
 
+    private function printIt()
+    {
+
+        $this->dispatchBrowserEvent('printIt', ['elementId' => "inscriptionPrint", 'type' => 'html', 'maxWidth' => '100%']);
+    }
 }

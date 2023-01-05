@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Enums\DepenseCategorie;
+use App\Models\Annee;
 use App\Models\Depense;
 use App\Models\DepenseType;
 use App\Models\User;
@@ -23,7 +24,7 @@ class DepenseFactory extends Factory
             'montant' => $this->faker->randomNumber(2) * 1000,
             'note' => $this->faker->sentence(6),
             'reference' => $this->faker->randomNumber(6),
-            'annee_id' => 1,
+            'annee_id' =>Annee::id(),
             'user_id' => $this->faker->randomElement(User::pluck('id')->toArray()),
         ];
     }

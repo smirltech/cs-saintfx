@@ -6,6 +6,14 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\OtpController;
 use App\Http\Controllers\MediaController;
 use App\Http\Livewire\Finance;
+use App\Http\Livewire\Logistique\Consommable\ConsommableIndexComponent;
+use App\Http\Livewire\Logistique\Consommable\ConsommableShowComponent;
+use App\Http\Livewire\Logistique\Materiel\MaterielIndexComponent;
+use App\Http\Livewire\Logistique\Materiel\MaterielShowComponent;
+use App\Http\Livewire\Logistique\MaterielCategory\MaterielCategoryIndexComponent;
+use App\Http\Livewire\Logistique\MaterielCategory\MaterielCategoryShowComponent;
+use App\Http\Livewire\Logistique\Mouvement\MouvementIndexComponent;
+use App\Http\Livewire\Logistique\Unit\UnitIndexComponent;
 use App\Http\Livewire\MainDashboardComponent;
 use App\Http\Livewire\Scolarite;
 use Illuminate\Support\Facades\Auth;
@@ -25,6 +33,7 @@ Route::get('media/{media}', [MediaController::class, 'show'])->name('media.show'
 
 
 Route::get('/', MainDashboardComponent::class)->name('home')->middleware('auth');
+Route::get('dashboard', MainDashboardComponent::class)->name('dashboard')->middleware('auth');
 
 Route::get('scolarite', Scolarite\DashboardComponent::class)->name('scolarite')->middleware('auth');
 Route::get('finance', Finance\Dashboard\DashboardComponent::class)->name('finance')->middleware('auth');
@@ -131,10 +140,40 @@ Route::prefix('finance')->middleware(['auth:web'])->as('finance.')->group(functi
     Route::get('perceptions/create', Finance\Perception\PerceptionCreateComponent::class)->name('perceptions.create');
     Route::get('perceptions/{perception}/edit', Finance\Perception\PerceptionEditComponent::class)->name('perceptions.edit');
     Route::get('perceptions', Finance\Perception\PerceptionIndexComponent::class)->name('perceptions');
+    Route::get('caisse', Finance\Perception\CaisseComponent::class)->name('caisse');
 
     //Perception
     Route::get('eleves', Finance\Eleve\EleveIndexComponent::class)->name('eleves');
     Route::get('eleves/{id}', Finance\Eleve\EleveShowComponent::class)->name('eleves.show');
 });
 
-Auth::routes();
+# Logistique
+Route::prefix('logistique')->middleware(['auth:web'])->as('logistique.')->group(function () {
+
+    // materiel categories
+    Route::get('categories', MaterielCategoryIndexComponent::class)->name('categories');
+    Route::get('categories/{category}', MaterielCategoryShowComponent::class)->name('categories.show');
+
+    // materiels
+    Route::get('materiels', MaterielIndexComponent::class)->name('materiels');
+    Route::get('materiels/{materiel}', MaterielShowComponent::class)->name('materiels.show');
+
+    // materiels
+    Route::get('mouvements', MouvementIndexComponent::class)->name('mouvements');
+    Route::get('units', UnitIndexComponent::class)->name('units');
+
+    // materiels
+    Route::get('consommables', ConsommableIndexComponent::class)->name('consommables');
+    Route::get('consommables/{consommable}', ConsommableShowComponent::class)->name('consommables.show');
+
+
+});
+
+
+// auth routes except register
+Auth::routes([
+    'register' => false,
+    'reset' => false,
+    'confirm' => false,
+    'verify' => false
+]);

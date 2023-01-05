@@ -15,6 +15,7 @@ return new class extends Migration {
     {
         Schema::create('perceptions', function (Blueprint $table) {
             $table->ulid('id')->primary();
+            $table->string('reference')->unique();
             $table->foreignIdFor(User::class)->constrained();
             $table->foreignIdFor(Frais::class)->constrained();
             $table->foreignIdFor(Inscription::class)->constrained();
@@ -30,7 +31,7 @@ return new class extends Migration {
             $table->timestamps();
             $table->softDeletes();
 
-            $table->unique(['frais_id', 'inscription_id', 'custom_property', 'annee_id'], 'perceptions_frais_id_inscription_id_custom_property_annee_id_unique');
+            $table->unique(['frais_id', 'inscription_id', 'custom_property', 'annee_id'], 'frais_inscription_custom_property_annee_unique');
         });
     }
 };

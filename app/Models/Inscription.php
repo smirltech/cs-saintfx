@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\AdmissionType;
+use App\Enums\DevoirStatus;
 use App\Enums\FraisType;
 use App\Enums\InscriptionCategorie;
 use App\Enums\InscriptionStatus;
@@ -55,14 +56,19 @@ class Inscription extends Model
         return $this->belongsTo(Eleve::class);
     }
 
-    public function getNomCompletAttribute(): string
+    public function getNomCompletAttribute(): string|null
     {
         return $this->getFullNameAttribute();
     }
 
-    public function getFullNameAttribute(): string
+    public function getFullNameAttribute(): string|null
     {
-        return $this->eleve->fullName;
+        return $this->eleve?->fullName;
+    }
+
+    public function getMatriculeAttribute(): string|null
+    {
+        return $this->eleve?->matricule;
     }
 
     public function classe(): BelongsTo
@@ -73,11 +79,6 @@ class Inscription extends Model
     public function resultats(): HasMany
     {
         return $this->hasMany(Resultat::class);
-    }
-
-    public function perceptions(): HasMany
-    {
-        return $this->hasMany(Perception::class)->with('frais');
     }
 
     public function presence(?string $date = null)
@@ -96,14 +97,12 @@ class Inscription extends Model
         return $this->belongsTo(Annee::class);
     }
 
-    // scope annee
-
     public function media(): MorphMany
     {
         return $this->morphMany(Media::class, 'mediable');
     }
 
-    // scope eleve
+    // scope annee
 
     public function scopeAnnee($query, $annee_id = null)
     {
@@ -113,7 +112,7 @@ class Inscription extends Model
         return $query->where('annee_id', Annee::encours()->id);
     }
 
-    // scope classe
+    // scope eleve
 
     public function scopeEleve($query, $eleve_id = null)
     {
@@ -123,6 +122,8 @@ class Inscription extends Model
         return $query;
     }
 
+    // scope classe
+
     public function scopeClasse($query, $classe_id = null)
     {
         if ($classe_id) {
@@ -131,9 +132,9 @@ class Inscription extends Model
         return $query;
     }
 
-    public function getCodeAttribute(): ?string
+    public function getCodeAttribute(): string|null
     {
-        return $this?->eleve->matricule;
+        return $this?->eleve?->matricule;
     }
 
     public function getClasseCodeAttribute(): Classe
@@ -141,15 +142,23 @@ class Inscription extends Model
         return $this->classe;
     }
 
-
-    // SOMMES
     public function getMontantAttribute(): int|null
     {
-        return $this->perceptions()
-            ->whereHas('frais', function ($q){
+        $perc = $this->perceptions()
+            ->whereHas('frais', function ($q) {
                 $q->where('type', FraisType::inscription);
             })
             ->first()?->paid;
+        // dd((int)($perc));
+        return (int)($perc);
+    }
+
+
+    // SOMMES
+
+    public function perceptions(): HasMany
+    {
+        return $this->hasMany(Perception::class)->with('frais');
     }
 
     public function getPerceptionsDuesAttribute(): int
@@ -167,4 +176,20 @@ class Inscription extends Model
         return $this->perceptionsDues - $this->perceptionsPaid;
     }
 
+    // SOMMES
+    public function getPerceptionsEncoursAttribute()
+    {
+        return $this->perceptions->where('balance', '>', 0);
+    }
+
+    public function getPerceptionsEncoursCountAttribute()
+    {
+        return $this->perceptionsEncours->count();
+    }
+
+    /** Devoirs */
+    public function getDevoirsAttribute(): ?Collection
+    {
+        return Devoir::where('classe_id', $this->classe_id)->where('status','!=', DevoirStatus::draft)->get();
+    }
 }

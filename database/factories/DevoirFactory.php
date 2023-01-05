@@ -21,7 +21,7 @@ class DevoirFactory extends Factory
         return [
             'classe_id' => $this->faker->numberBetween(1, Classe::count()),
             'cours_id' => $this->faker->numberBetween(1, Cours::count()),
-            'annee_id' => $this->faker->numberBetween(1, Annee::count()),
+            'annee_id' => Annee::id(),
             'titre' => $this->faker->words(3, true),
             'contenu' => $this->faker->paragraphs(5, true),
             'echeance' => $this->faker->dateTimeBetween('now', '+1 week'),

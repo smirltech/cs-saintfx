@@ -361,13 +361,19 @@ return [
                     // 'can' => RolePermission::view_etudiant->name,
                     'submenu' => [
                         [
-                            'text' => 'Ajouter perception',
+                            'text' => 'Caisse',
+                            'url' => 'finance/caisse',
+                            'shift' => 'ml-4',
+                            //      'can' => RolePermission::create_etudiant->name,
+                        ],
+                        [
+                            'text' => 'Ajouter facture',
                             'url' => 'finance/perceptions/create',
                             'shift' => 'ml-4',
                             //      'can' => RolePermission::create_etudiant->name,
                         ],
                         [
-                            'text' => 'Liste de perceptions',
+                            'text' => 'Liste de factures',
                             'url' => 'finance/perceptions',
                             'shift' => 'ml-4',
                         ],
@@ -409,12 +415,69 @@ return [
                 ],
             ]
         ],
-
         [
             'text' => 'Rapport financier',
             'icon' => 'fas fa-fw fa-chart-column',
             'url' => 'finance/rapports',
             // 'can' => RolePermission::create_user->name,
+        ],
+
+        ['header' => 'LOGISTIQUE'],
+        [
+            'text' => 'Fongibles',
+            'icon' => 'fas fa-fw fa-recycle',
+            // 'can' => RolePermission::view_etudiant->name,
+            'submenu' => [
+                [
+                    'text' => 'Consommables',
+                    'icon' => 'fas fa-fw fa-screwdriver-wrench',
+                    'shift' => 'ml-2',
+                    'url' => 'logistique/consommables',
+                ],
+                [
+                    'text' => 'Opérations',
+                    'icon' => 'fas fa-fw fa-layer-group',
+                    'shift' => 'ml-2',
+                    'url' => '#',
+                ],
+                [
+                    'text' => 'Unités de mesure',
+                    'icon' => 'fas fa-fw fa-ruler-combined',
+                    'shift' => 'ml-2',
+                    'url' => 'logistique/units',
+                ],
+            ],
+        ],
+        [
+            'text' => 'Non Fongibles',
+            'icon' => 'fas fa-fw fa-screwdriver-wrench',
+            // 'can' => RolePermission::view_etudiant->name,
+            'submenu' => [
+                [
+                    'text' => 'Materiels',
+                    'icon' => 'fas fa-fw fa-wrench',
+                    'shift' => 'ml-2',
+                    'url' => 'logistique/materiels',
+                ],
+                [
+                    'text' => 'Categories',
+                    'icon' => 'fas fa-fw fa-layer-group',
+                    'shift' => 'ml-2',
+                    'url' => 'logistique/categories',
+                ],
+                [
+                    'text' => 'Mouvements',
+                    'icon' => 'fas fa-fw fa-people-carry-box',
+                    'shift' => 'ml-2',
+                    'url' => 'logistique/mouvements',
+                ],
+                [
+                    'text' => 'Cessions',
+                    'icon' => 'fas fa-fw fa-hand-holding-hand',
+                    'shift' => 'ml-2',
+                    // 'url' => '#',
+                ],
+            ],
         ],
 
         ['header' => 'ECOLE'],

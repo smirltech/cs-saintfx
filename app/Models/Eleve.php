@@ -40,7 +40,7 @@ class Eleve extends Model
                $query->where('section_id', $section_id);
            })->where('annee_id', $annee->id)->count();*/
 
-        $count = Eleve::where('matricule', 'like', $first_part . '%')->count() + 1;
+        $count = self::where('matricule', 'like', $first_part . '%')->count() + 1;
 
         $second_part = Helpers::pad($count, 4);
 
@@ -66,19 +66,19 @@ class Eleve extends Model
 
     public function getPresencesAttribute(): Collection
     {
-        return $this->inscription->presences;
+        return $this->inscription?->presences ?? new Collection();
     }
 
     public function getPresenceColorsAttribute(): array
     {
         $aa = [];
-        foreach($this->inscription->presences as $p){
+        foreach ($this->inscription->presences as $p) {
             $aa[] = $p->getColor();
         }
         return $aa;
     }
 
-    public function getInscriptionAttribute(): Inscription
+    public function getInscriptionAttribute(): Inscription|null
     {
         return $this->inscriptions()->where('annee_id', Annee::id())->first();
     }
@@ -105,9 +105,9 @@ class Eleve extends Model
 
     // full_name
 
-    public function currentInscription(): Inscription
+    public function currentInscription(): Inscription|null
     {
-        return Inscription::where(['eleve_id' => $this->id, 'annee_id' => Annee::encours()->id])->first();
+        return $this->inscription;
     }
 
     #[Pure] public function getNomCompletAttribute(): string
@@ -172,5 +172,13 @@ class Eleve extends Model
     public function getPerceptionsBalanceAttribute(): int
     {
         return $this->inscriptions->sum('perceptionsBalance');
+    }
+
+    /** Devoirs for this eleve on this year and a specific class
+     * @return string
+     */
+    public function getDevoirsAttribute(): Collection
+    {
+        return $this->inscription?->devoirs ?? new Collection();
     }
 }

@@ -63,7 +63,7 @@
                                         class="form-control  @error('etudiant.sexe') is-invalid @enderror">
 
                                     @foreach (EtudiantSexe::cases() as $es )
-                                        <option value="{{ strtoupper($es->value)}}">{{ $es->label() }}</option>
+                                        <option value="{{ $es->name}}">{{ $es->label() }}</option>
                                     @endforeach
                                     @error('etudiant.sexe')
                                     <span class="text-red">{{ $message }}</span>

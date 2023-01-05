@@ -4,7 +4,7 @@
         'SECTION',
         ['label'=>'', 'no-export'=>true, 'width'=>5]
 ];
-   //$datas =[];
+   $datas =[];
    foreach ($sections as $section){
         $datas[] =[
             $section->code,

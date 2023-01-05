@@ -27,7 +27,7 @@ class Devoir extends Model
     {
         parent::boot();
 
-        static::retrieved(function (Devoir $devoir) {
+        static::retrieved(function (self $devoir) {
             // change status to closed if echance is after now
             // use carbon to compare dates
             if (Carbon::now()->greaterThan($devoir->echeance)) {
@@ -41,7 +41,7 @@ class Devoir extends Model
 
         });
 
-        static::creating(function (Devoir $model) {
+        static::creating(function (self $model) {
             $model->annee_id = $model->annee_id ?? Annee::id();
         });
     }

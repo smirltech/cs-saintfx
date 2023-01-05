@@ -23,10 +23,10 @@ class InscriptionFactory extends Factory
         return [
             'eleve_id' => $this->faker->unique()->randomElement(Eleve::pluck('id')->toArray()),
             'classe_id' => $this->faker->randomElement(Classe::pluck('id')->toArray()),
-            'annee_id' => Annee::encours()->id,
+            'annee_id' => Annee::id(),
             'categorie' => $this->faker->randomElement(array_column(InscriptionCategorie::cases(), 'value')),
             'montant' => 10000,
-            'status' => $this->faker->randomElement(array_column(InscriptionStatus::cases(), 'value')),
+            'status' => InscriptionStatus::approved,
         ];
     }
 }

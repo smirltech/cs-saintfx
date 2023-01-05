@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->foreignIdFor(Annee::class)->constrained()->restrictOnDelete();
             $table->string('categorie')->default(InscriptionCategorie::normal->name);
             $table->integer('montant')->nullable();
-            $table->string('status')->default(InscriptionStatus::pending->value);
+            $table->string('status')->default(InscriptionStatus::approved->value);
             $table->unique(['eleve_id', 'annee_id'], 'eleve_annee');
             $table->timestamps();
 

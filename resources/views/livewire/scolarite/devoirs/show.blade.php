@@ -42,7 +42,9 @@
                         </p>
                         <hr>
                         <strong><i class="fas fa-school mr-1"></i>Classe</strong>
-                        <p class="text-muted">{{$devoir->classe->code}}</p>
+                        <p class="text-muted"><a
+                                href="{{ route('scolarite.classes.show',$devoir->classe) }}">{{$devoir->classe->code}}</a>
+                        </p>
                         <hr>
                         @if($devoir->contenu)
                             <strong><i class="far fa-file-alt mr-1"></i>Contenu</strong>
@@ -84,6 +86,7 @@
                                     <x-form-textarea
                                         placeholder="Saisir le contenu de la réponse"
                                         wire:model.defer="devoir_reponse.contenu"
+                                        required
                                         label="Contenu de la réponse"
                                         rows="10"
                                         :isValid="$errors->has('devoir_reponse.contenu') ? false : null"
@@ -107,7 +110,9 @@
                                     Ce devoir est fermé. Vous ne pouvez plus y répondre.
                                 </div>
                             @else
-                                <x-button class="btn-primary float-end">Soumettre</x-button>
+                                @if($eleve)
+                                    <x-button class="btn-primary float-end">Soumettre</x-button>
+                                @endif
                             @endif
                         </form>
                     </div>

@@ -21,12 +21,12 @@
 @stop
 <div class="">
     @include('livewire.scolarite.inscriptions.modals.add_responsable')
-
+  {{--  @include('livewire.finance.cards.recu')--}}
     <div class="content mt-3">
         <div class="container-fluid">
             <div class="card">
 
-                <div class="card-body">
+                <div id="inscriptionPrint" class="card-body">
                     <x-validation-errors class="mb-4" :errors="$errors"/>
                     <form wire:submit.prevent="submit">
                         {{-- Information Personnelle--}}
@@ -76,7 +76,7 @@
                                     <select wire:model="sexe" class="form-control  @error('sexe') is-invalid @enderror">
                                         <option value="" disabled>Choisir sexe...</option>
                                         @foreach (Sexe::cases() as $es )
-                                            <option value="{{ strtoupper($es->value)}}">{{ $es->label() }}</option>
+                                            <option value="{{$es->name}}">{{ $es->label() }}</option>
                                         @endforeach
                                         @error('sexe')
                                         <span class="text-red">{{ $message }}</span>
@@ -204,7 +204,7 @@
                                             class="form-control  @error('categorie') is-invalid @enderror">
                                         <option value="" disabled>Choisir categorie...</option>
                                         @foreach (InscriptionCategorie::cases() as $es )
-                                            <option value="{{ strtoupper($es->value)}}">{{ $es->label() }}</option>
+                                            <option value="{{$es->name}}">{{ $es->label() }}</option>
                                         @endforeach
                                         @error('categorie')
                                         <span class="text-red">{{ $message }}</span>
