@@ -28,7 +28,7 @@ class DevoirShowComponent extends Component
     public Cours $cours;
     public TemporaryUploadedFile|string|null $document = null;
     public $documents = [];
-    public string $matricule = "2022020002";
+    public ?string $matricule = null;
     public ?Eleve $eleve;
     public DevoirReponse $devoir_reponse;
     protected $messages = [
@@ -41,7 +41,7 @@ class DevoirShowComponent extends Component
 
         $this->eleve = Eleve::where('matricule', $this->matricule)->first();
 
-       if($this->eleve) {
+        if ($this->eleve) {
             $this->devoir_reponse->devoir_id = $this->devoir->id;
             $this->devoir_reponse->eleve_id = $this->eleve->id;
 
@@ -52,9 +52,9 @@ class DevoirShowComponent extends Component
             }
             //$this->refreshData();
             $this->flash('success', 'Réponse envoyée avec succès', [], route('scolarite.devoirs.index'));
-        }else{
-           $this->alert('warning', "Cet élève n'existe pas !");
-       }
+        } else {
+            $this->alert('warning', "Cet élève n'existe pas !");
+        }
     }
 
     public function render(): Factory|View|Application
@@ -99,7 +99,7 @@ class DevoirShowComponent extends Component
     {
         return [
             'devoir_reponse.contenu' => ['required', 'string'],
-            'document' => ['required', 'file', 'mimes:pdf,image,jpg,jpeg,png', 'max:2048'],
+            'document' => ['required', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:2048'],
         ];
     }
 
