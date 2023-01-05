@@ -84,6 +84,7 @@
                                     <x-form-textarea
                                         placeholder="Saisir le contenu de la réponse"
                                         wire:model.defer="devoir_reponse.contenu"
+                                        required
                                         label="Contenu de la réponse"
                                         rows="10"
                                         :isValid="$errors->has('devoir_reponse.contenu') ? false : null"

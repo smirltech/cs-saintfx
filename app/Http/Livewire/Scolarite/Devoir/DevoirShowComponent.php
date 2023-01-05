@@ -98,8 +98,8 @@ class DevoirShowComponent extends Component
     protected function rules(): array
     {
         return [
-            'devoir_reponse.contenu' => ['nullable', 'string'],
-            'document' => ['nullable', 'file', 'mimes:pdf,image,jpeg,png', 'max:2048'],
+            'devoir_reponse.contenu' => ['required', 'string'],
+            'document' => ['required', 'file', 'mimes:pdf,image,jpg,jpeg,png', 'max:2048'],
         ];
     }
 
