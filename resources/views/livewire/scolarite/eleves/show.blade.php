@@ -244,6 +244,55 @@
                                 <div class="active tab-pane" id="presences">
                                     <livewire:scolarite.eleve.presence-component :eleve="$eleve"/>
                                 </div>
+                                <div class=" tab-pane" id="devoirs">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th>NO.</th>
+                                                <th>TITRE</th>
+                                                <th>COURS</th>
+                                                <th>CLASSE</th>
+                                                <th>ECHEANCE</th>
+                                                <th>STATUS</th>
+                                                <th></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            @foreach ($devoirs as $k=>$devoir)
+                                                <tr>
+                                                    <td>{{ $k+1 }}</td>
+                                                    <td>{{ $devoir->titre }}</td>
+                                                    <td>
+                                                        {{ $devoir->cours->nom }}
+                                                    </td>
+                                                    <td>
+                                                        {{ $devoir->classe->code }}
+                                                    </td>
+                                                    <td>
+                                                        {{ $devoir->echeance_display }}
+                                                    </td>
+                                                    <td>
+                                            <span class="badge bg-{{$devoir->status?->variant()}}">
+                                                 {{ $devoir->status?->label() }}
+                                            </span>
+                                                    </td>
+
+                                                    <td>
+                                                        <div class="d-flex float-right">
+                                                            <a href="{{route('scolarite.devoirs.show',$devoir )}}"
+                                                               title="modifier"
+                                                               class="btn btn-sm btn-primary ml-2">
+                                                                <i class="fas fa-eye"></i>
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                                 <div class=" tab-pane" id="perceptions">
                                     <div class="table-responsive">
                                         <table class="table">
