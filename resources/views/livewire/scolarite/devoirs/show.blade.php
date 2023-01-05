@@ -42,7 +42,9 @@
                         </p>
                         <hr>
                         <strong><i class="fas fa-school mr-1"></i>Classe</strong>
-                        <p class="text-muted">{{$devoir->classe->code}}</p>
+                        <p class="text-muted"><a
+                                href="{{ route('scolarite.classes.show',$devoir->classe) }}">{{$devoir->classe->code}}</a>
+                        </p>
                         <hr>
                         @if($devoir->contenu)
                             <strong><i class="far fa-file-alt mr-1"></i>Contenu</strong>
