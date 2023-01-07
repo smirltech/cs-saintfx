@@ -60,7 +60,7 @@
                         </div>
                         <div class="card-body">
                             <ul class="list-group list-group-unbordered mb-3">
-                                <li class="list-group-item">
+                              {{--  <li class="list-group-item">
                                     <b>Lecteurs : </b> <span class="float-right">0</span>
                                 </li>
                                 <li class="list-group-item">
@@ -68,7 +68,7 @@
                                 </li>
                                 <li class="list-group-item">
                                     <b>Dernière Visite : </b> <span class="float-right">date ici !(human read)</span>
-                                </li>
+                                </li>--}}
                                 <li class="list-group-item">
                                     <b>Ouvrages : </b> <span class="float-right">{{ $category->ouvragesCount }}</span>
                                 </li>
