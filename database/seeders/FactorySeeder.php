@@ -20,6 +20,7 @@ use App\Models\Materiel;
 use App\Models\MaterielCategory;
 use App\Models\Mouvement;
 use App\Models\Operation;
+use App\Models\OuvrageCategory;
 use App\Models\Paiment;
 use App\Models\Perception;
 use App\Models\Presence;
@@ -74,6 +75,7 @@ class FactorySeeder extends Seeder
         Consommable::factory(10)->create();
         Operation::factory(10)->create();
         Auteur::factory(5)->create();
+        OuvrageCategory::factory(5)->create();
 
     }
 }
