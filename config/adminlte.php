@@ -480,6 +480,13 @@ return [
             ],
         ],
 
+        ['header' => 'BIBLIOTHÈQUE'],
+        [
+            'text' => 'Étiquettes',
+            'url' => 'bibliotheque/etiquettes',
+            'icon' => 'fas fa-fw fa-tags',
+        ],
+
         ['header' => 'ECOLE'],
         [
             'text' => 'Calendrier',

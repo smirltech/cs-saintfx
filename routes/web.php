@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AuditController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\OtpController;
 use App\Http\Controllers\MediaController;
+use App\Http\Livewire\Bibliotheque\Etiquette\EtiquetteIndexComponent;
 use App\Http\Livewire\Finance;
 use App\Http\Livewire\Logistique\Consommable\ConsommableIndexComponent;
 use App\Http\Livewire\Logistique\Consommable\ConsommableShowComponent;
@@ -168,6 +169,15 @@ Route::prefix('logistique')->middleware(['auth:web'])->as('logistique.')->group(
 
 
 });
+
+# Bibliothèque
+Route::prefix('bibliotheque')->middleware(['auth:web'])->as('bibliotheque.')->group(function () {
+
+    // Étiquettes
+    Route::get('etiquettes', EtiquetteIndexComponent::class)->name('etiquettes');
+
+});
+
 
 
 // auth routes except register
