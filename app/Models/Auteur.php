@@ -12,8 +12,5 @@ class Auteur extends Model
     use HasFactory;
 
     public $guarded = [];
-    protected $casts = [
-        'sexe' => Sexe::class,
-
-    ];
+    protected $casts = ['sexe' => Sexe::class,];
 }
