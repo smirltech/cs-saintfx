@@ -57,6 +57,11 @@
                                             <td>{{$category->description}}</td>
                                             <td>
                                                 <div class="d-flex float-right">
+                                                    <a href="{{route('bibliotheque.categories.show',[$category->id])}}"
+                                                       title="Voir"
+                                                       class="btn btn-warning">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
                                                     <button wire:click="getSelectedCategory({{$category}})" type="button"
                                                             title="Modifier" class="btn btn-info  ml-2"
                                                             data-toggle="modal"
