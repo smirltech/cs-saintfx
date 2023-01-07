@@ -4,8 +4,8 @@ namespace App\Enums;
 
 enum Sexe: string
 {
-    case f = 'F';
-    case m = 'M';
+    case f = 'f';
+    case m = 'm';
 
     // label() is a method that returns the label of the enum value
     public function label(): string

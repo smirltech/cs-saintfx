@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Amortissement;
+use App\Models\Auteur;
 use App\Models\Cession;
 use App\Models\ClasseEnseignant;
 use App\Models\Consommable;
@@ -72,6 +73,7 @@ class FactorySeeder extends Seeder
         Cession::factory(3)->create();
         Consommable::factory(10)->create();
         Operation::factory(10)->create();
+        Auteur::factory(5)->create();
 
     }
 }
