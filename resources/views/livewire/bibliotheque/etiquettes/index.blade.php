@@ -38,7 +38,7 @@
 
                         <div class="card-body m-b-40">
                             <div class="table-responsive">
-                                <table class="table table table-hover">
+                                <table class="table table-hover">
                                     <thead class="table-dark">
                                     <tr>
                                         <th style="width: 50px">#</th>
