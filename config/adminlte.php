@@ -482,6 +482,11 @@ return [
 
         ['header' => 'BIBLIOTHÈQUE'],
         [
+            'text' => 'Auteurs',
+            'url' => 'bibliotheque/auteurs',
+            'icon' => 'fas fa-fw fa-user-tie',
+        ],
+        [
             'text' => 'Étiquettes',
             'url' => 'bibliotheque/etiquettes',
             'icon' => 'fas fa-fw fa-tags',
