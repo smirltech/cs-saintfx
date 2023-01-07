@@ -20,7 +20,7 @@ class OuvrageCategoryFactory extends Factory
     {
         return [
             'nom' => fake()->text(20),
-            'ouvrage_category_id' => $this->faker->randomElement(OuvrageCategory::pluck('id')->toArray()),
+           // 'ouvrage_category_id' => $this->faker->randomElement(OuvrageCategory::pluck('id')->toArray()),
             'description' => fake()->paragraph(3),
         ];
     }
