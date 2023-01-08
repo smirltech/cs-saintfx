@@ -91,9 +91,9 @@
                                     </div>
                                     <div class=" wrapper p-2">
                                         @foreach($ouvrage->ouvrage_auteurs as $ouvrage_auteur)
-                                            <span class="badge badge-warning m-1">
+                                            <span class="badge badge-warning m-1 text-xs">
                                         {{$ouvrage_auteur->nom}}
-                                        <span title="Supprimer de l'ouvrage" wire:click="deleteAuteur({{$ouvrage_auteur->id}})" class="p-1 btn text-danger"><span class="fa fa-close"></span></span>
+                                        <span title="Supprimer de l'ouvrage" wire:click="deleteAuteur({{$ouvrage_auteur->id}})" class="p-0 btn text-danger btn-xs"><span class="fa fa-close"></span></span>
                                     </span>
                                         @endforeach
 
@@ -112,9 +112,9 @@
                                     </div>
                                     <div class=" wrapper p-2">
                                         @foreach($ouvrage->ouvrage_etiquettes as $ouvrage_etiquette)
-                                            <span class="badge badge-info m-1">
+                                            <span class="badge badge-info m-1 text-xs">
                                         {{$ouvrage_etiquette->nom}}
-                                        <span title="Supprimer de l'ouvrage" wire:click="deleteEtiquette({{$ouvrage_etiquette->id}})" class="p-1 btn text-danger"><span class="fa fa-close"></span></span>
+                                        <span title="Supprimer de l'ouvrage" wire:click="deleteEtiquette({{$ouvrage_etiquette->id}})" class="p-0 btn text-danger btn-xs"><span class="fa fa-close"></span></span>
                                     </span>
                                         @endforeach
 
