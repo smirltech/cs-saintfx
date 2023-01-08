@@ -2,11 +2,15 @@
 
 namespace App\Http\Livewire\Bibliotheque\Ouvrage;
 
-use App\Models\MaterielCategory;
+use App\Models\Auteur;
+use App\Models\Etiquette;
+use App\Models\Ouvrage;
+use App\Models\OuvrageAuteur;
 use App\Models\OuvrageCategory;
+use App\Models\OuvrageEtiquette;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
-use Illuminate\Validation\Rule;
+use Exception;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
@@ -15,18 +19,32 @@ class OuvrageShowComponent extends Component
     use TopMenuPreview;
     use LivewireAlert;
 
-    public OuvrageCategory $category;
+    public Ouvrage $ouvrage;
+    public OuvrageAuteur $ouvrage_auteur;
+    public OuvrageEtiquette $ouvrage_etiquette;
     public $categories = [];
+    public $auteurs = [];
+
+    public $etiquettes = [];
 
     protected $rules = [
-        'category.nom' => 'required',
-        'category.ouvrage_category_id' => 'nullable',
-        'category.description' => 'nullable',
+        'ouvrage.ouvrage_category_id' => 'required',
+        'ouvrage.titre' => 'required',
+        'ouvrage.sous_titre' => 'nullable',
+        'ouvrage.resume' => 'nullable',
+        'ouvrage.edition' => 'nullable',
+        'ouvrage.lieu' => 'nullable',
+        'ouvrage.editeur' => 'nullable',
+        'ouvrage.date' => 'nullable',
+        'ouvrage.url' => 'required',
+
+        'ouvrage_auteur.auteur_id' => 'nullable',
+        'ouvrage_etiquette.etiquette_id' => 'nullable',
     ];
 
-    public function mount(OuvrageCategory $category)
+    public function mount(Ouvrage $ouvrage)
     {
-        $this->category = $category;
+        $this->ouvrage = $ouvrage;
     }
 
     public function render()
@@ -38,20 +56,25 @@ class OuvrageShowComponent extends Component
 
     public function loadData()
     {
-        $this->categories = OuvrageCategory::where('id', '!=', $this->category->id)->orderBy('nom', 'ASC')->get();
+        $this->categories = OuvrageCategory::orderBy('nom', 'ASC')->get();
+        $this->auteurs = Auteur::orderBy('nom', 'ASC')->get();
+        $this->not_auteurs = Auteur::orderBy('nom', 'ASC')->get();
+
+        $this->etiquettes = Etiquette::orderBy('nom', 'ASC')->get();
+        $this->not_etiquettes = Etiquette::orderBy('nom', 'ASC')->get();
         //  dd($this->categories);
     }
 
-    public function updateCategory()
+    public function updateOuvrage()
     {
         $this->validate();
 
-        $done = $this->category->save();
+        $done = $this->ouvrage->save();
         if ($done) {
-            $this->onModalClosed('update-category-modal');
-            $this->alert('success', "Catégorie modifiée avec succès !");
+            $this->onModalClosed('update-ouvrage-modal');
+            $this->alert('success', "Ouvrage modifié avec succès !");
         } else {
-            $this->alert('warning', "Échec de modification de catégorie !");
+            $this->alert('warning', "Échec de modification d'ouvrage !");
         }
         $this->category->refresh();
     }
@@ -59,6 +82,112 @@ class OuvrageShowComponent extends Component
     public function onModalClosed($p_id)
     {
         $this->dispatchBrowserEvent('closeModal', ['modal' => $p_id]);
+
+    }
+
+
+    // Auteurs
+
+    public function initAuteur(){
+        $this->ouvrage_auteur = new OuvrageAuteur();
+
+    }
+    public function addAuteur()
+    {
+        $this->ouvrage_auteur->ouvrage_id = $this->ouvrage->id;
+        $this->validate([
+            'ouvrage_auteur.auteur_id' => 'required',
+        ]);
+
+        try {
+            $done = $this->ouvrage_auteur->save();
+            if ($done) {
+                $this->onModalClosed('add-auteur-modal');
+                $this->loadData();
+                $this->initAuteur();
+                $this->ouvrage->refresh();
+                $this->alert('success', "Auteur ajouté à ouvrage avec succès !");
+            } else {
+                $this->alert('warning', "Échec d'ajout d'auteur à ouvrage !");
+            }
+        } catch (Exception $exception) {
+            //  dd($exception);
+            $this->alert('error', "Échec de d'ajout d'auteur à ouvrage, il existe déjà !");
+        }
+
+    }
+
+    public function deleteAuteur($id)
+    {
+
+        try {
+            $done = OuvrageAuteur::find($id)->delete();
+            if ($done) {
+
+                $this->ouvrage->refresh();
+                $this->loadData();
+                $this->initAuteur();
+                $this->alert('success', "Auteur supprimé de l'ouvrage avec succès !");
+            } else {
+                $this->alert('warning', "Échec de suppression d'auteur de l'ouvrage !");
+            }
+        } catch (Exception $exception) {
+            //  dd($exception);
+            $this->alert('error', "Échec de de suppression d'auteur de l'ouvrage !");
+        }
+
+    }
+
+
+    // Etiquettes
+
+    public function initEtiquette(){
+        $this->ouvrage_etiquette = new OuvrageEtiquette();
+
+    }
+    public function addEtiquette()
+    {
+        $this->ouvrage_etiquette->ouvrage_id = $this->ouvrage->id;
+        $this->validate([
+            'ouvrage_etiquette.etiquette_id' => 'required',
+        ]);
+
+        try {
+            $done = $this->ouvrage_etiquette->save();
+            if ($done) {
+                $this->onModalClosed('add-etiquette-modal');
+                $this->loadData();
+                $this->initEtiquette();
+                $this->ouvrage->refresh();
+                $this->alert('success', "Etiquette ajoutée à ouvrage avec succès !");
+            } else {
+                $this->alert('warning', "Échec d'ajout d'étiquette à ouvrage !");
+            }
+        } catch (Exception $exception) {
+            //  dd($exception);
+            $this->alert('error', "Échec de d'ajout d'étiquette à ouvrage, il existe déjà !");
+        }
+
+    }
+
+    public function deleteEtiquette($id)
+    {
+
+        try {
+            $done = OuvrageEtiquette::find($id)->delete();
+            if ($done) {
+
+                $this->ouvrage->refresh();
+                $this->loadData();
+                $this->initEtiquette();
+                $this->alert('success', "Etiquette supprimée de l'ouvrage avec succès !");
+            } else {
+                $this->alert('warning', "Échec de suppression d'étiquette de l'ouvrage !");
+            }
+        } catch (Exception $exception) {
+            //  dd($exception);
+            $this->alert('error', "Échec de de suppression d'étiquette de l'ouvrage !");
+        }
 
     }
 
