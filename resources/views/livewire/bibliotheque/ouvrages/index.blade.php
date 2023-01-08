@@ -55,7 +55,7 @@
                                             <td>{{$i+1}}</td>
                                             <td>{{$ouvrage->titre}}</td>
                                             <td>{{$ouvrage->sous_titre}}</td>
-                                            <td>{{$ouvrage->categoryNom}}</td>
+                                            <td><a href="{{route('bibliotheque.categories.show',[$ouvrage->ouvrage_category_id])}}">{{$ouvrage->categoryNom}}</a></td>
                                             <td>{{$ouvrage->resume}}</td>
                                             <td>
                                                 <div class="d-flex float-right">

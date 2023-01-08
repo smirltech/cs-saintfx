@@ -1,22 +1,32 @@
 {{--add category--}}
 <x-adminlte-modal wire:ignore.self id="add-ouvrage-modal" icon="fa fa-book"
-                  title="Ajout d'oubrage">
+                  title="Ajout d'ouvrage">
     <x-validation-errors class="mb-4" :errors="$errors"/>
     <form id="f1a" wire:submit.prevent="addOuvrage">
-        {{--<div class="row">
+        <div class="row">
 
             <div class="form-group col-md-12 col-sm-12">
                 <x-form-input
                     type="text"
-                    label="Nom"
-                    wire:model="category.nom"
-                    :is-valid="$errors->has('category.nom')?false:null"
-                    :error="$errors->first('category.nom')">
+                    label="Titre"
+                    wire:model="ouvrage.titre"
+                    :is-valid="$errors->has('ouvrage.titre')?false:null"
+                    :error="$errors->first('ouvrage.titre')">
                 </x-form-input>
             </div>
-            <div class="form-group col-md-12 col-sm-12">
+
+            <div class="form-group col-md-4 col-sm-12">
+                <x-form-input
+                    type="text"
+                    label="Sous Titre"
+                    wire:model="ouvrage.sous_titre"
+                    :is-valid="$errors->has('ouvrage.sous_titre')?false:null"
+                    :error="$errors->first('ouvrage.sous_titre')">
+                </x-form-input>
+            </div>
+            <div class="form-group col-md-4 col-sm-12">
                 <label for="">Groupe</label>
-                <select wire:model="category.ouvrage_category_id"
+                <select wire:model="ouvrage.ouvrage_category_id"
                         class="form-control">
                     <option value=null>Choisir groupe...</option>
                     @foreach ($categories as $es )
@@ -24,13 +34,66 @@
                     @endforeach
                 </select>
             </div>
+            <div class="form-group col-md-4 col-sm-12">
+                <x-form-input
+                    type="date"
+                    label="Date"
+                    placeholder="Date d'édition"
+                    wire:model="ouvrage.date"
+                    :is-valid="$errors->has('ouvrage.date')?false:null"
+                    :error="$errors->first('ouvrage.date')">
+                </x-form-input>
+            </div>
+
+            <div class="form-group col-md-4 col-sm-12">
+                <x-form-input
+                    type="text"
+                    label="Edition"
+                    placeholder="Tome 2"
+                    wire:model="ouvrage.edition"
+                    :is-valid="$errors->has('ouvrage.edition')?false:null"
+                    :error="$errors->first('ouvrage.edition')">
+                </x-form-input>
+            </div>
+            <div class="form-group col-md-4 col-sm-12">
+                <x-form-input
+                    type="text"
+                    label="Editeur"
+                    placeholder="Maison d'édition"
+                    wire:model="ouvrage.editeur"
+                    :is-valid="$errors->has('ouvrage.editeur')?false:null"
+                    :error="$errors->first('ouvrage.editeur')">
+                </x-form-input>
+            </div>
+            <div class="form-group col-md-4 col-sm-12">
+                <x-form-input
+                    type="text"
+                    label="Lieu"
+                    placeholder="Ville d'édition"
+                    wire:model="ouvrage.lieu"
+                    :is-valid="$errors->has('ouvrage.lieu')?false:null"
+                    :error="$errors->first('ouvrage.lieu')">
+                </x-form-input>
+            </div>
+
+            <div class="form-group col-md-12 col-sm-12">
+                <x-form-input
+                    type="text"
+                    label="Lien URL"
+                    placeholder="Lien url du site"
+                    wire:model="ouvrage.url"
+                    :is-valid="$errors->has('ouvrage.url')?false:null"
+                    :error="$errors->first('ouvrage.url')">
+                </x-form-input>
+            </div>
+
             <div class="form-group col-md-12 col-sm-12">
                 <label for="">Description</label>
-                <textarea rows="2" wire:model="category.description" class="form-control"></textarea>
+                <textarea rows="2" wire:model="ouvrage.resume" class="form-control"></textarea>
 
             </div>
 
-        </div>--}}
+        </div>
     </form>
     <x-slot name="footerSlot">
         <div class="d-flex">

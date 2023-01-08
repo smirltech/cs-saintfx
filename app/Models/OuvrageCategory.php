@@ -16,7 +16,7 @@ class OuvrageCategory extends Model
 
     public function ouvrages(): HasMany|null
     {
-        return null;//$this->hasMany(self::class);
+        return $this->hasMany(Ouvrage::class)->orderBy('titre');
     }
 
     public function groupe():BelongsTo
@@ -34,7 +34,7 @@ class OuvrageCategory extends Model
     }
 
     public function getOuvragesCountAttribute():int{
-        return 0;//$this->ouvrages?->count();
+        return $this->ouvrages?->count();
     }
 
     public function getOuvragesCountAggregateAttribute():int{
