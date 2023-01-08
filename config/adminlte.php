@@ -482,6 +482,11 @@ return [
 
         ['header' => 'BIBLIOTHÈQUE'],
         [
+            'text' => 'Ouvrages',
+            'url' => 'bibliotheque/ouvrages',
+            'icon' => 'fas fa-fw fa-book',
+        ],
+        [
             'text' => 'Catégories',
             'url' => 'bibliotheque/categories',
             'icon' => 'fas fa-fw fa-layer-group',

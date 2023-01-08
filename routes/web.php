@@ -7,6 +7,8 @@ use App\Http\Controllers\Auth\OtpController;
 use App\Http\Controllers\MediaController;
 use App\Http\Livewire\Bibliotheque\Auteur\AuteurIndexComponent;
 use App\Http\Livewire\Bibliotheque\Etiquette\EtiquetteIndexComponent;
+use App\Http\Livewire\Bibliotheque\Ouvrage\OuvrageIndexComponent;
+use App\Http\Livewire\Bibliotheque\Ouvrage\OuvrageShowComponent;
 use App\Http\Livewire\Bibliotheque\OuvrageCategory\OuvrageCategoryIndexComponent;
 use App\Http\Livewire\Bibliotheque\OuvrageCategory\OuvrageCategoryShowComponent;
 use App\Http\Livewire\Finance;
@@ -185,6 +187,10 @@ Route::prefix('bibliotheque')->middleware(['auth:web'])->as('bibliotheque.')->gr
     // Categories
     Route::get('categories', OuvrageCategoryIndexComponent::class)->name('categories');
     Route::get('categories/{category}', OuvrageCategoryShowComponent::class)->name('categories.show');
+
+    // Ouvrages
+    Route::get('ouvrages', OuvrageIndexComponent::class)->name('ouvrages');
+    Route::get('ouvrages/{ouvrage}', OuvrageShowComponent::class)->name('ouvrages.show');
 
 });
 
