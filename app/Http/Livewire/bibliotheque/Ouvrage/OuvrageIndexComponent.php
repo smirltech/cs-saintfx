@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Bibliotheque\Ouvrage;
 
+use App\Models\Lecture;
 use App\Models\Ouvrage;
 use App\Models\OuvrageCategory;
 use App\Traits\TopMenuPreview;
@@ -116,6 +117,23 @@ class OuvrageIndexComponent extends Component
         }
 
         $this->onModalClosed('delete-ouvrage-modal');
+
+    }
+
+
+    // Lectures
+    public function addLecture($ouvrage_id)
+    {
+        $lecture = new Lecture();
+        $lecture->user_id = \Auth::id()??null;
+        $lecture->ouvrage_id = $ouvrage_id;
+
+        try {
+            $done = $lecture->save();
+            $this->loadData();
+        } catch (Exception $exception) {
+            //  dd($exception);
+        }
 
     }
 

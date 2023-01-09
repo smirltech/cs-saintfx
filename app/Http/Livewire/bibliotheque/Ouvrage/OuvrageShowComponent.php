@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Bibliotheque\Ouvrage;
 
 use App\Models\Auteur;
 use App\Models\Etiquette;
+use App\Models\Lecture;
 use App\Models\Ouvrage;
 use App\Models\OuvrageAuteur;
 use App\Models\OuvrageCategory;
@@ -45,6 +46,8 @@ class OuvrageShowComponent extends Component
     public function mount(Ouvrage $ouvrage)
     {
         $this->ouvrage = $ouvrage;
+        $this->ouvrage->lectures = $ouvrage->lectures;
+       // dd($this->ouvrage);
     }
 
     public function render()
@@ -187,6 +190,22 @@ class OuvrageShowComponent extends Component
         } catch (Exception $exception) {
             //  dd($exception);
             $this->alert('error', "Échec de de suppression d'étiquette de l'ouvrage !");
+        }
+
+    }
+
+
+    public function addLecture()
+    {
+        $lecture = new Lecture();
+        $lecture->user_id = \Auth::id()??null;
+        $lecture->ouvrage_id = $this->ouvrage->id;
+
+        try {
+            $done = $lecture->save();
+            $this->ouvrage->refresh();
+        } catch (Exception $exception) {
+            //  dd($exception);
         }
 
     }

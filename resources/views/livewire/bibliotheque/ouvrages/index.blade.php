@@ -46,6 +46,9 @@
                                         <th>SOUS TITRE</th>
                                         <th>CATÉGORIE</th>
                                         <th>RÉSUMÉ</th>
+                                        <th>LECTEURS</th>
+                                        <th>VISITES</th>
+                                        <th>DERNIÈRE</th>
                                         <th style="width: 50px"></th>
                                     </tr>
                                     </thead>
@@ -57,9 +60,12 @@
                                             <td>{{$ouvrage->sous_titre}}</td>
                                             <td><a href="{{route('bibliotheque.categories.show',[$ouvrage->ouvrage_category_id])}}">{{$ouvrage->categoryNom}}</a></td>
                                             <td>{{$ouvrage->resume}}</td>
+                                            <td>{{number_format($ouvrage->uniqueLecturesCount)}}</td>
+                                            <td>{{number_format($ouvrage->lecturesCount)}}</td>
+                                            <td>{{$ouvrage->latestVisit?->whenRead}}</td>
                                             <td>
                                                 <div class="d-flex float-right">
-                                                    <a href="{{$ouvrage->url}}"
+                                                    <a wire:click.debounce="addLecture({{$ouvrage->id}})" href="{{$ouvrage->url}}"
                                                        target=“_blank”
                                                        title="Aller au lien"
                                                        class="btn btn-default  mr-2">

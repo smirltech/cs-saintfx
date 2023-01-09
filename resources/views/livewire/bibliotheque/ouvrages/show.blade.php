@@ -53,7 +53,7 @@
                                 </li>
                                 <li class="list-group-item">
                                     <b>Lien : </b> <span class="float-right">
-                                        <a href="{{$ouvrage->url}}"
+                                        <a wire:click.debounce="addLecture" href="{{$ouvrage->url}}"
                                            target=“_blank”
                                            title="Aller au lien">
                                                         <i>{{$ouvrage->url}}</i>
@@ -134,13 +134,13 @@
                         <div class="card-body">
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
-                                    <b>Lecteurs : </b> <span class="float-right">0</span>
+                                    <b>Lecteurs : </b> <span class="float-right">{{number_format($ouvrage->uniqueLecturesCount)}}</span>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Visites : </b> <span class="float-right">0</span>
+                                    <b>Visites : </b> <span class="float-right">{{number_format($ouvrage->lecturesCount)}}</span>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Dernière Visite : </b> <span class="float-right">date ici !(human read)</span>
+                                    <b>Dernière Visite : </b> <span class="float-right">{{$ouvrage->latestVisit?->whenRead}}</span>
                                 </li>
 
                             </ul>
@@ -158,11 +158,11 @@
                                        aria-controls="custom-tabs-one-materiels"
                                        aria-selected="true">Visites</a>
                                 </li>
-                                <li class="nav-item">
+                               {{-- <li class="nav-item">
                                     <a class="nav-link" id="custom-tabs-one-categories-tab" data-toggle="pill"
                                        href="#custom-tabs-one-categories" role="tab"
                                        aria-controls="custom-tabs-one-categories" aria-selected="false">Auteurs</a>
-                                </li>
+                                </li>--}}
                             </ul>
                         </div>
 
@@ -170,50 +170,36 @@
                             <div class="tab-content" id="custom-tabs-one-tabContent">
                                 <div class="tab-pane fade active show" id="custom-tabs-one-materiels" role="tabpanel"
                                      aria-labelledby="custom-tabs-one-materiels-tab">
-                                    {{--<div class="table-responsive">
+                                    <div class="table-responsive">
                                         <table class="table">
                                             <thead>
                                             <tr>
                                                 <th style="width: 50px">#</th>
-                                                <th>NOM</th>
-                                                <th>DESCRIPTION</th>
-                                                <th style="width: 100px">DATE</th>
-                                                <th>VIE</th>
-                                                <th>RESTE</th>
-                                                <th>ÉTAT</th>
-                                                <th style="width: 50px"></th>
+                                                <th>VISITEUR</th>
+                                                <th>ROLE</th>
+                                                <th>DATE</th>
+
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            @foreach ($category->materiels as $i=>$materiel)
+                                            @foreach ($ouvrage->lectures as $i=>$lecture)
                                                 <tr>
                                                     <td>{{ $i+1 }}</td>
-                                                    <td>{{ $materiel->nom }}</td>
-                                                    <td>{{ $materiel->description }}</td>
-                                                    <td>{{ Carbon::parse($materiel->date)->format('d-m-Y') }}</td>
-                                                    <td>{{ $materiel->vie }}</td>
-                                                    <td>{{ $materiel->vieRestante }}</td>
-                                                    <td>{{ $materiel->status->label() }}</td>
+                                                    <td>{{ $lecture->user->name }}</td>
+                                                    <td>{{ $lecture->user->roleName }}</td>
+                                                    <td>{{ $lecture->whenRead }}</td>
 
-                                                    <td>
-                                                        <div class="d-flex float-right">
-                                                            <a href="#" title="Voir"
-                                                               class="btn btn-warning">
-                                                                <i class="fas fa-eye"></i>
-                                                            </a>
-
-                                                        </div>
-                                                    </td>
                                                 </tr>
                                             @endforeach
                                             </tbody>
                                         </table>
-                                    </div>--}}
+                                    </div>
                                 </div>
-                                <div class="tab-pane fade" id="custom-tabs-one-categories" role="tabpanel"
+
+                              {{--  <div class="tab-pane fade" id="custom-tabs-one-categories" role="tabpanel"
                                      aria-labelledby="custom-tabs-one-categories-tab">
                                     <div class="table-responsive">
-                                        {{--<table class="table">
+                                        --}}{{--<table class="table">
                                             <thead>
                                             <tr>
                                                 <th style="width: 50px">#</th>
@@ -246,9 +232,10 @@
                                                 </tr>
                                             @endforeach
                                             </tbody>
-                                        </table>--}}
+                                        </table>--}}{{--
                                     </div>
                                 </div>
+                           --}}
                             </div>
                         </div>
                     </div>
