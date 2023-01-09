@@ -108,45 +108,44 @@
                             <div class="tab-content" id="custom-tabs-one-tabContent">
                                 <div class="tab-pane fade active show" id="custom-tabs-one-materiels" role="tabpanel"
                                      aria-labelledby="custom-tabs-one-materiels-tab">
-                                    {{--<div class="table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                            <tr>
-                                                <th style="width: 50px">#</th>
-                                                <th>NOM</th>
-                                                <th>DESCRIPTION</th>
-                                                <th style="width: 100px">DATE</th>
-                                                <th>VIE</th>
-                                                <th>RESTE</th>
-                                                <th>ÉTAT</th>
-                                                <th style="width: 50px"></th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            @foreach ($category->materiels as $i=>$materiel)
+                                        <div class="table-responsive">
+                                            <table class="table table-hover">
+                                                <thead class="table-dark">
                                                 <tr>
-                                                    <td>{{ $i+1 }}</td>
-                                                    <td>{{ $materiel->nom }}</td>
-                                                    <td>{{ $materiel->description }}</td>
-                                                    <td>{{ Carbon::parse($materiel->date)->format('d-m-Y') }}</td>
-                                                    <td>{{ $materiel->vie }}</td>
-                                                    <td>{{ $materiel->vieRestante }}</td>
-                                                    <td>{{ $materiel->status->label() }}</td>
-
-                                                    <td>
-                                                        <div class="d-flex float-right">
-                                                            <a href="#" title="Voir"
-                                                               class="btn btn-warning">
-                                                                <i class="fas fa-eye"></i>
-                                                            </a>
-
-                                                        </div>
-                                                    </td>
+                                                    <th style="width: 50px">#</th>
+                                                    <th>TITRE</th>
+                                                    <th>SOUS TITRE</th>
+                                                    <th>RÉSUMÉ</th>
+                                                    <th style="width: 50px"></th>
                                                 </tr>
-                                            @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>--}}
+                                                </thead>
+                                                <tbody>
+                                                @foreach($category->ouvrages as $i=>$ouvrage)
+                                                    <tr>
+                                                        <td>{{$i+1}}</td>
+                                                        <td>{{$ouvrage->titre}}</td>
+                                                        <td>{{$ouvrage->sous_titre}}</td>
+                                                       <td>{{$ouvrage->resume}}</td>
+                                                        <td>
+                                                            <div class="d-flex float-right">
+                                                                <a href="{{$ouvrage->url}}"
+                                                                   target=“_blank”
+                                                                   title="Aller au lien"
+                                                                   class="btn btn-default  mr-2">
+                                                                    <i class="fas fa-globe"></i>
+                                                                </a>
+                                                                <a href="{{route('bibliotheque.ouvrages.show',[$ouvrage->id])}}"
+                                                                   title="Voir"
+                                                                   class="btn btn-warning">
+                                                                    <i class="fas fa-eye"></i>
+                                                                </a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
                                 </div>
                                 <div class="tab-pane fade" id="custom-tabs-one-categories" role="tabpanel"
                                      aria-labelledby="custom-tabs-one-categories-tab">

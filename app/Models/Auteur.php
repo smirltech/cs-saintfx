@@ -6,6 +6,7 @@ use App\Enums\Sexe;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Auteur extends Model
 {
@@ -13,4 +14,9 @@ class Auteur extends Model
 
     public $guarded = [];
     protected $casts = ['sexe' => Sexe::class,];
+
+    public function ouvrage_auteur(): HasMany|null
+    {
+        return $this->hasMany(OuvrageAuteur::class);
+    }
 }
