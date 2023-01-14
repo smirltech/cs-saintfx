@@ -98,4 +98,35 @@ class Helpers
     {
         return str_pad($number, $length, '0', STR_PAD_LEFT);
     }
+
+    public static function colorAlert($percent): string
+    {
+        if($percent < 10){
+            return 'danger';
+        }else if($percent < 30){
+            return 'warning';
+        }else if($percent < 50){
+            return 'alert';
+        }else if($percent < 70){
+            return 'success';
+        }else{
+            return '';
+        }
+    }
+    public static function textAlert($percent): string
+    {
+        if($percent < 10){
+            return "Très bas";
+        }else if($percent < 30){
+            return 'Bas';
+        }else if($percent < 50){
+            return 'Attention';
+        }else if($percent < 70){
+            return 'Bon';
+        }else if($percent < 90){
+            return 'Très Bon';
+        }else{
+            return 'Excellent';
+        }
+    }
 }

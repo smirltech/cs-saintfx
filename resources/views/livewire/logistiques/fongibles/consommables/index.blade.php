@@ -8,7 +8,7 @@
             'DESCRIPTION',
             'MINIMUM',
             'QUANTITÉ',
-            ['label'=>'UNIT', 'width'=>5],
+            ['label'=>'NIVEAU', 'width'=>5],
             ['label'=>'', 'no-export'=>true, 'width'=>5]
     ];
        $datas =[];
@@ -18,9 +18,9 @@
                 $consommable->code,
                 $consommable->nom,
                 $consommable->description,
-                $consommable->stock_minimum,
-                $consommable->quantite,
-                $consommable->unit->code,
+                $consommable->stock_minimum.' '.$consommable->unit->code,
+                $consommable->quantite.' '.$consommable->unit->code,
+                $consommable->alertText,
                 $consommable,
     ];
        }
@@ -78,7 +78,7 @@
                                                   hoverable
                                                   with-buttons>
                                 @foreach($config['data'] as $row)
-                                    <tr>
+                                    <tr class="table-{{$row[7]->alertColor}}">
                                         <td>{!! $row[0] !!}</td>
                                         <td>{!! $row[1] !!}</td>
                                         <td>{!! $row[2] !!}</td>

@@ -1,6 +1,6 @@
 {{--add category--}}
 <x-adminlte-modal wire:ignore.self id="add-operation-modal" icon="fa fa-wrench"
-                  title="Ajout de Mouvement du Matériel">
+                  title="Ajout de l'Opération">
     <x-validation-errors class="mb-4" :errors="$errors"/>
     <form id="fmo1a" wire:submit.prevent="addOperation">
         <div class="row">
