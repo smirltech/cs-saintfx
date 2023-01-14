@@ -55,7 +55,7 @@
                                 </li>
                                 <li class="list-group-item">
                                     <b>Niveau : </b> <span
-                                        class="float-right">{{$consommable->alertRate}} %</span>
+                                        class="float-right">{{$consommable->alertText}}</span>
                                     <div class="progress mt-1" role="progressbar" aria-label="Example with label"
                                          aria-valuenow="{{$consommable->alertRate}}" aria-valuemin="0"
                                          aria-valuemax="100">
@@ -141,8 +141,8 @@
                                                         <th>DATE</th>
                                                         <th>BÉNÉFICIAIRE</th>
                                                         <th>FACILITATEUR</th>
-                                                        <th>DIRECTION</th>
-                                                        <th>QUANTITÉ</th>
+                                                        <th>ENTRÉE</th>
+                                                        <th>SORTIE</th>
                                                         <th style="width: 50px"></th>
                                                     </tr>
                                                     </thead>
@@ -153,10 +153,10 @@
                                                             <td>{{$operation->dateFormatted}}</td>
                                                             <td>{{$operation->beneficiaire}}</td>
                                                             <td>{{$operation->facilitateur->name}}</td>
-                                                            <td><span
-                                                                    class="badge badge-{{$operation->direction->color()}}">{{$operation->direction->label()}}</span>
+                                                            <td>{{$operation->direction==\App\Enums\MouvementStatus::in?$operation->quantite.' '. $consommable->unit->code:''}}
                                                             </td>
-                                                            <td>{{$operation->quantite}} {{$consommable->unit->code}}</td>
+                                                            <td>{{$operation->direction==\App\Enums\MouvementStatus::out?$operation->quantite.' '. $consommable->unit->code:''}}
+                                                            </td>
                                                             <td>
                                                                 <div class="d-flex float-right">
                                                                     <button
