@@ -1,53 +1,63 @@
 @php
-    $heads =[
-        ['label'=>'#', 'width'=>5],
-        'CATÉGORIE',
-        'GROUPE',
-        'DESCRIPTION',
-        'MATÉRIELS',
-        ['label'=>'', 'no-export'=>true, 'width'=>5]
-];
-   $datas =[];
-   foreach ($categories as $i=>$categorie){
-        $datas[] =[
-            $i+1,
-            $categorie->nom,
-            $categorie->groupe,
-            $categorie->description,
-            $categorie->materielsCount,
-            $categorie,
-];
-   }
+    use Carbon\Carbon;
 
-    $config =[
-  'data'=>$datas,
-  'order'=>[[1, 'asc']],
-  'columns'=>[null,null,null, null, null, ['orderable'=>false]],
-  'destroy'=>false,
+        $heads =[
+            ['label'=>'#', 'width'=>5],
+            'MATÉRIEL',
+            'CATÉGORIE',
+            'DESCRIPTION',
+            ['label'=>'DATE', 'width'=>10],
+            'VIE',
+            'RESTE',
+            'STATUS',
+            'DIRECTION',
+            ['label'=>'', 'no-export'=>true, 'width'=>5]
+    ];
+       $datas =[];
+       foreach ($materiels as $i=>$materiel){
+            $datas[] =[
+                $i+1,
+                $materiel->nom,
+                $materiel->category,
+                $materiel->description,
+               $materiel->date == null?'': Carbon::parse($materiel->date)->format('d-m-Y'),
+                $materiel->vie,
+                $materiel->vieRestante,
+                $materiel->status,
+                $materiel->direction,
+                $materiel,
+    ];
+       }
 
-];
+        $config =[
+      'data'=>$datas,
+      'order'=>[[1, 'asc']],
+      'columns'=>[null,null,null, null, null, null, null, null, null, ['orderable'=>false]],
+      'destroy'=>false,
+
+    ];
 @endphp
 
 @section('title')
-    - catégories de patrimoine
+    - matériels de patrimoine
 @endsection
 @section('content_header')
     <div class="row">
         <div class="col-6">
-            <h1 class="ms-3">Liste de catégories</h1>
+            <h1 class="ms-3">Liste de matériels</h1>
         </div>
 
         <div class="col-6">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('scolarite') }}">Accueil</a></li>
-                <li class="breadcrumb-item active">Catégories</li>
+                <li class="breadcrumb-item active">Matériels</li>
             </ol>
         </div>
     </div>
 
 @stop
 <div wire:ignore.self class="">
-    @include('livewire.logistiques.materiel_categories.modals.crud')
+    @include('livewire.logistiques.non_fongibles.materiels.modals.crud')
 
     <div class="content mt-3">
         <div class="container-fluid">
@@ -62,7 +72,7 @@
                                 {{-- <livewire:scolarite.section.section-create-component/>--}}
                                 <button type="button"
                                         class="btn btn-primary  ml-2" data-toggle="modal"
-                                        data-target="#add-category-modal"><span
+                                        data-target="#add-materiel-modal"><span
                                         class="fa fa-plus"></span></button>
                             </div>
                         </div>
@@ -80,23 +90,31 @@
                                         </td>
                                         <td>{!! $row[3] !!}</td>
                                         <td>{!! $row[4] !!}</td>
+                                        <td>{!! $row[5] !!}</td>
+                                        <td>{!! $row[6] !!}</td>
+                                        <td><span
+                                                class="badge badge-{!! $row[7]?->color() !!}">{!! $row[7]?->label() !!}</span>
+                                        </td>
+                                        <td><span
+                                                class="badge badge-{!! $row[8]?->color() !!}">{!! $row[8]?->label() !!}</span>
+                                        </td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                <a href="{{route('logistique.categories.show',[$row[5]->id])}}"
+                                                <a href="{{route('logistique.materiels.show',[$row[9]->id])}}"
                                                    title="Voir"
                                                    class="btn btn-warning">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
-                                                <button wire:click="getSelectedCategory({{$row[5]}})" type="button"
+                                                <button wire:click="getSelectedMateriel({{$row[9]}})" type="button"
                                                         title="Modifier" class="btn btn-info  ml-2" data-toggle="modal"
-                                                        data-target="#update-category-modal">
+                                                        data-target="#update-materiel-modal">
                                                     <span class="fa fa-pen"></span>
                                                 </button>
 
-                                                <button wire:click="getSelectedCategory({{$row[5]}})" type="button"
+                                                <button wire:click="getSelectedMateriel({{$row[9]}})" type="button"
                                                         title="supprimer" class="btn btn-danger  ml-2"
                                                         data-toggle="modal"
-                                                        data-target="#delete-category-modal">
+                                                        data-target="#delete-materiel-modal">
                                                     <span class="fa fa-trash"></span>
                                                 </button>
                                             </div>

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('nom')->unique();
             $table->string('code')->unique()->nullable();
             $table->text('description')->nullable();
+            $table->integer('stock_minimum')->nullable();
             $table->foreignIdFor(Unit::class)->constrained()->restrictOnDelete();
             $table->foreignIdFor(Annee::class)->constrained()->restrictOnDelete();
             $table->timestamps();

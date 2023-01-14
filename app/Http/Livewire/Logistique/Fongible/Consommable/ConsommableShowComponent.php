@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Logistique\Consommable;
+namespace App\Http\Livewire\Logistique\Fongible\Consommable;
 
 use App\Enums\MouvementStatus;
 use App\Models\Consommable;
@@ -68,7 +68,7 @@ class ConsommableShowComponent extends Component
     public function render()
     {
         $this->loadData();
-        return view('livewire.logistiques.consommables.show')
+        return view('livewire.logistiques.fongibles.consommables.show')
             ->layout(AdminLayout::class, ['title' => 'Détail sur le consommable']);
     }
 

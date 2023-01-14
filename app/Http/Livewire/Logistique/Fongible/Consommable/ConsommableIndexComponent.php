@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Logistique\Consommable;
+namespace App\Http\Livewire\Logistique\Fongible\Consommable;
 
 use App\Models\Annee;
 use App\Models\Consommable;
@@ -51,7 +51,7 @@ class ConsommableIndexComponent extends Component
     public function render()
     {
         $this->loadData();
-        return view('livewire.logistiques.consommables.index')
+        return view('livewire.logistiques.fongibles.consommables.index')
             ->layout(AdminLayout::class, ['title' => 'Liste de Consommables']);
     }
 

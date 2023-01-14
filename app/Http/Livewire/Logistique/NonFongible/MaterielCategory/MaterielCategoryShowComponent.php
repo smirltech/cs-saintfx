@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Logistique\MaterielCategory;
+namespace App\Http\Livewire\Logistique\NonFongible\MaterielCategory;
 
 use App\Models\MaterielCategory;
 use App\Traits\TopMenuPreview;
@@ -31,7 +31,7 @@ class MaterielCategoryShowComponent extends Component
     public function render()
     {
         $this->loadData();
-        return view('livewire.logistiques.materiel_categories.show')
+        return view('livewire.logistiques.non_fongibles.materiel_categories.show')
             ->layout(AdminLayout::class, ['title' => 'Détail sur la catégorie de matériel']);
     }
 

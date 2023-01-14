@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Logistique\Materiel;
+namespace App\Http\Livewire\Logistique\NonFongible\Materiel;
 
 use App\Enums\MaterialStatus;
 use App\Models\Materiel;
@@ -53,7 +53,7 @@ class MaterielIndexComponent extends Component
     public function render()
     {
         $this->loadData();
-        return view('livewire.logistiques.materiels.index')
+        return view('livewire.logistiques.non_fongibles.materiels.index')
             ->layout(AdminLayout::class, ['title' => 'Liste de Matériels']);
     }
 

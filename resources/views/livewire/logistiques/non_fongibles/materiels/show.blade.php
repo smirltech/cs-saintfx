@@ -19,8 +19,8 @@
 
 @stop
 <div class="">
-    @include('livewire.logistiques.materiels.modals.crud')
-    @include('livewire.logistiques.materiels.modals.mouvement')
+    @include('livewire.logistiques.non_fongibles.materiels.modals.crud')
+    @include('livewire.logistiques.non_fongibles.materiels.modals.mouvement')
 
     <div class="content mt-3">
         <div class="container-fluid">

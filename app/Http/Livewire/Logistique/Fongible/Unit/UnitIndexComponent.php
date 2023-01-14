@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Logistique\Unit;
+namespace App\Http\Livewire\Logistique\Fongible\Unit;
 
 use App\Models\Unit;
 use App\Traits\TopMenuPreview;
@@ -42,7 +42,7 @@ class UnitIndexComponent extends Component
     public function render()
     {
         $this->loadData();
-        return view('livewire.logistiques.units.index')
+        return view('livewire.logistiques.fongibles.units.index')
             ->layout(AdminLayout::class, ['title' => 'Liste de Units']);
     }
 

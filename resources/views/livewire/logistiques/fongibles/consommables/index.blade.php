@@ -51,7 +51,7 @@
 
 @stop
 <div wire:ignore.self class="">
-    @include('livewire.logistiques.consommables.modals.crud')
+    @include('livewire.logistiques.fongibles.consommables.modals.crud')
 
     <div class="content mt-3">
         <div class="container-fluid">

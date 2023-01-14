@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Logistique\Mouvement;
+namespace App\Http\Livewire\Logistique\NonFongible\Mouvement;
 
 use App\Models\Mouvement;
 use App\Traits\TopMenuPreview;
@@ -28,7 +28,7 @@ class MouvementIndexComponent extends Component
     public function render()
     {
         $this->loadData();
-        return view('livewire.logistiques.mouvements.index')
+        return view('livewire.logistiques.non_fongibles.mouvements.index')
             ->layout(AdminLayout::class, ['title' => 'Liste de Mouvements']);
     }
 

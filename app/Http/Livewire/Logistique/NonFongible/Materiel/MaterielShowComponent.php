@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Logistique\Materiel;
+namespace App\Http\Livewire\Logistique\NonFongible\Materiel;
 
 use App\Enums\MouvementStatus;
 use App\Models\Materiel;
@@ -71,7 +71,7 @@ class MaterielShowComponent extends Component
     public function render()
     {
         $this->loadData();
-        return view('livewire.logistiques.materiels.show')
+        return view('livewire.logistiques.non_fongibles.materiels.show')
             ->layout(AdminLayout::class, ['title' => 'Détail sur le matériel']);
     }
 
