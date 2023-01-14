@@ -6,6 +6,7 @@
             'CODE',
             'CONSOMMABLE',
             'DESCRIPTION',
+            'MINIMUM',
             'QUANTITÉ',
             ['label'=>'UNIT', 'width'=>5],
             ['label'=>'', 'no-export'=>true, 'width'=>5]
@@ -17,6 +18,7 @@
                 $consommable->code,
                 $consommable->nom,
                 $consommable->description,
+                $consommable->stock_minimum,
                 $consommable->quantite,
                 $consommable->unit->code,
                 $consommable,
@@ -26,7 +28,7 @@
         $config =[
       'data'=>$datas,
       'order'=>[[1, 'asc']],
-      'columns'=>[null, null, null, null, null, null, ['orderable'=>false]],
+      'columns'=>[null, null, null, null, null, null, null, ['orderable'=>false]],
       'destroy'=>false,
 
     ];
@@ -83,20 +85,21 @@
                                         <td>{!! $row[3] !!}</td>
                                         <td>{!! $row[4] !!}</td>
                                         <td>{!! $row[5] !!}</td>
+                                        <td>{!! $row[6] !!}</td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                <a href="{{route('logistique.consommables.show',[$row[6]->id])}}"
+                                                <a href="{{route('logistique.consommables.show',[$row[7]->id])}}"
                                                    title="Voir"
                                                    class="btn btn-warning">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
-                                                <button wire:click="getSelectedConsommable({{$row[6]}})" type="button"
+                                                <button wire:click="getSelectedConsommable({{$row[7]}})" type="button"
                                                         title="Modifier" class="btn btn-info  ml-2" data-toggle="modal"
                                                         data-target="#update-consommable-modal">
                                                     <span class="fa fa-pen"></span>
                                                 </button>
 
-                                                <button wire:click="getSelectedConsommable({{$row[6]}})" type="button"
+                                                <button wire:click="getSelectedConsommable({{$row[7]}})" type="button"
                                                         title="supprimer" class="btn btn-danger  ml-2"
                                                         data-toggle="modal"
                                                         data-target="#delete-consommable-modal">
