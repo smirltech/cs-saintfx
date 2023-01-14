@@ -62,4 +62,9 @@ class Consommable extends Model
     {
         return Helpers::colorAlert($this->alertRate);
     }
+
+    public function getAlertColorWithDefaultPrimaryAttribute(): string
+    {
+        return strlen($this->alertColor)==0?'primary':$this->alertColor;
+    }
 }
