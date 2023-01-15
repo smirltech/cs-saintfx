@@ -16,45 +16,36 @@ class InscriptionIndexComponent extends Component
     use LivewireAlert;
     use WithPagination;
 
-    public $annee_courante;
+    public Annee $annee_courante;
+    public $inscriptions = [];
 
-    public string $search = '';
+    public function mount(){
+        $this->annee_courante = Annee::encours();
+    }
 
-    protected $queryString = ['search'];
+    //public string $search = '';
+
+    //protected $queryString = ['search'];
 
     public function render()
     {
-        $this->annee_courante = Annee::where('encours', true)->first();
+       // $this->annee_courante = Annee::where('encours', true)->first();
 
-        #TODO: move this to mount()
-        $inscriptions = $this->loadData();
-
+        $this->loadData();
 
         return view('livewire.scolarite.inscriptions.index', [
-            'inscriptions' => $inscriptions->get(),
+            'inscriptions' => $this->inscriptions,
         ])
             ->layout(AdminLayout::class, ['title' => "Liste d'inscriptions"]);
     }
 
     public function loadData()
     {
-        $query = Inscription::query();
-        $query->where('annee_id', $this->annee_courante->id)->orderBy('status', 'ASC');
-        return $query;
+        $this->inscriptions = Inscription::where('annee_id', Annee::id())->orderBy('status', 'ASC')->get();
     }
 
     public function deleteInscription($id)
     {
         $this->alert('info', "Cette fonctionnalité n'est pas encore implémentée !");
-
-        /*   $fa = Faculte::find($id);
-           if (count($fa->filieres) == 0) {
-               if ($fa->delete()) {
-                   $this->loadData();
-                   Helpers::swal($this, 'success', 'Fécilitation', "Faculté supprimée avec succès !");
-               }
-           } else {
-               Helpers::swal($this, 'warning', 'Echec', "Faculté n'a pas été supprimée, il y a des filières attachées !");
-           }*/
     }
 }

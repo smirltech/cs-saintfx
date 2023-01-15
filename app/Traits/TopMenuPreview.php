@@ -25,7 +25,7 @@ trait TopMenuPreview
                     'key' => 'annee_encours',
                     'text' => "Année scolaire",
                     'label' => $aa->nom,
-                    'url' => '#',
+                    'url' => 'scolarite/annees',
                     'label_color' => 'secondary',
                     'topnav' => true,
                 ]);
@@ -36,7 +36,7 @@ trait TopMenuPreview
                     'key' => 'eleves_inscrits',
                     'text' => "Élèves",
                     'label' => Inscription::getCurrentInscriptions()->count(),
-                    'url' => '#',
+                    'url' => 'scolarite/inscriptions',
                     'label_color' => 'secondary',
                     'topnav' => true,
                 ]);
@@ -47,7 +47,7 @@ trait TopMenuPreview
                     'key' => 'annee_classes',
                     'text' => "Classes",
                     'label' => Classe::all()->count(),
-                    'url' => '#',
+                    'url' => 'scolarite/classes',
                     'label_color' => 'secondary',
                     'topnav' => true,
                 ]);
@@ -59,7 +59,7 @@ trait TopMenuPreview
                     'key' => 'enseignants',
                     'text' => "Enseignants",
                     'label' => ClasseEnseignant::all()->count() + CoursEnseignant::all()->count(),
-                    'url' => '#',
+                    'url' => 'scolarite/enseignants',
                     'label_color' => 'secondary',
                     'topnav' => true,
                 ]);
