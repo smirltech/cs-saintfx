@@ -38,10 +38,10 @@ class EnseignantIndexComponent extends Component
     }
 
 
-   /* public function delete(Enseignant $enseignant)
-    {
-        $this->deleteModel($enseignant, 'Enseignant supprimé avec succès');
-    }*/
+    /* public function delete(Enseignant $enseignant)
+     {
+         $this->deleteModel($enseignant, 'Enseignant supprimé avec succès');
+     }*/
 
     public function onModalClosed($p_id)
     {
@@ -51,7 +51,7 @@ class EnseignantIndexComponent extends Component
 
     public function getSelectedEnseignant($enseignant_id)
     {
-       // dd( $enseignant_id );
+        // dd( $enseignant_id );
         $this->enseignant = Enseignant::find($enseignant_id);
         //dd( $this->enseignant );
     }
