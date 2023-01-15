@@ -26,7 +26,7 @@
                             <select wire:model="responsable_sexe"
                                     class="form-control">
                                 @foreach (Sexe::cases() as $es )
-                                    <option value="{{ strtoupper($es->value)}}">{{ $es->label() }}</option>
+                                    <option value="{{$es->value}}">{{ $es->label() }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -93,7 +93,7 @@
                             <select wire:model="sexe"
                                     class="form-control">
                                 @foreach (Sexe::cases() as $es )
-                                    <option value="{{ strtoupper($es->value)}}">{{ $es->label() }}</option>
+                                    <option value="{{$es->value}}">{{ $es->label() }}</option>
                                 @endforeach
                             </select>
                         </div>

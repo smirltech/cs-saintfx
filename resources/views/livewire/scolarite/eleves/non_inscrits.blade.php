@@ -27,7 +27,7 @@
                 $eleve->date_naissance->age??'',
                 $eleve->responsable_eleve?->responsable?->nom??'',
                 $eleve->responsable_eleve?->relation?->label()??'',
-                '<nobr>' . $btn1. $btn2.'</nobr>',
+                $eleve,
             ];
 
         }
@@ -57,6 +57,7 @@
 
 @stop
 <div class="content mt-3">
+    @include('livewire.scolarite.eleves.modals.reinscription')
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -77,8 +78,35 @@
 
                     <div class="mb-3 card-body">
                         <div class="table-responsive m-b-40">
-                            <x-adminlte-datatable id="table7" :heads="$heads" theme="light" :config="$config" striped
-                                                  hoverable with-buttons/>
+                            <x-adminlte-datatable id="table7" :heads="$heads" theme="light" striped
+                                                  hoverable with-buttons>
+                                @foreach($config['data'] as $row)
+                                    <tr>
+                                        <td>{!! $row[0] !!}</td>
+                                        <td>{!! $row[1] !!}</td>
+                                        <td>{!! $row[2] !!}</td>
+                                        <td>{!! $row[3] !!}</td>
+                                        <td>{!! $row[4] !!}</td>
+                                        <td>{!! $row[5] !!}</td>
+                                        <td>{!! $row[6] !!}</td>
+                                        <td>
+                                            <div class="d-flex float-right">
+                                                <a href="{{route('scolarite.eleves.show',[$row[7]])}}"
+                                                   title="Voir"
+                                                   class="btn btn-success">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                <button wire:click="getSelectedEleve('{{$row[7]->id}}')" type="button"
+                                                        title="Réinscrire Élève" class="btn btn-warning  ml-2" data-toggle="modal"
+                                                        data-target="#reinscription-modal">
+                                                    <span class="fa fa-user-plus"></span>
+                                                </button>
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </x-adminlte-datatable>
                         </div>
                     </div>
                 </div>
