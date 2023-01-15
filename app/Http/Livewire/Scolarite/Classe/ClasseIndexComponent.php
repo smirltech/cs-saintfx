@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Scolarite\Classe;
 use App\Models\Classe;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
+use Exception;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
@@ -14,6 +15,7 @@ class ClasseIndexComponent extends Component
     use LivewireAlert;
 
     public $classes = [];
+    public ?Classe $classe = null;
 
     public function render()
     {
@@ -28,14 +30,30 @@ class ClasseIndexComponent extends Component
         $this->classes = Classe::orderBy('code')->get();
     }
 
-    public function deleteClasse($id)
+    public function onModalClosed($p_id)
     {
+        $this->dispatchBrowserEvent('closeModal', ['modal' => $p_id]);
+        $this->classe = null;
+    }
 
-        $fa = Classe::find($id);
-        if ($fa->delete()) {
-            $this->loadData();
-            $this->alert('success', 'Classe supprimée avec succès');
+    public function getSelectedClasse($classe_id)
+    {
+        $this->classe = Classe::find($classe_id);
+    }
 
+    public function deleteClasse()
+    {
+        try {
+            if ($this->classe->delete()) {
+                $this->loadData();
+                $this->alert('success', "Classe supprimée avec succès !");
+            } else {
+                $this->alert('warning', "Échec de suppression de classe !");
+            }
+        } catch (Exception $e) {
+            $this->alert('error', "Classe n'a pas été supprimée, il y a des éléments attachés !");
         }
+
+        $this->onModalClosed('delete-classe');
     }
 }
