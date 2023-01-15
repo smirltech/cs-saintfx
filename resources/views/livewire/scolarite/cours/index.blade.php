@@ -20,6 +20,7 @@
 
 @stop
 <div class="">
+    @include('livewire.scolarite.cours.modals.delete')
     <div class="content mt-3">
         <div class="container-fluid">
             <div class="row">
@@ -65,10 +66,17 @@
                                                     <i class="fas fa-pen"></i>
                                                 </a>
 
-                                                <button wire:click="deleteCours({{ $c->id }})"
+                                                <button wire:click="getSelectedCours({{$c->id }})" type="button"
+                                                        title="supprimer" class="btn btn-outline-danger  ml-2"
+                                                        data-toggle="modal"
+                                                        data-target="#delete-cours">
+                                                    <span class="fa fa-trash"></span>
+                                                </button>
+
+                                               {{-- <button wire:click="deleteCours({{ $c->id }})"
                                                         title="supprimer" class="btn btn-outline-danger ml-2">
                                                     <i class="fas fa-trash"></i>
-                                                </button>
+                                                </button>--}}
                                             </div>
                                         </td>
                                     </tr>
