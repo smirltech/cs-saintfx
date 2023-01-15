@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Scolarite\Inscription;
 
 use App\Enums\FraisFrequence;
+use App\Enums\FraisType;
 use App\Enums\InscriptionCategorie;
 use App\Enums\InscriptionStatus;
 use App\Enums\ResponsableRelation;
@@ -315,6 +316,7 @@ class InscriptionCreateComponent extends Component
         if ($this->classe_id != null) {
             $ff = Frais::
             where('annee_id', $this->annee_courante->id)
+                ->where('type', FraisType::inscription)
                 ->where('classable_type', 'like', '%Classe')
                 ->where('classable_id', $this->classe_id)
                 ->orderBy('nom')
@@ -328,6 +330,7 @@ class InscriptionCreateComponent extends Component
         if ($ff == null && $this->filiere_id != null) {
             $ff = Frais::
             where('annee_id', $this->annee_courante->id)
+                ->where('type', FraisType::inscription)
                 ->where('classable_type', 'like', '%Filiere')
                 ->where('classable_id', $this->filiere_id)
                 ->orderBy('nom')
@@ -341,6 +344,7 @@ class InscriptionCreateComponent extends Component
         if ($ff == null && $this->option_id != null) {
             $ff = Frais::
             where('annee_id', $this->annee_courante->id)
+                ->where('type', FraisType::inscription)
                 ->where('classable_type', 'like', '%Option')
                 ->where('classable_id', $this->option_id)
                 ->orderBy('nom')
@@ -354,6 +358,7 @@ class InscriptionCreateComponent extends Component
         if ($ff == null && $this->section_id != null) {
             $ff = Frais::
             where('annee_id', $this->annee_courante->id)
+                ->where('type', FraisType::inscription)
                 ->where('classable_type', 'like', '%Section')
                 ->where('classable_id', $this->section_id)
                 ->orderBy('nom')
