@@ -17,6 +17,7 @@
 
 @stop
 <div class="">
+    @include('livewire.scolarite.enseingnants.modals.delete')
     <div class="content mt-3">
         <div class="container-fluid">
             <div class="row">
@@ -79,9 +80,15 @@
                                                     <i class="fas fa-pen"></i>
                                                 </a>
 
-                                                <button wire:click="delete({{ $enseignant->id }})"
+                                                {{--<button wire:click="delete({{ $enseignant->id }})"
                                                         title="supprimer" class="btn btn-outline-danger ml-2">
                                                     <i class="fas fa-trash"></i>
+                                                </button>--}}
+                                                <button wire:click="getSelectedEnseignant('{{$enseignant->id }}')" type="button"
+                                                        title="supprimer" class="btn btn-outline-danger  ml-2"
+                                                        data-toggle="modal"
+                                                        data-target="#delete-enseignant">
+                                                    <span class="fa fa-trash"></span>
                                                 </button>
                                             </div>
                                         </td>

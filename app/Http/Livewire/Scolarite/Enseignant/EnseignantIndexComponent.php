@@ -6,6 +6,7 @@ use App\Models\Enseignant;
 use App\Traits\CanDeleteModel;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
+use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
@@ -17,10 +18,11 @@ class EnseignantIndexComponent extends Component
     use CanDeleteModel;
 
     public Collection $enseignants;
+    public ?Enseignant $enseignant = null;
 
     public function mount()
     {
-        $this->enseignants = Enseignant::latest()->get();
+        $this->loadData();
     }
 
     public function render()
@@ -30,9 +32,43 @@ class EnseignantIndexComponent extends Component
             ->layout(AdminLayout::class, $data);
     }
 
+    public function loadData()
+    {
+        $this->enseignants = Enseignant::latest()->get();
+    }
 
-    public function delete(Enseignant $enseignant)
+
+   /* public function delete(Enseignant $enseignant)
     {
         $this->deleteModel($enseignant, 'Enseignant supprimé avec succès');
+    }*/
+
+    public function onModalClosed($p_id)
+    {
+        $this->dispatchBrowserEvent('closeModal', ['modal' => $p_id]);
+        $this->enseignant = null;
+    }
+
+    public function getSelectedEnseignant($enseignant_id)
+    {
+       // dd( $enseignant_id );
+        $this->enseignant = Enseignant::find($enseignant_id);
+        //dd( $this->enseignant );
+    }
+
+    public function deleteEnseignant()
+    {
+        try {
+            if ($this->enseignant->delete()) {
+                $this->loadData();
+                $this->alert('success', "Enseignant supprimé avec succès !");
+            } else {
+                $this->alert('warning', "Échec de suppression d'enseignant !");
+            }
+        } catch (Exception $e) {
+            $this->alert('error', "Enseignant n'a pas été supprimé, il y a des éléments attachés !");
+        }
+
+        $this->onModalClosed('delete-enseignant');
     }
 }
