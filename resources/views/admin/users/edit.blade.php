@@ -2,7 +2,6 @@
 @extends('adminlte::page')
 @section('content')
     <div class="container">
-
         <div class="row">
             <div class="col-md-4">
                 <div class="card mb-5">
@@ -10,8 +9,7 @@
                         <div class="mb-4">
                             <div class="d-flex align-items-center flex-column">
                                 <div class="sw-13 position-relative mb-3">
-                                    <img width="80" src="{{$user->avatar}}" class="img-fluid img-rounded"
-                                         alt="thumb">
+                                    <x-avatar-edit :model="$user"/>
                                 </div>
                                 <div class="h5 mb-0">{{$user->name}}@if ($user->hasVerifiedEmail())
                                         <i class="fa fa-check-circle"></i>

@@ -28,12 +28,7 @@
                 <div class="col-md-3">
                     <div class="card card-primary card-outline">
                         <div class="card-body box-profile">
-                            <div
-                                wire:click="$emit('showModal', 'profile.edit-avatar-modal', '{{ class_basename($eleve) }}','{{ $eleve->id }}')"
-                                class="text-center">
-                                <img class="profile-user-img img-fluid img-circle"
-                                     src="{{$eleve->profile_url}}" alt="User profile picture">
-                            </div>
+                            <x-avatar-edit :model="$eleve"/>
                             {{-- <livewire:profile.edit-avatar-modal :model="$eleve"/>--}}
                             <h3 class="profile-username text-center">{{$eleve->fullName}}</h3>
                             <p class="text-muted text-center">CODE : {{$eleve->code}}</p>
