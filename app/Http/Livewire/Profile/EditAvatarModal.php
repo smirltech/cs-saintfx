@@ -34,8 +34,6 @@ class EditAvatarModal extends Component
         } else {
             throw new Exception("The model '{$model_type}' does not exist");
         }
-
-        dd($this->model);
     }
 
     public function render(): Factory|View|Application
