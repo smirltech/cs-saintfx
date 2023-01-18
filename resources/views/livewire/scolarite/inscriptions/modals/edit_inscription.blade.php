@@ -1,10 +1,11 @@
-{{-- Edit Inscription --}}
+{{-- EditModal Inscription --}}
 <div wire:ignore.self class="modal fade" tabindex="-1" id="edit-inscription-modal">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Modifier Inscription</h4>
-                <button wire:click="$emit('onModalClosed')" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button wire:click="$emit('onModalClosed')" type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -99,7 +100,9 @@
                 </form>
             </div>
             <div class="modal-footer justify-content-between">
-                <button wire:click="$emit('onModalClosed')" type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                <button wire:click="$emit('onModalClosed')" type="button" class="btn btn-default" data-dismiss="modal">
+                    Fermer
+                </button>
                 <button form="f1" type="submit" class="btn btn-warning">Soumettre</button>
             </div>
         </div>

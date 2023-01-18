@@ -65,7 +65,7 @@ class EleveShowComponent extends Component
     public $responsables;
     public $responsable_relation2;
 
-    protected $listeners = ['onModalClosed', 'refreshComponent' => '$refresh'];
+    protected $listeners = ['onModalClosed', 'refreshComponent' => '$refresh', 'refresh' => '$refresh'];
 
     public function runSearchResponsables()
     {

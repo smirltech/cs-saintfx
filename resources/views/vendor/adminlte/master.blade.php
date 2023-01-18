@@ -104,31 +104,11 @@
 
 
 <livewire:modals/>
-
-{{-- Livewire Script --}}
-@if(config('adminlte.livewire'))
-
-    @if(app()->version() >= 7)
-        @livewireScripts
-    @else
-        <livewire:scripts/>
-    @endif
-
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    {{--<script src="{{ asset('vendor/livewire-alert/livewire-alert.js') }}"></script>--}}
-    <x-livewire-alert::scripts/>
-    <x-livewire-alert::flash/>
-
-@endif
-
-<script src="{{ asset('js/app.js') }}"></script>
-
-
-{{--
-<script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
-<link rel="stylesheet" href="https://printjs-4de6.kxcdn.com/print.min.css">
---}}
-
+<livewire:scripts/>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<x-livewire-alert::scripts/>
+<x-livewire-alert::flash/>
+<script src="{{ mix('js/app.js') }}"></script>
 
 {{-- Custom Scripts --}}
 @yield('adminlte_js')

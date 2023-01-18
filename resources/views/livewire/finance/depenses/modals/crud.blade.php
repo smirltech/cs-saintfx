@@ -4,7 +4,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Ajouter Dépense</h4>
-                <button wire:click="$emit('onModalClosed')" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button wire:click="$emit('onModalClosed')" type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -24,7 +25,8 @@
                         </div>
                         <div class="form-group col-md-4 col-sm-12">
                             <label for="">Montant <i class="text-red">*</i></label>
-                            <input type="number" wire:model="montant" class="form-control @error('montant') is-invalid @enderror">
+                            <input type="number" wire:model="montant"
+                                   class="form-control @error('montant') is-invalid @enderror">
                             @error('montant')
                             <span class="text-red">{{ $message }}</span>
                             @enderror
@@ -43,7 +45,9 @@
                 </form>
             </div>
             <div class="modal-footer justify-content-between">
-                <button wire:click="$emit('onModalClosed')" type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                <button wire:click="$emit('onModalClosed')" type="button" class="btn btn-default" data-dismiss="modal">
+                    Fermer
+                </button>
                 <button form="f1" type="submit" class="btn btn-primary">Ajouter</button>
             </div>
         </div>
@@ -52,13 +56,14 @@
 
 </div>
 
-{{-- Edit Section --}}
+{{-- EditModal Section --}}
 <div wire:ignore.self class="modal fade" tabindex="2" id="edit-depense-modal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Modifier Dépense</h4>
-                <button wire:click="$emit('onModalClosed')" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button wire:click="$emit('onModalClosed')" type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -77,7 +82,8 @@
                         </div>
                         <div class="form-group col-md-4 col-sm-12">
                             <label for="">Montant <i class="text-red">*</i></label>
-                            <input type="number" wire:model="montant" class="form-control @error('montant') is-invalid @enderror">
+                            <input type="number" wire:model="montant"
+                                   class="form-control @error('montant') is-invalid @enderror">
                             @error('montant')
                             <span class="text-red">{{ $message }}</span>
                             @enderror
@@ -96,7 +102,9 @@
                 </form>
             </div>
             <div class="modal-footer justify-content-between">
-                <button wire:click="$emit('onModalClosed')" type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                <button wire:click="$emit('onModalClosed')" type="button" class="btn btn-default" data-dismiss="modal">
+                    Fermer
+                </button>
                 <button form="f2" type="submit" class="btn btn-primary">Modifier</button>
             </div>
         </div>
@@ -111,15 +119,18 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Suppression de Dépense</h4>
-                <button wire:click="$emit('onModalClosed')" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button wire:click="$emit('onModalClosed')" type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-               <p>Êtes-vous sûr de vouloir supprimer cette dépense ?</p>
+                <p>Êtes-vous sûr de vouloir supprimer cette dépense ?</p>
             </div>
             <div class="modal-footer justify-content-between">
-                <button wire:click="$emit('onModalClosed')" type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                <button wire:click="$emit('onModalClosed')" type="button" class="btn btn-default" data-dismiss="modal">
+                    Fermer
+                </button>
                 <button wire:click="deleteDepense" class="btn btn-primary">Supprimer</button>
             </div>
         </div>

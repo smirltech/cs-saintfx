@@ -1,4 +1,3 @@
-
 {{-- Show Option --}}
 {{--
 <div wire:ignore.self class="modal fade" tabindex="-1" id="show-option-modal">
@@ -119,7 +118,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Ajouter Option</h4>
-                <button wire:click="$emit('onModalClosed')" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button wire:click="$emit('onModalClosed')" type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -127,38 +127,42 @@
                 <x-validation-errors class="mb-4" :errors="$errors"/>
                 <form id="f1" wire:submit.prevent="addOption">
 
-                        <div class="row">
-                            <div class="form-group col-5">
-                                <label for="">Nom <i class="text-red">*</i></label>
-                                <input type="text" wire:model="nom" class="form-control @error('nom') is-invalid @enderror">
-                                @error('nom')
-                                <span class="text-red">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div class="form-group col-2">
-                                <label for="">Code <i class="text-red">*</i></label>
-                                <input type="text" wire:model="code" class="form-control @error('code') is-invalid @enderror">
-                                @error('code')
-                                <span class="text-red">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div class="form-group col-5">
-                                <label for="">Section <i class="text-red">*</i></label>
-                                <select wire:model="section_id" class="form-control  @error('section_id') is-invalid @enderror">
-                                    <option value="-1">Choisir section</option>
-                                    @foreach ($sections as $section )
-                                        <option value="{{ $section->id }}">{{ $section->nom }}</option>
-                                    @endforeach
-                                    @error('section_id')
-                                    <span class="text-red">{{ $message }}</span>
-                                    @enderror
-                                </select>
-                            </div>
+                    <div class="row">
+                        <div class="form-group col-5">
+                            <label for="">Nom <i class="text-red">*</i></label>
+                            <input type="text" wire:model="nom" class="form-control @error('nom') is-invalid @enderror">
+                            @error('nom')
+                            <span class="text-red">{{ $message }}</span>
+                            @enderror
                         </div>
+                        <div class="form-group col-2">
+                            <label for="">Code <i class="text-red">*</i></label>
+                            <input type="text" wire:model="code"
+                                   class="form-control @error('code') is-invalid @enderror">
+                            @error('code')
+                            <span class="text-red">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group col-5">
+                            <label for="">Section <i class="text-red">*</i></label>
+                            <select wire:model="section_id"
+                                    class="form-control  @error('section_id') is-invalid @enderror">
+                                <option value="-1">Choisir section</option>
+                                @foreach ($sections as $section )
+                                    <option value="{{ $section->id }}">{{ $section->nom }}</option>
+                                @endforeach
+                                @error('section_id')
+                                <span class="text-red">{{ $message }}</span>
+                                @enderror
+                            </select>
+                        </div>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer justify-content-between">
-                <button wire:click="$emit('onModalClosed')" type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                <button wire:click="$emit('onModalClosed')" type="button" class="btn btn-default" data-dismiss="modal">
+                    Fermer
+                </button>
                 <button form="f1" type="submit" class="btn btn-primary">Ajouter</button>
             </div>
         </div>
@@ -167,13 +171,14 @@
 
 </div>
 
-{{-- Edit Section --}}
+{{-- EditModal Section --}}
 <div wire:ignore.self class="modal fade" tabindex="2" id="edit-option-modal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Modifier Option</h4>
-                <button wire:click="$emit('onModalClosed')" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button wire:click="$emit('onModalClosed')" type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -190,12 +195,14 @@
                         </div>
                         <div class="form-group col-2">
                             <label for="">Code <i class="text-red">*</i></label>
-                            <input type="text" wire:model="code" class="form-control @error('code') is-invalid @enderror">
+                            <input type="text" wire:model="code"
+                                   class="form-control @error('code') is-invalid @enderror">
 
                         </div>
                         <div class="form-group col-5">
                             <label for="">Section <i class="text-red">*</i></label>
-                            <select wire:model="section_id" class="form-control  @error('section_id') is-invalid @enderror">
+                            <select wire:model="section_id"
+                                    class="form-control  @error('section_id') is-invalid @enderror">
                                 <option value="-1">Choisir section</option>
                                 @foreach ($sections as $section )
                                     <option value="{{ $section->id }}">{{ $section->nom }}</option>
@@ -209,7 +216,9 @@
                 </form>
             </div>
             <div class="modal-footer justify-content-between">
-                <button wire:click="$emit('onModalClosed')" type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                <button wire:click="$emit('onModalClosed')" type="button" class="btn btn-default" data-dismiss="modal">
+                    Fermer
+                </button>
                 <button form="f2" type="updateOption" class="btn btn-primary">Modifier</button>
             </div>
         </div>
@@ -224,15 +233,18 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Suppression d'Option</h4>
-                <button wire:click="$emit('onModalClosed')" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button wire:click="$emit('onModalClosed')" type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-               <p>Êtes-vous sûr de vouloir supprimer cette option ?</p>
+                <p>Êtes-vous sûr de vouloir supprimer cette option ?</p>
             </div>
             <div class="modal-footer justify-content-between">
-                <button wire:click="$emit('onModalClosed')" type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                <button wire:click="$emit('onModalClosed')" type="button" class="btn btn-default" data-dismiss="modal">
+                    Fermer
+                </button>
                 <button wire:click="deleteOption" class="btn btn-primary">Supprimer</button>
             </div>
         </div>
@@ -250,7 +262,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Ajouter Filière</h4>
-                <button wire:click="$emit('onModalClosed')" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button wire:click="$emit('onModalClosed')" type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -261,14 +274,16 @@
                     <div class="row">
                         <div class="form-group col-9">
                             <label for="">Nom <i class="text-red">*</i></label>
-                            <input wire:keyup.debounce="genCode" type="text" wire:model="filiere_nom" class="form-control @error('filiere_nom') is-invalid @enderror">
+                            <input wire:keyup.debounce="genCode" type="text" wire:model="filiere_nom"
+                                   class="form-control @error('filiere_nom') is-invalid @enderror">
                             @error('filiere_nom')
                             <span class="text-red">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group col-3">
                             <label for="">Code <i class="text-red">*</i></label>
-                            <input type="text" wire:model="filiere_code" class="form-control @error('filiere_code') is-invalid @enderror">
+                            <input type="text" wire:model="filiere_code"
+                                   class="form-control @error('filiere_code') is-invalid @enderror">
                             @error('filiere_code')
                             <span class="text-red">{{ $message }}</span>
                             @enderror
@@ -277,7 +292,9 @@
                 </form>
             </div>
             <div class="modal-footer justify-content-between">
-                <button wire:click="$emit('onModalClosed')" type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                <button wire:click="$emit('onModalClosed')" type="button" class="btn btn-default" data-dismiss="modal">
+                    Fermer
+                </button>
                 <button form="f4" type="submit" class="btn btn-primary">Ajouter</button>
             </div>
         </div>

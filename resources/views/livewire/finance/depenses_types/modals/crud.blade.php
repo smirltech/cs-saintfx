@@ -45,7 +45,7 @@
 
 </div>
 
-{{-- Edit Section --}}
+{{-- EditModal Section --}}
 <div wire:ignore.self class="modal fade" tabindex="2" id="edit-type-modal">
     <div class="modal-dialog">
         <div class="modal-content">
