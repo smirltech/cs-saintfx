@@ -5,13 +5,11 @@ namespace App\Models;
 use App\Enums\Conduite;
 use App\Enums\MediaType;
 use App\Enums\ResultatType;
-use App\Traits\HasMedia;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Validation\Rules\In;
+use SmirlTech\LaravelMedia\Traits\HasMedia;
 
 class Resultat extends Model
 {

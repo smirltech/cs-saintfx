@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d4e3ff95819d66929aed53147c0821a3",
+    "content-hash": "88330ba9f8f73780c9e98d5489a10254",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -1653,6 +1653,90 @@
                 }
             ],
             "time": "2022-10-26T14:07:24+00:00"
+        },
+        {
+            "name": "intervention/image",
+            "version": "2.7.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Intervention/image.git",
+                "reference": "04be355f8d6734c826045d02a1079ad658322dad"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Intervention/image/zipball/04be355f8d6734c826045d02a1079ad658322dad",
+                "reference": "04be355f8d6734c826045d02a1079ad658322dad",
+                "shasum": ""
+            },
+            "require": {
+                "ext-fileinfo": "*",
+                "guzzlehttp/psr7": "~1.1 || ^2.0",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "~0.9.2",
+                "phpunit/phpunit": "^4.8 || ^5.7 || ^7.5.15"
+            },
+            "suggest": {
+                "ext-gd": "to use GD library based image processing.",
+                "ext-imagick": "to use Imagick based image processing.",
+                "intervention/imagecache": "Caching extension for the Intervention Image library"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.4-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Intervention\\Image\\ImageServiceProvider"
+                    ],
+                    "aliases": {
+                        "Image": "Intervention\\Image\\Facades\\Image"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Intervention\\Image\\": "src/Intervention/Image"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Oliver Vogel",
+                    "email": "oliver@intervention.io",
+                    "homepage": "https://intervention.io/"
+                }
+            ],
+            "description": "Image handling and manipulation library with support for Laravel integration",
+            "homepage": "http://image.intervention.io/",
+            "keywords": [
+                "gd",
+                "image",
+                "imagick",
+                "laravel",
+                "thumbnail",
+                "watermark"
+            ],
+            "support": {
+                "issues": "https://github.com/Intervention/image/issues",
+                "source": "https://github.com/Intervention/image/tree/2.7.2"
+            },
+            "funding": [
+                {
+                    "url": "https://paypal.me/interventionio",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/Intervention",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-05-21T17:30:32+00:00"
         },
         {
             "name": "jantinnerezo/livewire-alert",
@@ -4457,6 +4541,136 @@
                 "source": "https://github.com/smirltech/laravel-fullcalendar/tree/v1.0.4"
             },
             "time": "2023-01-04T13:08:53+00:00"
+        },
+        {
+            "name": "smirltech/laravel-media",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/smirltech/laravel-media.git",
+                "reference": "8883584218e85e780512aff59f2d9e454828ca3c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/smirltech/laravel-media/zipball/8883584218e85e780512aff59f2d9e454828ca3c",
+                "reference": "8883584218e85e780512aff59f2d9e454828ca3c",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^9.0",
+                "intervention/image": "^2.7",
+                "livewire/livewire": "^2.10",
+                "php": "^8.0",
+                "spatie/laravel-package-tools": "^1.14"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.0",
+                "nunomaduro/collision": "^6.0",
+                "orchestra/testbench": "^7.0",
+                "pestphp/pest": "^1.21",
+                "pestphp/pest-plugin-laravel": "^1.1",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "SmirlTech\\LaravelMedia\\LaravelMediaServiceProvider"
+                    ],
+                    "aliases": {
+                        "LaravelMedia": "SmirlTech\\LaravelMedia\\Facades\\LaravelMedia"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "SmirlTech\\LaravelMedia\\": "src",
+                    "SmirlTech\\LaravelMedia\\Database\\Factories\\": "database/factories"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marien Mupenda",
+                    "email": "marien@smirltech.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Associate files to with eloquent models",
+            "homepage": "https://github.com/smirltech/laravel-media",
+            "keywords": [
+                "SmirlTech",
+                "laravel",
+                "laravel-media"
+            ],
+            "support": {
+                "issues": "https://github.com/smirltech/laravel-media/issues",
+                "source": "https://github.com/smirltech/laravel-media/tree/v1.0.2"
+            },
+            "time": "2023-01-18T02:34:22+00:00"
+        },
+        {
+            "name": "spatie/laravel-package-tools",
+            "version": "1.14.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-package-tools.git",
+                "reference": "9964e65c318c30577ca1b91469f739d2b381359b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-package-tools/zipball/9964e65c318c30577ca1b91469f739d2b381359b",
+                "reference": "9964e65c318c30577ca1b91469f739d2b381359b",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^9.28|^10.0",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.5",
+                "orchestra/testbench": "^7.7|^8.0",
+                "pestphp/pest": "^1.22",
+                "phpunit/phpunit": "^9.5.24",
+                "spatie/pest-plugin-test-time": "^1.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\LaravelPackageTools\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Tools for creating Laravel packages",
+            "homepage": "https://github.com/spatie/laravel-package-tools",
+            "keywords": [
+                "laravel-package-tools",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/laravel-package-tools/issues",
+                "source": "https://github.com/spatie/laravel-package-tools/tree/1.14.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-01-10T14:09:55+00:00"
         },
         {
             "name": "spatie/laravel-permission",

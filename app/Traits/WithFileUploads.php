@@ -10,10 +10,6 @@ trait WithFileUploads
 {
     use \Livewire\WithFileUploads;
 
-    /*public function medias(): MorphMany
-    {)
-        return $this->morphMany(Media::class, 'mediable');
-    }*/
 
     // upload media
     public function upload(UploadedFile $file, Model $entity, MediaType $mediaType)
