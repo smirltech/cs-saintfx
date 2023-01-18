@@ -17,7 +17,7 @@ $data=[];
     foreach ($responsables as $key=>$responsable){
 
             $btn1 = '<a href="' . "/scolarite/responsables/{$responsable->id}" . '" class="btn btn-success btn-sm m-1" title="Voir Responsable"><i class="fa fa-eye"></i></a>';
-            $btn2 = '<a hidden href="' . "/scolarite/responsables/{$responsable->id}/edit" . '" class="btn btn-warning btn-sm m-1" title="Edit"><i class="fa fa-edit"></i></a>';
+            $btn2 = '<a hidden href="' . "/scolarite/responsables/{$responsable->id}/edit" . '" class="btn btn-warning btn-sm m-1" title="EditModal"><i class="fa fa-edit"></i></a>';
             $btn3 = '<button hidden wire:click="deleteResponsable('.$responsable->id.')"
                                                     title="supprimer" class="btn btn-danger  btn-sm m-1">
                                                 <i class="fas fa-trash"></i>
@@ -45,7 +45,7 @@ $data=[];
         ];
 @endphp
 @section('title')
-     - responsables
+    - responsables
 @endsection
 @section('content_header')
     <div class="row">

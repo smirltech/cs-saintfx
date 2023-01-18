@@ -186,7 +186,7 @@
                                                     <div class="d-flex float-right">
                                                         @if(!$classe->primaire())
                                                             <button
-                                                                wire:click="$emit('showModal', 'scolarite.classe.cours.edit', '{{ $c->id }}')"
+                                                                wire:click="$emit('showModal', 'scolarite.classe.cours.edit-modal', '{{ $c->id }}')"
                                                                 title="Modifier"
                                                                 class="btn btn-sm btn-outline-warning ml-2">
                                                                 <i class="fas fa-edit"></i>

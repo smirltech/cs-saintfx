@@ -36,7 +36,7 @@
 
 </div>
 
-{{-- Edit Relation --}}
+{{-- EditModal Relation --}}
 <div wire:ignore.self class="modal fade" tabindex="-1" id="edit-relation-modal">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
@@ -180,7 +180,7 @@
 
 </div>
 
-{{-- Edit Inscription --}}
+{{-- EditModal Inscription --}}
 <div wire:ignore.self class="modal fade" tabindex="-1" id="edit-inscription-modal">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -284,7 +284,7 @@
 
 </div>
 
-{{-- Edit Inscription Status --}}
+{{-- EditModal Inscription Status --}}
 <div wire:ignore.self class="modal fade" tabindex="-1" id="edit-inscription-status-modal">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
@@ -329,7 +329,7 @@
 
 </div>
 
-{{-- Edit Inscription Category --}}
+{{-- EditModal Inscription Category --}}
 <div wire:ignore.self class="modal fade" tabindex="-1" id="edit-inscription-categorie-modal">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
@@ -374,7 +374,7 @@
 
 </div>
 
-{{-- Edit Élève --}}
+{{-- EditModal Élève --}}
 <div wire:ignore.self class="modal fade" tabindex="-1" id="edit-eleve-modal">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">

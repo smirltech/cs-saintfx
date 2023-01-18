@@ -160,7 +160,7 @@
 
 </div>
 
-{{-- Edit Relation --}}
+{{-- EditModal Relation --}}
 <div wire:ignore.self class="modal fade" tabindex="-1" id="edit-relation-modal">
     <div class="modal-dialog modal-md">
         <div class="modal-content">

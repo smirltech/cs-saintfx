@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "88330ba9f8f73780c9e98d5489a10254",
+    "content-hash": "b8ff7bdf8bf64bbbf3b42b017b10a2e9",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -4487,6 +4487,75 @@
                 "source": "https://github.com/SimpleSoftwareIO/simple-qrcode/tree/4.2.0"
             },
             "time": "2021-02-08T20:43:55+00:00"
+        },
+        {
+            "name": "smirltech/laravel-form",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/smirltech/laravel-form.git",
+                "reference": "31523f6d25e15701cb8cac102553c7f395621115"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/smirltech/laravel-form/zipball/31523f6d25e15701cb8cac102553c7f395621115",
+                "reference": "31523f6d25e15701cb8cac102553c7f395621115",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^9.0",
+                "livewire/livewire": "^2.10",
+                "php": "^8.1",
+                "spatie/laravel-package-tools": "^1.13.0"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.0",
+                "nunomaduro/collision": "^6.0",
+                "orchestra/testbench": "^7.0",
+                "pestphp/pest": "^1.21",
+                "pestphp/pest-plugin-laravel": "^1.1",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "SmirlTech\\LaravelForm\\LaravelFormServiceProvider"
+                    ],
+                    "aliases": {
+                        "LaravelForm": "SmirlTech\\LaravelForm\\Facades\\LaravelForm"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "SmirlTech\\LaravelForm\\": "src",
+                    "SmirlTech\\LaravelForm\\Database\\Factories\\": "database/factories"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marien Mupenda",
+                    "email": "marien.mupenda@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A bunch of form input components",
+            "homepage": "https://github.com/smirltech/laravel-form",
+            "keywords": [
+                "SmirlTech",
+                "laravel",
+                "laravel-form"
+            ],
+            "support": {
+                "issues": "https://github.com/smirltech/laravel-form/issues",
+                "source": "https://github.com/smirltech/laravel-form/tree/1.0.0"
+            },
+            "time": "2023-01-13T12:30:19+00:00"
         },
         {
             "name": "smirltech/laravel-fullcalendar",

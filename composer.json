@@ -23,6 +23,7 @@
         "owen-it/laravel-auditing": "^13.0",
         "pharaonic/laravel-readable": "^1.0",
         "simplesoftwareio/simple-qrcode": "^4.2",
+        "smirltech/laravel-form": "^1.0",
         "smirltech/laravel-fullcalendar": "^1.0",
         "smirltech/laravel-media": "^1.0",
         "spatie/laravel-permission": "^5.5",

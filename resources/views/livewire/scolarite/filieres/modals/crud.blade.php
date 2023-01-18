@@ -80,7 +80,7 @@
 
 </div>
 
-{{-- Edit Filiere --}}
+{{-- EditModal Filiere --}}
 <div wire:ignore.self class="modal fade" tabindex="2" id="edit-filiere-modal">
     <div class="modal-dialog">
         <div class="modal-content">

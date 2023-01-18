@@ -10,7 +10,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
-class Edit extends Component
+class EditModal extends Component
 {
     use TopMenuPreview;
     use ApplicationAlert;
@@ -42,7 +42,7 @@ class Edit extends Component
 
     public function render(): Factory|View|Application
     {
-        return view('livewire.scolarite.classes.cours.edit');
+        return view('livewire.scolarite.classes.cours.edit-modal');
     }
 
     // function rules
