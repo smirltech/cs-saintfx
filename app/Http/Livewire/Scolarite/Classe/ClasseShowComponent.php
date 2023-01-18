@@ -36,7 +36,7 @@ class ClasseShowComponent extends Component
     public ?ClasseEnseignant $classe_enseignant;
     public Collection $enseignants;
 
-    protected $listeners = ['refreshData'];
+    protected $listeners = ['refreshData', 'refresh' => 'refreshData'];
 
     public function mount(Classe $classe)
     {
@@ -72,13 +72,13 @@ class ClasseShowComponent extends Component
 
     public function addCours()
     {
-        if(!$this->classe->primaire() && $this->cours_enseignant->cours_id == null && count(Cours::classe($this->classe)->get())> 0) {
+        if (!$this->classe->primaire() && $this->cours_enseignant->cours_id == null && count(Cours::classe($this->classe)->get()) > 0) {
             $this->cours_enseignant->cours_id = Cours::classe($this->classe)->get()->first()->id;
         }
 
-       if(!$this->classe->primaire() && $this->cours_enseignant->enseignant_id == null && count(Enseignant::classe($this->classe)->get())> 0) {
-           $this->cours_enseignant->enseignant_id = Enseignant::classe($this->classe)->get()->first()->id;
-       }
+        if (!$this->classe->primaire() && $this->cours_enseignant->enseignant_id == null && count(Enseignant::classe($this->classe)->get()) > 0) {
+            $this->cours_enseignant->enseignant_id = Enseignant::classe($this->classe)->get()->first()->id;
+        }
         $this->validate([
             'cours_enseignant.cours_id' => [
                 'required',

@@ -4,14 +4,15 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="form-group col-md-12">
-                        <x-form::input-file-image :avatar="$avatar" multiple wire:model="avatar" label="Avatar"/>
+                        <x-form::input-file-image required :avatar="$avatar" wire:model="avatar"
+                                                  label="Avatar"/>
                     </div>
                 </div>
 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <x-button type="submit" class="btn btn-primary">Soumettre</x-button>
+                <x-form::button type="submit" class="btn btn-primary">Soumettre</x-form::button>
             </div>
         </div>
     </form>

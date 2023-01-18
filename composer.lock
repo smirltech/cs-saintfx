@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1144c3a153e67945a3aab53d227c71d0",
+    "content-hash": "d7d7883cfb489fae6dabf870b62ad63c",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -4496,7 +4496,7 @@
             "dist": {
                 "type": "path",
                 "url": "D:/Projets/Lab/packages/laravel-form",
-                "reference": "a1fddc8ad846b7cc835a9c8bc5d84aa3ba72c73a"
+                "reference": "f002fcbeabffd4b2ea743f297e98ff3942f3a27d"
             },
             "require": {
                 "illuminate/contracts": "^9.0",
@@ -4628,17 +4628,11 @@
         },
         {
             "name": "smirltech/laravel-media",
-            "version": "v1.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/smirltech/laravel-media.git",
-                "reference": "8883584218e85e780512aff59f2d9e454828ca3c"
-            },
+            "version": "dev-develop",
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/smirltech/laravel-media/zipball/8883584218e85e780512aff59f2d9e454828ca3c",
-                "reference": "8883584218e85e780512aff59f2d9e454828ca3c",
-                "shasum": ""
+                "type": "path",
+                "url": "D:/Projets/Lab/packages/laravel-media",
+                "reference": "a472dae1b1cf296c8b5bef1cc03a3fa74b334860"
             },
             "require": {
                 "illuminate/contracts": "^9.0",
@@ -4672,7 +4666,28 @@
                     "SmirlTech\\LaravelMedia\\Database\\Factories\\": "database/factories"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "SmirlTech\\LaravelMedia\\Tests\\": "tests"
+                }
+            },
+            "scripts": {
+                "post-autoload-dump": [
+                    "@php ./vendor/bin/testbench package:discover --ansi"
+                ],
+                "analyse": [
+                    "vendor/bin/phpstan analyse"
+                ],
+                "test": [
+                    "vendor/bin/pest"
+                ],
+                "test-coverage": [
+                    "vendor/bin/pest --coverage"
+                ],
+                "format": [
+                    "vendor/bin/pint"
+                ]
+            },
             "license": [
                 "MIT"
             ],
@@ -4690,11 +4705,9 @@
                 "laravel",
                 "laravel-media"
             ],
-            "support": {
-                "issues": "https://github.com/smirltech/laravel-media/issues",
-                "source": "https://github.com/smirltech/laravel-media/tree/v1.0.2"
-            },
-            "time": "2023-01-18T02:34:22+00:00"
+            "transport-options": {
+                "relative": false
+            }
         },
         {
             "name": "spatie/laravel-package-tools",
@@ -10444,7 +10457,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "smirltech/laravel-form": 20
+        "smirltech/laravel-form": 20,
+        "smirltech/laravel-media": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\Sexe;
 use App\Helpers\Helpers;
+use App\Traits\HasAvatar;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,9 +14,10 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use JetBrains\PhpStorm\Pure;
 
+
 class Eleve extends Model
 {
-    use HasFactory, HasUlids;
+    use HasFactory, HasUlids, HasAvatar;
 
     public $guarded = [];
     protected $casts = [
@@ -52,14 +54,14 @@ class Eleve extends Model
     // {annee}{section_id}{count on section+1}
     //ex: 2022010001
 
-    public static function nonInscritsAnneeEnCours()
+    public static function nonInscritsAnneeEnCours(): Collection|array
     {
         return self::whereDoesntHave('inscriptions', function ($q) {
             $q->where('annee_id', Annee::id());
         })->get();
     }
 
-    public function getRouteKeyName()
+    public function getRouteKeyName(): string
     {
         return 'matricule';
     }
@@ -135,17 +137,6 @@ class Eleve extends Model
     public function perceptions(): HasManyThrough
     {
         return $this->hasManyThrough(Perception::class, Inscription::class);
-    }
-
-    public function getProfileUrlAttribute(): ?string
-    {
-        return $this->avatar;
-    }
-
-
-    public function getAvatarAttribute(): string
-    {
-        return Helpers::fetchAvatar($this->full_name);
     }
 
     public function getSectionAttribute(): ?Section

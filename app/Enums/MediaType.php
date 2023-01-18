@@ -10,6 +10,8 @@ enum MediaType: string
     case piece_identite = 'piece_identite';
     case photo_passport = 'photo_passport';
 
+    case avatar = 'avatar';
+
     case bulletin = 'bulletin';
     case document = 'document';
 
@@ -24,6 +26,7 @@ enum MediaType: string
             self::photo_passport => 'photos',
             self::bulletin => 'bulletins',
             self::document => 'documents',
+            self::avatar => 'avatars',
         };
     }
 
@@ -38,6 +41,7 @@ enum MediaType: string
             self::photo_passport => 'Photo de passport',
             self::bulletin => 'Bulletin',
             self::document => 'Devoir',
+            self::avatar => 'Avatar',
 
         };
     }
