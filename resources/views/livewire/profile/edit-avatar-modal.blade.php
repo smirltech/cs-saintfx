@@ -1,18 +1,10 @@
-@php use App\Models\Enseignant; @endphp
 <div class="modal-dialog">
     <form wire:submit.prevent="submit">
         <div class="modal-content">
             <div class="modal-body">
                 <div class="row">
                     <div class="form-group col-md-12">
-                        <x-form-select wire:model="cours_enseignant.enseignant_id"
-                                       label="Enseignant : {{$cours_enseignant->enseignant->nom}}"
-                                       :isValid="$errors->has('cours_enseignant.enseignant_id') ? false : null"
-                                       error="{{$errors->first('cours_enseignant.enseignant_id')}}">
-                            @foreach(Enseignant::classe($cours_enseignant->classe)->get() as $c)
-                                <option value="{{ $c->id }}">{{ $c->nom }}</option>
-                            @endforeach
-                        </x-form-select>
+                        <x-form::input-file-image :avatar="$avatar" multiple wire:model="avatar" label="Avatar"/>
                     </div>
                 </div>
 

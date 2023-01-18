@@ -71,6 +71,8 @@
                                 <div class="form-group col-md-12">
                                     <x-form-textarea
                                         required
+                                        wire:ignore.self
+                                        ckeditor="basic"
                                         placeholder="Saisir le contenu du devoir"
                                         wire:model.defer="devoir.contenu"
                                         label="Contenu du devoir"

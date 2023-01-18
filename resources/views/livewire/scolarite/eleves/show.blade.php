@@ -25,13 +25,15 @@
     <div class="content mt-3">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-11">
                     <div class="card card-primary card-outline">
                         <div class="card-body box-profile">
-                            <div class="text-center">
+                            <div wire:click="$emit('showModal', 'profile.edit-avatar-modal', '{{ $eleve->id }}')"
+                                 class="text-center">
                                 <img class="profile-user-img img-fluid img-circle"
                                      src="{{$eleve->profile_url}}" alt="User profile picture">
                             </div>
+                            <livewire:profile.edit-avatar-modal :eleve="$eleve->id"/>
                             <h3 class="profile-username text-center">{{$eleve->fullName}}</h3>
                             <p class="text-muted text-center">CODE : {{$eleve->code}}</p>
                             <p class="text-muted text-center">CLASSE
