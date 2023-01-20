@@ -36,7 +36,7 @@
                                                    error="{{$errors->first('devoir.classe_id')}}">
                                         @foreach($classes as $classe)
                                             <option
-                                                value="{{$classe->id}}">
+                                                    value="{{$classe->id}}">
                                                 {{$classe->code}}
                                             </option>
                                         @endforeach
@@ -69,16 +69,13 @@
                                 </div>
 
                                 <div class="form-group col-md-12">
-                                    <x-form-textarea
-                                        required
-                                        wire:ignore.self
-                                        ckeditor="basic"
-                                        placeholder="Saisir le contenu du devoir"
-                                        wire:model.defer="devoir.contenu"
-                                        label="Contenu du devoir"
-                                        rows="10"
-                                        :isValid="$errors->has('devoir.contenu') ? false : null"
-                                        error="{{$errors->first('devoir.contenu')}}"/>
+                                    <x-form::ckeditor
+                                            required
+                                            placeholder="Saisir le contenu du devoir"
+                                            wire:model="devoir.contenu"
+                                            label="Contenu du devoir"
+                                            rows="10"
+                                    />
 
 
                                 </div>

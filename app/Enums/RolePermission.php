@@ -4,14 +4,26 @@ namespace App\Enums;
 
 enum RolePermission: string
 {
-    case create_etudiant = 'create_etudiant';
-    case edit_etudiant = 'edit_etudiant';
-    case view_etudiant = 'view_etudiant';
-    case delete_etudiant = 'delete_etudiant';
+    // Eleve
+    case eleves_all = 'eleves.*';
+    // Enseignant
+    case enseignants_all = 'enseignants.*';
+    // User
+    case users_all = 'users.*';
 
-    case create_promotion = 'create_promotion';
-    case create_faculte = 'create_faculte';
-    case create_user = 'create_user';
+    // Devoir
+    case devoirs_all = 'devoirs.*';
 
+    // Facture
+    case factures_all = 'factures.*';
+
+    // Inscription
+    case inscriptions_all = 'inscriptions.*';
+
+    // Role
+    case roles_all = 'roles.*';
+    // Permission
+    case permissions_all = 'permissions.*';
 
 }
+// }

@@ -12,7 +12,8 @@ use Livewire\Redirector;
 class MainDashboardComponent extends Component
 {
     use TopMenuPreview;
-    public function mount():RedirectResponse|Redirector
+
+    public function mount(): RedirectResponse|Redirector
     {
         $me = Auth::user();
         if ($me->role == UserRole::caissier) {

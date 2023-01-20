@@ -1,7 +1,5 @@
 <?php
 
-use App\Enums\RolePermission;
-
 return [
 
     /*
@@ -531,11 +529,31 @@ return [
             ],
         ],
         [
-            'text' => 'Personnel',
-            'icon' => 'fas fa-fw fa-users',
-            'url' => '/users',
-            'can' => RolePermission::create_user->name,
+            'text' => 'Paramètres',
+            'can' => 'browse-settings',
+            'icon' => 'fas fa-fw fa-cog',
+            'submenu' => [
+                [
+                    'text' => 'Utilisateurs',
+                    'url' => 'users',
+                    'icon' => 'fas fa-fw fa-users',
+                    'can' => 'users.view_any',
+                ],
+                [
+                    'text' => 'Rôles',
+                    'url' => 'roles',
+                    'icon' => 'fas fa-fw fa-user-tag',
+                    'can' => 'roles.view_any',
+                ],
+                [
+                    'text' => 'Permissions',
+                    'url' => 'permissions',
+                    'icon' => 'fas fa-fw fa-user-lock',
+                    'can' => 'permissions.view_any',
+                ],
+            ],
         ],
+
     ],
 
     /*

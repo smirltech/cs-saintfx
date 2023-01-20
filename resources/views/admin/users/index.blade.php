@@ -12,7 +12,7 @@
                             </div>
                             <div class="erning_btn d-flex float-right">
                                 <a href="{{route('users.create')}}" class="btn btn-outline-primary btn-sm"><i
-                                        class="fa fa-plus"></i></a>
+                                            class="fa fa-plus"></i></a>
                             </div>
                         </div>
                     </div>
@@ -26,7 +26,7 @@
                                     <td>Nom</td>
                                     <td>Role</td>
                                     <td>Permissions</td>
-                                    @can(RolePermission::create_user->name)
+                                    @can('users.create')
                                         <td>Actions</td>
                                     @endcan
                                 </tr>
@@ -57,7 +57,7 @@
                                             <span>{{$user->display_permissions??'N/A'}}</span><br>
 
                                         </td>
-                                        @can(RolePermission::create_user->name)
+                                        @can('users.create')
                                             <td>
 
                                                 <a href="{{route('users.edit', $user->id)}}"

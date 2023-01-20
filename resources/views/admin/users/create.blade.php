@@ -2,7 +2,7 @@
 @extends('adminlte::page')
 @section('content')
     <div class="container">
-        @can(RolePermission::create_user->name)
+        @can('users.create')
             <div class="row justify-content-center">
                 <div class="col-md-10">
 

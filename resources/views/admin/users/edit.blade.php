@@ -22,7 +22,7 @@
 
                                 </div>
                                 <div class="mt-3">
-                                    @if(Gate::allows(RolePermission::create_user->name) AND auth()->user()->id != $user->id)
+                                    @if(Gate::allows('users.create') AND auth()->user()->id != $user->id)
                                         <form method="post" class="center"
                                               action="{{route('users.destroy',$user)}}">
                                             @csrf @method('DELETE')
@@ -41,7 +41,7 @@
                 <div class="tab-pane fade show active" id="overviewTab" role="tabpanel">
                     <div class="card mb-5">
                         <div class="card-body">
-                            @if(Gate::allows(RolePermission::create_user->name) || auth()->user()->id == $user->id)
+                            @if(Gate::allows('users.create') || auth()->user()->id == $user->id)
                                 <form action="{{route('users.update',$user)}}" enctype="multipart/form-data"
                                       method="POST"
                                       class="form-horizontal">
@@ -80,7 +80,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    @can(RolePermission::create_user->name)
+                                    @can('users.create')
                                         <div class="form-group row">
                                             <label for="role_id" class="col-md-4 col-form-label text-md-right">{{ __('Role')
                                     }}</label>
@@ -90,7 +90,7 @@
                                                         class="form-control  form-select">
                                                     @foreach ($roles as $role)
                                                         <option
-                                                            value="{{$role->id}}">{{$role->display_name}}</option>
+                                                                value="{{$role->id}}">{{$role->display_name}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -116,7 +116,7 @@
                                         <a href="{{route('users.index')}}" class="btn btn-outline-primary btn-sm">
                                             <i class="fa fa-chevron-left"></i>
                                         </a>
-                                        @can(RolePermission::create_user->name)
+                                        @can('users.create')
                                             <button type="submit" class="btn btn-primary btn-sm float-right">
                                                 <i class="fa fa-save"></i> {{__('Save')}}
                                             </button>

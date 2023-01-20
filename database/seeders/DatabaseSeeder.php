@@ -6,7 +6,6 @@ use App\Enums\UserRole;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Str;
 
 
 class DatabaseSeeder extends Seeder
@@ -16,40 +15,41 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
-
-        Schema::disableForeignKeyConstraints();
-
-
-        $this->call([
-            PermissionSeeder::class,
-            AnneeSeeder::class,
-            SectionSeeder::class,
-            OptionSeeder::class,
-            FiliereSeeder::class,
-            ClasseSeeder::class,
-            FraisSeeder::class,
-            DepenseTypeSeeder::class,
-            UnitSeeder::class,
-            EtiquetteSeeder::class,
-        ]);
-
-
-        // create admin
-        User::factory()->create([
-            'email' => 'admin@cenk.cd',
-            'name' => "Admin",
-            'email_verified_at' => now(),
-            'password' => 'password',
-            'remember_token' => Str::random(10),
-        ])->assignRole(UserRole::super_admin->value);
-
-
-        if (!app()->isProduction()) {
+        Schema::withoutForeignKeyConstraints(function () {
             $this->call([
-                FactorySeeder::class,
+                PermissionSeeder::class,
+                AnneeSeeder::class,
+                SectionSeeder::class,
+                OptionSeeder::class,
+                FiliereSeeder::class,
+                ClasseSeeder::class,
+                FraisSeeder::class,
+                DepenseTypeSeeder::class,
+                UnitSeeder::class,
+                EtiquetteSeeder::class,
             ]);
-        }
+
+
+            // create promoteur
+            User::factory()->create([
+                'email' => 'promoteur@cenk.cd',
+                'name' => 'Promoteur',
+            ])->assignRole(UserRole::promoteur->value);
+
+            // create admin
+            User::factory()->create([
+                'email' => 'admin@cenk.cd',
+                'name' => 'Admin',
+            ])->assignRole(UserRole::promoteur->value);
+
+
+            if (!app()->isProduction()) {
+                $this->call([
+                    FactorySeeder::class,
+                ]);
+            }
+        });
     }
 }
