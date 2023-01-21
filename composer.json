@@ -25,7 +25,7 @@
         "simplesoftwareio/simple-qrcode": "^4.2",
         "smirltech/laravel-form": "dev-master",
         "smirltech/laravel-fullcalendar": "^1.0",
-        "smirltech/laravel-media": "dev-develop",
+        "smirltech/laravel-media": "dev-master",
         "spatie/laravel-permission": "^5.5",
         "tailflow/laravel-orion": "^2.16"
     },
