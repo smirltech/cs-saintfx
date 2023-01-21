@@ -21,6 +21,10 @@ enum UserGate
 
     case browse_programme;
 
+    case browse_classes;
+
+    case browse_cours;
+
     public function roles(): array
     {
         return match ($this) {
@@ -69,8 +73,9 @@ enum UserGate
             ],
             self::browse_enseignement => [
                 UserRole::promoteur->value,
-                UserRole::admin->value,
                 UserRole::enseignant->value,
+                UserRole::parent->value,
+                UserRole::eleve->value,
             ],
 
             self::browse_logistique => [
@@ -93,6 +98,7 @@ enum UserGate
                 UserRole::admin->value,
                 UserRole::enseignant->value,
             ],
+            
         };
     }
 

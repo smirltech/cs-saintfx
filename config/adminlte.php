@@ -283,7 +283,7 @@ return [
         [
             'text' => 'Élèves',
             'icon' => 'fas fa-fw fa-user-graduate',
-            // 'can' => RolePermission::view_etudiant->name,
+            'can' => UserGate::browse_eleves->name,
             'submenu' => [
                 [
                     'text' => 'Inscrire un élève',
@@ -313,38 +313,33 @@ return [
             ],
         ],
         [
-            'text' => 'Enseignement',
+            'text' => 'Devoirs',
+            'icon' => 'fas fa-fw fa-tasks',
+            'url' => 'scolarite/devoirs',
+            'shift' => 'ml-1',
+            'can' => UserGate::browse_devoirs->name,
+        ],
+
+        [
+            'text' => 'Cours',
+            'url' => 'scolarite/cours',
+            'icon' => 'fas fa-fw fa-book-open',
+            'can' => UserGate::browse_cours->name,
+        ],
+
+        [
+            'text' => 'Enseignants',
             'icon' => 'fas fa-fw fa-chalkboard-teacher',
-            'submenu' => [
-                [
-                    'text' => 'Devoirs',
-                    'icon' => 'fas fa-fw fa-tasks',
-                    'url' => 'scolarite/devoirs',
-                    'shift' => 'ml-1',
-                ],
+            // 'can' => RolePermission::create_promotion->name,
+            'url' => 'scolarite/enseignants',
+            'can' => UserGate::browse_enseignants->name,
 
-                [
-                    'text' => 'Cours',
-                    'url' => 'scolarite/cours',
-                    'icon' => 'fas fa-fw fa-book-open',
-                    'shift' => 'ml-1',
-                ],
-
-                [
-                    'text' => 'Enseignants',
-                    'icon' => 'fas fa-fw fa-chalkboard-teacher',
-                    // 'can' => RolePermission::create_promotion->name,
-                    'url' => 'scolarite/enseignants',
-                    'shift' => 'ml-1',
-                ],
-                [
-                    'text' => 'Classes',
-                    'icon' => 'fas fa-fw fa-person-chalkboard',
-                    'url' => 'scolarite/classes',
-                    'shift' => 'ml-1',
-                    //      'can' => RolePermission::create_etudiant->name,
-                ],
-            ],
+        ],
+        [
+            'text' => 'Classes',
+            'icon' => 'fas fa-fw fa-person-chalkboard',
+            'url' => 'scolarite/classes',
+            'can' => UserGate::browse_classes->name,
         ],
 
 
@@ -352,7 +347,7 @@ return [
         [
             'text' => 'Encaissements',
             'icon' => 'fas fa-fw fa-arrow-trend-up',
-            // 'can' => RolePermission::view_etudiant->name,
+            'can' => UserGate::browse_logistique->name,
             'submenu' => [
                 [
                     'text' => 'Perceptions',
@@ -419,14 +414,14 @@ return [
             'text' => 'Rapport financier',
             'icon' => 'fas fa-fw fa-chart-column',
             'url' => 'finance/rapports',
-            // 'can' => RolePermission::create_user->name,
+            'can' => UserGate::browse_logistique->name,
         ],
 
         ['header' => 'LOGISTIQUE'],
         [
             'text' => 'Fongibles',
             'icon' => 'fas fa-fw fa-recycle',
-            // 'can' => RolePermission::view_etudiant->name,
+            'can' => UserGate::browse_logistique->name,
             'submenu' => [
                 [
                     'text' => 'Consommables',
@@ -451,7 +446,7 @@ return [
         [
             'text' => 'Non Fongibles',
             'icon' => 'fas fa-fw fa-screwdriver-wrench',
-            // 'can' => RolePermission::view_etudiant->name,
+            'can' => UserGate::browse_logistique->name,
             'submenu' => [
                 [
                     'text' => 'Materiels',
@@ -491,16 +486,19 @@ return [
             'text' => 'Catégories',
             'url' => 'bibliotheque/categories',
             'icon' => 'fas fa-fw fa-layer-group',
+            'can' => UserGate::browse_bibliotheque->name,
         ],
         [
             'text' => 'Auteurs',
             'url' => 'bibliotheque/auteurs',
             'icon' => 'fas fa-fw fa-user-tie',
+            'can' => UserGate::browse_bibliotheque->name,
         ],
         [
             'text' => 'Étiquettes',
             'url' => 'bibliotheque/etiquettes',
             'icon' => 'fas fa-fw fa-tags',
+            'can' => UserGate::browse_bibliotheque->name,
         ],
 
         ['header' => 'ECOLE'],
