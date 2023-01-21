@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Scolarite\Enseignant;
 
+use App\Http\Livewire\BaseComponent;
 use App\Models\Enseignant;
 use App\Traits\CanDeleteModel;
 use App\Traits\TopMenuPreview;
@@ -9,19 +10,19 @@ use App\View\Components\AdminLayout;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
 
-class EnseignantIndexComponent extends Component
+class EnseignantIndexComponent extends BaseComponent
 {
     use TopMenuPreview;
     use LivewireAlert;
     use CanDeleteModel;
 
     public Collection $enseignants;
-    public ?Enseignant $enseignant = null;
+    public Enseignant|null $enseignant = null;
 
     public function mount()
     {
+        $this->authorize("viewAny", Enseignant::class);
         $this->loadData();
     }
 

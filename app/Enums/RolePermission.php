@@ -6,8 +6,7 @@ enum RolePermission: string
 {
     // Eleve
     case eleves_all = 'eleves.*';
-    // Enseignant
-    case enseignants_all = 'enseignants.*';
+
     // User
     case users_all = 'users.*';
 
@@ -28,13 +27,25 @@ enum RolePermission: string
     case responsables_all = 'responsables.*';
     case eleves_view = 'eleves.view';
 
-    // Année
+    //------------------ Enseignant ---------------- //
+    case enseignants_all = 'enseignants.*';
+    case enseignants_create = 'enseignants.create';
+    case enseignants_update_all = 'enseignants.update.*';
+    case enseignants_delete = 'enseignants.delete.*';
+    case enseignants_restore = 'enseignants.restore.*';
+    case enseignants_forceDelete = 'enseignants.forceDelete.*';
+
+    //------------------ ./Enseignant ---------------- //
+
+
+    //------------------ Année ---------------- //
     case annees_all = 'annees.*';
     case annees_create = 'annees.create';
     case annees_update_all = 'annees.update.*';
-    case annees_update_one = 'annees.update.1';
     case annees_delete = 'annees.delete.*';
     case annees_restore = 'annees.restore.*';
     case annees_forceDelete = 'annees.forceDelete.*';
+
+    //------------------ ./Année ---------------- //
 }
 // }

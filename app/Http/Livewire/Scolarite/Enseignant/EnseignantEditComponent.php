@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Scolarite\Enseignant;
 
+use App\Http\Livewire\BaseComponent;
 use App\Models\Enseignant;
 use App\Models\Section;
 use App\Traits\TopMenuPreview;
@@ -9,9 +10,8 @@ use App\View\Components\AdminLayout;
 use Illuminate\Database\Eloquent\Collection;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use JetBrains\PhpStorm\NoReturn;
-use Livewire\Component;
 
-class EnseignantEditComponent extends Component
+class EnseignantEditComponent extends BaseComponent
 {
     use TopMenuPreview;
     use LivewireAlert;
@@ -42,6 +42,7 @@ class EnseignantEditComponent extends Component
 
     public function mount(Enseignant $enseignant)
     {
+        $this->authorize("update", $enseignant);
         $this->enseignant = $enseignant;
         $this->sections = Section::all();
     }
