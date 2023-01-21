@@ -17,7 +17,6 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
@@ -26,6 +25,7 @@ class UserController extends Controller
 
     public function __construct()
     {
+        parent::__construct();
         $this->authorizeResource(User::class);
     }
 
@@ -40,7 +40,7 @@ class UserController extends Controller
         // get user not super admins, use spatie permission
         $users = User::orderByDesc('id')->get();
 
-        return view('admin.users.index', compact('users'))->with('title', ' - '. __('Utilisateurs'));
+        return view('admin.users.index', compact('users'))->with('title', ' - ' . __('Utilisateurs'));
     }
 
     /**

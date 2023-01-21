@@ -18,9 +18,9 @@ class UserPolicy
      */
     public function viewAny(User $user): Response|bool
     {
-        return $user->can('users.view_any')
+        return $user->can('users.view.*')
             ? Response::allow()
-            : Response::deny('You do not have permission to view users.');
+            : Response::denyAsNotFound('Vous n\'etes pas autorisé à voir les utilisateurs.');
     }
 
     /**

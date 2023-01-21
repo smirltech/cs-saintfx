@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Scolarite\Eleve;
 use App\Enums\InscriptionCategorie;
 use App\Enums\InscriptionStatus;
 use App\Enums\ResponsableRelation;
+use App\Http\Livewire\BaseComponent;
 use App\Models\Annee;
 use App\Models\Eleve;
 use App\Models\Filiere;
@@ -17,14 +18,12 @@ use App\Traits\CanHandleEleveUniqueCode;
 use App\Traits\FakeProfileImage;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
+use Illuminate\Auth\Access\AuthorizationException;
 use Throwable;
 
-class EleveShowComponent extends Component
+class EleveShowComponent extends BaseComponent
 {
     use TopMenuPreview;
-    use LivewireAlert;
     use FakeProfileImage;
     use CanHandleEleveUniqueCode;
 
@@ -66,6 +65,7 @@ class EleveShowComponent extends Component
     public $responsable_relation2;
 
     protected $listeners = ['onModalClosed', 'refreshComponent' => '$refresh', 'refresh' => '$refresh'];
+
 
     public function runSearchResponsables()
     {
@@ -137,8 +137,13 @@ class EleveShowComponent extends Component
         $this->reset(['inscription_status']);
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function mount(Eleve $eleve)
     {
+        $this->authorize('view', $eleve);
+
         $this->devoirs = $eleve->devoirs;
 
         $this->eleve = $eleve;
