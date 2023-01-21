@@ -27,6 +27,10 @@ enum UserGate
     public function roles(): array
     {
         return match ($this) {
+            self::browse_finance => [
+                UserRole::promoteur->value,
+                UserRole::caissier->value,
+            ],
             self::browse_settings => [
                 UserRole::promoteur->value,
             ],
@@ -66,10 +70,7 @@ enum UserGate
                 UserRole::promoteur->value,
                 UserRole::admin->value,
             ],
-            self::browse_finance => [
-                UserRole::promoteur->value,
-                UserRole::caissier->value,
-            ],
+
 
             self::browse_logistique => [
                 UserRole::promoteur->value,

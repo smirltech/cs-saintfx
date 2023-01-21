@@ -25,7 +25,6 @@ class UserController extends Controller
 
     public function __construct()
     {
-        parent::__construct();
         $this->authorizeResource(User::class);
     }
 
@@ -46,8 +45,8 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
-     * @return Application|RedirectResponse|Redirector
+     * @param StoreUserRequest $request
+     * @return RedirectResponse
      */
     public function store(StoreUserRequest $request)
     {
