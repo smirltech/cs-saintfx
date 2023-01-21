@@ -1,5 +1,7 @@
 <?php
 
+use App\Enums\UserGate;
+
 return [
 
     /*
@@ -483,6 +485,7 @@ return [
             'text' => 'Ouvrages',
             'url' => 'bibliotheque/ouvrages',
             'icon' => 'fas fa-fw fa-book',
+            'can' => UserGate::browse_bibliotheque->name,
         ],
         [
             'text' => 'Catégories',
@@ -505,11 +508,12 @@ return [
             'text' => 'Calendrier',
             'url' => 'scolarite/annees',
             'icon' => 'fas fa-fw fa-calendar-alt',
+            'can' => UserGate::browse_calendar->name,
         ],
         [
             'text' => 'Programme',
             'icon' => 'fas fa-fw fa-university',
-            // 'can' => RolePermission::create_faculte->name,
+            'can' => UserGate::browse_programme->name,
             'submenu' => [
                 [
                     'text' => 'Filières',
@@ -530,7 +534,7 @@ return [
         ],
         [
             'text' => 'Paramètres',
-            'can' => 'browse-settings',
+            'can' => UserGate::browse_settings->name,
             'icon' => 'fas fa-fw fa-cog',
             'submenu' => [
                 [

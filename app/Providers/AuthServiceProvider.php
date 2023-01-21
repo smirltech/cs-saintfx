@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
-use App\Enums\UserRole;
+use App\Enums\UserGate;
 use App\Models\User;
 use Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -28,11 +28,10 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::define('browse-settings', function (User $user) {
-            return $user->hasRole([
-                UserRole::promoteur->value,
-                UserRole::admin->value,
-            ]);
-        });
+        foreach (UserGate::cases() as $gate) {
+            Gate::define($gate->name, function (User $user) use ($gate) {
+                return $user->hasAnyRole($gate->roles());
+            });
+        }
     }
 }
