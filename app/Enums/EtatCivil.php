@@ -9,6 +9,7 @@ enum EtatCivil: string
     case divorced = 'divorced';
     case widowed = 'widowed';
 
+
     // label() is a method that returns the label of the enum value
     public function label(): string
     {

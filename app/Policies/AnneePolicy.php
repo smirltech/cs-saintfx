@@ -25,28 +25,38 @@ class AnneePolicy
             : Response::deny('Vous n\'etes pas autorisé à voir cette année.');
     }
 
-    public function create(User $user): void
+    public function create(User $user): Response
     {
-        
+       return  $user->can('annees.create')
+            ? Response::allow()
+            : Response::deny('Vous n\'etes pas autorisé à créer une année.');
     }
 
-    public function update(User $user, Annee $annee)
+    public function update(User $user, Annee $annee):Response
     {
-        //
+        return $user->can('annees.update.' . $annee->id)
+            ? Response::allow()
+            : Response::deny('Vous n\'etes pas autorisé à modifier cette année.');
     }
 
     public function delete(User $user, Annee $annee)
     {
-        //
+        return $user->can('annees.delete.' . $annee->id)
+            ? Response::allow()
+            : Response::deny('Vous n\'etes pas autorisé à supprimer cette année.');
     }
 
     public function restore(User $user, Annee $annee)
     {
-        //
+        return $user->can('annees.restore.' . $annee->id)
+            ? Response::allow()
+            : Response::deny('Vous n\'etes pas autorisé à restaurer cette année.');
     }
 
     public function forceDelete(User $user, Annee $annee)
     {
-        //
+        return $user->can('annees.forceDelete.' . $annee->id)
+            ? Response::allow()
+            : Response::deny('Vous n\'etes pas autorisé à supprimer définitivement cette année.');
     }
 }
