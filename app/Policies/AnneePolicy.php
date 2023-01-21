@@ -2,7 +2,6 @@
 
 namespace App\Policies;
 
-use App\Enums\UserRole;
 use App\Models\Annee;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -12,23 +11,23 @@ class AnneePolicy
 {
     use HandlesAuthorization;
 
-    public function viewAny(User $user):Response|bool
+    public function viewAny(User $user)
     {
-        return $user->can('annees.view.*')
+        return $user->can('annees.view')
             ? Response::allow()
             : Response::deny('Vous n\'etes pas autorisé à voir les années.');
     }
 
-    public function view(User $user, Annee $annee):Response|bool
+    public function view(User $user, Annee $annee): Response
     {
-        return $user->can('users.view.' . $annee->id)
+        return $user->can('annees.view.' . $annee->id)
             ? Response::allow()
-            : Response::deny('You do not have permission to view this user.');
+            : Response::deny('Vous n\'etes pas autorisé à voir cette année.');
     }
 
-    public function create(User $user)
+    public function create(User $user): void
     {
-        //
+        
     }
 
     public function update(User $user, Annee $annee)
