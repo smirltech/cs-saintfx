@@ -16,7 +16,7 @@ class PermissionSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         foreach (RolePermission::cases() as $permission) {
             Permission::create(['name' => $permission->value]);

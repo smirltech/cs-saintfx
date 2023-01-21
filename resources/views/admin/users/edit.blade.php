@@ -14,7 +14,9 @@
                                 <div class="h5 mb-0">{{$user->name}}@if ($user->hasVerifiedEmail())
                                         <i class="fa fa-check-circle"></i>
                                     @endif</div>
-                                <div class="text-muted">{{$user->role_name??'N/A'}}
+                                <div class="text-muted text-center">
+                                    {{$user->role_name??'N/A'}}<br>
+                                    {{$user->display_permissions??'N/A'}}
                                 </div>
                                 <div class="text-muted">
                                     <i class="zmdi zmdi-email"></i>
@@ -22,7 +24,7 @@
 
                                 </div>
                                 <div class="mt-3">
-                                    @if(Gate::allows(RolePermission::create_user->name) AND auth()->user()->id != $user->id)
+                                    @if(Gate::allows('users.create') AND auth()->user()->id != $user->id)
                                         <form method="post" class="center"
                                               action="{{route('users.destroy',$user)}}">
                                             @csrf @method('DELETE')
@@ -41,7 +43,7 @@
                 <div class="tab-pane fade show active" id="overviewTab" role="tabpanel">
                     <div class="card mb-5">
                         <div class="card-body">
-                            @if(Gate::allows(RolePermission::create_user->name) || auth()->user()->id == $user->id)
+                            @if(Gate::allows('users.create') || auth()->user()->id == $user->id)
                                 <form action="{{route('users.update',$user)}}" enctype="multipart/form-data"
                                       method="POST"
                                       class="form-horizontal">
@@ -80,7 +82,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    @can(RolePermission::create_user->name)
+                                    @can('users.create')
                                         <div class="form-group row">
                                             <label for="role_id" class="col-md-4 col-form-label text-md-right">{{ __('Role')
                                     }}</label>
@@ -116,7 +118,7 @@
                                         <a href="{{route('users.index')}}" class="btn btn-outline-primary btn-sm">
                                             <i class="fa fa-chevron-left"></i>
                                         </a>
-                                        @can(RolePermission::create_user->name)
+                                        @can('users.create')
                                             <button type="submit" class="btn btn-primary btn-sm float-right">
                                                 <i class="fa fa-save"></i> {{__('Save')}}
                                             </button>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\RolePermission;
+use App\Enums\UserGate;
 
 return [
 
@@ -283,124 +284,113 @@ return [
         [
             'text' => 'Élèves',
             'icon' => 'fas fa-fw fa-user-graduate',
-            // 'can' => RolePermission::view_etudiant->name,
+            'can' => UserGate::browse_eleves->name,
             'submenu' => [
                 [
                     'text' => 'Inscrire un élève',
                     'url' => 'scolarite/inscriptions/create',
                     'icon' => 'fa fa-plus',
                     'shift' => 'ml-1',
-                    //      'can' => RolePermission::create_etudiant->name,
+                    'can' => RolePermission::eleves_all->name,
                 ],
                 [
                     'text' => 'Elèves inscrits',
                     'url' => 'scolarite/inscriptions',
                     'icon' => 'fa fa-users-line',
                     'shift' => 'ml-1',
+                    'can' => RolePermission::eleves_view,
                 ],
                 [
                     'text' => 'Elèves non inscrits',
                     'url' => 'scolarite/non-inscriptions',
                     'icon' => 'fa fa-users-rays',
                     'shift' => 'ml-1',
+                    'can' => RolePermission::eleves_all->name,
                 ],
                 [
                     'text' => 'Responsables',
                     'url' => 'scolarite/responsables',
                     'icon' => 'fas fa-fw fa-person-pregnant',
                     'shift' => 'ml-1',
+                    'can' => RolePermission::responsables_all->name,
                 ],
             ],
         ],
         [
-            'text' => 'Enseignement',
+            'text' => 'Devoirs',
+            'icon' => 'fas fa-fw fa-tasks',
+            'url' => 'scolarite/devoirs',
+            'can' => UserGate::browse_devoirs->name,
+        ],
+
+        [
+            'text' => 'Cours',
+            'url' => 'scolarite/cours',
+            'icon' => 'fas fa-fw fa-book-open',
+            'can' => UserGate::browse_cours->name,
+        ],
+
+        [
+            'text' => 'Enseignants',
             'icon' => 'fas fa-fw fa-chalkboard-teacher',
-            'submenu' => [
-                [
-                    'text' => 'Devoirs',
-                    'icon' => 'fas fa-fw fa-tasks',
-                    'url' => 'scolarite/devoirs',
-                    'shift' => 'ml-1',
-                ],
+            // 'can' => RolePermission::create_promotion->name,
+            'url' => 'scolarite/enseignants',
+            'can' => UserGate::browse_enseignants->name,
 
-                [
-                    'text' => 'Cours',
-                    'url' => 'scolarite/cours',
-                    'icon' => 'fas fa-fw fa-book-open',
-                    'shift' => 'ml-1',
-                ],
-
-                [
-                    'text' => 'Enseignants',
-                    'icon' => 'fas fa-fw fa-chalkboard-teacher',
-                    // 'can' => RolePermission::create_promotion->name,
-                    'url' => 'scolarite/enseignants',
-                    'shift' => 'ml-1',
-                ],
-                [
-                    'text' => 'Classes',
-                    'icon' => 'fas fa-fw fa-person-chalkboard',
-                    'url' => 'scolarite/classes',
-                    'shift' => 'ml-1',
-                    //      'can' => RolePermission::create_etudiant->name,
-                ],
-            ],
+        ],
+        [
+            'text' => 'Classes',
+            'icon' => 'fas fa-fw fa-person-chalkboard',
+            'url' => 'scolarite/classes',
+            'can' => UserGate::browse_classes->name,
         ],
 
 
         ['header' => 'FINANCE'],
         [
-            'text' => 'Encaissements',
+            'text' => 'Caisse',
+            'icon' => 'fas fa-fw fa-cash-register',
+            'url' => 'finance/caisse',
+            //      'can' => RolePermission::create_etudiant->name,
+        ],
+        [
+
+            'text' => 'Perceptions',
             'icon' => 'fas fa-fw fa-arrow-trend-up',
             // 'can' => RolePermission::view_etudiant->name,
             'submenu' => [
                 [
-                    'text' => 'Perceptions',
-                    'icon' => 'fas fa-fw fa-coins',
+                    'text' => 'Ajouter facture',
+                    'url' => 'finance/perceptions/create',
                     'shift' => 'ml-1',
-                    // 'can' => RolePermission::view_etudiant->name,
-                    'submenu' => [
-                        [
-                            'text' => 'Caisse',
-                            'url' => 'finance/caisse',
-                            'shift' => 'ml-4',
-                            //      'can' => RolePermission::create_etudiant->name,
-                        ],
-                        [
-                            'text' => 'Ajouter facture',
-                            'url' => 'finance/perceptions/create',
-                            'shift' => 'ml-4',
-                            //      'can' => RolePermission::create_etudiant->name,
-                        ],
-                        [
-                            'text' => 'Liste de factures',
-                            'url' => 'finance/perceptions',
-                            'shift' => 'ml-4',
-                        ],
-                        [
-                            'text' => 'Plans de frais',
-                            'url' => 'finance/frais',
-                            'shift' => 'ml-4',
-                        ],
-                    ],
+                    //      'can' => RolePermission::create_etudiant->name,
                 ],
-
                 [
-                    'text' => 'Revenu Auxiliaire',
-                    'icon' => 'fas fa-fw fa-money-bill-trend-up',
-                    'url' => 'finance/revenus',
+                    'text' => 'Liste de factures',
+                    'url' => 'finance/perceptions',
                     'shift' => 'ml-1',
-                    // 'can' => RolePermission::create_user->name,
+                ],
+                [
+                    'text' => 'Plans de frais',
+                    'url' => 'finance/frais',
+                    'shift' => 'ml-1',
                 ],
             ],
         ],
+
         [
-            'text' => 'Décaissements',
+            'text' => 'Revenu Auxiliaire',
+            'icon' => 'fas fa-fw fa-money-bill-trend-up',
+            'url' => 'finance/revenus',
+            // 'can' => RolePermission::create_user->name,
+        ],
+        [
+            'text' => 'Dépenses',
             'icon' => 'fas fa-fw fa-arrow-trend-down',
-            // 'can' => RolePermission::view_etudiant->name,
+            'can' => UserGate::browse_finance->name,
             'submenu' => [
                 [
-                    'text' => 'Dépenses',
+                    'text' => 'Liste des Dépenses',
                     'icon' => 'fas fa-fw fa-coins',
                     // 'can' => RolePermission::view_etudiant->name,
                     'url' => 'finance/depenses',
@@ -419,14 +409,14 @@ return [
             'text' => 'Rapport financier',
             'icon' => 'fas fa-fw fa-chart-column',
             'url' => 'finance/rapports',
-            // 'can' => RolePermission::create_user->name,
+            'can' => UserGate::browse_finance->name,
         ],
 
         ['header' => 'LOGISTIQUE'],
         [
             'text' => 'Fongibles',
             'icon' => 'fas fa-fw fa-recycle',
-            // 'can' => RolePermission::view_etudiant->name,
+            'can' => UserGate::browse_logistique->name,
             'submenu' => [
                 [
                     'text' => 'Consommables',
@@ -451,7 +441,7 @@ return [
         [
             'text' => 'Non Fongibles',
             'icon' => 'fas fa-fw fa-screwdriver-wrench',
-            // 'can' => RolePermission::view_etudiant->name,
+            'can' => UserGate::browse_logistique->name,
             'submenu' => [
                 [
                     'text' => 'Materiels',
@@ -485,21 +475,25 @@ return [
             'text' => 'Ouvrages',
             'url' => 'bibliotheque/ouvrages',
             'icon' => 'fas fa-fw fa-book',
+            'can' => UserGate::browse_bibliotheque->name,
         ],
         [
             'text' => 'Catégories',
             'url' => 'bibliotheque/categories',
             'icon' => 'fas fa-fw fa-layer-group',
+            'can' => UserGate::browse_bibliotheque->name,
         ],
         [
             'text' => 'Auteurs',
             'url' => 'bibliotheque/auteurs',
             'icon' => 'fas fa-fw fa-user-tie',
+            'can' => UserGate::browse_bibliotheque->name,
         ],
         [
             'text' => 'Étiquettes',
             'url' => 'bibliotheque/etiquettes',
             'icon' => 'fas fa-fw fa-tags',
+            'can' => UserGate::browse_bibliotheque->name,
         ],
 
         ['header' => 'ECOLE'],
@@ -507,11 +501,12 @@ return [
             'text' => 'Calendrier',
             'url' => 'scolarite/annees',
             'icon' => 'fas fa-fw fa-calendar-alt',
+            'can' => UserGate::browse_calendar->name,
         ],
         [
             'text' => 'Programme',
             'icon' => 'fas fa-fw fa-university',
-            // 'can' => RolePermission::create_faculte->name,
+            'can' => UserGate::browse_programme->name,
             'submenu' => [
                 [
                     'text' => 'Filières',
@@ -531,11 +526,31 @@ return [
             ],
         ],
         [
-            'text' => 'Personnel',
-            'icon' => 'fas fa-fw fa-users',
-            'url' => '/users',
-            'can' => RolePermission::create_user->name,
+            'text' => 'Paramètres',
+            'can' => UserGate::browse_settings->name,
+            'icon' => 'fas fa-fw fa-cog',
+            'submenu' => [
+                [
+                    'text' => 'Utilisateurs',
+                    'url' => 'users',
+                    'icon' => 'fas fa-fw fa-users',
+                    'can' => 'users.view_any',
+                ],
+                [
+                    'text' => 'Rôles',
+                    'url' => 'roles',
+                    'icon' => 'fas fa-fw fa-user-tag',
+                    'can' => 'roles.view_any',
+                ],
+                [
+                    'text' => 'Permissions',
+                    'url' => 'permissions',
+                    'icon' => 'fas fa-fw fa-user-lock',
+                    'can' => 'permissions.view_any',
+                ],
+            ],
         ],
+
     ],
 
     /*

@@ -25,8 +25,7 @@
                                     <td></td>
                                     <td>Nom</td>
                                     <td>Role</td>
-                                    <td>Permissions</td>
-                                    @can(RolePermission::create_user->name)
+                                    @can('users.create')
                                         <td>Actions</td>
                                     @endcan
                                 </tr>
@@ -50,14 +49,10 @@
 
                                         <td>
                                             <span>{{$user->role->display_name??'N/A'}}</span><br>
-                                            <span>{{$user->faculte->nom??'N/A'}}</span>
+                                            <span>{{$user->display_permissions??'N/A'}}</span>
 
                                         </td>
-                                        <td>
-                                            <span>{{$user->display_permissions??'N/A'}}</span><br>
-
-                                        </td>
-                                        @can(RolePermission::create_user->name)
+                                        @can('users.create')
                                             <td>
 
                                                 <a href="{{route('users.edit', $user->id)}}"
