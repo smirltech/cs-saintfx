@@ -27,5 +27,11 @@ enum RolePermission: string
 
     case responsables_all = 'responsables.*';
     case eleves_view = 'eleves.view';
+
+    // Année
+    case annees_all = 'annees.*';
+    case annees_create = 'annees.create';
+    case annees_update_all = 'annees.update.*';
+    case annees_update_one = 'annees.update.1';
 }
 // }

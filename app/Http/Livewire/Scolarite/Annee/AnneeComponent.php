@@ -2,14 +2,15 @@
 
 namespace App\Http\Livewire\Scolarite\Annee;
 
+use App\Http\Livewire\BaseComponent;
 use App\Models\Annee;
+use App\Models\User;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Exception;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
 
-class AnneeComponent extends Component
+class AnneeComponent extends BaseComponent
 {
     use TopMenuPreview;
     use LivewireAlert;
@@ -25,6 +26,7 @@ class AnneeComponent extends Component
 
     public function mount()
     {
+        $this->authorize("viewAny", Annee::class);
         $this->initAnnee();
         $this->loadData();
     }
