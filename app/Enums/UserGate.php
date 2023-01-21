@@ -15,7 +15,6 @@ enum UserGate
     case browse_inscriptions;
     case browse_calendar;
     case browse_finance;
-    case browse_enseignement;
     case browse_logistique;
     case browse_bibliotheque;
 
@@ -47,6 +46,7 @@ enum UserGate
             self::browse_eleves => [
                 UserRole::promoteur->value,
                 UserRole::admin->value,
+                UserRole::parent->value,
             ],
             self::browse_enseignants => [
                 UserRole::promoteur->value,
@@ -54,8 +54,10 @@ enum UserGate
             ],
             self::browse_devoirs => [
                 UserRole::promoteur->value,
-                UserRole::admin->value,
                 UserRole::enseignant->value,
+                UserRole::eleve->value,
+                UserRole::parent->value,
+
             ],
             self::browse_factures => [
                 UserRole::promoteur->value,
@@ -71,12 +73,6 @@ enum UserGate
                 UserRole::admin->value,
                 UserRole::caissier->value,
             ],
-            self::browse_enseignement => [
-                UserRole::promoteur->value,
-                UserRole::enseignant->value,
-                UserRole::parent->value,
-                UserRole::eleve->value,
-            ],
 
             self::browse_logistique => [
                 UserRole::promoteur->value,
@@ -86,19 +82,40 @@ enum UserGate
             self::browse_bibliotheque => [
                 UserRole::promoteur->value,
                 UserRole::admin->value,
+                UserRole::enseignant->value,
+                UserRole::eleve->value,
+
             ],
             self::browse_calendar => [
                 UserRole::promoteur->value,
                 UserRole::admin->value,
                 UserRole::enseignant->value,
+                UserRole::eleve->value,
+                UserRole::parent->value,
             ],
 
             self::browse_programme => [
                 UserRole::promoteur->value,
                 UserRole::admin->value,
                 UserRole::enseignant->value,
+
             ],
-            
+
+            self::browse_classes => [
+                UserRole::promoteur->value,
+                UserRole::admin->value,
+                UserRole::enseignant->value,
+            ],
+
+            self::browse_cours => [
+                UserRole::promoteur->value,
+                UserRole::admin->value,
+                UserRole::enseignant->value,
+                UserRole::eleve->value,
+                UserRole::parent->value,
+            ],
+
+
         };
     }
 

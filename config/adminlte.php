@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\RolePermission;
 use App\Enums\UserGate;
 
 return [
@@ -290,25 +291,28 @@ return [
                     'url' => 'scolarite/inscriptions/create',
                     'icon' => 'fa fa-plus',
                     'shift' => 'ml-1',
-                    //      'can' => RolePermission::create_etudiant->name,
+                    'can' => RolePermission::eleves_all->name,
                 ],
                 [
                     'text' => 'Elèves inscrits',
                     'url' => 'scolarite/inscriptions',
                     'icon' => 'fa fa-users-line',
                     'shift' => 'ml-1',
+                    'can' => RolePermission::eleves_view,
                 ],
                 [
                     'text' => 'Elèves non inscrits',
                     'url' => 'scolarite/non-inscriptions',
                     'icon' => 'fa fa-users-rays',
                     'shift' => 'ml-1',
+                    'can' => RolePermission::eleves_all->name,
                 ],
                 [
                     'text' => 'Responsables',
                     'url' => 'scolarite/responsables',
                     'icon' => 'fas fa-fw fa-person-pregnant',
                     'shift' => 'ml-1',
+                    'can' => RolePermission::responsables_all->name,
                 ],
             ],
         ],
@@ -316,7 +320,6 @@ return [
             'text' => 'Devoirs',
             'icon' => 'fas fa-fw fa-tasks',
             'url' => 'scolarite/devoirs',
-            'shift' => 'ml-1',
             'can' => UserGate::browse_devoirs->name,
         ],
 
@@ -347,7 +350,7 @@ return [
         [
             'text' => 'Encaissements',
             'icon' => 'fas fa-fw fa-arrow-trend-up',
-            'can' => UserGate::browse_logistique->name,
+            'can' => UserGate::browse_finance->name,
             'submenu' => [
                 [
                     'text' => 'Perceptions',
@@ -392,7 +395,7 @@ return [
         [
             'text' => 'Décaissements',
             'icon' => 'fas fa-fw fa-arrow-trend-down',
-            // 'can' => RolePermission::view_etudiant->name,
+            'can' => UserGate::browse_finance->name,
             'submenu' => [
                 [
                     'text' => 'Dépenses',
@@ -414,7 +417,7 @@ return [
             'text' => 'Rapport financier',
             'icon' => 'fas fa-fw fa-chart-column',
             'url' => 'finance/rapports',
-            'can' => UserGate::browse_logistique->name,
+            'can' => UserGate::browse_finance->name,
         ],
 
         ['header' => 'LOGISTIQUE'],

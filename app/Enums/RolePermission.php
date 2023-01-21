@@ -25,5 +25,7 @@ enum RolePermission: string
     // Permission
     case permissions_all = 'permissions.*';
 
+    case responsables_all = 'responsables.*';
+    case eleves_view = 'eleves.view';
 }
 // }

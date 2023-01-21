@@ -31,8 +31,11 @@ enum UserRole: string
             self::caissier => [
                 RolePermission::factures_all->value,
             ],
-            self::eleve, self::parent => [
+            self::eleve => [
 
+            ],
+            self::parent => [
+                RolePermission::eleves_view->value,
             ]
 
         };
