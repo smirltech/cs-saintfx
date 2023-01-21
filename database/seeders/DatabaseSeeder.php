@@ -42,7 +42,7 @@ class DatabaseSeeder extends Seeder
             User::factory()->create([
                 'email' => 'admin@cenk.cd',
                 'name' => 'Admin',
-            ])->assignRole(UserRole::promoteur->value);
+            ])->assignRole(UserRole::admin->value);
 
 
             if (!app()->isProduction()) {

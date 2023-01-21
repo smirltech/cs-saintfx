@@ -29,7 +29,6 @@ enum UserGate
         return match ($this) {
             self::browse_settings => [
                 UserRole::promoteur->value,
-                UserRole::admin->value,
             ],
             self::browse_users => [
                 UserRole::promoteur->value,
@@ -45,7 +44,6 @@ enum UserGate
             ],
             self::browse_eleves => [
                 UserRole::promoteur->value,
-                UserRole::admin->value,
                 UserRole::parent->value,
             ],
             self::browse_enseignants => [
@@ -70,7 +68,6 @@ enum UserGate
             ],
             self::browse_finance => [
                 UserRole::promoteur->value,
-                UserRole::admin->value,
                 UserRole::caissier->value,
             ],
 

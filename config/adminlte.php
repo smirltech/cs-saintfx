@@ -348,57 +348,49 @@ return [
 
         ['header' => 'FINANCE'],
         [
-            'text' => 'Encaissements',
+            'text' => 'Caisse',
+            'icon' => 'fas fa-fw fa-cash-register',
+            'url' => 'finance/caisse',
+            //      'can' => RolePermission::create_etudiant->name,
+        ],
+        [
+
+            'text' => 'Perceptions',
             'icon' => 'fas fa-fw fa-arrow-trend-up',
-            'can' => UserGate::browse_finance->name,
+            // 'can' => RolePermission::view_etudiant->name,
             'submenu' => [
                 [
-                    'text' => 'Perceptions',
-                    'icon' => 'fas fa-fw fa-coins',
+                    'text' => 'Ajouter facture',
+                    'url' => 'finance/perceptions/create',
                     'shift' => 'ml-1',
-                    // 'can' => RolePermission::view_etudiant->name,
-                    'submenu' => [
-                        [
-                            'text' => 'Caisse',
-                            'url' => 'finance/caisse',
-                            'shift' => 'ml-4',
-                            //      'can' => RolePermission::create_etudiant->name,
-                        ],
-                        [
-                            'text' => 'Ajouter facture',
-                            'url' => 'finance/perceptions/create',
-                            'shift' => 'ml-4',
-                            //      'can' => RolePermission::create_etudiant->name,
-                        ],
-                        [
-                            'text' => 'Liste de factures',
-                            'url' => 'finance/perceptions',
-                            'shift' => 'ml-4',
-                        ],
-                        [
-                            'text' => 'Plans de frais',
-                            'url' => 'finance/frais',
-                            'shift' => 'ml-4',
-                        ],
-                    ],
+                    //      'can' => RolePermission::create_etudiant->name,
                 ],
-
                 [
-                    'text' => 'Revenu Auxiliaire',
-                    'icon' => 'fas fa-fw fa-money-bill-trend-up',
-                    'url' => 'finance/revenus',
+                    'text' => 'Liste de factures',
+                    'url' => 'finance/perceptions',
                     'shift' => 'ml-1',
-                    // 'can' => RolePermission::create_user->name,
+                ],
+                [
+                    'text' => 'Plans de frais',
+                    'url' => 'finance/frais',
+                    'shift' => 'ml-1',
                 ],
             ],
         ],
+
         [
-            'text' => 'Décaissements',
+            'text' => 'Revenu Auxiliaire',
+            'icon' => 'fas fa-fw fa-money-bill-trend-up',
+            'url' => 'finance/revenus',
+            // 'can' => RolePermission::create_user->name,
+        ],
+        [
+            'text' => 'Dépenses',
             'icon' => 'fas fa-fw fa-arrow-trend-down',
             'can' => UserGate::browse_finance->name,
             'submenu' => [
                 [
-                    'text' => 'Dépenses',
+                    'text' => 'Liste des Dépenses',
                     'icon' => 'fas fa-fw fa-coins',
                     // 'can' => RolePermission::view_etudiant->name,
                     'url' => 'finance/depenses',
