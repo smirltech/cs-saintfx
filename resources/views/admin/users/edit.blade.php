@@ -14,7 +14,9 @@
                                 <div class="h5 mb-0">{{$user->name}}@if ($user->hasVerifiedEmail())
                                         <i class="fa fa-check-circle"></i>
                                     @endif</div>
-                                <div class="text-muted">{{$user->role_name??'N/A'}}
+                                <div class="text-muted text-center">
+                                    {{$user->role_name??'N/A'}}<br>
+                                    {{$user->display_permissions??'N/A'}}
                                 </div>
                                 <div class="text-muted">
                                     <i class="zmdi zmdi-email"></i>
@@ -90,7 +92,7 @@
                                                         class="form-control  form-select">
                                                     @foreach ($roles as $role)
                                                         <option
-                                                                value="{{$role->id}}">{{$role->display_name}}</option>
+                                                            value="{{$role->id}}">{{$role->display_name}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>

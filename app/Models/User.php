@@ -31,7 +31,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function lectures():HasMany
+    public function lectures(): HasMany
     {
         return $this->hasMany(Lecture::class);
     }
@@ -85,10 +85,17 @@ class User extends Authenticatable
         $this->attributes['password'] = Hash::make($value);
     }
 
-    public function setRoleIdAttribute($value)
+    public function setRoleIdAttribute($role_id)
     {
-        $this->assignRole($value);
+        $this->syncRoles($role_id);
     }
 
+    // all permission names attribute
+
+    // display permissions attribute
+    public function getDisplayPermissionsAttribute(): string
+    {
+        return $this->getAllPermissions()->pluck('name')->implode(', ');
+    }
 
 }
