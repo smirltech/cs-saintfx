@@ -18,7 +18,7 @@ class RolePolicy
             : Response::deny('Vous n\'etes pas autorisé à voir les roles.');
     }
 
-    public function view(User $user, Role $role)
+    public function view(User $user, Role $role): void
     {
         //
     }
