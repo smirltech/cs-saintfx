@@ -542,12 +542,6 @@ return [
                     'icon' => 'fas fa-fw fa-user-tag',
                     'can' => 'roles.view_any',
                 ],
-                [
-                    'text' => 'Permissions',
-                    'url' => 'permissions',
-                    'icon' => 'fas fa-fw fa-user-lock',
-                    'can' => 'permissions.view_any',
-                ],
             ],
         ],
 
