@@ -16,11 +16,7 @@ class RoleModal extends Component
     public Collection $permissions;
     public array $new_permissions = [];
 
-    protected $rules = [
-        'role.name' => 'required|unique:roles,name',
-        'new_permissions' => 'required|array',
-        'role.description' => 'nullable|string|max:255',
-    ];
+    // rules function
 
     public function mount(Role $role): void
     {
@@ -33,20 +29,34 @@ class RoleModal extends Component
         return view('livewire.roles.role-modal');
     }
 
-    // updated
-    /*    public function updated($propertyName): void
-        {
-            $this->validateOnly($propertyName);
-        }*/
-
-    // save
     public function save(): void
     {
         $this->validate();
         $this->role->save();
-        $this->role->permissions()->sync($this->new_permissions);
+        if (count($this->new_permissions) > 0) {
+            $this->role->syncPermissions($this->new_permissions);
+        }
         $this->emit('refreshRoles');
-        $this->emit('closeModal');
+        $this->emit('hideModal');
+    }
+    
+
+    public function delete(): void
+    {
+        $this->role->delete();
+        $this->emit('refreshRoles');
+        $this->emit('hideModal');
+    }
+
+    // delete
+
+    protected function rules(): array
+    {
+        return [
+            'role.name' => 'required|unique:roles,name,' . $this->role->id,
+            'new_permissions' => 'nullable|array',
+            'role.description' => 'nullable|string|max:255',
+        ];
     }
 
 

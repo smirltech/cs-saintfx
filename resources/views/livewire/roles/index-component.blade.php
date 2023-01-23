@@ -23,13 +23,13 @@
                             <h3 hidden class="m-0">{{__($title)}}</h3>
                         </div>
                         <div class="erning_btn d-flex float-right">
-                            <a href="{{route('users.create')}}" class="btn btn-outline-primary btn-sm"><i
-                                    class="fa fa-plus"></i></a>
+                            <button wire:click="$emit('showModal','roles.role-modal')"
+                                    class="btn btn-outline-primary btn-sm"><i
+                                    class="fa fa-plus"></i></button>
                         </div>
                     </div>
                 </div>
                 <div class="mb-3 card-body">
-                    <livewire:roles.role-modal/>
                     <!-- table-responsive -->
                     <div class="table-responsive-md">
                         <table class="table">
@@ -59,10 +59,10 @@
                                     </td>
                                     <td>
 
-                                        <a href="{{route('users.edit', $role->id)}}"
-                                           class="btn btn-outline-primary btn-sm">
+                                        <button wire:click="$emit('showModal','roles.role-modal','{{ $role->id }}')"
+                                                class="btn btn-outline-primary btn-sm">
                                             <i class="fa fa-edit"></i>
-                                        </a>
+                                        </button>
 
                                     </td>
                                 </tr>

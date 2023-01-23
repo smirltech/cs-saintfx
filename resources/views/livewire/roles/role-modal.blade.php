@@ -22,23 +22,27 @@
                     <div class="form-group col-md-12">
                         <x-form::select
                             label="Permissions"
-                            required
-                            :placeholder="false"
+                            placeholder-text="Aucune permission"
                             multiple
                             wire:model="new_permissions">
                             @foreach($permissions as $permission)
                                 <option value="{{$permission->id}}">{{$permission->name}}</option>
                             @endforeach
                         </x-form::select>
-                        <div class="text-green">
-                            {{ count($role->permissions) }} {{ Str::plural('permission', count($role->permissions))}}
-                            | {{$role->display_permissions}}
-                        </div>
+                        @if($role->id)
+                            <div class="text-green">
+                                {{ count($role->permissions) }} {{ Str::plural('permission', count($role->permissions))}}
+                                | {{$role->display_permissions}}
+                            </div>
+                        @endif
                     </div>
                 </div>
 
             </div>
             <div class="modal-footer">
+                @if($role->id AND $role->users->isEmpty())
+                    <button type="button" class="btn btn-danger" wire:click="delete">Supprimer</button>
+                @endif
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <x-form::button type="submit" class="btn btn-primary">Soumettre</x-form::button>
             </div>

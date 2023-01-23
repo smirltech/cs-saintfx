@@ -14,6 +14,8 @@ class IndexComponent extends Component
 
     public Collection $roles;
 
+    protected $listeners = ['refreshRoles' => '$refresh'];
+
     public function mount(): void
     {
         $this->roles = Role::all();
