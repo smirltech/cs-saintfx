@@ -21,6 +21,7 @@ use App\Http\Livewire\Logistique\NonFongible\MaterielCategory\MaterielCategoryIn
 use App\Http\Livewire\Logistique\NonFongible\MaterielCategory\MaterielCategoryShowComponent;
 use App\Http\Livewire\Logistique\NonFongible\Mouvement\MouvementIndexComponent;
 use App\Http\Livewire\MainDashboardComponent;
+use App\Http\Livewire\Roles;
 use App\Http\Livewire\Scolarite;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -194,7 +195,8 @@ Route::prefix('bibliotheque')->middleware(['auth:web'])->as('bibliotheque.')->gr
 
 });
 
-
+// parametres
+Route::get('roles', Roles\IndexComponent::class)->name('roles');
 
 // auth routes except register
 Auth::routes([

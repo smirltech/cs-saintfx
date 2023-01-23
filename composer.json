@@ -76,6 +76,12 @@
             "dont-discover": []
         }
     },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "D:\\Projets\\Lab\\packages\\*"
+        }
+    ],
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",

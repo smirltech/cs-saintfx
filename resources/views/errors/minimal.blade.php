@@ -513,7 +513,8 @@
 <body class="antialiased">
 <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0">
 
-    <div style="text-align: center; width:800px; margin-left: -400px; position:absolute; top: 30%; left:50%;">
+    <div
+        style="text-align: center; width:800px; margin-left: -400px; position:absolute; top: 30%; left:50%;padding: 3px">
         <h1 style="margin:0; font-size:100px; line-height:150px; font-weight:bold;"
             class="text-gray-900 dark:text-gray-400">@yield('code')</h1>
         <h2 style="margin-top:20px;font-size: 30px;"
