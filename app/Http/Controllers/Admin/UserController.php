@@ -39,7 +39,7 @@ class UserController extends Controller
         // get user not super admins, use spatie permission
         $users = User::orderByDesc('id')->get();
 
-        return view('admin.users.index', compact('users'))->with('title', ' - ' . __('Utilisateurs'));
+        return view('users.index', compact('users'))->with('title', ' - ' . __('Utilisateurs'));
     }
 
     /**
@@ -86,7 +86,7 @@ class UserController extends Controller
         $roles = Role::where('name', '!=', 'super-admin')->get();
         $facultes = Option::all();
 
-        return view('admin.users.create', compact('roles', 'facultes'))->with('title', __('Ajouter un utilisateur'));
+        return view('users.create', compact('roles', 'facultes'))->with('title', __('Ajouter un utilisateur'));
     }
 
     /**
@@ -111,7 +111,7 @@ class UserController extends Controller
         $roles = Role::where('name', '!=', 'super-admin')->get();
         $facultes = Option::all();
 
-        return view('admin.users.edit', compact('user', 'roles', 'facultes'))->with('title', $user->name);
+        return view('users.edit', compact('user', 'roles', 'facultes'))->with('title', $user->name);
     }
 
     public function resetPassword(Request $request, User $user)
