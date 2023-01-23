@@ -29,6 +29,7 @@
                     </div>
                 </div>
                 <div class="mb-3 card-body">
+                    <livewire:roles.role-modal/>
                     <!-- table-responsive -->
                     <div class="table-responsive-md">
                         <table class="table">

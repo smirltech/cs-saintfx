@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1848fe6bcdc4f372dee0cbdbb6b2b3dd",
+    "content-hash": "33866a8c72214febc130cd174e2f14e8",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -4494,16 +4494,10 @@
         {
             "name": "smirltech/laravel-form",
             "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/smirltech/laravel-form.git",
-                "reference": "70d59a036842fa13e3ebc18265a0866a0c141397"
-            },
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/smirltech/laravel-form/zipball/70d59a036842fa13e3ebc18265a0866a0c141397",
-                "reference": "70d59a036842fa13e3ebc18265a0866a0c141397",
-                "shasum": ""
+                "type": "path",
+                "url": "D:/Projets/Lab/packages/laravel-form",
+                "reference": "32309a8b514e9b16fa0ae422477be8dfde08cf79"
             },
             "require": {
                 "illuminate/contracts": "^9.0",
@@ -4519,7 +4513,6 @@
                 "pestphp/pest-plugin-laravel": "^1.1",
                 "phpunit/phpunit": "^9.5"
             },
-            "default-branch": true,
             "type": "library",
             "extra": {
                 "laravel": {
@@ -4537,7 +4530,28 @@
                     "SmirlTech\\LaravelForm\\Database\\Factories\\": "database/factories"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "SmirlTech\\LaravelForm\\Tests\\": "tests"
+                }
+            },
+            "scripts": {
+                "post-autoload-dump": [
+                    "@php ./vendor/bin/testbench package:discover --ansi"
+                ],
+                "analyse": [
+                    "vendor/bin/phpstan analyse"
+                ],
+                "test": [
+                    "vendor/bin/pest"
+                ],
+                "test-coverage": [
+                    "vendor/bin/pest --coverage"
+                ],
+                "format": [
+                    "vendor/bin/pint"
+                ]
+            },
             "license": [
                 "MIT"
             ],
@@ -4555,11 +4569,9 @@
                 "laravel",
                 "laravel-form"
             ],
-            "support": {
-                "issues": "https://github.com/smirltech/laravel-form/issues",
-                "source": "https://github.com/smirltech/laravel-form/tree/master"
-            },
-            "time": "2023-01-20T06:30:26+00:00"
+            "transport-options": {
+                "relative": false
+            }
         },
         {
             "name": "smirltech/laravel-fullcalendar",
