@@ -39,7 +39,7 @@ class RoleModal extends Component
         $this->emit('refreshRoles');
         $this->emit('hideModal');
     }
-    
+
 
     public function delete(): void
     {
@@ -49,6 +49,18 @@ class RoleModal extends Component
     }
 
     // delete
+
+    public function getPermissionNames(): array
+    {
+        // get permission names from $new_permissions array of ids
+        $permission_names = [];
+        foreach ($this->new_permissions as $permission_id) {
+            $permission_names[] = $this->permissions->find($permission_id)->name;
+        }
+        return $permission_names;
+    }
+
+    // get permission names
 
     protected function rules(): array
     {

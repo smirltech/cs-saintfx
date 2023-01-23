@@ -22,7 +22,7 @@
                     <div class="form-group col-md-12">
                         <x-form::select
                             label="Permissions"
-                            placeholder-text="Aucune permission"
+                            :placeholder="false"
                             multiple
                             wire:model="new_permissions">
                             @foreach($permissions as $permission)
@@ -30,11 +30,15 @@
                             @endforeach
                         </x-form::select>
                         @if($role->id)
-                            <div class="text-green">
+                            <div class="text-black">
                                 {{ count($role->permissions) }} {{ Str::plural('permission', count($role->permissions))}}
                                 | {{$role->display_permissions}}
                             </div>
                         @endif
+                        <div class="text-green">
+                            {{ count($new_permissions) }} {{ Str::plural('permission', count($new_permissions))}}
+                            | {{implode(', ', $this->getPermissionNames())}}
+                        </div>
                     </div>
                 </div>
 
