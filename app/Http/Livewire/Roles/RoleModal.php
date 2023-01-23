@@ -2,15 +2,16 @@
 
 namespace App\Http\Livewire\Roles;
 
+use App\Http\Livewire\BaseComponent;
 use App\Models\Permission;
 use App\Models\Role;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
-use Livewire\Component;
 
-class RoleModal extends Component
+class RoleModal extends BaseComponent
 {
     public Role $role;
     public Collection $permissions;
@@ -18,8 +19,17 @@ class RoleModal extends Component
 
     // rules function
 
+    /**
+     * @throws AuthorizationException
+     */
     public function mount(Role $role): void
     {
+        if ($role->id) {
+            $this->authorize('update', $role);
+        } else {
+            $this->authorize('create', Role::class);
+        }
+
         $this->role = $role;
         $this->permissions = Permission::all(['id', 'name']);
     }

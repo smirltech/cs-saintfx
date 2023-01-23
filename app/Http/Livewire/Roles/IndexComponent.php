@@ -2,22 +2,28 @@
 
 namespace App\Http\Livewire\Roles;
 
+use App\Http\Livewire\BaseComponent;
 use App\Models\Role;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
-use Livewire\Component;
 
-class IndexComponent extends Component
+class IndexComponent extends BaseComponent
 {
 
     public Collection $roles;
 
     protected $listeners = ['refreshRoles' => '$refresh'];
 
+    /**
+     * @throws AuthorizationException
+     */
     public function mount(): void
     {
+
+        $this->authorize('viewAny', Role::class);
         $this->roles = Role::all();
     }
 
