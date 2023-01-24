@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Scolarite\Section;
 
+use App\Http\Livewire\BaseComponent;
 use App\Models\Option;
 use App\Models\Section;
 use App\Traits\SectionCode;
@@ -11,7 +12,7 @@ use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
-class SectionShowComponent extends Component
+class SectionShowComponent extends BaseComponent
 {
     use TopMenuPreview;
     use LivewireAlert;
@@ -73,6 +74,8 @@ class SectionShowComponent extends Component
 
     public function mount(Section $section)
     {
+        $this->authorize("view", $section);
+
         $this->section = $section;
         $this->nom = $section->nom;
         $this->code = $section->code;

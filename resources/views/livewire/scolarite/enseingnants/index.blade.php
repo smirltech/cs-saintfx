@@ -42,8 +42,6 @@
                                     <th></th>
                                     <th>NOM</th>
                                     <th>SECTION</th>
-
-
                                     <th>COURS</th>
                                     <th></th>
                                 </tr>

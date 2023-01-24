@@ -30,11 +30,13 @@
                                 <h4 class="m-0">{{$section->nom}}</h4>
                             </div>
                             <div class="card-tools">
+                                @can('sections.update', $section)
                                 <span
                                     title="Modifier" role="button" class="ml-2 mr-2" data-toggle="modal"
                                     data-target="#edit-section-modal">
                                     <span class="fa fa-pen"></span>
                                 </span>
+                                @endcan
 
                             </div>
                         </div>
@@ -58,21 +60,22 @@
                                     <h4 class="m-0">Options</h4>
                                 </div>
                                 <div class="card-tools d-flex my-auto">
+                                    @can('options.create')
                                     <button type="button"
                                             class="btn btn-primary  ml-2" data-toggle="modal"
                                             data-target="#add-option-modal"><span
                                             class="fa fa-plus"></span></button>
+                                    @endcan
                                 </div>
                             </div>
 
-                            <div class="card-body p-0 table-responsive">
+                            <div class="card-body table-responsive">
                                 <table class="table">
                                     <thead>
                                     <tr>
                                         <th style="width: 200px">CODE</th>
                                         <th>OPTION</th>
-
-                                        <th style="width: 100px"></th>
+                                        <th style="width: 50px"></th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -80,14 +83,14 @@
                                         <tr>
                                             <td>{{ $option->code }}</td>
                                             <td>{{ $option->nom }}</td>
-
-
                                             <td>
                                                 <div class="d-flex float-right">
+                                                    @can('options.view', $option)
                                                     <a href="/scolarite/options/{{ $option->id }}" title="Voir"
                                                        class="btn btn-warning">
                                                         <i class="fas fa-eye"></i>
                                                     </a>
+                                                    @endcan
 
                                                 </div>
                                             </td>

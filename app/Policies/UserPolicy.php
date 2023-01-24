@@ -20,7 +20,7 @@ class UserPolicy
     {
         return $user->can('users.view.*')
             ? Response::allow()
-            : Response::denyAsNotFound('Vous n\'etes pas autorisé à voir les utilisateurs.');
+            : Response::denyAsNotFound('Vous n\'êtes pas autorisé à voir les utilisateurs.');
     }
 
     /**
@@ -34,7 +34,7 @@ class UserPolicy
     {
         return $user->can('users.view.' . $model->id)
             ? Response::allow()
-            : Response::deny('You do not have permission to view this user.');
+            : Response::deny('Vous n\'êtes pas autorisé à voir cet utilisateur.');
     }
 
     /**
@@ -43,9 +43,11 @@ class UserPolicy
      * @param User $user
      * @return bool
      */
-    public function create(User $user): bool
+    public function create(User $user): Response|bool
     {
-        return $user->can('users.create');
+        return $user->can('users.create')
+            ? Response::allow()
+            : Response::deny('Vous n\'êtes pas autorisé à créer un utilisateur.');
 
     }
 
@@ -60,7 +62,7 @@ class UserPolicy
     {
         return $user->can('users.update.' . $model->id)
             ? Response::allow()
-            : Response::deny('You do not have permission to update this user.');
+            : Response::deny('Vous n\'êtes pas autorisé à modifier cet utilisateur.');
 
     }
 
@@ -75,7 +77,7 @@ class UserPolicy
     {
         return $user->can('users.delete.' . $model->id)
             ? Response::allow()
-            : Response::deny('You do not have permission to delete this user.');
+            : Response::deny('Vous n\'êtes pas autorisé à supprimer cet utilisateur.');
 
     }
 
@@ -86,9 +88,11 @@ class UserPolicy
      * @param User $model
      * @return void
      */
-    public function restore(User $user, User $model): void
+    public function restore(User $user, User $model): Response|bool
     {
-        //
+        return $user->can('users.restore.' . $model->id)
+            ? Response::allow()
+            : Response::deny('Vous n\'êtes pas autorisé à restaurer cet utilisateur.');
     }
 
     /**
@@ -98,8 +102,10 @@ class UserPolicy
      * @param User $model
      * @return void
      */
-    public function forceDelete(User $user, User $model)
+    public function forceDelete(User $user, User $model): Response|bool
     {
-        //
+        return $user->can('users.forceDelete.' . $model->id)
+            ? Response::allow()
+            : Response::deny('Vous n\'êtes pas autorisé à supprimer définitivement cet utilisateur.');
     }
 }

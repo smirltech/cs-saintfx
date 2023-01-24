@@ -534,7 +534,8 @@ return [
                     'text' => 'Utilisateurs',
                     'url' => 'users',
                     'icon' => 'fas fa-fw fa-users',
-                    'can' => 'users.view_any',
+                    //'can' => 'users.viewAny',
+                    'can' => UserGate::browse_users->name,
                 ],
                 [
                     'text' => 'Rôles',

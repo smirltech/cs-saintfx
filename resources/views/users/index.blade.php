@@ -1,5 +1,23 @@
 @php use App\Enums\RolePermission; @endphp
 @extends('adminlte::page')
+@section('title')
+    {{__($title)}}
+@endsection
+@section('content_header')
+    <div class="row">
+        <div class="col-6">
+            <h1 class="ms-3"><span class="fas fa-fw fa-users"></span> Liste d'utilisateurs</h1>
+        </div>
+
+        <div class="col-6">
+            <ol class="breadcrumb float-right">
+                <li class="breadcrumb-item"><a href="{{ route('scolarite') }}">Accueil</a></li>
+                <li class="breadcrumb-item active">Utilisateurs</li>
+            </ol>
+        </div>
+    </div>
+
+@stop
 @section('content')
     <div class="p-0 container-fluid ">
         <div class="row">
@@ -8,11 +26,13 @@
                     <div class="card-header">
                         <div class="m-0 box_header">
                             <div class="main-title">
-                                <h3 hidden class="m-0">{{__($title)}}</h3>
+                                <h3 hidden class="m-0">{{config('app.name')}}{{__($title)}}</h3>
                             </div>
                             <div class="erning_btn d-flex float-right">
-                                <a href="{{route('users.create')}}" class="btn btn-outline-primary btn-sm"><i
-                                        class="fa fa-plus"></i></a>
+                                @can('users.create')
+                                    <a href="{{route('users.create')}}" class="btn btn-outline-primary btn-sm"><i
+                                            class="fa fa-plus"></i></a>
+                                @endcan
                             </div>
                         </div>
                     </div>
@@ -52,7 +72,7 @@
                                             <span>{{$user->display_permissions??'N/A'}}</span>
 
                                         </td>
-                                        @can('users.create')
+                                        @can('users.update', $user)
                                             <td>
 
                                                 <a href="{{route('users.edit', $user->id)}}"
