@@ -1,13 +1,16 @@
+@section('title')
+    - rôles et permissions
+@endsection
 @section('content_header')
     <div class="row">
         <div class="col-6">
-            <h1 class="ms-3">Liste de consommables</h1>
+            <h1 class="ms-3">Liste de rôles et leurs permissions</h1>
         </div>
 
         <div class="col-6">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('scolarite') }}">Accueil</a></li>
-                <li class="breadcrumb-item active">Consommables</li>
+                <li class="breadcrumb-item active">Rôles</li>
             </ol>
         </div>
     </div>
@@ -23,6 +26,13 @@
                             <h3 hidden class="m-0">{{__($title)}}</h3>
                         </div>
                         <div class="erning_btn d-flex float-right">
+                            <button wire:click="refreshPermissions"
+                                    title="mettre à jour les permissions"
+                                    class="btn btn-outline-info btn-sm mr-2">
+                                <i wire:loading.delay wire:target="refreshPermissions"
+                                    class="spinner-border spinner-border-sm"></i>
+                                <i wire:loading.remove wire:target="refreshPermissions"
+                                    class="fa fa-refresh"></i></button>
                             <button wire:click="$emit('showModal','roles.role-modal')"
                                     class="btn btn-outline-primary btn-sm"><i
                                     class="fa fa-plus"></i></button>
@@ -32,8 +42,8 @@
                 <div class="mb-3 card-body">
                     <!-- table-responsive -->
                     <div class="table-responsive-md">
-                        <table class="table">
-                            <thead class="table-header">
+                        <table class="table table-striped table-hover">
+                            <thead class="table-header table-dark">
                             <tr>
                                 <th>#</th>
                                 <th>Nom</th>

@@ -30,7 +30,7 @@
                             @endforeach
                         </x-form::select>
                         @if($role->id)
-                            <div class="text-black">
+                            <div class="text-black mt-1">
                                 {{ count($role->permissions) }} {{ Str::plural('permission', count($role->permissions))}}
                                 | {{$role->display_permissions}}
                             </div>

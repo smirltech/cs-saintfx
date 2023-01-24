@@ -32,6 +32,7 @@ class RoleModal extends BaseComponent
 
         $this->role = $role;
         $this->permissions = Permission::all(['id', 'name']);
+        $this->new_permissions = $role->permissions->pluck('id')->toArray();
     }
 
     public function render(): View|Factory|Application

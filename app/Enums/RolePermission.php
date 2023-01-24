@@ -40,11 +40,13 @@ enum RolePermission: string
 
     //------------------ Année ---------------- //
     case annees_all = 'annees.*';
+    case annees_view = 'annees.view.*';
     case annees_create = 'annees.create';
     case annees_update_all = 'annees.update.*';
     case annees_delete = 'annees.delete.*';
     case annees_restore = 'annees.restore.*';
     case annees_forceDelete = 'annees.forceDelete.*';
+    case annees_encours = 'annees.encours';
 
     //------------------ ./Année ---------------- //
 }

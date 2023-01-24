@@ -2,7 +2,9 @@
 
 namespace App\Http\Livewire\Roles;
 
+use App\Enums\RolePermission;
 use App\Http\Livewire\BaseComponent;
+use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Foundation\Application;
@@ -32,5 +34,14 @@ class IndexComponent extends BaseComponent
         return view('livewire.roles.index-component')->with([
             'title' => 'Roles',
         ]);
+    }
+
+    public function refreshPermissions(): void
+    {
+        foreach (RolePermission::cases() as $permission) {
+            Permission::updateOrCreate(
+                ['name' => $permission->value]
+            );
+        }
     }
 }
