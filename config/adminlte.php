@@ -1,4 +1,7 @@
 <?php
+
+use App\Enums\UserGate;
+
 return [
 
     /*
@@ -281,14 +284,14 @@ return [
             'text' => 'Élèves',
             'icon' => 'fas fa-fw fa-user-graduate',
             // 'can' => 'eleves.view.*',
-            // 'can' => UserGate::browse_eleves,
+             'can' => UserGate::browse_eleves,
             'submenu' => [
                 [
                     'text' => 'Inscrire un élève',
                     'url' => 'scolarite/inscriptions/create',
                     'icon' => 'fa fa-plus',
                     'shift' => 'ml-1',
-                    //  'can' => UserGate::create_eleves,
+                      'can' => UserGate::create_eleves,
                     /*'can' => [
                         'eleves.create.*',
                         'inscriptions.create.*',
@@ -301,7 +304,7 @@ return [
                     'icon' => 'fa fa-users-line',
                     'shift' => 'ml-1',
                     //'can' => 'inscriptions.view.*'
-                    //  'can' => UserGate::browse_eleves,
+                      'can' => UserGate::browse_inscriptions,
                 ],
                 [
                     'text' => 'Elèves non inscrits',
@@ -309,14 +312,14 @@ return [
                     'icon' => 'fa fa-users-rays',
                     'shift' => 'ml-1',
                     //'can' => 'eleves.view.*'
-                    //  'can' => UserGate::browse_eleves,
+                      'can' => UserGate::browse_eleves,
                 ],
                 [
                     'text' => 'Responsables',
                     'url' => 'scolarite/responsables',
                     'icon' => 'fas fa-fw fa-person-pregnant',
                     'shift' => 'ml-1',
-                    //  'can' => 'responsables.view.*'
+                      'can' => UserGate::browse_responsables,
                 ],
             ],
         ],

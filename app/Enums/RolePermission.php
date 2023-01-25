@@ -24,6 +24,15 @@ enum RolePermission: string
     case responsables_all = 'responsables.*';
     case eleves_view = 'eleves.view';
 
+    //------------------ Filière ---------------- //
+    case filieres_all = 'filieres.*';
+    case filieres_view = 'filieres.view.*';
+    case filieres_create = 'filieres.create';
+    case filieres_update_all = 'filieres.update.*';
+    case filieres_delete = 'filieres.delete.*';
+    case filieres_restore = 'filieres.restore.*';
+    case filieres_force_delete = 'filieres.force-delete.*';
+    //------------------ ./Filière ---------------- //
     //------------------ Option ---------------- //
     case options_all = 'options.*';
     case options_view = 'options.view.*';
