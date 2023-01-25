@@ -8,6 +8,7 @@ use App\Enums\InscriptionCategorie;
 use App\Enums\InscriptionStatus;
 use App\Enums\ResponsableRelation;
 use App\Enums\Sexe;
+use App\Http\Livewire\BaseComponent;
 use App\Models\Annee;
 use App\Models\Eleve;
 use App\Models\Filiere;
@@ -29,7 +30,7 @@ use Illuminate\Support\Facades\Auth;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
-class InscriptionCreateComponent extends Component
+class InscriptionCreateComponent extends BaseComponent
 {
     use TopMenuPreview;
     use WithFileUploads;
@@ -138,6 +139,7 @@ class InscriptionCreateComponent extends Component
 
     public function mount()
     {
+        $this->authorize("create", Inscription::class);
         $this->perception = new Perception();
         $this->responsables = Responsable::orderBy('nom')->get();
 

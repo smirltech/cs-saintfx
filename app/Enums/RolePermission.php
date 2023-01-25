@@ -12,10 +12,6 @@ enum RolePermission: string
 
     // Facture
     case factures_all = 'factures.*';
-
-    // Inscription
-    case inscriptions_all = 'inscriptions.*';
-
     // Role
     case roles_all = 'roles.*';
     // Permission
@@ -24,6 +20,15 @@ enum RolePermission: string
     case responsables_all = 'responsables.*';
     case eleves_view = 'eleves.view';
 
+    //------------------ Inscription ---------------- //
+    case inscriptions_all = 'inscriptions.*';
+    case inscriptions_view = 'inscriptions.view.*';
+    case inscriptions_create = 'inscriptions.create';
+    case inscriptions_update_all = 'inscriptions.update.*';
+    case inscriptions_delete = 'inscriptions.delete.*';
+    case inscriptions_restore = 'inscriptions.restore.*';
+    case inscriptions_force_delete = 'inscriptions.force-delete.*';
+    //------------------ ./Inscription ---------------- //
     //------------------ Filière ---------------- //
     case filieres_all = 'filieres.*';
     case filieres_view = 'filieres.view.*';
