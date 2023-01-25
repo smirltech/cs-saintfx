@@ -40,8 +40,12 @@ class RoleModal extends BaseComponent
         return view('livewire.roles.role-modal');
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function save(): void
     {
+
         $this->validate();
         $this->role->save();
         if (count($this->new_permissions) > 0) {

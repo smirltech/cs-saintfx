@@ -11,6 +11,7 @@ class RolePolicy
 {
     use HandlesAuthorization;
 
+
     public function viewAny(User $user): Response
     {
         return $user->can('roles.view.*')
@@ -32,9 +33,13 @@ class RolePolicy
 
     public function update(User $user, Role $role): Response
     {
-        return $user->can('roles.update.' . $role->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'etes pas autorisé à modifier ce role.');
+        if ($role->id !== 1)
+            return $user->can('roles.update.' . $role->id)
+                ? Response::allow()
+                : Response::deny('Vous n\'etes pas autorisé à modifier ce role.');
+        else
+            return Response::deny('Ce role ne peut pas être modifié.');
+
     }
 
     public function delete(User $user, Role $role)
