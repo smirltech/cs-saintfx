@@ -31,7 +31,7 @@ enum RolePermission: string
     case options_update_all = 'options.update.*';
     case options_delete = 'options.delete.*';
     case options_restore = 'options.restore.*';
-    case options_forceDelete = 'options.forceDelete.*';
+    case options_force_delete = 'options.force-delete.*';
     //------------------ ./Option ---------------- //
     //------------------ Section ---------------- //
     case sections_all = 'sections.*';
@@ -40,7 +40,7 @@ enum RolePermission: string
     case sections_update_all = 'sections.update.*';
     case sections_delete = 'sections.delete.*';
     case sections_restore = 'sections.restore.*';
-    case sections_forceDelete = 'sections.forceDelete.*';
+    case sections_force_delete = 'sections.force-delete.*';
     //------------------ ./Section ---------------- //
     //------------------ Enseignant ---------------- //
     case enseignants_all = 'enseignants.*';
@@ -49,7 +49,7 @@ enum RolePermission: string
     case enseignants_update_all = 'enseignants.update.*';
     case enseignants_delete = 'enseignants.delete.*';
     case enseignants_restore = 'enseignants.restore.*';
-    case enseignants_forceDelete = 'enseignants.forceDelete.*';
+    case enseignants_force_delete = 'enseignants.force-delete.*';
 
     //------------------ ./Enseignant ---------------- //
 
@@ -61,7 +61,7 @@ enum RolePermission: string
     case annees_update_all = 'annees.update.*';
     case annees_delete = 'annees.delete.*';
     case annees_restore = 'annees.restore.*';
-    case annees_forceDelete = 'annees.forceDelete.*';
+    case annees_force_delete = 'annees.force-delete.*';
     case annees_encours = 'annees.encours';
 
     //------------------ ./Année ---------------- //
@@ -73,7 +73,7 @@ enum RolePermission: string
     case users_update_all = 'users.update.*';
     case users_delete = 'users.delete.*';
     case users_restore = 'users.restore.*';
-    case users_forceDelete = 'users.forceDelete.*';
+    case users_force_delete = 'users.force-delete.*';
     //------------------ ./Users ---------------- //
 }
 // }
