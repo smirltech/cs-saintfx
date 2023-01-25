@@ -160,8 +160,8 @@ class InscriptionCreateComponent extends Component
         $this->addPerception($insc->id);
 
         // Todo: uncomment block below to enable the printing of the inscription form
-       /* $this->printIt();
-        $this->alert('success', "Élève inscrit avec succès !");*/
+        /* $this->printIt();
+         $this->alert('success', "Élève inscrit avec succès !");*/
 
         // Todo: Comment line below when the printing above is to be considered
         $this->flash('success', 'Élève inscrit avec succès', [], route('scolarite.inscriptions'));
@@ -185,6 +185,7 @@ class InscriptionCreateComponent extends Component
             'lieu_naissance' => $this->lieu_naissance,
             'date_naissance' => $this->date_naissance,
             'numero_permanent' => $this->numero_permanent,
+            'section_id' => $this->section_id,
         ]);
     }
 
@@ -207,6 +208,40 @@ class InscriptionCreateComponent extends Component
             'montant' => $this->montant,
             'status' => InscriptionStatus::approved->value,
         ]);
+    }
+
+    public function addPerception($inscription_id)
+    {
+        if ($this->has_paid) {
+            $this->validate([
+                'fee_id' => 'required',
+                'fee_montant' => 'required',
+                'paid_by' => 'nullable',
+            ]);
+
+            try {
+                $this->perception = Perception::create(
+                    [
+                        'user_id' => Auth::id(),
+                        'frais_id' => $this->fee_id,
+                        'inscription_id' => $inscription_id,
+                        'frequence' => $this->frequence->name,
+                        'custom_property' => FraisFrequence::annuel,
+                        'annee_id' => $this->annee_courante->id,
+                        'montant' => $this->fee_montant,
+                        'due_date' => Carbon::now()->format('Y-m-d'),
+                        'paid' => $this->fee_montant,
+                        //'paid' => ($this->fee->type == FraisType::inscription and $this->paid == null) ? $this->montant : $this->paid,
+                        'paid_by' => $this->paid_by,
+                    ]
+                );
+
+                // $this->flash('success', "Frais imputé avec succès !", [], route('finance.perceptions'));
+
+            } catch (Exception $exception) {
+                $this->error(local: $exception->getMessage(), production: "Echec d'imputation de frais déjà existante !");
+            }
+        }
     }
 
     public function submitResponsable()
@@ -287,29 +322,6 @@ class InscriptionCreateComponent extends Component
         $this->getAvailableFrais();
     }
 
-    public function changeOption()
-    {
-        $this->filieres = [];
-        if ($this->option_id > 0) {
-            $option = Option::find($this->option_id);
-            $this->filieres = $option?->filieres ?? [];
-        }
-        $this->filiere_id = null;
-        $this->classe_id = null;
-        $this->loadAvailableClasses();
-    }
-
-    public function changeFiliere()
-    {
-        $this->classe_id = null;
-        $this->loadAvailableClasses();
-    }
-
-    public function changeClasse()
-    {
-        $this->loadAvailableClasses();
-    }
-
     private function getAvailableFrais()
     {
         $ff = null;
@@ -377,40 +389,30 @@ class InscriptionCreateComponent extends Component
 
     }
 
+    public function changeOption()
+    {
+        $this->filieres = [];
+        if ($this->option_id > 0) {
+            $option = Option::find($this->option_id);
+            $this->filieres = $option?->filieres ?? [];
+        }
+        $this->filiere_id = null;
+        $this->classe_id = null;
+        $this->loadAvailableClasses();
+    }
+
+    public function changeFiliere()
+    {
+        $this->classe_id = null;
+        $this->loadAvailableClasses();
+    }
+
 
     // Perception add for inscription
-    public function addPerception($inscription_id)
+
+    public function changeClasse()
     {
-        if ($this->has_paid) {
-            $this->validate([
-                'fee_id' => 'required',
-                'fee_montant' => 'required',
-                'paid_by' => 'nullable',
-            ]);
-
-            try {
-                $this->perception = Perception::create(
-                    [
-                        'user_id' => Auth::id(),
-                        'frais_id' => $this->fee_id,
-                        'inscription_id' => $inscription_id,
-                        'frequence' => $this->frequence->name,
-                        'custom_property' => FraisFrequence::annuel,
-                        'annee_id' => $this->annee_courante->id,
-                        'montant' => $this->fee_montant,
-                        'due_date' => Carbon::now()->format('Y-m-d'),
-                        'paid' => $this->fee_montant,
-                        //'paid' => ($this->fee->type == FraisType::inscription and $this->paid == null) ? $this->montant : $this->paid,
-                        'paid_by' => $this->paid_by,
-                    ]
-                );
-
-                // $this->flash('success', "Frais imputé avec succès !", [], route('finance.perceptions'));
-
-            } catch (Exception $exception) {
-                $this->error(local: $exception->getMessage(), production: "Echec d'imputation de frais déjà existante !");
-            }
-        }
+        $this->loadAvailableClasses();
     }
 
     private function printIt()

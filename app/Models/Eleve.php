@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use JetBrains\PhpStorm\Pure;
+use Str;
 
 
 class Eleve extends Model
@@ -27,33 +28,6 @@ class Eleve extends Model
         'updated_at' => 'datetime',
     ];
 
-    // route model binding
-
-    public static function generateMatricule(string $section_id): string
-    {
-        $annee = Annee::encours();
-        $start_year = $annee->start_year;
-
-        $first_part = $start_year . Helpers::pad($section_id);
-
-        /*
-        202202
-        $count = Inscription::whereHas('classes', function ($query) use ($annee) {
-               $query->where('section_id', $section_id);
-           })->where('annee_id', $annee->id)->count();*/
-
-        $count = self::where('matricule', 'like', $first_part . '%')->count() + 1;
-
-        $second_part = Helpers::pad($count, 4);
-
-        return $first_part . $second_part;
-    }
-
-
-    // generate matricule
-    // {annee}{section_id}{count on section+1}
-    //ex: 2022010001
-
     public static function nonInscritsAnneeEnCours(): Collection|array
     {
         return self::whereDoesntHave('inscriptions', function ($q) {
@@ -61,9 +35,35 @@ class Eleve extends Model
         })->get();
     }
 
-    public function getRouteKeyName(): string
+    // route model binding
+
+    protected static function boot()
     {
-        return 'matricule';
+        parent::boot();
+
+        static::creating(function (self $model) {
+
+            $model->id = self::generateUniqueId($model->section_id);
+        });
+    }
+
+
+    // generate matricule
+    // {annee}{section_id}{count on section+1}
+    //ex: 2022010001
+
+    public static function generateUniqueId(string $section_id): string
+    {
+        $annee = Annee::encours();
+        $start_year = $annee->start_year;
+
+        $first_part = $start_year . Helpers::pad($section_id);
+
+        $count = self::where('id', 'like', $first_part . '%')->count() + 1;
+
+        $second_part = Str::padLeft($count, 4);
+
+        return $first_part . $second_part;
     }
 
     public function getPresencesAttribute(): Collection

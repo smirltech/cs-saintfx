@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use App\Enums\InscriptionStatus;
+use Str;
 
 
 class Helpers
@@ -96,36 +97,37 @@ class Helpers
     // pad
     public static function pad($number, $length = 2): string
     {
-        return str_pad($number, $length, '0', STR_PAD_LEFT);
+        return Str::padLeft($number, $length, '0');
     }
 
     public static function colorAlert($percent): string
     {
-        if($percent < 10){
+        if ($percent < 10) {
             return 'danger';
-        }else if($percent < 30){
+        } else if ($percent < 30) {
             return 'warning';
-        }else if($percent < 50){
+        } else if ($percent < 50) {
             return 'alert';
-        }else if($percent < 70){
+        } else if ($percent < 70) {
             return 'success';
-        }else{
+        } else {
             return '';
         }
     }
+
     public static function textAlert($percent): string
     {
-        if($percent < 10){
+        if ($percent < 10) {
             return "Très bas";
-        }else if($percent < 30){
+        } else if ($percent < 30) {
             return 'Bas';
-        }else if($percent < 50){
+        } else if ($percent < 50) {
             return 'Attention';
-        }else if($percent < 70){
+        } else if ($percent < 70) {
             return 'Bon';
-        }else if($percent < 90){
+        } else if ($percent < 90) {
             return 'Très Bon';
-        }else{
+        } else {
             return 'Excellent';
         }
     }

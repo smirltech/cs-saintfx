@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Collection;
+use Str;
 
 //use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -41,14 +42,21 @@ class Inscription extends Model
     {
         parent::boot();
 
-        static::saving(function ($model) {
-            if (!$model?->eleve?->matricule) {
-
-                $model->eleve->matricule = Eleve::generateMatricule($model?->classe?->section_id);
-
-                $model->eleve->save();
-            }
+        static::creating(function (self $model) {
+            $model->id = self::generateUniqueId(!$model->eleve_id);
         });
+    }
+
+    public static function generateUniqueId(string $eleve_id): string
+    {
+
+        $first_part = $eleve_id;
+
+        $count = self::where('id', 'like', $first_part . '%')->count() + 1;
+
+        $second_part = Str::padLeft($count, 2, '0');
+
+        return $first_part . $second_part;
     }
 
     public function eleve(): BelongsTo
@@ -190,6 +198,6 @@ class Inscription extends Model
     /** Devoirs */
     public function getDevoirsAttribute(): ?Collection
     {
-        return Devoir::where('classe_id', $this->classe_id)->where('status','!=', DevoirStatus::draft)->get();
+        return Devoir::where('classe_id', $this->classe_id)->where('status', '!=', DevoirStatus::draft)->get();
     }
 }
