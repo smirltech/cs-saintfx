@@ -33,13 +33,18 @@ class RolePolicy
 
     public function update(User $user, Role $role): Response
     {
-        if ($role->id !== 1)
+        if(app()->isLocal()){
             return $user->can('roles.update.' . $role->id)
                 ? Response::allow()
                 : Response::deny('Vous n\'etes pas autorisé à modifier ce role.');
-        else
-            return Response::deny('Ce role ne peut pas être modifié.');
-
+        }else{
+               if ($role->id !== 1)
+                 return $user->can('roles.update.' . $role->id)
+                     ? Response::allow()
+                     : Response::deny('Vous n\'etes pas autorisé à modifier ce role.');
+             else
+                 return Response::deny('Ce role ne peut pas être modifié.');
+        }
     }
 
     public function delete(User $user, Role $role)

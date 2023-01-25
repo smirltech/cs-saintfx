@@ -9,7 +9,12 @@ enum UserGate
     case browse_eleves;
 case create_eleves;
     // -------------------  ./ELEVES  ------------------- //
-
+    // -------------------  RESPONSABLES  ------------------- //
+    case browse_responsables;
+    // -------------------  ./RESPONSABLES  ------------------- //
+    // -------------------  INSCRIPTIONS  ------------------- //
+    case browse_inscriptions;
+    // -------------------  ./INSCRIPTIONS  ------------------- //
 
     case browse_settings;
     case browse_users;
@@ -19,7 +24,7 @@ case create_eleves;
     case browse_enseignants;
     case browse_devoirs;
     case browse_factures;
-    case browse_inscriptions;
+
     case browse_calendar;
     case browse_finance;
     case browse_logistique;
@@ -36,10 +41,14 @@ case create_eleves;
         return match ($this) {
             self::browse_eleves => [
                 UserRole::promoteur->value,
-                UserRole::parent->value,
+                //UserRole::parent->value,
             ],
             self::create_eleves => [
                 UserRole::promoteur->value,
+            ],
+            self::browse_responsables => [
+
+                UserRole::admin->value,
             ],
             self::browse_finance => [
                 UserRole::promoteur->value,
@@ -77,11 +86,9 @@ case create_eleves;
                 UserRole::caissier->value,
             ],
             self::browse_inscriptions => [
-                UserRole::promoteur->value,
+               // UserRole::promoteur->value,
                 UserRole::admin->value,
             ],
-
-
             self::browse_logistique => [
                 UserRole::promoteur->value,
                 UserRole::admin->value,
