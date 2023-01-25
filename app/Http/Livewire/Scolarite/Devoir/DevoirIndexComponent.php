@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Scolarite\Devoir;
 
+use App\Http\Livewire\BaseComponent;
 use App\Models\Annee;
 use App\Models\Cours;
 use App\Models\Devoir;
@@ -14,12 +15,17 @@ use Illuminate\Database\Eloquent\Collection;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
-class DevoirIndexComponent extends Component
+class DevoirIndexComponent extends BaseComponent
 {
     use TopMenuPreview;
     use LivewireAlert, CanDeleteModel;
 
     public Collection $devoirs;
+
+    public function mount(): void
+    {
+        $this->authorize('viewAny', Devoir::class);
+    }
 
     public function render(): Factory|View|Application
     {

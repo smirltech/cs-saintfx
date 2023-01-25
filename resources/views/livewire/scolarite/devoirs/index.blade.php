@@ -2,7 +2,7 @@
 @php use App\Models\Option; @endphp
 @php use App\Models\Section; @endphp
 @section('title')
-   - Liste des devoirs
+    - Liste des devoirs
 @endsection
 @section('content_header')
     <div class="row">
@@ -29,9 +29,11 @@
                             <div class="card-title">
                             </div>
                             <div class="card-tools d-flex my-auto">
-                                <a href="{{ route('scolarite.devoirs.create') }}" title="ajouter"
-                                   class="btn btn-primary mr-2"><span
-                                        class="fa fa-plus"></span></a>
+                                @can('devoirs.create')
+                                    <a href="{{ route('scolarite.devoirs.create') }}" title="ajouter"
+                                       class="btn btn-primary mr-2"><span
+                                            class="fa fa-plus"></span></a>
+                                @endcan
                             </div>
                         </div>
                         <div class="card-body p-0 table-responsive">
@@ -74,16 +76,20 @@
 
                                         <td>
                                             <div class="d-flex float-right">
-                                                <a href="{{route('scolarite.devoirs.show',$devoir )}}"
-                                                   title="modifier"
-                                                   class="btn btn-sm btn-primary ml-2">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                                <a href="{{route('scolarite.devoirs.edit',$devoir )}}"
-                                                   title="modifier"
-                                                   class="btn btn-sm btn-warning  ml-2">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
+                                                @can('devoirs.view',$devoir)
+                                                    <a href="{{route('scolarite.devoirs.show',$devoir )}}"
+                                                       title="modifier"
+                                                       class="btn btn-sm btn-primary ml-2">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                @endcan
+                                                @can('devoirs.update',$devoir)
+                                                    <a href="{{route('scolarite.devoirs.edit',$devoir )}}"
+                                                       title="modifier"
+                                                       class="btn btn-sm btn-warning  ml-2">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
+                                                @endcan
                                             </div>
                                         </td>
                                     </tr>

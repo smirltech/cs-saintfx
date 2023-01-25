@@ -62,7 +62,7 @@ class AnneePolicy
 
     public function forceDelete(User $user, Annee $annee)
     {
-        return $user->can('annees.forceDelete.' . $annee->id)
+        return $user->can('annees.force-delete.' . $annee->id)
             ? Response::allow()
             : Response::deny('Vous n\'êtes pas autorisé à supprimer définitivement cette année.');
     }

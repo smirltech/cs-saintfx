@@ -279,19 +279,21 @@ return [
             'topnav_right' => true,
         ],
 
-        ['header' => 'SCOLARITÉ'],
+        ['header' => 'SCOLARITÉ',
+            //'can' => UserGate::browse_scolarite,
+        ],
         [
             'text' => 'Élèves',
             'icon' => 'fas fa-fw fa-user-graduate',
             // 'can' => 'eleves.view.*',
-             'can' => UserGate::browse_eleves,
+            'can' => UserGate::browse_eleves,
             'submenu' => [
                 [
                     'text' => 'Inscrire un élève',
                     'url' => 'scolarite/inscriptions/create',
                     'icon' => 'fa fa-plus',
                     'shift' => 'ml-1',
-                      'can' => UserGate::create_eleves,
+                    'can' => UserGate::create_eleves,
                     /*'can' => [
                         'eleves.create.*',
                         'inscriptions.create.*',
@@ -304,7 +306,7 @@ return [
                     'icon' => 'fa fa-users-line',
                     'shift' => 'ml-1',
                     //'can' => 'inscriptions.view.*'
-                      'can' => UserGate::browse_inscriptions,
+                    'can' => UserGate::browse_inscriptions,
                 ],
                 [
                     'text' => 'Elèves non inscrits',
@@ -312,14 +314,14 @@ return [
                     'icon' => 'fa fa-users-rays',
                     'shift' => 'ml-1',
                     //'can' => 'eleves.view.*'
-                      'can' => UserGate::browse_eleves,
+                    'can' => UserGate::browse_eleves,
                 ],
                 [
                     'text' => 'Responsables',
                     'url' => 'scolarite/responsables',
                     'icon' => 'fas fa-fw fa-person-pregnant',
                     'shift' => 'ml-1',
-                      'can' => UserGate::browse_responsables,
+                    'can' => UserGate::browse_responsables,
                 ],
             ],
         ],
@@ -328,14 +330,14 @@ return [
             'text' => 'Devoirs',
             'icon' => 'fas fa-fw fa-tasks',
             'url' => 'scolarite/devoirs',
-            'can' => 'devoirs.view.*'
+            'can' => UserGate::browse_devoirs,
         ],
 
         [
             'text' => 'Cours',
             'url' => 'scolarite/cours',
             'icon' => 'fas fa-fw fa-book-open',
-            'can' => 'cours.view.*'
+            'can' => UserGate::browse_cours,
         ],
 
         [
@@ -343,45 +345,45 @@ return [
             'icon' => 'fas fa-fw fa-chalkboard-teacher',
             // 'can' => RolePermission::create_promotion->name,
             'url' => 'scolarite/enseignants',
-            'can' => 'enseignants.view.*'
+            'can' => UserGate::browse_enseignants,
         ],
         [
             'text' => 'Classes',
             'icon' => 'fas fa-fw fa-person-chalkboard',
             'url' => 'scolarite/classes',
-            'can' => 'classes.view.*'
+            'can' => UserGate::browse_classes,
         ],
 
 
-        ['header' => 'FINANCE'],
+        ['header' => 'FINANCE', 'can' => UserGate::browse_finance,],
         [
             'text' => 'Caisse',
             'icon' => 'fas fa-fw fa-cash-register',
             'url' => 'finance/caisse',
-            'can' => 'caisse.view.*'
+            'can' => UserGate::browse_finance,
         ],
         [
             'text' => 'Perceptions',
             'icon' => 'fas fa-fw fa-arrow-trend-up',
-            'can' => 'perceptions.view.*',
+            'can' => UserGate::browse_finance,
             'submenu' => [
                 [
                     'text' => 'Ajouter facture',
                     'url' => 'finance/perceptions/create',
                     'shift' => 'ml-1',
-                    'can' => 'perceptions.create.*',
+                    'can' => UserGate::browse_finance,
                 ],
                 [
                     'text' => 'Liste de factures',
                     'url' => 'finance/perceptions',
                     'shift' => 'ml-1',
-                    'can' => 'perceptions.view.*',
+                    'can' => UserGate::browse_finance,
                 ],
                 [
                     'text' => 'Plans de frais',
                     'url' => 'finance/frais',
                     'shift' => 'ml-1',
-                    'can' => 'frais.view.*',
+                    'can' => UserGate::browse_finance,
                 ],
             ],
         ],
@@ -390,24 +392,24 @@ return [
             'text' => 'Revenu Auxiliaire',
             'icon' => 'fas fa-fw fa-money-bill-trend-up',
             'url' => 'finance/revenus',
-            'can' => 'revenus.view.*',
+            'can' => UserGate::browse_finance,
         ],
         [
             'text' => 'Dépenses',
             'icon' => 'fas fa-fw fa-arrow-trend-down',
-            'can' => 'depenses.view.*',
+            'can' => UserGate::browse_finance,
             'submenu' => [
                 [
                     'text' => 'Liste des Dépenses',
                     'icon' => 'fas fa-fw fa-coins',
-                    'can' => 'depenses.view.*',
+                    'can' => UserGate::browse_finance,
                     'url' => 'finance/depenses',
                     'shift' => 'ml-1',
                 ],
                 [
                     'text' => 'Types de Dépenses',
                     'icon' => 'fas fa-fw fa-list-check',
-                    'can' => 'depenses.view.*',
+                    'can' => UserGate::browse_finance,
                     'url' => 'finance/depenses-types',
                     'shift' => 'ml-1',
                 ],
@@ -417,7 +419,7 @@ return [
             'text' => 'Rapport financier',
             'icon' => 'fas fa-fw fa-chart-column',
             'url' => 'finance/rapports',
-            'can' => 'rapports.view.*',
+            'can' => UserGate::browse_finance,
         ],
 
         ['header' => 'LOGISTIQUE'],

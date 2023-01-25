@@ -4,10 +4,6 @@ namespace App\Enums;
 
 enum RolePermission: string
 {
-
-    // Devoir
-    case devoirs_all = 'devoirs.*';
-
     // Facture
     case factures_all = 'factures.*';
     // Role
@@ -15,6 +11,15 @@ enum RolePermission: string
     // Permission
     case permissions_all = 'permissions.*';
 
+    //------------------ Devoirs ---------------- //
+    case devoirs_all = 'devoirs.*';
+    case devoirs_view = 'devoirs.view.*';
+    case devoirs_create = 'devoirs.create';
+    case devoirs_update_all = 'devoirs.update.*';
+    case devoirs_delete = 'devoirs.delete.*';
+    case devoirs_restore = 'devoirs.restore.*';
+    case devoirs_force_delete = 'devoirs.force-delete.*';
+    //------------------ ./Devoirs ---------------- //
 
     //------------------ Responsable ---------------- //
     case responsables_all = 'responsables.*';
