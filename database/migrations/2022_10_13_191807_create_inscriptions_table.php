@@ -13,7 +13,7 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('inscriptions', function (Blueprint $table) {
-            $table->ulid('id')->primary();
+            $table->ulid('id')->primary()->comment('Matricule de l\'élève + nombre d\'inscription');
             $table->foreignIdFor(Eleve::class)->constrained();
             $table->foreignIdFor(Classe::class)->constrained();
             $table->foreignIdFor(Annee::class)->constrained()->restrictOnDelete();

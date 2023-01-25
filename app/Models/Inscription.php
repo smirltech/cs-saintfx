@@ -43,7 +43,7 @@ class Inscription extends Model
         parent::boot();
 
         static::creating(function (self $model) {
-            $model->id = self::generateUniqueId(!$model->eleve_id);
+            $model->id = self::generateUniqueId($model->eleve_id);
         });
     }
 

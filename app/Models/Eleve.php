@@ -28,14 +28,15 @@ class Eleve extends Model
         'updated_at' => 'datetime',
     ];
 
+
+    // route model binding
+
     public static function nonInscritsAnneeEnCours(): Collection|array
     {
         return self::whereDoesntHave('inscriptions', function ($q) {
             $q->where('annee_id', Annee::id());
         })->get();
     }
-
-    // route model binding
 
     protected static function boot()
     {
@@ -44,13 +45,15 @@ class Eleve extends Model
         static::creating(function (self $model) {
 
             $model->id = self::generateUniqueId($model->section_id);
+            // remove section_id from model
+            unset($model->section_id);
         });
     }
 
-
-    // generate matricule
-    // {annee}{section_id}{count on section+1}
-    //ex: 2022010001
+    /** generate matricule
+     * // {annee}{section_id}{count on section+1}
+     * //ex: 2022010001
+     * */
 
     public static function generateUniqueId(string $section_id): string
     {
@@ -61,7 +64,7 @@ class Eleve extends Model
 
         $count = self::where('id', 'like', $first_part . '%')->count() + 1;
 
-        $second_part = Str::padLeft($count, 4);
+        $second_part = Str::padLeft($count, 4, '0');
 
         return $first_part . $second_part;
     }
@@ -78,6 +81,11 @@ class Eleve extends Model
             $aa[] = $p->getColor();
         }
         return $aa;
+    }
+    
+    public function getCodeAttribute(): string
+    {
+        return $this->id;
     }
 
     public function getInscriptionAttribute(): Inscription|null
