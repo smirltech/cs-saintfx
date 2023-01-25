@@ -62,7 +62,7 @@ enum RolePermission: string
     case annees_delete = 'annees.delete.*';
     case annees_restore = 'annees.restore.*';
     case annees_force_delete = 'annees.force-delete.*';
-    case annees_encours = 'annees.encours';
+    case annees_update_encours = 'annees.update.encours';
 
     //------------------ ./Année ---------------- //
 
