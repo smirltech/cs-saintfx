@@ -191,20 +191,22 @@
                                         <ul class="list-group list-group-unbordered mb-3">
                                             <li class="list-group-item">
                                                 <b>Responsable</b> <span class="float-right">
-
-                                                    <a
-                                                        href="/scolarite/responsables/{{$eleve->responsable_eleve?->responsable?->id}}">{{$eleve->responsable_eleve?->responsable?->nom??''}}</a>
-
+                                                    @can('responsables.view',$eleve->responsable_eleve?->responsable)
+                                                        <a
+                                                            href="/scolarite/responsables/{{$eleve->responsable_eleve?->responsable?->id}}">{{$eleve->responsable_eleve?->responsable?->nom??''}}</a>
+                                                    @else
+                                                        {{$eleve->responsable_eleve?->responsable?->nom??''}}
+                                                    @endcan
                                                 </span>
                                             </li>
                                             <li class="list-group-item">
                                                 <b>Relation</b>
                                                 <span class="float-right">{{$eleve->responsable_eleve?->relation?->label()??''}}
                                                     @can('eleves.update',$eleve)
-                                                    <span
-                                                        title="Modifier" role="button" class=" fa fa-link ml-1"
-                                                        data-toggle="modal"
-                                                        data-target="#edit-relation-modal">
+                                                        <span
+                                                            title="Modifier" role="button" class=" fa fa-link ml-1"
+                                                            data-toggle="modal"
+                                                            data-target="#edit-relation-modal">
                                                     </span>
                                                     @endcan
                                                 </span>

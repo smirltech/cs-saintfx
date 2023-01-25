@@ -3,12 +3,12 @@
     use App\Helpers\Helpers;use App\Models\Annee;
 @endphp
 @section('title')
-     - responsable - {{$responsable->nom}}
+    - responsable - {{$responsable->nom}}
 @endsection
 @section('content_header')
     <div class="row">
         <div class="col-6">
-            <h1 class="ms-3"><span class="fas fa-fw fa-user mr-1"></span>Responsable</h1>
+            <h1 class="ms-3"><span class="fas fa-fw fa-person-pregnant mr-1"></span>Responsable</h1>
         </div>
 
         <div class="col-6">
@@ -32,15 +32,19 @@
                         <div class="card-header">
                             <h1 class="card-title">{{$responsable->nom}}</h1>
                             <div class="card-tools">
-                                <span role="button" wire:click.debounce="fillDataToModal" type="button"
-                                      title="Modifier" class=" ml-2" data-toggle="modal"
-                                      data-target="#edit-responsable-modal">
+                                @can('responsables.update',$responsable)
+                                    <span role="button" wire:click.debounce="fillDataToModal" type="button"
+                                          title="Modifier" class=" ml-2" data-toggle="modal"
+                                          data-target="#edit-responsable-modal">
                                     <span class="fa fa-pen"></span></span>
-                                <span role="button" type="button"
-                                      title="supprimer" class=" ml-4 mr-2" data-toggle="modal"
-                                      data-target="#delete-responsable-modal">
+                                @endcan
+                                @can('responsables.delete',$responsable)
+                                    <span role="button" type="button"
+                                          title="supprimer" class=" ml-4 mr-2" data-toggle="modal"
+                                          data-target="#delete-responsable-modal">
                                     <span class="fa fa-trash"></span>
                                 </span>
+                                @endcan
                             </div>
                         </div>
                         <div class="card-body">
@@ -76,7 +80,7 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="card-title">
-                                <h3 class="m-0">Enfants</h3>
+                                <h3 class="m-0"><span class="fas fa-fw fa-children mr-1"></span>Enfants</h3>
                             </div>
                             <div class="card-tools d-flex my-auto">
                                 {{--<button type="button"
@@ -90,7 +94,7 @@
 
                             <div class="table-responsive m-b-40">
                                 <table class="table">
-                                    <thead>
+                                    <thead class="table-dark">
                                     <tr>
                                         <th style="width: 100px">CODE</th>
                                         <th>ENFANT</th>
@@ -114,22 +118,26 @@
                                                 <td>{{ $responsable_eleve->eleve->telephone??'' }}</td>
                                                 <td>{{ $responsable_eleve->eleve->email??'' }}</td>
                                                 <td>{{ $responsable_eleve?->relation?->reverse($responsable_eleve->eleve->sexe??'')??'' }}
-                                                    <span
-                                                        wire:click="selectResponsableEleve({{$responsable_eleve->id??''}})"
-                                                        type="button"
-                                                        title="Modifier Relation" class="ml-2" data-toggle="modal"
-                                                        data-target="#edit-relation-modal">
-                                            <span class="fa fa-link"></span>
-                                        </span></td>
+                                                    @can('eleves.update',$responsable_eleve->eleve)
+                                                        <span
+                                                            wire:click="selectResponsableEleve({{$responsable_eleve->id??''}})"
+                                                            type="button"
+                                                            title="Modifier Relation" class="ml-2" data-toggle="modal"
+                                                            data-target="#edit-relation-modal">
+                                                        <span class="fa fa-link"></span>
+                                                    </span>
+                                                    @endcan
+                                                </td>
                                                 <td>{{ $responsable_eleve->eleve->currentInscription()->classe->code??'' }}</td>
                                                 <td>
                                                     <div class="d-flex float-right">
-                                                        <a href="/scolarite/eleves/{{ $responsable_eleve->eleve->id??'' }}"
-                                                           title="Voir"
-                                                           class="btn btn-warning">
-                                                            <i class="fas fa-eye"></i>
-                                                        </a>
-
+                                                        @can('eleves.view',$responsable_eleve->eleve)
+                                                            <a href="/scolarite/eleves/{{ $responsable_eleve->eleve->id??'' }}"
+                                                               title="Voir"
+                                                               class="btn btn-warning">
+                                                                <i class="fas fa-eye"></i>
+                                                            </a>
+                                                        @endcan
                                                     </div>
                                                 </td>
                                             </tr>

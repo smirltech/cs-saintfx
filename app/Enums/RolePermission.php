@@ -15,8 +15,16 @@ enum RolePermission: string
     // Permission
     case permissions_all = 'permissions.*';
 
-    case responsables_all = 'responsables.*';
 
+    //------------------ Responsable ---------------- //
+    case responsables_all = 'responsables.*';
+    case responsables_view = 'responsables.view.*';
+    case responsables_create = 'responsables.create';
+    case responsables_update_all = 'responsables.update.*';
+    case responsables_delete = 'responsables.delete.*';
+    case responsables_restore = 'responsables.restore.*';
+    case responsables_force_delete = 'responsables.force-delete.*';
+    //------------------ ./Responsable ---------------- //
 
     //------------------ Eleve ---------------- //
     case eleves_all = 'eleves.*';
