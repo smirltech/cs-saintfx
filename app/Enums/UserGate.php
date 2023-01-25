@@ -4,11 +4,18 @@ namespace App\Enums;
 
 enum UserGate
 {
+
+    // -------------------  ELEVES  ------------------- //
+    case browse_eleves;
+case create_eleves;
+    // -------------------  ./ELEVES  ------------------- //
+
+
     case browse_settings;
     case browse_users;
     case browse_roles;
     case browse_permissions;
-    case browse_eleves;
+
     case browse_enseignants;
     case browse_devoirs;
     case browse_factures;
@@ -27,6 +34,13 @@ enum UserGate
     public function roles(): array
     {
         return match ($this) {
+            self::browse_eleves => [
+                UserRole::promoteur->value,
+                UserRole::parent->value,
+            ],
+            self::create_eleves => [
+                UserRole::promoteur->value,
+            ],
             self::browse_finance => [
                 UserRole::promoteur->value,
                 UserRole::caissier->value,
@@ -45,10 +59,6 @@ enum UserGate
             self::browse_permissions => [
                 UserRole::promoteur->value,
                 UserRole::admin->value,
-            ],
-            self::browse_eleves => [
-                UserRole::promoteur->value,
-                UserRole::parent->value,
             ],
             self::browse_enseignants => [
                 UserRole::promoteur->value,
