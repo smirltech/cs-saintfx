@@ -14,7 +14,7 @@ class EleveFactory extends Factory
 {
     protected $model = Eleve::class;
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'nom' => $this->faker->firstName,

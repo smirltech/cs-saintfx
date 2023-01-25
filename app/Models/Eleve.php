@@ -82,7 +82,7 @@ class Eleve extends Model
         }
         return $aa;
     }
-    
+
     public function getCodeAttribute(): string
     {
         return $this->id;
@@ -152,9 +152,9 @@ class Eleve extends Model
         return Section::find($this->section_id);
     }
 
-    public function getCodeAttribute(): string
+    public function getMatriculeAttribute(): string
     {
-        return $this->matricule;
+        return $this->id;
     }
 
     // MONTANTS
