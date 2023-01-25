@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Scolarite\Inscription;
 
+use App\Http\Livewire\BaseComponent;
 use App\Models\Annee;
 use App\Models\Inscription;
 use App\Traits\TopMenuPreview;
@@ -10,7 +11,7 @@ use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class InscriptionIndexComponent extends Component
+class InscriptionIndexComponent extends BaseComponent
 {
     use TopMenuPreview;
     use LivewireAlert;
@@ -20,6 +21,7 @@ class InscriptionIndexComponent extends Component
     public $inscriptions = [];
 
     public function mount(){
+        $this->authorize("viewAny", Inscription::class);
         $this->annee_courante = Annee::encours();
     }
 

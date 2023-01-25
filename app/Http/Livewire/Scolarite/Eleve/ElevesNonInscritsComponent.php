@@ -6,6 +6,7 @@ use App\Enums\FraisFrequence;
 use App\Enums\FraisType;
 use App\Enums\InscriptionCategorie;
 use App\Enums\InscriptionStatus;
+use App\Http\Livewire\BaseComponent;
 use App\Models\Annee;
 use App\Models\Eleve;
 use App\Models\Filiere;
@@ -24,7 +25,7 @@ use Illuminate\Support\Facades\Auth;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
-class ElevesNonInscritsComponent extends Component
+class ElevesNonInscritsComponent extends BaseComponent
 {
     use TopMenuPreview;
     use LivewireAlert;
@@ -68,6 +69,7 @@ class ElevesNonInscritsComponent extends Component
 
     public function mount()
     {
+        $this->authorize("viewAny", Eleve::class);
         $this->loadData();
     }
 

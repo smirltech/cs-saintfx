@@ -140,8 +140,9 @@ class EleveShowComponent extends BaseComponent
     /**
      * @throws AuthorizationException
      */
-    public function mount(Eleve $eleve)
+    public function mount( $eleve)
     {
+        $eleve = Eleve::find($eleve);
         $this->authorize('view', $eleve);
 
         $this->devoirs = $eleve->devoirs;

@@ -16,8 +16,12 @@
  $data = [];
     foreach ($eleves as $eleve){
 
-            $btn1 = '<a href="' . route("scolarite.eleves.show",$eleve) . '" class="btn btn-success btn-sm m-1" title="Voir Élève"><i class="fa fa-eye"></i></a>';
- $btn2 = '<a href="' . route("scolarite.eleves.show",$eleve) . '" class="btn btn-warning btn-sm m-1" title="Réinscrire Élève"><i class="fa fa-user-plus"></i></a>';
+         /*   $btn1 = '';
+           if(Auth::user()->can('eleves.view', $eleve)) { $btn1 = '<a href="' . route("scolarite.eleves.show",$eleve) . '" class="btn btn-success btn-sm m-1" title="Voir Élève"><i class="fa fa-eye"></i></a>';}
+            $btn2 = '';
+            if(Auth::user()->can('eleves.create', $eleve)) {
+            $btn2 = '<a href="' . route("scolarite.eleves.show",$eleve) . '" class="btn btn-warning btn-sm m-1" title="Réinscrire Élève"><i class="fa fa-user-plus"></i></a>';
+            }*/
 
             $data[] = [
                 '<img class="img-circle" style="width:50px; height:50px" src="'.$eleve->profile_url.'"></img>',
@@ -91,16 +95,22 @@
                                         <td>{!! $row[6] !!}</td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                <a href="{{route('scolarite.eleves.show',[$row[7]])}}"
-                                                   title="Voir"
-                                                   class="btn btn-success">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                                <button wire:click="getSelectedEleve('{{$row[7]->id}}')" type="button"
-                                                        title="Réinscrire Élève" class="btn btn-warning  ml-2" data-toggle="modal"
-                                                        data-target="#reinscription-modal">
-                                                    <span class="fa fa-user-plus"></span>
-                                                </button>
+                                                @can('eleves.view', $row[7])
+                                                    <a href="{{route('scolarite.eleves.show',[$row[7]])}}"
+                                                       title="Voir"
+                                                       class="btn btn-success">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                @endcan
+                                                @can('inscriptions.create')
+                                                    <button wire:click="getSelectedEleve('{{$row[7]->id}}')"
+                                                            type="button"
+                                                            title="Réinscrire Élève" class="btn btn-warning  ml-2"
+                                                            data-toggle="modal"
+                                                            data-target="#reinscription-modal">
+                                                        <span class="fa fa-user-plus"></span>
+                                                    </button>
+                                                @endcan
 
                                             </div>
                                         </td>

@@ -104,7 +104,7 @@ class UserPolicy
      */
     public function forceDelete(User $user, User $model): Response|bool
     {
-        return $user->can('users.forceDelete.' . $model->id)
+        return $user->can('users.force-delete.' . $model->id)
             ? Response::allow()
             : Response::deny('Vous n\'êtes pas autorisé à supprimer définitivement cet utilisateur.');
     }

@@ -17,9 +17,10 @@ enum UserRole: string
         // return permissions based on user role
         return match ($this) {
             self::promoteur => [
-                RolePermission::users_view->value,
+                RolePermission::users_all->value,
                 RolePermission::roles_all->value,
                 RolePermission::permissions_all->value,
+                RolePermission::annees_all->value,
             ],
             self::admin => [
                 RolePermission::eleves_all->value,

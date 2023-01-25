@@ -13,50 +13,50 @@ class ElevePolicy
 
     public function viewAny(User $user): Response
     {
-        return $user->can('users.view')
+        return $user->can('eleves.view')
             ? Response::allow()
-            : Response::deny('Vous n\'etes pas autorisé à voir les élèves.');
+            : Response::deny('Vous n\'êtes pas autorisé à voir les élèves.');
     }
 
     public function view(User $user, Eleve $eleve): Response
     {
-        return $user->can('users.view.' . $eleve->id)
+        return $user->can('eleves.view.' . $eleve->id)
             ? Response::allow()
-            : Response::deny('Vous n\'etes pas autorisé à voir cet élève.');
+            : Response::deny('Vous n\'êtes pas autorisé à voir cet élève.');
     }
 
     public function create(User $user): Response
     {
-        return $user->can('users.create')
+        return $user->can('eleves.create')
             ? Response::allow()
-            : Response::deny('Vous n\'etes pas autorisé à créer un élève.');
+            : Response::deny('Vous n\'êtes pas autorisé à créer un élève.');
     }
 
     public function update(User $user, Eleve $eleve): Response
     {
-        return $user->can('users.update.' . $eleve->id)
+        return $user->can('eleves.update.' . $eleve->id)
             ? Response::allow()
-            : Response::deny('Vous n\'etes pas autorisé à modifier cet élève.');
+            : Response::deny('Vous n\'êtes pas autorisé à modifier cet élève.');
     }
 
     public function delete(User $user, Eleve $eleve): Response
     {
-        return $user->can('users.delete.' . $eleve->id)
+        return $user->can('eleves.delete.' . $eleve->id)
             ? Response::allow()
-            : Response::deny('Vous n\'etes pas autorisé à supprimer cet élève.');
+            : Response::deny('Vous n\'êtes pas autorisé à supprimer cet élève.');
     }
 
     public function restore(User $user, Eleve $eleve): Response
     {
-        return $user->can('users.restore.' . $eleve->id)
+        return $user->can('eleves.restore.' . $eleve->id)
             ? Response::allow()
-            : Response::deny('Vous n\'etes pas autorisé à restaurer cet élève.');
+            : Response::deny('Vous n\'êtes pas autorisé à restaurer cet élève.');
     }
 
     public function forceDelete(User $user, Eleve $eleve): Response
     {
-        return $user->can('users.forceDelete.' . $eleve->id)
+        return $user->can('eleves.force-delete.' . $eleve->id)
             ? Response::allow()
-            : Response::deny('Vous n\'etes pas autorisé à supprimer définitivement cet élève.');
+            : Response::deny('Vous n\'êtes pas autorisé à supprimer définitivement cet élève.');
     }
 }

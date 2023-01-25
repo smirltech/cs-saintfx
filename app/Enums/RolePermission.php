@@ -4,8 +4,6 @@ namespace App\Enums;
 
 enum RolePermission: string
 {
-    // Eleve
-    case eleves_all = 'eleves.*';
 
     // Devoir
     case devoirs_all = 'devoirs.*';
@@ -18,7 +16,17 @@ enum RolePermission: string
     case permissions_all = 'permissions.*';
 
     case responsables_all = 'responsables.*';
-    case eleves_view = 'eleves.view';
+
+
+    //------------------ Eleve ---------------- //
+    case eleves_all = 'eleves.*';
+    case eleves_view = 'eleves.view.*';
+    case eleves_create = 'eleves.create';
+    case eleves_update_all = 'eleves.update.*';
+    case eleves_delete = 'eleves.delete.*';
+    case eleves_restore = 'eleves.restore.*';
+    case eleves_force_delete = 'eleves.force-delete.*';
+    //------------------ ./Eleve ---------------- //
 
     //------------------ Inscription ---------------- //
     case inscriptions_all = 'inscriptions.*';
