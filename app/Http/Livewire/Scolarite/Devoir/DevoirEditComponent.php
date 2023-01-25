@@ -6,6 +6,7 @@ namespace App\Http\Livewire\Scolarite\Devoir;
 use App\Enums\DevoirStatus;
 use App\Enums\MediaType;
 use App\Exceptions\ApplicationAlert;
+use App\Http\Livewire\BaseComponent;
 use App\Models\Classe;
 use App\Models\Devoir;
 use App\Traits\CanDeleteMedia;
@@ -20,7 +21,7 @@ use Livewire\Component;
 use Livewire\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
 
-class DevoirEditComponent extends Component
+class DevoirEditComponent extends BaseComponent
 {
     use TopMenuPreview;
 
@@ -82,6 +83,7 @@ class DevoirEditComponent extends Component
 
     public function mount(Devoir $devoir)
     {
+        $this->authorize('update', $devoir);
         $this->devoir = $devoir;
         $this->classes = Classe::has('cours')->get();
         $this->reponses = $devoir->reponses;
