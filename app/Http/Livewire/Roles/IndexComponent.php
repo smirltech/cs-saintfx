@@ -39,7 +39,7 @@ class IndexComponent extends BaseComponent
     public function refreshPermissions(): void
     {
         foreach (RolePermission::cases() as $permission) {
-            Permission::updateOrCreate(
+            Permission::firstOrCreate(
                 ['name' => $permission->value]
             );
         }
