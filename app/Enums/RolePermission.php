@@ -24,6 +24,15 @@ enum RolePermission: string
     case responsables_all = 'responsables.*';
     case eleves_view = 'eleves.view';
 
+    //------------------ Option ---------------- //
+    case options_all = 'options.*';
+    case options_view = 'options.view.*';
+    case options_create = 'options.create';
+    case options_update_all = 'options.update.*';
+    case options_delete = 'options.delete.*';
+    case options_restore = 'options.restore.*';
+    case options_forceDelete = 'options.forceDelete.*';
+    //------------------ ./Option ---------------- //
     //------------------ Section ---------------- //
     case sections_all = 'sections.*';
     case sections_view = 'sections.view.*';

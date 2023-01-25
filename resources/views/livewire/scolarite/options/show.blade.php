@@ -30,11 +30,13 @@
                                 <h4 class="m-0">{{$option->nom}}</h4>
                             </div>
                             <div class="card-tools">
-                                <span
-                                    title="Modifier" role="button" class="ml-2 mr-2" data-toggle="modal"
-                                    data-target="#edit-option-modal">
-                                    <span class="fa fa-pen"></span>
-                                </span>
+                                @can('options.update', $option)
+                                    <span
+                                        title="Modifier" role="button" class="ml-2 mr-2" data-toggle="modal"
+                                        data-target="#edit-option-modal">
+                                        <span class="fa fa-pen"></span>
+                                    </span>
+                                @endcan
                             </div>
                         </div>
                         <div class="card-body">
@@ -153,3 +155,4 @@
             </div>
         </div>
     </div>
+</div>
