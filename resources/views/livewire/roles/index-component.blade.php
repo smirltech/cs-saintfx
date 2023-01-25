@@ -46,7 +46,7 @@
                             <thead class="table-header table-dark">
                             <tr>
                                 <th>#</th>
-                                <th>Nom</th>
+                                <th>Rôle</th>
                                 <th>Description</th>
                                 <th>Permissions</th>
                                 <th>Actions</th>
