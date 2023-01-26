@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Http\UploadedFile;
+use SmirlTech\LaravelMedia\Models\Media;
 use SmirlTech\LaravelMedia\Traits\HasMedia;
 
 /**
@@ -44,7 +45,7 @@ class DevoirReponse extends Model
 
     public function setDocumentUrlAttribute(UploadedFile $file): void
     {
-        $this->upload(file: $file, entity: $this, mediaType: MediaType::Document);
+        $this->upload(file: $file, entity: $this, collection_name: MediaType::document->value);
     }
 
     // eleve

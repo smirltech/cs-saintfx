@@ -17,7 +17,6 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Validation\Rule;
-use Livewire\Component;
 use Livewire\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
 
@@ -54,7 +53,7 @@ class DevoirEditComponent extends BaseComponent
 
         $this->devoir->save();
         if ($this->document) {
-            $this->devoir->addMedia(file: $this->document, mediaType: MediaType::document);
+            $this->devoir->addMedia(file: $this->document, collection_name: MediaType::document->value);
             $this->document = null;
         }
         $this->refreshData();

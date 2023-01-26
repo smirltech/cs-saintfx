@@ -120,7 +120,7 @@ class ResultatsBlockComponent extends Component
                 ]
             );
             if ($this->bulletin) {
-                $this->resultat->addMedia(file: $this->bulletin, mediaType: MediaType::document);
+                $this->resultat->addMedia(file: $this->bulletin, collection_name: MediaType::document->value);
                 $this->bulletin = null;
             }
             $this->onModalClosing('update-resultat');

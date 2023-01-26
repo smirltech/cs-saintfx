@@ -44,6 +44,6 @@ class Resultat extends Model
 
     public function setBulletinUrlAttribute(UploadedFile $file): void
     {
-        $this->upload(file: $file, entity: $this, mediaType: MediaType::bulletin);
+        $this->upload(file: $file, entity: $this, collection_name: MediaType::bulletin);
     }
 }

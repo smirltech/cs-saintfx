@@ -15,7 +15,6 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use JetBrains\PhpStorm\NoReturn;
-use Livewire\Component;
 use Livewire\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
 use Str;
@@ -49,7 +48,7 @@ class DevoirShowComponent extends BaseComponent
             $this->devoir_reponse->save();
 
             if ($this->document) {
-                $this->devoir_reponse->addMedia(file: $this->document, mediaType: MediaType::document);
+                $this->devoir_reponse->addMedia(file: $this->document, collection_name: MediaType::document->value);
             }
             //$this->refreshData();
             $this->flash('success', 'Réponse envoyée avec succès', [], route('scolarite.devoirs.index'));
