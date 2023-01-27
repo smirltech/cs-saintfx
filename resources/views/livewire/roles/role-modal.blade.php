@@ -26,7 +26,7 @@
                             multiple
                             wire:model="new_permissions">
                             @foreach($permissions as $permission)
-                                <option value="{{$permission->id}}">{{$permission->name}}</option>
+                                <option value="{{$permission->id}}">{{$permission->displayName}}</option>
                             @endforeach
                         </x-form::select>
                         @if($role->id)
