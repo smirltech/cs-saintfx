@@ -44,7 +44,7 @@ $data=[];
         ];
 @endphp
 @section('title')
-     - élèves
+    - élèves
 @endsection
 @section('content_header')
     <div class="row">

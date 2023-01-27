@@ -11,6 +11,7 @@ use App\Models\Devoir;
 use App\Models\DevoirReponse;
 use App\Models\Eleve;
 use App\Traits\CanDeleteMedia;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -65,6 +66,9 @@ class DevoirShowComponent extends BaseComponent
 
     // delete media
 
+    /**
+     * @throws AuthorizationException
+     */
     public function mount(Devoir $devoir)
     {
         $this->authorize('view', $devoir);
