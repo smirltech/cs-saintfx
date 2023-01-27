@@ -109,6 +109,59 @@ enum RolePermission: string
     case users_delete = 'users.delete.*';
     case users_restore = 'users.restore.*';
     case users_force_delete = 'users.force-delete.*';
+
     //------------------ ./Users ---------------- //
+
+
+    public function label(): string
+    {
+        return match ($this) {
+            default => $this->value,
+            self::users_create => 'Créer un utilisateur',
+            self::users_delete => 'Supprimer un utilisateur',
+            self::users_all => 'Gérer les utilisateurs',
+            self::users_force_delete => 'Supprimer définitivement un utilisateur',
+            self::users_restore => 'Restaurer un utilisateur',
+            self::users_update_all => 'Modifier un utilisateur',
+            self::users_view => 'Voir un utilisateur',
+            self::annees_all => 'Gérer les années',
+            self::annees_create => 'Créer une année',
+            self::annees_delete => 'Supprimer une année',
+            self::annees_force_delete => 'Supprimer définitivement une année',
+            self::annees_restore => 'Restaurer une année',
+            self::annees_update_all => 'Modifier une année',
+            self::annees_update_encours => 'Modifier l\'année en cours',
+            self::annees_view => 'Voir une année',
+            self::enseignants_all => 'Gérer les enseignants',
+            self::enseignants_create => 'Créer un enseignant',
+            self::enseignants_delete => 'Supprimer un enseignant',
+            self::enseignants_force_delete => 'Supprimer définitivement un enseignant',
+            self::enseignants_restore => 'Restaurer un enseignant',
+            self::enseignants_update_all => 'Modifier un enseignant',
+            self::enseignants_view => 'Voir un enseignant',
+            self::sections_all => 'Gérer les sections',
+            self::sections_create => 'Créer une section',
+            self::sections_delete => 'Supprimer une section',
+            self::sections_force_delete => 'Supprimer définitivement une section',
+            self::sections_restore => 'Restaurer une section',
+            self::sections_update_all => 'Modifier une section',
+            self::sections_view => 'Voir une section',
+            self::options_all => 'Gérer les options',
+            self::options_create => 'Créer une option',
+            self::options_delete => 'Supprimer une option',
+            self::options_force_delete => 'Supprimer définitivement une option',
+            self::options_restore => 'Restaurer une option',
+            self::options_update_all => 'Modifier une option',
+            self::options_view => 'Voir une option',
+            self::filieres_all => 'Gérer les filières',
+            self::filieres_create => 'Créer une filière',
+            self::filieres_delete => 'Supprimer une filière',
+            self::filieres_force_delete => 'Supprimer définitivement une filière',
+            self::filieres_restore => 'Restaurer une filière',
+            self::filieres_update_all => 'Modifier une filière',
+            self::filieres_view => 'Voir une filière',
+
+        };
+    }
+
 }
-// }
