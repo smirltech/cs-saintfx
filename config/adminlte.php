@@ -280,12 +280,13 @@ return [
         ],
 
         ['header' => 'SCOLARITÉ',
-            //'can' => UserGate::browse_scolarite,
+            'can' => ['eleves.view.*', 'inscriptions.view.*', 'eleves.create', 'inscriptions.create','responsables.view.*',
+                'devoirs.view.*','cours.view.*', 'enseignants.view.*', 'classes.view.*'],
         ],
         [
             'text' => 'Élèves',
             'icon' => 'fas fa-fw fa-user-graduate',
-             'can' => 'eleves.view.*',
+             'can' => ['eleves.view.*', 'inscriptions.view.*', 'eleves.create', 'inscriptions.create','responsables.view.*'],
             'submenu' => [
                 [
                     'text' => 'Inscrire un élève',
@@ -350,7 +351,10 @@ return [
         ],
 
 
-        ['header' => 'FINANCE', 'can' => 'perceptions.views.*',],
+        [
+            'header' => 'FINANCE',
+            'can' => ['caises.views.*', 'perceptions.create','perceptions.views.*', 'frais.views.*','depenses.view.*', 'depenses-types.view.*'],
+            ],
         [
             'text' => 'Caisse',
             'icon' => 'fas fa-fw fa-cash-register',
@@ -360,7 +364,7 @@ return [
         [
             'text' => 'Perceptions',
             'icon' => 'fas fa-fw fa-arrow-trend-up',
-            'can' => 'perceptions.views.*',
+            'can' => ['perceptions.create','perceptions.views.*', 'frais.views.*', 'revenus.views.*',],
             'submenu' => [
                 [
                     'text' => 'Ajouter facture',
@@ -392,7 +396,7 @@ return [
         [
             'text' => 'Dépenses',
             'icon' => 'fas fa-fw fa-arrow-trend-down',
-            'can' => 'depenses.view.*',
+            'can' => ['depenses.view.*', 'depenses-types.view.*'],
             'submenu' => [
                 [
                     'text' => 'Liste des Dépenses',
@@ -417,11 +421,14 @@ return [
             'can' => 'rapports.view.*',
         ],
 
-        ['header' => 'LOGISTIQUE'],
+        [
+            'header' => 'LOGISTIQUE',
+            'can' => ['consommables.view.*', 'operations.view.*', 'units.view.*','materiels.view.*', 'categories.view.*', 'mouvements.view.*','cessions.view.*'],
+            ],
         [
             'text' => 'Fongibles',
             'icon' => 'fas fa-fw fa-recycle',
-            'can' => 'consommables.view.*',
+            'can' => ['consommables.view.*', 'operations.view.*', 'units.view.*'],
             'submenu' => [
                 [
                     'text' => 'Consommables',
@@ -449,7 +456,7 @@ return [
         [
             'text' => 'Non Fongibles',
             'icon' => 'fas fa-fw fa-screwdriver-wrench',
-            'can' => 'materiels.view.*',
+            'can' => ['materiels.view.*', 'categories.view.*', 'mouvements.view.*','cessions.view.*'],
             'submenu' => [
                 [
                     'text' => 'Materiels',
@@ -482,7 +489,10 @@ return [
             ],
         ],
 
-        ['header' => 'BIBLIOTHÈQUE'],
+        [
+            'header' => 'BIBLIOTHÈQUE',
+            'can' => ['ouvrages.view.*', 'authors.view.*', 'etiquettes.view.*'],
+        ],
         [
             'text' => 'Ouvrages',
             'url' => 'bibliotheque/ouvrages',
@@ -508,7 +518,10 @@ return [
             'can' => 'etiquettes.view.*',
         ],
 
-        ['header' => 'ECOLE'],
+        [
+            'header' => 'ECOLE',
+            'can' => ['annees.view.*', 'filieres.view.*', 'options.view.*', 'sections.view.*'],
+            ],
         [
             'text' => 'Calendrier',
             'url' => 'scolarite/annees',
@@ -518,27 +531,32 @@ return [
         [
             'text' => 'Programme',
             'icon' => 'fas fa-fw fa-university',
+            'can' => ['filieres.view.*', 'options.view.*', 'sections.view.*'],
             'submenu' => [
                 [
                     'text' => 'Filières',
                     'url' => 'scolarite/filieres',
                     'shift' => 'ml-1',
+                    'can' => 'filieres.view.*',
                 ],
                 [
                     'text' => 'Options',
                     'url' => 'scolarite/options',
                     'shift' => 'ml-1',
+                    'can' => 'options.view.*',
                 ],
                 [
                     'text' => 'Sections',
                     'url' => 'scolarite/sections',
                     'shift' => 'ml-1',
+                    'can' => 'sections.view.*',
                 ],
             ],
         ],
         [
             'text' => 'Paramètres',
             'icon' => 'fas fa-fw fa-cog',
+            'can' => ['users.view.*', 'roles.view'],
             'submenu' => [
                 [
                     'text' => 'Utilisateurs',
