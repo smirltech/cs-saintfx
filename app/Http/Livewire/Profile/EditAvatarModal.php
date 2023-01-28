@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\Profile;
 
 use App\Enums\MediaType;
-use App\Exceptions\ApplicationAlert;
+use App\Traits\HasLivewireAlert;
 use App\Traits\WithFileUploads;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
@@ -14,7 +14,7 @@ use Livewire\Component;
 
 class EditAvatarModal extends Component
 {
-    use WithFileUploads, ApplicationAlert;
+    use WithFileUploads, HasLivewireAlert;
 
     public mixed $avatar = null;
 

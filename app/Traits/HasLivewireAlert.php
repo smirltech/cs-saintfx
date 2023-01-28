@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Exceptions;
+namespace App\Traits;
 
 use App;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
-trait ApplicationAlert
+trait HasLivewireAlert
 {
     use LivewireAlert;
 

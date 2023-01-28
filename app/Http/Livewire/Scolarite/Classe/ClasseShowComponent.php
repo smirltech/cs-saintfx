@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Scolarite\Classe;
 
-use App\Exceptions\ApplicationAlert;
 use App\Models\Annee;
 use App\Models\Classe;
 use App\Models\ClasseEnseignant;
@@ -12,6 +11,7 @@ use App\Models\Enseignant;
 use App\Models\Filiere;
 use App\Models\Option;
 use App\Models\Section;
+use App\Traits\HasLivewireAlert;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Exception;
@@ -25,7 +25,7 @@ use Livewire\Component;
 class ClasseShowComponent extends Component
 {
     use TopMenuPreview;
-    use ApplicationAlert;
+    use HasLivewireAlert;
 
     public Classe $classe;
     public ?string $parent = "";

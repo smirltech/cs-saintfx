@@ -2,8 +2,8 @@
 
 namespace App\Http\Livewire\Scolarite\Classe\Cours;
 
-use App\Exceptions\ApplicationAlert;
 use App\Models\CoursEnseignant;
+use App\Traits\HasLivewireAlert;
 use App\Traits\TopMenuPreview;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -13,7 +13,7 @@ use Livewire\Component;
 class EditModal extends Component
 {
     use TopMenuPreview;
-    use ApplicationAlert;
+    use HasLivewireAlert;
 
     public CoursEnseignant $cours_enseignant;
 

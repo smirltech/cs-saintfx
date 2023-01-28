@@ -4,12 +4,12 @@ namespace App\Http\Livewire\Scolarite\Resultat\Block;
 
 use App\Enums\MediaType;
 use App\Enums\ResultatType;
-use App\Exceptions\ApplicationAlert;
 use App\Models\Annee;
 use App\Models\Classe;
 use App\Models\Inscription;
 use App\Models\Resultat;
 use App\Traits\CanDeleteMedia;
+use App\Traits\HasLivewireAlert;
 use App\Traits\WithFileUploads;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
@@ -21,7 +21,7 @@ use Livewire\WithPagination;
 
 class ResultatsBlockComponent extends Component
 {
-    use ApplicationAlert, WithPagination, WithFileUploads, CanDeleteMedia;
+    use HasLivewireAlert, WithPagination, WithFileUploads, CanDeleteMedia;
 
 
     public Classe $classe;

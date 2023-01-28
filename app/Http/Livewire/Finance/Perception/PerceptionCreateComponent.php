@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Finance\Perception;
 
 use App\Enums\FraisType;
-use App\Exceptions\ApplicationAlert;
 use App\Http\Integrations\Scolarite\Requests\Annee\GetCurrentAnnneRequest;
 use App\Http\Integrations\Scolarite\Requests\Filiere\GetFiliereRequest;
 use App\Http\Integrations\Scolarite\Requests\Inscription\GetInscriptionRequest;
@@ -15,6 +14,7 @@ use App\Models\Frais;
 use App\Models\Inscription;
 use App\Models\Option;
 use App\Models\Perception;
+use App\Traits\HasLivewireAlert;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Carbon\Carbon;
@@ -25,7 +25,7 @@ use Livewire\Component;
 class PerceptionCreateComponent extends Component
 {
     use TopMenuPreview;
-    use ApplicationAlert;
+    use HasLivewireAlert;
 
     public $searchCode;
 
@@ -182,13 +182,13 @@ class PerceptionCreateComponent extends Component
     public function eleveSelected()
     {
 
-         $this->inscription_id = $this->searchCode;
+        $this->inscription_id = $this->searchCode;
         if ($this->inscription_id == null) {
             $this->eleveNom = null;
             $this->inscription = null;
             $this->classe_id = null;
         } else {
-           // dd('eleve selected '. $this->inscription_id);
+            // dd('eleve selected '. $this->inscription_id);
             $this->inscription = Inscription::find($this->inscription_id);
             if ($this->inscription != null) {
                 $this->eleveNom = $this->inscription?->eleve->fullName;

@@ -4,13 +4,13 @@ namespace App\Http\Livewire\Scolarite\Devoir;
 
 
 use App\Enums\MediaType;
-use App\Exceptions\ApplicationAlert;
 use App\Http\Livewire\BaseComponent;
 use App\Models\Cours;
 use App\Models\Devoir;
 use App\Models\DevoirReponse;
 use App\Models\Eleve;
 use App\Traits\CanDeleteMedia;
+use App\Traits\HasLivewireAlert;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -23,7 +23,7 @@ use Str;
 class DevoirShowComponent extends BaseComponent
 {
 
-    use ApplicationAlert, WithFileUploads, CanDeleteMedia;
+    use HasLivewireAlert, WithFileUploads, CanDeleteMedia;
 
     public Devoir $devoir;
     public Cours $cours;

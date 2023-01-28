@@ -5,11 +5,11 @@ namespace App\Http\Livewire\Scolarite\Devoir;
 
 use App\Enums\DevoirStatus;
 use App\Enums\MediaType;
-use App\Exceptions\ApplicationAlert;
 use App\Http\Livewire\BaseComponent;
 use App\Models\Classe;
 use App\Models\Devoir;
 use App\Traits\CanDeleteMedia;
+use App\Traits\HasLivewireAlert;
 use App\Traits\TopMenuPreview;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
@@ -24,7 +24,7 @@ class DevoirEditComponent extends BaseComponent
 {
     use TopMenuPreview;
 
-    use ApplicationAlert, WithFileUploads, CanDeleteMedia;
+    use HasLivewireAlert, WithFileUploads, CanDeleteMedia;
 
     public Devoir $devoir;
     public Collection|array $cours = [];
