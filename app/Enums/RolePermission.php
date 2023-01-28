@@ -4,6 +4,15 @@ namespace App\Enums;
 
 enum RolePermission: string
 {
+    //------------------ Perceptions ---------------- //
+    case perceptions_all = 'perceptions.*';
+    case perceptions_view = 'perceptions.view.*';
+    case perceptions_create = 'perceptions.create';
+    case perceptions_update_all = 'perceptions.update.*';
+    case perceptions_delete = 'perceptions.delete.*';
+    case perceptions_restore = 'perceptions.restore.*';
+    case perceptions_force_delete = 'perceptions.force-delete.*';
+    //------------------ ./Perceptions ---------------- //
     //------------------ Classes ---------------- //
     case classes_all = 'classes.*';
     case classes_view = 'classes.view.*';
@@ -278,6 +287,14 @@ enum RolePermission: string
             self::classes_restore => 'Restaurer une classe',
             self::classes_update_all => 'Modifier une classe',
             self::classes_view => 'Voir une classe',
+            // Perceptions
+            self::perceptions_all => 'Gérer les perceptions',
+            self::perceptions_create => 'Créer une perception',
+            self::perceptions_delete => 'Supprimer une perception',
+            self::perceptions_force_delete => 'Supprimer définitivement une perception',
+            self::perceptions_restore => 'Restaurer une perception',
+            self::perceptions_update_all => 'Modifier une perception',
+            self::perceptions_view => 'Voir une perception',
         };
     }
 

@@ -13,14 +13,14 @@ class InscriptionPolicy
 
     public function viewAny(User $user):Response|bool
     {
-        return $user->can('inscriptions.view')
+        return $user->can('inscriptions.view.*')
             ? Response::allow()
             : Response::deny('Vous n\'êtes pas autorisé à voir les inscriptions.');
     }
 
     public function view(User $user, Inscription $inscription):Response|bool
     {
-        return $user->can('inscriptions.view'. $inscription->id)
+        return $user->can('inscriptions.view.'. $inscription->id)
             ? Response::allow()
             : Response::deny('Vous n\'êtes pas autorisé à voir cette inscription.');
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Finance\Perception;
 
+use App\Http\Livewire\BaseComponent;
 use App\Models\Annee;
 use App\Models\Inscription;
 use App\Models\Perception;
@@ -11,7 +12,7 @@ use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Str;
 
-class CaisseComponent extends Component
+class CaisseComponent extends BaseComponent
 {
     use TopMenuPreview;
     use LivewireAlert;
@@ -31,6 +32,7 @@ class CaisseComponent extends Component
 
     public function mount()
     {
+        $this->authorize('viewAny', Perception::class);
         $this->annee = Annee::encours();
     }
 
@@ -44,7 +46,6 @@ class CaisseComponent extends Component
     public function getSelectedInscription($id)
     {
         $this->inscription = Inscription::find($id);
-        // $this->perceptions = $this->inscription->perceptions;
         $this->perceptions = $this->inscription->perceptionsEncours;
     }
 

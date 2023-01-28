@@ -13,7 +13,7 @@ class CoursPolicy
 
     public function viewAny(User $user):Response|bool
     {
-        return $user->can('cours.view')
+        return $user->can('cours.view.*')
             ? Response::allow()
             : Response::deny('Vous n\'êtes pas autorisé à voir les cours.');
     }

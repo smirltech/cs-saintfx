@@ -13,7 +13,7 @@ class ClassePolicy
 
     public function viewAny(User $user):Response|bool
     {
-        return $user->can('classes.view')
+        return $user->can('classes.view.*')
             ? Response::allow()
             : Response::deny('Vous n\'êtes pas autorisé à voir les classes.');
     }

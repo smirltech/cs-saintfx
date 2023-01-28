@@ -1,7 +1,5 @@
 <?php
 
-use App\Enums\UserGate;
-
 return [
 
     /*
@@ -280,13 +278,13 @@ return [
         ],
 
         ['header' => 'SCOLARITÉ',
-            'can' => ['eleves.view.*', 'inscriptions.view.*', 'eleves.create', 'inscriptions.create','responsables.view.*',
-                'devoirs.view.*','cours.view.*', 'enseignants.view.*', 'classes.view.*'],
+            'can' => ['eleves.view.*', 'inscriptions.view.*', 'eleves.create', 'inscriptions.create', 'responsables.view.*',
+                'devoirs.view.*', 'cours.view.*', 'enseignants.view.*', 'classes.view.*'],
         ],
         [
             'text' => 'Élèves',
             'icon' => 'fas fa-fw fa-user-graduate',
-             'can' => ['eleves.view.*', 'inscriptions.view.*', 'eleves.create', 'inscriptions.create','responsables.view.*'],
+            'can' => ['eleves.view.*', 'inscriptions.view.*', 'eleves.create', 'inscriptions.create', 'responsables.view.*'],
             'submenu' => [
                 [
                     'text' => 'Inscrire un élève',
@@ -353,18 +351,18 @@ return [
 
         [
             'header' => 'FINANCE',
-            'can' => ['caises.views.*', 'perceptions.create','perceptions.views.*', 'frais.views.*','depenses.view.*', 'depenses-types.view.*'],
-            ],
+            'can' => ['perceptions.view.*', 'perceptions.create', 'frais.view.*', 'depenses.view.*', 'depenses-types.view.*'],
+        ],
         [
             'text' => 'Caisse',
             'icon' => 'fas fa-fw fa-cash-register',
             'url' => 'finance/caisse',
-            'can' => 'caises.views.*',
+            'can' => 'perceptions.view.*',
         ],
         [
             'text' => 'Perceptions',
             'icon' => 'fas fa-fw fa-arrow-trend-up',
-            'can' => ['perceptions.create','perceptions.views.*', 'frais.views.*', 'revenus.views.*',],
+            'can' => ['perceptions.create', 'perceptions.view.*', 'frais.view.*', 'revenus.view.*',],
             'submenu' => [
                 [
                     'text' => 'Ajouter facture',
@@ -423,8 +421,8 @@ return [
 
         [
             'header' => 'LOGISTIQUE',
-            'can' => ['consommables.view.*', 'operations.view.*', 'units.view.*','materiels.view.*', 'categories.view.*', 'mouvements.view.*','cessions.view.*'],
-            ],
+            'can' => ['consommables.view.*', 'operations.view.*', 'units.view.*', 'materiels.view.*', 'categories.view.*', 'mouvements.view.*', 'cessions.view.*'],
+        ],
         [
             'text' => 'Fongibles',
             'icon' => 'fas fa-fw fa-recycle',
@@ -456,7 +454,7 @@ return [
         [
             'text' => 'Non Fongibles',
             'icon' => 'fas fa-fw fa-screwdriver-wrench',
-            'can' => ['materiels.view.*', 'categories.view.*', 'mouvements.view.*','cessions.view.*'],
+            'can' => ['materiels.view.*', 'categories.view.*', 'mouvements.view.*', 'cessions.view.*'],
             'submenu' => [
                 [
                     'text' => 'Materiels',
@@ -521,7 +519,7 @@ return [
         [
             'header' => 'ECOLE',
             'can' => ['annees.view.*', 'filieres.view.*', 'options.view.*', 'sections.view.*'],
-            ],
+        ],
         [
             'text' => 'Calendrier',
             'url' => 'scolarite/annees',
