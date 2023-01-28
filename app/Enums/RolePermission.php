@@ -4,6 +4,15 @@ namespace App\Enums;
 
 enum RolePermission: string
 {
+    //------------------ Frais ---------------- //
+    case frais_all = 'frais.*';
+    case frais_view = 'frais.view.*';
+    case frais_create = 'frais.create';
+    case frais_update_all = 'frais.update.*';
+    case frais_delete = 'frais.delete.*';
+    case frais_restore = 'frais.restore.*';
+    case frais_force_delete = 'frais.force-delete.*';
+    //------------------ ./Frais ---------------- //
     //------------------ Perceptions ---------------- //
     case perceptions_all = 'perceptions.*';
     case perceptions_view = 'perceptions.view.*';
@@ -295,6 +304,14 @@ enum RolePermission: string
             self::perceptions_restore => 'Restaurer une perception',
             self::perceptions_update_all => 'Modifier une perception',
             self::perceptions_view => 'Voir une perception',
+            // Frais
+            self::frais_all => 'Gérer les frais',
+            self::frais_create => 'Créer un frais',
+            self::frais_delete => 'Supprimer un frais',
+            self::frais_force_delete => 'Supprimer définitivement un frais',
+            self::frais_restore => 'Restaurer un frais',
+            self::frais_update_all => 'Modifier un frais',
+            self::frais_view => 'Voir un frais',
         };
     }
 
