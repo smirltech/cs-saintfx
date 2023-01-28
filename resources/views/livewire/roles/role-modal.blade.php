@@ -26,18 +26,24 @@
                             multiple
                             wire:model="new_permissions">
                             @foreach($permissions as $permission)
-                                <option value="{{$permission->id}}">{{$permission->name}}</option>
+                                <option value="{{$permission->id}}">{{$permission->displayName}}</option>
                             @endforeach
                         </x-form::select>
                         @if($role->id)
                             <div class="text-black mt-1">
                                 {{ count($role->permissions) }} {{ Str::plural('permission', count($role->permissions))}}
-                                | {{$role->display_permissions}}
+                                | {{--{{$role->display_permissions}}--}}
+                                @foreach($role->permissions as $perm)
+                                    <span class="badge badge-secondary">{{$perm->displayName}}</span>
+                                @endforeach
                             </div>
                         @endif
                         <div class="text-green">
                             {{ count($new_permissions) }} {{ Str::plural('permission', count($new_permissions))}}
-                            | {{implode(', ', $this->getPermissionNames())}}
+                            | {{--{{implode(', ', $this->getPermissionNames())}}--}}
+                            @foreach($this->getPermissionNames() as $perm)
+                                <span class="badge badge-success">{{$perm}}</span>
+                            @endforeach
                         </div>
                     </div>
                 </div>

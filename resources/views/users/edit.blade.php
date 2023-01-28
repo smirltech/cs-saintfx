@@ -16,7 +16,10 @@
                                     @endif</div>
                                 <div class="text-muted text-center">
                                     {{$user->role_name??'N/A'}}<br>
-                                    {{$user->display_permissions??'N/A'}}
+                                    {{--{{$user->display_permissions??'N/A'}}--}}
+                                    @foreach($user->role?->permissions??[] as $perm)
+                                        <span class="badge badge-secondary">{{$perm->displayName}}</span>
+                                    @endforeach
                                 </div>
                                 <div class="text-muted">
                                     <i class="zmdi zmdi-email"></i>

@@ -4,12 +4,34 @@ namespace App\Enums;
 
 enum RolePermission: string
 {
-    // Facture
+    //------------------ Factures ---------------- //
     case factures_all = 'factures.*';
-    // Role
-    case roles_all = 'roles.*';
-    // Permission
+    case factures_view = 'factures.view.*';
+    case factures_create = 'factures.create';
+    case factures_update_all = 'factures.update.*';
+    case factures_delete = 'factures.delete.*';
+    case factures_restore = 'factures.restore.*';
+    case factures_force_delete = 'factures.force-delete.*';
+    //------------------ ./Factures ---------------- //
+
+    //------------------ Permissions ---------------- //
     case permissions_all = 'permissions.*';
+    case permissions_view = 'permissions.view.*';
+    case permissions_create = 'permissions.create';
+    case permissions_update_all = 'permissions.update.*';
+    case permissions_delete = 'permissions.delete.*';
+    case permissions_restore = 'permissions.restore.*';
+    case permissions_force_delete = 'permissions.force-delete.*';
+    //------------------ ./Permissions ---------------- //
+    //------------------ Roles ---------------- //
+    case roles_all = 'roles.*';
+    case roles_view = 'roles.view.*';
+    case roles_create = 'roles.create';
+    case roles_update_all = 'roles.update.*';
+    case roles_delete = 'roles.delete.*';
+    case roles_restore = 'roles.restore.*';
+    case roles_force_delete = 'roles.force-delete.*';
+    //------------------ ./Roles ---------------- //
 
     //------------------ Devoirs ---------------- //
     case devoirs_all = 'devoirs.*';
@@ -117,6 +139,7 @@ enum RolePermission: string
     {
         return match ($this) {
             default => $this->value,
+            // Users
             self::users_create => 'Créer un utilisateur',
             self::users_delete => 'Supprimer un utilisateur',
             self::users_all => 'Gérer les utilisateurs',
@@ -124,6 +147,23 @@ enum RolePermission: string
             self::users_restore => 'Restaurer un utilisateur',
             self::users_update_all => 'Modifier un utilisateur',
             self::users_view => 'Voir un utilisateur',
+            // Roles
+            self::roles_all => 'Gérer les rôles',
+            self::roles_create => 'Créer un rôle',
+            self::roles_delete => 'Supprimer un rôle',
+            self::roles_force_delete => 'Supprimer définitivement un rôle',
+            self::roles_restore => 'Restaurer un rôle',
+            self::roles_update_all => 'Modifier un rôle',
+            self::roles_view => 'Voir un rôle',
+            // Permissions
+            self::permissions_all => 'Gérer les permissions',
+            self::permissions_create => 'Créer une permission',
+            self::permissions_delete => 'Supprimer une permission',
+            self::permissions_force_delete => 'Supprimer définitivement une permission',
+            self::permissions_restore => 'Restaurer une permission',
+            self::permissions_update_all => 'Modifier une permission',
+            self::permissions_view => 'Voir une permission',
+            // Années
             self::annees_all => 'Gérer les années',
             self::annees_create => 'Créer une année',
             self::annees_delete => 'Supprimer une année',
@@ -132,6 +172,23 @@ enum RolePermission: string
             self::annees_update_all => 'Modifier une année',
             self::annees_update_encours => 'Modifier l\'année en cours',
             self::annees_view => 'Voir une année',
+            // Eleves
+            self::eleves_all => 'Gérer les élèves',
+            self::eleves_create => 'Créer un élève',
+            self::eleves_delete => 'Supprimer un élève',
+            self::eleves_force_delete => 'Supprimer définitivement un élève',
+            self::eleves_restore => 'Restaurer un élève',
+            self::eleves_update_all => 'Modifier un élève',
+            self::eleves_view => 'Voir un élève',
+            // Responsables
+            self::responsables_all => 'Gérer les responsables',
+            self::responsables_create => 'Créer un responsable',
+            self::responsables_delete => 'Supprimer un responsable',
+            self::responsables_force_delete => 'Supprimer définitivement un responsable',
+            self::responsables_restore => 'Restaurer un responsable',
+            self::responsables_update_all => 'Modifier un responsable',
+            self::responsables_view => 'Voir un responsable',
+            // Enseignants
             self::enseignants_all => 'Gérer les enseignants',
             self::enseignants_create => 'Créer un enseignant',
             self::enseignants_delete => 'Supprimer un enseignant',
@@ -139,6 +196,7 @@ enum RolePermission: string
             self::enseignants_restore => 'Restaurer un enseignant',
             self::enseignants_update_all => 'Modifier un enseignant',
             self::enseignants_view => 'Voir un enseignant',
+            // Sections
             self::sections_all => 'Gérer les sections',
             self::sections_create => 'Créer une section',
             self::sections_delete => 'Supprimer une section',
@@ -146,6 +204,7 @@ enum RolePermission: string
             self::sections_restore => 'Restaurer une section',
             self::sections_update_all => 'Modifier une section',
             self::sections_view => 'Voir une section',
+            // Options
             self::options_all => 'Gérer les options',
             self::options_create => 'Créer une option',
             self::options_delete => 'Supprimer une option',
@@ -153,6 +212,7 @@ enum RolePermission: string
             self::options_restore => 'Restaurer une option',
             self::options_update_all => 'Modifier une option',
             self::options_view => 'Voir une option',
+            // Filières
             self::filieres_all => 'Gérer les filières',
             self::filieres_create => 'Créer une filière',
             self::filieres_delete => 'Supprimer une filière',
@@ -160,7 +220,30 @@ enum RolePermission: string
             self::filieres_restore => 'Restaurer une filière',
             self::filieres_update_all => 'Modifier une filière',
             self::filieres_view => 'Voir une filière',
-
+            // Inscriptions
+            self::inscriptions_all => 'Gérer les inscriptions',
+            self::inscriptions_create => 'Créer une inscription',
+            self::inscriptions_delete => 'Supprimer une inscription',
+            self::inscriptions_force_delete => 'Supprimer définitivement une inscription',
+            self::inscriptions_restore => 'Restaurer une inscription',
+            self::inscriptions_update_all => 'Modifier une inscription',
+            self::inscriptions_view => 'Voir une inscription',
+            // Devoirs
+            self::devoirs_all => 'Gérer les devoirs',
+            self::devoirs_create => 'Créer un devoir',
+            self::devoirs_delete => 'Supprimer un devoir',
+            self::devoirs_force_delete => 'Supprimer définitivement un devoir',
+            self::devoirs_restore => 'Restaurer un devoir',
+            self::devoirs_update_all => 'Modifier un devoir',
+            self::devoirs_view => 'Voir un devoir',
+            // Factures
+            self::factures_all => 'Gérer les factures',
+            self::factures_create => 'Créer une facture',
+            self::factures_delete => 'Supprimer une facture',
+            self::factures_force_delete => 'Supprimer définitivement une facture',
+            self::factures_restore => 'Restaurer une facture',
+            self::factures_update_all => 'Modifier une facture',
+            self::factures_view => 'Voir une facture',
         };
     }
 

@@ -70,7 +70,7 @@ class RoleModal extends BaseComponent
         // get permission names from $new_permissions array of ids
         $permission_names = [];
         foreach ($this->new_permissions as $permission_id) {
-            $permission_names[] = $this->permissions->find($permission_id)->name;
+            $permission_names[] = $this->permissions->find($permission_id)->displayName;
         }
         return $permission_names;
     }

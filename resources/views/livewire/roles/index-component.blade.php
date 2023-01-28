@@ -65,7 +65,10 @@
                                         {{$role->description}}
                                     </td>
                                     <td>
-                                        {{$role->display_permissions}}
+                                        @foreach($role->permissions as $perm)
+                                            <span class="badge badge-secondary">{{$perm->displayName}}</span>
+                                        @endforeach
+                                       {{-- {{$role->display_permissions}}--}}
                                     </td>
                                     <td>
 
