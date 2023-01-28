@@ -69,11 +69,6 @@
 
                                         <td>
                                             <span>{{$user->role->display_name??'N/A'}}</span><br>
-                                           {{-- <span>{{$user->display_permissions??'N/A'}}</span>--}}
-                                            @foreach($user->role?->permissions??[] as $perm)
-                                                <span class="badge badge-secondary">{{$perm->displayName}}</span>
-                                            @endforeach
-
                                         </td>
                                         @can('users.update', $user)
                                             <td>
