@@ -31,10 +31,12 @@
                             <h4 class="m-0">{{$classe->grade->label()}}</h4>
                         </div>
                         <div class="card-tools">
+                            @can('classes.update',$classe)
                             <a href="/scolarite/classes/{{ $classe->id }}/edit" title="modifier"
                                class="ml-2">
                                 <i class="fas fa-pen"></i>
                             </a>
+                            @endcan
                         </div>
                     </div>
                     <div class="card-body">
@@ -49,10 +51,12 @@
                             <li class="list-group-item">
                                 <b>Cours : {{ $cours->count() }}</b>
                                 <span class="float-right">
+                                     @can('cours.create',Cours::class)
                                         <button class="btn btn-sm btn-primary" data-toggle="modal"
                                                 data-target="#add-cours-modal" title="ajouter">
                                             <i class="fa fa-plus"></i>
                                         </button>
+                                    @endcan
                                     </span>
 
                             </li>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Scolarite\Classe;
 
+use App\Http\Livewire\BaseComponent;
 use App\Models\Classe;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
@@ -9,13 +10,18 @@ use Exception;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
-class ClasseIndexComponent extends Component
+class ClasseIndexComponent extends BaseComponent
 {
     use TopMenuPreview;
     use LivewireAlert;
 
     public $classes = [];
     public ?Classe $classe = null;
+
+    public function mount(): void
+    {
+        $this->authorize('viewAny', Classe::class);
+    }
 
     public function render()
     {

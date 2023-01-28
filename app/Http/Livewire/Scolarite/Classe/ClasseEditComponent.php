@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Scolarite\Classe;
 
 
+use App\Http\Livewire\BaseComponent;
 use App\Models\Annee;
 use App\Models\Classe;
 use App\Models\ClasseEnseignant;
@@ -15,7 +16,7 @@ use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
-class ClasseEditComponent extends Component
+class ClasseEditComponent extends BaseComponent
 {
     use TopMenuPreview;
     use LivewireAlert;
@@ -45,6 +46,7 @@ class ClasseEditComponent extends Component
 
     public function mount(Classe $classe)
     {
+        $this->authorize('update', $classe);
         $this->classe = $classe;
         $this->enseignant_id = $this->classe->enseignant_id;
         $this->grade = $this->classe->grade->value;
