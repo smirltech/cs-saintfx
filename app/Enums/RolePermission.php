@@ -4,6 +4,15 @@ namespace App\Enums;
 
 enum RolePermission: string
 {
+    //------------------ Cours ---------------- //
+    case cours_all = 'cours.*';
+    case cours_view = 'cours.view.*';
+    case cours_create = 'cours.create';
+    case cours_update_all = 'cours.update.*';
+    case cours_delete = 'cours.delete.*';
+    case cours_restore = 'cours.restore.*';
+    case cours_force_delete = 'cours.force-delete.*';
+    //------------------ ./Cours ---------------- //
     //------------------ Factures ---------------- //
     case factures_all = 'factures.*';
     case factures_view = 'factures.view.*';
@@ -244,6 +253,15 @@ enum RolePermission: string
             self::factures_restore => 'Restaurer une facture',
             self::factures_update_all => 'Modifier une facture',
             self::factures_view => 'Voir une facture',
+            // Cours
+            self::cours_all => 'Gérer les cours',
+            self::cours_create => 'Créer un cours',
+            self::cours_delete => 'Supprimer un cours',
+            self::cours_force_delete => 'Supprimer définitivement un cours',
+            self::cours_restore => 'Restaurer un cours',
+            self::cours_update_all => 'Modifier un cours',
+            self::cours_view => 'Voir un cours',
+
         };
     }
 

@@ -2,7 +2,7 @@
 @php use App\Models\Option; @endphp
 @php use App\Models\Section; @endphp
 @section('title')
-     - Cours
+    - Cours
 @endsection
 @section('content_header')
     <div class="row">
@@ -30,9 +30,11 @@
                             <div class="card-title">
                             </div>
                             <div class="card-tools d-flex my-auto">
-                                <a href="{{ route('scolarite.cours.create') }}" title="ajouter"
-                                   class="btn btn-primary mr-2"><span
-                                        class="fa fa-plus"></span></a>
+                                @can('cours.create')
+                                    <a href="{{ route('scolarite.cours.create') }}" title="ajouter"
+                                       class="btn btn-primary mr-2"><span
+                                            class="fa fa-plus"></span></a>
+                                @endcan
                             </div>
                         </div>
                         <div class="card-body p-0 table-responsive">
@@ -61,22 +63,24 @@
 
                                         <td>
                                             <div class="d-flex float-right">
-                                                <a href="/scolarite/cours/{{ $c->id }}/edit" title="modifier"
-                                                   class="btn btn-outline-info  ml-2">
-                                                    <i class="fas fa-pen"></i>
-                                                </a>
-
-                                                <button wire:click="getSelectedCours({{$c->id }})" type="button"
-                                                        title="supprimer" class="btn btn-outline-danger  ml-2"
-                                                        data-toggle="modal"
-                                                        data-target="#delete-cours">
-                                                    <span class="fa fa-trash"></span>
-                                                </button>
-
-                                               {{-- <button wire:click="deleteCours({{ $c->id }})"
-                                                        title="supprimer" class="btn btn-outline-danger ml-2">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>--}}
+                                                @can('cours.update',$c)
+                                                    <a href="/scolarite/cours/{{ $c->id }}/edit" title="modifier"
+                                                       class="btn btn-outline-info  ml-2">
+                                                        <i class="fas fa-pen"></i>
+                                                    </a>
+                                                @endcan
+                                                @can('cours.delete',$c)
+                                                    <button wire:click="getSelectedCours({{$c->id }})" type="button"
+                                                            title="supprimer" class="btn btn-outline-danger  ml-2"
+                                                            data-toggle="modal"
+                                                            data-target="#delete-cours">
+                                                        <span class="fa fa-trash"></span>
+                                                    </button>
+                                                @endcan
+                                                {{-- <button wire:click="deleteCours({{ $c->id }})"
+                                                         title="supprimer" class="btn btn-outline-danger ml-2">
+                                                     <i class="fas fa-trash"></i>
+                                                 </button>--}}
                                             </div>
                                         </td>
                                     </tr>

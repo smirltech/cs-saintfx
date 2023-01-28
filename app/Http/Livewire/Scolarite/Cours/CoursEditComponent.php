@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Scolarite\Cours;
 
 
+use App\Http\Livewire\BaseComponent;
 use App\Models\Cours;
 use App\Models\Section;
 use App\Traits\TopMenuPreview;
@@ -12,7 +13,7 @@ use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
-class CoursEditComponent extends Component
+class CoursEditComponent extends BaseComponent
 {
     use TopMenuPreview;
     use LivewireAlert;
@@ -38,6 +39,7 @@ class CoursEditComponent extends Component
 
     public function mount(Cours $cours)
     {
+        $this->authorize('update', $cours);
         $this->cours = $cours;
         $this->sections = Section::all();
     }
