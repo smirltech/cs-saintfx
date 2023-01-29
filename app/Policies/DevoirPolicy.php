@@ -13,7 +13,7 @@ class DevoirPolicy
 
     public function viewAny(User $user)
     {
-        return $user->can('devoirs.view')
+        return $user->can('devoirs.view.*')
             ? Response::allow()
             : Response::deny('Vous n\'êtes pas autorisé à voir les devoirs.');
     }

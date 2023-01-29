@@ -2,7 +2,9 @@
 
 namespace App\Http\Livewire\Scolarite\Cours;
 
+use App\Http\Livewire\BaseComponent;
 use App\Models\Cours;
+use App\Models\Devoir;
 use App\Traits\CanDeleteModel;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
@@ -10,7 +12,7 @@ use Exception;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
-class CoursIndexComponent extends Component
+class CoursIndexComponent extends BaseComponent
 {
     use TopMenuPreview;
     use LivewireAlert, CanDeleteModel;
@@ -18,6 +20,10 @@ class CoursIndexComponent extends Component
     public $cours = [];
     public ?Cours $cour = null;
 
+    public function mount(): void
+    {
+        $this->authorize('viewAny', Cours::class);
+    }
     public function render()
     {
         $this->loadData();

@@ -13,7 +13,7 @@ class SectionPolicy
 
     public function viewAny(User $user): Response|bool
     {
-        return $user->can('sections.view')
+        return $user->can('sections.view.*')
             ? Response::allow()
             : Response::deny('Vous n\'êtes pas autorisé à voir les sections.');
     }

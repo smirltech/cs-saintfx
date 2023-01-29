@@ -8,6 +8,7 @@ use App\Http\Integrations\Scolarite\Requests\Filiere\GetFiliereRequest;
 use App\Http\Integrations\Scolarite\Requests\Inscription\GetInscriptionRequest;
 use App\Http\Integrations\Scolarite\Requests\Inscription\GetInscriptionsRequest;
 use App\Http\Integrations\Scolarite\Requests\Option\GetOptionRequest;
+use App\Http\Livewire\BaseComponent;
 use App\Models\Annee;
 use App\Models\Filiere;
 use App\Models\Frais;
@@ -22,7 +23,7 @@ use Exception;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
-class PerceptionCreateComponent extends Component
+class PerceptionCreateComponent extends BaseComponent
 {
     use TopMenuPreview;
     use HasLivewireAlert;
@@ -52,6 +53,7 @@ class PerceptionCreateComponent extends Component
 
     public function mount()
     {
+        $this->authorize('create', Perception::class);
         $this->user_id = Auth::id();
         $this->annee_id = Annee::id();
         $this->due_date = Carbon::now()->format('Y-m-d');

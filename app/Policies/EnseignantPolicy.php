@@ -13,14 +13,14 @@ class EnseignantPolicy
 
     public function viewAny(User $user): Response
     {
-        return $user->can('enseignants.view')
+        return $user->can('enseignants.view.*')
             ? Response::allow()
             : Response::deny('Vous n\'êtes pas autorisé à voir les enseignants.');
     }
 
     public function view(User $user, Enseignant $enseignant): Response
     {
-        return $user->can('enseignants.view' . $enseignant->id)
+        return $user->can('enseignants.view.' . $enseignant->id)
             ? Response::allow()
             : Response::deny('Vous n\'êtes pas autorisé à voir cet enseignant.');
     }

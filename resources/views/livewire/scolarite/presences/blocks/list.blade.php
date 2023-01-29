@@ -36,15 +36,17 @@
             </button>
         </div>
         <div class="input-group-append ml-1" id="button-addon4">
-            <button wire:click="initPresence"
-                    title="Prendre la présence"
-                    class="btn rounded btn-outline-primary"
-                    type="button"
-                    data-toggle="modal"
-                    data-target="#add-presence"
-            >
-                <i class="fas fa-bell"></i>
-            </button>
+            @can('presences.create')
+                <button wire:click="initPresence"
+                        title="Prendre la présence"
+                        class="btn rounded btn-outline-primary"
+                        type="button"
+                        data-toggle="modal"
+                        data-target="#add-presence"
+                >
+                    <i class="fas fa-bell"></i>
+                </button>
+            @endcan
         </div>
         {{--<div class="input-group-append ml-3" id="button-addon4">
             <button wire:click="printIt" title="Imprimer liste de présence" class="btn btn-outline-secondary" type="button"><i

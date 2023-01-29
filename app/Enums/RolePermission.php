@@ -4,6 +4,42 @@ namespace App\Enums;
 
 enum RolePermission: string
 {
+    //------------------ Frais ---------------- //
+    case frais_all = 'frais.*';
+    case frais_view = 'frais.view.*';
+    case frais_create = 'frais.create';
+    case frais_update_all = 'frais.update.*';
+    case frais_delete = 'frais.delete.*';
+    case frais_restore = 'frais.restore.*';
+    case frais_force_delete = 'frais.force-delete.*';
+    //------------------ ./Frais ---------------- //
+    //------------------ Perceptions ---------------- //
+    case perceptions_all = 'perceptions.*';
+    case perceptions_view = 'perceptions.view.*';
+    case perceptions_create = 'perceptions.create';
+    case perceptions_update_all = 'perceptions.update.*';
+    case perceptions_delete = 'perceptions.delete.*';
+    case perceptions_restore = 'perceptions.restore.*';
+    case perceptions_force_delete = 'perceptions.force-delete.*';
+    //------------------ ./Perceptions ---------------- //
+    //------------------ Classes ---------------- //
+    case classes_all = 'classes.*';
+    case classes_view = 'classes.view.*';
+    case classes_create = 'classes.create';
+    case classes_update_all = 'classes.update.*';
+    case classes_delete = 'classes.delete.*';
+    case classes_restore = 'classes.restore.*';
+    case classes_force_delete = 'classes.force-delete.*';
+    //------------------ ./Classes ---------------- //
+    //------------------ Cours ---------------- //
+    case cours_all = 'cours.*';
+    case cours_view = 'cours.view.*';
+    case cours_create = 'cours.create';
+    case cours_update_all = 'cours.update.*';
+    case cours_delete = 'cours.delete.*';
+    case cours_restore = 'cours.restore.*';
+    case cours_force_delete = 'cours.force-delete.*';
+    //------------------ ./Cours ---------------- //
     //------------------ Factures ---------------- //
     case factures_all = 'factures.*';
     case factures_view = 'factures.view.*';
@@ -244,6 +280,38 @@ enum RolePermission: string
             self::factures_restore => 'Restaurer une facture',
             self::factures_update_all => 'Modifier une facture',
             self::factures_view => 'Voir une facture',
+            // Cours
+            self::cours_all => 'Gérer les cours',
+            self::cours_create => 'Créer un cours',
+            self::cours_delete => 'Supprimer un cours',
+            self::cours_force_delete => 'Supprimer définitivement un cours',
+            self::cours_restore => 'Restaurer un cours',
+            self::cours_update_all => 'Modifier un cours',
+            self::cours_view => 'Voir un cours',
+            // Classes
+            self::classes_all => 'Gérer les classes',
+            self::classes_create => 'Créer une classe',
+            self::classes_delete => 'Supprimer une classe',
+            self::classes_force_delete => 'Supprimer définitivement une classe',
+            self::classes_restore => 'Restaurer une classe',
+            self::classes_update_all => 'Modifier une classe',
+            self::classes_view => 'Voir une classe',
+            // Perceptions
+            self::perceptions_all => 'Gérer les perceptions',
+            self::perceptions_create => 'Créer une perception',
+            self::perceptions_delete => 'Supprimer une perception',
+            self::perceptions_force_delete => 'Supprimer définitivement une perception',
+            self::perceptions_restore => 'Restaurer une perception',
+            self::perceptions_update_all => 'Modifier une perception',
+            self::perceptions_view => 'Voir une perception',
+            // Frais
+            self::frais_all => 'Gérer les frais',
+            self::frais_create => 'Créer un frais',
+            self::frais_delete => 'Supprimer un frais',
+            self::frais_force_delete => 'Supprimer définitivement un frais',
+            self::frais_restore => 'Restaurer un frais',
+            self::frais_update_all => 'Modifier un frais',
+            self::frais_view => 'Voir un frais',
         };
     }
 

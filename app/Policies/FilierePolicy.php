@@ -13,7 +13,7 @@ class FilierePolicy
 
     public function viewAny(User $user):Response|bool
     {
-        return $user->can('filieres.view')
+        return $user->can('filieres.view.*')
             ? Response::allow()
             : Response::deny('Vous n\'êtes pas autorisé à voir les filières.');
     }

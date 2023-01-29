@@ -13,7 +13,7 @@ class ElevePolicy
 
     public function viewAny(User $user): Response
     {
-        return $user->can('eleves.view')
+        return $user->can('eleves.view.*')
             ? Response::allow()
             : Response::deny('Vous n\'êtes pas autorisé à voir les élèves.');
     }

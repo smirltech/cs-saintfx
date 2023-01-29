@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Scolarite\Classe;
 
+use App\Http\Livewire\BaseComponent;
 use App\Models\Annee;
 use App\Models\Classe;
 use App\Models\ClasseEnseignant;
@@ -22,7 +23,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 
-class ClasseShowComponent extends Component
+class ClasseShowComponent extends BaseComponent
 {
     use TopMenuPreview;
     use HasLivewireAlert;
@@ -40,7 +41,7 @@ class ClasseShowComponent extends Component
 
     public function mount(Classe $classe)
     {
-
+        $this->authorize('view', $classe);
         $this->cours_enseignant = new CoursEnseignant();
         $this->classe_enseignant = new ClasseEnseignant();
 

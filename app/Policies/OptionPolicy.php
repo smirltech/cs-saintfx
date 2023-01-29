@@ -13,7 +13,7 @@ class OptionPolicy
 
     public function viewAny(User $user):Response|bool
     {
-        return $user->can('options.view')
+        return $user->can('options.view.*')
             ? Response::allow()
             : Response::deny('Vous n\'êtes pas autorisé à voir les options.');
     }

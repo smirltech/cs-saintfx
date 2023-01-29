@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Finance\Perception;
 
 use App\Enums\FraisType;
+use App\Http\Livewire\BaseComponent;
 use App\Models\Annee;
 use App\Models\Classe;
 use App\Models\Filiere;
@@ -19,7 +20,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 
-class PerceptionEditComponent extends Component
+class PerceptionEditComponent extends BaseComponent
 {
     use TopMenuPreview;
     use HasLivewireAlert;
@@ -50,6 +51,7 @@ class PerceptionEditComponent extends Component
 
     public function mount(Perception $perception)
     {
+        $this->authorize('update', $perception);
         //dd($perception->inscription->eleve);
         $this->user_id = Auth::id();
         $this->annee = Annee::encours();

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Finance\Perception;
 
 use App\Http\Integrations\Scolarite\Requests\Annee\GetCurrentAnnneRequest;
+use App\Http\Livewire\BaseComponent;
 use App\Models\Annee;
 use App\Models\Perception;
 use App\Traits\TopMenuPreview;
@@ -10,7 +11,7 @@ use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
-class PerceptionIndexComponent extends Component
+class PerceptionIndexComponent extends BaseComponent
 {
     use TopMenuPreview;
     use LivewireAlert;
@@ -20,7 +21,8 @@ class PerceptionIndexComponent extends Component
 
     public function mount()
     {
-        //Annee::class
+        $this->authorize('viewAny', Perception::class);
+
         $this->annee_id = Annee::id();
 
     }
