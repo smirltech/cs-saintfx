@@ -120,8 +120,8 @@ Route::prefix('finance')->middleware(['auth:web'])->as('finance.')->group(functi
     //Depense
     Route::get('depenses', Finance\Depense\DepenseIndexComponent::class)->name('depenses');
 
-    Route::get('depenses-types', Finance\DepenseType\DepenseTypeIndexComponent::class)->name('depenses-types');
-    Route::get('depenses-types/{depenseType}', Finance\DepenseType\DepenseTypeShowComponent::class)->name('depenses-types.show');
+    Route::get('depense-types', Finance\DepenseType\DepenseTypeIndexComponent::class)->name('depense-types');
+    Route::get('depense-types/{depenseType}', Finance\DepenseType\DepenseTypeShowComponent::class)->name('depense-types.show');
 
     //Frais
     Route::get('frais', Finance\Frais\FraisIndexComponent::class)->name('frais');

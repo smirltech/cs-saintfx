@@ -4,6 +4,33 @@ namespace App\Enums;
 
 enum RolePermission: string
 {
+    //------------------ Depenses ---------------- //
+    case depenses_all = 'depenses.*';
+    case depenses_view = 'depenses.view.*';
+    case depenses_create = 'depenses.create';
+    case depenses_update_all = 'depenses.update.*';
+    case depenses_delete = 'depenses.delete.*';
+    case depenses_restore = 'depenses.restore.*';
+    case depenses_force_delete = 'depenses.force-delete.*';
+    //------------------ ./Depenses ---------------- //
+    //------------------ DepenseTypes ---------------- //
+    case depense_types_all = 'depense-types.*';
+    case depense_types_view = 'depense-types.view.*';
+    case depense_types_create = 'depense-types.create';
+    case depense_types_update_all = 'depense-types.update.*';
+    case depense_types_delete = 'depense-types.delete.*';
+    case depense_types_restore = 'depense-types.restore.*';
+    case depense_types_force_delete = 'depense-types.force-delete.*';
+    //------------------ ./DepenseTypes ---------------- //
+    //------------------ Revenu ---------------- //
+    case revenus_all = 'revenus.*';
+    case revenus_view = 'revenus.view.*';
+    case revenus_create = 'revenus.create';
+    case revenus_update_all = 'revenus.update.*';
+    case revenus_delete = 'revenus.delete.*';
+    case revenus_restore = 'revenus.restore.*';
+    case revenus_force_delete = 'revenus.force-delete.*';
+    //------------------ ./Revenu ---------------- //
     //------------------ Frais ---------------- //
     case frais_all = 'frais.*';
     case frais_view = 'frais.view.*';
@@ -312,6 +339,31 @@ enum RolePermission: string
             self::frais_restore => 'Restaurer un frais',
             self::frais_update_all => 'Modifier un frais',
             self::frais_view => 'Voir un frais',
+            // Revenus
+            self::revenus_all => 'Gérer les revenus',
+            self::revenus_create => 'Créer un revenu',
+            self::revenus_delete => 'Supprimer un revenu',
+            self::revenus_force_delete => 'Supprimer définitivement un revenu',
+            self::revenus_restore => 'Restaurer un revenu',
+            self::revenus_update_all => 'Modifier un revenu',
+            self::revenus_view => 'Voir un revenu',
+            // DepenseTypes
+            self::depense_types_all => 'Gérer les types de dépenses',
+            self::depense_types_create => 'Créer un type de dépense',
+            self::depense_types_delete => 'Supprimer un type de dépense',
+            self::depense_types_force_delete => 'Supprimer définitivement un type de dépense',
+            self::depense_types_restore => 'Restaurer un type de dépense',
+            self::depense_types_update_all => 'Modifier un type de dépense',
+            self::depense_types_view => 'Voir un type de dépense',
+            // Depenses
+            self::depenses_all => 'Gérer les dépenses',
+            self::depenses_create => 'Créer une dépense',
+            self::depenses_delete => 'Supprimer une dépense',
+            self::depenses_force_delete => 'Supprimer définitivement une dépense',
+            self::depenses_restore => 'Restaurer une dépense',
+            self::depenses_update_all => 'Modifier une dépense',
+            self::depenses_view => 'Voir une dépense',
+
         };
     }
 

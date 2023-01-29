@@ -30,18 +30,18 @@
 
 
 @section('title')
-     - Type de Dépense - {{$depenseType->nom}}
+    - Type de Dépenses - {{$depenseType->nom}}
 @endsection
 @section('content_header')
     <div class="row">
         <div class="col-6">
-            <h1 class="ms-3"><span class="fas fa-fw fa-university mr-1"></span>Type de Dépense</h1>
+            <h1 class="ms-3"><span class="fas fa-fw fa-university mr-1"></span>Type de Dépenses</h1>
         </div>
 
         <div class="col-6">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('finance') }}">Accueil</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('finance.depenses-types') }}">Types de Dépenses</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('finance.depense-types') }}">Types de Dépenses</a></li>
                 <li class="breadcrumb-item active">{{$depenseType->nom}}</li>
             </ol>
         </div>
@@ -61,18 +61,21 @@
                                 <h4 class="m-0">{{$depenseType->nom}}</h4>
                             </div>
                             <div class="card-tools">
-                                <span
-                                    title="Modifier" role="button" class="ml-2 mr-2" data-toggle="modal"
-                                    data-target="#edit-type-modal">
+                                @can('depense-types.update',$depenseType)
+                                    <span
+                                        title="Modifier" role="button" class="ml-2 mr-2" data-toggle="modal"
+                                        data-target="#edit-type-modal">
                                     <span class="fa fa-pen"></span>
                                 </span>
+                                @endcan
 
                             </div>
                         </div>
                         <div class="card-body">
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
-                                    <b>Total : </b> <span class="float-right">{{\App\Helpers\Helpers::currencyFormat($depenseType->total(), symbol: 'Fc')}}</span>
+                                    <b>Total : </b> <span
+                                        class="float-right">{{\App\Helpers\Helpers::currencyFormat($depenseType->total(), symbol: 'Fc')}}</span>
                                 </li>
                                 <li class="list-group-item">
                                     <b>Description : </b> <span class="float-right">{{$depenseType->description}}</span>
@@ -82,51 +85,57 @@
                     </div>
                 </div>
                 <div class="col-md-10 col-sm-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="card-title">
-                                    <h4 class="m-0">Dépenses</h4>
-                                </div>
-                                <div class="card-tools d-flex my-auto">
-                                    <button hidden="" type="button"
-                                            class="btn btn-primary  ml-2" data-toggle="modal"
-                                            data-target="#add-option-modal"><span
-                                            class="fa fa-plus"></span></button>
-                                </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <h4 class="m-0">Dépenses</h4>
                             </div>
+                            <div class="card-tools d-flex my-auto">
+                                <button hidden="" type="button"
+                                        class="btn btn-primary  ml-2" data-toggle="modal"
+                                        data-target="#add-option-modal"><span
+                                        class="fa fa-plus"></span></button>
+                            </div>
+                        </div>
 
-                            <div class="card-body m-b-40 table-responsive">
-                                <x-adminlte-datatable wire:ignore.self theme="light" id="table1" :heads="$heads" striped
-                                                      hoverable with-buttons>
-                                    @foreach($config['data'] as $row)
-                                        <tr>
-                                            <td>{!! $row[0] !!}</td>
-                                            <td>{!! $row[1] !!}</td>
-                                            <td>{!! $row[2] !!}</td>
-                                            <td>{!! $row[3] !!}</td>
-                                            <td>{!! $row[4] !!}</td>
-                                            <td>
-                                                <div class="d-flex float-right">
-                                                    <button hidden="" wire:click="getSelectedDepense({{$row[5]}})" type="button"
-                                                            title="Modifier" class="btn btn-info  ml-2" data-toggle="modal"
+                        <div class="card-body m-b-40 table-responsive">
+                            <x-adminlte-datatable wire:ignore.self theme="light" id="table1" :heads="$heads" striped
+                                                  hoverable with-buttons>
+                                @foreach($config['data'] as $row)
+                                    <tr>
+                                        <td>{!! $row[0] !!}</td>
+                                        <td>{!! $row[1] !!}</td>
+                                        <td>{!! $row[2] !!}</td>
+                                        <td>{!! $row[3] !!}</td>
+                                        <td>{!! $row[4] !!}</td>
+                                        <td>
+                                            <div class="d-flex float-right">
+                                                @can('depenses.update',$row[5])
+                                                    <button hidden="" wire:click="getSelectedDepense({{$row[5]}})"
+                                                            type="button"
+                                                            title="Modifier" class="btn btn-info  ml-2"
+                                                            data-toggle="modal"
                                                             data-target="#edit-depense-modal">
                                                         <span class="fa fa-pen"></span>
                                                     </button>
-
-                                                    <button hidden="" wire:click="getSelectedDepense({{$row[5]}})" type="button"
+                                                @endcan
+                                                @can('depenses.delete',$row[5])
+                                                    <button hidden="" wire:click="getSelectedDepense({{$row[5]}})"
+                                                            type="button"
                                                             title="supprimer" class="btn btn-danger  ml-2"
                                                             data-toggle="modal"
                                                             data-target="#delete-depense-modal">
                                                         <span class="fa fa-trash"></span>
                                                     </button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </x-adminlte-datatable>
+                                                @endcan
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </x-adminlte-datatable>
 
-                            </div>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>

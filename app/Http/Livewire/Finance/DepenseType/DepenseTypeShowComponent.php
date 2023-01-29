@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Finance\DepenseType;
 
+use App\Http\Livewire\BaseComponent;
 use App\Models\DepenseType;
 use App\Models\Filiere;
 use App\Models\Option;
@@ -13,7 +14,7 @@ use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
-class DepenseTypeShowComponent extends Component
+class DepenseTypeShowComponent extends BaseComponent
 {
     use TopMenuPreview;
     use LivewireAlert;
@@ -24,6 +25,7 @@ class DepenseTypeShowComponent extends Component
 
     public function mount(DepenseType $depenseType)
     {
+        $this->authorize("view", $depenseType);
         $this->depenseType = $depenseType;
     }
 

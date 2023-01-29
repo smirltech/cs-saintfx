@@ -57,6 +57,7 @@ class RoleModal extends BaseComponent
         if ($bool) {
             $this->emit('refreshRoles');
             $this->alert('success', 'Rôle modifié avec succès');
+            //$this->flash('success', 'Rôle créé avec succès', [], route('roles.index'));
         } else {
             $this->flash('success', 'Rôle créé avec succès', [], route('roles.index'));
         }
