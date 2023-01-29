@@ -15,9 +15,11 @@ class RoleModal extends BaseComponent
 {
     public Role $role;
     public Collection $permissions;
+    public string $permission;
     public array $new_permissions = [];
 
     // rules function
+    private bool $action_create = false;
 
     /**
      * @throws AuthorizationException
@@ -37,30 +39,34 @@ class RoleModal extends BaseComponent
 
     public function render(): View|Factory|Application
     {
-        return view('livewire.roles.role-modal');
+        return view('livewire.roles.role-modal')->with('title', $this->role->id ? $this->role->display_name : 'Créer un rôle');
     }
 
     /**
-     * @throws AuthorizationException
      */
     public function save(): void
     {
+
+        $bool = $this->role->exists;
 
         $this->validate();
         $this->role->save();
         if (count($this->new_permissions) > 0) {
             $this->role->syncPermissions($this->new_permissions);
         }
-        $this->emit('refreshRoles');
-        $this->emit('hideModal');
+        if ($bool) {
+            $this->emit('refreshRoles');
+            $this->alert('success', 'Rôle modifié avec succès');
+        } else {
+            $this->flash('success', 'Rôle créé avec succès', [], route('roles.index'));
+        }
     }
 
 
     public function delete(): void
     {
         $this->role->delete();
-        $this->emit('refreshRoles');
-        $this->emit('hideModal');
+        $this->flash('success', 'Rôle supprimé avec succès', [], route('roles.index'));
     }
 
     // delete
@@ -75,7 +81,12 @@ class RoleModal extends BaseComponent
         return $permission_names;
     }
 
-    // get permission names
+    // updated permission_id
+    public function updatedPermission(): void
+    {
+
+    }
+
 
     protected function rules(): array
     {

@@ -30,12 +30,12 @@
                                     title="mettre à jour les permissions"
                                     class="btn btn-outline-info btn-sm mr-2">
                                 <i wire:loading.delay wire:target="refreshPermissions"
-                                    class="spinner-border spinner-border-sm"></i>
+                                   class="spinner-border spinner-border-sm"></i>
                                 <i wire:loading.remove wire:target="refreshPermissions"
-                                    class="fa fa-refresh"></i></button>
-                            <button wire:click="$emit('showModal','roles.role-modal')"
-                                    class="btn btn-outline-primary btn-sm"><i
-                                    class="fa fa-plus"></i></button>
+                                   class="fa fa-refresh"></i></button>
+                            <a href="{{route('roles.create')}}"
+                               class="btn btn-outline-primary btn-sm"><i
+                                    class="fa fa-plus"></i></a>
                         </div>
                     </div>
                 </div>
@@ -68,15 +68,12 @@
                                         @foreach($role->permissions as $perm)
                                             <span class="badge badge-secondary">{{$perm->displayName}}</span>
                                         @endforeach
-                                       {{-- {{$role->display_permissions}}--}}
                                     </td>
                                     <td>
-
-                                        <button wire:click="$emit('showModal','roles.role-modal','{{ $role->id }}')"
-                                                class="btn btn-outline-primary btn-sm">
-                                            <i class="fa fa-edit"></i>
-                                        </button>
-
+                                        <a href="{{ route('roles.show',$role) }}"
+                                           class="btn btn-outline-primary btn-sm">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
