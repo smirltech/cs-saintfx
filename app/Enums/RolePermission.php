@@ -103,7 +103,7 @@ enum RolePermission: string
     case cours_restore = 'cours.restore.*';
     case cours_force_delete = 'cours.force-delete.*';
     //------------------ ./Cours ---------------- //
-    //------------------ Factures ---------------- //
+    /*//------------------ Factures ---------------- //
     case factures_all = 'factures.*';
     case factures_view = 'factures.view.*';
     case factures_create = 'factures.create';
@@ -111,7 +111,7 @@ enum RolePermission: string
     case factures_delete = 'factures.delete.*';
     case factures_restore = 'factures.restore.*';
     case factures_force_delete = 'factures.force-delete.*';
-    //------------------ ./Factures ---------------- //
+    //------------------ ./Factures ---------------- //*/
 
     //------------------ Permissions ---------------- //
     case permissions_all = 'permissions.*';
@@ -335,14 +335,14 @@ enum RolePermission: string
             self::devoirs_restore => 'Restaurer un devoir',
             self::devoirs_update_all => 'Modifier un devoir',
             self::devoirs_view => 'Voir un devoir',
-            // Factures
+         /*   // Factures
             self::factures_all => 'Gérer les factures',
             self::factures_create => 'Créer une facture',
             self::factures_delete => 'Supprimer une facture',
             self::factures_force_delete => 'Supprimer définitivement une facture',
             self::factures_restore => 'Restaurer une facture',
             self::factures_update_all => 'Modifier une facture',
-            self::factures_view => 'Voir une facture',
+            self::factures_view => 'Voir une facture',*/
             // Cours
             self::cours_all => 'Gérer les cours',
             self::cours_create => 'Créer un cours',

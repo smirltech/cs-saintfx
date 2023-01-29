@@ -24,13 +24,14 @@ enum UserRole: string
             ],
             self::admin => [
                 RolePermission::eleves_all->value,
+                RolePermission::inscriptions_all->value,
                 RolePermission::enseignants_all->value,
             ],
             self::enseignant => [
                 RolePermission::devoirs_all->value,
             ],
             self::caissier => [
-                RolePermission::factures_all->value,
+                RolePermission::perceptions_all->value,
             ],
             self::eleve => [
 
