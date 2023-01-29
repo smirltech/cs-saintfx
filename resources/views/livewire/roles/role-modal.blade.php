@@ -49,7 +49,6 @@
                                                            wire:model="new_permissions"
                                                            value="{{$permission->id}}">
                                                     {{$permission->displayName}}
-
                                                 </label>
                                             </div>
                                         @endforeach

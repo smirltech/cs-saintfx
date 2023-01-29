@@ -3,7 +3,7 @@
 namespace App\Models;
 
 
-use App\Helpers\Helpers;
+use App\Traits\HasAvatar;
 use Closure;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,7 +18,7 @@ class User extends Authenticatable
 {
 
 
-    use HasFactory, Notifiable, HasRoles, HasUlids;
+    use HasFactory, Notifiable, HasRoles, HasAvatar, HasUlids;
 
     protected $guarded = [];
 
@@ -45,11 +45,6 @@ class User extends Authenticatable
     public function adminlte_image()
     {
         return $this->avatar;
-    }
-
-    public function getAvatarAttribute(): string
-    {
-        return Helpers::fetchAvatar($this->name);
     }
 
     public function image()
