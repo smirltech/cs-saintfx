@@ -2,7 +2,9 @@
 
 namespace App\Http\Livewire\Bibliotheque\Auteur;
 
+use App\Http\Livewire\BaseComponent;
 use App\Models\Auteur;
+use App\Models\OuvrageAuteur;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Exception;
@@ -10,7 +12,7 @@ use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
-class AuteurIndexComponent extends Component
+class AuteurIndexComponent extends BaseComponent
 {
     use TopMenuPreview;
     use LivewireAlert;
@@ -27,6 +29,7 @@ class AuteurIndexComponent extends Component
 
     public function mount()
     {
+        $this->authorize("viewAny", Auteur::class);
         $this->initAuteur();
         $this->loadData();
     }

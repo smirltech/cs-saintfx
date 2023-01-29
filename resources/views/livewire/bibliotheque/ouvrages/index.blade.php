@@ -28,11 +28,12 @@
 
                             </div>
                             <div class="card-tools d-flex my-auto">
-
-                                <button type="button"
-                                        class="btn btn-primary  ml-2" data-toggle="modal"
-                                        data-target="#add-ouvrage-modal"><span
-                                        class="fa fa-plus"></span></button>
+                                @can('ouvrages.create')
+                                    <button type="button"
+                                            class="btn btn-primary  ml-2" data-toggle="modal"
+                                            data-target="#add-ouvrage-modal"><span
+                                            class="fa fa-plus"></span></button>
+                                @endcan
                             </div>
                         </div>
 
@@ -58,37 +59,49 @@
                                             <td>{{$i+1}}</td>
                                             <td>{{$ouvrage->titre}}</td>
                                             <td>{{$ouvrage->sous_titre}}</td>
-                                            <td><a href="{{route('bibliotheque.categories.show',[$ouvrage->ouvrage_category_id])}}">{{$ouvrage->categoryNom}}</a></td>
+                                            <td>
+                                                <a href="{{route('bibliotheque.categories.show',[$ouvrage->ouvrage_category_id])}}">{{$ouvrage->categoryNom}}</a>
+                                            </td>
                                             <td>{{$ouvrage->resume}}</td>
                                             <td>{{number_format($ouvrage->uniqueLecturesCount)}}</td>
                                             <td>{{number_format($ouvrage->lecturesCount)}}</td>
                                             <td>{{$ouvrage->latestVisit?->whenRead}}</td>
                                             <td>
                                                 <div class="d-flex float-right">
-                                                    <a wire:click.debounce="addLecture({{$ouvrage->id}})" href="{{$ouvrage->url}}"
-                                                       target=“_blank”
-                                                       title="Aller au lien"
-                                                       class="btn btn-default  mr-2">
-                                                        <i class="fas fa-globe"></i>
-                                                    </a>
-                                                    <a href="{{route('bibliotheque.ouvrages.show',[$ouvrage->id])}}"
-                                                       title="Voir"
-                                                       class="btn btn-warning">
-                                                        <i class="fas fa-eye"></i>
-                                                    </a>
-                                                    <button wire:click="getSelectedOuvrage({{$ouvrage}})" type="button"
-                                                            title="Modifier" class="btn btn-info  ml-2"
-                                                            data-toggle="modal"
-                                                            data-target="#update-ouvrage-modal">
-                                                        <span class="fa fa-pen"></span>
-                                                    </button>
 
-                                                    <button wire:click="getSelectedOuvrage({{$ouvrage}})" type="button"
-                                                            title="supprimer" class="btn btn-danger  ml-2"
-                                                            data-toggle="modal"
-                                                            data-target="#delete-ouvrage-modal">
-                                                        <span class="fa fa-trash"></span>
-                                                    </button>
+                                                        <a wire:click.debounce="addLecture({{$ouvrage->id}})"
+                                                           href="{{$ouvrage->url}}"
+                                                           target=“_blank”
+                                                           title="Aller au lien"
+                                                           class="btn btn-default  mr-2">
+                                                            <i class="fas fa-globe"></i>
+                                                        </a>
+
+                                                    @can('ouvrages.view',$ouvrage)
+                                                        <a href="{{route('bibliotheque.ouvrages.show',[$ouvrage->id])}}"
+                                                           title="Voir"
+                                                           class="btn btn-warning">
+                                                            <i class="fas fa-eye"></i>
+                                                        </a>
+                                                    @endcan
+                                                    @can('ouvrages.update',$ouvrage)
+                                                        <button wire:click="getSelectedOuvrage({{$ouvrage}})"
+                                                                type="button"
+                                                                title="Modifier" class="btn btn-info  ml-2"
+                                                                data-toggle="modal"
+                                                                data-target="#update-ouvrage-modal">
+                                                            <span class="fa fa-pen"></span>
+                                                        </button>
+                                                    @endcan
+                                                    @can('ouvrages.delete',$ouvrage)
+                                                        <button wire:click="getSelectedOuvrage({{$ouvrage}})"
+                                                                type="button"
+                                                                title="supprimer" class="btn btn-danger  ml-2"
+                                                                data-toggle="modal"
+                                                                data-target="#delete-ouvrage-modal">
+                                                            <span class="fa fa-trash"></span>
+                                                        </button>
+                                                    @endcan
                                                 </div>
                                             </td>
                                         </tr>

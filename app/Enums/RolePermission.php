@@ -4,6 +4,42 @@ namespace App\Enums;
 
 enum RolePermission: string
 {
+    //------------------ Ouvrages ---------------- //
+    case ouvrages_all = 'ouvrages.*';
+    case ouvrages_view = 'ouvrages.view.*';
+    case ouvrages_create = 'ouvrages.create';
+    case ouvrages_update_all = 'ouvrages.update.*';
+    case ouvrages_delete = 'ouvrages.delete.*';
+    case ouvrages_restore = 'ouvrages.restore.*';
+    case ouvrages_force_delete = 'ouvrages.force-delete.*';
+    //------------------ ./Ouvrages ---------------- //
+    //------------------ OuvrageCategory ---------------- //
+    case ouvrage_categories_all = 'ouvrage-categories.*';
+    case ouvrage_categories_view = 'ouvrage-categories.view.*';
+    case ouvrage_categories_create = 'ouvrage-categories.create';
+    case ouvrage_categories_update_all = 'ouvrage-categories.update.*';
+    case ouvrage_categories_delete = 'ouvrage-categories.delete.*';
+    case ouvrage_categories_restore = 'ouvrage-categories.restore.*';
+    case ouvrage_categories_force_delete = 'ouvrage-categories.force-delete.*';
+    //------------------ ./OuvrageCategory ---------------- //
+    //------------------ Etiquettes ---------------- //
+    case etiquettes_all = 'etiquettes.*';
+    case etiquettes_view = 'etiquettes.view.*';
+    case etiquettes_create = 'etiquettes.create';
+    case etiquettes_update_all = 'etiquettes.update.*';
+    case etiquettes_delete = 'etiquettes.delete.*';
+    case etiquettes_restore = 'etiquettes.restore.*';
+    case etiquettes_force_delete = 'etiquettes.force-delete.*';
+    //------------------ ./Etiquettes ---------------- //
+    //------------------ Auteurs ---------------- //
+    case auteurs_all = 'auteurs.*';
+    case auteurs_view = 'auteurs.view.*';
+    case auteurs_create = 'auteurs.create';
+    case auteurs_update_all = 'auteurs.update.*';
+    case auteurs_delete = 'auteurs.delete.*';
+    case auteurs_restore = 'auteurs.restore.*';
+    case auteurs_force_delete = 'auteurs.force-delete.*';
+    //------------------ ./Auteurs ---------------- //
     //------------------ Depenses ---------------- //
     case depenses_all = 'depenses.*';
     case depenses_view = 'depenses.view.*';
@@ -363,6 +399,38 @@ enum RolePermission: string
             self::depenses_restore => 'Restaurer une dépense',
             self::depenses_update_all => 'Modifier une dépense',
             self::depenses_view => 'Voir une dépense',
+            // Auteurs
+            self::auteurs_all => 'Gérer les auteurs',
+            self::auteurs_create => 'Créer un auteur',
+            self::auteurs_delete => 'Supprimer un auteur',
+            self::auteurs_force_delete => 'Supprimer définitivement un auteur',
+            self::auteurs_restore => 'Restaurer un auteur',
+            self::auteurs_update_all => 'Modifier un auteur',
+            self::auteurs_view => 'Voir un auteur',
+            // Etiquettes
+            self::etiquettes_all => 'Gérer les étiquettes',
+            self::etiquettes_create => 'Créer une étiquette',
+            self::etiquettes_delete => 'Supprimer une étiquette',
+            self::etiquettes_force_delete => 'Supprimer définitivement une étiquette',
+            self::etiquettes_restore => 'Restaurer une étiquette',
+            self::etiquettes_update_all => 'Modifier une étiquette',
+            self::etiquettes_view => 'Voir une étiquette',
+            // OuvrageCategories
+            self::ouvrage_categories_all => 'Gérer les catégories d\'ouvrages',
+            self::ouvrage_categories_create => 'Créer une catégorie d\'ouvrage',
+            self::ouvrage_categories_delete => 'Supprimer une catégorie d\'ouvrage',
+            self::ouvrage_categories_force_delete => 'Supprimer définitivement une catégorie d\'ouvrage',
+            self::ouvrage_categories_restore => 'Restaurer une catégorie d\'ouvrage',
+            self::ouvrage_categories_update_all => 'Modifier une catégorie d\'ouvrage',
+            self::ouvrage_categories_view => 'Voir une catégorie d\'ouvrage',
+            // Ouvrages
+            self::ouvrages_all => 'Gérer les ouvrages',
+            self::ouvrages_create => 'Créer un ouvrage',
+            self::ouvrages_delete => 'Supprimer un ouvrage',
+            self::ouvrages_force_delete => 'Supprimer définitivement un ouvrage',
+            self::ouvrages_restore => 'Restaurer un ouvrage',
+            self::ouvrages_update_all => 'Modifier un ouvrage',
+            self::ouvrages_view => 'Voir un ouvrage',
 
         };
     }

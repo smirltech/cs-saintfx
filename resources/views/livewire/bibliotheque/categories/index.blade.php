@@ -28,11 +28,12 @@
 
                             </div>
                             <div class="card-tools d-flex my-auto">
-
-                                <button type="button"
-                                        class="btn btn-primary  ml-2" data-toggle="modal"
-                                        data-target="#add-category-modal"><span
-                                        class="fa fa-plus"></span></button>
+                                @can('ouvrage-categories.create')
+                                    <button type="button"
+                                            class="btn btn-primary  ml-2" data-toggle="modal"
+                                            data-target="#add-category-modal"><span
+                                            class="fa fa-plus"></span></button>
+                                @endcan
                             </div>
                         </div>
 
@@ -53,28 +54,47 @@
                                         <tr>
                                             <td>{{$i+1}}</td>
                                             <td>{{$category->nom}}</td>
-                                            <td>{{$category->groupeNom}}</td>
+                                            <td>
+                                                @can('ouvrage-categories.view',$category->groupe)
+                                                    @if($category->groupe)
+                                                    <a href="{{route('bibliotheque.categories.show',[$category->groupe])}}">
+                                                        {{$category->groupeNom}}
+                                                    </a>
+                                                    @else
+                                                        {{$category->groupeNom}}
+                                                    @endif
+                                                @else
+                                                    {{$category->groupeNom}}
+                                                @endcan
+                                            </td>
                                             <td>{{$category->description}}</td>
                                             <td>
                                                 <div class="d-flex float-right">
-                                                    <a href="{{route('bibliotheque.categories.show',[$category->id])}}"
-                                                       title="Voir"
-                                                       class="btn btn-warning">
-                                                        <i class="fas fa-eye"></i>
-                                                    </a>
-                                                    <button wire:click="getSelectedCategory({{$category}})" type="button"
-                                                            title="Modifier" class="btn btn-info  ml-2"
-                                                            data-toggle="modal"
-                                                            data-target="#update-category-modal">
-                                                        <span class="fa fa-pen"></span>
-                                                    </button>
-
-                                                    <button wire:click="getSelectedCategory({{$category}})" type="button"
-                                                            title="supprimer" class="btn btn-danger  ml-2"
-                                                            data-toggle="modal"
-                                                            data-target="#delete-category-modal">
-                                                        <span class="fa fa-trash"></span>
-                                                    </button>
+                                                    @can('ouvrage-categories.view',$category)
+                                                        <a href="{{route('bibliotheque.categories.show',[$category->id])}}"
+                                                           title="Voir"
+                                                           class="btn btn-warning">
+                                                            <i class="fas fa-eye"></i>
+                                                        </a>
+                                                    @endcan
+                                                    @can('ouvrage-categories.update',$category)
+                                                        <button wire:click="getSelectedCategory({{$category}})"
+                                                                type="button"
+                                                                title="Modifier" class="btn btn-info  ml-2"
+                                                                data-toggle="modal"
+                                                                data-target="#update-category-modal">
+                                                            <span class="fa fa-pen"></span>
+                                                        </button>
+                                                    @endcan
+                                                    @can('ouvrage-categories.delete',$category)
+                                                        <button wire:click="getSelectedCategory({{$category}})"
+                                                                type="button"
+                                                                title="supprimer" class="btn btn-danger  ml-2"
+                                                                data-toggle="modal"
+                                                                data-target="#delete-category-modal">
+                                                            <span class="fa fa-trash"></span>
+                                                        </button>
+                                                    @endcan
                                                 </div>
                                             </td>
                                         </tr>

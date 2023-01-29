@@ -1,5 +1,5 @@
 @section('title')
-    - étiquettes
+    - auteurs
 @endsection
 @section('content_header')
     <div class="row">
@@ -28,11 +28,12 @@
 
                             </div>
                             <div class="card-tools d-flex my-auto">
-
-                                <button type="button"
-                                        class="btn btn-primary  ml-2" data-toggle="modal"
-                                        data-target="#add-auteur-modal"><span
-                                        class="fa fa-plus"></span></button>
+                                @can('auteurs.create')
+                                    <button type="button"
+                                            class="btn btn-primary  ml-2" data-toggle="modal"
+                                            data-target="#add-auteur-modal"><span
+                                            class="fa fa-plus"></span></button>
+                                @endcan
                             </div>
                         </div>
 
@@ -57,19 +58,24 @@
                                             <td>{{$auteur->sexe->label()}}</td>
                                             <td>
                                                 <div class="d-flex float-right">
-                                                    <button wire:click="getSelectedAuteur({{$auteur}})" type="button"
-                                                            title="Modifier" class="btn btn-info  ml-2"
-                                                            data-toggle="modal"
-                                                            data-target="#update-auteur-modal">
-                                                        <span class="fa fa-pen"></span>
-                                                    </button>
-
-                                                    <button wire:click="getSelectedAuteur({{$auteur}})" type="button"
-                                                            title="supprimer" class="btn btn-danger  ml-2"
-                                                            data-toggle="modal"
-                                                            data-target="#delete-auteur-modal">
-                                                        <span class="fa fa-trash"></span>
-                                                    </button>
+                                                    @can('auteurs.update',$auteur)
+                                                        <button wire:click="getSelectedAuteur({{$auteur}})"
+                                                                type="button"
+                                                                title="Modifier" class="btn btn-info  ml-2"
+                                                                data-toggle="modal"
+                                                                data-target="#update-auteur-modal">
+                                                            <span class="fa fa-pen"></span>
+                                                        </button>
+                                                    @endcan
+                                                    @can('auteurs.delete',$auteur)
+                                                        <button wire:click="getSelectedAuteur({{$auteur}})"
+                                                                type="button"
+                                                                title="supprimer" class="btn btn-danger  ml-2"
+                                                                data-toggle="modal"
+                                                                data-target="#delete-auteur-modal">
+                                                            <span class="fa fa-trash"></span>
+                                                        </button>
+                                                    @endcan
                                                 </div>
                                             </td>
                                         </tr>

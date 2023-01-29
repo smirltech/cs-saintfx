@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Bibliotheque\Ouvrage;
 
+use App\Http\Livewire\BaseComponent;
 use App\Models\Auteur;
 use App\Models\Etiquette;
 use App\Models\Lecture;
@@ -15,7 +16,7 @@ use Exception;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
-class OuvrageShowComponent extends Component
+class OuvrageShowComponent extends BaseComponent
 {
     use TopMenuPreview;
     use LivewireAlert;
@@ -45,6 +46,7 @@ class OuvrageShowComponent extends Component
 
     public function mount(Ouvrage $ouvrage)
     {
+        $this->authorize("view", $ouvrage);
         $this->ouvrage = $ouvrage;
         $this->ouvrage->lectures = $ouvrage->lectures;
        // dd($this->ouvrage);

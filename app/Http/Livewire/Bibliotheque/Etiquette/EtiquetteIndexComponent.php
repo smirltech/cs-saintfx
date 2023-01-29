@@ -2,7 +2,9 @@
 
 namespace App\Http\Livewire\Bibliotheque\Etiquette;
 
+use App\Http\Livewire\BaseComponent;
 use App\Models\Etiquette;
+use App\Models\OuvrageEtiquette;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Exception;
@@ -10,7 +12,7 @@ use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
-class EtiquetteIndexComponent extends Component
+class EtiquetteIndexComponent extends BaseComponent
 {
     use TopMenuPreview;
     use LivewireAlert;
@@ -25,6 +27,7 @@ class EtiquetteIndexComponent extends Component
 
     public function mount()
     {
+        $this->authorize("viewAny", Etiquette::class);
         $this->initEtiquette();
         $this->loadData();
     }

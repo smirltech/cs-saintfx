@@ -28,11 +28,12 @@
 
                             </div>
                             <div class="card-tools d-flex my-auto">
-
-                                <button type="button"
-                                        class="btn btn-primary  ml-2" data-toggle="modal"
-                                        data-target="#add-etiquette-modal"><span
-                                        class="fa fa-plus"></span></button>
+                                @can('etiquettes.create')
+                                    <button type="button"
+                                            class="btn btn-primary  ml-2" data-toggle="modal"
+                                            data-target="#add-etiquette-modal"><span
+                                            class="fa fa-plus"></span></button>
+                                @endcan
                             </div>
                         </div>
 
@@ -53,19 +54,24 @@
                                             <td>{{$etiquette->nom}}</td>
                                             <td>
                                                 <div class="d-flex float-right">
-                                                    <button wire:click="getSelectedEtiquette({{$etiquette}})" type="button"
-                                                            title="Modifier" class="btn btn-info  ml-2"
-                                                            data-toggle="modal"
-                                                            data-target="#update-etiquette-modal">
-                                                        <span class="fa fa-pen"></span>
-                                                    </button>
-
-                                                    <button wire:click="getSelectedEtiquette({{$etiquette}})" type="button"
-                                                            title="supprimer" class="btn btn-danger  ml-2"
-                                                            data-toggle="modal"
-                                                            data-target="#delete-etiquette-modal">
-                                                        <span class="fa fa-trash"></span>
-                                                    </button>
+                                                    @can('etiquettes.update',$etiquette)
+                                                        <button wire:click="getSelectedEtiquette({{$etiquette}})"
+                                                                type="button"
+                                                                title="Modifier" class="btn btn-info  ml-2"
+                                                                data-toggle="modal"
+                                                                data-target="#update-etiquette-modal">
+                                                            <span class="fa fa-pen"></span>
+                                                        </button>
+                                                    @endcan
+                                                    @can('etiquettes.delete',$etiquette)
+                                                        <button wire:click="getSelectedEtiquette({{$etiquette}})"
+                                                                type="button"
+                                                                title="supprimer" class="btn btn-danger  ml-2"
+                                                                data-toggle="modal"
+                                                                data-target="#delete-etiquette-modal">
+                                                            <span class="fa fa-trash"></span>
+                                                        </button>
+                                                    @endcan
                                                 </div>
                                             </td>
                                         </tr>

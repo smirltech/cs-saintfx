@@ -291,11 +291,7 @@ return [
                     'url' => 'scolarite/inscriptions/create',
                     'icon' => 'fa fa-plus',
                     'shift' => 'ml-1',
-                    'can' => [
-                        'eleves.create',
-                        'inscriptions.create',
-                    ],
-
+                    'can' => 'inscriptions.create',
                 ],
                 [
                     'text' => 'Elèves inscrits',
@@ -489,7 +485,7 @@ return [
 
         [
             'header' => 'BIBLIOTHÈQUE',
-            'can' => ['ouvrages.view.*', 'authors.view.*', 'etiquettes.view.*'],
+            'can' => ['ouvrages.view.*', 'auteurs.view.*', 'etiquettes.view.*', 'ouvrage-categories.view.*'],
         ],
         [
             'text' => 'Ouvrages',
@@ -501,13 +497,13 @@ return [
             'text' => 'Catégories',
             'url' => 'bibliotheque/categories',
             'icon' => 'fas fa-fw fa-layer-group',
-            'can' => 'ouvrages.view.*',
+            'can' => 'ouvrage-categories.view.*',
         ],
         [
             'text' => 'Auteurs',
             'url' => 'bibliotheque/auteurs',
             'icon' => 'fas fa-fw fa-user-tie',
-            'can' => 'authors.view.*',
+            'can' => 'auteurs.view.*',
         ],
         [
             'text' => 'Étiquettes',

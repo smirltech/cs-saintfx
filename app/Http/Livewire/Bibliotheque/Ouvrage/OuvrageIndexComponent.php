@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Bibliotheque\Ouvrage;
 
+use App\Http\Livewire\BaseComponent;
 use App\Models\Lecture;
 use App\Models\Ouvrage;
 use App\Models\OuvrageCategory;
@@ -11,7 +12,7 @@ use Exception;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
-class OuvrageIndexComponent extends Component
+class OuvrageIndexComponent extends BaseComponent
 {
     use TopMenuPreview;
     use LivewireAlert;
@@ -36,6 +37,7 @@ class OuvrageIndexComponent extends Component
 
     public function mount()
     {
+        $this->authorize("viewAny", Ouvrage::class);
         $this->initOuvrage();
         $this->loadData();
     }

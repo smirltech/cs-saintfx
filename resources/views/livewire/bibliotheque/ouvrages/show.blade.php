@@ -33,11 +33,13 @@
                                 <h4 class="m-0">{{$ouvrage->titre}}</h4>
                             </div>
                             <div class="card-tools">
-                                <span
-                                    title="Modifier" role="button" class="ml-2 mr-2" data-toggle="modal"
-                                    data-target="#update-category-modal">
+                                @can('ouvrages.update',$ouvrage)
+                                    <span
+                                        title="Modifier" role="button" class="ml-2 mr-2" data-toggle="modal"
+                                        data-target="#update-category-modal">
                                     <span class="fa fa-pen"></span>
                                 </span>
+                                @endcan
 
                             </div>
                         </div>
@@ -80,20 +82,25 @@
                                     <div>
                                         <b>Auteurs : </b>
                                         <span class="float-right">
-                                            <button wire:click="initAuteur"
-                                                class="btn btn-default mb-1"
-                                                data-toggle="modal"
-                                                data-target="#add-auteur-modal">
+                                              @can('ouvrages.update',$ouvrage)
+                                                <button wire:click="initAuteur"
+                                                        class="btn btn-default mb-1"
+                                                        data-toggle="modal"
+                                                        data-target="#add-auteur-modal">
                                                 <span
                                                     class="fa fa-plus"></span>
                                             </button>
+                                            @endcan
                                         </span>
                                     </div>
                                     <div class=" wrapper p-2">
                                         @foreach($ouvrage->ouvrage_auteurs as $ouvrage_auteur)
                                             <span class="badge badge-warning m-1 text-xs">
                                         {{$ouvrage_auteur->nom}}
-                                        <span title="Supprimer de l'ouvrage" wire:click="deleteAuteur({{$ouvrage_auteur->id}})" class="p-0 btn text-danger btn-xs"><span class="fa fa-close"></span></span>
+                                        <span title="Supprimer de l'ouvrage"
+                                              wire:click="deleteAuteur({{$ouvrage_auteur->id}})"
+                                              class="p-0 btn text-danger btn-xs"><span
+                                                class="fa fa-close"></span></span>
                                     </span>
                                         @endforeach
 
@@ -103,18 +110,24 @@
                                 <li class="list-group-item">
                                     <div>
                                         <b>Étiquettes : </b> <span class="float-right">
-                                            <button wire:click="initEtiquette"
-                                                class="btn btn-default mb-1"
-                                                data-toggle="modal"
-                                                data-target="#add-etiquette-modal">
+                                              @can('ouvrages.update',$ouvrage)
+                                                <button wire:click="initEtiquette"
+                                                        class="btn btn-default mb-1"
+                                                        data-toggle="modal"
+                                                        data-target="#add-etiquette-modal">
                                                 <span
-                                                    class="fa fa-plus"></span></button></span>
+                                                    class="fa fa-plus"></span></button>
+                                            @endcan
+                                        </span>
                                     </div>
                                     <div class=" wrapper p-2">
                                         @foreach($ouvrage->ouvrage_etiquettes as $ouvrage_etiquette)
                                             <span class="badge badge-info m-1 text-xs">
                                         {{$ouvrage_etiquette->nom}}
-                                        <span title="Supprimer de l'ouvrage" wire:click="deleteEtiquette({{$ouvrage_etiquette->id}})" class="p-0 btn text-danger btn-xs"><span class="fa fa-close"></span></span>
+                                        <span title="Supprimer de l'ouvrage"
+                                              wire:click="deleteEtiquette({{$ouvrage_etiquette->id}})"
+                                              class="p-0 btn text-danger btn-xs"><span
+                                                class="fa fa-close"></span></span>
                                     </span>
                                         @endforeach
 
@@ -134,13 +147,16 @@
                         <div class="card-body">
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
-                                    <b>Lecteurs : </b> <span class="float-right">{{number_format($ouvrage->uniqueLecturesCount)}}</span>
+                                    <b>Lecteurs : </b> <span
+                                        class="float-right">{{number_format($ouvrage->uniqueLecturesCount)}}</span>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Visites : </b> <span class="float-right">{{number_format($ouvrage->lecturesCount)}}</span>
+                                    <b>Visites : </b> <span
+                                        class="float-right">{{number_format($ouvrage->lecturesCount)}}</span>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Dernière Visite : </b> <span class="float-right">{{$ouvrage->latestVisit?->whenRead}}</span>
+                                    <b>Dernière Visite : </b> <span
+                                        class="float-right">{{$ouvrage->latestVisit?->whenRead}}</span>
                                 </li>
 
                             </ul>
@@ -158,11 +174,11 @@
                                        aria-controls="custom-tabs-one-materiels"
                                        aria-selected="true">Visites</a>
                                 </li>
-                               {{-- <li class="nav-item">
-                                    <a class="nav-link" id="custom-tabs-one-categories-tab" data-toggle="pill"
-                                       href="#custom-tabs-one-categories" role="tab"
-                                       aria-controls="custom-tabs-one-categories" aria-selected="false">Auteurs</a>
-                                </li>--}}
+                                {{-- <li class="nav-item">
+                                     <a class="nav-link" id="custom-tabs-one-categories-tab" data-toggle="pill"
+                                        href="#custom-tabs-one-categories" role="tab"
+                                        aria-controls="custom-tabs-one-categories" aria-selected="false">Auteurs</a>
+                                 </li>--}}
                             </ul>
                         </div>
 
@@ -196,46 +212,46 @@
                                     </div>
                                 </div>
 
-                              {{--  <div class="tab-pane fade" id="custom-tabs-one-categories" role="tabpanel"
-                                     aria-labelledby="custom-tabs-one-categories-tab">
-                                    <div class="table-responsive">
-                                        --}}{{--<table class="table">
-                                            <thead>
-                                            <tr>
-                                                <th style="width: 50px">#</th>
-                                                <th>CATÉGORIE</th>
-                                                <th>DESCRIPTION</th>
-                                                <th>OUVRAGES</th>
-                                                <th>AGGRÉGAT</th>
-                                                <th style="width: 50px"></th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            @foreach ($category->categories as $i=>$categ)
-                                                <tr>
-                                                    <td>{{ $i+1 }}</td>
-                                                    <td>
-                                                        <a href="{{route('bibliotheque.categories.show',[$categ->id])}}">{!! $categ->nom !!}</a>
-                                                    </td>
-                                                    <td>{{ $categ->description }}</td>
-                                                    <td>{{ $categ->ouvragesCount }}</td>
-                                                    <td>{{ $categ->ouvragesCountAggregate }}</td>
-                                                    <td>
-                                                        <div class="d-flex float-right">
-                                                            <button title="Supprimer"
-                                                                    class="btn btn-danger">
-                                                                <i class="fas fa-trash"></i>
-                                                            </button>
+                                {{--  <div class="tab-pane fade" id="custom-tabs-one-categories" role="tabpanel"
+                                       aria-labelledby="custom-tabs-one-categories-tab">
+                                      <div class="table-responsive">
+                                          --}}{{--<table class="table">
+                                              <thead>
+                                              <tr>
+                                                  <th style="width: 50px">#</th>
+                                                  <th>CATÉGORIE</th>
+                                                  <th>DESCRIPTION</th>
+                                                  <th>OUVRAGES</th>
+                                                  <th>AGGRÉGAT</th>
+                                                  <th style="width: 50px"></th>
+                                              </tr>
+                                              </thead>
+                                              <tbody>
+                                              @foreach ($category->categories as $i=>$categ)
+                                                  <tr>
+                                                      <td>{{ $i+1 }}</td>
+                                                      <td>
+                                                          <a href="{{route('bibliotheque.categories.show',[$categ->id])}}">{!! $categ->nom !!}</a>
+                                                      </td>
+                                                      <td>{{ $categ->description }}</td>
+                                                      <td>{{ $categ->ouvragesCount }}</td>
+                                                      <td>{{ $categ->ouvragesCountAggregate }}</td>
+                                                      <td>
+                                                          <div class="d-flex float-right">
+                                                              <button title="Supprimer"
+                                                                      class="btn btn-danger">
+                                                                  <i class="fas fa-trash"></i>
+                                                              </button>
 
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                            </tbody>
-                                        </table>--}}{{--
-                                    </div>
-                                </div>
-                           --}}
+                                                          </div>
+                                                      </td>
+                                                  </tr>
+                                              @endforeach
+                                              </tbody>
+                                          </table>--}}{{--
+                                      </div>
+                                  </div>
+                             --}}
                             </div>
                         </div>
                     </div>

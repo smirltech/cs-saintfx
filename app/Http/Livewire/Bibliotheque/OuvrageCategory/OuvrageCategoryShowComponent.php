@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Bibliotheque\OuvrageCategory;
 
+use App\Http\Livewire\BaseComponent;
 use App\Models\MaterielCategory;
 use App\Models\OuvrageCategory;
 use App\Traits\TopMenuPreview;
@@ -10,7 +11,7 @@ use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
-class OuvrageCategoryShowComponent extends Component
+class OuvrageCategoryShowComponent extends BaseComponent
 {
     use TopMenuPreview;
     use LivewireAlert;
@@ -26,6 +27,7 @@ class OuvrageCategoryShowComponent extends Component
 
     public function mount(OuvrageCategory $category)
     {
+        $this->authorize("view", $category);
         $this->category = $category;
     }
 
