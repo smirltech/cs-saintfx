@@ -4,6 +4,15 @@ namespace App\Enums;
 
 enum RolePermission: string
 {
+    //------------------ Depenses ---------------- //
+    case depenses_all = 'depenses.*';
+    case depenses_view = 'depenses.view.*';
+    case depenses_create = 'depenses.create';
+    case depenses_update_all = 'depenses.update.*';
+    case depenses_delete = 'depenses.delete.*';
+    case depenses_restore = 'depenses.restore.*';
+    case depenses_force_delete = 'depenses.force-delete.*';
+    //------------------ ./Depenses ---------------- //
     //------------------ DepenseTypes ---------------- //
     case depense_types_all = 'depense-types.*';
     case depense_types_view = 'depense-types.view.*';
@@ -346,6 +355,14 @@ enum RolePermission: string
             self::depense_types_restore => 'Restaurer un type de dépense',
             self::depense_types_update_all => 'Modifier un type de dépense',
             self::depense_types_view => 'Voir un type de dépense',
+            // Depenses
+            self::depenses_all => 'Gérer les dépenses',
+            self::depenses_create => 'Créer une dépense',
+            self::depenses_delete => 'Supprimer une dépense',
+            self::depenses_force_delete => 'Supprimer définitivement une dépense',
+            self::depenses_restore => 'Restaurer une dépense',
+            self::depenses_update_all => 'Modifier une dépense',
+            self::depenses_view => 'Voir une dépense',
 
         };
     }

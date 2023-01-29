@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Finance\Depense;
 
 use App\Enums\DepenseCategorie;
 use App\Http\Integrations\Scolarite\Requests\Annee\GetCurrentAnnneRequest;
+use App\Http\Livewire\BaseComponent;
 use App\Models\Annee;
 use App\Models\Depense;
 use App\Models\DepenseType;
@@ -13,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
-class DepenseIndexComponent extends Component
+class DepenseIndexComponent extends BaseComponent
 {
     use TopMenuPreview;
     use LivewireAlert;
@@ -42,6 +43,7 @@ class DepenseIndexComponent extends Component
 
     public function mount()
     {
+        $this->authorize('viewAny', Depense::class);
         $this->annee_id = Annee::id();
         $this->types = DepenseType::orderBy('nom')->get();
         $this->type = $this->types[0]??new DepenseType();

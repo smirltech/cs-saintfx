@@ -61,10 +61,12 @@
 
                             </div>
                             <div class="card-tools d-flex my-auto">
-                                <button type="button"
-                                        class="btn btn-primary  ml-2" data-toggle="modal"
-                                        data-target="#add-depense-modal"><span
-                                        class="fa fa-plus"></span></button>
+                                @can('depenses.create')
+                                    <button type="button"
+                                            class="btn btn-primary  ml-2" data-toggle="modal"
+                                            data-target="#add-depense-modal"><span
+                                            class="fa fa-plus"></span></button>
+                                @endcan
                             </div>
                         </div>
 
@@ -75,7 +77,11 @@
                                     <tr>
                                         <td>{!! $row[0] !!}</td>
                                         <td>
-                                            <a href="{{route('finance.depenses-types.show', [$row[6]->depense_type_id])}}">{{$row[1]}}</a>
+                                            @can('depense-types.view',$row[6]->depense_type)
+                                                <a href="{{route('finance.depense-types.show', [$row[6]->depense_type_id])}}">{{$row[1]}}</a>
+                                            @else
+                                                {{$row[1]}}
+                                            @endcan
                                         </td>
 
                                         <td>{!! $row[2] !!}</td>
@@ -84,18 +90,23 @@
                                         <td>{!! $row[5] !!}</td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                <button wire:click="getSelectedDepense({{$row[6]->id}})" type="button"
-                                                        title="Modifier" class="btn btn-info  ml-2" data-toggle="modal"
-                                                        data-target="#edit-depense-modal">
-                                                    <span class="fa fa-pen"></span>
-                                                </button>
-
-                                                <button wire:click="getSelectedDepense({{$row[6]}})" type="button"
-                                                        title="supprimer" class="btn btn-danger  ml-2"
-                                                        data-toggle="modal"
-                                                        data-target="#delete-depense-modal">
-                                                    <span class="fa fa-trash"></span>
-                                                </button>
+                                                @can('depenses.update',$row[6])
+                                                    <button wire:click="getSelectedDepense({{$row[6]->id}})"
+                                                            type="button"
+                                                            title="Modifier" class="btn btn-info  ml-2"
+                                                            data-toggle="modal"
+                                                            data-target="#edit-depense-modal">
+                                                        <span class="fa fa-pen"></span>
+                                                    </button>
+                                                @endcan
+                                                @can('depenses.delete',$row[6])
+                                                    <button wire:click="getSelectedDepense({{$row[6]}})" type="button"
+                                                            title="supprimer" class="btn btn-danger  ml-2"
+                                                            data-toggle="modal"
+                                                            data-target="#delete-depense-modal">
+                                                        <span class="fa fa-trash"></span>
+                                                    </button>
+                                                @endcan
                                             </div>
                                         </td>
                                     </tr>
