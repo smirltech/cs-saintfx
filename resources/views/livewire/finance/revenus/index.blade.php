@@ -55,10 +55,12 @@
 
                             </div>
                             <div class="card-tools d-flex my-auto">
-                                <button type="button"
-                                        class="btn btn-primary  ml-2" data-toggle="modal"
-                                        data-target="#add-revenu-modal"><span
-                                        class="fa fa-plus"></span></button>
+                                @can('revenus.create')
+                                    <button type="button"
+                                            class="btn btn-primary  ml-2" data-toggle="modal"
+                                            data-target="#add-revenu-modal"><span
+                                            class="fa fa-plus"></span></button>
+                                @endcan
                             </div>
                         </div>
 
@@ -73,18 +75,22 @@
                                         <td>{!! $row[3] !!}</td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                <button wire:click="getSelectedRevenu({{$row[4]}})" type="button"
-                                                        title="Modifier" class="btn btn-info  ml-2" data-toggle="modal"
-                                                        data-target="#edit-revenu-modal">
-                                                    <span class="fa fa-pen"></span>
-                                                </button>
-
-                                                <button wire:click="getSelectedRevenu({{$row[4]}})" type="button"
-                                                        title="supprimer" class="btn btn-danger  ml-2"
-                                                        data-toggle="modal"
-                                                        data-target="#delete-revenu-modal">
-                                                    <span class="fa fa-trash"></span>
-                                                </button>
+                                                @can('revenus.update',$row[4])
+                                                    <button wire:click="getSelectedRevenu({{$row[4]}})" type="button"
+                                                            title="Modifier" class="btn btn-info  ml-2"
+                                                            data-toggle="modal"
+                                                            data-target="#edit-revenu-modal">
+                                                        <span class="fa fa-pen"></span>
+                                                    </button>
+                                                @endcan
+                                                @can('revenus.delete',$row[4])
+                                                    <button wire:click="getSelectedRevenu({{$row[4]}})" type="button"
+                                                            title="supprimer" class="btn btn-danger  ml-2"
+                                                            data-toggle="modal"
+                                                            data-target="#delete-revenu-modal">
+                                                        <span class="fa fa-trash"></span>
+                                                    </button>
+                                                @endcan
                                             </div>
                                         </td>
                                     </tr>
