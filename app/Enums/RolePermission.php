@@ -4,6 +4,15 @@ namespace App\Enums;
 
 enum RolePermission: string
 {
+    //------------------ DepenseTypes ---------------- //
+    case depense_types_all = 'depense-types.*';
+    case depense_types_view = 'depense-types.view.*';
+    case depense_types_create = 'depense-types.create';
+    case depense_types_update_all = 'depense-types.update.*';
+    case depense_types_delete = 'depense-types.delete.*';
+    case depense_types_restore = 'depense-types.restore.*';
+    case depense_types_force_delete = 'depense-types.force-delete.*';
+    //------------------ ./DepenseTypes ---------------- //
     //------------------ Revenu ---------------- //
     case revenus_all = 'revenus.*';
     case revenus_view = 'revenus.view.*';
@@ -329,6 +338,14 @@ enum RolePermission: string
             self::revenus_restore => 'Restaurer un revenu',
             self::revenus_update_all => 'Modifier un revenu',
             self::revenus_view => 'Voir un revenu',
+            // DepenseTypes
+            self::depense_types_all => 'Gérer les types de dépenses',
+            self::depense_types_create => 'Créer un type de dépense',
+            self::depense_types_delete => 'Supprimer un type de dépense',
+            self::depense_types_force_delete => 'Supprimer définitivement un type de dépense',
+            self::depense_types_restore => 'Restaurer un type de dépense',
+            self::depense_types_update_all => 'Modifier un type de dépense',
+            self::depense_types_view => 'Voir un type de dépense',
 
         };
     }

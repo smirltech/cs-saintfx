@@ -394,7 +394,7 @@ return [
         [
             'text' => 'Dépenses',
             'icon' => 'fas fa-fw fa-arrow-trend-down',
-            'can' => ['depenses.view.*', 'depenses-types.view.*'],
+            'can' => ['depenses.view.*', 'depense-types.view.*'],
             'submenu' => [
                 [
                     'text' => 'Liste des Dépenses',
@@ -406,8 +406,8 @@ return [
                 [
                     'text' => 'Types de Dépenses',
                     'icon' => 'fas fa-fw fa-list-check',
-                    'can' => 'depenses-types.view.*',
-                    'url' => 'finance/depenses-types',
+                    'can' => 'depense-types.view.*',
+                    'url' => 'finance/depense-types',
                     'shift' => 'ml-1',
                 ],
             ]
