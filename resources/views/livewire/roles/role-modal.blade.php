@@ -40,7 +40,21 @@
                                 <div class="form-group col-md-12 p-3">
                                     <strong>Permissions</strong>
                                     <div class="row mb-3">
+                                        @php
+                                            $fw = '';
+                                        @endphp
                                         @foreach($permissions as $permission)
+                                            @php
+                                                $vw = explode(' ', trim($permission->displayName))[0];
+                                            @endphp
+                                            @if($fw !== $vw)
+                                                <div class="col-md-12 mt-2">
+                                                    <h5 class="text-primary border-bottom">{{$vw}}</h5>
+                                                </div>
+                                                @php
+                                                    $fw = $vw;
+                                                @endphp
+                                            @endif
                                             <div class="col-md-4">
                                                 <label class="form-check-label">
                                                     <input class="form-check-input"

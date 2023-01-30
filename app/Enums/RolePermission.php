@@ -207,8 +207,6 @@ case materiel_categories_all = 'materiel-categories.*';
     case annees_create = 'annees.create';
     case annees_update_all = 'annees.update.*';
     case annees_delete = 'annees.delete.*';
-    case annees_restore = 'annees.restore.*';
-
     //------------------ ./Année ---------------- //
 
     //------------------ Users ---------------- //
@@ -247,7 +245,6 @@ case materiel_categories_all = 'materiel-categories.*';
             self::annees_all => 'Gérer les années',
             self::annees_create => 'Créer une année',
             self::annees_delete => 'Supprimer une année',
-            self::annees_restore => 'Restaurer une année',
             self::annees_update_all => 'Modifier une année',
             self::annees_view => 'Voir une année',
             // Eleves
