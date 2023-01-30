@@ -35,7 +35,7 @@
                             <div class="card-tools">
                                 @can('responsables.update',$responsable)
                                     <span role="button" wire:click.debounce="fillDataToModal" type="button"
-                                          title="Modifier" class=" ml-2" data-toggle="modal"
+                                          title="Mot de passe utilisateur" class=" ml-2" data-toggle="modal"
                                           data-target="#edit-responsable-user-modal">
                                     <span class="fa fa-key"></span></span>
                                 @endcan
