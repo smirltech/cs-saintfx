@@ -60,7 +60,7 @@
                                     <b>Nom : </b> <span class="float-right">{{ $responsable->nom }}</span>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Sexe : </b> <span class="float-right">{{ $responsable->sexe->value }}</span>
+                                    <b>Sexe : </b> <span class="float-right">{{ strtoupper($responsable->sexe->value) }}</span>
                                 </li>
                                 <li class="list-group-item">
                                     <b>Phone : </b> <span class="float-right"><a
@@ -107,8 +107,6 @@
                                         <th>ENFANT</th>
                                         <th>SEXE</th>
                                         <th>AGE</th>
-                                        <th>TELEPHONE</th>
-                                        <th>EMAIL</th>
                                         <th>RELATION</th>
                                         <th>CLASSE</th>
                                         <th style="width: 100px"></th>
@@ -122,8 +120,6 @@
                                                 <td>{{ $responsable_eleve->eleve->fullName??'' }}</td>
                                                 <td>{{ $responsable_eleve->eleve->sexe??'' }}</td>
                                                 <td>{{ $responsable_eleve->eleve->date_naissance->age??'' }}</td>
-                                                <td>{{ $responsable_eleve->eleve->telephone??'' }}</td>
-                                                <td>{{ $responsable_eleve->eleve->email??'' }}</td>
                                                 <td>{{ $responsable_eleve?->relation?->reverse($responsable_eleve->eleve->sexe??'')??'' }}
                                                     @can('eleves.update',$responsable_eleve->eleve)
                                                         <span
