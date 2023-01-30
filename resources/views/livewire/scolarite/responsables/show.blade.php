@@ -23,6 +23,7 @@
 @stop
 <div class="  wire:ignore.self">
     @include('livewire.scolarite.responsables.modals.crud')
+    @include('livewire.scolarite.responsables.modals.user')
 
     <div class="content mt-3">
         <div class="container-fluid">
@@ -35,6 +36,12 @@
                                 @can('responsables.update',$responsable)
                                     <span role="button" wire:click.debounce="fillDataToModal" type="button"
                                           title="Modifier" class=" ml-2" data-toggle="modal"
+                                          data-target="#edit-responsable-user-modal">
+                                    <span class="fa fa-key"></span></span>
+                                @endcan
+                                @can('responsables.update',$responsable)
+                                    <span role="button" wire:click.debounce="fillDataToModal" type="button"
+                                          title="Modifier" class=" ml-4" data-toggle="modal"
                                           data-target="#edit-responsable-modal">
                                     <span class="fa fa-pen"></span></span>
                                 @endcan
@@ -61,7 +68,7 @@
                                 </li>
                                 <li class="list-group-item">
                                     <b>E-mail : </b> <span class="float-right"><a
-                                            href="mailto:{{ $responsable->email }}">{{ $responsable->email }}</a></span>
+                                            href="mailto:{{ $responsable->email }}">{{ $responsable->email }}</a>@if($responsable->user != null) <span class="ml-4 fa fa-thumbs-up"></span> @endif  </span>
                                 </li>
                                 <li class="list-group-item">
                                     <b>Enfants : </b> <span
@@ -94,7 +101,7 @@
 
                             <div class="table-responsive m-b-40">
                                 <table class="table">
-                                    <thead class="table-dark">
+                                    <thead class="bg-primary">
                                     <tr>
                                         <th style="width: 100px">CODE</th>
                                         <th>ENFANT</th>

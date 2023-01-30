@@ -305,6 +305,13 @@ return [
                     'url' => 'scolarite/non-inscriptions',
                     'icon' => 'fa fa-users-rays',
                     'shift' => 'ml-1',
+                    'can' => 'inscriptions.view.*'
+                ],
+                [
+                    'text' => 'Elèves',
+                    'url' => 'scolarite/eleves',
+                    'icon' => 'fa fa-users',
+                    'shift' => 'ml-1',
                     'can' => 'eleves.view.*'
                 ],
                 [

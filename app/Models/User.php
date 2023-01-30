@@ -3,11 +3,13 @@
 namespace App\Models;
 
 
+use App\Enums\UserRole;
 use App\Traits\HasAvatar;
 use Closure;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
@@ -36,9 +38,20 @@ class User extends Authenticatable
         return $this->hasMany(Lecture::class);
     }
 
+    public function responsable(): HasOne
+    {
+        return $this->hasOne(Responsable::class);
+    }
+
     public function isAdmin(): bool
     {
-        return true;
+        return $this->hasRole(UserRole::admin->value);
+
+    }
+
+    public function isParent(): bool
+    {
+        return $this->hasRole(UserRole::parent->value);
     }
 
 

@@ -106,8 +106,9 @@
                                         <div class="col-md-6">
                                             <select name="role_id" id="role_id"
                                                     class="form-control  form-select">
+                                                <option>== Choisir rôle ==</option>
                                                 @foreach ($roles as $role)
-                                                    <option @if($user->role->id == $role->id) selected
+                                                    <option @if($user->role?->id == $role->id) selected
                                                             style="background-color: lightgray;"
                                                             @endif
                                                             value="{{$role->id}}">{{$role->display_name}}</option>
