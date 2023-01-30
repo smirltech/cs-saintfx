@@ -33,7 +33,7 @@ class RoleModal extends BaseComponent
         }
 
         $this->role = $role;
-        $this->permissions = Permission::all(['id', 'name']);
+        $this->permissions = Permission::orderBy('name')->get(['id', 'name'])->sortBy('displayName');
         $this->new_permissions = $role->permissions->pluck('id')->toArray();
     }
 
