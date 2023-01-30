@@ -35,7 +35,7 @@ class EleveIndexComponent extends BaseComponent
     {
       //  dd("Is parent : ".Auth::user()->isParent());
         if(Auth::user()->isParent())
-            $this->eleves =Auth::user()->responsable->eleves;
+            $this->eleves =Auth::user()->responsable?->eleves??[];
         else
             $this->eleves = Eleve::orderBy('nom')->get();
         //$this->eleves = Eleve::orderBy('nom')->get();
