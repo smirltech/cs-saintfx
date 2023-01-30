@@ -60,10 +60,12 @@
                             </div>
                             <div class="card-tools d-flex my-auto">
                                 {{-- <livewire:scolarite.section.section-create-component/>--}}
-                                <button type="button"
-                                        class="btn btn-primary  ml-2" data-toggle="modal"
-                                        data-target="#add-category-modal"><span
-                                        class="fa fa-plus"></span></button>
+                                @can('materiel-categories.create')
+                                    <button type="button"
+                                            class="btn btn-primary  ml-2" data-toggle="modal"
+                                            data-target="#add-category-modal"><span
+                                            class="fa fa-plus"></span></button>
+                                @endcan
                             </div>
                         </div>
 
@@ -82,23 +84,29 @@
                                         <td>{!! $row[4] !!}</td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                <a href="{{route('logistique.categories.show',[$row[5]->id])}}"
-                                                   title="Voir"
-                                                   class="btn btn-warning">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                                <button wire:click="getSelectedCategory({{$row[5]}})" type="button"
-                                                        title="Modifier" class="btn btn-info  ml-2" data-toggle="modal"
-                                                        data-target="#update-category-modal">
-                                                    <span class="fa fa-pen"></span>
-                                                </button>
-
-                                                <button wire:click="getSelectedCategory({{$row[5]}})" type="button"
-                                                        title="supprimer" class="btn btn-danger  ml-2"
-                                                        data-toggle="modal"
-                                                        data-target="#delete-category-modal">
-                                                    <span class="fa fa-trash"></span>
-                                                </button>
+                                                @can('materiel-categories.view', $row[5])
+                                                    <a href="{{route('logistique.categories.show',[$row[5]->id])}}"
+                                                       title="Voir"
+                                                       class="btn btn-warning">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                @endcan
+                                                @can('materiel-categories.update', $row[5])
+                                                    <button wire:click="getSelectedCategory({{$row[5]}})" type="button"
+                                                            title="Modifier" class="btn btn-info  ml-2"
+                                                            data-toggle="modal"
+                                                            data-target="#update-category-modal">
+                                                        <span class="fa fa-pen"></span>
+                                                    </button>
+                                                @endcan
+                                                @can('materiel-categories.delete', $row[5])
+                                                    <button wire:click="getSelectedCategory({{$row[5]}})" type="button"
+                                                            title="supprimer" class="btn btn-danger  ml-2"
+                                                            data-toggle="modal"
+                                                            data-target="#delete-category-modal">
+                                                        <span class="fa fa-trash"></span>
+                                                    </button>
+                                                @endcan
                                             </div>
                                         </td>
                                     </tr>

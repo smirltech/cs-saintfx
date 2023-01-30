@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Logistique\NonFongible\Materiel;
 
 use App\Enums\MaterialStatus;
+use App\Http\Livewire\BaseComponent;
 use App\Models\Materiel;
 use App\Models\MaterielCategory;
 use App\Traits\TopMenuPreview;
@@ -11,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
-class MaterielIndexComponent extends Component
+class MaterielIndexComponent extends BaseComponent
 {
     use TopMenuPreview;
     use LivewireAlert;
@@ -32,6 +33,7 @@ class MaterielIndexComponent extends Component
 
     public function mount()
     {
+        $this->authorize("viewAny", Materiel::class);
         $this->loadData();
         $this->initMateriel();
     }

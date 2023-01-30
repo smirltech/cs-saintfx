@@ -32,11 +32,13 @@
                                 <h4 class="m-0">{{$materiel->nom}}</h4>
                             </div>
                             <div class="card-tools">
-                                <span
-                                    title="Modifier" role="button" class="ml-2 mr-2" data-toggle="modal"
-                                    data-target="#update-materiel-modal">
+                                @can('materiels.view', $materiel)
+                                    <span
+                                        title="Modifier" role="button" class="ml-2 mr-2" data-toggle="modal"
+                                        data-target="#update-materiel-modal">
                                     <span class="fa fa-pen"></span>
                                 </span>
+                                @endcan
 
                             </div>
                         </div>
@@ -135,12 +137,14 @@
                                                 <h4 class="m-0">Mouvements du matériel</h4>
                                             </div>
                                             <div class="card-tools">
-                                                <button
-                                                    title="Ajouter" role="button"
-                                                    class="btn btn-outline-primary ml-2 mr-2" data-toggle="modal"
-                                                    data-target="#add-mouvement-modal">
-                                                    <span class="fa fa-plus"></span>
-                                                </button>
+                                                @can('mouvements.create')
+                                                    <button
+                                                        title="Ajouter" role="button"
+                                                        class="btn btn-outline-primary ml-2 mr-2" data-toggle="modal"
+                                                        data-target="#add-mouvement-modal">
+                                                        <span class="fa fa-plus"></span>
+                                                    </button>
+                                                @endcan
 
                                             </div>
                                         </div>
@@ -171,22 +175,28 @@
                                                             <td>{{$mouvement->materiel_status->label()}}</td>
                                                             <td>
                                                                 <div class="d-flex float-right">
-                                                                    <button
-                                                                        wire:click="getSelectedMouvement({{$mouvement}})"
-                                                                        type="button"
-                                                                        title="Modifier" class="btn btn-warning  ml-4"
-                                                                        data-toggle="modal"
-                                                                        data-target="#update-mouvement-modal">
-                                                                        <span class="fa fa-edit"></span>
-                                                                    </button>
-                                                                    <button
-                                                                        wire:click="getSelectedMouvement({{$mouvement}})"
-                                                                        type="button"
-                                                                        title="Supprimer" class="btn btn-danger  ml-4"
-                                                                        data-toggle="modal"
-                                                                        data-target="#delete-mouvement-modal">
-                                                                        <span class="fa fa-trash"></span>
-                                                                    </button>
+                                                                    @can('mouvements.update', $mouvement)
+                                                                        <button
+                                                                            wire:click="getSelectedMouvement({{$mouvement}})"
+                                                                            type="button"
+                                                                            title="Modifier"
+                                                                            class="btn btn-warning  ml-4"
+                                                                            data-toggle="modal"
+                                                                            data-target="#update-mouvement-modal">
+                                                                            <span class="fa fa-edit"></span>
+                                                                        </button>
+                                                                    @endcan
+                                                                    @can('mouvements.delete', $mouvement)
+                                                                        <button
+                                                                            wire:click="getSelectedMouvement({{$mouvement}})"
+                                                                            type="button"
+                                                                            title="Supprimer"
+                                                                            class="btn btn-danger  ml-4"
+                                                                            data-toggle="modal"
+                                                                            data-target="#delete-mouvement-modal">
+                                                                            <span class="fa fa-trash"></span>
+                                                                        </button>
+                                                                    @endcan
                                                                 </div>
                                                             </td>
                                                         </tr>

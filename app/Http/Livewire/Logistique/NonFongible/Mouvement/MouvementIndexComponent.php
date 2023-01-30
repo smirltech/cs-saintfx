@@ -2,13 +2,14 @@
 
 namespace App\Http\Livewire\Logistique\NonFongible\Mouvement;
 
+use App\Http\Livewire\BaseComponent;
 use App\Models\Mouvement;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
-class MouvementIndexComponent extends Component
+class MouvementIndexComponent extends BaseComponent
 {
     use TopMenuPreview;
     use LivewireAlert;
@@ -17,6 +18,7 @@ class MouvementIndexComponent extends Component
 
     public function mount()
     {
+        $this->authorize("viewAny", Mouvement::class);
         $this->loadData();
     }
 

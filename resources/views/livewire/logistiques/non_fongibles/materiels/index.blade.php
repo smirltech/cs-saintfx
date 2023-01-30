@@ -70,10 +70,12 @@
                             </div>
                             <div class="card-tools d-flex my-auto">
                                 {{-- <livewire:scolarite.section.section-create-component/>--}}
-                                <button type="button"
-                                        class="btn btn-primary  ml-2" data-toggle="modal"
-                                        data-target="#add-materiel-modal"><span
-                                        class="fa fa-plus"></span></button>
+                                @can('materiels.create')
+                                    <button type="button"
+                                            class="btn btn-primary  ml-2" data-toggle="modal"
+                                            data-target="#add-materiel-modal"><span
+                                            class="fa fa-plus"></span></button>
+                                @endcan
                             </div>
                         </div>
 
@@ -100,23 +102,29 @@
                                         </td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                <a href="{{route('logistique.materiels.show',[$row[9]->id])}}"
-                                                   title="Voir"
-                                                   class="btn btn-warning">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                                <button wire:click="getSelectedMateriel({{$row[9]}})" type="button"
-                                                        title="Modifier" class="btn btn-info  ml-2" data-toggle="modal"
-                                                        data-target="#update-materiel-modal">
-                                                    <span class="fa fa-pen"></span>
-                                                </button>
-
-                                                <button wire:click="getSelectedMateriel({{$row[9]}})" type="button"
-                                                        title="supprimer" class="btn btn-danger  ml-2"
-                                                        data-toggle="modal"
-                                                        data-target="#delete-materiel-modal">
-                                                    <span class="fa fa-trash"></span>
-                                                </button>
+                                                @can('materiels.view', $row[9])
+                                                    <a href="{{route('logistique.materiels.show',[$row[9]->id])}}"
+                                                       title="Voir"
+                                                       class="btn btn-warning">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                @endcan
+                                                @can('materiels.update', $row[9])
+                                                    <button wire:click="getSelectedMateriel({{$row[9]}})" type="button"
+                                                            title="Modifier" class="btn btn-info  ml-2"
+                                                            data-toggle="modal"
+                                                            data-target="#update-materiel-modal">
+                                                        <span class="fa fa-pen"></span>
+                                                    </button>
+                                                @endcan
+                                                @can('materiels.delete', $row[9])
+                                                    <button wire:click="getSelectedMateriel({{$row[9]}})" type="button"
+                                                            title="supprimer" class="btn btn-danger  ml-2"
+                                                            data-toggle="modal"
+                                                            data-target="#delete-materiel-modal">
+                                                        <span class="fa fa-trash"></span>
+                                                    </button>
+                                                @endcan
                                             </div>
                                         </td>
                                     </tr>

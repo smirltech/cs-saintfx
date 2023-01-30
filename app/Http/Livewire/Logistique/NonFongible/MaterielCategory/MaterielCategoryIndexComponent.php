@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Logistique\NonFongible\MaterielCategory;
 
+use App\Http\Livewire\BaseComponent;
 use App\Models\MaterielCategory;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
@@ -10,7 +11,7 @@ use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
-class MaterielCategoryIndexComponent extends Component
+class MaterielCategoryIndexComponent extends BaseComponent
 {
     use TopMenuPreview;
     use LivewireAlert;
@@ -26,6 +27,7 @@ class MaterielCategoryIndexComponent extends Component
 
     public function mount()
     {
+        $this->authorize("viewAny", MaterielCategory::class);
         $this->initCategory();
     }
 

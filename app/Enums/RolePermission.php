@@ -4,6 +4,27 @@ namespace App\Enums;
 
 enum RolePermission: string
 {
+    //------------------ Mouvements ---------------- //
+    case mouvements_all = 'mouvements.*';
+    case mouvements_view = 'mouvements.view.*';
+    case mouvements_create = 'mouvements.create';
+    case mouvements_update_all = 'mouvements.update.*';
+    case mouvements_delete = 'mouvements.delete.*';
+    //------------------ ./Mouvements ---------------- //
+    //------------------ Materiels ---------------- //
+    case materiels_all = 'materiels.*';
+    case materiels_view = 'materiels.view.*';
+    case materiels_create = 'materiels.create';
+    case materiels_update_all = 'materiels.update.*';
+    case materiels_delete = 'materiels.delete.*';
+    //------------------ ./Materiels ---------------- //
+    //------------------ MaterielCategories ---------------- //
+case materiel_categories_all = 'materiel-categories.*';
+    case materiel_categories_view = 'materiel-categories.view.*';
+    case materiel_categories_create = 'materiel-categories.create';
+    case materiel_categories_update_all = 'materiel-categories.update.*';
+    case materiel_categories_delete = 'materiel-categories.delete.*';
+    //------------------ ./MaterielCategories ---------------- //
     //------------------ Consommables ---------------- //
     case consommables_all = 'consommables.*';
     case consommables_view = 'consommables.view.*';
@@ -465,6 +486,24 @@ enum RolePermission: string
             self::consommables_restore => 'Restaurer un consommable',
             self::consommables_update_all => 'Modifier un consommable',
             self::consommables_view => 'Voir un consommable',
+            // MaterielCategories
+            self::materiel_categories_all => 'Gérer les catégories de matériels',
+            self::materiel_categories_create => 'Créer une catégorie de matériels',
+            self::materiel_categories_delete => 'Supprimer une catégorie de matériels',
+            self::materiel_categories_update_all => 'Modifier une catégorie de matériels',
+            self::materiel_categories_view => 'Voir une catégorie de matériels',
+            // Materiels
+            self::materiels_all => 'Gérer les matériels',
+            self::materiels_create => 'Créer un matériel',
+            self::materiels_delete => 'Supprimer un matériel',
+            self::materiels_update_all => 'Modifier un matériel',
+            self::materiels_view => 'Voir un matériel',
+            // Mouvements
+            self::mouvements_all => 'Gérer les mouvements des materiels',
+            self::mouvements_create => 'Créer un mouvement de materiel',
+            self::mouvements_delete => 'Supprimer un mouvement de materiel',
+            self::mouvements_update_all => 'Modifier un mouvement de materiel',
+            self::mouvements_view => 'Voir un mouvement de materiel',
         };
     }
 

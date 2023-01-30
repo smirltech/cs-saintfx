@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Logistique\NonFongible\Materiel;
 
 use App\Enums\MouvementStatus;
+use App\Http\Livewire\BaseComponent;
 use App\Models\Materiel;
 use App\Models\MaterielCategory;
 use App\Models\Mouvement;
@@ -14,7 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
-class MaterielShowComponent extends Component
+class MaterielShowComponent extends BaseComponent
 {
     use TopMenuPreview;
     use LivewireAlert;
@@ -46,6 +47,7 @@ class MaterielShowComponent extends Component
 
     public function mount(Materiel $materiel)
     {
+        $this->authorize("view", $materiel);
         $this->materiel = $materiel;
         // dd($this->materiel);
         $this->loadData();

@@ -424,7 +424,7 @@ return [
 
         [
             'header' => 'LOGISTIQUE',
-            'can' => ['consommables.view.*', 'operations.view.*', 'units.view.*', 'materiels.view.*', 'categories.view.*', 'mouvements.view.*', 'cessions.view.*'],
+            'can' => ['consommables.view.*', 'operations.view.*', 'units.view.*', 'materiels.view.*', 'materiel-categories.view.*', 'mouvements.view.*', 'cessions.view.*'],
         ],
         [
             'text' => 'Fongibles',
@@ -457,7 +457,7 @@ return [
         [
             'text' => 'Non Fongibles',
             'icon' => 'fas fa-fw fa-screwdriver-wrench',
-            'can' => ['materiels.view.*', 'categories.view.*', 'mouvements.view.*', 'cessions.view.*'],
+            'can' => ['materiels.view.*', 'materiel-categories.view.*', 'mouvements.view.*', 'cessions.view.*'],
             'submenu' => [
                 [
                     'text' => 'Materiels',
@@ -471,7 +471,7 @@ return [
                     'icon' => 'fas fa-fw fa-layer-group',
                     'shift' => 'ml-2',
                     'url' => 'logistique/categories',
-                    'can' => 'categories.view.*',
+                    'can' => 'materiel-categories.view.*',
                 ],
                 [
                     'text' => 'Mouvements',
