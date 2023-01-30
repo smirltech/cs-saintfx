@@ -66,10 +66,12 @@
                             </div>
                             <div class="card-tools d-flex my-auto">
                                 {{-- <livewire:scolarite.section.section-create-component/>--}}
-                                <button type="button"
-                                        class="btn btn-primary  ml-2" data-toggle="modal"
-                                        data-target="#add-consommable-modal"><span
-                                        class="fa fa-plus"></span></button>
+                                @can('consommables.create')
+                                    <button type="button"
+                                            class="btn btn-primary  ml-2" data-toggle="modal"
+                                            data-target="#add-consommable-modal"><span
+                                            class="fa fa-plus"></span></button>
+                                @endcan
                             </div>
                         </div>
 
@@ -88,23 +90,31 @@
                                         <td>{!! $row[6] !!}</td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                <a href="{{route('logistique.consommables.show',[$row[7]->id])}}"
-                                                   title="Voir"
-                                                   class="btn btn-warning">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                                <button wire:click="getSelectedConsommable({{$row[7]}})" type="button"
-                                                        title="Modifier" class="btn btn-info  ml-2" data-toggle="modal"
-                                                        data-target="#update-consommable-modal">
-                                                    <span class="fa fa-pen"></span>
-                                                </button>
-
-                                                <button wire:click="getSelectedConsommable({{$row[7]}})" type="button"
-                                                        title="supprimer" class="btn btn-danger  ml-2"
-                                                        data-toggle="modal"
-                                                        data-target="#delete-consommable-modal">
-                                                    <span class="fa fa-trash"></span>
-                                                </button>
+                                                @can('consommables.view', $row[7])
+                                                    <a href="{{route('logistique.consommables.show',[$row[7]->id])}}"
+                                                       title="Voir"
+                                                       class="btn btn-warning">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                @endcan
+                                                @can('consommables.update', $row[7])
+                                                    <button wire:click="getSelectedConsommable({{$row[7]}})"
+                                                            type="button"
+                                                            title="Modifier" class="btn btn-info  ml-2"
+                                                            data-toggle="modal"
+                                                            data-target="#update-consommable-modal">
+                                                        <span class="fa fa-pen"></span>
+                                                    </button>
+                                                @endcan
+                                                @can('consommables.delete', $row[7])
+                                                    <button wire:click="getSelectedConsommable({{$row[7]}})"
+                                                            type="button"
+                                                            title="supprimer" class="btn btn-danger  ml-2"
+                                                            data-toggle="modal"
+                                                            data-target="#delete-consommable-modal">
+                                                        <span class="fa fa-trash"></span>
+                                                    </button>
+                                                @endcan
                                             </div>
                                         </td>
                                     </tr>

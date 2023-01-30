@@ -4,6 +4,15 @@ namespace App\Enums;
 
 enum RolePermission: string
 {
+    //------------------ Consommables ---------------- //
+    case consommables_all = 'consommables.*';
+    case consommables_view = 'consommables.view.*';
+    case consommables_create = 'consommables.create';
+    case consommables_update_all = 'consommables.update.*';
+    case consommables_delete = 'consommables.delete.*';
+    case consommables_restore = 'consommables.restore.*';
+    case consommables_force_delete = 'consommables.force-delete.*';
+    //------------------ ./Consommables ---------------- //
     //------------------ Units ---------------- //
     case units_all = 'units.*';
     case units_view = 'units.view.*';
@@ -448,6 +457,14 @@ enum RolePermission: string
             self::units_restore => 'Restaurer une unité',
             self::units_update_all => 'Modifier une unité',
             self::units_view => 'Voir une unité',
+            // Consommables
+            self::consommables_all => 'Gérer les consommables',
+            self::consommables_create => 'Créer un consommable',
+            self::consommables_delete => 'Supprimer un consommable',
+            self::consommables_force_delete => 'Supprimer définitivement un consommable',
+            self::consommables_restore => 'Restaurer un consommable',
+            self::consommables_update_all => 'Modifier un consommable',
+            self::consommables_view => 'Voir un consommable',
         };
     }
 

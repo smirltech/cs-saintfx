@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Logistique\Fongible\Consommable;
 
 use App\Enums\MouvementStatus;
+use App\Http\Livewire\BaseComponent;
 use App\Models\Consommable;
 use App\Models\Operation;
 use App\Models\Unit;
@@ -14,7 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
-class ConsommableShowComponent extends Component
+class ConsommableShowComponent extends BaseComponent
 {
     use TopMenuPreview;
     use LivewireAlert;
@@ -43,6 +44,7 @@ class ConsommableShowComponent extends Component
 
     public function mount(Consommable $consommable)
     {
+        $this->authorize("view", $consommable);
         $this->consommable = $consommable;
         // dd($this->materiel);
         $this->loadData();

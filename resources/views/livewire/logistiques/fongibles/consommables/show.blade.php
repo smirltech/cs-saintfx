@@ -32,11 +32,13 @@
                                 <h4 class="m-0">{{$consommable->nom}}</h4>
                             </div>
                             <div class="card-tools">
-                                <span
-                                    title="Modifier" role="button" class="ml-2 mr-2" data-toggle="modal"
-                                    data-target="#update-consommable-modal">
+                                @can('consommables.update', $consommable)
+                                    <span
+                                        title="Modifier" role="button" class="ml-2 mr-2" data-toggle="modal"
+                                        data-target="#update-consommable-modal">
                                     <span class="fa fa-pen"></span>
                                 </span>
+                                @endcan
 
                             </div>
                         </div>
@@ -123,12 +125,14 @@
                                                 <h4 class="m-0">Operation du consommable</h4>
                                             </div>
                                             <div class="card-tools">
-                                                <button
-                                                    title="Ajouter" role="button"
-                                                    class="btn btn-outline-primary ml-2 mr-2" data-toggle="modal"
-                                                    data-target="#add-operation-modal">
-                                                    <span class="fa fa-plus"></span>
-                                                </button>
+                                                @can('operations.create')
+                                                    <button
+                                                        title="Ajouter" role="button"
+                                                        class="btn btn-outline-primary ml-2 mr-2" data-toggle="modal"
+                                                        data-target="#add-operation-modal">
+                                                        <span class="fa fa-plus"></span>
+                                                    </button>
+                                                @endcan
 
                                             </div>
                                         </div>
@@ -159,22 +163,28 @@
                                                             </td>
                                                             <td>
                                                                 <div class="d-flex float-right">
-                                                                    <button
-                                                                        wire:click="getSelectedOperation({{$operation}})"
-                                                                        type="button"
-                                                                        title="Modifier" class="btn btn-warning  ml-4"
-                                                                        data-toggle="modal"
-                                                                        data-target="#update-operation-modal">
-                                                                        <span class="fa fa-edit"></span>
-                                                                    </button>
-                                                                    <button
-                                                                        wire:click="getSelectedOperation({{$operation}})"
-                                                                        type="button"
-                                                                        title="Supprimer" class="btn btn-danger  ml-4"
-                                                                        data-toggle="modal"
-                                                                        data-target="#delete-operation-modal">
-                                                                        <span class="fa fa-trash"></span>
-                                                                    </button>
+                                                                    @can('operations.update', $operation)
+                                                                        <button
+                                                                            wire:click="getSelectedOperation({{$operation}})"
+                                                                            type="button"
+                                                                            title="Modifier"
+                                                                            class="btn btn-warning  ml-4"
+                                                                            data-toggle="modal"
+                                                                            data-target="#update-operation-modal">
+                                                                            <span class="fa fa-edit"></span>
+                                                                        </button>
+                                                                    @endcan
+                                                                    @can('operations.delete', $operation)
+                                                                        <button
+                                                                            wire:click="getSelectedOperation({{$operation}})"
+                                                                            type="button"
+                                                                            title="Supprimer"
+                                                                            class="btn btn-danger  ml-4"
+                                                                            data-toggle="modal"
+                                                                            data-target="#delete-operation-modal">
+                                                                            <span class="fa fa-trash"></span>
+                                                                        </button>
+                                                                    @endcan
                                                                 </div>
                                                             </td>
                                                         </tr>

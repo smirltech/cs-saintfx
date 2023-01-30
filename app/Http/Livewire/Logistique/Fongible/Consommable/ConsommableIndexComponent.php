@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Logistique\Fongible\Consommable;
 
+use App\Http\Livewire\BaseComponent;
 use App\Models\Annee;
 use App\Models\Consommable;
 use App\Models\Unit;
@@ -12,7 +13,7 @@ use Faker\Factory;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
-class ConsommableIndexComponent extends Component
+class ConsommableIndexComponent extends BaseComponent
 {
     use TopMenuPreview;
     use LivewireAlert;
@@ -30,6 +31,7 @@ class ConsommableIndexComponent extends Component
 
     public function mount()
     {
+        $this->authorize("viewAny", Consommable::class);
         $this->loadData();
         $this->initConsommable();
     }
