@@ -4,6 +4,15 @@ namespace App\Enums;
 
 enum RolePermission: string
 {
+    //------------------ Units ---------------- //
+    case units_all = 'units.*';
+    case units_view = 'units.view.*';
+    case units_create = 'units.create';
+    case units_update_all = 'units.update.*';
+    case units_delete = 'units.delete.*';
+    case units_restore = 'units.restore.*';
+    case units_force_delete = 'units.force-delete.*';
+    //------------------ ./Units ---------------- //
     //------------------ Ouvrages ---------------- //
     case ouvrages_all = 'ouvrages.*';
     case ouvrages_view = 'ouvrages.view.*';
@@ -335,14 +344,14 @@ enum RolePermission: string
             self::devoirs_restore => 'Restaurer un devoir',
             self::devoirs_update_all => 'Modifier un devoir',
             self::devoirs_view => 'Voir un devoir',
-         /*   // Factures
-            self::factures_all => 'Gérer les factures',
-            self::factures_create => 'Créer une facture',
-            self::factures_delete => 'Supprimer une facture',
-            self::factures_force_delete => 'Supprimer définitivement une facture',
-            self::factures_restore => 'Restaurer une facture',
-            self::factures_update_all => 'Modifier une facture',
-            self::factures_view => 'Voir une facture',*/
+            /*   // Factures
+               self::factures_all => 'Gérer les factures',
+               self::factures_create => 'Créer une facture',
+               self::factures_delete => 'Supprimer une facture',
+               self::factures_force_delete => 'Supprimer définitivement une facture',
+               self::factures_restore => 'Restaurer une facture',
+               self::factures_update_all => 'Modifier une facture',
+               self::factures_view => 'Voir une facture',*/
             // Cours
             self::cours_all => 'Gérer les cours',
             self::cours_create => 'Créer un cours',
@@ -431,7 +440,14 @@ enum RolePermission: string
             self::ouvrages_restore => 'Restaurer un ouvrage',
             self::ouvrages_update_all => 'Modifier un ouvrage',
             self::ouvrages_view => 'Voir un ouvrage',
-
+            // Units
+            self::units_all => 'Gérer les unités',
+            self::units_create => 'Créer une unité',
+            self::units_delete => 'Supprimer une unité',
+            self::units_force_delete => 'Supprimer définitivement une unité',
+            self::units_restore => 'Restaurer une unité',
+            self::units_update_all => 'Modifier une unité',
+            self::units_view => 'Voir une unité',
         };
     }
 

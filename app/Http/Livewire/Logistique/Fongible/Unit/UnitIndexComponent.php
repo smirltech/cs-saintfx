@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Logistique\Fongible\Unit;
 
+use App\Http\Livewire\BaseComponent;
 use App\Models\Unit;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
@@ -10,7 +11,7 @@ use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
-class UnitIndexComponent extends Component
+class UnitIndexComponent extends BaseComponent
 {
     use TopMenuPreview;
     use LivewireAlert;
@@ -25,6 +26,7 @@ class UnitIndexComponent extends Component
 
     public function mount()
     {
+        $this->authorize("viewAny", Unit::class);
         $this->initUnit();
         $this->loadData();
     }
