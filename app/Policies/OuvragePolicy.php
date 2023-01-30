@@ -46,17 +46,4 @@ class OuvragePolicy
             : Response::deny('Vous n\'êtes pas autorisé à supprimer cet ouvrage.');
     }
 
-    public function restore(User $user, Ouvrage $ouvrage)
-    {
-        return $user->can('ouvrages.restore.' . $ouvrage->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'êtes pas autorisé à restaurer cet ouvrage.');
-    }
-
-    public function forceDelete(User $user, Ouvrage $ouvrage)
-    {
-        return $user->can('ouvrages.force-delete.' . $ouvrage->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'êtes pas autorisé à supprimer définitivement cet ouvrage.');
-    }
 }

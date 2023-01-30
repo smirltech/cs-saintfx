@@ -80,32 +80,4 @@ class UserPolicy
             : Response::deny('Vous n\'êtes pas autorisé à supprimer cet utilisateur.');
 
     }
-
-    /**
-     * Determine whether the user can restore the model.
-     *
-     * @param User $user
-     * @param User $model
-     * @return void
-     */
-    public function restore(User $user, User $model): Response|bool
-    {
-        return $user->can('users.restore.' . $model->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'êtes pas autorisé à restaurer cet utilisateur.');
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     *
-     * @param User $user
-     * @param User $model
-     * @return void
-     */
-    public function forceDelete(User $user, User $model): Response|bool
-    {
-        return $user->can('users.force-delete.' . $model->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'êtes pas autorisé à supprimer définitivement cet utilisateur.');
-    }
 }

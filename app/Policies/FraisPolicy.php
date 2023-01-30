@@ -45,18 +45,4 @@ class FraisPolicy
             ? Response::allow()
             : Response::deny('Vous n\'êtes pas autorisé à supprimer ce frais.');
     }
-
-    public function restore(User $user, Frais $frais): Response|bool
-    {
-        return $user->can('frais.restore.' . $frais->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'êtes pas autorisé à restaurer ce frais.');
-    }
-
-    public function forceDelete(User $user, Frais $frais): Response|bool
-    {
-        return $user->can('frais.force_delete.' . $frais->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'êtes pas autorisé à supprimer définitivement ce frais.');
-    }
 }

@@ -45,18 +45,4 @@ class ClassePolicy
             ? Response::allow()
             : Response::deny('Vous n\'êtes pas autorisé à supprimer cette classe.');
     }
-
-    public function restore(User $user, Classe $classe):Response|bool
-    {
-        return $user->can('classes.restore.' . $classe->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'êtes pas autorisé à restaurer cette classe.');
-    }
-
-    public function forceDelete(User $user, Classe $classe):Response|bool
-    {
-        return $user->can('classes.force-delete.' . $classe->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'êtes pas autorisé à supprimer définitivement cette classe.');
-    }
 }

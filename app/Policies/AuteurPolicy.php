@@ -46,17 +46,4 @@ class AuteurPolicy
             : Response::deny('Vous n\'êtes pas autorisé à supprimer cet auteur.');
     }
 
-    public function restore(User $user, Auteur $auteur)
-    {
-        return $user->can('auteurs.restore.' . $auteur->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'êtes pas autorisé à restaurer cet auteur.');
-    }
-
-    public function forceDelete(User $user, Auteur $auteur)
-    {
-        return $user->can('auteurs.force-delete.' . $auteur->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'êtes pas autorisé à supprimer définitivement cet auteur.');
-    }
 }

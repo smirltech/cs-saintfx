@@ -34,14 +34,4 @@ class DiplomePolicy
     {
         //
     }
-
-    public function restore(User $user, Diplome $diplome)
-    {
-        //
-    }
-
-    public function forceDelete(User $user, Diplome $diplome)
-    {
-        //
-    }
 }

@@ -34,14 +34,4 @@ class EnseignantCoursPolicy
     {
         //
     }
-
-    public function restore(User $user, CoursEnseignant $enseignantCours)
-    {
-        //
-    }
-
-    public function forceDelete(User $user, CoursEnseignant $enseignantCours)
-    {
-        //
-    }
 }

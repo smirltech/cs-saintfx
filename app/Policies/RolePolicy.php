@@ -52,13 +52,4 @@ class RolePolicy
         //
     }
 
-    public function restore(User $user, Role $role)
-    {
-        //
-    }
-
-    public function forceDelete(User $user, Role $role)
-    {
-        //
-    }
 }

@@ -34,14 +34,4 @@ class EleveResponsablePolicy
     {
         //
     }
-
-    public function restore(User $user, EleveResponsable $eleveResponsable)
-    {
-        //
-    }
-
-    public function forceDelete(User $user, EleveResponsable $eleveResponsable)
-    {
-        //
-    }
 }

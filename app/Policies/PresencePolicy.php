@@ -35,13 +35,4 @@ class PresencePolicy
         //
     }
 
-    public function restore(User $user, Presence $presence)
-    {
-        //
-    }
-
-    public function forceDelete(User $user, Presence $presence)
-    {
-        //
-    }
 }

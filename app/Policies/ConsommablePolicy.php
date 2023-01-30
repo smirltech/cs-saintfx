@@ -45,18 +45,4 @@ class ConsommablePolicy
             ? Response::allow()
             : Response::deny('Vous n\'êtes pas autorisé à supprimer ce consommable.');
     }
-
-    public function restore(User $user, Consommable $consommable): Response|bool
-    {
-        return $user->can('consommables.restore.' . $consommable->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'êtes pas autorisé à restaurer ce consommable.');
-    }
-
-    public function forceDelete(User $user, Consommable $consommable): Response|bool
-    {
-        return $user->can('consommables.force_delete.' . $consommable->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'êtes pas autorisé à supprimer définitivement ce consommable.');
-    }
 }

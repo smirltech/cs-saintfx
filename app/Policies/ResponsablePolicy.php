@@ -45,18 +45,4 @@ class ResponsablePolicy
             ? Response::allow()
             : Response::deny('Vous n\'êtes pas autorisé à supprimer ce responsable.');
     }
-
-    public function restore(User $user, Responsable $responsable):Response|bool
-    {
-        return $user->can('responsables.restore.' . $responsable->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'êtes pas autorisé à restaurer ce responsable.');
-    }
-
-    public function forceDelete(User $user, Responsable $responsable):Response|bool
-    {
-        return $user->can('responsables.forceDelete.' . $responsable->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'êtes pas autorisé à supprimer définitivement ce responsable.');
-    }
 }

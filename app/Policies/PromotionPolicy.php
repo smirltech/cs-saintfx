@@ -35,13 +35,4 @@ class PromotionPolicy
         //
     }
 
-    public function restore(User $user, Promotion $promotion)
-    {
-        //
-    }
-
-    public function forceDelete(User $user, Promotion $promotion)
-    {
-        //
-    }
 }

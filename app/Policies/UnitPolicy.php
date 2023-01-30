@@ -46,17 +46,4 @@ class UnitPolicy
             : Response::deny('Vous n\'êtes pas autorisé à supprimer cette unité.');
     }
 
-    public function restore(User $user, Unit $unit): Response|bool
-    {
-        return $user->can('units.restore.' . $unit->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'êtes pas autorisé à restaurer cette unité.');
-    }
-
-    public function forceDelete(User $user, Unit $unit): Response|bool
-    {
-        return $user->can('units.force_delete.' . $unit->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'êtes pas autorisé à supprimer définitivement cette unité.');
-    }
 }

@@ -45,18 +45,4 @@ class EnseignantPolicy
             ? Response::allow()
             : Response::deny('Vous n\'êtes pas autorisé à supprimer cet enseignant.');
     }
-
-    public function restore(User $user, Enseignant $enseignant): Response
-    {
-        return $user->can('enseignants.restore' . $enseignant->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'êtes pas autorisé à restaurer cet enseignant.');
-    }
-
-    public function forceDelete(User $user, Enseignant $enseignant): Response
-    {
-        return $user->can('enseignants.forceDelete' . $enseignant->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'êtes pas autorisé à supprimer définitivement cet enseignant.');
-    }
 }

@@ -45,18 +45,4 @@ class RevenuPolicy
             ? Response::allow()
             : Response::deny('Vous n\'êtes pas autorisé à supprimer ce revenu.');
     }
-
-    public function restore(User $user, Revenu $revenu): Response|bool
-    {
-        return $user->can('revenus.restore.' . $revenu->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'êtes pas autorisé à restaurer ce revenu.');
-    }
-
-    public function forceDelete(User $user, Revenu $revenu): Response|bool
-    {
-        return $user->can('revenus.force_delete.' . $revenu->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'êtes pas autorisé à supprimer définitivement ce revenu.');
-    }
 }

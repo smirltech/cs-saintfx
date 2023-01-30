@@ -68,28 +68,4 @@ class FacultePolicy
     {
         //
     }
-
-    /**
-     * Determine whether the user can restore the model.
-     *
-     * @param User $user
-     * @param Option $faculte
-     * @return Response|bool
-     */
-    public function restore(User $user, Option $faculte)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     *
-     * @param User $user
-     * @param Option $faculte
-     * @return Response|bool
-     */
-    public function forceDelete(User $user, Option $faculte)
-    {
-        //
-    }
 }

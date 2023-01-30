@@ -45,18 +45,4 @@ class DepenseTypePolicy
             ? Response::allow()
             : Response::deny('Vous n\'êtes pas autorisé à supprimer ce type de dépenses.');
     }
-
-    public function restore(User $user, DepenseType $depenseType):Response|bool
-    {
-        return $user->can('depense-types.restore.' . $depenseType->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'êtes pas autorisé à restaurer ce type de dépenses.');
-    }
-
-    public function forceDelete(User $user, DepenseType $depenseType):Response|bool
-    {
-        return $user->can('depense-types.force-delete.' . $depenseType->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'êtes pas autorisé à supprimer définitivement ce type de dépenses.');
-    }
 }

@@ -45,18 +45,4 @@ class CoursPolicy
             ? Response::allow()
             : Response::deny('Vous n\'êtes pas autorisé à supprimer ce cours.');
     }
-
-    public function restore(User $user, Cours $cours):Response|bool
-    {
-        return $user->can('cours.restore.' . $cours->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'êtes pas autorisé à restaurer ce cours.');
-    }
-
-    public function forceDelete(User $user, Cours $cours):Response|bool
-    {
-        return $user->can('cours.force-delete.' . $cours->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'êtes pas autorisé à supprimer définitivement ce cours.');
-    }
 }

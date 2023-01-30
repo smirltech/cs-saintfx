@@ -67,28 +67,4 @@ class MediaPolicy
     {
         //
     }
-
-    /**
-     * Determine whether the user can restore the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Media  $media
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function restore(User $user, Media $media)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Media  $media
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function forceDelete(User $user, Media $media)
-    {
-        //
-    }
 }

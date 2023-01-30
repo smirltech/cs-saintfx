@@ -34,14 +34,4 @@ class CategoriePolicy
     {
         //
     }
-
-    public function restore(User $user, Categorie $categorie)
-    {
-        //
-    }
-
-    public function forceDelete(User $user, Categorie $categorie)
-    {
-        //
-    }
 }

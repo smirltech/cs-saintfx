@@ -45,18 +45,4 @@ class InscriptionPolicy
             ? Response::allow()
             : Response::deny('Vous n\'êtes pas autorisé à supprimer cette inscription.');
     }
-
-    public function restore(User $user, Inscription $inscription):Response|bool
-    {
-        return $user->can('inscriptions.restore'. $inscription->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'êtes pas autorisé à restaurer cette inscription.');
-    }
-
-    public function forceDelete(User $user, Inscription $inscription):Response|bool
-    {
-        return $user->can('inscriptions.force-delete'. $inscription->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'êtes pas autorisé à supprimer définitivement cette inscription.');
-    }
 }

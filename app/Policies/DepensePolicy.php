@@ -46,17 +46,4 @@ class DepensePolicy
             : Response::deny('Vous n\'êtes pas autorisé à supprimer cette dépense.');
     }
 
-    public function restore(User $user, Depense $depense):Response|bool
-    {
-        return $user->can('depenses.restore.' . $depense->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'êtes pas autorisé à restaurer cette dépense.');
-    }
-
-    public function forceDelete(User $user, Depense $depense):Response|bool
-    {
-        return $user->can('depenses.force-delete.' . $depense->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'êtes pas autorisé à supprimer définitivement cette dépense.');
-    }
 }

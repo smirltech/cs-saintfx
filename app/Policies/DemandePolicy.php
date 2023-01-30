@@ -72,28 +72,4 @@ class DemandePolicy
         return $user->can(DemandePermission::delete()) and $user->faculte_id === $demande->faculte->id;
 
     }
-
-    /**
-     * Determine whether the user can restore the model.
-     *
-     * @param User $user
-     * @param Demande $demande
-     * @return Response|bool
-     */
-    public function restore(User $user, Demande $demande)
-    {
-
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     *
-     * @param User $user
-     * @param Demande $demande
-     * @return Response|bool
-     */
-    public function forceDelete(User $user, Demande $demande)
-    {
-        //
-    }
 }

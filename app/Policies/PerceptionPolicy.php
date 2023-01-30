@@ -46,17 +46,4 @@ class PerceptionPolicy
             : Response::deny('Vous n\'êtes pas autorisé à supprimer cette perception.');
     }
 
-    public function restore(User $user, Perception $perception): Response|bool
-    {
-        return $user->can('perceptions.restore.' . $perception->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'êtes pas autorisé à restaurer cette perception.');
-    }
-
-    public function forceDelete(User $user, Perception $perception): Response|bool
-    {
-        return $user->can('perceptions.force_delete.' . $perception->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'êtes pas autorisé à supprimer définitivement cette perception.');
-    }
 }

@@ -45,18 +45,4 @@ class OuvrageCategoryPolicy
             ? Response::allow()
             : Response::deny('Vous n\'êtes pas autorisé à supprimer cette catégorie d\'ouvrages.');
     }
-
-    public function restore(User $user, OuvrageCategory $category)
-    {
-        return $user->can('ouvrage-categories.restore.' . $category->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'êtes pas autorisé à restaurer cette catégorie d\'ouvrages.');
-    }
-
-    public function forceDelete(User $user, OuvrageCategory $category)
-    {
-        return $user->can('ouvrage-categories.force-delete.' . $category->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'êtes pas autorisé à supprimer définitivement cette catégorie d\'ouvrages.');
-    }
 }

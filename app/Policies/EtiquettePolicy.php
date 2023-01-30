@@ -45,18 +45,4 @@ class EtiquettePolicy
             ? Response::allow()
             : Response::deny('Vous n\'êtes pas autorisé à supprimer cette étiquette.');
     }
-
-    public function restore(User $user, Etiquette $etiquette)
-    {
-        return $user->can('etiquettes.restore.' . $etiquette->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'êtes pas autorisé à restaurer cette étiquette.');
-    }
-
-    public function forceDelete(User $user, Etiquette $etiquette)
-    {
-        return $user->can('etiquettes.force-delete.' . $etiquette->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'êtes pas autorisé à supprimer définitivement cette étiquette.');
-    }
 }

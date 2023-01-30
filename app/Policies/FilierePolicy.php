@@ -45,18 +45,4 @@ class FilierePolicy
             ? Response::allow()
             : Response::deny('Vous n\'êtes pas autorisé à supprimer cette filière.');
     }
-
-    public function restore(User $user, Filiere $filiere):Response|bool
-    {
-        return $user->can('filieres.restore.' . $filiere->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'êtes pas autorisé à restaurer cette filière.');
-    }
-
-    public function forceDelete(User $user, Filiere $filiere):Response|bool
-    {
-        return $user->can('filieres.force_delete.' . $filiere->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'êtes pas autorisé à supprimer définitivement cette filière.');
-    }
 }

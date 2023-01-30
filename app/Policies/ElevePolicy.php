@@ -45,18 +45,4 @@ class ElevePolicy
             ? Response::allow()
             : Response::deny('Vous n\'êtes pas autorisé à supprimer cet élève.');
     }
-
-    public function restore(User $user, Eleve $eleve): Response
-    {
-        return $user->can('eleves.restore.' . $eleve->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'êtes pas autorisé à restaurer cet élève.');
-    }
-
-    public function forceDelete(User $user, Eleve $eleve): Response
-    {
-        return $user->can('eleves.force-delete.' . $eleve->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'êtes pas autorisé à supprimer définitivement cet élève.');
-    }
 }

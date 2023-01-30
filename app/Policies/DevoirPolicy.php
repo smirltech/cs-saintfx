@@ -45,18 +45,4 @@ class DevoirPolicy
             ? Response::allow()
             : Response::deny('Vous n\'êtes pas autorisé à supprimer ce devoir.');
     }
-
-    public function restore(User $user, Devoir $devoir)
-    {
-        return $user->can('devoirs.restore.' . $devoir->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'êtes pas autorisé à restaurer ce devoir.');
-    }
-
-    public function forceDelete(User $user, Devoir $devoir)
-    {
-        return $user->can('devoirs.force-delete.' . $devoir->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'êtes pas autorisé à supprimer définitivement ce devoir.');
-    }
 }

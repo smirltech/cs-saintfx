@@ -46,18 +46,4 @@ class OptionPolicy
             ? Response::allow()
             : Response::deny('Vous n\'êtes pas autorisé à supprimer cette option.');
     }
-
-    public function restore(User $user, Option $option):Response|bool
-    {
-        return $user->can('options.restore.' . $option->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'êtes pas autorisé à restaurer cette option.');
-    }
-
-    public function forceDelete(User $user, Option $option):Response|bool
-    {
-        return $user->can('options.forceDelete.' . $option->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'êtes pas autorisé à supprimer définitivement cette option.');
-    }
 }

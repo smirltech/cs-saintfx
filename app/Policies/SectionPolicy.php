@@ -45,18 +45,4 @@ class SectionPolicy
             ? Response::allow()
             : Response::deny('Vous n\'êtes pas autorisé à supprimer cette section.');
     }
-
-    public function restore(User $user, Section $section): Response|bool
-    {
-        return $user->can('sections.restore.' . $section->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'êtes pas autorisé à restaurer cette section.');
-    }
-
-    public function forceDelete(User $user, Section $section): Response|bool
-    {
-        return $user->can('sections.force_delete.' . $section->id)
-            ? Response::allow()
-            : Response::deny('Vous n\'êtes pas autorisé à supprimer définitivement cette section.');
-    }
 }
