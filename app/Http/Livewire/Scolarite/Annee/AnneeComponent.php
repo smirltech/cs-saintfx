@@ -17,6 +17,7 @@ class AnneeComponent extends BaseComponent
 
     public $annees;
     public Annee $annee;
+    public $title = "Années scolaires";
 
 
     protected $rules = [
@@ -50,7 +51,7 @@ class AnneeComponent extends BaseComponent
     {
         $this->loadData();
         return view('livewire.scolarite.annees.index')
-            ->layout(AdminLayout::class, ['title' => "Liste d'années scolaires"]);
+            ->layout(AdminLayout::class)->layoutData(['title'=> $this->title, "contentHeaderIcon" => "fas fa-fw fa-calendar-alt"]);
     }
 
     public function addAnnee()

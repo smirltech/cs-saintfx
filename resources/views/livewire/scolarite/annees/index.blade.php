@@ -1,21 +1,27 @@
-@section('title')
+{{--@section('title')
      - années scolaires
-@endsection
-@section('content_header')
+@endsection--}}
+{{--@section('content_header')
     <div class="row">
         <div class="col-6">
-            <h1 class="ms-3"><span class="fas fa-fw fa-calendar-alt"></span> Liste d'années scolaires</h1>
+            <h1 class="ms-3"><span class="fas fa-fw fa-calendar-alt"></span>{{$title}}</h1>
         </div>
 
         <div class="col-6">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('scolarite') }}">Accueil</a></li>
-                <li class="breadcrumb-item active">Années scolaires</li>
+                <li class="breadcrumb-item active">{{$title}}</li>
             </ol>
         </div>
     </div>
 
-@stop
+@stop--}}
+<x-slot name="contentHeaderToolSlot">
+    <ol class="breadcrumb float-right">
+        <li class="breadcrumb-item"><a href="{{ route('scolarite') }}">Accueil</a></li>
+        <li class="breadcrumb-item active">{{$title}}</li>
+    </ol>
+</x-slot>
 <div class="">
     @include('livewire.scolarite.annees.modals.crud')
     <div class="content mt-3">
@@ -39,7 +45,7 @@
 
                         <div class="card-body p-0 table-responsive">
                             <table class="table table-striped-columns table-hover">
-                                <thead class="table-dark">
+                                <thead class="bg-primary">
                                 <tr>
                                     <th style="width: 50px">#</th>
                                     <th>Année Scolaire</th>

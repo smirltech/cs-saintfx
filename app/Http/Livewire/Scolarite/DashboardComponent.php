@@ -91,7 +91,7 @@ class DashboardComponent extends Component
 
     public function render(): Factory|View|Application
     {
-        return view('livewire.scolarite.dashboard');
+        return view('livewire.scolarite.dashboard')->layoutData(['title'=> 'Scolarité']);
     }
 
 }

@@ -1,7 +1,7 @@
-@section('title')
+{{--@section('title')
     - rôles et permissions
-@endsection
-@section('content_header')
+@endsection--}}
+{{--@section('content_header')
     <div class="row">
         <div class="col-6">
             <h1 class="ms-3">Liste de rôles et leurs permissions</h1>
@@ -15,7 +15,13 @@
         </div>
     </div>
 
-@stop
+@stop--}}
+<x-slot name="contentHeaderToolSlot">
+    <ol class="breadcrumb float-right">
+        <li class="breadcrumb-item"><a href="{{ route('scolarite') }}">Accueil</a></li>
+        <li class="breadcrumb-item active">{{$title}}</li>
+    </ol>
+</x-slot>
 <div class="p-0 container-fluid ">
     <div class="row">
         <div class="col-12">
@@ -43,7 +49,7 @@
                     <!-- table-responsive -->
                     <div class="table-responsive-md">
                         <table class="table table-striped table-hover">
-                            <thead class="table-header table-dark">
+                            <thead class="table-header bg-primary">
                             <tr>
                                 <th>#</th>
                                 <th>Rôle</th>

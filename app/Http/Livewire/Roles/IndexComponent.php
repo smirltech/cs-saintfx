@@ -16,6 +16,7 @@ class IndexComponent extends BaseComponent
 {
 
     public Collection $roles;
+    public $title = 'Rôles et permissions';
 
     protected $listeners = ['refreshRoles' => '$refresh'];
 
@@ -31,9 +32,9 @@ class IndexComponent extends BaseComponent
 
     public function render(): Factory|View|Application
     {
-        return view('livewire.roles.index-component')->with([
-            'title' => 'Roles',
-        ]);
+        return view('livewire.roles.index-component')/*->with([
+            'title' => 'Rôles',
+        ])*/->layoutData(['title'=> $this->title, "contentHeaderIcon" => "fas fa-fw fa-wand-magic-sparkles"]);
     }
 
     public function refreshPermissions(): void
