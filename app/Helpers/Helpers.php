@@ -8,6 +8,7 @@ use Str;
 
 class Helpers
 {
+    public static $appVersion = "0.0.1.early access";
 
     public static function error()
     {

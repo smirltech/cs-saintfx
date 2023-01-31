@@ -22,6 +22,13 @@
     {{ $slot }}
 @endsection
 
+@section('footer')
+    <strong>Copyright © 2019-{{ date('Y') }} <a href="https://smirltech.com">Smirltech.com</a>.</strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+        <b>Version</b> {{App\Helpers\Helpers::$appVersion}}
+    </div>
+@stop
 
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
