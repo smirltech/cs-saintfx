@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Scolarite\Section;
 
+use App\Http\Livewire\BaseComponent;
 use App\Models\Option;
 use App\Models\Section;
 use App\Traits\SectionCode;
@@ -11,7 +12,7 @@ use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
-class SectionIndexComponent extends Component
+class SectionIndexComponent extends BaseComponent
 {
     use TopMenuPreview;
     use LivewireAlert;
@@ -40,6 +41,12 @@ class SectionIndexComponent extends Component
     ];
 
     protected $listeners = ['onSaved', 'onUpdated', 'onDeleted', 'onModalOpened', 'onModalClosed'];
+
+    public function mount()
+    {
+        $this->authorize("viewAny", Section::class);
+        $this->loadData();
+    }
 
     public function onModalOpened()
     {

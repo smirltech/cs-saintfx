@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Scolarite\Option;
 
+use App\Http\Livewire\BaseComponent;
 use App\Models\Filiere;
 use App\Models\Option;
 use App\Models\Section;
@@ -12,7 +13,7 @@ use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
-class OptionShowComponent extends Component
+class OptionShowComponent extends BaseComponent
 {
     use TopMenuPreview;
     use LivewireAlert;
@@ -47,6 +48,7 @@ class OptionShowComponent extends Component
 
     public function mount(Option $option)
     {
+        $this->authorize("view", $option);
         $this->option = $option;
         $this->nom = $option->nom;
         $this->code = $option->code;

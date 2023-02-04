@@ -2,20 +2,22 @@
 
 namespace App\Http\Livewire\Scolarite\Annee;
 
+use App\Http\Livewire\BaseComponent;
 use App\Models\Annee;
+use App\Models\User;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Exception;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
 
-class AnneeComponent extends Component
+class AnneeComponent extends BaseComponent
 {
     use TopMenuPreview;
     use LivewireAlert;
 
     public $annees;
     public Annee $annee;
+    public $title = "Années scolaires";
 
 
     protected $rules = [
@@ -25,6 +27,7 @@ class AnneeComponent extends Component
 
     public function mount()
     {
+        $this->authorize("viewAny", Annee::class);
         $this->initAnnee();
         $this->loadData();
     }
@@ -48,7 +51,7 @@ class AnneeComponent extends Component
     {
         $this->loadData();
         return view('livewire.scolarite.annees.index')
-            ->layout(AdminLayout::class, ['title' => "Liste d'années scolaires"]);
+            ->layout(AdminLayout::class)->layoutData(['title'=> $this->title, "contentHeaderIcon" => "fas fa-fw fa-calendar-alt"]);
     }
 
     public function addAnnee()

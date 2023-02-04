@@ -2,14 +2,15 @@
 
 namespace App\Http\Livewire\Scolarite\Responsable;
 
+use App\Http\Livewire\BaseComponent;
 use App\Models\Responsable;
 use App\Models\ResponsableEleve;
+use App\Models\User;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
 
-class ResponsableShowComponent extends Component
+class ResponsableShowComponent extends BaseComponent
 {
     use TopMenuPreview;
     use LivewireAlert;
@@ -37,6 +38,7 @@ class ResponsableShowComponent extends Component
 
     public function mount(Responsable $responsable)
     {
+        $this->authorize('view', $responsable);
         $this->responsable = $responsable;
     }
 
@@ -146,5 +148,32 @@ class ResponsableShowComponent extends Component
 
     }
 
+
+    // create user for responsable
+    public function addUserToResponsable()
+    {
+        if ($this->responsable->user == null) {
+            $user = User::create([
+                'name' => $this->nom,
+                'email' => $this->email,
+                'password' => 'password',
+            ]);
+            $user->assignRole('parent');
+            $this->responsable->update([
+                'user_id' => $user->id,
+            ]);
+            $this->alert('success', "Compte responsable a été ajouté avec succès ! Un email a été envoyé avec le mot de passe !");
+        }else{
+            $this->responsable->user->update([
+                'password' => 'password',
+            ]);
+            $this->alert('warning', "Responsable a déjà un compte ! Mais un email a été envoyé avec le mot de passe !");
+        }
+        // close the modal by specifying the id of the modal
+        $this->dispatchBrowserEvent('closeModal', ['modal' => 'edit-responsable-user-modal']);
+        $this->onModalClosed();
+
+
+    }
 
 }

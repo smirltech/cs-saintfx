@@ -144,13 +144,13 @@ class InscriptionEditComponent extends Component
     public function uploadDocuments()
     {
         if ($this->bordereau)
-            $this->upload(file: $this->bordereau, entity: $this->etudiant, mediaType: MediaType::bordereaux);
+            $this->upload(file: $this->bordereau, entity: $this->etudiant, collection_name: MediaType::bordereaux);
 
         if ($this->piece)
-            $this->upload(file: $this->piece, entity: $this->etudiant, mediaType: MediaType::diplome);
+            $this->upload(file: $this->piece, entity: $this->etudiant, collection_name: MediaType::diplome);
 
         if ($this->fiche)
-            $this->upload(file: $this->fiche, entity: $this->etudiant, mediaType: MediaType::fiche_inscription);
+            $this->upload(file: $this->fiche, entity: $this->etudiant, collection_name: MediaType::fiche_inscription);
     }
 
     public function render()

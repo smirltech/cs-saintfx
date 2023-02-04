@@ -17,6 +17,7 @@
 
 @stop
 <div class="">
+    @include('livewire.scolarite.enseingnants.modals.delete')
     <div class="content mt-3">
         <div class="container-fluid">
             <div class="row">
@@ -26,9 +27,11 @@
                             <div class="card-title">
                             </div>
                             <div class="card-tools d-flex my-auto">
-                                <a href="{{ route('scolarite.enseignants.create') }}" title="ajouter"
-                                   class="btn btn-primary mr-2"><span
-                                        class="fa fa-plus"></span></a>
+                                @can('enseignants.create')
+                                    <a href="{{ route('scolarite.enseignants.create') }}" title="ajouter"
+                                       class="btn btn-primary mr-2"><span
+                                            class="fa fa-plus"></span></a>
+                                @endcan
                             </div>
                         </div>
                         <div class="card-body p-0 table-responsive">
@@ -39,8 +42,6 @@
                                     <th></th>
                                     <th>NOM</th>
                                     <th>SECTION</th>
-
-
                                     <th>COURS</th>
                                     <th></th>
                                 </tr>
@@ -68,21 +69,28 @@
 
                                         <td>
                                             <div class="d-flex float-right">
-
-                                                <a href="/scolarite/enseignants/{{ $enseignant->id }}" title="Voir"
-                                                   class="btn btn-outline-primary ml-2">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                                <a href="/scolarite/enseignants/{{ $enseignant->id }}/edit"
-                                                   title="modifier"
-                                                   class="btn btn-outline-info  ml-2">
-                                                    <i class="fas fa-pen"></i>
-                                                </a>
-
-                                                <button wire:click="delete({{ $enseignant->id }})"
-                                                        title="supprimer" class="btn btn-outline-danger ml-2">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
+                                                @can('enseignants.view',$enseignant)
+                                                    <a href="/scolarite/enseignants/{{ $enseignant->id }}" title="Voir"
+                                                       class="btn btn-outline-primary ml-2">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                @endcan
+                                                @can('enseignants.update',$enseignant)
+                                                    <a href="/scolarite/enseignants/{{ $enseignant->id }}/edit"
+                                                       title="modifier"
+                                                       class="btn btn-outline-info  ml-2">
+                                                        <i class="fas fa-pen"></i>
+                                                    </a>
+                                                @endcan
+                                                @can('enseignants.delete',$enseignant)
+                                                    <button wire:click="getSelectedEnseignant('{{$enseignant->id }}')"
+                                                            type="button"
+                                                            title="supprimer" class="btn btn-outline-danger  ml-2"
+                                                            data-toggle="modal"
+                                                            data-target="#delete-enseignant">
+                                                        <span class="fa fa-trash"></span>
+                                                    </button>
+                                                @endcan
                                             </div>
                                         </td>
                                     </tr>

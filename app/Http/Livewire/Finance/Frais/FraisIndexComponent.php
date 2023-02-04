@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Finance\Frais;
 
 use App\Enums\FraisFrequence;
 use App\Enums\FraisType;
+use App\Http\Livewire\BaseComponent;
 use App\Models\Annee;
 use App\Models\Classe;
 use App\Models\Filiere;
@@ -16,7 +17,7 @@ use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
-class FraisIndexComponent extends Component
+class FraisIndexComponent extends BaseComponent
 {
     use TopMenuPreview;
     use LivewireAlert;
@@ -55,6 +56,7 @@ class FraisIndexComponent extends Component
 
     public function mount()
     {
+        $this->authorize('viewAny', Frais::class);
         $this->annee_id = Annee::id();
         $this->sections = Section::orderBy('nom')->get();
         // dd($this->sections);

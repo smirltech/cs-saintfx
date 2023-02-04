@@ -23,7 +23,7 @@
 @endphp
 
 @section('title')
-     - sections
+    - sections
 @endsection
 @section('content_header')
     <div class="row">
@@ -54,10 +54,12 @@
                             </div>
                             <div class="card-tools d-flex my-auto">
                                 {{-- <livewire:scolarite.section.section-create-component/>--}}
-                                <button type="button"
-                                        class="btn btn-primary  ml-2" data-toggle="modal"
-                                        data-target="#add-section-modal"><span
-                                        class="fa fa-plus"></span></button>
+                                @can('sections.create')
+                                    <button type="button"
+                                            class="btn btn-primary  ml-2" data-toggle="modal"
+                                            data-target="#add-section-modal"><span
+                                            class="fa fa-plus"></span></button>
+                                @endcan
                             </div>
                         </div>
 
@@ -71,22 +73,28 @@
                                         <td>{!! $row[1] !!}</td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                <a href="/scolarite/sections/{{ $row[2]->id }}" title="Voir"
-                                                   class="btn btn-warning">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                                <button wire:click="getSelectedSection({{$row[2]}})" type="button"
-                                                        title="Modifier" class="btn btn-info  ml-2" data-toggle="modal"
-                                                        data-target="#edit-section-modal">
-                                                    <span class="fa fa-pen"></span>
-                                                </button>
-
+                                                @can('sections.view', $row[2])
+                                                    <a href="/scolarite/sections/{{ $row[2]->id }}" title="Voir"
+                                                       class="btn btn-warning">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                @endcan
+                                                @can('sections.update', $row[2])
+                                                    <button wire:click="getSelectedSection({{$row[2]}})" type="button"
+                                                            title="Modifier" class="btn btn-info  ml-2"
+                                                            data-toggle="modal"
+                                                            data-target="#edit-section-modal">
+                                                        <span class="fa fa-pen"></span>
+                                                    </button>
+                                                @endcan
+                                                    @can('sections.delete', $row[2])
                                                 <button wire:click="getSelectedSection({{$row[2]}})" type="button"
                                                         title="supprimer" class="btn btn-danger  ml-2"
                                                         data-toggle="modal"
                                                         data-target="#delete-section-modal">
                                                     <span class="fa fa-trash"></span>
                                                 </button>
+                                                    @endcan
                                             </div>
                                         </td>
                                     </tr>

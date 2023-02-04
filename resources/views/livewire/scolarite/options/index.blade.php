@@ -32,10 +32,13 @@
                             <div class="card-tools d-flex my-auto">
                                 {{--<a href="{{ route('scolarite.options.create') }}" title="ajouter"
                                    class="btn btn-primary mr-2"><span class="fa fa-plus"></span></a>--}}
-                                <button type="button"
-                                        class="btn btn-primary  ml-2" data-toggle="modal"
-                                        data-target="#add-option-modal"><span
-                                        class="fa fa-plus"></span></button>
+                                @can('options.create')
+                                    <button type="button"
+                                            class="btn btn-primary  ml-2" data-toggle="modal"
+                                            data-target="#add-option-modal"><span
+                                            class="fa fa-plus"></span></button>
+                                @endcan
+
                             </div>
                         </div>
 
@@ -59,37 +62,27 @@
                                         </td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                <a href="/scolarite/options/{{ $option->id }}" title="Voir"
-                                                   class="btn btn-warning">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                                {{--      <a href="/scolarite/options/{{ $option->id }}/edit" title="modifier"
-                                                         class="btn btn-info  ml-2">
-                                                          <i class="fas fa-pen"></i>
-                                                      </a>
-
-                                                      <button wire:click="deleteOption({{ $option->id }})"
-                                                              title="supprimer" class="btn btn-danger ml-2">
-                                                          <i class="fas fa-trash"></i>
-                                                      </button>
-                                                  --}}
-                                                {{--   <button wire:click="getSelectedOption({{$option}})" type="button"
-                                                           title="Voir" class="btn btn-warning  ml-2" data-toggle="modal"
-                                                           data-target="#show-option-modal">
-                                                       <span class="fa fa-eye"></span>
-                                                   </button>--}}
-                                                <button wire:click="getSelectedOption({{$option}})" type="button"
-                                                        title="Modifier" class="btn btn-info  ml-2" data-toggle="modal"
-                                                        data-target="#edit-option-modal">
-                                                    <span class="fa fa-pen"></span>
-                                                </button>
-
-                                                <button wire:click="getSelectedOption({{$option}})" type="button"
-                                                        title="supprimer" class="btn btn-danger  ml-2"
-                                                        data-toggle="modal"
-                                                        data-target="#delete-option-modal">
-                                                    <span class="fa fa-trash"></span>
-                                                </button>
+                                                @can('options.view', $option)
+                                                    <a href="/scolarite/options/{{ $option->id }}" title="Voir"
+                                                       class="btn btn-warning">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                @endcan
+                                                @can('options.update', $option)
+                                                    <button wire:click="getSelectedOption({{$option}})" type="button"
+                                                            title="Modifier" class="btn btn-info  ml-2" data-toggle="modal"
+                                                            data-target="#edit-option-modal">
+                                                        <span class="fa fa-pen"></span>
+                                                    </button>
+                                                @endcan
+                                                @can('options.delete', $option)
+                                                    <button wire:click="getSelectedOption({{$option}})" type="button"
+                                                            title="supprimer" class="btn btn-danger  ml-2"
+                                                            data-toggle="modal"
+                                                            data-target="#delete-option-modal">
+                                                        <span class="fa fa-trash"></span>
+                                                    </button>
+                                                @endcan
 
                                             </div>
                                         </td>

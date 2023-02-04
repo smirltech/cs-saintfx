@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Enums\Sexe;
 use App\Models\Eleve;
+use App\Models\Section;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -13,7 +14,7 @@ class EleveFactory extends Factory
 {
     protected $model = Eleve::class;
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'nom' => $this->faker->firstName,
@@ -25,7 +26,7 @@ class EleveFactory extends Factory
             'adresse' => $this->faker->address,
             'telephone' => $this->faker->phoneNumber,
             'email' => $this->faker->email,
-            //'code' => $this->faker->unique()->randomNumber(8),
+            'section_id' => $this->faker->randomElement(Section::pluck('id')->toArray()),
         ];
     }
 }

@@ -1,5 +1,5 @@
 @section('title')
-     - filière - {{$filiere->nom}}
+    - filière - {{$filiere->nom}}
 @endsection
 @section('content_header')
     <div class="row">
@@ -30,11 +30,13 @@
                                 <h4 class="m-0">{{$filiere->nom}}</h4>
                             </div>
                             <div class="card-tools">
-                                <span
-                                    title="Modifier" role="button" class="ml-2 mr-2" data-toggle="modal"
-                                    data-target="#edit-filiere-modal">
+                                @can('filieres.update', $filiere)
+                                    <span
+                                        title="Modifier" role="button" class="ml-2 mr-2" data-toggle="modal"
+                                        data-target="#edit-filiere-modal">
                                     <span class="fa fa-pen"></span>
                                 </span>
+                                @endcan
                             </div>
                         </div>
                         <div class="card-body">
@@ -68,10 +70,12 @@
                                 <h3 class="m-0">Classes</h3>
                             </div>
                             <div class="card-tools d-flex my-auto">
-                                <button type="button"
-                                        class="btn btn-primary  ml-2" data-toggle="modal"
-                                        data-target="#add-classe-modal"><span
-                                        class="fa fa-plus"></span></button>
+                                @can('classes.create')
+                                    <button type="button"
+                                            class="btn btn-primary  ml-2" data-toggle="modal"
+                                            data-target="#add-classe-modal"><span
+                                            class="fa fa-plus"></span></button>
+                                @endcan
                             </div>
                         </div>
 
@@ -90,13 +94,14 @@
                                         <td>{{ $classe->code }}</td>
                                         <td>{{ $classe->grade->label() }}</td>
                                         <td>
-                                            <div class="d-flex float-right">
-                                                <a href="/scolarite/classes/{{ $classe->id }}" title="Voir"
-                                                   class="btn btn-warning">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-
-                                            </div>
+                                            @can('classes.view', $classe)
+                                                <div class="d-flex float-right">
+                                                    <a href="/scolarite/classes/{{ $classe->id }}" title="Voir"
+                                                       class="btn btn-warning">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                    @endcan
+                                                </div>
                                         </td>
                                     </tr>
                                 @endforeach

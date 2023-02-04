@@ -119,7 +119,7 @@
                                                 <td>
                                                     {{ Str::limit($c->description, 50) }}
                                                 </td>
-                                                <td>{{Classe::find($c->pivot->classe_id)->code}}</td>
+                                                <td>{{Classe::find($c->pivot->classe_id)?->code}}</td>
                                             </tr>
                                         @endforeach
                                         </tbody>

@@ -25,7 +25,7 @@
 @endphp
 
 @section('title')
-     - Types de Dépenses
+    - Types de Dépenses
 @endsection
 @section('content_header')
     <div class="row">
@@ -56,10 +56,12 @@
                             </div>
                             <div class="card-tools d-flex my-auto">
                                 {{-- <livewire:scolarite.section.section-create-component/>--}}
-                                <button type="button"
-                                        class="btn btn-primary  ml-2" data-toggle="modal"
-                                        data-target="#add-type-modal"><span
-                                        class="fa fa-plus"></span></button>
+                                @can('depense-types.create')
+                                    <button type="button"
+                                            class="btn btn-primary  ml-2" data-toggle="modal"
+                                            data-target="#add-type-modal"><span
+                                            class="fa fa-plus"></span></button>
+                                @endcan
                             </div>
                         </div>
 
@@ -74,23 +76,32 @@
                                         <td>{!! $row[2] !!}</td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                <a href="{{route('finance.depenses-types.show', [$row[3]])}}"
-                                                   title="voir"
-                                                   class="btn btn-success  ml-2">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                                <button wire:click="getSelectedTypeDepense({{$row[3]}})" type="button"
-                                                        title="Modifier" class="btn btn-info  ml-2" data-toggle="modal"
-                                                        data-target="#edit-type-modal">
-                                                    <span class="fa fa-pen"></span>
-                                                </button>
+                                                @can('depense-types.view',$row[3])
+                                                    <a href="{{route('finance.depense-types.show', [$row[3]])}}"
+                                                       title="voir"
+                                                       class="btn btn-success  ml-2">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                @endcan
+                                                @can('depense-types.update',$row[3])
+                                                    <button wire:click="getSelectedTypeDepense({{$row[3]}})"
+                                                            type="button"
+                                                            title="Modifier" class="btn btn-info  ml-2"
+                                                            data-toggle="modal"
+                                                            data-target="#edit-type-modal">
+                                                        <span class="fa fa-pen"></span>
+                                                    </button>
+                                                @endcan
+                                                @can('depense-types.delete',$row[3])
+                                                    <button wire:click="getSelectedTypeDepense({{$row[3]}})"
+                                                            type="button"
+                                                            title="supprimer" class="btn btn-danger  ml-2"
+                                                            data-toggle="modal"
+                                                            data-target="#delete-type-modal">
+                                                        <span class="fa fa-trash"></span>
 
-                                                <button wire:click="getSelectedTypeDepense({{$row[3]}})" type="button"
-                                                        title="supprimer" class="btn btn-danger  ml-2"
-                                                        data-toggle="modal"
-                                                        data-target="#delete-type-modal">
-                                                    <span class="fa fa-trash"></span>
-                                                </button>
+                                                    </button>
+                                                @endcan
                                             </div>
                                         </td>
                                     </tr>

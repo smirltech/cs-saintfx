@@ -1,6 +1,6 @@
 @php
     use App\Enums\InscriptionStatus;
-    use App\Helpers\Helpers;use App\Models\Annee;
+    use App\Enums\Sexe;use App\Helpers\Helpers;use App\Models\Annee;
     $heads = [
             'NO.',
             '',
@@ -16,7 +16,7 @@ $data=[];
     foreach ($inscriptions->sortBy(fn ($q) => $q->eleve->fullName) as $inscription){
 
             $btn1 = '<a href="' . "/scolarite/eleves/{$inscription->eleve_id}" . '" class="btn btn-success btn-sm m-1" title="Voir Élève"><i class="fa fa-eye"></i></a>';
-            $btn2 = '<a hidden href="' . "/scolarite/eleves/{$inscription->eleve_id}/edit" . '" class="btn btn-warning btn-sm m-1" title="Edit"><i class="fa fa-edit"></i></a>';
+            $btn2 = '<a hidden href="' . "/scolarite/eleves/{$inscription->eleve_id}/edit" . '" class="btn btn-warning btn-sm m-1" title="EditModal"><i class="fa fa-edit"></i></a>';
             $btn3 = '<button hidden wire:click="deleteInscription('.$inscription->id.')"
                                                     title="supprimer" class="btn btn-danger  btn-sm m-1">
                                                 <i class="fas fa-trash"></i>
@@ -45,19 +45,19 @@ $data=[];
         ];
 @endphp
 @section('title')
-     - inscriptions {{strtolower($status->pluralLabel(\App\Enums\Sexe::f))}} {{date('d-m-Y')}}
+    - inscriptions {{strtolower($status->pluralLabel(Sexe::f))}} {{date('d-m-Y')}}
 @endsection
 @section('content_header')
     <div class="row">
         <div class="col-6">
-            <h1 class="ms-3">Liste d'inscriptions {{strtolower($status->pluralLabel(\App\Enums\Sexe::f))}}</h1>
+            <h1 class="ms-3">Liste d'inscriptions {{strtolower($status->pluralLabel(Sexe::f))}}</h1>
         </div>
 
         <div class="col-6">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('scolarite') }}">Accueil</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('scolarite.inscriptions') }}">Inscriptions</a></li>
-                <li class="breadcrumb-item active">{{$status->pluralLabel(\App\Enums\Sexe::f)}}</li>
+                <li class="breadcrumb-item active">{{$status->pluralLabel(Sexe::f)}}</li>
             </ol>
         </div>
     </div>

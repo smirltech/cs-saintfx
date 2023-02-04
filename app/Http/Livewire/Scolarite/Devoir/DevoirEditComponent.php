@@ -5,10 +5,11 @@ namespace App\Http\Livewire\Scolarite\Devoir;
 
 use App\Enums\DevoirStatus;
 use App\Enums\MediaType;
-use App\Exceptions\ApplicationAlert;
+use App\Http\Livewire\BaseComponent;
 use App\Models\Classe;
 use App\Models\Devoir;
 use App\Traits\CanDeleteMedia;
+use App\Traits\HasLivewireAlert;
 use App\Traits\TopMenuPreview;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
@@ -16,15 +17,14 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Validation\Rule;
-use Livewire\Component;
 use Livewire\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
 
-class DevoirEditComponent extends Component
+class DevoirEditComponent extends BaseComponent
 {
     use TopMenuPreview;
 
-    use ApplicationAlert, WithFileUploads, CanDeleteMedia;
+    use HasLivewireAlert, WithFileUploads, CanDeleteMedia;
 
     public Devoir $devoir;
     public Collection|array $cours = [];
@@ -53,7 +53,7 @@ class DevoirEditComponent extends Component
 
         $this->devoir->save();
         if ($this->document) {
-            $this->devoir->addMedia(file: $this->document, mediaType: MediaType::document);
+            $this->devoir->addMedia(file: $this->document, collection_name: MediaType::document->value);
             $this->document = null;
         }
         $this->refreshData();
@@ -82,6 +82,7 @@ class DevoirEditComponent extends Component
 
     public function mount(Devoir $devoir)
     {
+        $this->authorize('update', $devoir);
         $this->devoir = $devoir;
         $this->classes = Classe::has('cours')->get();
         $this->reponses = $devoir->reponses;

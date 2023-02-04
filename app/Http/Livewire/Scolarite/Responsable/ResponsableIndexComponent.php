@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Scolarite\Responsable;
 
+use App\Http\Livewire\BaseComponent;
 use App\Models\Responsable;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
@@ -9,7 +10,7 @@ use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class ResponsableIndexComponent extends Component
+class ResponsableIndexComponent extends BaseComponent
 {
     use TopMenuPreview;
     use LivewireAlert;
@@ -26,7 +27,7 @@ class ResponsableIndexComponent extends Component
 
     public function mount()
     {
-        #TODO: move this to mount()
+        $this->authorize("viewAny", Responsable::class);
         $this->responsables = $this->loadData();
 
     }

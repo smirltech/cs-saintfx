@@ -1,20 +1,26 @@
 <?php
 
-use App\Http\Controllers\Admin;
 use App\Http\Controllers\Admin\AuditController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Auth\OtpController;
 use App\Http\Controllers\MediaController;
+use App\Http\Livewire\Bibliotheque\Auteur\AuteurIndexComponent;
+use App\Http\Livewire\Bibliotheque\Etiquette\EtiquetteIndexComponent;
+use App\Http\Livewire\Bibliotheque\Ouvrage\OuvrageIndexComponent;
+use App\Http\Livewire\Bibliotheque\Ouvrage\OuvrageShowComponent;
+use App\Http\Livewire\Bibliotheque\OuvrageCategory\OuvrageCategoryIndexComponent;
+use App\Http\Livewire\Bibliotheque\OuvrageCategory\OuvrageCategoryShowComponent;
 use App\Http\Livewire\Finance;
-use App\Http\Livewire\Logistique\Consommable\ConsommableIndexComponent;
-use App\Http\Livewire\Logistique\Consommable\ConsommableShowComponent;
-use App\Http\Livewire\Logistique\Materiel\MaterielIndexComponent;
-use App\Http\Livewire\Logistique\Materiel\MaterielShowComponent;
-use App\Http\Livewire\Logistique\MaterielCategory\MaterielCategoryIndexComponent;
-use App\Http\Livewire\Logistique\MaterielCategory\MaterielCategoryShowComponent;
-use App\Http\Livewire\Logistique\Mouvement\MouvementIndexComponent;
-use App\Http\Livewire\Logistique\Unit\UnitIndexComponent;
+use App\Http\Livewire\Logistique\Fongible\Consommable\ConsommableIndexComponent;
+use App\Http\Livewire\Logistique\Fongible\Consommable\ConsommableShowComponent;
+use App\Http\Livewire\Logistique\Fongible\Unit\UnitIndexComponent;
+use App\Http\Livewire\Logistique\NonFongible\Materiel\MaterielIndexComponent;
+use App\Http\Livewire\Logistique\NonFongible\Materiel\MaterielShowComponent;
+use App\Http\Livewire\Logistique\NonFongible\MaterielCategory\MaterielCategoryIndexComponent;
+use App\Http\Livewire\Logistique\NonFongible\MaterielCategory\MaterielCategoryShowComponent;
+use App\Http\Livewire\Logistique\NonFongible\Mouvement\MouvementIndexComponent;
 use App\Http\Livewire\MainDashboardComponent;
+use App\Http\Livewire\Profile\UserEditComponent;
+use App\Http\Livewire\Roles;
 use App\Http\Livewire\Scolarite;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -38,17 +44,6 @@ Route::get('dashboard', MainDashboardComponent::class)->name('dashboard')->middl
 Route::get('scolarite', Scolarite\DashboardComponent::class)->name('scolarite')->middleware('auth');
 Route::get('finance', Finance\Dashboard\DashboardComponent::class)->name('finance')->middleware('auth');
 
-
-Route::get('auth/{user}', [OtpController::class, 'showVerifyOtp'])->name('auth.verify');
-Route::get('auth/success', function () {
-    return "Success";
-})->middleware(['auth'])->name('auth.success');
-Route::post('auth/otp-send', [OtpController::class, 'sendOtp'])->name('auth.otp-send');
-Route::post('auth/otp-verify', [OtpController::class, 'verifyOtp'])->name('auth.otp-verify');
-
-//Users
-Route::get('users/{user}/reset-password', [UserController::class, 'resetPassword'])->name('users.password.autoreset');
-Route::resource('users', UserController::class);
 
 //Scolarite
 Route::prefix('scolarite')->middleware(['auth:web'])->as('scolarite.')->group(function () {
@@ -111,11 +106,6 @@ Route::prefix('scolarite')->middleware(['auth:web'])->as('scolarite.')->group(fu
     // Responsables
     Route::get('responsables/{responsable}', Scolarite\Responsable\ResponsableShowComponent::class)->name('responsables.show');
     Route::get('responsables', Scolarite\Responsable\ResponsableIndexComponent::class)->name('responsables');
-
-    Route::get("audits", [AuditController::class, 'index'])->name("audits.index")->can('audits.viewAny');
-    Route::get("audits/{audit}", [AuditController::class, 'show'])->name("audits.show")->can('audits.view');
-
-    Route::resource('roles', Admin\RoleController::class);
 });
 
 # Finance
@@ -130,8 +120,8 @@ Route::prefix('finance')->middleware(['auth:web'])->as('finance.')->group(functi
     //Depense
     Route::get('depenses', Finance\Depense\DepenseIndexComponent::class)->name('depenses');
 
-    Route::get('depenses-types', Finance\DepenseType\DepenseTypeIndexComponent::class)->name('depenses-types');
-    Route::get('depenses-types/{depenseType}', Finance\DepenseType\DepenseTypeShowComponent::class)->name('depenses-types.show');
+    Route::get('depense-types', Finance\DepenseType\DepenseTypeIndexComponent::class)->name('depense-types');
+    Route::get('depense-types/{depenseType}', Finance\DepenseType\DepenseTypeShowComponent::class)->name('depense-types.show');
 
     //Frais
     Route::get('frais', Finance\Frais\FraisIndexComponent::class)->name('frais');
@@ -169,7 +159,37 @@ Route::prefix('logistique')->middleware(['auth:web'])->as('logistique.')->group(
 
 });
 
+# Bibliothèque
+Route::prefix('bibliotheque')->middleware(['auth:web'])->as('bibliotheque.')->group(function () {
 
+    // Étiquettes
+    Route::get('etiquettes', EtiquetteIndexComponent::class)->name('etiquettes');
+
+    // Auteurs
+    Route::get('auteurs', AuteurIndexComponent::class)->name('auteurs');
+
+    // Categories
+    Route::get('categories', OuvrageCategoryIndexComponent::class)->name('categories');
+    Route::get('categories/{category}', OuvrageCategoryShowComponent::class)->name('categories.show');
+
+    // Ouvrages
+    Route::get('ouvrages', OuvrageIndexComponent::class)->name('ouvrages');
+    Route::get('ouvrages/{ouvrage}', OuvrageShowComponent::class)->name('ouvrages.show');
+
+});
+
+// parametres
+Route::get('roles', Roles\IndexComponent::class)->name('roles.index');
+Route::get('roles/create', Roles\RoleModal::class)->name('roles.create');
+Route::get('roles/{role}', Roles\RoleModal::class)->name('roles.show');
+
+Route::get("audits", [AuditController::class, 'index'])->name("audits.index")->can('audits.viewAny');
+Route::get("audits/{audit}", [AuditController::class, 'show'])->name("audits.show")->can('audits.view');
+
+//Users
+Route::get('users/{user}/reset-password', [UserController::class, 'resetPassword'])->name('users.password.autoreset');
+Route::resource('users', UserController::class)->except(['show', 'edit']);
+Route::get('users/{user}/edit', UserEditComponent::class)->name('users.edit');
 // auth routes except register
 Auth::routes([
     'register' => false,

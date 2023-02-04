@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\Finance\Perception;
 
 use App\Enums\FraisType;
-use App\Exceptions\ApplicationAlert;
+use App\Http\Livewire\BaseComponent;
 use App\Models\Annee;
 use App\Models\Classe;
 use App\Models\Filiere;
@@ -12,6 +12,7 @@ use App\Models\Inscription;
 use App\Models\Option;
 use App\Models\Perception;
 use App\Models\Section;
+use App\Traits\HasLivewireAlert;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Exception;
@@ -19,10 +20,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 
-class PerceptionEditComponent extends Component
+class PerceptionEditComponent extends BaseComponent
 {
     use TopMenuPreview;
-    use ApplicationAlert;
+    use HasLivewireAlert;
 
     public $perception;
     public $annee_id;
@@ -50,6 +51,7 @@ class PerceptionEditComponent extends Component
 
     public function mount(Perception $perception)
     {
+        $this->authorize('update', $perception);
         //dd($perception->inscription->eleve);
         $this->user_id = Auth::id();
         $this->annee = Annee::encours();
@@ -211,7 +213,7 @@ class PerceptionEditComponent extends Component
                 $this->alert('warning', "Echec de modification de facture !");
             }
         } catch (Exception $exception) {
-           // dd($exception);
+            // dd($exception);
             $this->alert('error', "Echec de modification de facture pour la fréquence déjà existante !");
         }
     }
@@ -249,14 +251,14 @@ class PerceptionEditComponent extends Component
 
     public function printIt()
     {
-      /*  try {
-            $this->doTheEdit();
-        } catch (Exception $ex) {
-            $this->error($ex->getMessage(), "Echec de modification de facture pour la fréquence déjà existante !");
-        }
-        $this->dispatchBrowserEvent('closeModal', ['modal' => 'recu-modal']);
-        $this->dispatchBrowserEvent('printIt', ['elementId' => "factPrint", 'type' => 'html', 'maxWidth' => 301]);
-    */
+        /*  try {
+              $this->doTheEdit();
+          } catch (Exception $ex) {
+              $this->error($ex->getMessage(), "Echec de modification de facture pour la fréquence déjà existante !");
+          }
+          $this->dispatchBrowserEvent('closeModal', ['modal' => 'recu-modal']);
+          $this->dispatchBrowserEvent('printIt', ['elementId' => "factPrint", 'type' => 'html', 'maxWidth' => 301]);
+      */
     }
 
     private function loadInscriptionFrais()

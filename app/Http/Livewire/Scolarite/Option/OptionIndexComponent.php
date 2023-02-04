@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Scolarite\Option;
 
+use App\Http\Livewire\BaseComponent;
 use App\Models\Option;
 use App\Models\Section;
 use App\Traits\OptionCode;
@@ -11,7 +12,7 @@ use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
-class OptionIndexComponent extends Component
+class OptionIndexComponent extends BaseComponent
 {
     use TopMenuPreview;
     use LivewireAlert;
@@ -35,6 +36,7 @@ class OptionIndexComponent extends Component
 
     public function mount()
     {
+        $this->authorize("viewAny", Option::class);
         if (request()->has('section_id')) {
             $this->section_id = request()->section_id;
         }

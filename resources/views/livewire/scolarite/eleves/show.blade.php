@@ -1,4 +1,4 @@
-@php use Carbon\Carbon, App\Enums\GraviteRetard, App\Helpers\Helpers; @endphp
+@php use App\Models\Eleve;use Carbon\Carbon, App\Enums\GraviteRetard, App\Helpers\Helpers; @endphp
 @section('title')
     - élève - {{$eleve->fullName}}
 @endsection
@@ -28,10 +28,8 @@
                 <div class="col-md-3">
                     <div class="card card-primary card-outline">
                         <div class="card-body box-profile">
-                            <div class="text-center">
-                                <img class="profile-user-img img-fluid img-circle"
-                                     src="{{$eleve->profile_url}}" alt="User profile picture">
-                            </div>
+                            <x-avatar-edit :model="$eleve"/>
+                            {{-- <livewire:profile.edit-avatar-modal :model="$eleve"/>--}}
                             <h3 class="profile-username text-center">{{$eleve->fullName}}</h3>
                             <p class="text-muted text-center">CODE : {{$eleve->code}}</p>
                             <p class="text-muted text-center">CLASSE
@@ -45,7 +43,7 @@
                             </p>
 
 
-                            <p class="text-muted text-center">ANNEE SCOLAIRE : {{$annee_courante?->nom??''}}</p>
+                            <p class="text-muted text-center">ANNÉE SCOLAIRE : {{$annee_courante?->nom??''}}</p>
                         </div>
 
                     </div>
@@ -57,10 +55,12 @@
                                     data-target="#infoPerso" aria-expanded="true"
                                     aria-controls="infoPerso">Information Personnelle</h3>
                                 <div class="card-tools">
-                                <span role="button" class="mr-1"
-                                      data-toggle="modal"
-                                      data-target="#edit-eleve-modal"><span
-                                        class="fas fa-pen"></span></span>
+                                    @can('eleves.update',$eleve)
+                                        <span role="button" class="mr-1"
+                                              data-toggle="modal"
+                                              data-target="#edit-eleve-modal"><span
+                                                class="fas fa-pen"></span></span>
+                                    @endcan
                                 </div>
                             </div>
                             <div id="infoPerso" class="collapse hide" aria-labelledby="headingPerso"
@@ -88,7 +88,7 @@
                                     <hr>
                                     <strong><i class="fas fa-venus-mars mr-1"></i> Sexe</strong>
                                     <p class="text-muted">
-                                        {{$eleve->sexe->value??''}}
+                                        {{$eleve->sexe?->label()??''}}
                                     </p>
                                     <hr>
                                     <strong><i class="fas fa-map-marker-alt mr-1"></i> Lieu de naissance</strong>
@@ -175,10 +175,12 @@
                                     aria-controls="infoTuto"> Responsable / Tuteur</h3>
                                 @if(!$eleve->responsable_eleve)
                                     <div class="card-tools">
-                                <span title="Attacher" role="button" class="mr-2"
-                                      data-toggle="modal"
-                                      data-target="#attach-responsable-modal"><span
-                                        class="fas fa-plus"></span></span>
+                                        @can('eleves.update',$eleve)
+                                            <span title="Attacher" role="button" class="mr-2"
+                                                  data-toggle="modal"
+                                                  data-target="#attach-responsable-modal"><span
+                                                    class="fas fa-plus"></span></span>
+                                        @endcan
                                     </div>
                                 @endif
                             </div>
@@ -188,18 +190,30 @@
                                     <div class="card-body">
                                         <ul class="list-group list-group-unbordered mb-3">
                                             <li class="list-group-item">
-                                                <b>Responsable</b> <span class="float-right"><a
-                                                        href="/scolarite/responsables/{{$eleve->responsable_eleve?->responsable?->id}}">{{$eleve->responsable_eleve?->responsable?->nom??''}}</a></span>
+                                                <b>Responsable</b> <span class="float-right">
+                                                    @can('responsables.view',$eleve->responsable_eleve?->responsable)
+                                                        <a
+                                                            href="/scolarite/responsables/{{$eleve->responsable_eleve?->responsable?->id}}">{{$eleve->responsable_eleve?->responsable?->nom??''}}</a>
+                                                    @else
+                                                        {{$eleve->responsable_eleve?->responsable?->nom??''}}
+                                                    @endcan
+                                                </span>
                                             </li>
                                             <li class="list-group-item">
-                                                <b>Relation</b> <span class="float-right">{{$eleve->responsable_eleve?->relation?->label()??''}}<span
-                                                        title="Modifier" role="button" class=" fa fa-link ml-1"
-                                                        data-toggle="modal"
-                                                        data-target="#edit-relation-modal"></span></span>
+                                                <b>Relation</b>
+                                                <span class="float-right">{{$eleve->responsable_eleve?->relation?->label()??''}}
+                                                    @can('eleves.update',$eleve)
+                                                        <span
+                                                            title="Modifier" role="button" class=" fa fa-link ml-1"
+                                                            data-toggle="modal"
+                                                            data-target="#edit-relation-modal">
+                                                    </span>
+                                                    @endcan
+                                                </span>
                                             </li>
                                             <li class="list-group-item">
                                                 <b>Sexe</b> <span
-                                                    class="float-right">{{$eleve->responsable_eleve?->responsable?->sexe??''}}</span>
+                                                    class="float-right">{{$eleve->responsable_eleve?->responsable?->sexe?->label()??''}}</span>
                                             </li>
                                             <li class="list-group-item">
                                                 <b>Téléphone</b> <span

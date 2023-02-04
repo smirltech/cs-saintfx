@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Scolarite\Enseignant;
 
+use App\Http\Livewire\BaseComponent;
 use App\Models\Annee;
 use App\Models\Enseignant;
 use App\Traits\CanHandleEleveUniqueCode;
@@ -13,9 +14,8 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
 
-class EnseignantShowComponent extends Component
+class EnseignantShowComponent extends BaseComponent
 {
     use TopMenuPreview;
     use LivewireAlert;
@@ -33,6 +33,7 @@ class EnseignantShowComponent extends Component
 
     public function mount(Enseignant $enseignant)
     {
+        $this->authorize("view", $enseignant);
         $this->enseignant = $enseignant;
         $this->cours = $enseignant->cours;
         $this->classes = $enseignant->classes;

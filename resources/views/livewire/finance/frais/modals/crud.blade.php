@@ -117,7 +117,7 @@
 
 </div>
 
-{{-- Edit Revenu --}}
+{{-- EditModal Revenu --}}
 <div wire:ignore.self class="modal fade" tabindex="2" id="edit-frais-modal">
     <div class="modal-dialog">
         <div class="modal-content">

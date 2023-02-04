@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Scolarite\Enseignant;
 
 use App\Enums\Sexe;
+use App\Http\Livewire\BaseComponent;
 use App\Models\Enseignant;
 use App\Models\Section;
 use App\Traits\TopMenuPreview;
@@ -13,7 +14,7 @@ use Jantinnerezo\LivewireAlert\LivewireAlert;
 use JetBrains\PhpStorm\NoReturn;
 use Livewire\Component;
 
-class EnseignantCreateComponent extends Component
+class EnseignantCreateComponent extends BaseComponent
 {
     use TopMenuPreview;
     use LivewireAlert;
@@ -44,6 +45,7 @@ class EnseignantCreateComponent extends Component
 
     public function mount()
     {
+        $this->authorize("create", Enseignant::class);
         $this->enseignant = new Enseignant();
         $this->sections = Section::all();
 

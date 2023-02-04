@@ -16,8 +16,11 @@
 $data=[];
     foreach ($inscriptions->sortBy(fn ($q) => $q->eleve->fullName) as $inscription){
 
-            $btn1 = '<a href="' . route("scolarite.eleves.show",$inscription->eleve). '" class="btn btn-success btn-sm m-1" title="Voir Élève"><i class="fa fa-eye"></i></a>';
+            $btn1 = '';
 
+            if(Auth::user()->can('eleves.view', $inscription)){
+            $btn1 = '<a href="' . route("scolarite.eleves.show",$inscription->eleve). '" class="btn btn-success btn-sm m-1" title="Voir Élève"><i class="fa fa-eye"></i></a>';
+            }
             $badgeColor = Helpers::admissionStatusColor($inscription->status);
 
             $data[] = [
@@ -30,7 +33,9 @@ $data=[];
                 $inscription->classe->code,
                '<a href="'.route('scolarite.inscriptions.status',['status'=>$inscription->status->name]).'"><span class="badge bg-gradient-'.$badgeColor.'">'. $inscription->status->label(Sexe::f).'</span></a>',
                 $inscription->created_at->format('d/m/Y'),
+
                 '<nobr>' . $btn1. '</nobr>',
+
             ];
 
         }
@@ -47,7 +52,7 @@ $data=[];
 @section('content_header')
     <div class="row">
         <div class="col-6">
-            <h1 class="ms-3">ELEVES - {{$annee_courante->nom}}</h1>
+            <h1 class="ms-3">ÉLÈVES - {{$annee_courante->nom}}</h1>
         </div>
 
         <div class="col-6">
@@ -67,14 +72,16 @@ $data=[];
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title d-flex">
-                            <a href="{{ route('scolarite.inscriptions.create') }}" title="ajouter"
-                               class="btn btn-primary mr-2"><span class="fa fa-plus"></span></a>
+                            @can('inscriptions.create')
+                                <a href="{{ route('scolarite.inscriptions.create') }}" title="ajouter"
+                                   class="btn btn-primary mr-2"><span class="fa fa-plus"></span></a>
+                            @endcan
                         </div>
                         <div class="card-tools d-flex my-auto">
-
-                            <a href="{{ route('scolarite.inscriptions.create') }}" title="ajouter"
-                               class="btn btn-primary mr-2"><span class="fa fa-plus"></span></a>
-
+                            @can('inscriptions.create')
+                                <a href="{{ route('scolarite.inscriptions.create') }}" title="ajouter"
+                                   class="btn btn-primary mr-2"><span class="fa fa-plus"></span></a>
+                            @endcan
 
                         </div>
                     </div>

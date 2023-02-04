@@ -4,12 +4,13 @@ namespace App\Models;
 
 use App\Enums\DevoirReponseStatus;
 use App\Enums\MediaType;
-use App\Traits\HasMedia;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Http\UploadedFile;
+use SmirlTech\LaravelMedia\Models\Media;
+use SmirlTech\LaravelMedia\Traits\HasMedia;
 
 /**
  * @property mixed $devoir_id
@@ -44,7 +45,7 @@ class DevoirReponse extends Model
 
     public function setDocumentUrlAttribute(UploadedFile $file): void
     {
-        $this->upload(file: $file, entity: $this, mediaType: MediaType::Document);
+        $this->upload(file: $file, entity: $this, collection_name: MediaType::document->value);
     }
 
     // eleve

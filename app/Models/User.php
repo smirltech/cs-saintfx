@@ -3,10 +3,13 @@
 namespace App\Models;
 
 
-use App\Helpers\Helpers;
+use App\Enums\UserRole;
+use App\Traits\HasAvatar;
 use Closure;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
@@ -17,7 +20,7 @@ class User extends Authenticatable
 {
 
 
-    use HasFactory, Notifiable, HasRoles, HasUlids;
+    use HasFactory, Notifiable, HasRoles, HasAvatar, HasUlids;
 
     protected $guarded = [];
 
@@ -30,21 +33,31 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function lectures(): HasMany
+    {
+        return $this->hasMany(Lecture::class);
+    }
+
+    public function responsable(): HasOne
+    {
+        return $this->hasOne(Responsable::class);
+    }
 
     public function isAdmin(): bool
     {
-        return true;
+        return $this->hasRole(UserRole::admin->value);
+
+    }
+
+    public function isParent(): bool
+    {
+        return $this->hasRole(UserRole::parent->value);
     }
 
 
     public function adminlte_image()
     {
         return $this->avatar;
-    }
-
-    public function getAvatarAttribute(): string
-    {
-        return Helpers::fetchAvatar($this->name);
     }
 
     public function image()
@@ -80,10 +93,17 @@ class User extends Authenticatable
         $this->attributes['password'] = Hash::make($value);
     }
 
-    public function setRoleIdAttribute($value)
+    public function setRoleIdAttribute($role_id)
     {
-        $this->assignRole($value);
+        $this->syncRoles($role_id);
     }
 
+    // all permission names attribute
+
+    // display permissions attribute
+    public function getDisplayPermissionsAttribute(): string
+    {
+        return $this->getAllPermissions()->pluck('name')->implode(', ');
+    }
 
 }

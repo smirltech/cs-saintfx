@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Scolarite\Classe;
 
-use App\Exceptions\ApplicationAlert;
+use App\Http\Livewire\BaseComponent;
 use App\Models\Annee;
 use App\Models\Classe;
 use App\Models\ClasseEnseignant;
@@ -12,6 +12,7 @@ use App\Models\Enseignant;
 use App\Models\Filiere;
 use App\Models\Option;
 use App\Models\Section;
+use App\Traits\HasLivewireAlert;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Exception;
@@ -22,10 +23,10 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 
-class ClasseShowComponent extends Component
+class ClasseShowComponent extends BaseComponent
 {
     use TopMenuPreview;
-    use ApplicationAlert;
+    use HasLivewireAlert;
 
     public Classe $classe;
     public ?string $parent = "";
@@ -36,11 +37,11 @@ class ClasseShowComponent extends Component
     public ?ClasseEnseignant $classe_enseignant;
     public Collection $enseignants;
 
-    protected $listeners = ['refreshData'];
+    protected $listeners = ['refreshData', 'refresh' => 'refreshData'];
 
     public function mount(Classe $classe)
     {
-
+        $this->authorize('view', $classe);
         $this->cours_enseignant = new CoursEnseignant();
         $this->classe_enseignant = new ClasseEnseignant();
 
@@ -72,13 +73,13 @@ class ClasseShowComponent extends Component
 
     public function addCours()
     {
-        if(!$this->classe->primaire() && $this->cours_enseignant->cours_id == null && count(Cours::classe($this->classe)->get())> 0) {
+        if (!$this->classe->primaire() && $this->cours_enseignant->cours_id == null && count(Cours::classe($this->classe)->get()) > 0) {
             $this->cours_enseignant->cours_id = Cours::classe($this->classe)->get()->first()->id;
         }
 
-       if(!$this->classe->primaire() && $this->cours_enseignant->enseignant_id == null && count(Enseignant::classe($this->classe)->get())> 0) {
-           $this->cours_enseignant->enseignant_id = Enseignant::classe($this->classe)->get()->first()->id;
-       }
+        if (!$this->classe->primaire() && $this->cours_enseignant->enseignant_id == null && count(Enseignant::classe($this->classe)->get()) > 0) {
+            $this->cours_enseignant->enseignant_id = Enseignant::classe($this->classe)->get()->first()->id;
+        }
         $this->validate([
             'cours_enseignant.cours_id' => [
                 'required',

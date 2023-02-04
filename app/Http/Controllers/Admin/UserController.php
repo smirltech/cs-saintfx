@@ -17,7 +17,6 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
@@ -40,14 +39,14 @@ class UserController extends Controller
         // get user not super admins, use spatie permission
         $users = User::orderByDesc('id')->get();
 
-        return view('admin.users.index', compact('users'))->with('title', ' - '. __('Utilisateurs'));
+        return view('users.index', compact('users'))->with('title', '- ' . __('Utilisateurs'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
-     * @return Application|RedirectResponse|Redirector
+     * @param StoreUserRequest $request
+     * @return RedirectResponse
      */
     public function store(StoreUserRequest $request)
     {
@@ -87,7 +86,7 @@ class UserController extends Controller
         $roles = Role::where('name', '!=', 'super-admin')->get();
         $facultes = Option::all();
 
-        return view('admin.users.create', compact('roles', 'facultes'))->with('title', __('Ajouter un utilisateur'));
+        return view('users.create', compact('roles', 'facultes'))->with('title', __('Ajouter un utilisateur'));
     }
 
     /**
@@ -112,7 +111,7 @@ class UserController extends Controller
         $roles = Role::where('name', '!=', 'super-admin')->get();
         $facultes = Option::all();
 
-        return view('admin.users.edit', compact('user', 'roles', 'facultes'))->with('title', $user->name);
+        return view('users.edit', compact('user', 'roles', 'facultes'))->with('title', $user->name);
     }
 
     public function resetPassword(Request $request, User $user)

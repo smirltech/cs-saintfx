@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\Sexe;
 use App\Helpers\Helpers;
+use App\Traits\HasAvatar;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,10 +13,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use JetBrains\PhpStorm\Pure;
+use Str;
+
 
 class Eleve extends Model
 {
-    use HasFactory, HasUlids;
+    use HasFactory, HasUlids, HasAvatar;
 
     public $guarded = [];
     protected $casts = [
@@ -25,43 +28,45 @@ class Eleve extends Model
         'updated_at' => 'datetime',
     ];
 
+
     // route model binding
 
-    public static function generateMatricule(string $section_id): string
-    {
-        $annee = Annee::encours();
-        $start_year = $annee->start_year;
-
-        $first_part = $start_year . Helpers::pad($section_id);
-
-        /*
-        202202
-        $count = Inscription::whereHas('classes', function ($query) use ($annee) {
-               $query->where('section_id', $section_id);
-           })->where('annee_id', $annee->id)->count();*/
-
-        $count = self::where('matricule', 'like', $first_part . '%')->count() + 1;
-
-        $second_part = Helpers::pad($count, 4);
-
-        return $first_part . $second_part;
-    }
-
-
-    // generate matricule
-    // {annee}{section_id}{count on section+1}
-    //ex: 2022010001
-
-    public static function nonInscritsAnneeEnCours()
+    public static function nonInscritsAnneeEnCours(): Collection|array
     {
         return self::whereDoesntHave('inscriptions', function ($q) {
             $q->where('annee_id', Annee::id());
         })->get();
     }
 
-    public function getRouteKeyName()
+    /** generate matricule
+     * // {annee}{section_id}{count on section+1}
+     * //ex: 2022010001
+     * */
+
+    public static function generateUniqueId(string $section_id): string
     {
-        return 'matricule';
+        $annee = Annee::encours();
+        $start_year = $annee->start_year;
+
+        $first_part = $start_year . Helpers::pad($section_id);
+
+        $count = self::where('id', 'like', $first_part . '%')->count() + 1;
+
+        $second_part = Str::padLeft($count, 4, '0');
+
+        return $first_part . $second_part;
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function (self $model) {
+
+            $model->id = self::generateUniqueId($model->section_id);
+            // remove section_id from model
+            unset($model->section_id);
+        });
     }
 
     public function getPresencesAttribute(): Collection
@@ -78,6 +83,11 @@ class Eleve extends Model
         return $aa;
     }
 
+    public function getCodeAttribute(): string
+    {
+        return $this->id;
+    }
+    
     public function getInscriptionAttribute(): Inscription|null
     {
         return $this->inscriptions()->where('annee_id', Annee::id())->first();
@@ -137,25 +147,14 @@ class Eleve extends Model
         return $this->hasManyThrough(Perception::class, Inscription::class);
     }
 
-    public function getProfileUrlAttribute(): ?string
-    {
-        return $this->avatar;
-    }
-
-
-    public function getAvatarAttribute(): string
-    {
-        return Helpers::fetchAvatar($this->full_name);
-    }
-
     public function getSectionAttribute(): ?Section
     {
         return Section::find($this->section_id);
     }
 
-    public function getCodeAttribute(): string
+    public function getMatriculeAttribute(): string
     {
-        return $this->matricule;
+        return $this->id;
     }
 
     // MONTANTS

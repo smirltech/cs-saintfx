@@ -34,14 +34,4 @@ class EtudiantPolicy
     {
         //
     }
-
-    public function restore(User $user, Etudiant $etudiant)
-    {
-        //
-    }
-
-    public function forceDelete(User $user, Etudiant $etudiant)
-    {
-        //
-    }
 }

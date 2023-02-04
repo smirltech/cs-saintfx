@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Scolarite\Filiere;
 
+use App\Http\Livewire\BaseComponent;
 use App\Models\Filiere;
 use App\Models\Option;
 use App\Models\Section;
@@ -11,7 +12,7 @@ use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
-class FiliereIndexComponent extends Component
+class FiliereIndexComponent extends BaseComponent
 {
     use TopMenuPreview;
     use LivewireAlert;
@@ -75,6 +76,7 @@ class FiliereIndexComponent extends Component
 
     public function mount()
     {
+        $this->authorize("viewAny", Filiere::class);
         $this->options = [];
         $this->sections = Section::orderBy('nom')->get();
     }

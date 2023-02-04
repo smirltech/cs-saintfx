@@ -8,8 +8,7 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('eleves', function (Blueprint $table) {
-            $table->ulid('id')->primary();
-            $table->string('matricule')->nullable()->unique()->comment('Matricule de l\'élève attribue par l\'école');
+            $table->ulid('id')->primary()->comment('Matricule de l\'élève attribue par l\'école');
             $table->string('nom');
             $table->string('postnom');
             $table->string('prenom')->nullable();

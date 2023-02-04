@@ -3,9 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Support\Str;
-use Illuminate\Database\Eloquent\Model;
 use Spatie\Permission\Models\Role as SpatieRole;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Role extends SpatieRole
 {
@@ -13,5 +11,13 @@ class Role extends SpatieRole
     public function getDisplayNameAttribute()
     {
         return __(Str::title(str_replace('-', ' ', $this->name)));
+    }
+
+    // display permissions
+    public function getDisplayPermissionsAttribute(): string
+    {
+        return $this->permissions
+            ->map(fn($permission) => $permission->displayName)
+            ->implode(', ');
     }
 }

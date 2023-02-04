@@ -4,25 +4,26 @@ namespace App\Http\Livewire\Scolarite\Devoir;
 
 
 use App\Enums\MediaType;
-use App\Exceptions\ApplicationAlert;
+use App\Http\Livewire\BaseComponent;
 use App\Models\Cours;
 use App\Models\Devoir;
 use App\Models\DevoirReponse;
 use App\Models\Eleve;
 use App\Traits\CanDeleteMedia;
+use App\Traits\HasLivewireAlert;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use JetBrains\PhpStorm\NoReturn;
-use Livewire\Component;
 use Livewire\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
 use Str;
 
-class DevoirShowComponent extends Component
+class DevoirShowComponent extends BaseComponent
 {
 
-    use ApplicationAlert, WithFileUploads, CanDeleteMedia;
+    use HasLivewireAlert, WithFileUploads, CanDeleteMedia;
 
     public Devoir $devoir;
     public Cours $cours;
@@ -48,7 +49,7 @@ class DevoirShowComponent extends Component
             $this->devoir_reponse->save();
 
             if ($this->document) {
-                $this->devoir_reponse->addMedia(file: $this->document, mediaType: MediaType::document);
+                $this->devoir_reponse->addMedia(file: $this->document, collection_name: MediaType::document->value);
             }
             //$this->refreshData();
             $this->flash('success', 'Réponse envoyée avec succès', [], route('scolarite.devoirs.index'));
@@ -65,8 +66,12 @@ class DevoirShowComponent extends Component
 
     // delete media
 
+    /**
+     * @throws AuthorizationException
+     */
     public function mount(Devoir $devoir)
     {
+        $this->authorize('view', $devoir);
         $this->devoir = $devoir;
         $this->cours = $this->devoir->cours;
         $this->devoir_reponse = new DevoirReponse();

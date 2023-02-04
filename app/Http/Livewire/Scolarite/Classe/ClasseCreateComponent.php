@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Scolarite\Classe;
 
+use App\Http\Livewire\BaseComponent;
 use App\Models\Classe;
 use App\Models\Filiere;
 use App\Models\Option;
@@ -12,7 +13,7 @@ use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
-class ClasseCreateComponent extends Component
+class ClasseCreateComponent extends BaseComponent
 {
     use TopMenuPreview;
     use LivewireAlert;
@@ -71,6 +72,7 @@ class ClasseCreateComponent extends Component
 
     public function mount()
     {
+        $this->authorize('create', Classe::class);
         $this->loadFilieresData();
     }
 

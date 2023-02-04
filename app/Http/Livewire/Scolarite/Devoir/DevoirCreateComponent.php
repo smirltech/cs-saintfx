@@ -4,11 +4,11 @@ namespace App\Http\Livewire\Scolarite\Devoir;
 
 
 use App\Enums\MediaType;
-use App\Exceptions\ApplicationAlert;
 use App\Models\Annee;
 use App\Models\Classe;
 use App\Models\Devoir;
 use App\Traits\CanDeleteModel;
+use App\Traits\HasLivewireAlert;
 use App\Traits\TopMenuPreview;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -22,7 +22,7 @@ class DevoirCreateComponent extends Component
 {
     use TopMenuPreview;
 
-    use ApplicationAlert, WithFileUploads, CanDeleteModel;
+    use HasLivewireAlert, WithFileUploads, CanDeleteModel;
 
     public Devoir $devoir;
     public Collection|array $cours = [];
@@ -45,7 +45,7 @@ class DevoirCreateComponent extends Component
 
         $this->devoir->save();
         if ($this->document) {
-            $this->devoir->addMedia(file: $this->document, mediaType: MediaType::document);
+            $this->devoir->addMedia(file: $this->document, collection_name: MediaType::document->value);
         }
 
         $this->flash('success', 'Devoir créé avec succès', [], route('scolarite.devoirs.index'));

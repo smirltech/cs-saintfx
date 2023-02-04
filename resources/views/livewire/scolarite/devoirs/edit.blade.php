@@ -30,9 +30,11 @@
                             </div>
 
                             <div class="col-6">
+                                @can('devoirs.delete',$devoir)
                                 <x-button wire:click="deleteDevoir" class="btn btn-sm btn-danger float-right">
                                     <i class="fa fa-trash-alt"></i>
                                 </x-button>
+                                @endcan
                             </div>
                         </div>
                     </div>
@@ -129,10 +131,12 @@
                                 Reponses
                             </div>
                             <div class="col-6">
+                                @can('devoirs.view',$devoir)
                                 <a title="Repondre au devoir" href="{{ route('scolarite.devoirs.show',$devoir) }}"
                                    class="btn  btn-sm btn-info float-right">
                                     <i class="fa fa-add"></i>
                                 </a>
+                                @endcan
                             </div>
                         </div>
 
