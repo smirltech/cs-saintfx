@@ -38,18 +38,6 @@ class Eleve extends Model
         })->get();
     }
 
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function (self $model) {
-
-            $model->id = self::generateUniqueId($model->section_id);
-            // remove section_id from model
-            unset($model->section_id);
-        });
-    }
-
     /** generate matricule
      * // {annee}{section_id}{count on section+1}
      * //ex: 2022010001
@@ -67,6 +55,18 @@ class Eleve extends Model
         $second_part = Str::padLeft($count, 4, '0');
 
         return $first_part . $second_part;
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function (self $model) {
+
+            $model->id = self::generateUniqueId($model->section_id);
+            // remove section_id from model
+            unset($model->section_id);
+        });
     }
 
     public function getPresencesAttribute(): Collection
@@ -87,7 +87,7 @@ class Eleve extends Model
     {
         return $this->id;
     }
-
+    
     public function getInscriptionAttribute(): Inscription|null
     {
         return $this->inscriptions()->where('annee_id', Annee::id())->first();

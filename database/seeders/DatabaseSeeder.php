@@ -34,13 +34,13 @@ class DatabaseSeeder extends Seeder
 
             // create promoteur
             User::factory()->create([
-                'email' => 'promoteur@cenk.cd',
+                'email' => 'promoteur@college-enk.com',
                 'name' => 'Promoteur',
             ])->assignRole(UserRole::promoteur->value);
 
             // create admin
             User::factory()->create([
-                'email' => 'admin@cenk.cd',
+                'email' => 'admin@college-enk.com',
                 'name' => 'Admin',
             ])->assignRole(UserRole::admin->value);
 
@@ -48,23 +48,23 @@ class DatabaseSeeder extends Seeder
             if (!app()->isProduction()) {
 
                 User::factory()->create([
-                    'email' => 'caissier@cenk.cd',
+                    'email' => 'caissier@college-enk.com',
                     'name' => 'Caissier',
                 ])->assignRole(UserRole::caissier->value);
 
                 // create admin
                 User::factory()->create([
-                    'email' => 'eleve@cenk.cd',
+                    'email' => 'eleve@college-enk.com',
                     'name' => 'Eleve',
                 ])->assignRole(UserRole::eleve->value);
 
                 User::factory()->create([
-                    'email' => 'parent@cenk.cd',
+                    'email' => 'parent@college-enk.com',
                     'name' => 'Parent',
                 ])->assignRole(UserRole::parent->value);
 
                 User::factory()->create([
-                    'email' => 'enseingant@cenk.cd',
+                    'email' => 'enseingant@college-enk.com',
                     'name' => 'Enseignant',
                 ])->assignRole(UserRole::enseignant->value);
 
