@@ -9,13 +9,13 @@
 @section('content_header')
     <div class="row">
         <div class="col-6">
-            <h1 class="ms-3">Liste de perceptions</h1>
+            <h1 class="ms-3">Liste de factures et de perceptions</h1>
         </div>
 
         <div class="col-6">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('finance') }}">Accueil</a></li>
-                <li class="breadcrumb-item active">Élèves</li>
+                <li class="breadcrumb-item active">Factures et Perceptions</li>
             </ol>
         </div>
     </div>
@@ -41,7 +41,7 @@
             $data[] =[
                 $key+1,
                 $perception->created_at->format('d-m-Y'),
-                $perception->frais->nom,
+                $perception->frais->nom . ' - ' . $perception->custom_property,
                 $perception->inscription?->eleve->fullName,
 
                 $perception->inscription?->classe->code,
@@ -74,11 +74,17 @@
                             </div>
                             <div class="card-tools d-flex my-auto">
                                 @can('perceptions.create')
-                                    <a href="{{route('finance.perceptions.create')}}" title="voir"
-                                       class="btn btn-primary  ml-2">
-                                        <i class="fas fa-plus"></i>
+                                    <a href="{{route('finance.perceptions.classe-create')}}" title="facturer une classe"
+                                       class="btn btn-outline-primary  ml-2 mr-2">
+                                        <i class="fas fa-plus"></i> par classe
                                     </a>
                                 @endcan
+                                    @can('perceptions.create')
+                                        <a href="{{route('finance.perceptions.create')}}" title="facturer un élève"
+                                           class="btn btn-primary  ml-2">
+                                            <i class="fas fa-plus"></i>
+                                        </a>
+                                    @endcan
                             </div>
                         </div>
 
