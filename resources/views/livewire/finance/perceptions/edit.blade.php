@@ -31,12 +31,12 @@
                         <div class="card-header">
                             <div class="card-title">
                                 <h4 >Élève : <strong>{{$perception->nomComplet}}</strong></h4>
-                                <div class="">Classe : <i>{{$perception->classe}}</i></div>
+
                             </div>
                             <div class="card-tools">
-
-                                <button title="Supprimer" role="button" class="btn"
-                                ><span aria-hidden="true">&times;</span></button>
+                                <div class="mr-2">Classe : <strong><i>{{$perception->classe}}</i></strong></div>
+                               {{-- <button title="Supprimer" role="button" class="btn"
+                                ><span aria-hidden="true">&times;</span></button>--}}
                             </div>
                         </div>
                         <div class="card-body m-b-40">
