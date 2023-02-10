@@ -4,7 +4,7 @@
     use App\Helpers\Helpers;
 @endphp
 @section('title')
-    - Perceptions  {{date('d-m-Y')}}
+    Finance | Perceptions  {{date('d-m-Y')}}
 @endsection
 @section('content_header')
     <div class="row">
@@ -24,12 +24,10 @@
 <div wire:ignore.self class="">
     @php
         $heads =[
-            ['label'=>'NO.', 'width'=>2],
+            ['label'=>'#', 'width'=>2],
             ['label'=>'DATE', 'width'=>10],
             'FRAIS',
-
             'ELEVE',
-
             'CLASSE',
             'MONTANT',
             'PAYE',
@@ -97,10 +95,11 @@
 
                                         <td>{!! $row[4] !!}</td>
 
-                                        <td>{!! Helpers::currencyFormat($row[5]) !!}</td>
-                                        <td>{!! Helpers::currencyFormat($row[6]) !!}</td>
+                                        <td>{!! Helpers::currencyFormat($row[5]) !!} Fc</td>
+                                        <td>
+                                            {!! Helpers::currencyFormat($row[6]) !!} Fc</td>
                                         <td><span
-                                                class="badge @if($row[7] > 0) badge-danger @else badge-success @endif">{!! Helpers::currencyFormat($row[7]) !!}</span>
+                                                class="badge @if($row[7] > 0) badge-danger @else badge-success @endif">{!! Helpers::currencyFormat($row[7]) !!} Fc</span>
                                         </td>
                                         <td title="{!! $row[8]->format('d-m-Y') !!}">{!!$row[7]<=0?'OK':GraviteRetard::retard($row[8])!!}</td>
                                         <td>

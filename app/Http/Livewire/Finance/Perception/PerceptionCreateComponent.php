@@ -3,11 +3,6 @@
 namespace App\Http\Livewire\Finance\Perception;
 
 use App\Enums\FraisType;
-use App\Http\Integrations\Scolarite\Requests\Annee\GetCurrentAnnneRequest;
-use App\Http\Integrations\Scolarite\Requests\Filiere\GetFiliereRequest;
-use App\Http\Integrations\Scolarite\Requests\Inscription\GetInscriptionRequest;
-use App\Http\Integrations\Scolarite\Requests\Inscription\GetInscriptionsRequest;
-use App\Http\Integrations\Scolarite\Requests\Option\GetOptionRequest;
 use App\Http\Livewire\BaseComponent;
 use App\Models\Annee;
 use App\Models\Filiere;
@@ -21,7 +16,6 @@ use App\View\Components\AdminLayout;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Auth;
-use Livewire\Component;
 
 class PerceptionCreateComponent extends BaseComponent
 {
@@ -48,7 +42,7 @@ class PerceptionCreateComponent extends BaseComponent
         'inscription_id' => 'nullable',
         'inscription.full_name' => 'nullable',
     ];
-    private $frais;
+    private $frais = [];
     private $inscriptions = [];
 
     public function mount()
@@ -64,7 +58,7 @@ class PerceptionCreateComponent extends BaseComponent
 
     private function loadInscriptionFrais()
     {
-        $this->frais = Frais::where(['annee_id' => $this->annee_id, 'type' => FraisType::inscription])->orderBy('nom')->get();
+       // $this->frais = Frais::where(['annee_id' => $this->annee_id])->whereNot('type', FraisType::inscription)->orderBy('nom')->get();
     }
 
     public function render()
@@ -80,11 +74,11 @@ class PerceptionCreateComponent extends BaseComponent
         $this->inscriptions = Inscription::getCurrentInscriptions();
         // $this->inscription_id = $this->inscription->id;
 
-        if ($this->inscription_id == null) {
-            $this->loadInscriptionFrais();
-        } else {
-            $this->chooseSuitableFrais();
-        }
+        //if ($this->inscription_id == null) {
+        //    $this->loadInscriptionFrais();
+        //} else {
+        $this->chooseSuitableFrais();
+        //}
 
     }
 
@@ -93,6 +87,7 @@ class PerceptionCreateComponent extends BaseComponent
         if ($this->inscription_id != null) {
             $this->frais = Frais::
             where('annee_id', $this->annee_id)
+                ->whereNot('type', FraisType::inscription)
                 ->where('classable_type', 'like', '%Classe')
                 ->where('classable_id', $this->classe_id)
                 ->orderBy('nom')
@@ -102,6 +97,7 @@ class PerceptionCreateComponent extends BaseComponent
                 $filiere_id = $this->inscription->classe->filierable->id;
                 $frais2 = Frais::
                 where('annee_id', $this->annee_id)
+                    ->whereNot('type', FraisType::inscription)
                     ->where('classable_type', 'like', '%Filiere')
                     ->where('classable_id', $filiere_id)
                     ->orderBy('nom')
@@ -114,6 +110,7 @@ class PerceptionCreateComponent extends BaseComponent
                     $option_id = $filiere2->option_id;
                     $frais3 = Frais::
                     where('annee_id', $this->annee_id)
+                        ->whereNot('type', FraisType::inscription)
                         ->where('classable_type', 'like', '%Option')
                         ->where('classable_id', $option_id)
                         ->orderBy('nom')
@@ -127,6 +124,7 @@ class PerceptionCreateComponent extends BaseComponent
 
                         $frais4 = Frais::
                         where('annee_id', $this->annee_id)
+                            ->whereNot('type', FraisType::inscription)
                             ->where('classable_type', 'like', '%Section')
                             ->where('classable_id', $section_id)
                             ->orderBy('nom')
@@ -141,6 +139,7 @@ class PerceptionCreateComponent extends BaseComponent
                 $option_id = $this->inscription->classe->filierable->id;
                 $frais2 = Frais::
                 where('annee_id', $this->annee_id)
+                    ->whereNot('type', FraisType::inscription)
                     ->where('classable_type', 'like', '%Option')
                     ->where('classable_id', $option_id)
                     ->orderBy('nom')
@@ -154,6 +153,7 @@ class PerceptionCreateComponent extends BaseComponent
 
                     $frais4 = Frais::
                     where('annee_id', $this->annee_id)
+                        ->whereNot('type', FraisType::inscription)
                         ->where('classable_type', 'like', '%Section')
                         ->where('classable_id', $section_id)
                         ->orderBy('nom')
@@ -168,6 +168,7 @@ class PerceptionCreateComponent extends BaseComponent
                 //   dd($section_id);
                 $frais2 = Frais::
                 where('annee_id', $this->annee_id)
+                    ->whereNot('type', FraisType::inscription)
                     ->where('classable_type', 'like', '%Section')
                     ->where('classable_id', $section_id)
                     ->orderBy('nom')
@@ -175,9 +176,10 @@ class PerceptionCreateComponent extends BaseComponent
 
                 $this->frais = $this->frais->merge($frais2);
             }
-        } else {
-            $this->loadInscriptionFrais();
         }
+//        else {
+//            $this->loadInscriptionFrais();
+//        }
 
     }
 

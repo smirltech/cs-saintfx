@@ -68,7 +68,7 @@
 
                                 <div class="row">
                                     <div class="form-group col-sm-12 col-md-6">
-                                        <label for="">Frais {{$fee_id}}</label>
+                                        <label for="">Frais</label>
                                         <select wire:ignore.self wire:change="feeSelected" wire:model="fee_id"
                                                 class="form-control">
                                             <option value=null>Choisir frais... !</option>
