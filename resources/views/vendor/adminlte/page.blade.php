@@ -30,9 +30,10 @@
         @section('title', $title??"Title")
 
 
-        @section('content_header')
-            <h1 class="ms-3">{{$title??"Title"}}</h1>
-        @stop
+
+        {{--    @section('content_header')
+                <h1 class="ms-3">{{$title??"Title"}}</h1>
+            @stop--}}
 
         {{-- Content Wrapper --}}
         @empty($iFrameEnabled)
