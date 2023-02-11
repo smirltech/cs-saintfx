@@ -59,6 +59,10 @@ class User extends Authenticatable
         return $this->hasRole(UserRole::parent->value);
     }
 
+    public function isEleve(): bool
+    {
+        return $this->hasRole(UserRole::eleve->value);
+    }
 
     public function adminlte_image()
     {
@@ -109,6 +113,14 @@ class User extends Authenticatable
     public function getDisplayPermissionsAttribute(): string
     {
         return $this->getAllPermissions()->pluck('name')->implode(', ');
+    }
+
+    public static function getStaff(): \Illuminate\Database\Eloquent\Collection|array|\LaravelIdea\Helper\App\Models\_IH_User_C
+    {
+        return self::whereHas('roles', function ($q){
+            $q->where('name', '!=', UserRole::parent->value)
+                ->where('name', '!=', UserRole::eleve->value);
+        })->orderByDesc('id')->get();
     }
 
 }

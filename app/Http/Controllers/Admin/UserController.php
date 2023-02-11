@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\UserRole;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
@@ -37,9 +38,9 @@ class UserController extends Controller
     {
 
         // get user not super admins, use spatie permission
-        $users = User::orderByDesc('id')->get();
+        $users = User::getStaff();
 
-        return view('users.index', compact('users'))->with('title', '- ' . __('Utilisateurs'));
+        return view('users.index', compact('users'))->with('title', __('Utilisateurs'));
     }
 
     /**
