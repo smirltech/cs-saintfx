@@ -45,7 +45,7 @@ class PerceptionEditComponent extends BaseComponent
         'perception.paid_by' => 'nullable',
     ];
     private $annee;
-    private $frais;
+    private $frais = [];
     private $inscriptions = [];
     private $inscription;
 
@@ -85,6 +85,7 @@ class PerceptionEditComponent extends BaseComponent
         $cclasse = Classe::find($this->inscription->classe_id);
         $fofo = Frais::
         where('annee_id', $this->annee_id)
+            ->whereNot('type', FraisType::inscription)
             ->where('classable_type', 'like', '%Classe')
             ->where('classable_id', $cclasse->id)
             ->orderBy('nom')
@@ -97,6 +98,7 @@ class PerceptionEditComponent extends BaseComponent
         if ($cfiliere) {
             $frais2 = Frais::
             where('annee_id', $this->annee_id)
+                ->whereNot('type', FraisType::inscription)
                 ->where('classable_type', 'like', '%Filiere')
                 ->where('classable_id', $cfiliere->id)
                 ->orderBy('nom')
@@ -108,6 +110,7 @@ class PerceptionEditComponent extends BaseComponent
             if ($foption) {
                 $frais2f = Frais::
                 where('annee_id', $this->annee_id)
+                    ->whereNot('type', FraisType::inscription)
                     ->where('classable_type', 'like', '%Option')
                     ->where('classable_id', $foption->id)
                     ->orderBy('nom')
@@ -120,6 +123,7 @@ class PerceptionEditComponent extends BaseComponent
             if ($fsection) {
                 $frais3f = Frais::
                 where('annee_id', $this->annee_id)
+                    ->whereNot('type', FraisType::inscription)
                     ->where('classable_type', 'like', '%Section')
                     ->where('classable_id', $fsection->id)
                     ->orderBy('nom')
@@ -133,6 +137,7 @@ class PerceptionEditComponent extends BaseComponent
         if ($coption) {
             $frais3 = Frais::
             where('annee_id', $this->annee_id)
+                ->whereNot('type', FraisType::inscription)
                 ->where('classable_type', 'like', '%Option')
                 ->where('classable_id', $coption->id)
                 ->orderBy('nom')
@@ -144,6 +149,7 @@ class PerceptionEditComponent extends BaseComponent
             if ($osection) {
                 $frais3o = Frais::
                 where('annee_id', $this->annee_id)
+                    ->whereNot('type', FraisType::inscription)
                     ->where('classable_type', 'like', '%Section')
                     ->where('classable_id', $osection->id)
                     ->orderBy('nom')
@@ -156,6 +162,7 @@ class PerceptionEditComponent extends BaseComponent
         if ($csection) {
             $frais4 = Frais::
             where('annee_id', $this->annee_id)
+                ->whereNot('type', FraisType::inscription)
                 ->where('classable_type', 'like', '%Section')
                 ->where('classable_id', $csection->id)
                 ->orderBy('nom')
@@ -174,7 +181,7 @@ class PerceptionEditComponent extends BaseComponent
 
     private function reloadData()
     {
-        $this->inscriptions = Inscription::where('annee_id', Annee::id())->get();
+       // $this->inscriptions = Inscription::where('annee_id', Annee::id())->get();
 
         /*if ($this->perception->inscription_id) {
             $this->inscription = Inscription::find($this->inscription_id);
@@ -263,6 +270,6 @@ class PerceptionEditComponent extends BaseComponent
 
     private function loadInscriptionFrais()
     {
-        $this->frais = Frais::where(['annee_id' => $this->annee_id, 'type' => FraisType::inscription])->orderBy('nom')->get();
+        //$this->frais = Frais::where(['annee_id' => $this->annee_id, 'type' => FraisType::inscription])->orderBy('nom')->get();
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Finance\Perception;
 use App\Enums\FraisType;
 use App\Http\Livewire\BaseComponent;
 use App\Models\Annee;
+use App\Models\Classe;
 use App\Models\Filiere;
 use App\Models\Frais;
 use App\Models\Inscription;
@@ -15,14 +16,16 @@ use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 
-class PerceptionCreateComponent extends BaseComponent
+class PerceptionClasseCreateComponent extends BaseComponent
 {
     use TopMenuPreview;
     use HasLivewireAlert;
-
-    public $searchCode;
 
     public $annee_id;
     public $user_id;
@@ -30,61 +33,76 @@ class PerceptionCreateComponent extends BaseComponent
     public $fee_id;
     public $fee;
     public $montant;
-    public $paid;
-    public $paid_by;
     public $custom_property;
-    public $inscription_id;
-    public $eleveNom;
+    public $eleveNbr = 0;
+    public $classes = [];
+    private Classe|null $classe;
     public $classe_id;
     public $due_date;
-    public $inscription;
     protected $rules = [
-        'inscription_id' => 'nullable',
-        'inscription.full_name' => 'nullable',
+        'classe_id' => 'required',
+        'fee_id' => 'required',
+        'custom_property' => 'required',
+        'due_date' => 'required',
+        'montant' => 'required',
     ];
     private $frais = [];
     private $inscriptions = [];
 
-    public function mount()
+    /**
+     * @throws AuthorizationException
+     */
+    public function mount(): void
     {
         $this->authorize('create', Perception::class);
         $this->user_id = Auth::id();
         $this->annee_id = Annee::id();
         $this->due_date = Carbon::now()->format('Y-m-d');
-        $this->inscription = new Inscription();
-        $this->loadInscriptionFrais();
+        //$this->classe = new Classe();
+        $this->loadClasses();
 
     }
 
-    private function loadInscriptionFrais()
+    private function loadClasses(): void
     {
-       // $this->frais = Frais::where(['annee_id' => $this->annee_id])->whereNot('type', FraisType::inscription)->orderBy('nom')->get();
+        $this->classes = Classe::all();
     }
 
-    public function render()
+    public function render(): Factory|View|Application
     {
         $this->reloadData();
-        return view('livewire.finance.perceptions.create',
+        return view('livewire.finance.perceptions.classe_create',
             ['inscriptions' => $this->inscriptions, 'frais' => $this->frais])
             ->layout(AdminLayout::class, ['title' => 'Nouvelle Perception']);
     }
 
-    private function reloadData()
+    private function reloadData(): void
     {
-        $this->inscriptions = Inscription::getCurrentInscriptions();
-        // $this->inscription_id = $this->inscription->id;
-
-        //if ($this->inscription_id == null) {
-        //    $this->loadInscriptionFrais();
-        //} else {
+        $this->loadClasses();
         $this->chooseSuitableFrais();
-        //}
-
     }
 
-    private function chooseSuitableFrais()
+    public function changeClasse(): void
     {
-        if ($this->inscription_id != null) {
+        $this->classe = Classe::find($this->classe_id);
+        if ($this->classe) {
+            $this->inscriptions = Inscription::where(['classe_id' => $this->classe_id, 'annee_id' => $this->annee_id])->get();
+            $this->eleveNbr = $this->inscriptions->count();
+        } else {
+            $this->inscriptions = [];
+            $this->eleveNbr = 0;
+        }
+        $this->fee_id = null;
+        $this->fee = null;
+        $this->montant = null;
+        $this->custom_property = null;
+        $this->raisons = [];
+    }
+
+    private function chooseSuitableFrais(): void
+    {
+        if ($this->classe_id != null) {
+            $this->classe = Classe::find($this->classe_id);
             $this->frais = Frais::
             where('annee_id', $this->annee_id)
                 ->whereNot('type', FraisType::inscription)
@@ -93,8 +111,8 @@ class PerceptionCreateComponent extends BaseComponent
                 ->orderBy('nom')
                 ->get();
 
-            if (str_ends_with($this->inscription->classe->filierable_type, 'Filiere')) {
-                $filiere_id = $this->inscription->classe->filierable->id;
+            if (str_ends_with($this->classe->filierable_type, 'Filiere')) {
+                $filiere_id = $this->classe->filierable->id;
                 $frais2 = Frais::
                 where('annee_id', $this->annee_id)
                     ->whereNot('type', FraisType::inscription)
@@ -135,8 +153,8 @@ class PerceptionCreateComponent extends BaseComponent
                 }
             }
 
-            if (str_ends_with($this->inscription->classe->filierable_type, 'Option')) {
-                $option_id = $this->inscription->classe->filierable->id;
+            if (str_ends_with($this->classe->filierable_type, 'Option')) {
+                $option_id = $this->classe->filierable->id;
                 $frais2 = Frais::
                 where('annee_id', $this->annee_id)
                     ->whereNot('type', FraisType::inscription)
@@ -163,8 +181,8 @@ class PerceptionCreateComponent extends BaseComponent
                 }
             }
 
-            if (str_ends_with($this->inscription->classe->filierable_type, 'Section')) {
-                $section_id = $this->inscription->classe->filierable->id;
+            if (str_ends_with($this->classe->filierable_type, 'Section')) {
+                $section_id = $this->classe->filierable->id;
                 //   dd($section_id);
                 $frais2 = Frais::
                 where('annee_id', $this->annee_id)
@@ -177,38 +195,9 @@ class PerceptionCreateComponent extends BaseComponent
                 $this->frais = $this->frais->merge($frais2);
             }
         }
-//        else {
-//            $this->loadInscriptionFrais();
-//        }
-
     }
 
-    public function eleveSelected()
-    {
-
-        $this->inscription_id = $this->searchCode;
-        if ($this->inscription_id == null) {
-            $this->eleveNom = null;
-            $this->inscription = null;
-            $this->classe_id = null;
-        } else {
-            // dd('eleve selected '. $this->inscription_id);
-            $this->inscription = Inscription::find($this->inscription_id);
-            if ($this->inscription != null) {
-                $this->eleveNom = $this->inscription?->eleve->fullName;
-                $this->classe_id = $this->inscription?->classe->id;
-            } else {
-                $this->eleveNom = null;
-                $this->inscription_id = null;
-                $this->classe_id = null;
-            }
-        }
-        $this->fee_id = null;
-        $this->fee = null;
-        $this->reloadData();
-    }
-
-    public function feeSelected()
+    public function feeSelected(): void
     {
         $this->fee = Frais::find($this->fee_id);
         $this->montant = $this->fee->montant ?? null;
@@ -216,47 +205,42 @@ class PerceptionCreateComponent extends BaseComponent
 
     }
 
-    public function addPerceptionAndClose()
+    public function addPerceptionsAndClose(): void
     {
-        $this->addPerception();
-        $this->flash('success', "Frais imputé avec succès !", [], route('finance.perceptions'));
+        $this->addPerceptions();
+        $this->flash('success', "Classe facturée avec succès !", [], route('finance.perceptions'));
 
     }
 
-    public function addPerception()
+    private function addPerceptionForInscription(Inscription $inscription): void
     {
-        $this->validate([
-            'inscription_id' => $this->fee->type == FraisType::inscription ? 'nullable' : 'required',
-            'fee_id' => 'required',
-            'user_id' => 'required',
-            'annee_id' => 'required',
-            'due_date' => 'required',
-            'paid' => 'nullable',
-            'paid_by' => 'nullable',
-        ]);
-
         try {
-            Perception::create(
+            Perception::updateOrCreate(
                 [
-                    'user_id' => $this->user_id,
                     'frais_id' => $this->fee_id,
-                    'inscription_id' => $this->inscription_id,
-                    'frequence' => $this->fee->frequence->name,
+                    'inscription_id' => $inscription->id,
                     'custom_property' => $this->custom_property,
                     'annee_id' => $this->annee_id,
+                ], [
+                    'frequence' => $this->fee->frequence->name,
+                    'user_id' => $this->user_id,
                     'montant' => $this->montant,
                     'due_date' => $this->due_date,
-                    'paid' => $this->paid,
-                    //'paid' => ($this->fee->type == FraisType::inscription and $this->paid == null) ? $this->montant : $this->paid,
-                    'paid_by' => $this->paid_by,
                 ]
             );
-
-            $this->flash('success', "Frais imputé avec succès !", [], route('finance.perceptions'));
-
         } catch (Exception $exception) {
             $this->error(local: $exception->getMessage(), production: "Echec d'imputation de frais déjà existante !");
         }
+    }
+
+    public function addPerceptions(): void
+    {
+        $this->validate();
+
+        $this->inscriptions = Inscription::where(['classe_id'=> $this->classe_id, 'annee_id' => $this->annee_id])->get();
+        $this->inscriptions->each(fn($inscription) => $this->addPerceptionForInscription($inscription));
+
+        $this->flash('success', "Classe facturée avec succès !", [], route('finance.perceptions'));
     }
 
 }

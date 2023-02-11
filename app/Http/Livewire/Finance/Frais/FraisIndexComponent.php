@@ -178,20 +178,20 @@ class FraisIndexComponent extends BaseComponent
         }
     }
 
-    private function manipulateFilierableFiliere()
+    private function manipulateFilierableFiliere(): void
     {
         $filiere = $this->filiere_id != null ? Filiere::find($this->filiere_id) : null;
         $this->option_id = $filiere->option_id ?? null;
         $this->manipulateFilierableOption();
     }
 
-    private function manipulateFilierableOption()
+    private function manipulateFilierableOption(): void
     {
         $option = $this->option_id != null ? Option::find($this->option_id) : null;
         $this->section_id = $option->section_id ?? null;
     }
 
-    public function updateFrais()
+    public function updateFrais(): void
     {
         $this->validate([
             'nom' => 'required',
@@ -269,7 +269,7 @@ class FraisIndexComponent extends BaseComponent
 
     public function changeFiliere()
     {
-        $this->classable = $this->filiere_id;
+        $this->classable_id = $this->filiere_id;
         $this->classable_type = Filiere::class;
         $this->classe_id = null;
         $this->loadAvailableClasses();

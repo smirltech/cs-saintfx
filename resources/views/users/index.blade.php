@@ -16,7 +16,6 @@
             </ol>
         </div>
     </div>
-
 @stop
 @section('content')
     <div class="p-0 container-fluid ">
@@ -40,7 +39,7 @@
                         <!-- table-responsive -->
                         <div class="table-responsive-md">
                             <table class="table">
-                                <thead class="table-header">
+                                <thead class="table-heade bg-primary">
                                 <tr>
                                     <td></td>
                                     <td>Nom</td>

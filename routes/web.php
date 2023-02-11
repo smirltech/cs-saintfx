@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AuditController;
+use App\Http\Controllers\Admin\DarkmodeController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\MediaController;
 use App\Http\Livewire\Bibliotheque\Auteur\AuteurIndexComponent;
@@ -37,16 +38,21 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('media/{media}', [MediaController::class, 'show'])->name('media.show');
 
-
 Route::get('/', MainDashboardComponent::class)->name('home')->middleware('auth');
-Route::get('dashboard', MainDashboardComponent::class)->name('dashboard')->middleware('auth');
+
 
 Route::get('scolarite', Scolarite\DashboardComponent::class)->name('scolarite')->middleware('auth');
 Route::get('finance', Finance\Dashboard\DashboardComponent::class)->name('finance')->middleware('auth');
 
 
+Route::get('darkmode/toggle', [DarkmodeController::class, 'toggle'])
+    ->name('darkmode.toggle');
+
+
 //Scolarite
 Route::prefix('scolarite')->middleware(['auth:web'])->as('scolarite.')->group(function () {
+
+    // toogle dark mode
 
 //Section
     Route::get('sections/{section}', Scolarite\Section\SectionShowComponent::class)->name('sections.show');
@@ -128,6 +134,7 @@ Route::prefix('finance')->middleware(['auth:web'])->as('finance.')->group(functi
 
     //Perception
     Route::get('perceptions/create', Finance\Perception\PerceptionCreateComponent::class)->name('perceptions.create');
+    Route::get('perceptions/classe_create', Finance\Perception\PerceptionClasseCreateComponent::class)->name('perceptions.classe-create');
     Route::get('perceptions/{perception}/edit', Finance\Perception\PerceptionEditComponent::class)->name('perceptions.edit');
     Route::get('perceptions', Finance\Perception\PerceptionIndexComponent::class)->name('perceptions');
     Route::get('caisse', Finance\Perception\CaisseComponent::class)->name('caisse');

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Traits;
+
 use App\Models\Annee;
 use App\Models\Classe;
 use App\Models\ClasseEnseignant;
@@ -12,14 +13,15 @@ use JeroenNoten\LaravelAdminLte\Events\BuildingMenu;
 trait TopMenuPreview
 {
     // private $company2;
-    public function __construct()
+    public function bootTopMenuPreview()
     {
-      $this->init();
+        //  $this->init();
     }
 
-    private function init(){
+    private function init(): void
+    {
         Event::listen(BuildingMenu::class, function (BuildingMenu $event) {
-           $aa = Annee::encours();
+            $aa = Annee::encours();
             if (!$event->menu->itemKeyExists('annee_encours')) {
                 $event->menu->add([
                     'key' => 'annee_encours',

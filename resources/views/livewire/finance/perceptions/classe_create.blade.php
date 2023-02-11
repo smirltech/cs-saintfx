@@ -1,19 +1,19 @@
 @php use App\Enums\FraisType; @endphp
 @php use App\Enums\FraisFrequence; @endphp
 @section('title')
-     - Facture  {{date('d-m-Y')}}
+     Facturer toute la classe  {{date('d-m-Y')}}
 @endsection
 @section('content_header')
     <div class="row">
         <div class="col-6">
-            <h1 class="ms-3">Nouvelle Facture</h1>
+            <h1 class="ms-3">Nouvelle Facture pour toute la classe</h1>
         </div>
 
         <div class="col-6">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('finance') }}">Accueil</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('finance.perceptions') }}">Perceptions</a></li>
-                <li class="breadcrumb-item active">Facture</li>
+                <li class="breadcrumb-item active">Facturer toute la classe</li>
             </ol>
         </div>
     </div>
@@ -29,41 +29,28 @@
 
                         <div class="card-body m-b-40">
                             <x-validation-errors class="mb-4" :errors="$errors"/>
-                            <form id="f1" wire:submit.prevent="addPerception">
+                            <form id="f1" wire:submit.prevent="addPerceptions">
                                 <div class="row">
 
                                     <div class="form-group col-sm-12 col-md-6">
-                                         <label for="">Rechercher code élève</label>
-                                         <input type="search" wire:model="searchCode" wire:change.debounce="eleveSelected"
-                                                class="form-control" list="elevesList">
-                                        <datalist id="elevesList">
-                                            @foreach ($inscriptions as $inscription )
-                                                <option
-                                                    value="{{$inscription->id}}" label="{{$inscription->eleve->fullName}} {{ $inscription->classe->code }}">
-                                                </option>
-                                            @endforeach
-                                        </datalist>
-                                     </div>
-                                   {{-- <div class="form-group col-sm-12 col-md-6">
-                                        <label for="">Selectionner élève</label>
-                                        <select wire:change="eleveSelected" wire:model="inscription_id"
+                                        <label for="">Classe <i class="text-red">*</i></label>
+                                        <select wire:change="changeClasse" wire:model="classe_id"
                                                 class="form-control">
-                                            <option value=''>Choisir élève ... !</option>
-                                            @foreach ($inscriptions as $inscription )
-                                                <option
-                                                    value="{{$inscription->id}}">{{$inscription->eleve->fullName}}
-                                                    [ {{ $inscription->classe->code }} ]
-                                                </option>
+                                            <option value=null>Choisir classe</option>
+                                            @foreach ($classes as $classe )
+                                                <option value="{{ $classe->id }}">{{ $classe->code }}</option>
                                             @endforeach
                                         </select>
-                                    </div>--}}
+                                        @error('classe_id')
+                                        <span class="text-red">{{ $message }}</span>
+                                        @enderror
+                                     </div>
+
                                     <div class="form-group col-sm-12 col-md-6">
-                                        <label for="">Élève selectionné</label>
-                                        <input readonly type="text" wire:model="eleveNom"
+                                        <label for="">Nombre d'élèves</label>
+                                        <input readonly type="text" wire:model="eleveNbr"
                                                class="form-control">
                                     </div>
-
-
                                 </div>
 
                                 <div class="row">

@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('title')
-    {{--{{config('app.name')}} - --}}{{$title ?? 'Dashboard'}}
+    {{$title ?? null}}
 @endsection
 
 @section('content_header')
@@ -23,10 +23,10 @@
 @endsection
 
 @section('footer')
-    <strong>Copyright © 2019-{{ date('Y') }} <a href="https://smirltech.com">Smirltech.com</a>.</strong>
-    All rights reserved.
+    <strong>Copyright© {{ date('Y') }} CENK</strong>
+    {{__('All rights reserved.')}}
     <div class="float-right d-none d-sm-inline-block">
-        <b>Version</b> {{App\Helpers\Helpers::$appVersion}}
+        <b>Version</b> {{App\Helpers\Helpers::$appVersion}} | {{date('d.m.Y H:i')}}
     </div>
 @stop
 
