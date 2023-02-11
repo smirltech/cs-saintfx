@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use Illuminate\Database\Eloquent\Model;
+use App;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
@@ -23,12 +23,12 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
-        if ($this->app->isProduction()) {
-            URL::forceScheme('https', true);
+        if (App::isProduction()) {
+            URL::forceScheme('https');
         }
-       // Model::shouldBeStrict(!$this->app->isProduction());
+        // Model::shouldBeStrict(!$this->app->isProduction());
 
     }
 }
