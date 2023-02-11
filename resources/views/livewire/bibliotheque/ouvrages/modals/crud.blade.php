@@ -15,7 +15,7 @@
                 </x-form-input>
             </div>
 
-            <div class="form-group col-md-4 col-sm-12">
+            <div class="form-group col-md-12 col-sm-12">
                 <x-form-input
                     type="text"
                     label="Sous Titre"
@@ -24,7 +24,7 @@
                     :error="$errors->first('ouvrage.sous_titre')">
                 </x-form-input>
             </div>
-            <div class="form-group col-md-4 col-sm-12">
+            <div class="form-group col-md-6 col-sm-12">
                 <label for="">Groupe</label>
                 <select wire:model="ouvrage.ouvrage_category_id"
                         class="form-control">
@@ -34,7 +34,7 @@
                     @endforeach
                 </select>
             </div>
-            <div class="form-group col-md-4 col-sm-12">
+            <div class="form-group col-md-6 col-sm-12">
                 <x-form-input
                     type="date"
                     label="Date"
@@ -45,7 +45,7 @@
                 </x-form-input>
             </div>
 
-            <div class="form-group col-md-4 col-sm-12">
+            <div class="form-group col-md-6 col-sm-12">
                 <x-form-input
                     type="text"
                     label="Edition"
@@ -55,7 +55,7 @@
                     :error="$errors->first('ouvrage.edition')">
                 </x-form-input>
             </div>
-            <div class="form-group col-md-4 col-sm-12">
+            <div class="form-group col-md-6 col-sm-12">
                 <x-form-input
                     type="text"
                     label="Editeur"
@@ -65,7 +65,7 @@
                     :error="$errors->first('ouvrage.editeur')">
                 </x-form-input>
             </div>
-            <div class="form-group col-md-4 col-sm-12">
+            <div class="form-group col-md-12 col-sm-12">
                 <x-form-input
                     type="text"
                     label="Lieu"
@@ -119,7 +119,7 @@
                 </x-form-input>
             </div>
 
-            <div class="form-group col-md-4 col-sm-12">
+            <div class="form-group col-md-12 col-sm-12">
                 <x-form-input
                     type="text"
                     label="Sous Titre"
@@ -128,7 +128,7 @@
                     :error="$errors->first('ouvrage.sous_titre')">
                 </x-form-input>
             </div>
-            <div class="form-group col-md-4 col-sm-12">
+            <div class="form-group col-md-6 col-sm-12">
                 <label for="">Groupe</label>
                 <select wire:model="ouvrage.ouvrage_category_id"
                         class="form-control">
@@ -138,7 +138,7 @@
                     @endforeach
                 </select>
             </div>
-            <div class="form-group col-md-4 col-sm-12">
+            <div class="form-group col-md-6 col-sm-12">
                 <x-form-input
                     type="date"
                     label="Date"
@@ -149,7 +149,7 @@
                 </x-form-input>
             </div>
 
-            <div class="form-group col-md-4 col-sm-12">
+            <div class="form-group col-md-6 col-sm-12">
                 <x-form-input
                     type="text"
                     label="Edition"
@@ -159,7 +159,7 @@
                     :error="$errors->first('ouvrage.edition')">
                 </x-form-input>
             </div>
-            <div class="form-group col-md-4 col-sm-12">
+            <div class="form-group col-md-6 col-sm-12">
                 <x-form-input
                     type="text"
                     label="Editeur"
@@ -169,7 +169,7 @@
                     :error="$errors->first('ouvrage.editeur')">
                 </x-form-input>
             </div>
-            <div class="form-group col-md-4 col-sm-12">
+            <div class="form-group col-md-12 col-sm-12">
                 <x-form-input
                     type="text"
                     label="Lieu"
