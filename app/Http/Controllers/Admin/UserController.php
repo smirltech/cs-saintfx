@@ -84,7 +84,7 @@ class UserController extends Controller
     {
         //  get alls roles except super admin
 
-        $roles = Role::where('name', '!=', 'super-admin')->get();
+        $roles = Role::where('name', '!=', 'super-admin')->where('name', '!=', UserRole::parent->value)->where('name', '!=', UserRole::eleve->value)->get();
         $facultes = Option::all();
 
         return view('users.create', compact('roles', 'facultes'))->with('title', __('Ajouter un utilisateur'));
