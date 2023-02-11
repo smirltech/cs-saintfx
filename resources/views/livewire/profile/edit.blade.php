@@ -2,6 +2,9 @@
     use App\Enums\RolePermission;
     use App\Enums\UserRole;
 @endphp
+@section('title')
+    profile | {{$user->role->name??'N/A'}}
+@endsection
 @section('content_header')
     <div class="container-fluid">
         <div class="row mb-2">
@@ -50,6 +53,20 @@
                                         </button>
                                     </form>
                                 @endcan
+                            </div>
+                            <div class="mt-3">
+                                @can("view", $user->eleve)
+                                    <a href="{{route('scolarite.eleves.show',$user->eleve)}}"
+                                       class="btn btn-primary btn-sm">
+                                        <i class="fa fa-eye"></i> Voir l'élève
+                                    </a>
+                                @endcan
+                                    @can("view", $user->responsable)
+                                        <a href="{{route('scolarite.responsables.show',$user->responsable)}}"
+                                           class="btn btn-primary btn-sm">
+                                            <i class="fa fa-eye"></i> Voir le parent
+                                        </a>
+                                    @endcan
                             </div>
                         </div>
                     </div>
@@ -151,86 +168,5 @@
                 </div>
             </div>
         </div>
-        @if($user->responsable)
-            <div class="row">
-                <div class="col-md-3 col-sm-12">
-                    <div class="card card-primary card-outline">
-                        <div class="card-header">
-                            <h1 class="card-title">Profil Responsable</h1>
-                            <div class="card-tools">
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <ul class="list-group list-group-unbordered mb-3">
-                                <li class="list-group-item">
-                                    <b>Nom : </b> <span class="float-right">{{ $user->responsable->nom }}</span>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Sexe : </b> <span class="float-right">{{ strtoupper($user->responsable->sexe->value) }}</span>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Phone : </b> <span class="float-right"><a
-                                            href="tel:{{ $user->responsable->telephone }}">{{ $user->responsable->telephone }}</a></span>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>E-mail : </b> <span class="float-right"><a
-                                            href="mailto:{{ $user->responsable->email }}">{{ $user->responsable->email }}</a></span>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Enfants : </b> <span
-                                        class="float-right">{{ $user->responsable->responsable_eleves->count() }}</span>
-                                </li>
-                            </ul>
-
-                            <div class="">
-                                <label>Adresse : </label>
-                                {{ $user->responsable->adresse }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-9 col-sm-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">
-                                <h3 class="m-0"><span class="fas fa-fw fa-children mr-1"></span>Enfants</h3>
-                            </div>
-                            <div class="card-tools d-flex my-auto">
-                            </div>
-                        </div>
-
-                        <div class="card-body">
-
-                            <div class="table-responsive m-b-40">
-                                <table class="table">
-                                    <thead class="bg-primary">
-                                    <tr>
-                                        <th style="width: 100px">CODE</th>
-                                        <th>ENFANT</th>
-                                        <th>SEXE</th>
-                                        <th>AGE</th>
-                                        <th>CLASSE</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach ($user->responsable->eleves as $eleve)
-                                        @if($eleve != null)
-                                            <tr>
-                                                <td>{{ $eleve->code??'' }}</td>
-                                                <td>{{ $eleve->fullName??'' }}</td>
-                                                <td>{{ strtoupper($eleve->sexe?->value??'') }}</td>
-                                                <td>{{ $eleve->date_naissance->age??'' }}</td>
-                                                <td>{{ $eleve->currentInscription()->classe->code??'' }}</td>
-                                            </tr>
-                                        @endif
-                                    @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endif
     </div>
 </div>

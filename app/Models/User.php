@@ -38,6 +38,11 @@ class User extends Authenticatable
         return $this->hasMany(Lecture::class);
     }
 
+    public function eleve(): HasOne
+    {
+        return $this->hasOne(Eleve::class);
+    }
+
     public function responsable(): HasOne
     {
         return $this->hasOne(Responsable::class);
