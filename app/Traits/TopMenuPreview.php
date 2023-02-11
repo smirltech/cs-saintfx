@@ -13,14 +13,9 @@ use JeroenNoten\LaravelAdminLte\Events\BuildingMenu;
 trait TopMenuPreview
 {
     // private $company2;
-    public function bootTopMenuPreview()
+    public function bootTopMenuPreview(): void
     {
-        //TODO: make it repsponsive for mobile then activate it
-        //$this->init();
-    }
-
-    private function init(): void
-    {
+        //TODO: make it repsponsive for mobile then activate i
         Event::listen(BuildingMenu::class, function (BuildingMenu $event) {
             $aa = Annee::encours();
             if (!$event->menu->itemKeyExists('annee_encours')) {

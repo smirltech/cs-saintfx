@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AuditController;
+use App\Http\Controllers\Admin\DarkmodeController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\MediaController;
 use App\Http\Livewire\Bibliotheque\Auteur\AuteurIndexComponent;
@@ -45,8 +46,14 @@ Route::get('scolarite', Scolarite\DashboardComponent::class)->name('scolarite')-
 Route::get('finance', Finance\Dashboard\DashboardComponent::class)->name('finance')->middleware('auth');
 
 
+Route::get('darkmode/toggle', [DarkmodeController::class, 'toggle'])
+    ->name('darkmode.toggle');
+
+
 //Scolarite
 Route::prefix('scolarite')->middleware(['auth:web'])->as('scolarite.')->group(function () {
+
+    // toogle dark mode
 
 //Section
     Route::get('sections/{section}', Scolarite\Section\SectionShowComponent::class)->name('sections.show');
