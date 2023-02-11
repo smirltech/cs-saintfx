@@ -21,6 +21,7 @@
 @stop
 <div>
     @include('livewire.scolarite.eleves.modals.crud')
+    @include('livewire.scolarite.eleves.modals.user')
 
     <div class="content mt-3">
         <div class="container-fluid">
@@ -55,6 +56,12 @@
                                     data-target="#infoPerso" aria-expanded="true"
                                     aria-controls="infoPerso">Information Personnelle</h3>
                                 <div class="card-tools">
+                                    @can('eleves.update',$eleve)
+                                        <span role="button" wire:click.debounce="fillDataToModal" type="button"
+                                              title="Mot de passe utilisateur" class=" ml-2 mr-2" data-toggle="modal"
+                                              data-target="#edit-eleve-user-modal">
+                                    <span class="fa fa-key"></span></span>
+                                    @endcan
                                     @can('eleves.update',$eleve)
                                         <span role="button" class="mr-1"
                                               data-toggle="modal"
