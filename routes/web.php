@@ -38,9 +38,8 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('media/{media}', [MediaController::class, 'show'])->name('media.show');
 
-
 Route::get('/', MainDashboardComponent::class)->name('home')->middleware('auth');
-Route::get('dashboard', MainDashboardComponent::class)->name('dashboard')->middleware('auth');
+
 
 Route::get('scolarite', Scolarite\DashboardComponent::class)->name('scolarite')->middleware('auth');
 Route::get('finance', Finance\Dashboard\DashboardComponent::class)->name('finance')->middleware('auth');

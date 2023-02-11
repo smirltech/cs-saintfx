@@ -83,7 +83,7 @@ return [
     */
 
     'preloader' => [
-        'enabled' => true,
+        'enabled' => false,
         'img' => [
             'path' => 'images/logo.png',
             'alt' => 'Marva Preloader Image',
@@ -129,7 +129,7 @@ return [
     'layout_fixed_sidebar' => null,
     'layout_fixed_navbar' => true,
     'layout_fixed_footer' => null,
-    'layout_dark_mode' => true,
+    'layout_dark_mode' => null,
 
     /*
     |--------------------------------------------------------------------------
@@ -166,8 +166,8 @@ return [
     'classes_brand' => '',
     'classes_brand_text' => '',
     'classes_content_wrapper' => '',
-    'classes_content_header' => 'd-none d-sm-block',
-    'classes_content' => '',
+    'classes_content_header' => null,
+    'classes_content' => 'd-none d-sm-block',
     'classes_sidebar' => 'sidebar-dark-primary elevation-4',
     'classes_sidebar_nav' => '',
     'classes_topnav' => 'navbar-white navbar-light',

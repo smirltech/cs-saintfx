@@ -1,6 +1,6 @@
 <?php
 
-use App\Providers\RouteServiceProvider;
+use App\Http\Controllers\Auth\LoginController;
 
 beforeEach(function () {
     $this->user = createUser();
@@ -19,7 +19,7 @@ test('users can authenticate using the login screen', function () {
 
 
     $this->assertAuthenticated();
-    $response->assertRedirect(RouteServiceProvider::HOME);
+    $response->assertRedirect(LoginController::redirectTo());
 });
 
 test('users can not authenticate with invalid password', function () {

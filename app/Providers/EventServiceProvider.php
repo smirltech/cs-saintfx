@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
+use Event;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
 use JeroenNoten\LaravelAdminLte\Events\BuildingMenu;
 
 class EventServiceProvider extends ServiceProvider
@@ -26,7 +26,7 @@ class EventServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         Event::listen(BuildingMenu::class, function (BuildingMenu $event) {
             // Add some items to the menu...
@@ -45,6 +45,10 @@ class EventServiceProvider extends ServiceProvider
         if (!is_null(session('adminlte_dark_mode', null))) {
             return session('adminlte_dark_mode');
         }
+
+        // Otherwise, fallback to the default package configuration preference.
+
+        return (bool)config('adminlte.layout_dark_mode', false);
     }
 
     /**
