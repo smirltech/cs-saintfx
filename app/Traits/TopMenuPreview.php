@@ -15,8 +15,7 @@ trait TopMenuPreview
     // private $company2;
     public function bootTopMenuPreview()
     {
-        //TODO: make it repsponsive for mobile then activate it
-        //$this->init();
+        //  $this->init();
     }
 
     private function init(): void
