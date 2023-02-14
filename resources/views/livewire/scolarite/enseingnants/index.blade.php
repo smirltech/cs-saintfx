@@ -65,7 +65,7 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <x-adminlte-datatable wire:ignore.self theme="light" id="tableens1" :heads="$heads" striped
+                            <x-adminlte-datatable wire:ignore.self head-theme="light" theme="light" id="tableens1" :heads="$heads" striped
                                                   hoverable with-buttons>
                                 @foreach($config['data'] as $row)
                                     <tr>
