@@ -40,13 +40,12 @@
                         <div class="card-body m-b-40">
                             <div class="table-responsive">
                                 <table class="table table-hover">
-                                    <thead class="table-dark">
+                                    <thead class="bg-primary">
                                     <tr>
                                         <th style="width: 50px">#</th>
                                         <th>TITRE</th>
                                         <th>SOUS TITRE</th>
                                         <th>CATÉGORIE</th>
-                                        <th>RÉSUMÉ</th>
                                         <th>LECTEURS</th>
                                         <th>VISITES</th>
                                         <th>DERNIÈRE</th>
@@ -62,7 +61,6 @@
                                             <td>
                                                 <a href="{{route('bibliotheque.categories.show',[$ouvrage->ouvrage_category_id])}}">{{$ouvrage->categoryNom}}</a>
                                             </td>
-                                            <td>{{$ouvrage->resume}}</td>
                                             <td>{{number_format($ouvrage->uniqueLecturesCount)}}</td>
                                             <td>{{number_format($ouvrage->lecturesCount)}}</td>
                                             <td>{{$ouvrage->latestVisit?->whenRead}}</td>
