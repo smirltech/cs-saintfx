@@ -7,11 +7,9 @@
             'ELEVE',
             'SEXE',
             'AGE',
-            'TELEPHONE',
-            'EMAIL',
             'ADRESSE',
             'RESPONSABLE',
-            'RELATION',
+
             ['Actions', 'no-export' => true, 'width' => 5],
         ];
 
@@ -27,11 +25,10 @@ $data=[];
                 $eleve->fullName,
                 $eleve->sexe->value??'',
                 $eleve->date_naissance->age??'',
-                 '<a href="tel:'.$eleve->telephone.'">'.$eleve->telephone.'</a>',
-                '<a href = "mailto:'.$eleve->email.'">'.$eleve->email.'</a>',
+
                 $eleve->adresse,
                 $eleve->responsable_eleve?->responsable?->nom??'',
-                $eleve->responsable_eleve?->relation?->label()??'',
+
                 '<nobr>' . $btn1. '</nobr>',
             ];
 
@@ -40,7 +37,7 @@ $data=[];
         $config = [
             'data' => $data ?? [],
             'order' => [[1, 'asc']],
-            'columns' => [['orderable' => false],['orderable' => true],  null, null, null, null, null, null, null, null,['orderable' => false]],
+            'columns' => [['orderable' => false],['orderable' => true], null, null, null, null, null,['orderable' => false]],
         ];
 @endphp
 @section('title')
