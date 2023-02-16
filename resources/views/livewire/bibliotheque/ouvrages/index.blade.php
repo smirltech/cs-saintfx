@@ -38,6 +38,7 @@
                         </div>
 
                         <div class="card-body m-b-40">
+                            <livewire:bibliotheque.ouvrage.ouvrage-create-component/>
                             <div class="table-responsive">
                                 <table class="table table-hover">
                                     <thead class="bg-primary">
@@ -67,13 +68,13 @@
                                             <td>
                                                 <div class="d-flex float-right">
 
-                                                        <a wire:click.debounce="addLecture({{$ouvrage->id}})"
-                                                           href="{{$ouvrage->url}}"
-                                                           target=“_blank”
-                                                           title="Aller au lien"
-                                                           class="btn btn-default  mr-2">
-                                                            <i class="fas fa-globe"></i>
-                                                        </a>
+                                                    <a wire:click.debounce="addLecture({{$ouvrage->id}})"
+                                                       href="{{$ouvrage->url}}"
+                                                       target=“_blank”
+                                                       title="Aller au lien"
+                                                       class="btn btn-default  mr-2">
+                                                        <i class="fas fa-globe"></i>
+                                                    </a>
 
                                                     @can('ouvrages.view',$ouvrage)
                                                         <a href="{{route('bibliotheque.ouvrages.show',[$ouvrage->id])}}"
