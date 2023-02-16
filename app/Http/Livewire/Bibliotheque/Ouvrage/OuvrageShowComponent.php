@@ -62,10 +62,12 @@ class OuvrageShowComponent extends BaseComponent
     public function loadData()
     {
         $this->categories = OuvrageCategory::orderBy('nom', 'ASC')->get();
-        $this->auteurs = Auteur::whereDoesntHave('ouvrage_auteur')->orderBy('nom', 'ASC')->get();
+        //$this->auteurs = Auteur::whereDoesntHave('ouvrage_auteur')->orderBy('nom', 'ASC')->get();
+        $this->auteurs = Auteur::orderBy('nom', 'ASC')->get();
 
 
-        $this->etiquettes = Etiquette::whereDoesntHave('ouvrage_etiquette')->orderBy('nom', 'ASC')->get();
+        //$this->etiquettes = Etiquette::whereDoesntHave('ouvrage_etiquette')->orderBy('nom', 'ASC')->get();
+        $this->etiquettes = Etiquette::orderBy('nom', 'ASC')->get();
 
         //  dd($this->categories);
     }

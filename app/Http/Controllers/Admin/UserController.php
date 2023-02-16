@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\UserRole;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
@@ -37,9 +38,9 @@ class UserController extends Controller
     {
 
         // get user not super admins, use spatie permission
-        $users = User::orderByDesc('id')->get();
+        $users = User::getStaff();
 
-        return view('users.index', compact('users'))->with('title', '- ' . __('Utilisateurs'));
+        return view('users.index', compact('users'))->with('title', __('Utilisateurs'));
     }
 
     /**
@@ -83,7 +84,7 @@ class UserController extends Controller
     {
         //  get alls roles except super admin
 
-        $roles = Role::where('name', '!=', 'super-admin')->get();
+        $roles = Role::where('name', '!=', 'super-admin')->where('name', '!=', UserRole::parent->value)->where('name', '!=', UserRole::eleve->value)->get();
         $facultes = Option::all();
 
         return view('users.create', compact('roles', 'facultes'))->with('title', __('Ajouter un utilisateur'));

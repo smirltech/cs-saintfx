@@ -46,6 +46,7 @@
                                         <th>NOM</th>
                                         <th>PRENOM</th>
                                         <th>SEXE</th>
+                                        <th>OUVRAGES</th>
                                         <th style="width: 50px"></th>
                                     </tr>
                                     </thead>
@@ -56,6 +57,7 @@
                                             <td>{{$auteur->nom}}</td>
                                             <td>{{$auteur->prenom}}</td>
                                             <td>{{$auteur->sexe->label()}}</td>
+                                            <td>{{$auteur->ouvrage_auteur->count()}}</td>
                                             <td>
                                                 <div class="d-flex float-right">
                                                     @can('auteurs.update',$auteur)

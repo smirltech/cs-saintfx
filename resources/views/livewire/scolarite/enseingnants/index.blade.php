@@ -1,6 +1,36 @@
 @php use App\Models\Filiere; @endphp
 @php use App\Models\Option; @endphp
 @php use App\Models\Section; @endphp
+@php
+    $heads =[
+        ['label'=>'#', 'width'=>5],
+        '',
+        'NOM',
+        'SECTION',
+        'COURS',
+        ['label'=>'', 'no-export'=>true, 'width'=>5]
+];
+   $data =[];
+   foreach ($enseignants as $i=>$enseignant){
+        $data[] =[
+            $i+1,
+            $enseignant->avatar,
+            $enseignant->nom,
+            $enseignant->section->nom,
+            !$enseignant->primaire()?$enseignant->cours->count()??'-':$enseignant->classe->code??'-',
+            $enseignant,
+];
+   }
+
+    $config =[
+  'data'=>$data,
+  'order'=>[[1, 'asc']],
+  'columns'=>[null, null,null, null,null, ['orderable'=>false]],
+  'destroy'=>true,
+
+];
+@endphp
+
 @section('content_header')
     <div class="row">
         <div class="col-6">
@@ -34,56 +64,34 @@
                                 @endcan
                             </div>
                         </div>
-                        <div class="card-body p-0 table-responsive">
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th>NO.</th>
-                                    <th></th>
-                                    <th>NOM</th>
-                                    <th>SECTION</th>
-                                    <th>COURS</th>
-                                    <th></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach ($enseignants as $key=>$enseignant)
+                        <div class="card-body">
+                            <x-adminlte-datatable wire:ignore.self head-theme="light" theme="light" id="tableens1" :heads="$heads" striped
+                                                  hoverable with-buttons>
+                                @foreach($config['data'] as $row)
                                     <tr>
-                                        <td>{{ $key+1 }}</td>
+                                        <td>{!! $row[0] !!}</td>
                                         <td><img class="img-circle" style="width:50px; height:50px"
-                                                 src="{{$enseignant->avatar}}"></td>
-                                        <td>{{ $enseignant->nom }}</td>
-
-                                        <td>
-                                            {{ $enseignant->section->nom }}
-                                        </td>
-                                        @if(!$enseignant->primaire())
-                                            <td>
-                                                {{ $enseignant->cours->count()??'-' }} Cours
-                                            </td>
-                                        @else
-                                            <td>
-                                                {{ $enseignant->classe->code??'-' }}
-                                            </td>
-                                        @endif
-
+                                                 src="{{$row[1]}}"></td>
+                                        <td>{!! $row[2] !!}</td>
+                                        <td>{!! $row[3] !!}</td>
+                                        <td>{!! $row[4] !!}</td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                @can('enseignants.view',$enseignant)
-                                                    <a href="/scolarite/enseignants/{{ $enseignant->id }}" title="Voir"
+                                                @can('enseignants.view',$row[5])
+                                                    <a href="/scolarite/enseignants/{{ $row[5]->id }}" title="Voir"
                                                        class="btn btn-outline-primary ml-2">
                                                         <i class="fas fa-eye"></i>
                                                     </a>
                                                 @endcan
-                                                @can('enseignants.update',$enseignant)
-                                                    <a href="/scolarite/enseignants/{{ $enseignant->id }}/edit"
+                                                @can('enseignants.update',$row[5])
+                                                    <a href="/scolarite/enseignants/{{ $row[5]->id }}/edit"
                                                        title="modifier"
                                                        class="btn btn-outline-info  ml-2">
                                                         <i class="fas fa-pen"></i>
                                                     </a>
                                                 @endcan
-                                                @can('enseignants.delete',$enseignant)
-                                                    <button wire:click="getSelectedEnseignant('{{$enseignant->id }}')"
+                                                @can('enseignants.delete',$row[5])
+                                                    <button wire:click="getSelectedEnseignant('{{$row[5]->id }}')"
                                                             type="button"
                                                             title="supprimer" class="btn btn-outline-danger  ml-2"
                                                             data-toggle="modal"
@@ -95,8 +103,7 @@
                                         </td>
                                     </tr>
                                 @endforeach
-                                </tbody>
-                            </table>
+                            </x-adminlte-datatable>
                         </div>
                     </div>
                 </div>

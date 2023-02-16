@@ -1,5 +1,5 @@
 @section('title')
-     - options
+    options
 @endsection
 @section('content_header')
     <div class="row">

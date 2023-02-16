@@ -20,7 +20,7 @@ class ResponsablePolicy
 
     public function view(User $user, Responsable $responsable):Response|bool
     {
-        return $user->can('responsables.view.' . $responsable->id)
+        return $user->can('responsables.view.' . $responsable->id) || $user->id == $responsable->user_id
             ? Response::allow()
             : Response::deny('Vous n\'êtes pas autorisé à voir ce responsable.');
     }

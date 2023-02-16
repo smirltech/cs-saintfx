@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Scolarite\Eleve;
 use App\Enums\InscriptionCategorie;
 use App\Enums\InscriptionStatus;
 use App\Enums\ResponsableRelation;
+use App\Enums\UserRole;
 use App\Http\Livewire\BaseComponent;
 use App\Models\Annee;
 use App\Models\Eleve;
@@ -14,6 +15,7 @@ use App\Models\Option;
 use App\Models\Responsable;
 use App\Models\ResponsableEleve;
 use App\Models\Section;
+use App\Models\User;
 use App\Traits\CanHandleEleveUniqueCode;
 use App\Traits\FakeProfileImage;
 use App\Traits\TopMenuPreview;
@@ -63,6 +65,12 @@ class EleveShowComponent extends BaseComponent
     public $responsable;
     public $responsables;
     public $responsable_relation2;
+
+    public $nom;
+    public $sexe;
+    public $telephone;
+    public $email;
+    public $adresse;
 
     protected $listeners = ['onModalClosed', 'refreshComponent' => '$refresh', 'refresh' => '$refresh'];
 
@@ -463,5 +471,42 @@ class EleveShowComponent extends BaseComponent
         $this->loadAvailableClasses();
     }
 
+
+    // create eleve account
+    public function fillDataToModal(): void
+    {
+        $this->nom = $this->eleve->nom;
+        $this->sexe = $this->eleve->sexe;
+        $this->telephone = $this->eleve->telephone;
+        $this->email = $this->eleve->email;
+        $this->adresse = $this->eleve->adresse;
+    }
+
+    // create user for responsable
+    public function addUserToEleve()
+    {
+        if ($this->eleve->user == null) {
+            $user = User::create([
+                'name' => $this->nom,
+                'email' => $this->email??$this->eleve->id."@college-enk.com",
+                'password' => 'password',
+            ]);
+            $user->assignRole('eleve');
+            $this->eleve->update([
+                'user_id' => $user->id,
+            ]);
+            $this->alert('success', "Compte élève a été ajouté avec succès ! Un email a été envoyé avec le mot de passe !");
+        }else{
+            $this->eleve->user->update([
+                'password' => 'password',
+            ]);
+            $this->alert('warning', "Élève a déjà un compte ! Mais un email a été envoyé avec le mot de passe !");
+        }
+        // close the modal by specifying the id of the modal
+        $this->dispatchBrowserEvent('closeModal', ['modal' => 'edit-eleve-user-modal']);
+        $this->onModalClosed();
+
+
+    }
 
 }
