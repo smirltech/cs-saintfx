@@ -10,7 +10,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <x-validation-errors class="mb-4" :errors="$errors"/>
+                <x-form::validation-errors class="mb-4" :errors="$errors"/>
                 <form id="f1" wire:submit.prevent="editInscription">
 
                     {{-- Choix de classe --}}

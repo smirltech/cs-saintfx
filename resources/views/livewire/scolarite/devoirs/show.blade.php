@@ -56,7 +56,7 @@
                         @if($devoir->document)
                             <strong><i class="fas fa-file-pdf mr-1"></i>Pièce jointe</strong>
                             <p class="text-muted">
-                                <x-list-files :media="$devoir->media"/>
+                                <x-form::list-files :media="$devoir->media"/>
                             </p>
                         @endif
 
@@ -70,7 +70,7 @@
                         <form wire:submit.prevent="submit">
                             <div class="row">
                                 <div class="form-group col-md-12">
-                                    <x-form-input
+                                    <x-form::input
                                         required placeholder="Saisir le numéro de l'élève"
                                         wire:model="matricule" type="number"
                                         label="Matricule de l'élève"
@@ -83,7 +83,7 @@
                                 </div>
 
                                 <div class="form-group col-md-12">
-                                    <x-form-textarea
+                                    <x-form::textarea
                                         placeholder="Saisir le contenu de la réponse"
                                         wire:model.defer="devoir_reponse.contenu"
                                         required
@@ -95,13 +95,14 @@
                                 </div>
 
                                 <div class="form-group col-md-12">
-                                    <x-form-file wire:model="document"
-                                                 label="Pièce jointe"
-                                                 required
-                                                 target="document"
-                                                 :isValid="$errors->has('document') ? false : null"
-                                                 error="{{$errors->first('document')}}"/>
-                                    <x-list-files :media="$devoir_reponse->media??[]" delete/>
+                                    <x-form::input-file
+                                        wire:model="document"
+                                        :media="$devoir_reponse->media??[]" delete
+                                        label="Pièce jointe"
+                                        required
+                                        target="document"
+                                        :isValid="$errors->has('document') ? false : null"
+                                        error="{{$errors->first('document')}}"/>
                                 </div>
                             </div>
                             @if($devoir->isClosed())
@@ -111,7 +112,7 @@
                                 </div>
                             @else
                                 @if($eleve)
-                                    <x-button class="btn-primary float-end">Soumettre</x-button>
+                                    <x-form::button class="btn-primary float-end">Soumettre</x-button>
                                 @endif
                             @endif
                         </form>

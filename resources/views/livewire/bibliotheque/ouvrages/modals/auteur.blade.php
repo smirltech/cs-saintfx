@@ -1,7 +1,7 @@
 {{--add category--}}
 <x-adminlte-modal wire:ignore.self id="add-auteur-modal" icon="fa fa-user-tie"
                   title="Ajout d'auteur">
-    <x-validation-errors class="mb-4" :errors="$errors"/>
+    <x-form::validation-errors class="mb-4" :errors="$errors"/>
     <form id="faut1a" wire:submit.prevent="addAuteur">
         <div class="row">
             <div class="form-group col-md-12 col-sm-12">

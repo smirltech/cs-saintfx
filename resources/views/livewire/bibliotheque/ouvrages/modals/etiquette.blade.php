@@ -1,7 +1,7 @@
 {{--add category--}}
 <x-adminlte-modal wire:ignore.self id="add-etiquette-modal" icon="fa fa-tag"
                   title="Ajout d'étiquette">
-    <x-validation-errors class="mb-4" :errors="$errors"/>
+    <x-form::validation-errors class="mb-4" :errors="$errors"/>
     <form id="feti1a" wire:submit.prevent="addEtiquette">
         <div class="row">
             <div class="form-group col-md-12 col-sm-12">

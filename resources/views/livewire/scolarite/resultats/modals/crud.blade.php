@@ -12,7 +12,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <x-validation-errors class="mb-4" :errors="$errors"/>
+                <x-form::validation-errors class="mb-4" :errors="$errors"/>
                 <form id="f1" wire:submit.prevent="addThisResponsable">
                     <div class="row">
                         <div class="form-group col-md-9 col-sm-12">
@@ -79,7 +79,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <x-validation-errors class="mb-4" :errors="$errors"/>
+                <x-form::validation-errors class="mb-4" :errors="$errors"/>
                 <form id="f2" wire:submit.prevent="submitResponsable">
                     <div class="row">
                         <div class="form-group col-md-9 col-sm-12">
@@ -172,7 +172,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <x-validation-errors class="mb-4" :errors="$errors"/>
+                <x-form::validation-errors class="mb-4" :errors="$errors"/>
                 <form id="f5" wire:submit.prevent="editRelation">
 
                     <div class="row">

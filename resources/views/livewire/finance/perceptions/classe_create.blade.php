@@ -1,7 +1,7 @@
 @php use App\Enums\FraisType; @endphp
 @php use App\Enums\FraisFrequence; @endphp
 @section('title')
-     Facturer toute la classe  {{date('d-m-Y')}}
+    Facturer toute la classe  {{date('d-m-Y')}}
 @endsection
 @section('content_header')
     <div class="row">
@@ -28,7 +28,7 @@
                     <div class="card">
 
                         <div class="card-body m-b-40">
-                            <x-validation-errors class="mb-4" :errors="$errors"/>
+                            <x-form::validation-errors class="mb-4" :errors="$errors"/>
                             <form id="f1" wire:submit.prevent="addPerceptions">
                                 <div class="row">
 
@@ -44,7 +44,7 @@
                                         @error('classe_id')
                                         <span class="text-red">{{ $message }}</span>
                                         @enderror
-                                     </div>
+                                    </div>
 
                                     <div class="form-group col-sm-12 col-md-6">
                                         <label for="">Nombre d'élèves</label>
@@ -97,25 +97,25 @@
                                         <span class="text-red">{{ $message }}</span>
                                         @enderror
                                     </div>
-                                   {{-- <div class="form-group col-sm-12 col-md-4">
-                                        <label for="">Montant Payé</label>
-                                        <input type="number" wire:model="paid"
-                                               class="form-control">
-                                    </div>
-                                    <div class="form-group col-sm-12 col-md-4">
-                                        <label for="">Payé Par</label>
-                                        <input type="text" wire:model="paid_by"
-                                               class="form-control">
-                                    </div>--}}
+                                    {{-- <div class="form-group col-sm-12 col-md-4">
+                                         <label for="">Montant Payé</label>
+                                         <input type="number" wire:model="paid"
+                                                class="form-control">
+                                     </div>
+                                     <div class="form-group col-sm-12 col-md-4">
+                                         <label for="">Payé Par</label>
+                                         <input type="text" wire:model="paid_by"
+                                                class="form-control">
+                                     </div>--}}
                                 </div>
 
                             </form>
                         </div>
                         <div class="card-footer">
                             <button form="f1" type="submit" class="btn btn-primary">Facturer</button>
-                           {{-- <button wire:click="addPerceptionAndClose" type="button" class="btn btn-success ml-5">
-                                Facturer et Terminer
-                            </button>--}}
+                            {{-- <button wire:click="addPerceptionAndClose" type="button" class="btn btn-success ml-5">
+                                 Facturer et Terminer
+                             </button>--}}
                         </div>
                     </div>
                 </div>

@@ -1,6 +1,6 @@
 @php use App\Enums\ClasseGrade; @endphp
 @section('title')
-     - ajouter classe
+    - ajouter classe
 @endsection
 @section('content_header')
     <div class="row">
@@ -23,7 +23,7 @@
         <div class="container-fluid">
             <div class="card">
                 <div class="card-body">
-                    <x-validation-errors class="mb-4" :errors="$errors"/>
+                    <x-form::validation-errors class="mb-4" :errors="$errors"/>
                     <form wire:submit.prevent="submit">
                         <div class="row">
                             <div class="form-group col">

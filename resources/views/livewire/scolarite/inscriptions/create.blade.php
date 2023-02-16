@@ -1,7 +1,7 @@
 @php use App\Enums\Sexe; @endphp
 @php use App\Enums\EtatCivil;use App\Enums\InscriptionCategorie;use App\Enums\ResponsableRelation; @endphp
 @section('title')
-     - inscrire élève
+    - inscrire élève
 @endsection
 @section('content_header')
     <div class="row">
@@ -21,13 +21,13 @@
 @stop
 <div class="">
     @include('livewire.scolarite.inscriptions.modals.add_responsable')
-  {{--  @include('livewire.finance.cards.recu')--}}
+    {{--  @include('livewire.finance.cards.recu')--}}
     <div class="content mt-3">
         <div class="container-fluid">
             <div class="card">
 
                 <div id="inscriptionPrint" class="card-body">
-                    <x-validation-errors class="mb-4" :errors="$errors"/>
+                    <x-form::validation-errors class="mb-4" :errors="$errors"/>
                     <form wire:submit.prevent="submit">
                         {{-- Information Personnelle--}}
                         <div>
@@ -221,7 +221,8 @@
                                     <div class="form-group col-md-3 col-sm-12">
                                         <label for="">Payé</label>
                                         <div class="form-check">
-                                            <input disabled wire:model="has_paid" type="checkbox" class=" form-check-input"
+                                            <input disabled wire:model="has_paid" type="checkbox"
+                                                   class=" form-check-input"
                                                    id="exampleCheck2">
                                             <label class="form-check-label" for="exampleCheck2">Cocher si frais
                                                 d'inscription payé</label>
@@ -231,7 +232,8 @@
                                 @if($has_paid && $fee_id)
                                     <div class="form-group col-md-3 col-sm-12">
                                         <label for="">Payé par</label>
-                                        <input placeholder="Saisir nom de celui qui paie" type="text" wire:model="paid_by"
+                                        <input placeholder="Saisir nom de celui qui paie" type="text"
+                                               wire:model="paid_by"
                                                class="form-control">
                                     </div>
                                 @endif

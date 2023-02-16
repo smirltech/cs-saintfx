@@ -2,7 +2,7 @@
 @php use App\Enums\FraisFrequence; @endphp
 
 @section('title')
-     - Modifier Facture  {{date('d-m-Y')}}
+    - Modifier Facture  {{date('d-m-Y')}}
 @endsection
 @section('content_header')
     <div class="row">
@@ -21,7 +21,7 @@
 
 @stop
 <div wire:ignore.self class="">
-   {{-- @include('livewire.finance.cards.recu')--}}
+    {{-- @include('livewire.finance.cards.recu')--}}
 
     <div class="content mt-3">
         <div class="container-fluid">
@@ -30,17 +30,17 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="card-title">
-                                <h4 >Élève : <strong>{{$perception->nomComplet}}</strong></h4>
+                                <h4>Élève : <strong>{{$perception->nomComplet}}</strong></h4>
 
                             </div>
                             <div class="card-tools">
                                 <div class="mr-2">Classe : <strong><i>{{$perception->classe}}</i></strong></div>
-                               {{-- <button title="Supprimer" role="button" class="btn"
-                                ><span aria-hidden="true">&times;</span></button>--}}
+                                {{-- <button title="Supprimer" role="button" class="btn"
+                                 ><span aria-hidden="true">&times;</span></button>--}}
                             </div>
                         </div>
                         <div class="card-body m-b-40">
-                            <x-validation-errors class="mb-4" :errors="$errors"/>
+                            <x-form::validation-errors class="mb-4" :errors="$errors"/>
                             <form id="f1" wire:submit.prevent="editPerception">
 
                                 <div class="row">
@@ -59,7 +59,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group col-sm-12 col-md-6">
-                                        <label for="">Raison  {{$perception->custom_property}}</label>
+                                        <label for="">Raison {{$perception->custom_property}}</label>
                                         <select wire:model="perception.custom_property"
                                                 class="form-control">
                                             <option value="">Choisir raison... !</option>

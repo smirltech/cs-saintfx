@@ -1,3 +1,0 @@
-<div class="valid-feedback" wire:loading wire:target="{{$attributes['wire:model']??$attributes['wire:model.defer']}}">
-    Telechargement en cours...
-</div>

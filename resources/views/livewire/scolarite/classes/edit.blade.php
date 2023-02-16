@@ -1,6 +1,6 @@
 @php use App\Enums\ClasseGrade;use App\Models\Enseignant; @endphp
 @section('title')
-     - modifier classe - {{$classe->code}}
+    - modifier classe - {{$classe->code}}
 @endsection
 @section('content_header')
     <div class="row">
@@ -24,7 +24,7 @@
             <div class="card">
 
                 <div class="card-body">
-                    <x-validation-errors class="mb-4" :errors="$errors"/>
+                    <x-form::validation-errors class="mb-4" :errors="$errors"/>
                     <form wire:submit.prevent="submit">
                         <div class="row">
                             <div class="form-group col">
@@ -87,14 +87,14 @@
                             </div>
                             @if($classe->section->primaire())
                                 <div class="form-group col-md-4">
-                                    <x-form-select wire:model="enseignant_id"
-                                                   label="Enseignant"
-                                                   :isValid="$errors->has('enseignant_id') ? false : null"
-                                                   error="{{$errors->first('enseignant_id')}}">
+                                    <x-form::select wire:model="enseignant_id"
+                                                    label="Enseignant"
+                                                    :isValid="$errors->has('enseignant_id') ? false : null"
+                                                    error="{{$errors->first('enseignant_id')}}">
                                         @foreach(Enseignant::classe($classe)->get() as $c)
                                             <option value="{{ $c->id }}">{{ $c->nom }}</option>
                                         @endforeach
-                                    </x-form-select>
+                                    </x-form::select>
                                 </div>
                             @endif
                         </div>

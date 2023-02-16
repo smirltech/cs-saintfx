@@ -12,7 +12,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <x-validation-errors class="mb-4" :errors="$errors"/>
+                <x-form::validation-errors class="mb-4" :errors="$errors"/>
                 <form id="f1" wire:submit.prevent="addFrais">
                     <div class="row">
                         <div class="form-group col-md-6 col-sm-12">
@@ -129,7 +129,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <x-validation-errors class="mb-4" :errors="$errors"/>
+                <x-form::validation-errors class="mb-4" :errors="$errors"/>
                 <form id="f2" wire:submit.prevent="updateFrais">
                     <div class="row">
                         <div class="form-group col-md-6 col-sm-12">

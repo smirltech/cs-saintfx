@@ -16,7 +16,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <x-validation-errors class="mb-4" :errors="$errors"/>
+                <x-form::validation-errors class="mb-4" :errors="$errors"/>
                 <form id="reinsf2" wire:submit.prevent="addReinscription">
 
                     {{-- Choix de classe --}}
@@ -61,7 +61,7 @@
                             </div>
                             <div class="form-group col-3">
                                 <label for="">Classe <i class="text-red">*</i></label>
-                                <select wire:model="classe_id"  wire:change="changeClasse"
+                                <select wire:model="classe_id" wire:change="changeClasse"
                                         class="form-control">
                                     <option value="">Choisir classe</option>
                                     @foreach ($classes as $classe )

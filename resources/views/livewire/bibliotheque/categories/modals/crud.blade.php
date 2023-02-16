@@ -1,18 +1,18 @@
 {{--add category--}}
 <x-adminlte-modal wire:ignore.self id="add-category-modal" icon="fa fa-tag"
                   title="Ajout de Catégorie">
-    <x-validation-errors class="mb-4" :errors="$errors"/>
+    <x-form::validation-errors class="mb-4" :errors="$errors"/>
     <form id="f1a" wire:submit.prevent="addCategory">
         <div class="row">
 
             <div class="form-group col-md-12 col-sm-12">
-                <x-form-input
+                <x-form::input
                     type="text"
                     label="Nom"
                     wire:model="category.nom"
                     :is-valid="$errors->has('category.nom')?false:null"
                     :error="$errors->first('category.nom')">
-                </x-form-input>
+                </x-form::input>
             </div>
             <div class="form-group col-md-12 col-sm-12">
                 <label for="">Groupe</label>
@@ -42,18 +42,18 @@
 {{--update category--}}
 <x-adminlte-modal wire:ignore.self id="update-category-modal" icon="fa fa-tag"
                   title="Modification de Catégorie">
-    <x-validation-errors class="mb-4" :errors="$errors"/>
+    <x-form::validation-errors class="mb-4" :errors="$errors"/>
     <form id="f2a" wire:submit.prevent="updateCategory">
         <div class="row">
 
             <div class="form-group col-md-12 col-sm-12">
-                <x-form-input
+                <x-form::input
                     type="text"
                     label="Nom"
                     wire:model="category.nom"
                     :is-valid="$errors->has('category.nom')?false:null"
                     :error="$errors->first('category.nom')">
-                </x-form-input>
+                </x-form::input>
             </div>
             <div class="form-group col-md-12 col-sm-12">
                 <label for="">Groupe</label>
@@ -86,7 +86,7 @@
 {{--delete category--}}
 <x-adminlte-modal wire:ignore.self id="delete-category-modal" icon="fa fa-tag"
                   title="Suppression de catégorie">
-    <x-validation-errors class="mb-4" :errors="$errors"/>
+    <x-form::validation-errors class="mb-4" :errors="$errors"/>
     <div>Êtes-vous sûr de vouloir supprimer cette catégorie d'ouvrage ?</div>
     <x-slot name="footerSlot">
         <x-adminlte-button wire:click="deleteCategory" type="button" theme="primary"

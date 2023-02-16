@@ -6,7 +6,7 @@
             <div class="card">
 
                 <div class="card-body">
-                    <x-validation-errors class="mb-4" :errors="$errors"/>
+                    <x-form::validation-errors class="mb-4" :errors="$errors"/>
                     <form wire:submit.prevent="submit">
                         <h4 class="font-weight-bold"><u>Information Personnelle</u></h4>
                         <div class="row">
