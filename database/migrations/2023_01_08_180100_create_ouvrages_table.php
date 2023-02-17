@@ -9,7 +9,7 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('ouvrages', function (Blueprint $table) {
-            $table->id();
+            $table->ulid('id')->primary();
             $table->foreignIdFor(OuvrageCategory::class)->constrained()->restrictOnDelete();
             $table->string('titre');
             $table->string('sous_titre')->nullable();

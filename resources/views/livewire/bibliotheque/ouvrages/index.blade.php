@@ -66,14 +66,15 @@
                                             <td>{{$ouvrage->latestVisit?->whenRead}}</td>
                                             <td>
                                                 <div class="d-flex float-right">
-
-                                                    <a wire:click.debounce="addLecture({{$ouvrage->id}})"
-                                                       href="{{$ouvrage->url}}"
-                                                       target=“_blank”
-                                                       title="Aller au lien"
-                                                       class="btn btn-default  mr-2">
-                                                        <i class="fas fa-globe"></i>
-                                                    </a>
+                                                    @if($ouvrage->url)
+                                                        <a wire:click.debounce="addLecture({{$ouvrage->id}})"
+                                                           href="{{$ouvrage->url}}"
+                                                           target=“_blank”
+                                                           title="Aller au lien"
+                                                           class="btn btn-default  mr-2">
+                                                            <i class="fas fa-globe"></i>
+                                                        </a>
+                                                    @endif
 
                                                     @can('ouvrages.view',$ouvrage)
                                                         <a href="{{route('bibliotheque.ouvrages.show',$ouvrage->id)}}"

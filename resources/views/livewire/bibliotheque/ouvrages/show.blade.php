@@ -63,7 +63,8 @@
                                     </span>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Résumé : </b> <span class="float-right">{{ $ouvrage->resume }}</span>
+                                    <b>Résumé : </b>
+                                    <div>{!! $ouvrage->resume !!}</div>
                                 </li>
                                 <li class="list-group-item">
                                     <b>Édition : </b> <span class="float-right">{{ $ouvrage->edition }}</span>
