@@ -12,7 +12,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <x-validation-errors class="mb-4" :errors="$errors"/>
+                <x-form::validation-errors class="mb-4" :errors="$errors"/>
                 <form id="f1" wire:submit.prevent="addFrais">
                     <div class="row">
                         <div class="form-group col-md-6 col-sm-12">
@@ -33,66 +33,66 @@
                         </div>
                         <div class="form-group col-md-6 col-sm-12">
                             <label for="">Type</label>
-                            <select wire:model="type"
-                                    class="form-control">
+                            <x-form::select wire:model="type"
+                                            class="form-control">
                                 @foreach (FraisType::cases() as $es )
                                     <option value="{{$es->value}}">{{ $es->label() }}</option>
                                 @endforeach
-                            </select>
+                            </x-form::select>
                         </div>
                         <div class="form-group col-md-6 col-sm-12">
                             <label for="">Fréquence</label>
-                            <select wire:model="frequence"
-                                    class="form-control">
+                            <x-form::select wire:model="frequence"
+                                            class="form-control">
                                 @foreach (FraisFrequence::cases() as $es )
                                     <option value="{{$es->value}}">{{ $es->label() }}</option>
                                 @endforeach
-                            </select>
+                            </x-form::select>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-3">
                             <label for="">Section <i class="text-red">*</i></label>
-                            <select wire:model="section_id" wire:change="changeSection"
-                                    class="form-control  @error('section_id') is-invalid @enderror">
+                            <x-form::select wire:model="section_id" wire:change="changeSection"
+                                            class="form-control  @error('section_id') is-invalid @enderror">
                                 <option value=null>Choisir section</option>
                                 @foreach ($sections as $section )
                                     <option value="{{ $section->id }}">{{ $section->nom }}</option>
                                 @endforeach
-                            </select>
+                            </x-form::select>
                             @error('section_id')
                             <span class="text-red">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group col-3">
                             <label for="">Option</label>
-                            <select wire:model="option_id" wire:change="changeOption" class="form-control">
+                            <x-form::select wire:model="option_id" wire:change="changeOption" class="form-control">
                                 <option value=null>Choisir option</option>
                                 @foreach ($options as $option )
                                     <option value="{{ $option->id }}">{{ $option->nom }}</option>
                                 @endforeach
-                            </select>
+                            </x-form::select>
 
                         </div>
                         <div class="form-group col-3">
                             <label for="">Filière</label>
-                            <select wire:model="filiere_id"
-                                    wire:change="changeFiliere" class="form-control">
+                            <x-form::select wire:model="filiere_id"
+                                            wire:change="changeFiliere" class="form-control">
                                 <option value=null>Choisir filière</option>
                                 @foreach ($filieres as $filiere )
                                     <option value="{{ $filiere->id }}">{{ $filiere->nom }}</option>
                                 @endforeach
-                            </select>
+                            </x-form::select>
                         </div>
                         <div class="form-group col-3">
                             <label for="">Classe <i class="text-red">*</i></label>
-                            <select wire:model="classe_id" wire:change="onClasseSelected"
-                                    class="form-control">
+                            <x-form::select wire:model="classe_id" wire:change="onClasseSelected"
+                                            class="form-control">
                                 <option value=null>Choisir classe</option>
                                 @foreach ($classes as $classe )
                                     <option value="{{ $classe->id }}">{{ $classe->code }}</option>
                                 @endforeach
-                            </select>
+                            </x-form::select>
                             @error('classe_id')
                             <span class="text-red">{{ $message }}</span>
                             @enderror
@@ -129,7 +129,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <x-validation-errors class="mb-4" :errors="$errors"/>
+                <x-form::validation-errors class="mb-4" :errors="$errors"/>
                 <form id="f2" wire:submit.prevent="updateFrais">
                     <div class="row">
                         <div class="form-group col-md-6 col-sm-12">
@@ -150,66 +150,66 @@
                         </div>
                         <div class="form-group col-md-6 col-sm-12">
                             <label for="">Type</label>
-                            <select wire:model="type"
-                                    class="form-control">
+                            <x-form::select wire:model="type"
+                                            class="form-control">
                                 @foreach (FraisType::cases() as $es )
                                     <option value="{{$es->value}}">{{ $es->label() }}</option>
                                 @endforeach
-                            </select>
+                            </x-form::select>
                         </div>
                         <div class="form-group col-md-6 col-sm-12">
                             <label for="">Fréquence</label>
-                            <select wire:model="frequence"
-                                    class="form-control">
+                            <x-form::select wire:model="frequence"
+                                            class="form-control">
                                 @foreach (FraisFrequence::cases() as $es )
                                     <option value="{{$es->value}}">{{ $es->label() }}</option>
                                 @endforeach
-                            </select>
+                            </x-form::select>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-3">
                             <label for="">Section <i class="text-red">*</i></label>
-                            <select wire:model="section_id" wire:change="changeSection"
-                                    class="form-control  @error('section_id') is-invalid @enderror">
+                            <x-form::select wire:model="section_id" wire:change="changeSection"
+                                            class="form-control  @error('section_id') is-invalid @enderror">
                                 <option value=null>Choisir section</option>
                                 @foreach ($sections as $section )
                                     <option value="{{ $section->id }}">{{ $section->nom }}</option>
                                 @endforeach
-                            </select>
+                            </x-form::select>
                             @error('section_id')
                             <span class="text-red">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group col-3">
                             <label for="">Option</label>
-                            <select wire:model="option_id" wire:change="changeOption" class="form-control">
+                            <x-form::select wire:model="option_id" wire:change="changeOption" class="form-control">
                                 <option value=null>Choisir option</option>
                                 @foreach ($options as $option )
                                     <option value="{{ $option->id }}">{{ $option->nom }}</option>
                                 @endforeach
-                            </select>
+                            </x-form::select>
 
                         </div>
                         <div class="form-group col-3">
                             <label for="">Filière</label>
-                            <select wire:model="filiere_id"
-                                    wire:change="changeFiliere" class="form-control">
+                            <x-form::select wire:model="filiere_id"
+                                            wire:change="changeFiliere" class="form-control">
                                 <option value=null>Choisir filière</option>
                                 @foreach ($filieres as $filiere )
                                     <option value="{{ $filiere->id }}">{{ $filiere->nom }}</option>
                                 @endforeach
-                            </select>
+                            </x-form::select>
                         </div>
                         <div class="form-group col-3">
                             <label for="">Classe</label>
-                            <select wire:model="classe_id" wire:change="onClasseSelected"
-                                    class="form-control">
+                            <x-form::select wire:model="classe_id" wire:change="onClasseSelected"
+                                            class="form-control">
                                 <option value=null>Choisir classe</option>
                                 @foreach ($classes as $classe )
                                     <option value="{{ $classe->id }}">{{ $classe->code }}</option>
                                 @endforeach
-                            </select>
+                            </x-form::select>
 
                         </div>
                     </div>

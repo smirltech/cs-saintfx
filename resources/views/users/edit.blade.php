@@ -92,13 +92,13 @@
                                     }}</label>
 
                                             <div class="col-md-6">
-                                                <select name="role_id" id="role_id"
-                                                        class="form-control  form-select">
+                                                <x-form::select name="role_id" id="role_id"
+                                                                class="form-control  form-select">
                                                     @foreach ($roles as $role)
                                                         <option
                                                             value="{{$role->id}}">{{$role->display_name}}</option>
                                                     @endforeach
-                                                </select>
+                                                </x-form::select>
                                             </div>
                                         </div>
                                     @endcan

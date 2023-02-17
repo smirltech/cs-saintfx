@@ -11,7 +11,7 @@
         <div class="col-6">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('scolarite') }}">Accueil</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('bibliotheque.ouvrages') }}">Ouvrages</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('bibliotheque.ouvrages.index') }}">Ouvrages</a></li>
                 <li class="breadcrumb-item active">{{$ouvrage->titre}}</li>
             </ol>
         </div>
@@ -63,7 +63,8 @@
                                     </span>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Résumé : </b> <span class="float-right">{{ $ouvrage->resume }}</span>
+                                    <b>Résumé : </b>
+                                    <div>{!! $ouvrage->resume !!}</div>
                                 </li>
                                 <li class="list-group-item">
                                     <b>Édition : </b> <span class="float-right">{{ $ouvrage->edition }}</span>
@@ -94,7 +95,7 @@
                                         </span>
                                     </div>
                                     <div class=" wrapper p-2">
-                                        @foreach($ouvrage->ouvrage_auteurs as $ouvrage_auteur)
+                                        @foreach($ouvrage->ouvrageAuteurs as $ouvrage_auteur)
                                             <span class="badge badge-warning m-1 text-xs">
                                         {{$ouvrage_auteur->nom}}
                                         <span title="Supprimer de l'ouvrage"

@@ -3,10 +3,11 @@
 use App\Http\Controllers\Admin\AuditController;
 use App\Http\Controllers\Admin\DarkmodeController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\MediaController;
 use App\Http\Livewire\Bibliotheque\Auteur\AuteurIndexComponent;
 use App\Http\Livewire\Bibliotheque\Etiquette\EtiquetteIndexComponent;
+use App\Http\Livewire\Bibliotheque\Ouvrage\OuvrageCreateComponent;
 use App\Http\Livewire\Bibliotheque\Ouvrage\OuvrageIndexComponent;
+use App\Http\Livewire\Bibliotheque\Ouvrage\OuvrageReadComponent;
 use App\Http\Livewire\Bibliotheque\Ouvrage\OuvrageShowComponent;
 use App\Http\Livewire\Bibliotheque\OuvrageCategory\OuvrageCategoryIndexComponent;
 use App\Http\Livewire\Bibliotheque\OuvrageCategory\OuvrageCategoryShowComponent;
@@ -36,7 +37,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('media/{media}', [MediaController::class, 'show'])->name('media.show');
 
 Route::get('/', MainDashboardComponent::class)->name('home')->middleware('auth');
 
@@ -180,8 +180,11 @@ Route::prefix('bibliotheque')->middleware(['auth:web'])->as('bibliotheque.')->gr
     Route::get('categories/{category}', OuvrageCategoryShowComponent::class)->name('categories.show');
 
     // Ouvrages
-    Route::get('ouvrages', OuvrageIndexComponent::class)->name('ouvrages');
+    Route::get('ouvrages', OuvrageIndexComponent::class)->name('ouvrages.index');
+    Route::get('ouvrages/create', OuvrageCreateComponent::class)->name('ouvrages.create');
     Route::get('ouvrages/{ouvrage}', OuvrageShowComponent::class)->name('ouvrages.show');
+    Route::get('ouvrages/{ouvrage}/edit', OuvrageCreateComponent::class)->name('ouvrages.edit');
+    Route::get('ouvrages/{ouvrage}/read', OuvrageReadComponent::class)->name('ouvrages.read');
 
 });
 

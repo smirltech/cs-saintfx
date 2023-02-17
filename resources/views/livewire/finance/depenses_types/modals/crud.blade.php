@@ -10,7 +10,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <x-validation-errors class="mb-4" :errors="$errors"/>
+                <x-form::validation-errors class="mb-4" :errors="$errors"/>
                 <form id="f1" wire:submit.prevent="addTypeDepense">
                     <div class="row">
                         <div class="form-group col-md-12">
@@ -22,12 +22,12 @@
                             @enderror
                         </div>
                         <div class="form-group col-md-12">
-                            <x-form-textarea rows="2"
-                                             placeholder="Saisir la description du cours"
-                                             wire:model="depenseType.description"
-                                             label="Description du type"
-                                             :isValid="$errors->has('depenseType.description') ? false : null"
-                                             error="{{$errors->first('depenseType.description')}}"/>
+                            <x-form::textarea rows="2"
+                                              placeholder="Saisir la description du cours"
+                                              wire:model="depenseType.description"
+                                              label="Description du type"
+                                              :isValid="$errors->has('depenseType.description') ? false : null"
+                                              error="{{$errors->first('depenseType.description')}}"/>
 
                         </div>
                     </div>
@@ -57,7 +57,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <x-validation-errors class="mb-4" :errors="$errors"/>
+                <x-form::validation-errors class="mb-4" :errors="$errors"/>
                 <form id="f2" wire:submit.prevent="updateTypeDepense">
                     <div class="row">
                         <div class="form-group col-md-12">
@@ -69,12 +69,12 @@
                             @enderror
                         </div>
                         <div class="form-group col-md-12">
-                            <x-form-textarea rows="2"
-                                             placeholder="Saisir la description du cours"
-                                             wire:model="depenseType.description"
-                                             label="Description du type"
-                                             :isValid="$errors->has('depenseType.description') ? false : null"
-                                             error="{{$errors->first('depenseType.description')}}"/>
+                            <x-form::textarea rows="2"
+                                              placeholder="Saisir la description du cours"
+                                              wire:model="depenseType.description"
+                                              label="Description du type"
+                                              :isValid="$errors->has('depenseType.description') ? false : null"
+                                              error="{{$errors->first('depenseType.description')}}"/>
 
                         </div>
                     </div>
@@ -133,7 +133,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <x-validation-errors class="mb-4" :errors="$errors"/>
+                <x-form::validation-errors class="mb-4" :errors="$errors"/>
                 <form id="f4" wire:submit.prevent="addOption">
 
                     <div class="row">

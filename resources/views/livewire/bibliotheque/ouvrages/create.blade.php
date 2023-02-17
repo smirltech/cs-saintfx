@@ -1,100 +1,112 @@
-<div>
-    <form id="f1a" wire:submit.prevent="addOuvrage">
+@section('content_header')
+    <div class="row mr-2 ml-2">
+        <div class="col-6">
+            <h1 class="ms-3">{{$title}}</h1>
+        </div>
+
+        <div class="col-6">
+            <ol class="breadcrumb float-right">
+                <li class="breadcrumb-item"><a href="{{ route('bibliotheque.ouvrages.index') }}">Accueil</a></li>
+                <li class="breadcrumb-item active">{{$title}}</li>
+            </ol>
+        </div>
+    </div>
+
+@stop
+<div class="content mt-3">
+    <div class="container-fluid">
         <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body m-b-40">
+                        <form wire:submit.prevent="submit">
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <x-form::input
+                                        required
+                                        type="text"
+                                        label="Titre"
+                                        wire:model="ouvrage.titre">
+                                    </x-form::input>
+                                </div>
 
-            <div class="form-group col-md-12 col-sm-12">
-                <x-form-input
-                    type="text"
-                    label="Titre"
-                    wire:model="ouvrage.titre"
-                    :is-valid="$errors->has('ouvrage.titre')?false:null"
-                    :error="$errors->first('ouvrage.titre')">
-                </x-form-input>
-            </div>
+                                <div class="form-group col-md-12">
+                                    <x-form::input
+                                        type="text"
+                                        label="Sous Titre"
+                                        wire:model="ouvrage.sous_titre">
+                                    </x-form::input>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <x-form::select
+                                        label="Groupe"
+                                        required
+                                        placeholder="Choisir groupe"
+                                        wire:model="ouvrage.ouvrage_category_id">
+                                        @foreach ($categories as $es )
+                                            <option value="{{$es->id}}">{{ $es->nom }}</option>
+                                        @endforeach
+                                    </x-form::select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <x-form::input
+                                        type="date"
+                                        label="Date"
+                                        placeholder="Date d'édition">
+                                    </x-form::input>
+                                </div>
 
-            <div class="form-group col-md-12 col-sm-12">
-                <x-form-input
-                    type="text"
-                    label="Sous Titre"
-                    wire:model="ouvrage.sous_titre"
-                    :is-valid="$errors->has('ouvrage.sous_titre')?false:null"
-                    :error="$errors->first('ouvrage.sous_titre')">
-                </x-form-input>
-            </div>
-            <div class="form-group col-md-6 col-sm-12">
-                <label for="">Groupe</label>
-                <select wire:model="ouvrage.ouvrage_category_id"
-                        class="form-control">
-                    <option value=null>Choisir groupe...</option>
-                    @foreach ($categories as $es )
-                        <option value="{{$es->id}}">{{ $es->nom }}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="form-group col-md-6 col-sm-12">
-                <x-form-input
-                    type="date"
-                    label="Date"
-                    placeholder="Date d'édition"
-                    wire:model="ouvrage.date"
-                    :is-valid="$errors->has('ouvrage.date')?false:null"
-                    :error="$errors->first('ouvrage.date')">
-                </x-form-input>
-            </div>
+                                <div class="form-group col-md-4">
+                                    <x-form::input
+                                        label="Edition"
+                                        placeholder="Tome 2"
+                                        wire:model="ouvrage.edition">
+                                    </x-form::input>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <x-form::input
+                                        label="Editeur"
+                                        placeholder="Maison d'édition"
+                                        wire:model="ouvrage.editeur">
+                                    </x-form::input>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <x-form::input
+                                        label="Lieu"
+                                        placeholder="Ville d'édition"
+                                        wire:model="ouvrage.lieu">
+                                    </x-form::input>
+                                </div>
 
-            <div class="form-group col-md-4 col-sm-12">
-                <x-form-input
-                    type="text"
-                    label="Edition"
-                    placeholder="Tome 2"
-                    wire:model="ouvrage.edition"
-                    :is-valid="$errors->has('ouvrage.edition')?false:null"
-                    :error="$errors->first('ouvrage.edition')">
-                </x-form-input>
-            </div>
-            <div class="form-group col-md-4 col-sm-12">
-                <x-form-input
-                    type="text"
-                    label="Editeur"
-                    placeholder="Maison d'édition"
-                    wire:model="ouvrage.editeur"
-                    :is-valid="$errors->has('ouvrage.editeur')?false:null"
-                    :error="$errors->first('ouvrage.editeur')">
-                </x-form-input>
-            </div>
-            <div class="form-group col-md-4 col-sm-12">
-                <x-form-input
-                    type="text"
-                    label="Lieu"
-                    placeholder="Ville d'édition"
-                    wire:model="ouvrage.lieu"
-                    :is-valid="$errors->has('ouvrage.lieu')?false:null"
-                    :error="$errors->first('ouvrage.lieu')">
-                </x-form-input>
-            </div>
+                                <div class="form-group col-md-12">
+                                    <x-form::ckeditor
+                                        label="Description"
+                                        wire:model="ouvrage.resume"/>
 
-            <div class="form-group col-md-12 col-sm-12">
-                <x-form-input
-                    type="text"
-                    label="Lien URL"
-                    placeholder="Lien url du site"
-                    wire:model="ouvrage.url"
-                    :is-valid="$errors->has('ouvrage.url')?false:null"
-                    :error="$errors->first('ouvrage.url')">
-                </x-form-input>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <x-form::input
+                                        label="Lien URL"
+                                        placeholder="Lien url du site"
+                                        wire:model="ouvrage.url">
+                                    </x-form::input>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <x-form::input-pdf
+                                        label="Fichier PDF"
+                                        :media="$ouvrage->media"
+                                        wire:model="ouvrage_pdf">
+                                    </x-form::input-pdf>
+                                </div>
+
+                            </div>
+                            <x-form::button-primary class="float-right mt-3" type="submit">
+                                Soumettre
+                            </x-form::button-primary>
+                        </form>
+                    </div>
+                </div>
             </div>
-
-            <div class="form-group col-md-12 col-sm-12">
-                <label for="">Description</label>
-                <textarea rows="2" wire:model="ouvrage.resume" class="form-control"></textarea>
-
-            </div>
-
         </div>
-    </form>
-    <x-slot name="footerSlot">
-        <div class="d-flex">
-            <button form="f1a" type="submit" class="btn btn-outline-primary mr-3">Soumettre</button>
-        </div>
-    </x-slot>
-</div>
+    </div>
+

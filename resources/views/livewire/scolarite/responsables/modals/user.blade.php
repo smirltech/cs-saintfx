@@ -12,7 +12,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <x-validation-errors class="mb-4" :errors="$errors"/>
+                <x-form::validation-errors class="mb-4" :errors="$errors"/>
                 <form id="fru1" wire:submit.prevent="addUserToResponsable">
                     <div>Le compte responsable sera créé et un email avec information d'accès lui sera envoyé</div>
                 </form>

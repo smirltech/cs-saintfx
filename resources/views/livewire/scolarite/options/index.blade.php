@@ -21,7 +21,7 @@
 
     <div class="content mt-3">
         <div class="container-fluid">
-            <x-validation-errors class="mb-4" :errors="$errors"/>
+            <x-form::validation-errors class="mb-4" :errors="$errors"/>
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
@@ -70,7 +70,8 @@
                                                 @endcan
                                                 @can('options.update', $option)
                                                     <button wire:click="getSelectedOption({{$option}})" type="button"
-                                                            title="Modifier" class="btn btn-info  ml-2" data-toggle="modal"
+                                                            title="Modifier" class="btn btn-info  ml-2"
+                                                            data-toggle="modal"
                                                             data-target="#edit-option-modal">
                                                         <span class="fa fa-pen"></span>
                                                     </button>

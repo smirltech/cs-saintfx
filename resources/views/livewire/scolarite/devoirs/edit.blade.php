@@ -31,9 +31,9 @@
 
                             <div class="col-6">
                                 @can('devoirs.delete',$devoir)
-                                <x-button wire:click="deleteDevoir" class="btn btn-sm btn-danger float-right">
-                                    <i class="fa fa-trash-alt"></i>
-                                </x-button>
+                                    <x-form::button wire:click="deleteDevoir" class="btn btn-sm btn-danger float-right">
+                                        <i class="fa fa-trash-alt"></i>
+                                        </x-button>
                                 @endcan
                             </div>
                         </div>
@@ -42,48 +42,48 @@
                         <form wire:submit.prevent="submit">
                             <div class="row">
                                 <div class="form-group col-md-4">
-                                    <x-form-select required
-                                                   wire:model="devoir.classe_id"
-                                                   label="Classe"
-                                                   :isValid="$errors->has('devoir.classe_id') ? false : null"
-                                                   error="{{$errors->first('devoir.classe_id')}}">
+                                    <x-form::select required
+                                                    wire:model="devoir.classe_id"
+                                                    label="Classe"
+                                                    :isValid="$errors->has('devoir.classe_id') ? false : null"
+                                                    error="{{$errors->first('devoir.classe_id')}}">
                                         @foreach($classes as $classe)
                                             <option
                                                 value="{{$classe->id}}">
                                                 {{$classe->code}}
                                             </option>
                                         @endforeach
-                                    </x-form-select>
+                                    </x-form::select>
                                 </div>
 
                                 <div class="form-group col-md-4">
-                                    <x-form-select required wire:model.defer="devoir.cours_id"
-                                                   label="Cours"
-                                                   :isValid="$errors->has('devoir.cours_id') ? false : null"
-                                                   error="{{$errors->first('devoir.cours_id')}}">
+                                    <x-form::select required wire:model.defer="devoir.cours_id"
+                                                    label="Cours"
+                                                    :isValid="$errors->has('devoir.cours_id') ? false : null"
+                                                    error="{{$errors->first('devoir.cours_id')}}">
                                         @foreach($cours as $c)
                                             <option value="{{$c->id}}">{{$c->nom}}</option>
                                         @endforeach
-                                    </x-form-select>
+                                    </x-form::select>
                                 </div>
 
                                 <div class="form-group col-md-4">
-                                    <x-form-input step="1" required min="{{date('Y-m-d')}} {{date('h:i')}}"
-                                                  wire:model.defer="devoir.echeance"
-                                                  label="Date limite de dépôt"
-                                                  :isValid="$errors->has('devoir.echeance') ? false : null"
-                                                  error="{{$errors->first('devoir.echeance')}}" type="datetime-local"/>
+                                    <x-form::input step="1" required min="{{date('Y-m-d')}} {{date('h:i')}}"
+                                                   wire:model.defer="devoir.echeance"
+                                                   label="Date limite de dépôt"
+                                                   :isValid="$errors->has('devoir.echeance') ? false : null"
+                                                   error="{{$errors->first('devoir.echeance')}}" type="datetime-local"/>
                                 </div>
                                 <div class="form-group col-md-12">
-                                    <x-form-input required placeholder="Saisir l'intitulé du devoir"
-                                                  wire:model.defer="devoir.titre"
-                                                  label="Intitulé du devoir"
-                                                  :isValid="$errors->has('devoir.titre') ? false : null"
-                                                  error="{{$errors->first('devoir.titre')}}"/>
+                                    <x-form::input required placeholder="Saisir l'intitulé du devoir"
+                                                   wire:model.defer="devoir.titre"
+                                                   label="Intitulé du devoir"
+                                                   :isValid="$errors->has('devoir.titre') ? false : null"
+                                                   error="{{$errors->first('devoir.titre')}}"/>
                                 </div>
 
                                 <div class="form-group col-md-12">
-                                    <x-form-textarea
+                                    <x-form::textarea
                                         required
                                         placeholder="Saisir le contenu du devoir"
                                         wire:model.defer="devoir.contenu"
@@ -94,31 +94,30 @@
                                 </div>
                                 @if($devoir->status!=DevoirStatus::closed)
                                     <div class="form-group col-md-12">
-                                        <x-form-select required wire:model.defer="devoir.status"
-                                                       label="Statut"
-                                                       :isValid="$errors->has('devoir.status') ? false : null"
-                                                       error="{{$errors->first('devoir.status')}}">
+                                        <x-form::select required wire:model.defer="devoir.status"
+                                                        label="Statut"
+                                                        :isValid="$errors->has('devoir.status') ? false : null"
+                                                        error="{{$errors->first('devoir.status')}}">
                                             @foreach(DevoirStatus::cases() as $s)
                                                 @if($s==DevoirStatus::closed)
                                                     @continue
                                                 @endif
                                                 <option value="{{$s}}">{{$s->label()}}</option>
                                             @endforeach
-                                        </x-form-select>
+                                        </x-form::select>
                                     </div>
                                 @endif
 
                                 <div class="form-group col-md-12">
-                                    <x-form-file-pdf wire:model="document"
-                                                     label="Document du devoir"
-                                                     target="document"
-                                                     :isValid="$errors->has('document') ? false : null"
-                                                     error="{{$errors->first('document')}}"/>
-                                    <x-list-files :media="$devoir->media" delete/>
+                                    <x-form::input-pdf wire:model="document"
+                                                       label="Document du devoir"
+                                                       target="document"
+                                                       :isValid="$errors->has('document') ? false : null"
+                                                       error="{{$errors->first('document')}}"/>
                                 </div>
 
                             </div>
-                            <x-button class="btn-primary float-end">Soumettre</x-button>
+                            <x-form::button class="btn-primary float-end">Soumettre</x-button>
                         </form>
                     </div>
                 </div>
@@ -132,10 +131,10 @@
                             </div>
                             <div class="col-6">
                                 @can('devoirs.view',$devoir)
-                                <a title="Repondre au devoir" href="{{ route('scolarite.devoirs.show',$devoir) }}"
-                                   class="btn  btn-sm btn-info float-right">
-                                    <i class="fa fa-add"></i>
-                                </a>
+                                    <a title="Repondre au devoir" href="{{ route('scolarite.devoirs.show',$devoir) }}"
+                                       class="btn  btn-sm btn-info float-right">
+                                        <i class="fa fa-add"></i>
+                                    </a>
                                 @endcan
                             </div>
                         </div>

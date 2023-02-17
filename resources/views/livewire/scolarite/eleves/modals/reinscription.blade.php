@@ -16,7 +16,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <x-validation-errors class="mb-4" :errors="$errors"/>
+                <x-form::validation-errors class="mb-4" :errors="$errors"/>
                 <form id="reinsf2" wire:submit.prevent="addReinscription">
 
                     {{-- Choix de classe --}}
@@ -27,47 +27,47 @@
                         <div class="row">
                             <div class="form-group col-3">
                                 <label for="">Section <i class="text-red">*</i></label>
-                                <select wire:model="section_id" wire:change="changeSection"
-                                        class="form-control  @error('section_id') is-invalid @enderror">
+                                <x-form::select wire:model="section_id" wire:change="changeSection"
+                                                class="form-control  @error('section_id') is-invalid @enderror">
                                     <option value="">Choisir section</option>
                                     @foreach ($sections as $section )
                                         <option value="{{ $section->id }}">{{ $section->nom }}</option>
                                     @endforeach
-                                </select>
+                                </x-form::select>
                                 @error('section_id')
                                 <span class="text-red">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="form-group col-3">
                                 <label for="">Option</label>
-                                <select wire:model="option_id" wire:change="changeOption"
-                                        class="form-control">
+                                <x-form::select wire:model="option_id" wire:change="changeOption"
+                                                class="form-control">
                                     <option value="">Choisir option</option>
                                     @foreach ($options as $option )
                                         <option value="{{ $option->id }}">{{ $option->nom }}</option>
                                     @endforeach
-                                </select>
+                                </x-form::select>
 
                             </div>
                             <div class="form-group col-3">
                                 <label for="">Filière</label>
-                                <select wire:model="filiere_id"
-                                        wire:change="changeFiliere" class="form-control">
+                                <x-form::select wire:model="filiere_id"
+                                                wire:change="changeFiliere" class="form-control">
                                     <option value="">Choisir filière</option>
                                     @foreach ($filieres as $filiere )
                                         <option value="{{ $filiere->id }}">{{ $filiere->nom }}</option>
                                     @endforeach
-                                </select>
+                                </x-form::select>
                             </div>
                             <div class="form-group col-3">
                                 <label for="">Classe <i class="text-red">*</i></label>
-                                <select wire:model="classe_id"  wire:change="changeClasse"
-                                        class="form-control">
+                                <x-form::select wire:model="classe_id" wire:change="changeClasse"
+                                                class="form-control">
                                     <option value="">Choisir classe</option>
                                     @foreach ($classes as $classe )
                                         <option value="{{ $classe->id }}">{{ $classe->code }}</option>
                                     @endforeach
-                                </select>
+                                </x-form::select>
                                 @error('classe_id')
                                 <span class="text-red">{{ $message }}</span>
                                 @enderror
@@ -76,8 +76,8 @@
                         <div class="row">
                             <div class="form-group col-md-4 col-sm-12">
                                 <label for="">Categorie <i class="text-red">*</i></label>
-                                <select wire:model="categorie"
-                                        class="form-control  @error('categorie') is-invalid @enderror">
+                                <x-form::select wire:model="categorie"
+                                                class="form-control  @error('categorie') is-invalid @enderror">
                                     <option value="" disabled>Choisir categorie...</option>
                                     @foreach (InscriptionCategorie::cases() as $es )
                                         <option value="{{$es->value}}">{{ $es->label() }}</option>
@@ -85,7 +85,7 @@
                                     @error('categorie')
                                     <span class="text-red">{{ $message }}</span>
                                     @enderror
-                                </select>
+                                </x-form::select>
                             </div>
                             <div class="form-group col-md-4 col-sm-12">
                                 <label for="">Montant</label>
