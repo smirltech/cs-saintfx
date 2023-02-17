@@ -21,7 +21,7 @@ class OuvrageCreateComponent extends Component
     public Collection $categories;
     public Ouvrage $ouvrage;
     public $ouvrage_pdf;
-
+    protected $listeners = ['refresh' => '$refresh'];
     protected $rules = [
         'ouvrage.ouvrage_category_id' => 'required|exists:ouvrage_categories,id',
         'ouvrage.titre' => 'required',
@@ -52,8 +52,11 @@ class OuvrageCreateComponent extends Component
         $this->ouvrage->save();
 
         if ($this->ouvrage_pdf) {
+            $this->ouvrage->deleteAllMedia();
             $this->ouvrage->addMedia($this->ouvrage_pdf, MediaType::document->value);
+            $this->reset('ouvrage_pdf');
         }
+        $this->emit('refresh');
         if ($id) {
             $this->success("Ouvrage modifié avec succès !");
         } else {

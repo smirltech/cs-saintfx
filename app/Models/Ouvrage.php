@@ -77,4 +77,9 @@ class Ouvrage extends Model
     {
         return $this->category?->nom;
     }
+
+    public function deleteAllMedia(): void
+    {
+        $this->media->each->delete();
+    }
 }
