@@ -78,7 +78,7 @@
 
                                                     @if($ouvrage->media)
                                                         <a wire:click.debounce="addLecture({{$ouvrage->id}})"
-                                                           href="{{$ouvrage->getFirstMediaUrl()}}"
+                                                           href="{{ route('bibliotheque.ouvrages.read',$ouvrage) }}"
                                                            target=“_blank”
                                                            title="Aller au lien"
                                                            class="btn btn-outline-primary  mr-2">

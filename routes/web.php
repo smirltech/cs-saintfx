@@ -7,6 +7,7 @@ use App\Http\Livewire\Bibliotheque\Auteur\AuteurIndexComponent;
 use App\Http\Livewire\Bibliotheque\Etiquette\EtiquetteIndexComponent;
 use App\Http\Livewire\Bibliotheque\Ouvrage\OuvrageCreateComponent;
 use App\Http\Livewire\Bibliotheque\Ouvrage\OuvrageIndexComponent;
+use App\Http\Livewire\Bibliotheque\Ouvrage\OuvrageReadComponent;
 use App\Http\Livewire\Bibliotheque\Ouvrage\OuvrageShowComponent;
 use App\Http\Livewire\Bibliotheque\OuvrageCategory\OuvrageCategoryIndexComponent;
 use App\Http\Livewire\Bibliotheque\OuvrageCategory\OuvrageCategoryShowComponent;
@@ -183,6 +184,7 @@ Route::prefix('bibliotheque')->middleware(['auth:web'])->as('bibliotheque.')->gr
     Route::get('ouvrages/create', OuvrageCreateComponent::class)->name('ouvrages.create');
     Route::get('ouvrages/{ouvrage}', OuvrageShowComponent::class)->name('ouvrages.show');
     Route::get('ouvrages/{ouvrage}/edit', OuvrageCreateComponent::class)->name('ouvrages.edit');
+    Route::get('ouvrages/{ouvrage}/read', OuvrageReadComponent::class)->name('ouvrages.read');
 
 });
 
