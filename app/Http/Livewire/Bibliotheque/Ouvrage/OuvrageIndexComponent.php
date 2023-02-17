@@ -28,7 +28,7 @@ class OuvrageIndexComponent extends BaseComponent
     public function loadData()
     {
         $this->categories = OuvrageCategory::orderBy('nom')->get();
-        $this->ouvrages = Ouvrage::orderBy('titre')->get();
+        $this->ouvrages = Ouvrage::latest()->get();
     }
 
     public function render()

@@ -15,13 +15,13 @@
                     <div class="row">
                         <div class="form-group col-md-4 col-sm-12">
                             <label for="">Type</label>
-                            <select wire:model="type.id"
-                                    class="form-control">
+                            <x-form::select wire:model="type.id"
+                                            class="form-control">
                                 <option value=null>Choisir type...</option>
                                 @foreach ($types as $es )
                                     <option value="{{$es->id}}">{{ $es->nom }}</option>
                                 @endforeach
-                            </select>
+                            </x-form::select>
                         </div>
                         <div class="form-group col-md-4 col-sm-12">
                             <label for="">Montant <i class="text-red">*</i></label>
@@ -73,12 +73,12 @@
                     <div class="row">
                         <div class="form-group col-md-4 col-sm-12">
                             <label for="">Type</label>
-                            <select wire:model="type.id"
-                                    class="form-control">
+                            <x-form::select wire:model="type.id"
+                                            class="form-control">
                                 @foreach ($types as $es )
                                     <option value="{{$es->id}}">{{ $es->nom }}</option>
                                 @endforeach
-                            </select>
+                            </x-form::select>
                         </div>
                         <div class="form-group col-md-4 col-sm-12">
                             <label for="">Montant <i class="text-red">*</i></label>

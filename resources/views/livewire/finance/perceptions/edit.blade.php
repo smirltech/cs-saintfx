@@ -46,9 +46,9 @@
                                 <div class="row">
                                     <div class="form-group col-sm-12 col-md-6">
                                         <label for="">Frais</label>
-                                        <select wire:ignore.self wire:change="feeSelected"
-                                                wire:model="perception.frais_id"
-                                                class="form-control">
+                                        <x-form::select wire:ignore.self wire:change="feeSelected"
+                                                        wire:model="perception.frais_id"
+                                                        class="form-control">
                                             <option value="">Choisir frais... !</option>
                                             @foreach ($frais as $feee )
                                                 <option value="{{$feee->id}}">{{ $feee->nom }}
@@ -56,17 +56,17 @@
                                                     [{{ $feee->frequence->label() }}]
                                                 </option>
                                             @endforeach
-                                        </select>
+                                        </x-form::select>
                                     </div>
                                     <div class="form-group col-sm-12 col-md-6">
                                         <label for="">Raison {{$perception->custom_property}}</label>
-                                        <select wire:model="perception.custom_property"
-                                                class="form-control">
+                                        <x-form::select wire:model="perception.custom_property"
+                                                        class="form-control">
                                             <option value="">Choisir raison... !</option>
                                             @foreach ($raisons as $raison )
                                                 <option value="{{$raison}}">{{$raison}}</option>
                                             @endforeach
-                                        </select>
+                                        </x-form::select>
                                     </div>
 
                                 </div>

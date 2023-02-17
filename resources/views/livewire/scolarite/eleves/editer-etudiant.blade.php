@@ -30,8 +30,8 @@
 
                         <div class="form-group">
                             <label for="">Doyen</label>
-                            <select wire:model="promotion.filiere_id"
-                                    class="form-control  @error('promotion.filiere_id') is-invalid @enderror">
+                            <x-form::select wire:model="promotion.filiere_id"
+                                            class="form-control  @error('promotion.filiere_id') is-invalid @enderror">
                                 <option value="-1">Choisir filière</option>
                                 @foreach ($filieres as $filiere )
                                     <option value="{{ $filiere->id }}">{{ $filiere->nom }}</option>
@@ -39,7 +39,7 @@
                                 @error('promotion.filiere_id')
                                 <span class="text-red">{{ $message }}</span>
                                 @enderror
-                            </select>
+                            </x-form::select>
                         </div>
 
 

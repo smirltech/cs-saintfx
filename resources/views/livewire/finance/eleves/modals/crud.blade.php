@@ -19,15 +19,15 @@
 
                         <div class="form-group col-sm-12">
                             <label for="">Frais</label>
-                            <select wire:change="feeSelected" wire:model="fee_id"
-                                    class="form-control">
+                            <x-form::select wire:change="feeSelected" wire:model="fee_id"
+                                            class="form-control">
                                 <option value="">Choisir frais... !</option>
                                 @foreach ($frais as $fee )
                                     <option value="{{$fee->id}}">{{ $fee->nom }} [{{ $fee->type->label() }}]
                                         [{{ $fee->frequence->label() }}]
                                     </option>
                                 @endforeach
-                            </select>
+                            </x-form::select>
                         </div>
                         <div class="form-group col-sm-12">
                             <label for="">Montant Facturé <i class="text-red">*</i></label>
@@ -50,13 +50,13 @@
                     </div>
                     <div class="form-group col-sm-12">
                         <label for="">Raison</label>
-                        <select wire:model="custom_property"
-                                class="form-control">
+                        <x-form::select wire:model="custom_property"
+                                        class="form-control">
                             <option value="">Choisir raison... !</option>
                             @foreach ($raisons as $raison )
                                 <option value="{{$raison}}">{{$raison}}</option>
                             @endforeach
-                        </select>
+                        </x-form::select>
                     </div>
                 </form>
             </div>
@@ -149,21 +149,21 @@
                         </div>
                         <div class="form-group col-md-6 col-sm-12">
                             <label for="">Type</label>
-                            <select wire:model="type"
-                                    class="form-control">
+                            <x-form::select wire:model="type"
+                                            class="form-control">
                                 @foreach (FraisType::cases() as $es )
                                     <option value="{{$es->value}}">{{ $es->label() }}</option>
                                 @endforeach
-                            </select>
+                            </x-form::select>
                         </div>
                         <div class="form-group col-md-6 col-sm-12">
                             <label for="">Fréquence</label>
-                            <select wire:model="frequence"
-                                    class="form-control">
+                            <x-form::select wire:model="frequence"
+                                            class="form-control">
                                 @foreach (FraisFrequence::cases() as $es )
                                     <option value="{{$es->value}}">{{ $es->label() }}</option>
                                 @endforeach
-                            </select>
+                            </x-form::select>
                         </div>
                     </div>
                     <div class="form-group col-sm-12">

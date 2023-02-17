@@ -29,16 +29,15 @@
                             </div>
                             <div class="card-tools d-flex my-auto">
                                 @can('ouvrages.create')
-                                    <button type="button"
-                                            class="btn btn-primary  ml-2" data-toggle="modal"
-                                            data-target="#add-ouvrage-modal"><span
-                                            class="fa fa-plus"></span></button>
+                                    <a href="{{ route('bibliotheque.ouvrages.create') }}"
+                                       {{--   wire:click="$emit('showModal', 'bibliotheque.ouvrage.ouvrage-create-component')"--}}
+                                       class="btn btn-primary  ml-2"><span
+                                            class="fa fa-plus"></span></a>
                                 @endcan
                             </div>
                         </div>
 
                         <div class="card-body m-b-40">
-                            <livewire:bibliotheque.ouvrage.ouvrage-create-component/>
                             <div class="table-responsive">
                                 <table class="table table-hover">
                                     <thead class="bg-primary">
@@ -77,20 +76,18 @@
                                                     </a>
 
                                                     @can('ouvrages.view',$ouvrage)
-                                                        <a href="{{route('bibliotheque.ouvrages.show',[$ouvrage->id])}}"
+                                                        <a href="{{route('bibliotheque.ouvrages.show',$ouvrage->id)}}"
                                                            title="Voir"
                                                            class="btn btn-warning">
                                                             <i class="fas fa-eye"></i>
                                                         </a>
                                                     @endcan
                                                     @can('ouvrages.update',$ouvrage)
-                                                        <button wire:click="getSelectedOuvrage({{$ouvrage}})"
-                                                                type="button"
-                                                                title="Modifier" class="btn btn-info  ml-2"
-                                                                data-toggle="modal"
-                                                                data-target="#update-ouvrage-modal">
+                                                        <a href="{{ route('bibliotheque.ouvrages.edit',$ouvrage) }}"
+                                                           type="button"
+                                                           title="Modifier" class="btn btn-info  ml-2">
                                                             <span class="fa fa-pen"></span>
-                                                        </button>
+                                                        </a>
                                                     @endcan
                                                     @can('ouvrages.delete',$ouvrage)
                                                         <button wire:click="getSelectedOuvrage({{$ouvrage}})"

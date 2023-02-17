@@ -23,21 +23,21 @@
                         </div>
                         <div class="form-group col-md-4 col-sm-12">
                             <label for="">Sexe</label>
-                            <select wire:model="responsable_sexe"
-                                    class="form-control">
+                            <x-form::select wire:model="responsable_sexe"
+                                            class="form-control">
                                 @foreach (Sexe::cases() as $es )
                                     <option value="{{$es->value}}">{{ $es->label() }}</option>
                                 @endforeach
-                            </select>
+                            </x-form::select>
                         </div>
                         <div class="form-group col-md-4 col-sm-12">
                             <label for="">Relation</label>
-                            <select wire:model="responsable_relation"
-                                    class="form-control">
+                            <x-form::select wire:model="responsable_relation"
+                                            class="form-control">
                                 @foreach (ResponsableRelation::cases() as $es )
                                     <option value="{{$es->value}}">{{ $es->label() }}</option>
                                 @endforeach
-                            </select>
+                            </x-form::select>
                         </div>
                     </div>
                     <div class="row">

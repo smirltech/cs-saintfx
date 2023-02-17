@@ -6,13 +6,13 @@
         <div class="row">
             <div class="form-group col-md-12 col-sm-12">
                 <label for="">Auteur</label>
-                <select wire:model="ouvrage_auteur.auteur_id"
-                        class="form-control">
+                <x-form::select wire:model="ouvrage_auteur.auteur_id"
+                                class="form-control">
                     <option value=null>Choisir auteur...</option>
                     @foreach ($auteurs as $es )
                         <option value="{{$es->id}}">{{ $es->nom }}</option>
                     @endforeach
-                </select>
+                </x-form::select>
             </div>
         </div>
     </form>

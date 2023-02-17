@@ -6,13 +6,13 @@
         <div class="row">
             <div class="form-group col-md-12 col-sm-12">
                 <label for="">Etiquette</label>
-                <select wire:model="ouvrage_etiquette.etiquette_id"
-                        class="form-control">
+                <x-form::select wire:model="ouvrage_etiquette.etiquette_id"
+                                class="form-control">
                     <option value=null>Choisir étiquette...</option>
                     @foreach ($etiquettes as $es )
                         <option value="{{$es->id}}">{{ $es->nom }}</option>
                     @endforeach
-                </select>
+                </x-form::select>
             </div>
         </div>
     </form>

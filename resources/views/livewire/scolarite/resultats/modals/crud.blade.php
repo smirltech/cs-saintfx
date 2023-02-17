@@ -23,12 +23,12 @@
                         </div>
                         <div class="form-group col-md-3 col-sm-12">
                             <label for="">Sexe</label>
-                            <select wire:model="responsable_sexe"
-                                    class="form-control">
+                            <x-form::select wire:model="responsable_sexe"
+                                            class="form-control">
                                 @foreach (Sexe::cases() as $es )
                                     <option value="{{ strtoupper($es->value)}}">{{ $es->label() }}</option>
                                 @endforeach
-                            </select>
+                            </x-form::select>
                         </div>
                     </div>
                     <div class="row">
@@ -90,12 +90,12 @@
                         </div>
                         <div class="form-group col-md-3 col-sm-12">
                             <label for="">Sexe</label>
-                            <select wire:model="sexe"
-                                    class="form-control">
+                            <x-form::select wire:model="sexe"
+                                            class="form-control">
                                 @foreach (Sexe::cases() as $es )
                                     <option value="{{ strtoupper($es->value)}}">{{ $es->label() }}</option>
                                 @endforeach
-                            </select>
+                            </x-form::select>
                         </div>
                     </div>
                     <div class="row">
@@ -178,12 +178,12 @@
                     <div class="row">
                         <div class="form-group col-sm-12">
                             <label for="">Relation</label>
-                            <select wire:model="responsable_relation"
-                                    class="form-control">
+                            <x-form::select wire:model="responsable_relation"
+                                            class="form-control">
                                 @foreach (ResponsableRelation::cases() as $es )
                                     <option value="{{$es->value}}">{{ $es->label() }}</option>
                                 @endforeach
-                            </select>
+                            </x-form::select>
                         </div>
                     </div>
                 </form>

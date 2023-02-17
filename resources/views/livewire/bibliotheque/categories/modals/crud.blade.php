@@ -16,13 +16,13 @@
             </div>
             <div class="form-group col-md-12 col-sm-12">
                 <label for="">Groupe</label>
-                <select wire:model="category.ouvrage_category_id"
-                        class="form-control">
+                <x-form::select wire:model="category.ouvrage_category_id"
+                                class="form-control">
                     <option value=null>Choisir groupe...</option>
                     @foreach ($categories as $es )
                         <option value="{{$es->id}}">{{ $es->nom }}</option>
                     @endforeach
-                </select>
+                </x-form::select>
             </div>
             <div class="form-group col-md-12 col-sm-12">
                 <label for="">Description</label>
@@ -57,8 +57,8 @@
             </div>
             <div class="form-group col-md-12 col-sm-12">
                 <label for="">Groupe</label>
-                <select wire:model="category.ouvrage_category_id"
-                        class="form-control">
+                <x-form::select wire:model="category.ouvrage_category_id"
+                                class="form-control">
                     <option value=null>Choisir groupe...</option>
                     @foreach ($categories as $es )
                         @if($es->id != $category->id)
@@ -66,7 +66,7 @@
                         @endif
 
                     @endforeach
-                </select>
+                </x-form::select>
             </div>
             <div class="form-group col-md-12 col-sm-12">
                 <label for="">Description</label>

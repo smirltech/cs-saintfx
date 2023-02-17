@@ -25,13 +25,13 @@
             </div>
             <div class="form-group col-md-12 col-sm-12">
                 <label for="">Sexe</label>
-                <select wire:model="auteur.sexe"
-                        class="form-control">
+                <x-form::select wire:model="auteur.sexe"
+                                class="form-control">
                     <option value=null>Choisir sexe...</option>
                     @foreach (Sexe::cases() as $es )
                         <option value="{{$es->name}}">{{ $es->label() }}</option>
                     @endforeach
-                </select>
+                </x-form::select>
             </div>
         </div>
     </form>
@@ -68,13 +68,13 @@
             </div>
             <div class="form-group col-md-12 col-sm-12">
                 <label for="">Sexe</label>
-                <select wire:model="auteur.sexe"
-                        class="form-control">
+                <x-form::select wire:model="auteur.sexe"
+                                class="form-control">
                     <option value=null>Choisir sexe...</option>
                     @foreach (Sexe::cases() as $es )
                         <option value="{{$es->name}}">{{ $es->label() }}</option>
                     @endforeach
-                </select>
+                </x-form::select>
             </div>
         </div>
     </form>

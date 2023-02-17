@@ -34,13 +34,13 @@
 
                                     <div class="form-group col-sm-12 col-md-6">
                                         <label for="">Classe <i class="text-red">*</i></label>
-                                        <select wire:change="changeClasse" wire:model="classe_id"
-                                                class="form-control">
+                                        <x-form::select wire:change="changeClasse" wire:model="classe_id"
+                                                        class="form-control">
                                             <option value=null>Choisir classe</option>
                                             @foreach ($classes as $classe )
                                                 <option value="{{ $classe->id }}">{{ $classe->code }}</option>
                                             @endforeach
-                                        </select>
+                                        </x-form::select>
                                         @error('classe_id')
                                         <span class="text-red">{{ $message }}</span>
                                         @enderror
@@ -56,8 +56,8 @@
                                 <div class="row">
                                     <div class="form-group col-sm-12 col-md-6">
                                         <label for="">Frais</label>
-                                        <select wire:ignore.self wire:change="feeSelected" wire:model="fee_id"
-                                                class="form-control">
+                                        <x-form::select wire:ignore.self wire:change="feeSelected" wire:model="fee_id"
+                                                        class="form-control">
                                             <option value=null>Choisir frais... !</option>
                                             @foreach ($frais as $feee )
                                                 <option value="{{$feee->id}}">{{ $feee->nom }}
@@ -66,17 +66,17 @@
                                                     - {{ $feee->frequence->label() }}]
                                                 </option>
                                             @endforeach
-                                        </select>
+                                        </x-form::select>
                                     </div>
                                     <div class="form-group col-sm-12 col-md-6">
                                         <label for="">Raison</label>
-                                        <select wire:model="custom_property"
-                                                class="form-control">
+                                        <x-form::select wire:model="custom_property"
+                                                        class="form-control">
                                             <option value="">Choisir raison... !</option>
                                             @foreach ($raisons as $raison )
                                                 <option value="{{$raison}}">{{$raison}}</option>
                                             @endforeach
-                                        </select>
+                                        </x-form::select>
                                     </div>
 
                                 </div>

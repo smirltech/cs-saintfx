@@ -26,13 +26,13 @@
             </div>
             <div class="form-group col-md-6 col-sm-12">
                 <label for="">Groupe</label>
-                <select wire:model="ouvrage.ouvrage_category_id"
-                        class="form-control">
+                <x-form::select wire:model="ouvrage.ouvrage_category_id"
+                                class="form-control">
                     <option value=null>Choisir groupe...</option>
                     @foreach ($categories as $es )
                         <option value="{{$es->id}}">{{ $es->nom }}</option>
                     @endforeach
-                </select>
+                </x-form::select>
             </div>
             <div class="form-group col-md-6 col-sm-12">
                 <x-form::input
@@ -130,13 +130,13 @@
             </div>
             <div class="form-group col-md-6 col-sm-12">
                 <label for="">Groupe</label>
-                <select wire:model="ouvrage.ouvrage_category_id"
-                        class="form-control">
+                <x-form::select wire:model="ouvrage.ouvrage_category_id"
+                                class="form-control">
                     <option value=null>Choisir groupe...</option>
                     @foreach ($categories as $es )
                         <option value="{{$es->id}}">{{ $es->nom }}</option>
                     @endforeach
-                </select>
+                </x-form::select>
             </div>
             <div class="form-group col-md-6 col-sm-12">
                 <x-form::input
