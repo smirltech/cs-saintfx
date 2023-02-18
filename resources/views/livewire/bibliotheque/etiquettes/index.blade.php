@@ -4,7 +4,7 @@
 @section('content_header')
     <div class="row">
         <div class="col-6">
-            <h1 class="ms-3">Liste d'étiquettes</h1>
+            <h1 class="ms-3"><span class="fas fa-fw fa-tags mr-1"></span>Liste d'étiquettes</h1>
         </div>
 
         <div class="col-6">
@@ -40,7 +40,7 @@
                         <div class="card-body m-b-40">
                             <div class="table-responsive">
                                 <table class="table table-hover">
-                                    <thead class="table-dark">
+                                    <thead class="bg-primary">
                                     <tr>
                                         <th style="width: 50px">#</th>
                                         <th>ÉTIQUETTE</th>
