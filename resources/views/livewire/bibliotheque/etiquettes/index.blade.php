@@ -17,7 +17,7 @@
 
 @stop
 <div wire:ignore.self class="">
-    @include('livewire.bibliotheque.etiquettes.modals.crud')
+    @include('livewire.bibliotheque.tags.modals.crud')
     <div class="content mt-3">
         <div class="container-fluid">
             <div class="row">
@@ -28,7 +28,7 @@
 
                             </div>
                             <div class="card-tools d-flex my-auto">
-                                @can('etiquettes.create')
+                                @can('tags.create')
                                     <button type="button"
                                             class="btn btn-primary  ml-2" data-toggle="modal"
                                             data-target="#add-etiquette-modal"><span
@@ -54,7 +54,7 @@
                                             <td>{{$etiquette->nom}}</td>
                                             <td>
                                                 <div class="d-flex float-right">
-                                                    @can('etiquettes.update',$etiquette)
+                                                    @can('tags.update',$etiquette)
                                                         <button wire:click="getSelectedEtiquette({{$etiquette}})"
                                                                 type="button"
                                                                 title="Modifier" class="btn btn-info  ml-2"
@@ -63,7 +63,7 @@
                                                             <span class="fa fa-pen"></span>
                                                         </button>
                                                     @endcan
-                                                    @can('etiquettes.delete',$etiquette)
+                                                    @can('tags.delete',$etiquette)
                                                         <button wire:click="getSelectedEtiquette({{$etiquette}})"
                                                                 type="button"
                                                                 title="supprimer" class="btn btn-danger  ml-2"

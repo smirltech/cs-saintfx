@@ -43,7 +43,7 @@ class EtiquetteIndexComponent extends BaseComponent
     public function render()
     {
         $this->loadData();
-        return view('livewire.bibliotheque.etiquettes.index', ['etiquettes' => $this->etiquettes])
+        return view('livewire.bibliotheque.tags.index', ['etiquettes' => $this->etiquettes])
             ->layout(AdminLayout::class, ['title' => "Liste d'Étiquettes"]);
     }
 

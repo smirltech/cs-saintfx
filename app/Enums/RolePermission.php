@@ -19,7 +19,7 @@ enum RolePermission: string
     case materiels_delete = 'materiels.delete.*';
     //------------------ ./Materiels ---------------- //
     //------------------ MaterielCategories ---------------- //
-case materiel_categories_all = 'materiel-categories.*';
+    case materiel_categories_all = 'materiel-categories.*';
     case materiel_categories_view = 'materiel-categories.view.*';
     case materiel_categories_create = 'materiel-categories.create';
     case materiel_categories_update_all = 'materiel-categories.update.*';
@@ -54,11 +54,11 @@ case materiel_categories_all = 'materiel-categories.*';
     case ouvrage_categories_delete = 'ouvrage-categories.delete.*';
     //------------------ ./OuvrageCategory ---------------- //
     //------------------ Etiquettes ---------------- //
-    case etiquettes_all = 'etiquettes.*';
-    case etiquettes_view = 'etiquettes.view.*';
-    case etiquettes_create = 'etiquettes.create';
-    case etiquettes_update_all = 'etiquettes.update.*';
-    case etiquettes_delete = 'etiquettes.delete.*';
+    case etiquettes_all = 'tags.*';
+    case etiquettes_view = 'tags.view.*';
+    case etiquettes_create = 'tags.create';
+    case etiquettes_update_all = 'tags.update.*';
+    case etiquettes_delete = 'tags.delete.*';
     //------------------ ./Etiquettes ---------------- //
     //------------------ Auteurs ---------------- //
     case auteurs_all = 'auteurs.*';
