@@ -11,6 +11,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
@@ -22,9 +23,9 @@ class TagsIndexComponent extends BaseComponent
     // protected $paginationTheme = 'bootstrap';
 
     public Tag $etiquette;
-    public $etiquettes = [];
+    public Collection $etiquettes;
     protected $rules = [
-        'etiquette.nom' => 'required|unique:tags, nom',
+        'etiquette.nom' => 'required|unique:tags,name',
     ];
 
     /**
@@ -53,9 +54,8 @@ class TagsIndexComponent extends BaseComponent
         return view('livewire.bibliotheque.tags.index')
             ->layout(AdminLayout::class, ['title' => "Liste d'Étiquettes"]);
     }
-g
 
-    public function addEtiquette()
+    public function addEtiquette(): void
     {
         $this->validate();
 
@@ -76,23 +76,23 @@ g
 
     }
 
-    public function onModalClosed($p_id)
+    public function onModalClosed($p_id): void
     {
         $this->dispatchBrowserEvent('closeModal', ['modal' => $p_id]);
         $this->initEtiquette();
     }
 
-    public function getSelectedEtiquette(Tag $etiquette)
+    public function getSelectedEtiquette(Tag $etiquette): void
     {
         $this->etiquette = $etiquette;
     }
 
-    public function updateEtiquette()
+    public function updateEtiquette(): void
     {
         $this->validate([
             'etiquette.nom' => [
                 "required",
-                Rule::unique((new Tag())->getTable(), "nom")->ignore($this->etiquette->id)
+                Rule::unique((new Tag())->getTable(), 'name')->ignore($this->etiquette->id)
             ],
 
         ]);
@@ -107,7 +107,7 @@ g
 
     }
 
-    public function deleteEtiquette()
+    public function deleteEtiquette(): void
     {
         if ($this->etiquette->delete()) {
             $this->loadData();
