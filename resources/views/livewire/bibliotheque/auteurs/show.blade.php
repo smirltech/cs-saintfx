@@ -86,6 +86,7 @@
                                                 <th style="width: 50px">#</th>
                                                 <th>TITRE</th>
                                                 <th>SOUS TITRE</th>
+                                                <th>CATEGORIE</th>
                                                 <th>CO-AUTEURS</th>
                                                 <th></th>
 
@@ -98,13 +99,21 @@
                                                     <td>{{ $ouvrage->titre }}</td>
                                                     <td>{{ $ouvrage->sous_titre }}</td>
                                                     <td>
+                                                        <a href="{{route('bibliotheque.categories.show',[$ouvrage->ouvrage_category_id])}}">{{$ouvrage->categoryNom}}</a>
+                                                    </td>
+                                                    <td>
+                                                        <div class="">
                                                         @foreach($ouvrage->auteurs as $author)
                                                             @if($auteur->id !== $author->id)
                                                                 <a href="{{ route('bibliotheque.auteurs.show',$author->id) }}">
                                                                     <span
                                                                         class="badge badge-primary">{{ $author->fullName }}</span>
+                                                                    </a>
+                                                            @else
+                                                                        <span>{{ $author->fullName }}</span>
                                                             @endif
                                                         @endforeach
+                                                        </div>
                                                     </td>
                                                     <td>
                                                         <div class="d-flex float-right">
