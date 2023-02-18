@@ -53,7 +53,7 @@ class TagsIndexComponent extends BaseComponent
         return view('livewire.bibliotheque.tags.index')
             ->layout(AdminLayout::class, ['title' => "Liste d'Étiquettes"]);
     }
-
+g
 
     public function addEtiquette()
     {
