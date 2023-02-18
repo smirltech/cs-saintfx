@@ -22,10 +22,10 @@ class TagsIndexComponent extends BaseComponent
     // protected $paginationTheme = 'bootstrap';
 
     public Tag $etiquette;
+    public $etiquettes = [];
     protected $rules = [
         'etiquette.nom' => 'required|unique:tags, nom',
     ];
-    private $etiquettes = [];
 
     /**
      * @throws AuthorizationException
@@ -50,7 +50,7 @@ class TagsIndexComponent extends BaseComponent
     public function render(): Factory|View|Application
     {
         $this->loadData();
-        return view('livewire.bibliotheque.tags.index', ['etiquettes' => $this->etiquettes])
+        return view('livewire.bibliotheque.tags.index')
             ->layout(AdminLayout::class, ['title' => "Liste d'Étiquettes"]);
     }
 
