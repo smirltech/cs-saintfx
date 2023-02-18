@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AuditController;
 use App\Http\Controllers\Admin\DarkmodeController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Livewire\Bibliotheque\Auteur\AuteurIndexComponent;
+use App\Http\Livewire\Bibliotheque\Auteur\AuteurShowComponent;
 use App\Http\Livewire\Bibliotheque\Etiquette\EtiquetteIndexComponent;
 use App\Http\Livewire\Bibliotheque\Ouvrage\OuvrageCreateComponent;
 use App\Http\Livewire\Bibliotheque\Ouvrage\OuvrageIndexComponent;
@@ -174,6 +175,7 @@ Route::prefix('bibliotheque')->middleware(['auth:web'])->as('bibliotheque.')->gr
 
     // Auteurs
     Route::get('auteurs', AuteurIndexComponent::class)->name('auteurs');
+    Route::get('auteurs/{auteur}', AuteurShowComponent::class)->name('auteurs.show');
 
     // Categories
     Route::get('categories', OuvrageCategoryIndexComponent::class)->name('categories');

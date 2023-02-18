@@ -505,7 +505,7 @@ return [
         [
             'text' => 'Auteurs',
             'url' => 'bibliotheque/auteurs',
-            'icon' => 'fas fa-fw fa-user-tie',
+            'icon' => 'fas fa-fw fa-book-open-reader',
             'can' => 'auteurs.view.*',
         ],
         [

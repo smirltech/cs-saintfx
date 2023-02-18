@@ -60,6 +60,13 @@
                                             <td>{{$auteur->ouvrage_auteur->count()}}</td>
                                             <td>
                                                 <div class="d-flex float-right">
+                                                    @can('auteurs.view',$auteur)
+                                                        <a href="{{route('bibliotheque.auteurs.show',$auteur->id)}}"
+                                                           title="Voir"
+                                                           class="btn btn-outline-warning">
+                                                            <i class="fas fa-eye"></i>
+                                                        </a>
+                                                    @endcan
                                                     @can('auteurs.update',$auteur)
                                                         <button wire:click="getSelectedAuteur({{$auteur}})"
                                                                 type="button"

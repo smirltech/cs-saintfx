@@ -82,4 +82,5 @@ class Ouvrage extends Model
     {
         $this->media->each->delete();
     }
+
 }
