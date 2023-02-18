@@ -48,7 +48,7 @@
                                 <li class="list-group-item">
                                     <b>Sous Titre : </b> <span class="float-right">{{ $ouvrage->sous_titre }}</span>
                                 </li>
-                                <li class="list-group-item">
+                                <li class="list-group-item container">
                                     <b>Catégorie : </b> <span class="float-right">
                                         <a href="{{$ouvrage->category==null?'#':route('bibliotheque.categories.show',[$ouvrage->ouvrage_category_id])}}">{!! $ouvrage->categoryNom !!}</a>
                                     </span>
@@ -58,7 +58,7 @@
                                         <a wire:click.debounce="addLecture" href="{{$ouvrage->url}}"
                                            target=“_blank”
                                            title="Aller au lien">
-                                                        <i>{{$ouvrage->url}}</i>
+                                                        <i>Lire ici</i>
                                                     </a>
                                     </span>
                                 </li>
