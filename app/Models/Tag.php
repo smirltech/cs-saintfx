@@ -18,5 +18,9 @@ class Tag extends SpatieTag
         return $this->hasMany(OuvrageEtiquette::class);
     }
 
-    // get nom a
+    // get nom attribute
+    public function getNomAttribute(): string
+    {
+        return $this->name;
+    }
 }

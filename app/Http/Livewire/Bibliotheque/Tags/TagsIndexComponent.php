@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Bibliotheque\Etiquette;
+namespace App\Http\Livewire\Bibliotheque\Tags;
 
 use App\Http\Livewire\BaseComponent;
 use App\Models\Tag;
@@ -14,7 +14,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
-class EtiquetteIndexComponent extends BaseComponent
+class TagsIndexComponent extends BaseComponent
 {
     use TopMenuPreview;
     use LivewireAlert;

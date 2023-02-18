@@ -4,13 +4,13 @@ use App\Http\Controllers\Admin\AuditController;
 use App\Http\Controllers\Admin\DarkmodeController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Livewire\Bibliotheque\Auteur\AuteurIndexComponent;
-use App\Http\Livewire\Bibliotheque\Etiquette\EtiquetteIndexComponent;
 use App\Http\Livewire\Bibliotheque\Ouvrage\OuvrageCreateComponent;
 use App\Http\Livewire\Bibliotheque\Ouvrage\OuvrageIndexComponent;
 use App\Http\Livewire\Bibliotheque\Ouvrage\OuvrageReadComponent;
 use App\Http\Livewire\Bibliotheque\Ouvrage\OuvrageShowComponent;
 use App\Http\Livewire\Bibliotheque\OuvrageCategory\OuvrageCategoryIndexComponent;
 use App\Http\Livewire\Bibliotheque\OuvrageCategory\OuvrageCategoryShowComponent;
+use App\Http\Livewire\Bibliotheque\Tags\TagsIndexComponent;
 use App\Http\Livewire\Finance;
 use App\Http\Livewire\Logistique\Fongible\Consommable\ConsommableIndexComponent;
 use App\Http\Livewire\Logistique\Fongible\Consommable\ConsommableShowComponent;
@@ -170,7 +170,7 @@ Route::prefix('logistique')->middleware(['auth:web'])->as('logistique.')->group(
 Route::prefix('bibliotheque')->middleware(['auth:web'])->as('bibliotheque.')->group(function () {
 
     // Étiquettes
-    Route::get('etiquettes', EtiquetteIndexComponent::class)->name('etiquettes');
+    Route::get('etiquettes', TagsIndexComponent::class)->name('etiquettes');
 
     // Auteurs
     Route::get('auteurs', AuteurIndexComponent::class)->name('auteurs');
