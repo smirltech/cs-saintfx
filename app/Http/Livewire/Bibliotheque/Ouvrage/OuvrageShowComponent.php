@@ -4,17 +4,17 @@ namespace App\Http\Livewire\Bibliotheque\Ouvrage;
 
 use App\Http\Livewire\BaseComponent;
 use App\Models\Auteur;
-use App\Models\Etiquette;
 use App\Models\Lecture;
 use App\Models\Ouvrage;
 use App\Models\OuvrageAuteur;
 use App\Models\OuvrageCategory;
 use App\Models\OuvrageEtiquette;
+use App\Models\Tag;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
+use Auth;
 use Exception;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
 
 class OuvrageShowComponent extends BaseComponent
 {
@@ -49,7 +49,7 @@ class OuvrageShowComponent extends BaseComponent
         $this->authorize("view", $ouvrage);
         $this->ouvrage = $ouvrage;
         $this->ouvrage->lectures = $ouvrage->lectures;
-       // dd($this->ouvrage);
+        // dd($this->ouvrage);
     }
 
     public function render()
@@ -67,7 +67,7 @@ class OuvrageShowComponent extends BaseComponent
 
 
         //$this->etiquettes = Etiquette::whereDoesntHave('ouvrage_etiquette')->orderBy('nom', 'ASC')->get();
-        $this->etiquettes = Etiquette::orderBy('nom', 'ASC')->get();
+        $this->etiquettes = Tag::orderBy('nom', 'ASC')->get();
 
         //  dd($this->categories);
     }
@@ -95,10 +95,6 @@ class OuvrageShowComponent extends BaseComponent
 
     // Auteurs
 
-    public function initAuteur(){
-        $this->ouvrage_auteur = new OuvrageAuteur();
-
-    }
     public function addAuteur()
     {
         $this->ouvrage_auteur->ouvrage_id = $this->ouvrage->id;
@@ -121,6 +117,12 @@ class OuvrageShowComponent extends BaseComponent
             //  dd($exception);
             $this->alert('error', "Échec de d'ajout d'auteur à ouvrage, il existe déjà !");
         }
+
+    }
+
+    public function initAuteur()
+    {
+        $this->ouvrage_auteur = new OuvrageAuteur();
 
     }
 
@@ -148,10 +150,6 @@ class OuvrageShowComponent extends BaseComponent
 
     // Etiquettes
 
-    public function initEtiquette(){
-        $this->ouvrage_etiquette = new OuvrageEtiquette();
-
-    }
     public function addEtiquette()
     {
         $this->ouvrage_etiquette->ouvrage_id = $this->ouvrage->id;
@@ -174,6 +172,12 @@ class OuvrageShowComponent extends BaseComponent
             //  dd($exception);
             $this->alert('error', "Échec de d'ajout d'étiquette à ouvrage, il existe déjà !");
         }
+
+    }
+
+    public function initEtiquette()
+    {
+        $this->ouvrage_etiquette = new OuvrageEtiquette();
 
     }
 
@@ -202,7 +206,7 @@ class OuvrageShowComponent extends BaseComponent
     public function addLecture()
     {
         $lecture = new Lecture();
-        $lecture->user_id = \Auth::id()??null;
+        $lecture->user_id = Auth::id() ?? null;
         $lecture->ouvrage_id = $this->ouvrage->id;
 
         try {

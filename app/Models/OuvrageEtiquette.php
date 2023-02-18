@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -16,7 +15,7 @@ class OuvrageEtiquette extends Model
 
     public function etiquette(): BelongsTo|null
     {
-        return $this->belongsTo(Etiquette::class);
+        return $this->belongsTo(Tag::class);
     }
 
     public function getNomAttribute(): string|null

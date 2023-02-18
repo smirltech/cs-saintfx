@@ -3,43 +3,41 @@
 namespace App\Http\Livewire\Bibliotheque\Etiquette;
 
 use App\Http\Livewire\BaseComponent;
-use App\Models\Etiquette;
-use App\Models\OuvrageEtiquette;
+use App\Models\Tag;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Exception;
 use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
 
 class EtiquetteIndexComponent extends BaseComponent
 {
     use TopMenuPreview;
     use LivewireAlert;
-   // protected $paginationTheme = 'bootstrap';
 
-    private $etiquettes = [];
-    public Etiquette $etiquette;
+    // protected $paginationTheme = 'bootstrap';
 
+    public Tag $etiquette;
     protected $rules = [
         'etiquette.nom' => 'required|unique:etiquettes, nom',
     ];
+    private $etiquettes = [];
 
     public function mount()
     {
-        $this->authorize("viewAny", Etiquette::class);
+        $this->authorize("viewAny", Tag::class);
         $this->initEtiquette();
         $this->loadData();
     }
 
     public function initEtiquette()
     {
-        $this->etiquette = new Etiquette();
+        $this->etiquette = new Tag();
     }
 
     public function loadData()
     {
-        $this->etiquettes = Etiquette::orderBy('nom')->get();
+        $this->etiquettes = Tag::orderBy('nom')->get();
     }
 
     public function render()
@@ -77,7 +75,7 @@ class EtiquetteIndexComponent extends BaseComponent
         $this->initEtiquette();
     }
 
-    public function getSelectedEtiquette(Etiquette $etiquette)
+    public function getSelectedEtiquette(Tag $etiquette)
     {
         $this->etiquette = $etiquette;
     }
@@ -87,7 +85,7 @@ class EtiquetteIndexComponent extends BaseComponent
         $this->validate([
             'etiquette.nom' => [
                 "required",
-                Rule::unique((new Etiquette())->getTable(), "nom")->ignore($this->etiquette->id)
+                Rule::unique((new Tag())->getTable(), "nom")->ignore($this->etiquette->id)
             ],
 
         ]);

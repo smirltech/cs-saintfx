@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 
-use App\Models\Etiquette;
+use App\Models\Tag;
 use Illuminate\Database\Seeder;
 
 class EtiquetteSeeder extends Seeder
@@ -11,7 +11,7 @@ class EtiquetteSeeder extends Seeder
     public function run()
     {
         foreach ($this->data() as $etiquette) {
-            Etiquette::create($etiquette);
+            Tag::create($etiquette);
         }
     }
 
