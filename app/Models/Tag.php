@@ -17,4 +17,6 @@ class Tag extends SpatieTag
     {
         return $this->hasMany(OuvrageEtiquette::class);
     }
+
+    // get nom a
 }

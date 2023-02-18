@@ -54,11 +54,11 @@ enum RolePermission: string
     case ouvrage_categories_delete = 'ouvrage-categories.delete.*';
     //------------------ ./OuvrageCategory ---------------- //
     //------------------ Etiquettes ---------------- //
-    case etiquettes_all = 'tags.*';
-    case etiquettes_view = 'tags.view.*';
-    case etiquettes_create = 'tags.create';
-    case etiquettes_update_all = 'tags.update.*';
-    case etiquettes_delete = 'tags.delete.*';
+    case tags_all = 'tags.*';
+    case tags_view = 'tags.view.*';
+    case tags_create = 'tags.create';
+    case tags_update_all = 'tags.update.*';
+    case tags_delete = 'tags.delete.*';
     //------------------ ./Etiquettes ---------------- //
     //------------------ Auteurs ---------------- //
     case auteurs_all = 'auteurs.*';
@@ -350,11 +350,11 @@ enum RolePermission: string
             self::auteurs_update_all => 'Modifier un auteur',
             self::auteurs_view => 'Voir un auteur',
             // Etiquettes
-            self::etiquettes_all => 'Gérer les étiquettes',
-            self::etiquettes_create => 'Créer une étiquette',
-            self::etiquettes_delete => 'Supprimer une étiquette',
-            self::etiquettes_update_all => 'Modifier une étiquette',
-            self::etiquettes_view => 'Voir une étiquette',
+            self::tags_all => 'Gérer les étiquettes',
+            self::tags_create => 'Créer une étiquette',
+            self::tags_delete => 'Supprimer une étiquette',
+            self::tags_update_all => 'Modifier une étiquette',
+            self::tags_view => 'Voir une étiquette',
             // OuvrageCategories
             self::ouvrage_categories_all => 'Gérer les catégories d\'ouvrages',
             self::ouvrage_categories_create => 'Créer une catégorie d\'ouvrage',

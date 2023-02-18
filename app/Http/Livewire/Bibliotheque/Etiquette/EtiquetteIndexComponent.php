@@ -7,6 +7,10 @@ use App\Models\Tag;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
@@ -19,28 +23,31 @@ class EtiquetteIndexComponent extends BaseComponent
 
     public Tag $etiquette;
     protected $rules = [
-        'etiquette.nom' => 'required|unique:etiquettes, nom',
+        'etiquette.nom' => 'required|unique:tags, nom',
     ];
     private $etiquettes = [];
 
-    public function mount()
+    /**
+     * @throws AuthorizationException
+     */
+    public function mount(): void
     {
         $this->authorize("viewAny", Tag::class);
         $this->initEtiquette();
         $this->loadData();
     }
 
-    public function initEtiquette()
+    public function initEtiquette(): void
     {
         $this->etiquette = new Tag();
     }
 
-    public function loadData()
+    public function loadData(): void
     {
-        $this->etiquettes = Tag::orderBy('nom')->get();
+        $this->etiquettes = Tag::orderBy('name')->get();
     }
 
-    public function render()
+    public function render(): Factory|View|Application
     {
         $this->loadData();
         return view('livewire.bibliotheque.tags.index', ['etiquettes' => $this->etiquettes])
