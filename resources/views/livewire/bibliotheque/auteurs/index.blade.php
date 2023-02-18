@@ -57,7 +57,7 @@
                                             <td>{{$auteur->nom}}</td>
                                             <td>{{$auteur->prenom}}</td>
                                             <td>{{$auteur->sexe->label()}}</td>
-                                            <td>{{$auteur->ouvrage_auteur->count()}}</td>
+                                            <td>{{$auteur->ouvragesCount}}</td>
                                             <td>
                                                 <div class="d-flex float-right">
                                                     @can('auteurs.view',$auteur)

@@ -54,7 +54,7 @@
                                 </li>
                                 <li class="list-group-item">
                                     <b>Ouvrages : </b>
-                                    <span class="float-right">{{ $auteur->ouvrage_auteur->count()}}</span>
+                                    <span class="float-right">{{ $auteur->ouvragesCount}}</span>
                                 </li>
                             </ul>
                         </div>
