@@ -103,15 +103,11 @@
                                                     </td>
                                                     <td>
                                                         <div class="">
-                                                        @foreach($ouvrage->auteurs as $author)
-                                                            @if($auteur->id !== $author->id)
+                                                        @foreach($ouvrage->auteurs->where('id', '!=', $auteur->id) as $author)
                                                                 <a href="{{ route('bibliotheque.auteurs.show',$author->id) }}">
                                                                     <span
                                                                         class="badge badge-primary">{{ $author->fullName }}</span>
                                                                     </a>
-                                                            @else
-                                                                        <span>{{ $author->fullName }}</span>
-                                                            @endif
                                                         @endforeach
                                                         </div>
                                                     </td>
