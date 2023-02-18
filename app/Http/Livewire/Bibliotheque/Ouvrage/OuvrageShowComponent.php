@@ -14,7 +14,6 @@ use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Exception;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
 
 class OuvrageShowComponent extends BaseComponent
 {
@@ -49,7 +48,7 @@ class OuvrageShowComponent extends BaseComponent
         $this->authorize("view", $ouvrage);
         $this->ouvrage = $ouvrage;
         $this->ouvrage->lectures = $ouvrage->lectures;
-       // dd($this->ouvrage);
+        // dd($this->ouvrage);
     }
 
     public function render()
@@ -59,20 +58,23 @@ class OuvrageShowComponent extends BaseComponent
             ->layout(AdminLayout::class, ['title' => "Détail sur l'ouvrage"]);
     }
 
-    public function loadData()
+    public function loadData(): void
     {
         $this->categories = OuvrageCategory::orderBy('nom', 'ASC')->get();
-        //$this->auteurs = Auteur::whereDoesntHave('ouvrage_auteur')->orderBy('nom', 'ASC')->get();
-        $this->auteurs = Auteur::orderBy('nom', 'ASC')->get();
+        $this->auteurs = Auteur::whereDoesntHave('ouvrage_auteur', function ($q) {
+            $q->where('ouvrage_id', $this->ouvrage->id);
+        })->orderBy('nom', 'ASC')->get();
+        //$this->auteurs = Auteur::orderBy('nom', 'ASC')->get();
 
 
-        //$this->etiquettes = Etiquette::whereDoesntHave('ouvrage_etiquette')->orderBy('nom', 'ASC')->get();
-        $this->etiquettes = Etiquette::orderBy('nom', 'ASC')->get();
+        $this->etiquettes = Etiquette::whereDoesntHave('ouvrage_etiquette', function ($q) {
+            $q->where('ouvrage_id', $this->ouvrage->id);
+        })->orderBy('nom', 'ASC')->get();
 
         //  dd($this->categories);
     }
 
-    public function updateOuvrage()
+    public function updateOuvrage(): void
     {
         $this->validate();
 
@@ -95,10 +97,12 @@ class OuvrageShowComponent extends BaseComponent
 
     // Auteurs
 
-    public function initAuteur(){
+    public function initAuteur()
+    {
         $this->ouvrage_auteur = new OuvrageAuteur();
 
     }
+
     public function addAuteur()
     {
         $this->ouvrage_auteur->ouvrage_id = $this->ouvrage->id;
@@ -148,10 +152,12 @@ class OuvrageShowComponent extends BaseComponent
 
     // Etiquettes
 
-    public function initEtiquette(){
+    public function initEtiquette()
+    {
         $this->ouvrage_etiquette = new OuvrageEtiquette();
 
     }
+
     public function addEtiquette()
     {
         $this->ouvrage_etiquette->ouvrage_id = $this->ouvrage->id;
@@ -202,7 +208,7 @@ class OuvrageShowComponent extends BaseComponent
     public function addLecture()
     {
         $lecture = new Lecture();
-        $lecture->user_id = \Auth::id()??null;
+        $lecture->user_id = \Auth::id() ?? null;
         $lecture->ouvrage_id = $this->ouvrage->id;
 
         try {
