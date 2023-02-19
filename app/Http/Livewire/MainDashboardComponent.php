@@ -40,7 +40,7 @@ class MainDashboardComponent extends Component
                 'title' => "Logistique",
                 'text' => 'Gestion logistique',
                 'icon' => 'fas fa-fw fa-recycle',
-                'url' => route('logistique.materiels'),
+                'url' => route('logistique'),
                 'theme' => 'warning',
             ],
             [

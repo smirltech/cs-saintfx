@@ -1,6 +1,8 @@
 <?php
 use App\Http\Livewire\Finance;
 
+Route::get('finance', Finance\Dashboard\DashboardComponent::class)->name('finance')->middleware('auth');
+
 Route::prefix('finance')->middleware(['auth:web'])->as('finance.')->group(function () {
 
     // Rapport
