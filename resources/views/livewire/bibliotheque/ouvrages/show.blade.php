@@ -122,7 +122,7 @@
                                         </span>
                                     </div>
                                     <div class=" wrapper p-2">
-                                        @foreach($ouvrage->ouvrage_etiquettes as $ouvrage_etiquette)
+                                        @foreach($ouvrage->tags as $ouvrage_etiquette)
                                             <span class="badge badge-info m-1 text-xs">
                                         {{$ouvrage_etiquette->nom}}
                                         <span title="Supprimer de l'ouvrage"

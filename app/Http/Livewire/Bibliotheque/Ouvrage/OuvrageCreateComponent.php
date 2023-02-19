@@ -25,6 +25,8 @@ class OuvrageCreateComponent extends Component
     public Collection $tags;
     public Ouvrage $ouvrage;
     public $ouvrage_pdf;
+    public array $ouvrage_auteurs = [];
+    public array $ouvrage_tags = [];
     protected $listeners = ['refresh' => '$refresh'];
     protected $rules = [
         'ouvrage.ouvrage_category_id' => 'required|exists:ouvrage_categories,id',
@@ -36,8 +38,8 @@ class OuvrageCreateComponent extends Component
         'ouvrage.editeur' => 'nullable',
         'ouvrage.date' => 'nullable',
         'ouvrage.url' => 'nullable',
-        'ouvrage.tags' => 'nullable|array',
-        'ouvrage.auteurs' => 'nullable|array',
+        'ouvrage_tags' => 'nullable|array',
+        'ouvrage_auteurs' => 'nullable|array',
         'ouvrage_pdf' => 'nullable|mimes:pdf|max:10000',
     ];
 
@@ -52,11 +54,16 @@ class OuvrageCreateComponent extends Component
         $this->categories = OuvrageCategory::orderBy('nom')->get();
         $this->tags = Tag::orderBy('name')->get();
         $this->auteurs = Auteur::all();
+
+        $this->ouvrage_auteurs = $this->ouvrage->auteurs->pluck('id')->toArray();
+        $this->ouvrage_tags = $this->ouvrage->tags->pluck('id')->toArray();
     }
 
     #[NoReturn] public function submit(): void
     {
         $id = $this->ouvrage->id;
+        $this->ouvrage->auteurs = $this->ouvrage_auteurs;
+        $this->ouvrage->tags = $this->ouvrage_tags;
         $this->ouvrage->save();
 
         if ($this->ouvrage_pdf) {
@@ -72,54 +79,4 @@ class OuvrageCreateComponent extends Component
         }
 
     }
-
-    public function addEtiquette()
-    {
-
-        $this->validate([
-            'tag_id' => 'required',
-        ]);
-
-        try {
-            $this->ouvrage_etiquette->save();
-
-            $this->onModalClosed('add-etiquette-modal');
-            $this->loadData();
-            $this->initEtiquette();
-            $this->ouvrage->refresh();
-            $this->alert('success', "Etiquette ajoutée à ouvrage avec succès !");
-        } catch (Exception $exception) {
-            $this->error($exception->getMessage(), "Échec de d'ajout d'étiquette à ouvrage, il existe déjà !");
-        }
-
-    }
-
-    public function initEtiquette()
-    {
-        $this->ouvrage_etiquette = new OuvrageEtiquette();
-
-    }
-
-    public function deleteEtiquette($id)
-    {
-
-        try {
-            $done = OuvrageEtiquette::find($id)->delete();
-            if ($done) {
-
-                $this->ouvrage->refresh();
-                $this->loadData();
-                $this->initEtiquette();
-                $this->alert('success', "Etiquette supprimée de l'ouvrage avec succès !");
-            } else {
-                $this->alert('warning', "Échec de suppression d'étiquette de l'ouvrage !");
-            }
-        } catch (Exception $exception) {
-            //  dd($exception);
-            $this->alert('error', "Échec de de suppression d'étiquette de l'ouvrage !");
-        }
-
-    }
-
-
 }

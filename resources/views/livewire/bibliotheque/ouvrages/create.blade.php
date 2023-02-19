@@ -40,18 +40,6 @@
 
                                 <div class="form-group col-md-6">
                                     <x-form::select
-                                        label="Etiquette"
-                                        required
-                                        multiple
-                                        placeholder="Choisir étiquettes"
-                                        wire:model="ouvrage.tags">
-                                        @foreach ($tags as $tag )
-                                            <option value="{{$tag->id}}">{{ $tag->name }}</option>
-                                        @endforeach
-                                    </x-form::select>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <x-form::select
                                         label="Groupe"
                                         required
                                         placeholder="Choisir groupe"
@@ -62,17 +50,38 @@
                                     </x-form::select>
                                 </div>
 
+                                <div class="form-group col-md-6">
+                                    <x-form::select
+                                        label="Etiquettes"
+                                        multiple
+                                        placeholder="Choisir étiquettes"
+                                        wire:model="ouvrage_tags">
+                                        @foreach ($tags as $tag )
+                                            <option value="{{$tag->id}}">{{ $tag->name }}</option>
+                                        @endforeach
+                                    </x-form::select>
+                                </div>
 
                                 <div class="form-group col-md-6">
                                     <x-form::select
                                         label="Auteurs"
                                         multiple
                                         placeholder="Choisir auteurs"
-                                        wire:model="ouvrage.auteurs">
+                                        wire:model="ouvrage_auteurs">
                                         @foreach ($auteurs as $auteur )
                                             <option value="{{$auteur->id}}">{{ $auteur->nom }}</option>
                                         @endforeach
                                     </x-form::select>
+                                    @foreach($ouvrage->auteurs as $auteur)
+                                        <div>
+                                            <span class="badge bg-primary">{{$auteur->nom}}</span>
+                                        </div>
+                                    @endforeach
+                                    @foreach($ouvrage_auteurs as $auteur)
+                                        <div>
+                                            <span class="badge bg-primary">{{$auteur}}</span>
+                                        </div>
+                                    @endforeach
                                 </div>
 
                                 <div class="form-group col-md-6">
