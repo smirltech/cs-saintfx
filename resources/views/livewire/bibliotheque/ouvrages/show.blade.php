@@ -10,7 +10,7 @@
 
         <div class="col-6">
             <ol class="breadcrumb float-right">
-                <li class="breadcrumb-item"><a href="{{ route('scolarite') }}">Accueil</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('bibliotheque') }}">Accueil</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('bibliotheque.ouvrages.index') }}">Ouvrages</a></li>
                 <li class="breadcrumb-item active">{{$ouvrage->titre}}</li>
             </ol>

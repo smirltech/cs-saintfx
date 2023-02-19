@@ -3,23 +3,8 @@
 use App\Http\Controllers\Admin\AuditController;
 use App\Http\Controllers\Admin\DarkmodeController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Livewire\Bibliotheque\Auteur\AuteurIndexComponent;
-use App\Http\Livewire\Bibliotheque\Ouvrage\OuvrageCreateComponent;
-use App\Http\Livewire\Bibliotheque\Ouvrage\OuvrageIndexComponent;
-use App\Http\Livewire\Bibliotheque\Ouvrage\OuvrageReadComponent;
-use App\Http\Livewire\Bibliotheque\Ouvrage\OuvrageShowComponent;
-use App\Http\Livewire\Bibliotheque\OuvrageCategory\OuvrageCategoryIndexComponent;
-use App\Http\Livewire\Bibliotheque\OuvrageCategory\OuvrageCategoryShowComponent;
-use App\Http\Livewire\Bibliotheque\Tags\TagsIndexComponent;
+use App\Http\Livewire\Bibliotheque\Etiquette\EtiquetteIndexComponent;
 use App\Http\Livewire\Finance;
-use App\Http\Livewire\Logistique\Fongible\Consommable\ConsommableIndexComponent;
-use App\Http\Livewire\Logistique\Fongible\Consommable\ConsommableShowComponent;
-use App\Http\Livewire\Logistique\Fongible\Unit\UnitIndexComponent;
-use App\Http\Livewire\Logistique\NonFongible\Materiel\MaterielIndexComponent;
-use App\Http\Livewire\Logistique\NonFongible\Materiel\MaterielShowComponent;
-use App\Http\Livewire\Logistique\NonFongible\MaterielCategory\MaterielCategoryIndexComponent;
-use App\Http\Livewire\Logistique\NonFongible\MaterielCategory\MaterielCategoryShowComponent;
-use App\Http\Livewire\Logistique\NonFongible\Mouvement\MouvementIndexComponent;
 use App\Http\Livewire\MainDashboardComponent;
 use App\Http\Livewire\Profile\UserEditComponent;
 use App\Http\Livewire\Roles;
@@ -50,144 +35,13 @@ Route::get('darkmode/toggle', [DarkmodeController::class, 'toggle'])
 
 
 //Scolarite
-Route::prefix('scolarite')->middleware(['auth:web'])->as('scolarite.')->group(function () {
-
-    // toogle dark mode
-
-//Section
-    Route::get('sections/{section}', Scolarite\Section\SectionShowComponent::class)->name('sections.show');
-    Route::get('sections', Scolarite\Section\SectionIndexComponent::class)->name('sections');
-
-    //Option
-    Route::get('options/{option}', Scolarite\Option\OptionShowComponent::class)->name('options.show');
-    Route::get('options', Scolarite\Option\OptionIndexComponent::class)->name('options');
-
-//Filiere
-    Route::get('filieres/{filiere}', Scolarite\Filiere\FiliereShowComponent::class)->name('filieres.show');
-    Route::get('filieres', Scolarite\Filiere\FiliereIndexComponent::class)->name('filieres');
-
-// Classe
-    Route::get('classes/create', Scolarite\Classe\ClasseCreateComponent::class)->name('classes.create');
-    Route::get('classes/{classe}/edit', Scolarite\Classe\ClasseEditComponent::class)->name('classes.edit');
-    Route::get('classes/{classe}', Scolarite\Classe\ClasseShowComponent::class)->name('classes.show');
-    Route::get('classes', Scolarite\Classe\ClasseIndexComponent::class)->name('classes');
-
-    // cours
-    Route::get('cours', Scolarite\Cours\CoursIndexComponent::class)->name('cours.index');
-    Route::get('cours/create', Scolarite\Cours\CoursCreateComponent::class)->name('cours.create');
-    Route::get('cours/{cours}/edit', Scolarite\Cours\CoursEditComponent::class)->name('cours.edit');
-    Route::get('cours/{cours}', Scolarite\Classe\ClasseShowComponent::class)->name('cours.show');
-
-    // devoirs
-    Route::get('devoirs', Scolarite\Devoir\DevoirIndexComponent::class)->name('devoirs.index');
-    Route::get('devoirs/create', Scolarite\Devoir\DevoirCreateComponent::class)->name('devoirs.create');
-    Route::get('devoirs/{devoir}/edit', Scolarite\Devoir\DevoirEditComponent::class)->name('devoirs.edit');
-    Route::get('devoirs/{devoir}', Scolarite\Devoir\DevoirShowComponent::class)->name('devoirs.show');
-
-    // devoirs
-    Route::get('resultats/classe/{classe}', Scolarite\Resultat\ResultatIndexComponent::class)->name('resultats.classe');
-
-    // Enseignant
-    Route::get('enseignants', Scolarite\Enseignant\EnseignantIndexComponent::class)->name('enseignants.index');
-    Route::get('enseignants/create', Scolarite\Enseignant\EnseignantCreateComponent::class)->name('enseignants.create');
-    Route::get('enseignants/{enseignant}/edit', Scolarite\Enseignant\EnseignantEditComponent::class)->name('enseignants.edit');
-    Route::get('enseignants/{enseignant}', Scolarite\Enseignant\EnseignantShowComponent::class)->name('enseignants.show');
-
-// Année
-    Route::get('annees', Scolarite\Annee\AnneeComponent::class)->name('annees');
-
-// Eleves
-    Route::get('eleves/{eleve}', Scolarite\Eleve\EleveShowComponent::class)->name('eleves.show');
-    Route::get('eleves/{eleve}/presence', Scolarite\Eleve\PresenceComponent::class)->name('eleves.presence');
-    Route::get('eleves', Scolarite\Eleve\EleveIndexComponent::class)->name('eleves');
-    Route::get('non-inscriptions', Scolarite\Eleve\ElevesNonInscritsComponent::class)->name('non-inscriptions');
-
-    // Inscription
-    Route::get('inscriptions/create', Scolarite\Inscription\InscriptionCreateComponent::class)->name('inscriptions.create');
-    Route::get('inscriptions/{inscription}/edit', Scolarite\Inscription\InscriptionEditComponent::class)->name('inscriptions.edit');
-    Route::get('inscriptions/tous', Scolarite\Inscription\InscriptionIndexComponent::class)->name('inscriptions.index');
-    Route::get('inscriptions/status/{status}', Scolarite\Inscription\ByStatus\InscriptionStatusComponent::class)->name('inscriptions.status');
-    Route::get('inscriptions', Scolarite\Inscription\InscriptionIndexComponent::class)->name('inscriptions');
-
-    // Responsables
-    Route::get('responsables/{responsable}', Scolarite\Responsable\ResponsableShowComponent::class)->name('responsables.show');
-    Route::get('responsables', Scolarite\Responsable\ResponsableIndexComponent::class)->name('responsables');
-});
-
+require __DIR__ . '/scolarite.php';
 # Finance
-Route::prefix('finance')->middleware(['auth:web'])->as('finance.')->group(function () {
-
-    // Rapport
-    Route::get('rapports', Finance\Rapport\RapportIndexComponent::class)->name('rapports');
-
-    //Revenu
-    Route::get('revenus', Finance\Revenu\RevenuIndexComponent::class)->name('revenus');
-
-    //Depense
-    Route::get('depenses', Finance\Depense\DepenseIndexComponent::class)->name('depenses');
-
-    Route::get('depense-types', Finance\DepenseType\DepenseTypeIndexComponent::class)->name('depense-types');
-    Route::get('depense-types/{depenseType}', Finance\DepenseType\DepenseTypeShowComponent::class)->name('depense-types.show');
-
-    //Frais
-    Route::get('frais', Finance\Frais\FraisIndexComponent::class)->name('frais');
-
-    //Perception
-    Route::get('perceptions/create', Finance\Perception\PerceptionCreateComponent::class)->name('perceptions.create');
-    Route::get('perceptions/classe_create', Finance\Perception\PerceptionClasseCreateComponent::class)->name('perceptions.classe-create');
-    Route::get('perceptions/{perception}/edit', Finance\Perception\PerceptionEditComponent::class)->name('perceptions.edit');
-    Route::get('perceptions', Finance\Perception\PerceptionIndexComponent::class)->name('perceptions');
-    Route::get('caisse', Finance\Perception\CaisseComponent::class)->name('caisse');
-
-    //Perception
-    Route::get('eleves', Finance\Eleve\EleveIndexComponent::class)->name('eleves');
-    Route::get('eleves/{id}', Finance\Eleve\EleveShowComponent::class)->name('eleves.show');
-});
-
+require __DIR__ . '/finance.php';
 # Logistique
-Route::prefix('logistique')->middleware(['auth:web'])->as('logistique.')->group(function () {
-
-    // materiel categories
-    Route::get('categories', MaterielCategoryIndexComponent::class)->name('categories');
-    Route::get('categories/{category}', MaterielCategoryShowComponent::class)->name('categories.show');
-
-    // materiels
-    Route::get('materiels', MaterielIndexComponent::class)->name('materiels');
-    Route::get('materiels/{materiel}', MaterielShowComponent::class)->name('materiels.show');
-
-    // materiels
-    Route::get('mouvements', MouvementIndexComponent::class)->name('mouvements');
-    Route::get('units', UnitIndexComponent::class)->name('units');
-
-    // materiels
-    Route::get('consommables', ConsommableIndexComponent::class)->name('consommables');
-    Route::get('consommables/{consommable}', ConsommableShowComponent::class)->name('consommables.show');
-
-
-});
-
+require __DIR__ . '/logistique.php';
 # Bibliothèque
-Route::prefix('bibliotheque')->middleware(['auth:web'])->as('bibliotheque.')->group(function () {
-
-    // Étiquettes
-    Route::get('etiquettes', TagsIndexComponent::class)->name('etiquettes');
-
-    // Auteurs
-    Route::get('auteurs', AuteurIndexComponent::class)->name('auteurs');
-    Route::get('auteurs/{auteur}', \App\Http\Livewire\Bibliotheque\Auteur\AuteurShowComponent::class)->name('auteurs.show');
-
-    // Categories
-    Route::get('categories', OuvrageCategoryIndexComponent::class)->name('categories');
-    Route::get('categories/{category}', OuvrageCategoryShowComponent::class)->name('categories.show');
-
-    // Ouvrages
-    Route::get('ouvrages', OuvrageIndexComponent::class)->name('ouvrages.index');
-    Route::get('ouvrages/create', OuvrageCreateComponent::class)->name('ouvrages.create');
-    Route::get('ouvrages/{ouvrage}', OuvrageShowComponent::class)->name('ouvrages.show');
-    Route::get('ouvrages/{ouvrage}/edit', OuvrageCreateComponent::class)->name('ouvrages.edit');
-    Route::get('ouvrages/{ouvrage}/read', OuvrageReadComponent::class)->name('ouvrages.read');
-
-});
+require __DIR__ . '/bibliotheque.php';
 
 // parametres
 Route::get('roles', Roles\IndexComponent::class)->name('roles.index');
