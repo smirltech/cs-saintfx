@@ -33,16 +33,6 @@ Route::get('finance', Finance\Dashboard\DashboardComponent::class)->name('financ
 Route::get('darkmode/toggle', [DarkmodeController::class, 'toggle'])
     ->name('darkmode.toggle');
 
-
-//Scolarite
-require __DIR__ . '/scolarite.php';
-# Finance
-require __DIR__ . '/finance.php';
-# Logistique
-require __DIR__ . '/logistique.php';
-# Bibliothèque
-require __DIR__ . '/bibliotheque.php';
-
 // parametres
 Route::get('roles', Roles\IndexComponent::class)->name('roles.index');
 Route::get('roles/create', Roles\RoleModal::class)->name('roles.create');
@@ -62,3 +52,13 @@ Auth::routes([
     'confirm' => false,
     'verify' => false
 ]);
+
+
+//Scolarite
+require __DIR__ . '/modules/scolarite.php';
+# Finance
+require __DIR__ . '/modules/finance.php';
+# Logistique
+require __DIR__ . '/modules/logistique.php';
+# Bibliothèque
+require __DIR__ . '/modules/bibliotheque.php';
