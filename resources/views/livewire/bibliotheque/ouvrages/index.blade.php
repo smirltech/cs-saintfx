@@ -9,7 +9,7 @@
 
         <div class="col-6">
             <ol class="breadcrumb float-right">
-                <li class="breadcrumb-item"><a href="{{ route('scolarite') }}">Accueil</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('bibliotheque') }}">Accueil</a></li>
                 <li class="breadcrumb-item active">Ouvrages</li>
             </ol>
         </div>
@@ -67,7 +67,7 @@
                                             <td>
                                                 <div class="d-flex float-right">
                                                     @if($ouvrage->url)
-                                                        <a wire:click.debounce="addLecture({{$ouvrage->id}})"
+                                                        <a wire:click.debounce="addLecture('{{$ouvrage->id}}')"
                                                            href="{{$ouvrage->url}}"
                                                            target=“_blank”
                                                            title="Aller au lien"
@@ -77,7 +77,7 @@
                                                     @endif
 
                                                     @if($ouvrage->media)
-                                                        <a wire:click.debounce="addLecture({{$ouvrage->id}})"
+                                                        <a wire:click.debounce="addLecture('{{$ouvrage->id}}')"
                                                            href="{{ route('bibliotheque.ouvrages.read',$ouvrage) }}"
                                                            target=“_blank”
                                                            title="Aller au lien"

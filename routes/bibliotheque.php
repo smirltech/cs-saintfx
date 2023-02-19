@@ -9,6 +9,9 @@ use App\Http\Livewire\Bibliotheque\Ouvrage\OuvrageReadComponent;
 use App\Http\Livewire\Bibliotheque\Ouvrage\OuvrageShowComponent;
 use App\Http\Livewire\Bibliotheque\OuvrageCategory\OuvrageCategoryIndexComponent;
 use App\Http\Livewire\Bibliotheque\OuvrageCategory\OuvrageCategoryShowComponent;
+use App\Http\Livewire\Bibliotheque;
+
+Route::get('bibliotheque', Bibliotheque\DashboardComponent::class)->name('bibliotheque')->middleware('auth');
 
 Route::prefix('bibliotheque')->middleware(['auth:web'])->as('bibliotheque.')->group(function () {
 

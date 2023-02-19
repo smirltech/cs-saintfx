@@ -69,6 +69,7 @@ class OuvrageIndexComponent extends BaseComponent
 
     public function addLecture($ouvrage_id)
     {
+       // dd($ouvrage_id);
         $lecture = new Lecture();
         $lecture->user_id = Auth::id() ?? null;
         $lecture->ouvrage_id = $ouvrage_id;
@@ -77,7 +78,7 @@ class OuvrageIndexComponent extends BaseComponent
             $done = $lecture->save();
             $this->loadData();
         } catch (Exception $exception) {
-            //  dd($exception);
+              dd($exception);
         }
 
     }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AuditController;
 use App\Http\Controllers\Admin\DarkmodeController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Livewire\Bibliotheque;
 use App\Http\Livewire\Finance;
 use App\Http\Livewire\MainDashboardComponent;
 use App\Http\Livewire\Profile\UserEditComponent;
