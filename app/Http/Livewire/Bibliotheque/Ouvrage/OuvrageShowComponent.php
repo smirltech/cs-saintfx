@@ -14,6 +14,7 @@ use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Auth;
 use Exception;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class OuvrageShowComponent extends BaseComponent
 {
@@ -57,20 +58,24 @@ class OuvrageShowComponent extends BaseComponent
             ->layout(AdminLayout::class, ['title' => "Détail sur l'ouvrage"]);
     }
 
-    public function loadData()
+    public function loadData(): void
     {
         $this->categories = OuvrageCategory::orderBy('nom', 'ASC')->get();
-        //$this->auteurs = Auteur::whereDoesntHave('ouvrage_auteur')->orderBy('nom', 'ASC')->get();
-        $this->auteurs = Auteur::orderBy('nom', 'ASC')->get();
+        $this->auteurs = Auteur::whereDoesntHave('ouvrage_auteur', function ($q) {
+            $q->where('ouvrage_id', $this->ouvrage->id);
+        })->orderBy('nom', 'ASC')->get();
+        //$this->auteurs = Auteur::orderBy('nom', 'ASC')->get();
 
 
         //$this->etiquettes = Etiquette::whereDoesntHave('ouvrage_etiquette')->orderBy('nom', 'ASC')->get();
-        $this->etiquettes = Tag::orderBy('name', 'ASC')->get();
+        $this->etiquettes = Tag::whereDoesntHave('ouvrage_etiquette', function ($q) {
+            $q->where('ouvrage_id', $this->ouvrage->id);
+        })->orderBy('nom', 'ASC')->get();
 
         //  dd($this->categories);
     }
 
-    public function updateOuvrage()
+    public function updateOuvrage(): void
     {
         $this->validate();
 
