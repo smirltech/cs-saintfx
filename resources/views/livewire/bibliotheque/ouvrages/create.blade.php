@@ -37,6 +37,19 @@
                                         wire:model="ouvrage.sous_titre">
                                     </x-form::input>
                                 </div>
+
+                                <div class="form-group col-md-6">
+                                    <x-form::select
+                                        label="Etiquette"
+                                        required
+                                        multiple
+                                        placeholder="Choisir étiquettes"
+                                        wire:model="ouvrage.tags">
+                                        @foreach ($tags as $tag )
+                                            <option value="{{$tag->id}}">{{ $tag->name }}</option>
+                                        @endforeach
+                                    </x-form::select>
+                                </div>
                                 <div class="form-group col-md-6">
                                     <x-form::select
                                         label="Groupe"
@@ -48,6 +61,20 @@
                                         @endforeach
                                     </x-form::select>
                                 </div>
+
+
+                                <div class="form-group col-md-6">
+                                    <x-form::select
+                                        label="Auteurs"
+                                        multiple
+                                        placeholder="Choisir auteurs"
+                                        wire:model="ouvrage.auteurs">
+                                        @foreach ($auteurs as $auteur )
+                                            <option value="{{$auteur->id}}">{{ $auteur->nom }}</option>
+                                        @endforeach
+                                    </x-form::select>
+                                </div>
+
                                 <div class="form-group col-md-6">
                                     <x-form::input
                                         type="date"
@@ -109,4 +136,4 @@
             </div>
         </div>
     </div>
-
+</div>
