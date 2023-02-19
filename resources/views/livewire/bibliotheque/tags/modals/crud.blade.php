@@ -1,17 +1,14 @@
 {{--add etiquette--}}
 <x-adminlte-modal wire:ignore.self id="add-etiquette-modal" icon="fa fa-tag"
                   title="Ajout de Étiquette">
-    <x-form::validation-errors class="mb-4" :errors="$errors"/>
+    {{-- <x-form::validation-errors class="mb-4"/>--}}
     <form id="f1a" wire:submit.prevent="addEtiquette">
         <div class="row">
 
             <div class="form-group col-md-12 col-sm-12">
                 <x-form::input
-                    type="text"
                     label="Nom"
-                    wire:model="etiquette.nom"
-                    :is-valid="$errors->has('etiquette.nom')?false:null"
-                    :error="$errors->first('etiquette.nom')">
+                    wire:model.defer="etiquette.name">
                 </x-form::input>
             </div>
         </div>
@@ -32,11 +29,8 @@
 
             <div class="form-group col-md-12 col-sm-12">
                 <x-form::input
-                    type="text"
                     label="Nom"
-                    wire:model="etiquette.nom"
-                    :is-valid="$errors->has('etiquette.nom')?false:null"
-                    :error="$errors->first('etiquette.nom')">
+                    wire:model.defer="etiquette.name">
                 </x-form::input>
             </div>
         </div>
