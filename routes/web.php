@@ -174,6 +174,7 @@ Route::prefix('bibliotheque')->middleware(['auth:web'])->as('bibliotheque.')->gr
 
     // Auteurs
     Route::get('auteurs', AuteurIndexComponent::class)->name('auteurs');
+    Route::get('auteurs/{auteur}', \App\Http\Livewire\Bibliotheque\Auteur\AuteurShowComponent::class)->name('auteurs.show');
 
     // Categories
     Route::get('categories', OuvrageCategoryIndexComponent::class)->name('categories');
