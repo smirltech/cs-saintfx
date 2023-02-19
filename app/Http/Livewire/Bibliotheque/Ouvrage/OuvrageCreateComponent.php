@@ -3,8 +3,10 @@
 namespace App\Http\Livewire\Bibliotheque\Ouvrage;
 
 use App\Enums\MediaType;
+use App\Models\Auteur;
 use App\Models\Ouvrage;
 use App\Models\OuvrageCategory;
+use App\Models\Tag;
 use App\Traits\HasLivewireAlert;
 use App\Traits\WithFileUploads;
 use Illuminate\Contracts\Foundation\Application;
@@ -19,8 +21,12 @@ class OuvrageCreateComponent extends Component
     use HasLivewireAlert, WithFileUploads;
 
     public Collection $categories;
+    public Collection $auteurs;
+    public Collection $tags;
     public Ouvrage $ouvrage;
     public $ouvrage_pdf;
+    public array $ouvrage_auteurs = [];
+    public array $ouvrage_tags = [];
     protected $listeners = ['refresh' => '$refresh'];
     protected $rules = [
         'ouvrage.ouvrage_category_id' => 'required|exists:ouvrage_categories,id',
@@ -32,6 +38,8 @@ class OuvrageCreateComponent extends Component
         'ouvrage.editeur' => 'nullable',
         'ouvrage.date' => 'nullable',
         'ouvrage.url' => 'nullable',
+        'ouvrage_tags' => 'nullable|array',
+        'ouvrage_auteurs' => 'nullable|array',
         'ouvrage_pdf' => 'nullable|mimes:pdf|max:10000',
     ];
 
@@ -44,11 +52,18 @@ class OuvrageCreateComponent extends Component
     {
         $this->ouvrage = $ouvrage;
         $this->categories = OuvrageCategory::orderBy('nom')->get();
+        $this->tags = Tag::orderBy('name')->get();
+        $this->auteurs = Auteur::all();
+
+        $this->ouvrage_auteurs = $this->ouvrage->auteurs->pluck('id')->toArray();
+        $this->ouvrage_tags = $this->ouvrage->tags->pluck('id')->toArray();
     }
 
     #[NoReturn] public function submit(): void
     {
         $id = $this->ouvrage->id;
+        $this->ouvrage->auteurs = $this->ouvrage_auteurs;
+        $this->ouvrage->tags = $this->ouvrage_tags;
         $this->ouvrage->save();
 
         if ($this->ouvrage_pdf) {
@@ -64,5 +79,4 @@ class OuvrageCreateComponent extends Component
         }
 
     }
-
 }

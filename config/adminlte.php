@@ -488,7 +488,7 @@ return [
 
         [
             'header' => 'BIBLIOTHÈQUE',
-            'can' => ['ouvrages.view.*', 'auteurs.view.*', 'etiquettes.view.*', 'ouvrage-categories.view.*'],
+            'can' => ['ouvrages.view.*', 'auteurs.view.*', 'tags.view.*', 'ouvrage-categories.view.*'],
         ],
         [
             'text' => 'Ouvrages',
@@ -512,7 +512,7 @@ return [
             'text' => 'Étiquettes',
             'url' => 'bibliotheque/etiquettes',
             'icon' => 'fas fa-fw fa-tags',
-            'can' => 'etiquettes.view.*',
+            'can' => 'tags.view.*',
         ],
 
         [

@@ -3,11 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\Tags\Tag as SpatieTag;
 
-class Etiquette extends Model
+
+class Tag extends SpatieTag
 {
     use HasFactory;
 
@@ -16,5 +16,11 @@ class Etiquette extends Model
     public function ouvrage_etiquette(): HasMany|null
     {
         return $this->hasMany(OuvrageEtiquette::class);
+    }
+
+    // get nom attribute
+    public function getNomAttribute(): string
+    {
+        return $this->name;
     }
 }

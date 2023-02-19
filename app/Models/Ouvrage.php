@@ -10,31 +10,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Collection;
 use SmirlTech\LaravelMedia\Traits\HasMedia;
+use Spatie\Tags\HasTags;
 
 class Ouvrage extends Model
 {
-    use HasFactory, HasMedia, HasUlids;
+    use HasFactory, HasMedia, HasUlids, HasTags;
 
     public $guarded = [];
-
-    public function ouvrageAuteurs(): HasMany|null
-    {
-        return $this->hasMany(
-            related: OuvrageAuteur::class,
-        );
-    }
-
-    public function auteurs(): HasManyThrough
-    {
-        return $this->hasManyThrough(
-            related: Auteur::class,
-            through: OuvrageAuteur::class,
-            firstKey: 'ouvrage_id',
-            secondKey: 'id',
-            localKey: 'id',
-            secondLocalKey: 'auteur_id',
-        );
-    }
 
     public function lectures(): HasMany
     {
@@ -61,13 +43,6 @@ class Ouvrage extends Model
         return $this->lectures->first();
     }
 
-    public function ouvrage_etiquettes(): HasMany|null
-    {
-        return $this->hasMany(
-            OuvrageEtiquette::class,
-        );
-    }
-
     public function category(): BelongsTo
     {
         return $this->belongsTo(OuvrageCategory::class, 'ouvrage_category_id');
@@ -82,5 +57,42 @@ class Ouvrage extends Model
     {
         $this->media->each->delete();
     }
+
+    public function setAuteursAttribute(?array $value): void
+    {
+        $this->ouvrageAuteurs()->delete();
+        if ($value) {
+            foreach ($value as $auteur) {
+                $this->ouvrageAuteurs()->create(['auteur_id' => $auteur]);
+            }
+        }
+    }
+
+    public function ouvrageAuteurs(): HasMany|null
+    {
+        return $this->hasMany(
+            related: OuvrageAuteur::class,
+        );
+    }
+
+    public function auteurs(): HasManyThrough
+    {
+        return $this->hasManyThrough(
+            related: Auteur::class,
+            through: OuvrageAuteur::class,
+            firstKey: 'ouvrage_id',
+            secondKey: 'id',
+            localKey: 'id',
+            secondLocalKey: 'auteur_id',
+        );
+    }
+
+    public function setTagsAttribute(?array $tags): void
+    {
+        if ($tags) {
+            $this->tags()->sync($tags);
+        }
+    }
+
 
 }

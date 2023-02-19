@@ -6,7 +6,7 @@
         <div class="row">
             <div class="form-group col-md-12 col-sm-12">
                 <label for="">Etiquette</label>
-                <x-form::select wire:model="ouvrage_etiquette.etiquette_id"
+                <x-form::select wire:model="ouvrage_etiquette.tag_id"
                                 class="form-control">
                     <option value=null>Choisir étiquette...</option>
                     @foreach ($etiquettes as $es )

@@ -4,27 +4,28 @@ namespace App\Http\Livewire\Bibliotheque\Ouvrage;
 
 use App\Http\Livewire\BaseComponent;
 use App\Models\Auteur;
-use App\Models\Etiquette;
 use App\Models\Lecture;
 use App\Models\Ouvrage;
 use App\Models\OuvrageAuteur;
 use App\Models\OuvrageCategory;
-use App\Models\OuvrageEtiquette;
+use App\Models\Tag;
+use App\Traits\HasLivewireAlert;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
+use Auth;
 use Exception;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class OuvrageShowComponent extends BaseComponent
 {
     use TopMenuPreview;
-    use LivewireAlert;
+    use HasLivewireAlert;
 
     public Ouvrage $ouvrage;
     public OuvrageAuteur $ouvrage_auteur;
-    public OuvrageEtiquette $ouvrage_etiquette;
     public $categories = [];
     public $auteurs = [];
+
 
     public $etiquettes = [];
 
@@ -40,7 +41,6 @@ class OuvrageShowComponent extends BaseComponent
         'ouvrage.url' => 'required',
 
         'ouvrage_auteur.auteur_id' => 'nullable',
-        'ouvrage_etiquette.etiquette_id' => 'nullable',
     ];
 
     public function mount(Ouvrage $ouvrage)
@@ -67,7 +67,8 @@ class OuvrageShowComponent extends BaseComponent
         //$this->auteurs = Auteur::orderBy('nom', 'ASC')->get();
 
 
-        $this->etiquettes = Etiquette::whereDoesntHave('ouvrage_etiquette', function ($q) {
+        //$this->etiquettes = Etiquette::whereDoesntHave('ouvrage_etiquette')->orderBy('nom', 'ASC')->get();
+        $this->etiquettes = Tag::whereDoesntHave('ouvrage_etiquette', function ($q) {
             $q->where('ouvrage_id', $this->ouvrage->id);
         })->orderBy('nom', 'ASC')->get();
 
@@ -97,12 +98,6 @@ class OuvrageShowComponent extends BaseComponent
 
     // Auteurs
 
-    public function initAuteur()
-    {
-        $this->ouvrage_auteur = new OuvrageAuteur();
-
-    }
-
     public function addAuteur()
     {
         $this->ouvrage_auteur->ouvrage_id = $this->ouvrage->id;
@@ -125,6 +120,12 @@ class OuvrageShowComponent extends BaseComponent
             //  dd($exception);
             $this->alert('error', "Échec de d'ajout d'auteur à ouvrage, il existe déjà !");
         }
+
+    }
+
+    public function initAuteur()
+    {
+        $this->ouvrage_auteur = new OuvrageAuteur();
 
     }
 
@@ -152,63 +153,10 @@ class OuvrageShowComponent extends BaseComponent
 
     // Etiquettes
 
-    public function initEtiquette()
-    {
-        $this->ouvrage_etiquette = new OuvrageEtiquette();
-
-    }
-
-    public function addEtiquette()
-    {
-        $this->ouvrage_etiquette->ouvrage_id = $this->ouvrage->id;
-        $this->validate([
-            'ouvrage_etiquette.etiquette_id' => 'required',
-        ]);
-
-        try {
-            $done = $this->ouvrage_etiquette->save();
-            if ($done) {
-                $this->onModalClosed('add-etiquette-modal');
-                $this->loadData();
-                $this->initEtiquette();
-                $this->ouvrage->refresh();
-                $this->alert('success', "Etiquette ajoutée à ouvrage avec succès !");
-            } else {
-                $this->alert('warning', "Échec d'ajout d'étiquette à ouvrage !");
-            }
-        } catch (Exception $exception) {
-            //  dd($exception);
-            $this->alert('error', "Échec de d'ajout d'étiquette à ouvrage, il existe déjà !");
-        }
-
-    }
-
-    public function deleteEtiquette($id)
-    {
-
-        try {
-            $done = OuvrageEtiquette::find($id)->delete();
-            if ($done) {
-
-                $this->ouvrage->refresh();
-                $this->loadData();
-                $this->initEtiquette();
-                $this->alert('success', "Etiquette supprimée de l'ouvrage avec succès !");
-            } else {
-                $this->alert('warning', "Échec de suppression d'étiquette de l'ouvrage !");
-            }
-        } catch (Exception $exception) {
-            //  dd($exception);
-            $this->alert('error', "Échec de de suppression d'étiquette de l'ouvrage !");
-        }
-
-    }
-
-
     public function addLecture()
     {
         $lecture = new Lecture();
-        $lecture->user_id = \Auth::id() ?? null;
+        $lecture->user_id = Auth::id() ?? null;
         $lecture->ouvrage_id = $this->ouvrage->id;
 
         try {

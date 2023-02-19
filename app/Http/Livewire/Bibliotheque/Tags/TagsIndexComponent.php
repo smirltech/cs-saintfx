@@ -1,56 +1,61 @@
 <?php
 
-namespace App\Http\Livewire\Bibliotheque\Etiquette;
+namespace App\Http\Livewire\Bibliotheque\Tags;
 
 use App\Http\Livewire\BaseComponent;
-use App\Models\Etiquette;
-use App\Models\OuvrageEtiquette;
+use App\Models\Tag;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
 
-class EtiquetteIndexComponent extends BaseComponent
+class TagsIndexComponent extends BaseComponent
 {
     use TopMenuPreview;
     use LivewireAlert;
-   // protected $paginationTheme = 'bootstrap';
 
-    private $etiquettes = [];
-    public Etiquette $etiquette;
+    // protected $paginationTheme = 'bootstrap';
 
+    public Tag $etiquette;
+    public Collection $etiquettes;
     protected $rules = [
-        'etiquette.nom' => 'required|unique:etiquettes, nom',
+        'etiquette.nom' => 'required|unique:tags,name',
     ];
 
-    public function mount()
+    /**
+     * @throws AuthorizationException
+     */
+    public function mount(): void
     {
-        $this->authorize("viewAny", Etiquette::class);
+        $this->authorize("viewAny", Tag::class);
         $this->initEtiquette();
         $this->loadData();
     }
 
-    public function initEtiquette()
+    public function initEtiquette(): void
     {
-        $this->etiquette = new Etiquette();
+        $this->etiquette = new Tag();
     }
 
-    public function loadData()
+    public function loadData(): void
     {
-        $this->etiquettes = Etiquette::orderBy('nom')->get();
+        $this->etiquettes = Tag::orderBy('name')->get();
     }
 
-    public function render()
+    public function render(): Factory|View|Application
     {
         $this->loadData();
-        return view('livewire.bibliotheque.etiquettes.index', ['etiquettes' => $this->etiquettes])
+        return view('livewire.bibliotheque.tags.index')
             ->layout(AdminLayout::class, ['title' => "Liste d'Étiquettes"]);
     }
 
-
-    public function addEtiquette()
+    public function addEtiquette(): void
     {
         $this->validate();
 
@@ -71,23 +76,23 @@ class EtiquetteIndexComponent extends BaseComponent
 
     }
 
-    public function onModalClosed($p_id)
+    public function onModalClosed($p_id): void
     {
         $this->dispatchBrowserEvent('closeModal', ['modal' => $p_id]);
         $this->initEtiquette();
     }
 
-    public function getSelectedEtiquette(Etiquette $etiquette)
+    public function getSelectedEtiquette(Tag $etiquette): void
     {
         $this->etiquette = $etiquette;
     }
 
-    public function updateEtiquette()
+    public function updateEtiquette(): void
     {
         $this->validate([
             'etiquette.nom' => [
                 "required",
-                Rule::unique((new Etiquette())->getTable(), "nom")->ignore($this->etiquette->id)
+                Rule::unique((new Tag())->getTable(), 'name')->ignore($this->etiquette->id)
             ],
 
         ]);
@@ -102,7 +107,7 @@ class EtiquetteIndexComponent extends BaseComponent
 
     }
 
-    public function deleteEtiquette()
+    public function deleteEtiquette(): void
     {
         if ($this->etiquette->delete()) {
             $this->loadData();

@@ -3,15 +3,15 @@
 namespace Database\Seeders;
 
 
-use App\Models\Etiquette;
+use App\Models\Tag;
 use Illuminate\Database\Seeder;
 
-class EtiquetteSeeder extends Seeder
+class TagSeeder extends Seeder
 {
     public function run()
     {
         foreach ($this->data() as $etiquette) {
-            Etiquette::create($etiquette);
+            Tag::create($etiquette);
         }
     }
 
@@ -19,28 +19,28 @@ class EtiquetteSeeder extends Seeder
     {
         return [
             [
-                'nom' => 'Sciences',
+                'name' => 'Sciences',
             ],
             [
-                'nom' => 'Langue',
+                'name' => 'Langue',
             ],
             [
-                'nom' => 'Technologie',
+                'name' => 'Technologie',
             ],
             [
-                'nom' => 'Connaissance Générale',
+                'name' => 'Connaissance Générale',
             ],
             [
-                'nom' => 'Biologie',
+                'name' => 'Biologie',
             ],
             [
-                'nom' => 'Électricité',
+                'name' => 'Électricité',
             ],
             [
-                'nom' => 'Français',
+                'name' => 'Français',
             ],
             [
-                'nom' => 'Agriculture',
+                'name' => 'Agriculture',
             ],
         ];
     }
