@@ -4,15 +4,8 @@ namespace App\Http\Livewire\Bibliotheque\Auteur;
 
 use App\Http\Livewire\BaseComponent;
 use App\Models\Auteur;
-use App\Models\Etiquette;
-use App\Models\Lecture;
-use App\Models\Ouvrage;
-use App\Models\OuvrageAuteur;
-use App\Models\OuvrageCategory;
-use App\Models\OuvrageEtiquette;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
-use Exception;
 use Illuminate\Support\Collection;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
@@ -26,7 +19,6 @@ class AuteurShowComponent extends BaseComponent
     public Collection $ouvrages;
 
     public $etiquettes = [];
-
 
 
     public function mount(Auteur $auteur)

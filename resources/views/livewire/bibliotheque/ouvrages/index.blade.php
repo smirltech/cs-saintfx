@@ -76,7 +76,7 @@
                                                         </a>
                                                     @endif
 
-                                                    @if($ouvrage->media)
+                                                    @if($ouvrage->getFirstMediaUrl())
                                                         <a wire:click.debounce="addLecture('{{$ouvrage->id}}')"
                                                            href="{{ route('bibliotheque.ouvrages.read',$ouvrage) }}"
                                                            target=“_blank”
