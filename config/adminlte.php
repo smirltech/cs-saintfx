@@ -15,7 +15,7 @@ return [
     */
 
     'title' => 'Collège ENK',
-    'title_prefix' => 'CENK | ',
+    'title_prefix' => '',
     'title_postfix' => '',
 
     /*
@@ -229,7 +229,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'scolarite',
+    'dashboard_url' => '/',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -249,7 +249,7 @@ return [
     |
     */
 
-    'enabled_laravel_mix' => false,
+    'enabled_laravel_mix' => true,
     'laravel_mix_css_path' => 'css/app.css',
     'laravel_mix_js_path' => 'js/app.js',
 

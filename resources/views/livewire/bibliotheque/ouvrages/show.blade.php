@@ -19,10 +19,6 @@
 
 @stop
 <div class="">
-    @include('livewire.bibliotheque.ouvrages.modals.crud')
-    @include('livewire.bibliotheque.ouvrages.modals.auteur')
-    @include('livewire.bibliotheque.ouvrages.modals.etiquette')
-
     <div class="content mt-3">
         <div class="container-fluid">
             <div class="row">
@@ -34,11 +30,9 @@
                             </div>
                             <div class="card-tools">
                                 @can('ouvrages.update',$ouvrage)
-                                    <span
-                                        title="Modifier" role="button" class="ml-2 mr-2" data-toggle="modal"
-                                        data-target="#update-category-modal">
-                                    <span class="fa fa-pen"></span>
-                                </span>
+                                    <a href="{{ route('bibliotheque.ouvrages.edit',$ouvrage) }}">
+                                        <span class="fa fa-pen"></span>
+                                    </a>
                                 @endcan
 
                             </div>
@@ -82,57 +76,25 @@
                                 <li class="list-group-item">
                                     <div>
                                         <b>Auteurs : </b>
-                                        <span class="float-right">
-                                              @can('ouvrages.update',$ouvrage)
-                                                <button wire:click="initAuteur"
-                                                        class="btn btn-default mb-1"
-                                                        data-toggle="modal"
-                                                        data-target="#add-auteur-modal">
-                                                <span
-                                                    class="fa fa-plus"></span>
-                                            </button>
-                                            @endcan
-                                        </span>
                                     </div>
                                     <div class=" wrapper p-2">
-                                        @foreach($ouvrage->ouvrageAuteurs as $ouvrage_auteur)
+                                        @foreach($ouvrage->auteurs as $auteur)
                                             <span class="badge badge-warning m-1 text-xs">
-                                        {{$ouvrage_auteur->nom}}
-                                        <span title="Supprimer de l'ouvrage"
-                                              wire:click="deleteAuteur({{$ouvrage_auteur->id}})"
-                                              class="p-0 btn text-danger btn-xs"><span
-                                                class="fa fa-close"></span></span>
-                                    </span>
+                                            {{$auteur->nom}}
+                                            </span>
                                         @endforeach
-
-
                                     </div>
                                 </li>
                                 <li class="list-group-item">
                                     <div>
-                                        <b>Étiquettes : </b> <span class="float-right">
-                                              @can('ouvrages.update',$ouvrage)
-                                                <button wire:click="initEtiquette"
-                                                        class="btn btn-default mb-1"
-                                                        data-toggle="modal"
-                                                        data-target="#add-etiquette-modal">
-                                                <span
-                                                    class="fa fa-plus"></span></button>
-                                            @endcan
-                                        </span>
+                                        <b>Étiquettes : </b>
                                     </div>
                                     <div class=" wrapper p-2">
                                         @foreach($ouvrage->tags as $ouvrage_etiquette)
                                             <span class="badge badge-info m-1 text-xs">
                                         {{$ouvrage_etiquette->nom}}
-                                        <span title="Supprimer de l'ouvrage"
-                                              wire:click="deleteEtiquette({{$ouvrage_etiquette->id}})"
-                                              class="p-0 btn text-danger btn-xs"><span
-                                                class="fa fa-close"></span></span>
-                                    </span>
+                                        </span>
                                         @endforeach
-
-
                                     </div>
                                 </li>
 

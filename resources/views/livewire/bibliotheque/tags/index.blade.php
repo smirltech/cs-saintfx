@@ -1,5 +1,5 @@
 @section('title')
-    - étiquettes
+    {{$title}}
 @endsection
 @section('content_header')
     <div class="row">
@@ -17,7 +17,6 @@
 
 @stop
 <div wire:ignore.self class="">
-    @include('livewire.bibliotheque.tags.modals.crud')
     <div class="content mt-3">
         <div class="container-fluid">
             <div class="row">
@@ -30,8 +29,8 @@
                             <div class="card-tools d-flex my-auto">
                                 @can('tags.create')
                                     <button type="button"
-                                            class="btn btn-primary  ml-2" data-toggle="modal"
-                                            data-target="#add-etiquette-modal"><span
+                                            wire:click="$emit('showModal','bibliotheque.tags.create-tag-modal')"
+                                            class="btn btn-primary  ml-2"><span
                                             class="fa fa-plus"></span></button>
                                 @endcan
                             </div>
@@ -55,20 +54,18 @@
                                             <td>
                                                 <div class="d-flex float-right">
                                                     @can('tags.update',$etiquette)
-                                                        <button wire:click="getSelectedEtiquette({{$etiquette}})"
-                                                                type="button"
-                                                                title="Modifier" class="btn btn-info  ml-2"
-                                                                data-toggle="modal"
-                                                                data-target="#update-etiquette-modal">
+                                                        <button
+                                                            wire:click="$emit('showModal','bibliotheque.tags.create-tag-modal','{{$etiquette->id}}')"
+                                                            title="Modifier"
+                                                            class="btn btn-info  ml-2"
+                                                        >
                                                             <span class="fa fa-pen"></span>
                                                         </button>
                                                     @endcan
                                                     @can('tags.delete',$etiquette)
-                                                        <button wire:click="getSelectedEtiquette({{$etiquette}})"
-                                                                type="button"
-                                                                title="supprimer" class="btn btn-danger  ml-2"
-                                                                data-toggle="modal"
-                                                                data-target="#delete-etiquette-modal">
+                                                        <button wire:click="deleteEtiquette('{{$etiquette->id}}')"
+                                                                title="supprimer"
+                                                                class="btn btn-danger  ml-2">
                                                             <span class="fa fa-trash"></span>
                                                         </button>
                                                     @endcan

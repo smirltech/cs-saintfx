@@ -73,16 +73,6 @@
                                             <option value="{{$auteur->id}}">{{ $auteur->nom }}</option>
                                         @endforeach
                                     </x-form::select>
-                                    @foreach($ouvrage->auteurs as $auteur)
-                                        <div>
-                                            <span class="badge bg-primary">{{$auteur->nom}}</span>
-                                        </div>
-                                    @endforeach
-                                    @foreach($ouvrage_auteurs as $auteur)
-                                        <div>
-                                            <span class="badge bg-primary">{{$auteur}}</span>
-                                        </div>
-                                    @endforeach
                                 </div>
 
                                 <div class="form-group col-md-6">
