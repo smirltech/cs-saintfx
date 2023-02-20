@@ -28,20 +28,12 @@
     @yield('adminlte_css_pre')
 
     {{-- Base Stylesheets --}}
-    @if(!config('adminlte.enabled_laravel_mix'))
-        <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-        <link rel="stylesheet" href="{{ asset('vendor/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
-
-        {{-- Configured Stylesheets --}}
-        @include('adminlte::plugins', ['type' => 'css'])
-        <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/adminlte.css') }}">
-        <link rel="stylesheet"
-              href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-    @else
-        <link rel="stylesheet" href="{{ mix(config('adminlte.laravel_mix_css_path', 'css/app.css')) }}">
-    @endif
-
+    {{-- <link rel="stylesheet" href="{{ asset('vendor/overlayScrollbars/css/OverlayScrollbars.min.css') }}">--}}
+    {{-- Configured Stylesheets --}}
+    @include('adminlte::plugins', ['type' => 'css'])
+    <link rel="stylesheet" href="{{ mix(config('adminlte.laravel_mix_css_path', 'css/app.css')) }}">
+    <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/adminlte.css') }}">
+    @stack('css')
     @stack('js_top')
 
     {{-- Custom stylesheets (post AdminLTE) --}}
@@ -92,7 +84,7 @@
     <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.6.2.min.js"
             integrity="sha256-2krYZKh//PcchRtd+H+VyyQoZ/e3EcrkxhM8ycwASPA=" crossorigin="anonymous"></script>
-    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    {{-- <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>--}}
     <script src="{{ asset('vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
     @include('adminlte::plugins', ['type' => 'js'])
 
@@ -108,7 +100,7 @@
 <x-livewire-alert::scripts/>
 <x-livewire-alert::flash/>
 <script src="{{ mix('js/app.js') }}"></script>
-
+<x-modals::scripts/>
 {{-- Custom Scripts --}}
 @yield('adminlte_js')
 
