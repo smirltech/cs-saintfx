@@ -9,9 +9,9 @@
         <div class="input-group-prepend">
             <span class="input-group-text">Résultats </span>
         </div>
-        <x-form-select placeholder="----------" wire:change="selectResultatType"
-                       wire:model="resultatTypeValue"
-                       class="form-control">
+        <x-form::select placeholder="----------" wire:change="selectResultatType"
+                        wire:model="resultatTypeValue"
+                        class="form-control">
             @if(!$classe->maternelle())
                 <option value="{{ResultatType::p1->value}}">{{ResultatType::p1->longLabel()}}</option>
                 <option value="{{ResultatType::p2->value}}">{{ResultatType::p2->longLabel()}}</option>
@@ -36,7 +36,7 @@
                 <option value="" disabled>----------</option>
             @endif
             <option value="{{ResultatType::tg->value}}">{{ResultatType::tg->longLabel()}}</option>
-        </x-form-select>
+        </x-form::select>
         <div class="input-group-append ml-1" id="button-addon4">
             <button wire:click="printIt" title="Imprimer résultats" class="btn btn-outline-secondary" type="button"><i
                     class="fas fa-print"></i></button>

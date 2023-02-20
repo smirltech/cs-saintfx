@@ -12,12 +12,13 @@ trait HasLivewireAlert
 
     /**
      * @param string $local
-     * @param string $production
+     * @param string|null $production
      */
-    public function error(string $local, string $production): void
+    public function error(string $local, ?string $production = null): void
     {
-        $this->alert('error', App::hasDebugModeEnabled() ? $local : $production, [
+        $this->alert('error', App::hasDebugModeEnabled() ? $local : $production ?? $local, [
             'toast' => false,
+            'timer' => null,
             'duration' => 10000,
         ]);
     }
@@ -32,12 +33,18 @@ trait HasLivewireAlert
         $this->alert('success', $message, $options);
     }
 
+    public function flashSuccess(string $message, string $redirect, array $options = []): void
+    {
+
+        $this->flash('success', $message, $options, $redirect);
+    }
+
     /**
      * @param string $message
      * @param array $options
      * @return void
      */
-    private function warning(string $message, array $options = []): void
+    public function warning(string $message, array $options = []): void
     {
 
         $this->alert('warning', $message, $options);

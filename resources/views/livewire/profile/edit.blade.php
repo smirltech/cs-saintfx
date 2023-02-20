@@ -60,12 +60,12 @@
                                         <i class="fa fa-eye"></i> Voir l'élève
                                     </a>
                                 @endcan
-                                    @can("view", $user->responsable)
-                                        <a href="{{route('scolarite.responsables.show',$user->responsable)}}"
-                                           class="btn btn-primary btn-sm">
-                                            <i class="fa fa-eye"></i> Voir le parent
-                                        </a>
-                                    @endcan
+                                @can("view", $user->responsable)
+                                    <a href="{{route('scolarite.responsables.show',$user->responsable)}}"
+                                       class="btn btn-primary btn-sm">
+                                        <i class="fa fa-eye"></i> Voir le parent
+                                    </a>
+                                @endcan
                             </div>
                         </div>
                     </div>
@@ -120,8 +120,8 @@
                                     }}</label>
 
                                         <div class="col-md-6">
-                                            <select name="role_id" id="role_id"
-                                                    class="form-control  form-select">
+                                            <x-form::select name="role_id" id="role_id"
+                                                            class="form-control  form-select">
                                                 <option>== Choisir rôle ==</option>
                                                 @foreach ($roles as $role)
                                                     <option @if($user->role?->id == $role->id) selected
@@ -129,7 +129,7 @@
                                                             @endif
                                                             value="{{$role->id}}">{{$role->display_name}}</option>
                                                 @endforeach
-                                            </select>
+                                            </x-form::select>
                                         </div>
                                     </div>
                                 @endcan

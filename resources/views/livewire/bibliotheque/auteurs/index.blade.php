@@ -40,7 +40,7 @@
                         <div class="card-body m-b-40">
                             <div class="table-responsive">
                                 <table class="table table-hover">
-                                    <thead class="table-dark">
+                                    <thead class="bg-primary">
                                     <tr>
                                         <th style="width: 50px">#</th>
                                         <th>NOM</th>
@@ -57,9 +57,16 @@
                                             <td>{{$auteur->nom}}</td>
                                             <td>{{$auteur->prenom}}</td>
                                             <td>{{$auteur->sexe->label()}}</td>
-                                            <td>{{$auteur->ouvrage_auteur->count()}}</td>
+                                            <td>{{$auteur->ouvragesCount}}</td>
                                             <td>
                                                 <div class="d-flex float-right">
+                                                    @can('auteurs.view',$auteur)
+                                                        <a href="{{route('bibliotheque.auteurs.show',$auteur->id)}}"
+                                                           title="Voir"
+                                                           class="btn btn-outline-warning">
+                                                            <i class="fas fa-eye"></i>
+                                                        </a>
+                                                    @endcan
                                                     @can('auteurs.update',$auteur)
                                                         <button wire:click="getSelectedAuteur({{$auteur}})"
                                                                 type="button"

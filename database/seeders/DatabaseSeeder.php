@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
                 FraisSeeder::class,
                 DepenseTypeSeeder::class,
                 UnitSeeder::class,
-                EtiquetteSeeder::class,
+                TagSeeder::class,
             ]);
 
 

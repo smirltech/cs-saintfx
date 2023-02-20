@@ -21,6 +21,7 @@ enum UserRole: string
                 RolePermission::roles_all->value,
                 RolePermission::permissions_all->value,
                 RolePermission::annees_all->value,
+                RolePermission::tags_all->value,
             ],
             self::admin => [
                 RolePermission::eleves_all->value,

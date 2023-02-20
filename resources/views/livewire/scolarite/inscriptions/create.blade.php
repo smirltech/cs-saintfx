@@ -1,7 +1,7 @@
 @php use App\Enums\Sexe; @endphp
 @php use App\Enums\EtatCivil;use App\Enums\InscriptionCategorie;use App\Enums\ResponsableRelation; @endphp
 @section('title')
-     - inscrire élève
+    - inscrire élève
 @endsection
 @section('content_header')
     <div class="row">
@@ -21,13 +21,13 @@
 @stop
 <div class="">
     @include('livewire.scolarite.inscriptions.modals.add_responsable')
-  {{--  @include('livewire.finance.cards.recu')--}}
+    {{--  @include('livewire.finance.cards.recu')--}}
     <div class="content mt-3">
         <div class="container-fluid">
             <div class="card">
 
                 <div id="inscriptionPrint" class="card-body">
-                    <x-validation-errors class="mb-4" :errors="$errors"/>
+                    <x-form::validation-errors class="mb-4" :errors="$errors"/>
                     <form wire:submit.prevent="submit">
                         {{-- Information Personnelle--}}
                         <div>
@@ -73,7 +73,8 @@
                                 </div>
                                 <div class="form-group col-lg-3 col-md-6 col-sm-12">
                                     <label for="">Sexe <i class="text-red">*</i></label>
-                                    <select wire:model="sexe" class="form-control  @error('sexe') is-invalid @enderror">
+                                    <x-form::select wire:model="sexe"
+                                                    class="form-control  @error('sexe') is-invalid @enderror">
                                         <option value="" disabled>Choisir sexe...</option>
                                         @foreach (Sexe::cases() as $es )
                                             <option value="{{$es->name}}">{{ $es->label() }}</option>
@@ -81,7 +82,7 @@
                                         @error('sexe')
                                         <span class="text-red">{{ $message }}</span>
                                         @enderror
-                                    </select>
+                                    </x-form::select>
                                 </div>
                                 <div class="form-group col-lg-3 col-md-6 col-sm-12">
                                     <label for="">No. permanent</label>
@@ -152,46 +153,47 @@
                             <div class="row">
                                 <div class="form-group col-3">
                                     <label for="">Section <i class="text-red">*</i></label>
-                                    <select wire:model="section_id" wire:change="changeSection"
-                                            class="form-control  @error('section_id') is-invalid @enderror">
+                                    <x-form::select wire:model="section_id" wire:change="changeSection"
+                                                    class="form-control  @error('section_id') is-invalid @enderror">
                                         <option value=null>Choisir section</option>
                                         @foreach ($sections as $section )
                                             <option value="{{ $section->id }}">{{ $section->nom }}</option>
                                         @endforeach
-                                    </select>
+                                    </x-form::select>
                                     @error('section_id')
                                     <span class="text-red">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="form-group col-3">
                                     <label for="">Option</label>
-                                    <select wire:model="option_id" wire:change="changeOption" class="form-control">
+                                    <x-form::select wire:model="option_id" wire:change="changeOption"
+                                                    class="form-control">
                                         <option value=null>Choisir option</option>
                                         @foreach ($options as $option )
                                             <option value="{{ $option->id }}">{{ $option->nom }}</option>
                                         @endforeach
-                                    </select>
+                                    </x-form::select>
 
                                 </div>
                                 <div class="form-group col-3">
                                     <label for="">Filière</label>
-                                    <select wire:model="filiere_id"
-                                            wire:change="changeFiliere" class="form-control">
+                                    <x-form::select wire:model="filiere_id"
+                                                    wire:change="changeFiliere" class="form-control">
                                         <option value=null>Choisir filière</option>
                                         @foreach ($filieres as $filiere )
                                             <option value="{{ $filiere->id }}">{{ $filiere->nom }}</option>
                                         @endforeach
-                                    </select>
+                                    </x-form::select>
                                 </div>
                                 <div class="form-group col-3">
                                     <label for="">Classe <i class="text-red">*</i></label>
-                                    <select wire:change="changeClasse" wire:model="classe_id"
-                                            class="form-control">
+                                    <x-form::select wire:change="changeClasse" wire:model="classe_id"
+                                                    class="form-control">
                                         <option value=null>Choisir classe</option>
                                         @foreach ($classes as $classe )
                                             <option value="{{ $classe->id }}">{{ $classe->code }}</option>
                                         @endforeach
-                                    </select>
+                                    </x-form::select>
                                     @error('classe_id')
                                     <span class="text-red">{{ $message }}</span>
                                     @enderror
@@ -200,8 +202,8 @@
                             <div class="row">
                                 <div class="form-group col-md-3 col-sm-12">
                                     <label for="">Categorie <i class="text-red">*</i></label>
-                                    <select wire:model="categorie"
-                                            class="form-control  @error('categorie') is-invalid @enderror">
+                                    <x-form::select wire:model="categorie"
+                                                    class="form-control  @error('categorie') is-invalid @enderror">
                                         <option value="" disabled>Choisir categorie...</option>
                                         @foreach (InscriptionCategorie::cases() as $es )
                                             <option value="{{$es->name}}">{{ $es->label() }}</option>
@@ -209,7 +211,7 @@
                                         @error('categorie')
                                         <span class="text-red">{{ $message }}</span>
                                         @enderror
-                                    </select>
+                                    </x-form::select>
                                 </div>
                                 <div class="form-group col-md-3 col-sm-12">
                                     <label for="">Frais d'inscription</label>
@@ -221,7 +223,8 @@
                                     <div class="form-group col-md-3 col-sm-12">
                                         <label for="">Payé</label>
                                         <div class="form-check">
-                                            <input disabled wire:model="has_paid" type="checkbox" class=" form-check-input"
+                                            <input disabled wire:model="has_paid" type="checkbox"
+                                                   class=" form-check-input"
                                                    id="exampleCheck2">
                                             <label class="form-check-label" for="exampleCheck2">Cocher si frais
                                                 d'inscription payé</label>
@@ -231,7 +234,8 @@
                                 @if($has_paid && $fee_id)
                                     <div class="form-group col-md-3 col-sm-12">
                                         <label for="">Payé par</label>
-                                        <input placeholder="Saisir nom de celui qui paie" type="text" wire:model="paid_by"
+                                        <input placeholder="Saisir nom de celui qui paie" type="text"
+                                               wire:model="paid_by"
                                                class="form-control">
                                     </div>
                                 @endif

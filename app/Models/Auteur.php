@@ -19,4 +19,19 @@ class Auteur extends Model
     {
         return $this->hasMany(OuvrageAuteur::class);
     }
+
+    public function ouvrages(): \Illuminate\Database\Eloquent\Relations\HasManyThrough|null
+    {
+        return $this->hasManyThrough(Ouvrage::class, OuvrageAuteur::class, 'auteur_id', 'id', 'id', 'ouvrage_id');
+    }
+
+    public function getOuvragesCountAttribute(): int
+    {
+        return $this->ouvrages()->count();
+    }
+
+    public function getFullNameAttribute(): string
+    {
+        return $this->prenom . ' ' . $this->nom;
+    }
 }

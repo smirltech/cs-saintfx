@@ -1,0 +1,82 @@
+<?php
+
+namespace App\Http\Livewire\Bibliotheque\Ouvrage;
+
+use App\Enums\MediaType;
+use App\Models\Auteur;
+use App\Models\Ouvrage;
+use App\Models\OuvrageCategory;
+use App\Models\Tag;
+use App\Traits\HasLivewireAlert;
+use App\Traits\WithFileUploads;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Collection;
+use JetBrains\PhpStorm\NoReturn;
+use Livewire\Component;
+
+class OuvrageCreateComponent extends Component
+{
+    use HasLivewireAlert, WithFileUploads;
+
+    public Collection $categories;
+    public Collection $auteurs;
+    public Collection $tags;
+    public Ouvrage $ouvrage;
+    public $ouvrage_pdf;
+    public array $ouvrage_auteurs = [];
+    public array $ouvrage_tags = [];
+    protected $listeners = ['refresh' => '$refresh'];
+    protected $rules = [
+        'ouvrage.ouvrage_category_id' => 'required|exists:ouvrage_categories,id',
+        'ouvrage.titre' => 'required',
+        'ouvrage.sous_titre' => 'nullable',
+        'ouvrage.resume' => 'nullable',
+        'ouvrage.edition' => 'nullable',
+        'ouvrage.lieu' => 'nullable',
+        'ouvrage.editeur' => 'nullable',
+        'ouvrage.date' => 'nullable',
+        'ouvrage.url' => 'nullable',
+        'ouvrage_tags' => 'nullable|array',
+        'ouvrage_auteurs' => 'nullable|array',
+        'ouvrage_pdf' => 'nullable|mimes:pdf|max:10000',
+    ];
+
+    public function render(): Factory|View|Application
+    {
+        return view('livewire.bibliotheque.ouvrages.create')->with('title', 'Ajouter un ouvrage');
+    }
+
+    public function mount(Ouvrage $ouvrage): void
+    {
+        $this->ouvrage = $ouvrage;
+        $this->categories = OuvrageCategory::orderBy('nom')->get();
+        $this->tags = Tag::orderBy('name')->get();
+        $this->auteurs = Auteur::all();
+
+        $this->ouvrage_auteurs = $this->ouvrage->auteurs->pluck('id')->toArray();
+        $this->ouvrage_tags = $this->ouvrage->tags->pluck('id')->toArray();
+    }
+
+    #[NoReturn] public function submit(): void
+    {
+        $id = $this->ouvrage->id;
+        $this->ouvrage->auteurs = $this->ouvrage_auteurs;
+        $this->ouvrage->tags = $this->ouvrage_tags;
+        $this->ouvrage->save();
+
+        if ($this->ouvrage_pdf) {
+            $this->ouvrage->deleteAllMedia();
+            $this->ouvrage->addMedia($this->ouvrage_pdf, MediaType::document->value);
+            $this->reset('ouvrage_pdf');
+        }
+        $this->emit('refresh');
+        if ($id) {
+            $this->success("Ouvrage modifié avec succès !");
+        } else {
+            $this->flashSuccess("Ouvrage ajouté avec succès !", route('bibliotheque.ouvrages.edit', $this->ouvrage->id));
+        }
+
+    }
+}

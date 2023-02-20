@@ -15,7 +15,7 @@ return [
     */
 
     'title' => 'Collège ENK',
-    'title_prefix' => 'CENK | ',
+    'title_prefix' => '',
     'title_postfix' => '',
 
     /*
@@ -229,7 +229,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'scolarite',
+    'dashboard_url' => '/',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -249,7 +249,7 @@ return [
     |
     */
 
-    'enabled_laravel_mix' => false,
+    'enabled_laravel_mix' => true,
     'laravel_mix_css_path' => 'css/app.css',
     'laravel_mix_js_path' => 'js/app.js',
 
@@ -488,7 +488,7 @@ return [
 
         [
             'header' => 'BIBLIOTHÈQUE',
-            'can' => ['ouvrages.view.*', 'auteurs.view.*', 'etiquettes.view.*', 'ouvrage-categories.view.*'],
+            'can' => ['ouvrages.view.*', 'auteurs.view.*', 'tags.view.*', 'ouvrage-categories.view.*'],
         ],
         [
             'text' => 'Ouvrages',
@@ -505,14 +505,14 @@ return [
         [
             'text' => 'Auteurs',
             'url' => 'bibliotheque/auteurs',
-            'icon' => 'fas fa-fw fa-user-tie',
+            'icon' => 'fas fa-fw fa-book-open-reader',
             'can' => 'auteurs.view.*',
         ],
         [
             'text' => 'Étiquettes',
             'url' => 'bibliotheque/etiquettes',
             'icon' => 'fas fa-fw fa-tags',
-            'can' => 'etiquettes.view.*',
+            'can' => 'tags.view.*',
         ],
 
         [
