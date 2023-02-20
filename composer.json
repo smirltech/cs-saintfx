@@ -86,11 +86,5 @@
         }
     },
     "minimum-stability": "dev",
-    "prefer-stable": true,
-    "repositories": [
-        {
-            "type": "path",
-            "url": "D:\\Projets\\Lab\\packages\\livewire-modals"
-        }
-    ]
+    "prefer-stable": true
 }
