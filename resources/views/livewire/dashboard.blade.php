@@ -1,13 +1,36 @@
 <div class="">
 
     <div class="content mt-3">
+        <div class="mb-5">
+            <div class="">
+                <h3 class="container">Bienvenue à la page d'accueil du Collège Excellence NK</h3>
+                <p class="container">Cette page est une page d'entrée pour tous les utilisateurs du système.
+                    À partir d'ici, les utilisateurs peuvent naviguer selon le menu en leur disposition.</p>
+
+            </div>
+        </div>
+        <div class="container">
+            <div class="col-12">
                 <div class="mb-5">
-                    <div class="">
-                        <h3 class="container">Bienvenue à la page d'accueil du Collège Excellence NK</h3>
-                        <p class="container">Cette page est une page d'entrée pour tous les utilisateurs du système.
-                            À partir d'ici, les utilisateurs peuvent naviguer selon le menu en leur disposition.</p>
-                        <p class="container">Cette page est à enrichir</p>
+                    <div class="row g-2">
+                        @foreach ($boxes as $box)
+                            <div class="col-md-6 col-12">
+                                <a href="{{ $box['url'] }}">
+                                    <div class="info-box bg-{{ $box['theme'] }}">
+                                        <span class="info-box-icon"><i
+                                                class="{{ $box['icon'] }}{{--far fa-bookmark--}}"></i></span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text">{{ $box['text'] }}</span>
+                                            <span class="info-box-number">{{ $box['title'] }}</span>
+
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
+            </div>
+        </div>
     </div>
 </div>

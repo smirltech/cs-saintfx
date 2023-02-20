@@ -1,6 +1,8 @@
 <?php
 use App\Http\Livewire\Scolarite;
 
+Route::get('scolarite', Scolarite\DashboardComponent::class)->name('scolarite')->middleware('auth');
+
 Route::prefix('scolarite')->middleware(['auth:web'])->as('scolarite.')->group(function () {
 
     // toogle dark mode
