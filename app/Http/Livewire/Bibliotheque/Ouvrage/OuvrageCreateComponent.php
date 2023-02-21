@@ -73,6 +73,10 @@ class OuvrageCreateComponent extends Component
             $this->ouvrage->addMedia($this->ouvrage_pdf, MediaType::document->value);
             $this->reset('ouvrage_pdf');
         }
+
+        if ($this->cover) {
+            $this->ouvrage->addImage($this->cover);
+        }
         $this->emit('refresh');
         if ($id) {
             $this->success("Ouvrage modifié avec succès !");
