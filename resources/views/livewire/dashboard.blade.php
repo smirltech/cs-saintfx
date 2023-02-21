@@ -1,5 +1,6 @@
-<div class="">
-
+@section('content_header')
+@endsection
+<div class="pb-3">
     <div class="content mt-3">
         <div class="mb-5">
             <div class="">
