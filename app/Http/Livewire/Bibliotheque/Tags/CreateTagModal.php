@@ -53,7 +53,7 @@ class CreateTagModal extends Component
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('tags', 'name')->ignore($this->etiquette->id)
+                Rule::unique('tags', 'name->fr')->ignore($this->etiquette->id),
             ],
         ];
     }
