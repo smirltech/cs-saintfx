@@ -43,6 +43,7 @@
                                     <thead class="bg-primary">
                                     <tr>
                                         <th style="width: 50px">#</th>
+                                        <th></th>
                                         <th>TITRE</th>
                                         <th>SOUS TITRE</th>
                                         <th>CATÉGORIE</th>
@@ -56,6 +57,7 @@
                                     @foreach($ouvrages as $i=>$ouvrage)
                                         <tr>
                                             <td>{{$i+1}}</td>
+                                            <td><img width="50" src="{{$ouvrage->image_url}}"></td>
                                             <td>{{$ouvrage->titre}}</td>
                                             <td>{{$ouvrage->sous_titre}}</td>
                                             <td>
