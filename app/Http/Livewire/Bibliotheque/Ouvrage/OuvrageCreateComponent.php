@@ -27,6 +27,7 @@ class OuvrageCreateComponent extends Component
     public $ouvrage_pdf;
     public array $ouvrage_auteurs = [];
     public array $ouvrage_tags = [];
+    public mixed $cover = null;
     protected $listeners = ['refresh' => '$refresh'];
     protected $rules = [
         'ouvrage.ouvrage_category_id' => 'required|exists:ouvrage_categories,id',
@@ -41,6 +42,7 @@ class OuvrageCreateComponent extends Component
         'ouvrage_tags' => 'nullable|array',
         'ouvrage_auteurs' => 'nullable|array',
         'ouvrage_pdf' => 'nullable|mimes:pdf|max:10000',
+        'ouvrage_cover' => 'nullable|image|max:10000',
     ];
 
     public function render(): Factory|View|Application

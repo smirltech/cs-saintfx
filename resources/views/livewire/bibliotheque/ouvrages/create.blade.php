@@ -22,13 +22,21 @@
                     <div class="card-body m-b-40">
                         <form wire:submit.prevent="submit">
                             <div class="row">
-                                <div class="form-group col-md-12">
+                                <div class="form-group col-md-6">
                                     <x-form::input
                                         required
                                         type="text"
                                         label="Titre"
                                         wire:model="ouvrage.titre">
                                     </x-form::input>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <x-form::input-image
+                                        label="Couverture"
+                                        height="70"
+                                        :cover="$cover"
+                                        wire:model="cover"/>
                                 </div>
 
                                 <div class="form-group col-md-12">
