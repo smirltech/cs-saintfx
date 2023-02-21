@@ -69,20 +69,31 @@ class OuvrageCreateComponent extends Component
         $this->ouvrage->save();
 
         if ($this->ouvrage_pdf) {
-            $this->ouvrage->deleteAllMedia();
+            $this->ouvrage->deleteAllMedia(MediaType::document->value);
             $this->ouvrage->addMedia($this->ouvrage_pdf, MediaType::document->value);
             $this->reset('ouvrage_pdf');
         }
 
         if ($this->cover) {
+            $this->ouvrage->deleteAllMedia('images');
             $this->ouvrage->addImage($this->cover);
+            $this->reset('cover');
         }
-        $this->emit('refresh');
+
         if ($id) {
             $this->success("Ouvrage modifié avec succès !");
         } else {
             $this->flashSuccess("Ouvrage ajouté avec succès !", route('bibliotheque.ouvrages.edit', $this->ouvrage->id));
         }
 
+        $this->emit('refresh');
+    }
+
+    // deleteMedia() is a custom method
+    public function deleteMedia($id): void
+    {
+        $this->ouvrage->media()->findOrFail($id)->delete();
+        $this->success("Fichier supprimé avec succès !");
+        $this->emit('refresh');
     }
 }

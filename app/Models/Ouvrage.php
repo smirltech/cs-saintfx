@@ -97,5 +97,16 @@ class Ouvrage extends Model
         }
     }
 
+    // hasPdf()
+    public function hasPdf(): bool
+    {
+        foreach ($this->media as $media) {
+            if ($media->mime_type === 'application/pdf') {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 }
