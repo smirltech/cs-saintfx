@@ -5,7 +5,7 @@ namespace App\Http\Livewire\Bibliotheque\Ouvrage;
 use App\Http\Livewire\BaseComponent;
 use App\Models\Lecture;
 use App\Models\Ouvrage;
-use App\Models\OuvrageCategory;
+use App\Models\Rayon;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Auth;
@@ -27,14 +27,14 @@ class OuvrageIndexComponent extends BaseComponent
 
     public function loadData()
     {
-        $this->categories = OuvrageCategory::orderBy('nom')->get();
+        $this->categories = Rayon::orderBy('nom')->get();
         $this->ouvrages = Ouvrage::latest()->get();
     }
 
     public function render()
     {
         $this->loadData();
-        return view('livewire.bibliotheque.ouvrages.index', ['categories' => $this->categories, 'ouvrages' => $this->ouvrages])
+        return view('livewire.bibliotheque.ouvrages.index', ['rayons' => $this->categories, 'ouvrages' => $this->ouvrages])
             ->layout(AdminLayout::class, ['title' => "Liste d'ouvrages"]);
     }
 
@@ -69,7 +69,7 @@ class OuvrageIndexComponent extends BaseComponent
 
     public function addLecture($ouvrage_id)
     {
-       // dd($ouvrage_id);
+        // dd($ouvrage_id);
         $lecture = new Lecture();
         $lecture->user_id = Auth::id() ?? null;
         $lecture->ouvrage_id = $ouvrage_id;
@@ -78,7 +78,7 @@ class OuvrageIndexComponent extends BaseComponent
             $done = $lecture->save();
             $this->loadData();
         } catch (Exception $exception) {
-              dd($exception);
+            dd($exception);
         }
 
     }

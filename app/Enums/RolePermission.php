@@ -46,13 +46,13 @@ enum RolePermission: string
     case ouvrages_update_all = 'ouvrages.update.*';
     case ouvrages_delete = 'ouvrages.delete.*';
     //------------------ ./Ouvrages ---------------- //
-    //------------------ OuvrageCategory ---------------- //
+    //------------------ Rayon ---------------- //
     case rayons_all = 'rayons.*';
     case rayons_view = 'rayons.view.*';
     case rayons_create = 'rayons.create';
     case rayons_update_all = 'rayons.update.*';
     case rayons_delete = 'rayons.delete.*';
-    //------------------ ./OuvrageCategory ---------------- //
+    //------------------ ./Rayon ---------------- //
     //------------------ Etiquettes ---------------- //
     case tags_all = 'tags.*';
     case tags_view = 'tags.view.*';

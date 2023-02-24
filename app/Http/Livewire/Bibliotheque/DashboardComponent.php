@@ -2,14 +2,10 @@
 
 namespace App\Http\Livewire\Bibliotheque;
 
-use App\Enums\InscriptionStatus;
-use App\Models\Annee;
-use App\Models\Inscription;
 use App\Models\Ouvrage;
 use App\Models\OuvrageAuteur;
-use App\Models\OuvrageCategory;
+use App\Models\Rayon;
 use App\Traits\TopMenuPreview;
-use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -20,6 +16,7 @@ use Livewire\Component;
 class DashboardComponent extends Component
 {
     use TopMenuPreview;
+
     public $boxes = [];
     public Collection $ouvrages;
 
@@ -31,7 +28,7 @@ class DashboardComponent extends Component
         }
 
         $ouvragesCount = Ouvrage::all()->count();
-        $categories = OuvrageCategory::all()->count();
+        $categories = Rayon::all()->count();
         $auteurs = OuvrageAuteur::all()->count();
 
         $this->ouvrages = Ouvrage::with('lectures')->get()->sortByDesc('lectures_count')->take(5);
@@ -48,7 +45,7 @@ class DashboardComponent extends Component
                 'title' => $categories,
                 'text' => 'Categories',
                 'icon' => 'fas fa-fw fa-list',
-                'url' => route('bibliotheque.categories'),
+                'url' => route('bibliotheque.rayons'),
                 'theme' => 'warning',
             ],
             [
@@ -76,21 +73,21 @@ class DashboardComponent extends Component
                 'rate' => "$rateInscritsMoisReject%",
                 'subtitle' => "+$rateInscritsMoisReject% en 1 mois",
             ],*/
-           /* [
-                'title' => count($moisInscritspending),
-                'text' => 'En Attente',
-                'icon' => 'far fa-bookmark',
-                'url' => route("scolarite.inscriptions.status", 'pending'),
-                'theme' => 'success',
-                'rate' => "$rateInscritsMoisPending%",
-                'subtitle' => "+$rateInscritsMoisPending% en 1 mois",
-            ]*/
+            /* [
+                 'title' => count($moisInscritspending),
+                 'text' => 'En Attente',
+                 'icon' => 'far fa-bookmark',
+                 'url' => route("scolarite.inscriptions.status", 'pending'),
+                 'theme' => 'success',
+                 'rate' => "$rateInscritsMoisPending%",
+                 'subtitle' => "+$rateInscritsMoisPending% en 1 mois",
+             ]*/
         ];
     }
 
     public function render(): Factory|View|Application
     {
-        return view('livewire.bibliotheque.dashboard')->layoutData(['title'=> 'Bibliothèque']);
+        return view('livewire.bibliotheque.dashboard')->layoutData(['title' => 'Bibliothèque']);
     }
 
 }

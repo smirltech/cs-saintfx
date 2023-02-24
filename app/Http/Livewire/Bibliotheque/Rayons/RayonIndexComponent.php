@@ -1,22 +1,26 @@
 <?php
 
-namespace App\Http\Livewire\Bibliotheque\OuvrageCategory;
+namespace App\Http\Livewire\Bibliotheque\Rayons;
 
 use App\Http\Livewire\BaseComponent;
-use App\Models\OuvrageCategory;
+use App\Models\Rayon;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
-class OuvrageCategoryIndexComponent extends BaseComponent
+class RayonIndexComponent extends BaseComponent
 {
     use TopMenuPreview;
     use LivewireAlert;
 
     // protected $paginationTheme = 'bootstrap';
 
-    public OuvrageCategory $category;
+    public Rayon $category;
     protected $rules = [
         'category.nom' => 'required',
         'category.rayon_id' => 'nullable',
@@ -24,27 +28,30 @@ class OuvrageCategoryIndexComponent extends BaseComponent
     ];
     private $categories = [];
 
-    public function mount()
+    /**
+     * @throws AuthorizationException
+     */
+    public function mount(): void
     {
-        $this->authorize("viewAny", OuvrageCategory::class);
+        $this->authorize("viewAny", Rayon::class);
         $this->initCategory();
         $this->loadData();
     }
 
     public function initCategory()
     {
-        $this->category = new OuvrageCategory();
+        $this->category = new Rayon();
     }
 
     public function loadData()
     {
-        $this->categories = OuvrageCategory::orderBy('nom')->get();
+        $this->categories = Rayon::orderBy('nom')->get();
     }
 
-    public function render()
+    public function render(): View|Factory|Application
     {
         $this->loadData();
-        return view('livewire.bibliotheque.categories.index', ['categories' => $this->categories])
+        return view('livewire.bibliotheque.rayons.index', ['rayons' => $this->categories])
             ->layout(AdminLayout::class, ['title' => "Liste de Categories"]);
     }
 
@@ -76,7 +83,7 @@ class OuvrageCategoryIndexComponent extends BaseComponent
         $this->initCategory();
     }
 
-    public function getSelectedCategory(OuvrageCategory $category)
+    public function getSelectedCategory(Rayon $category)
     {
         $this->category = $category;
     }

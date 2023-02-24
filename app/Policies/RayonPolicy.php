@@ -2,12 +2,12 @@
 
 namespace App\Policies;
 
-use App\Models\OuvrageCategory;
+use App\Models\Rayon;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
 
-class OuvrageCategoryPolicy
+class RayonPolicy
 {
     use HandlesAuthorization;
 
@@ -18,7 +18,7 @@ class OuvrageCategoryPolicy
             : Response::deny('Vous n\'êtes pas autorisé à voir les catégories d\'ouvrages.');
     }
 
-    public function view(User $user, OuvrageCategory $category): Response
+    public function view(User $user, Rayon $category): Response
     {
         return $user->can('rayons.view.' . $category->id)
             ? Response::allow()
@@ -32,14 +32,14 @@ class OuvrageCategoryPolicy
             : Response::deny('Vous n\'êtes pas autorisé à créer une catégorie d\'ouvrages.');
     }
 
-    public function update(User $user, OuvrageCategory $category): Response
+    public function update(User $user, Rayon $category): Response
     {
         return $user->can('rayons.update.' . $category->id)
             ? Response::allow()
             : Response::deny('Vous n\'êtes pas autorisé à modifier cette catégorie d\'ouvrages.');
     }
 
-    public function delete(User $user, OuvrageCategory $category)
+    public function delete(User $user, Rayon $category)
     {
         return $user->can('rayons.delete.' . $category->id)
             ? Response::allow()

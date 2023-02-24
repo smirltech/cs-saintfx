@@ -11,7 +11,7 @@
         <div class="col-6">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('scolarite') }}">Accueil</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('bibliotheque.categories') }}">Catégories</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('bibliotheque.rayons') }}">Catégories</a></li>
                 <li class="breadcrumb-item active">{{$category->nom}}</li>
             </ol>
         </div>
@@ -19,7 +19,7 @@
 
 @stop
 <div class="">
-    @include('livewire.bibliotheque.categories.modals.crud')
+    @include('livewire.bibliotheque.rayons.modals.crud')
 
     <div class="content mt-3">
         <div class="container-fluid">
@@ -45,7 +45,7 @@
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
                                     <b>Groupe : </b> <span class="float-right">
-                                        <a href="{{$category->groupe==null?'#':route('bibliotheque.categories.show',[$category->groupe?->id])}}">{!! $category->groupe?->nom !!}</a>
+                                        <a href="{{$category->groupe==null?'#':route('bibliotheque.rayons.show',[$category->groupe?->id])}}">{!! $category->groupe?->nom !!}</a>
                                     </span>
                                 </li>
                                 <li class="list-group-item">
@@ -172,7 +172,7 @@
                                                 <tr>
                                                     <td>{{ $i+1 }}</td>
                                                     <td>
-                                                        <a href="{{route('bibliotheque.categories.show',[$categ->id])}}">{!! $categ->nom !!}</a>
+                                                        <a href="{{route('bibliotheque.rayons.show',[$categ->id])}}">{!! $categ->nom !!}</a>
                                                     </td>
                                                     <td>{{ $categ->description }}</td>
                                                     <td>{{ $categ->ouvragesCount }}</td>

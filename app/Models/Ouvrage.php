@@ -45,7 +45,7 @@ class Ouvrage extends Model
 
     public function category(): BelongsTo
     {
-        return $this->belongsTo(OuvrageCategory::class, 'rayon_id');
+        return $this->belongsTo(Rayon::class, 'rayon_id');
     }
 
     public function getCategoryNomAttribute()

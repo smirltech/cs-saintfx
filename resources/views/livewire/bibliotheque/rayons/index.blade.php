@@ -17,7 +17,7 @@
 
 @stop
 <div wire:ignore.self class="">
-    @include('livewire.bibliotheque.categories.modals.crud')
+    @include('livewire.bibliotheque.rayons.modals.crud')
     <div class="content mt-3">
         <div class="container-fluid">
             <div class="row">
@@ -57,7 +57,7 @@
                                             <td>
                                                 @can('rayons.view',$category->groupe)
                                                     @if($category->groupe)
-                                                        <a href="{{route('bibliotheque.categories.show',[$category->groupe])}}">
+                                                        <a href="{{route('bibliotheque.rayons.show',[$category->groupe])}}">
                                                             {{$category->groupeNom}}
                                                         </a>
                                                     @else
@@ -71,7 +71,7 @@
                                             <td>
                                                 <div class="d-flex float-right">
                                                     @can('rayons.view',$category)
-                                                        <a href="{{route('bibliotheque.categories.show',[$category->id])}}"
+                                                        <a href="{{route('bibliotheque.rayons.show',[$category->id])}}"
                                                            title="Voir"
                                                            class="btn btn-warning">
                                                             <i class="fas fa-eye"></i>

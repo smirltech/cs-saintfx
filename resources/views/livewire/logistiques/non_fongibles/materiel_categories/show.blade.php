@@ -11,7 +11,7 @@
         <div class="col-6">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('logistique') }}">Accueil</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('logistique.categories') }}">Catégories</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('logistique.rayons') }}">Catégories</a></li>
                 <li class="breadcrumb-item active">{{$category->nom}}</li>
             </ol>
         </div>
@@ -31,7 +31,7 @@
                                 <h4 class="m-0">{{$category->nom}}</h4>
                             </div>
                             <div class="card-tools">
-                                @can('materiel-categories.update', $category)
+                                @can('materiel-rayons.update', $category)
                                     <span
                                         title="Modifier" role="button" class="ml-2 mr-2" data-toggle="modal"
                                         data-target="#update-category-modal">
@@ -46,7 +46,7 @@
                                 <li class="list-group-item">
                                     <b>Groupe : </b> <span class="float-right">
                                         <a
-                                            href="{{$category->groupe==null?'#':route('logistique.categories.show',[$category->groupe?->id])}}">{!! $category->groupe?->nom !!}</a>
+                                            href="{{$category->groupe==null?'#':route('logistique.rayons.show',[$category->groupe?->id])}}">{!! $category->groupe?->nom !!}</a>
                                     </span>
                                 </li>
                                 <li class="list-group-item">
@@ -163,14 +163,14 @@
                                                 <tr>
                                                     <td>{{ $i+1 }}</td>
                                                     <td>
-                                                        <a href="{{route('logistique.categories.show',[$categ->id])}}">{!! $categ->nom !!}</a>
+                                                        <a href="{{route('logistique.rayons.show',[$categ->id])}}">{!! $categ->nom !!}</a>
                                                     </td>
                                                     <td>{{ $categ->description }}</td>
                                                     <td>{{ $categ->materielsCount }}</td>
                                                     <td>{{ $categ->materielsCountAggregate }}</td>
                                                     <td>
                                                         <div class="d-flex float-right">
-                                                            @can('materiel-categories.update', $categ)
+                                                            @can('materiel-rayons.update', $categ)
                                                                 <button title="Supprimer"
                                                                         class="btn btn-danger">
                                                                     <i class="fas fa-trash"></i>

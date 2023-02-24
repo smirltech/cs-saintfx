@@ -453,7 +453,7 @@ return [
         [
             'text' => 'Non Fongibles',
             'icon' => 'fas fa-fw fa-screwdriver-wrench',
-            'can' => ['materiels.view.*', 'materiel-categories.view.*', 'mouvements.view.*', 'cessions.view.*'],
+            'can' => ['materiels.view.*', 'materiel-rayons.view.*', 'mouvements.view.*', 'cessions.view.*'],
             'submenu' => [
                 [
                     'text' => 'Materiels',
@@ -466,8 +466,8 @@ return [
                     'text' => 'Categories',
                     'icon' => 'fas fa-fw fa-layer-group',
                     'shift' => 'ml-2',
-                    'url' => 'logistique/categories',
-                    'can' => 'materiel-categories.view.*',
+                    'url' => 'logistique/rayons',
+                    'can' => 'materiel-rayons.view.*',
                 ],
                 [
                     'text' => 'Mouvements',
@@ -498,7 +498,7 @@ return [
         ],
         [
             'text' => 'Catégories',
-            'url' => 'bibliotheque/categories',
+            'url' => 'bibliotheque/rayons',
             'icon' => 'fas fa-fw fa-layer-group',
             'can' => 'rayons.view.*',
         ],
