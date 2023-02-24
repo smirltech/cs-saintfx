@@ -44,7 +44,7 @@
                                 </li>
                                 <li class="list-group-item container">
                                     <b>Catégorie : </b> <span class="float-right">
-                                        <a href="{{$ouvrage->category==null?'#':route('bibliotheque.categories.show',[$ouvrage->ouvrage_category_id])}}">{!! $ouvrage->categoryNom !!}</a>
+                                        <a href="{{$ouvrage->category==null?'#':route('bibliotheque.categories.show',[$ouvrage->rayon_id])}}">{!! $ouvrage->categoryNom !!}</a>
                                     </span>
                                 </li>
                                 <li class="list-group-item">

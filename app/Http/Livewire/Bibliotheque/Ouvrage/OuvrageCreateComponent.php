@@ -30,7 +30,7 @@ class OuvrageCreateComponent extends Component
     public mixed $cover = null;
     protected $listeners = ['refresh' => '$refresh'];
     protected $rules = [
-        'ouvrage.ouvrage_category_id' => 'required|exists:ouvrage_categories,id',
+        'ouvrage.rayon_id' => 'required|exists:rayons,id',
         'ouvrage.titre' => 'required',
         'ouvrage.sous_titre' => 'nullable',
         'ouvrage.resume' => 'nullable',

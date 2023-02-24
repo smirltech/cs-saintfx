@@ -8,7 +8,6 @@ use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Exception;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
 
 class OuvrageCategoryIndexComponent extends BaseComponent
 {
@@ -17,14 +16,13 @@ class OuvrageCategoryIndexComponent extends BaseComponent
 
     // protected $paginationTheme = 'bootstrap';
 
-    private $categories = [];
     public OuvrageCategory $category;
-
     protected $rules = [
         'category.nom' => 'required',
-        'category.ouvrage_category_id' => 'nullable',
+        'category.rayon_id' => 'nullable',
         'category.description' => 'nullable',
     ];
+    private $categories = [];
 
     public function mount()
     {

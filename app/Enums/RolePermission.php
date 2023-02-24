@@ -47,11 +47,11 @@ enum RolePermission: string
     case ouvrages_delete = 'ouvrages.delete.*';
     //------------------ ./Ouvrages ---------------- //
     //------------------ OuvrageCategory ---------------- //
-    case ouvrage_categories_all = 'ouvrage-categories.*';
-    case ouvrage_categories_view = 'ouvrage-categories.view.*';
-    case ouvrage_categories_create = 'ouvrage-categories.create';
-    case ouvrage_categories_update_all = 'ouvrage-categories.update.*';
-    case ouvrage_categories_delete = 'ouvrage-categories.delete.*';
+    case rayons_all = 'ouvrage-categories.*';
+    case rayons_view = 'ouvrage-categories.view.*';
+    case rayons_create = 'ouvrage-categories.create';
+    case rayons_update_all = 'ouvrage-categories.update.*';
+    case rayons_delete = 'ouvrage-categories.delete.*';
     //------------------ ./OuvrageCategory ---------------- //
     //------------------ Etiquettes ---------------- //
     case tags_all = 'tags.*';
@@ -356,11 +356,11 @@ enum RolePermission: string
             self::tags_update_all => 'Modifier une étiquette',
             self::tags_view => 'Voir une étiquette',
             // OuvrageCategories
-            self::ouvrage_categories_all => 'Gérer les catégories d\'ouvrages',
-            self::ouvrage_categories_create => 'Créer une catégorie d\'ouvrage',
-            self::ouvrage_categories_delete => 'Supprimer une catégorie d\'ouvrage',
-            self::ouvrage_categories_update_all => 'Modifier une catégorie d\'ouvrage',
-            self::ouvrage_categories_view => 'Voir une catégorie d\'ouvrage',
+            self::rayons_all => 'Gérer les catégories d\'ouvrages',
+            self::rayons_create => 'Créer une catégorie d\'ouvrage',
+            self::rayons_delete => 'Supprimer une catégorie d\'ouvrage',
+            self::rayons_update_all => 'Modifier une catégorie d\'ouvrage',
+            self::rayons_view => 'Voir une catégorie d\'ouvrage',
             // Ouvrages
             self::ouvrages_all => 'Gérer les ouvrages',
             self::ouvrages_create => 'Créer un ouvrage',

@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class OuvrageCategoryFactory extends Factory
 {
     protected $model = OuvrageCategory::class;
+
     /**
      * Define the model's default state.
      *
@@ -20,7 +21,7 @@ class OuvrageCategoryFactory extends Factory
     {
         return [
             'nom' => fake()->text(20),
-           // 'ouvrage_category_id' => $this->faker->randomElement(OuvrageCategory::pluck('id')->toArray()),
+            // 'rayon_id' => $this->faker->randomElement(OuvrageCategory::pluck('id')->toArray()),
             'description' => fake()->paragraph(3),
         ];
     }

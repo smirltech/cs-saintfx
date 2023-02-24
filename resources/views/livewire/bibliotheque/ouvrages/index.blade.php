@@ -61,7 +61,7 @@
                                             <td>{{$ouvrage->titre}}</td>
                                             <td>{{$ouvrage->sous_titre}}</td>
                                             <td>
-                                                <a href="{{route('bibliotheque.categories.show',[$ouvrage->ouvrage_category_id])}}">{{$ouvrage->categoryNom}}</a>
+                                                <a href="{{route('bibliotheque.categories.show',[$ouvrage->rayon_id])}}">{{$ouvrage->categoryNom}}</a>
                                             </td>
                                             <td>{{number_format($ouvrage->uniqueLecturesCount)}}</td>
                                             <td>{{number_format($ouvrage->lecturesCount)}}</td>

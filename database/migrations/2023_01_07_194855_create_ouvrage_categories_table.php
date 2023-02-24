@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        Schema::create('ouvrage_categories', function (Blueprint $table) {
+        Schema::create('rayons', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(OuvrageCategory::class)->nullable()->constrained()->restrictOnDelete();
             $table->string('nom');
