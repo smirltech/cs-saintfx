@@ -47,11 +47,11 @@ enum RolePermission: string
     case ouvrages_delete = 'ouvrages.delete.*';
     //------------------ ./Ouvrages ---------------- //
     //------------------ OuvrageCategory ---------------- //
-    case rayons_all = 'ouvrage-categories.*';
-    case rayons_view = 'ouvrage-categories.view.*';
-    case rayons_create = 'ouvrage-categories.create';
-    case rayons_update_all = 'ouvrage-categories.update.*';
-    case rayons_delete = 'ouvrage-categories.delete.*';
+    case rayons_all = 'rayons.*';
+    case rayons_view = 'rayons.view.*';
+    case rayons_create = 'rayons.create';
+    case rayons_update_all = 'rayons.update.*';
+    case rayons_delete = 'rayons.delete.*';
     //------------------ ./OuvrageCategory ---------------- //
     //------------------ Etiquettes ---------------- //
     case tags_all = 'tags.*';

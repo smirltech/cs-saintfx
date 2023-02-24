@@ -31,7 +31,7 @@
                                 <h4 class="m-0">{{$category->nom}}</h4>
                             </div>
                             <div class="card-tools">
-                                @can('ouvrage-categories.update',$category)
+                                @can('rayons.update',$category)
                                     <span
                                         title="Modifier" role="button" class="ml-2 mr-2" data-toggle="modal"
                                         data-target="#update-category-modal">
@@ -179,7 +179,7 @@
                                                     <td>{{ $categ->ouvragesCountAggregate }}</td>
                                                     <td>
                                                         <div class="d-flex float-right">
-                                                            @can('ouvrage-categories.delete',$categ)
+                                                            @can('rayons.delete',$categ)
                                                                 <button title="Supprimer"
                                                                         class="btn btn-danger">
                                                                     <i class="fas fa-trash"></i>

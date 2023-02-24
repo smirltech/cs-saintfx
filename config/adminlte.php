@@ -488,7 +488,7 @@ return [
 
         [
             'header' => 'BIBLIOTHÈQUE',
-            'can' => ['ouvrages.view.*', 'auteurs.view.*', 'tags.view.*', 'ouvrage-categories.view.*'],
+            'can' => ['ouvrages.view.*', 'auteurs.view.*', 'tags.view.*', 'rayons.view.*'],
         ],
         [
             'text' => 'Ouvrages',
@@ -500,7 +500,7 @@ return [
             'text' => 'Catégories',
             'url' => 'bibliotheque/categories',
             'icon' => 'fas fa-fw fa-layer-group',
-            'can' => 'ouvrage-categories.view.*',
+            'can' => 'rayons.view.*',
         ],
         [
             'text' => 'Auteurs',
