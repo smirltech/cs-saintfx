@@ -54,7 +54,7 @@
                                     @foreach($ouvrages as $ouvrage)
                                         <tr>
                                             <td>{{$loop->iteration}}</td>
-                                            <td><img width="50" src="{{$ouvrage->image_url}}"></td>
+                                            <td><img width="50" src="{{$ouvrage->imageUrl}}"></td>
                                             <td>{{$ouvrage->titre}}</td>
                                             <td>{{$ouvrage->sous_titre}}</td>
                                             <td>

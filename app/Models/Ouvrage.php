@@ -108,5 +108,36 @@ class Ouvrage extends Model
         return false;
     }
 
+    public function getPdf()
+    {
+        foreach ($this->media as $media) {
+            if ($media->mime_type === 'application/pdf') {
+                return $media;
+            }
+        }
+        return null;
+    }
+    public function getPdfUrlAttribute(): string
+    {
+
+        return $this->getPdf()?->url ?? '';
+    }
+
+    public function getImage()
+    {
+        foreach ($this->media as $media) {
+            if (str_starts_with($media->mime_type, 'image/')) {
+                return $media;
+            }
+        }
+        return null;
+    }
+
+    public function getImageUrlAttribute(): string
+    {
+
+        return $this->getImage()?->url ?? '';
+    }
+
 
 }
