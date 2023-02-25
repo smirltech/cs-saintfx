@@ -3,12 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class OuvrageCategory extends Model
+class Rayon extends Model
 {
     use HasFactory;
 
@@ -19,9 +18,9 @@ class OuvrageCategory extends Model
         return $this->hasMany(Ouvrage::class)->orderBy('titre');
     }
 
-    public function groupe():BelongsTo
+    public function groupe(): BelongsTo
     {
-        return $this->belongsTo(self::class, 'ouvrage_category_id');
+        return $this->belongsTo(self::class, 'rayon_id');
     }
 
     public function categories(): HasMany
@@ -29,15 +28,18 @@ class OuvrageCategory extends Model
         return $this->hasMany(self::class);
     }
 
-    public function getGroupeNomAttribute(){
+    public function getGroupeNomAttribute()
+    {
         return $this->groupe?->nom;
     }
 
-    public function getOuvragesCountAttribute():int{
+    public function getOuvragesCountAttribute(): int
+    {
         return $this->ouvrages?->count();
     }
 
-    public function getOuvragesCountAggregateAttribute():int{
+    public function getOuvragesCountAggregateAttribute(): int
+    {
         return $this->ouvragesCount + $this->categories->sum('ouvragesCountAggregate');
     }
 }

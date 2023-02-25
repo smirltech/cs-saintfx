@@ -1,3 +1,4 @@
+@section('title', $title)
 @section('content_header')
     <div class="row mr-2 ml-2">
         <div class="col-6">
@@ -52,7 +53,7 @@
                                         label="Groupe"
                                         required
                                         placeholder="Choisir groupe"
-                                        wire:model="ouvrage.ouvrage_category_id">
+                                        wire:model="ouvrage.rayon_id">
                                         @foreach ($categories as $es )
                                             <option value="{{$es->id}}">{{ $es->nom }}</option>
                                         @endforeach

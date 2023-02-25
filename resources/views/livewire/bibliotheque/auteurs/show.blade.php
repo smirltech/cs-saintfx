@@ -99,27 +99,27 @@
                                                     <td>{{ $ouvrage->titre }}</td>
                                                     <td>{{ $ouvrage->sous_titre }}</td>
                                                     <td>
-                                                        <a href="{{route('bibliotheque.categories.show',[$ouvrage->ouvrage_category_id])}}">{{$ouvrage->categoryNom}}</a>
+                                                        <a href="{{route('bibliotheque.rayons.show',[$ouvrage->rayon_id])}}">{{$ouvrage->categoryNom}}</a>
                                                     </td>
                                                     <td>
                                                         <div class="">
-                                                        @foreach($ouvrage->auteurs->where('id', '!=', $auteur->id) as $author)
+                                                            @foreach($ouvrage->auteurs->where('id', '!=', $auteur->id) as $author)
                                                                 <a href="{{ route('bibliotheque.auteurs.show',$author->id) }}">
                                                                     <span
                                                                         class="badge badge-primary">{{ $author->fullName }}</span>
-                                                                    </a>
-                                                        @endforeach
+                                                                </a>
+                                                            @endforeach
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="d-flex float-right">
-                                                        @can('ouvrages.view',$ouvrage)
-                                                            <a href="{{route('bibliotheque.ouvrages.show',$ouvrage->id)}}"
-                                                               title="Voir"
-                                                               class="btn btn-outline-warning">
-                                                                <i class="fas fa-eye"></i>
-                                                            </a>
-                                                        @endcan
+                                                            @can('ouvrages.view',$ouvrage)
+                                                                <a href="{{route('bibliotheque.ouvrages.show',$ouvrage->id)}}"
+                                                                   title="Voir"
+                                                                   class="btn btn-outline-warning">
+                                                                    <i class="fas fa-eye"></i>
+                                                                </a>
+                                                            @endcan
                                                         </div>
                                                     </td>
                                                 </tr>

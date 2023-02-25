@@ -1,6 +1,3 @@
-@section('title')
-    - ouvrages
-@endsection
 @section('content_header')
     <div class="row">
         <div class="col-6">
@@ -54,14 +51,14 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($ouvrages as $i=>$ouvrage)
+                                    @foreach($ouvrages as $ouvrage)
                                         <tr>
-                                            <td>{{$i+1}}</td>
+                                            <td>{{$loop->iteration}}</td>
                                             <td><img width="50" src="{{$ouvrage->image_url}}"></td>
                                             <td>{{$ouvrage->titre}}</td>
                                             <td>{{$ouvrage->sous_titre}}</td>
                                             <td>
-                                                <a href="{{route('bibliotheque.categories.show',[$ouvrage->ouvrage_category_id])}}">{{$ouvrage->categoryNom}}</a>
+                                                <a href="{{route('bibliotheque.rayons.show',[$ouvrage->rayon_id])}}">{{$ouvrage->categoryNom}}</a>
                                             </td>
                                             <td>{{number_format($ouvrage->uniqueLecturesCount)}}</td>
                                             <td>{{number_format($ouvrage->lecturesCount)}}</td>

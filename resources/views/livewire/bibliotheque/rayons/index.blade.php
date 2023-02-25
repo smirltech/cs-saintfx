@@ -1,6 +1,3 @@
-@section('title')
-    - catégories d'ouvrages
-@endsection
 @section('content_header')
     <div class="row">
         <div class="col-6">
@@ -17,7 +14,7 @@
 
 @stop
 <div wire:ignore.self class="">
-    @include('livewire.bibliotheque.categories.modals.crud')
+    @include('livewire.bibliotheque.rayons.modals.crud')
     <div class="content mt-3">
         <div class="container-fluid">
             <div class="row">
@@ -28,7 +25,7 @@
 
                             </div>
                             <div class="card-tools d-flex my-auto">
-                                @can('ouvrage-categories.create')
+                                @can('rayons.create')
                                     <button type="button"
                                             class="btn btn-primary  ml-2" data-toggle="modal"
                                             data-target="#add-category-modal"><span
@@ -40,7 +37,7 @@
                         <div class="card-body m-b-40">
                             <div class="table-responsive">
                                 <table class="table table-hover">
-                                    <thead class="table-dark">
+                                    <thead class="bg-primary">
                                     <tr>
                                         <th style="width: 50px">#</th>
                                         <th>NOM</th>
@@ -55,11 +52,11 @@
                                             <td>{{$i+1}}</td>
                                             <td>{{$category->nom}}</td>
                                             <td>
-                                                @can('ouvrage-categories.view',$category->groupe)
+                                                @can('rayons.view',$category->groupe)
                                                     @if($category->groupe)
-                                                    <a href="{{route('bibliotheque.categories.show',[$category->groupe])}}">
-                                                        {{$category->groupeNom}}
-                                                    </a>
+                                                        <a href="{{route('bibliotheque.rayons.show',[$category->groupe])}}">
+                                                            {{$category->groupeNom}}
+                                                        </a>
                                                     @else
                                                         {{$category->groupeNom}}
                                                     @endif
@@ -70,14 +67,14 @@
                                             <td>{{$category->description}}</td>
                                             <td>
                                                 <div class="d-flex float-right">
-                                                    @can('ouvrage-categories.view',$category)
-                                                        <a href="{{route('bibliotheque.categories.show',[$category->id])}}"
+                                                    @can('rayons.view',$category)
+                                                        <a href="{{route('bibliotheque.rayons.show',[$category->id])}}"
                                                            title="Voir"
                                                            class="btn btn-warning">
                                                             <i class="fas fa-eye"></i>
                                                         </a>
                                                     @endcan
-                                                    @can('ouvrage-categories.update',$category)
+                                                    @can('rayons.update',$category)
                                                         <button wire:click="getSelectedCategory({{$category}})"
                                                                 type="button"
                                                                 title="Modifier" class="btn btn-info  ml-2"
@@ -86,7 +83,7 @@
                                                             <span class="fa fa-pen"></span>
                                                         </button>
                                                     @endcan
-                                                    @can('ouvrage-categories.delete',$category)
+                                                    @can('rayons.delete',$category)
                                                         <button wire:click="getSelectedCategory({{$category}})"
                                                                 type="button"
                                                                 title="supprimer" class="btn btn-danger  ml-2"

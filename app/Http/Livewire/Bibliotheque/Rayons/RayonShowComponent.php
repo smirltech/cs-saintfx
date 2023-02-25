@@ -1,31 +1,28 @@
 <?php
 
-namespace App\Http\Livewire\Bibliotheque\OuvrageCategory;
+namespace App\Http\Livewire\Bibliotheque\Rayons;
 
 use App\Http\Livewire\BaseComponent;
-use App\Models\MaterielCategory;
-use App\Models\OuvrageCategory;
+use App\Models\Rayon;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
-use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
 
-class OuvrageCategoryShowComponent extends BaseComponent
+class RayonShowComponent extends BaseComponent
 {
     use TopMenuPreview;
     use LivewireAlert;
 
-    public OuvrageCategory $category;
+    public Rayon $category;
     public $categories = [];
 
     protected $rules = [
         'category.nom' => 'required',
-        'category.ouvrage_category_id' => 'nullable',
+        'category.rayon_id' => 'nullable',
         'category.description' => 'nullable',
     ];
 
-    public function mount(OuvrageCategory $category)
+    public function mount(Rayon $category)
     {
         $this->authorize("view", $category);
         $this->category = $category;
@@ -34,14 +31,14 @@ class OuvrageCategoryShowComponent extends BaseComponent
     public function render()
     {
         $this->loadData();
-        return view('livewire.bibliotheque.categories.show')
+        return view('livewire.bibliotheque.rayons.show')
             ->layout(AdminLayout::class, ['title' => 'Détail sur la catégorie']);
     }
 
     public function loadData()
     {
-        $this->categories = OuvrageCategory::where('id', '!=', $this->category->id)->orderBy('nom', 'ASC')->get();
-        //  dd($this->categories);
+        $this->categories = Rayon::where('id', '!=', $this->category->id)->orderBy('nom', 'ASC')->get();
+        //  dd($this->rayons);
     }
 
     public function updateCategory()

@@ -21,10 +21,10 @@ use App\Models\MaterielCategory;
 use App\Models\Mouvement;
 use App\Models\Operation;
 use App\Models\Ouvrage;
-use App\Models\OuvrageCategory;
 use App\Models\Paiment;
 use App\Models\Perception;
 use App\Models\Presence;
+use App\Models\Rayon;
 use App\Models\Responsable;
 use App\Models\ResponsableEleve;
 use App\Models\Resultat;
@@ -76,7 +76,7 @@ class FactorySeeder extends Seeder
         Consommable::factory(10)->create();
         Operation::factory(10)->create();
         Auteur::factory(5)->create();
-        OuvrageCategory::factory(5)->create();
+        Rayon::factory(5)->create();
         Ouvrage::factory(20)->create();
 
     }

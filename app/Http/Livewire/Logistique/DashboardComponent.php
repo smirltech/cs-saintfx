@@ -2,26 +2,21 @@
 
 namespace App\Http\Livewire\Logistique;
 
-use App\Enums\InscriptionStatus;
-use App\Models\Annee;
 use App\Models\Consommable;
-use App\Models\Inscription;
 use App\Models\Materiel;
 use App\Models\Ouvrage;
 use App\Models\OuvrageAuteur;
-use App\Models\OuvrageCategory;
 use App\Traits\TopMenuPreview;
-use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class DashboardComponent extends Component
 {
     use TopMenuPreview;
+
     public $boxes = [];
 
     public function mount()
@@ -58,7 +53,7 @@ class DashboardComponent extends Component
 
     public function render(): Factory|View|Application
     {
-        return view('livewire.logistiques.dashboard')->layoutData(['title'=> 'Logistique']);
+        return view('livewire.logistiques.dashboard')->layoutData(['title' => 'Logistique']);
     }
 
 }

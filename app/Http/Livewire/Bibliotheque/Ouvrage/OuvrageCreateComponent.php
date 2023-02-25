@@ -5,7 +5,7 @@ namespace App\Http\Livewire\Bibliotheque\Ouvrage;
 use App\Enums\MediaType;
 use App\Models\Auteur;
 use App\Models\Ouvrage;
-use App\Models\OuvrageCategory;
+use App\Models\Rayon;
 use App\Models\Tag;
 use App\Traits\HasLivewireAlert;
 use App\Traits\WithFileUploads;
@@ -30,7 +30,7 @@ class OuvrageCreateComponent extends Component
     public mixed $cover = null;
     protected $listeners = ['refresh' => '$refresh'];
     protected $rules = [
-        'ouvrage.ouvrage_category_id' => 'required|exists:ouvrage_categories,id',
+        'ouvrage.rayon_id' => 'required|exists:rayons,id',
         'ouvrage.titre' => 'required',
         'ouvrage.sous_titre' => 'nullable',
         'ouvrage.resume' => 'nullable',
@@ -53,7 +53,7 @@ class OuvrageCreateComponent extends Component
     public function mount(Ouvrage $ouvrage): void
     {
         $this->ouvrage = $ouvrage;
-        $this->categories = OuvrageCategory::orderBy('nom')->get();
+        $this->categories = Rayon::orderBy('nom')->get();
         $this->tags = Tag::orderBy('name')->get();
         $this->auteurs = Auteur::all();
 

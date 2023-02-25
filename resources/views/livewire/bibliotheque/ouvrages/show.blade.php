@@ -44,7 +44,7 @@
                                 </li>
                                 <li class="list-group-item container">
                                     <b>Catégorie : </b> <span class="float-right">
-                                        <a href="{{$ouvrage->category==null?'#':route('bibliotheque.categories.show',[$ouvrage->ouvrage_category_id])}}">{!! $ouvrage->categoryNom !!}</a>
+                                        <a href="{{$ouvrage->category==null?'#':route('bibliotheque.rayons.show',[$ouvrage->rayon_id])}}">{!! $ouvrage->categoryNom !!}</a>
                                     </span>
                                 </li>
                                 <li class="list-group-item">
@@ -138,9 +138,9 @@
                                        aria-selected="true">Visites</a>
                                 </li>
                                 {{-- <li class="nav-item">
-                                     <a class="nav-link" id="custom-tabs-one-categories-tab" data-toggle="pill"
-                                        href="#custom-tabs-one-categories" role="tab"
-                                        aria-controls="custom-tabs-one-categories" aria-selected="false">Auteurs</a>
+                                     <a class="nav-link" id="custom-tabs-one-rayons-tab" data-toggle="pill"
+                                        href="#custom-tabs-one-rayons" role="tab"
+                                        aria-controls="custom-tabs-one-rayons" aria-selected="false">Auteurs</a>
                                  </li>--}}
                             </ul>
                         </div>
@@ -175,8 +175,8 @@
                                     </div>
                                 </div>
 
-                                {{--  <div class="tab-pane fade" id="custom-tabs-one-categories" role="tabpanel"
-                                       aria-labelledby="custom-tabs-one-categories-tab">
+                                {{--  <div class="tab-pane fade" id="custom-tabs-one-rayons" role="tabpanel"
+                                       aria-labelledby="custom-tabs-one-rayons-tab">
                                       <div class="table-responsive">
                                           --}}{{--<table class="table">
                                               <thead>
@@ -190,11 +190,11 @@
                                               </tr>
                                               </thead>
                                               <tbody>
-                                              @foreach ($category->categories as $i=>$categ)
+                                              @foreach ($category->rayons as $i=>$categ)
                                                   <tr>
                                                       <td>{{ $i+1 }}</td>
                                                       <td>
-                                                          <a href="{{route('bibliotheque.categories.show',[$categ->id])}}">{!! $categ->nom !!}</a>
+                                                          <a href="{{route('bibliotheque.rayons.show',[$categ->id])}}">{!! $categ->nom !!}</a>
                                                       </td>
                                                       <td>{{ $categ->description }}</td>
                                                       <td>{{ $categ->ouvragesCount }}</td>
