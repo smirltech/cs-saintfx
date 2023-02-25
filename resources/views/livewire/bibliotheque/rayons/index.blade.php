@@ -1,6 +1,3 @@
-@section('title')
-    - catégories d'ouvrages
-@endsection
 @section('content_header')
     <div class="row">
         <div class="col-6">
@@ -40,7 +37,7 @@
                         <div class="card-body m-b-40">
                             <div class="table-responsive">
                                 <table class="table table-hover">
-                                    <thead class="table-dark">
+                                    <thead class="bg-primary">
                                     <tr>
                                         <th style="width: 50px">#</th>
                                         <th>NOM</th>

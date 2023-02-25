@@ -21,12 +21,12 @@ class RayonIndexComponent extends BaseComponent
     // protected $paginationTheme = 'bootstrap';
 
     public Rayon $category;
+    public $categories = [];
     protected $rules = [
         'category.nom' => 'required',
         'category.rayon_id' => 'nullable',
         'category.description' => 'nullable',
     ];
-    private $categories = [];
 
     /**
      * @throws AuthorizationException
@@ -38,12 +38,12 @@ class RayonIndexComponent extends BaseComponent
         $this->loadData();
     }
 
-    public function initCategory()
+    public function initCategory(): void
     {
         $this->category = new Rayon();
     }
 
-    public function loadData()
+    public function loadData(): void
     {
         $this->categories = Rayon::orderBy('nom')->get();
     }
@@ -51,12 +51,12 @@ class RayonIndexComponent extends BaseComponent
     public function render(): View|Factory|Application
     {
         $this->loadData();
-        return view('livewire.bibliotheque.rayons.index', ['rayons' => $this->categories])
+        return view('livewire.bibliotheque.rayons.index')
             ->layout(AdminLayout::class, ['title' => "Liste de Categories"]);
     }
 
 
-    public function addCategory()
+    public function addCategory(): void
     {
         $this->validate();
 

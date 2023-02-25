@@ -10,6 +10,10 @@ use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Auth;
 use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class OuvrageIndexComponent extends BaseComponent
@@ -19,31 +23,34 @@ class OuvrageIndexComponent extends BaseComponent
 
     private $ouvrages = [];
 
-    public function mount()
+    /**
+     * @throws AuthorizationException
+     */
+    public function mount(): void
     {
         $this->authorize("viewAny", Ouvrage::class);
         $this->loadData();
     }
 
-    public function loadData()
+    public function loadData(): void
     {
         $this->categories = Rayon::orderBy('nom')->get();
         $this->ouvrages = Ouvrage::latest()->get();
     }
 
-    public function render()
+    public function render(): View|Factory|Application
     {
         $this->loadData();
         return view('livewire.bibliotheque.ouvrages.index', ['rayons' => $this->categories, 'ouvrages' => $this->ouvrages])
             ->layout(AdminLayout::class, ['title' => "Liste d'ouvrages"]);
     }
 
-    public function getSelectedOuvrage(Ouvrage $ouvrage)
+    public function getSelectedOuvrage(Ouvrage $ouvrage): void
     {
         $this->ouvrage = $ouvrage;
     }
 
-    public function deleteOuvrage()
+    public function deleteOuvrage(): void
     {
         try {
             $this->ouvrage->delete();
@@ -58,16 +65,16 @@ class OuvrageIndexComponent extends BaseComponent
 
     }
 
-    public function onModalClosed($p_id)
+    public function onModalClosed($p_id): void
     {
         $this->dispatchBrowserEvent('closeModal', ['modal' => $p_id]);
-        $this->initOuvrage();
+        // $this->initOuvrage();
     }
 
 
     // Lectures
 
-    public function addLecture($ouvrage_id)
+    public function addLecture($ouvrage_id): void
     {
         // dd($ouvrage_id);
         $lecture = new Lecture();

@@ -31,7 +31,7 @@
                                 <h4 class="m-0">{{$category->nom}}</h4>
                             </div>
                             <div class="card-tools">
-                                @can('materiel-rayons.update', $category)
+                                @can('materiel-categories.update', $category)
                                     <span
                                         title="Modifier" role="button" class="ml-2 mr-2" data-toggle="modal"
                                         data-target="#update-category-modal">
@@ -170,7 +170,7 @@
                                                     <td>{{ $categ->materielsCountAggregate }}</td>
                                                     <td>
                                                         <div class="d-flex float-right">
-                                                            @can('materiel-rayons.update', $categ)
+                                                            @can('materiel-categories.update', $categ)
                                                                 <button title="Supprimer"
                                                                         class="btn btn-danger">
                                                                     <i class="fas fa-trash"></i>

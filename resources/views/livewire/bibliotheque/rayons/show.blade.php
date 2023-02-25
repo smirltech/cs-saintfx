@@ -112,7 +112,7 @@
                                      aria-labelledby="custom-tabs-one-materiels-tab">
                                     <div class="table-responsive">
                                         <table class="table table-hover">
-                                            <thead class="table-dark">
+                                            <thead class="bg-primary">
                                             <tr>
                                                 <th style="width: 50px">#</th>
                                                 <th>TITRE</th>

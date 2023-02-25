@@ -1,3 +1,4 @@
+@section('title', $title)
 @section('content_header')
     <div class="row mr-2 ml-2">
         <div class="col-6">
