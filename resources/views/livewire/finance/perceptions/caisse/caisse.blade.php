@@ -63,7 +63,7 @@
                             </div>
                             <div class=" table-responsive">
                                 <table class="table table-striped">
-                                    <thead class="table-dark">
+                                    <thead class="bg-primary">
                                     <tr>
                                         <th style="width: 50px;">#</th>
                                         <th>MATRICULE</th>
@@ -123,7 +123,8 @@
                                 <ul class="list-group list-group-unbordered mb-3">
                                     @foreach($perceptions as $percept)
                                         <li class="list-group-item">
-                                            <b>Facture : {{$percept->frais->nom}} {{$percept->custom_property}}</b> <span
+                                            <b>Facture : {{$percept->frais->nom}} {{$percept->custom_property}}</b>
+                                            <span
                                                 class="float-right">{{number_format($percept->balance)}} Fc
                                             <button wire:click="getSelectedPerception('{{$percept->id}}')"
                                                     title="Payer facture"

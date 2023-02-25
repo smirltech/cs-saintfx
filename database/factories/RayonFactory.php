@@ -2,15 +2,16 @@
 
 namespace Database\Factories;
 
-use App\Models\OuvrageCategory;
+use App\Models\Rayon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<OuvrageCategory>
+ * @extends Factory<Rayon>
  */
-class OuvrageCategoryFactory extends Factory
+class RayonFactory extends Factory
 {
-    protected $model = OuvrageCategory::class;
+    protected $model = Rayon::class;
+
     /**
      * Define the model's default state.
      *
@@ -20,7 +21,7 @@ class OuvrageCategoryFactory extends Factory
     {
         return [
             'nom' => fake()->text(20),
-           // 'ouvrage_category_id' => $this->faker->randomElement(OuvrageCategory::pluck('id')->toArray()),
+            // 'rayon_id' => $this->faker->randomElement(Rayon::pluck('id')->toArray()),
             'description' => fake()->paragraph(3),
         ];
     }

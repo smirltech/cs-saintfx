@@ -9,12 +9,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Collection;
-use SmirlTech\LaravelMedia\Traits\HasMedia;
+use SmirlTech\LaravelMedia\Traits\HasMainImage;
 use Spatie\Tags\HasTags;
 
 class Ouvrage extends Model
 {
-    use HasFactory, HasMedia, HasUlids, HasTags;
+    use HasFactory, HasMainImage, HasUlids, HasTags;
 
     public $guarded = [];
 
@@ -45,7 +45,7 @@ class Ouvrage extends Model
 
     public function category(): BelongsTo
     {
-        return $this->belongsTo(OuvrageCategory::class, 'ouvrage_category_id');
+        return $this->belongsTo(Rayon::class, 'rayon_id');
     }
 
     public function getCategoryNomAttribute()
@@ -53,9 +53,12 @@ class Ouvrage extends Model
         return $this->category?->nom;
     }
 
-    public function deleteAllMedia(): void
+    public function deleteAllMedia(?string $collection_name = null): void
     {
-        $this->media->each->delete();
+        if ($collection_name)
+            $this->media()->where('collection_name', $collection_name)->delete();
+        else
+            $this->media->each->delete();
     }
 
     public function setAuteursAttribute(?array $value): void
@@ -92,6 +95,17 @@ class Ouvrage extends Model
         if ($tags) {
             $this->tags()->sync($tags);
         }
+    }
+
+    // hasPdf()
+    public function hasPdf(): bool
+    {
+        foreach ($this->media as $media) {
+            if ($media->mime_type === 'application/pdf') {
+                return true;
+            }
+        }
+        return false;
     }
 
 

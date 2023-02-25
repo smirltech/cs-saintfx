@@ -6,7 +6,7 @@ use App\Http\Livewire\BaseComponent;
 use App\Models\Lecture;
 use App\Models\Ouvrage;
 use App\Models\OuvrageAuteur;
-use App\Models\OuvrageCategory;
+use App\Models\Rayon;
 use App\Traits\HasLivewireAlert;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
@@ -47,7 +47,7 @@ class OuvrageShowComponent extends BaseComponent
 
     public function loadData(): void
     {
-        $this->categories = OuvrageCategory::orderBy('nom', 'ASC')->get();
+        $this->categories = Rayon::orderBy('nom', 'ASC')->get();
     }
 
     public function updateOuvrage(): void

@@ -23,14 +23,15 @@
                         @foreach ($boxes as $box)
                             <div class="col-md-4 col-12">
                                 <a href="{{ $box['url'] }}">
-                                <div class="info-box bg-{{ $box['theme'] }}">
-                                    <span class="info-box-icon"><i class="{{ $box['icon'] }}{{--far fa-bookmark--}}"></i></span>
-                                    <div class="info-box-content">
-                                        <span class="info-box-text">{{ $box['text'] }}</span>
-                                        <span class="info-box-number">{{ $box['title'] }}</span>
+                                    <div class="info-box bg-{{ $box['theme'] }}">
+                                        <span class="info-box-icon"><i
+                                                class="{{ $box['icon'] }}{{--far fa-bookmark--}}"></i></span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text">{{ $box['text'] }}</span>
+                                            <span class="info-box-number">{{ $box['title'] }}</span>
 
+                                        </div>
                                     </div>
-                                </div>
                                 </a>
                             </div>
                         @endforeach
@@ -40,7 +41,7 @@
         </div>
         <div class="table-responsive">
             <h3 class="mb-3"><span class="fas fa-fw fa-book-open-reader mr-1"></span>5 Ouvrages les plus lus</h3>
-           <hr/>
+            <hr/>
             <table class="table table-hover">
                 <thead class="bg-primary">
                 <tr>
@@ -61,7 +62,7 @@
                         <td>{{$ouvrage->titre}}</td>
                         <td>{{$ouvrage->sous_titre}}</td>
                         <td>
-                            <a href="{{route('bibliotheque.categories.show',[$ouvrage->ouvrage_category_id])}}">{{$ouvrage->categoryNom}}</a>
+                            <a href="{{route('bibliotheque.rayons.show',[$ouvrage->rayon_id])}}">{{$ouvrage->categoryNom}}</a>
                         </td>
                         <td>{{number_format($ouvrage->uniqueLecturesCount)}}</td>
                         <td>{{number_format($ouvrage->lecturesCount)}}</td>

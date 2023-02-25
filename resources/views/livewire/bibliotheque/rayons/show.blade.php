@@ -11,7 +11,7 @@
         <div class="col-6">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('scolarite') }}">Accueil</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('bibliotheque.categories') }}">Catégories</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('bibliotheque.rayons') }}">Catégories</a></li>
                 <li class="breadcrumb-item active">{{$category->nom}}</li>
             </ol>
         </div>
@@ -19,7 +19,7 @@
 
 @stop
 <div class="">
-    @include('livewire.bibliotheque.categories.modals.crud')
+    @include('livewire.bibliotheque.rayons.modals.crud')
 
     <div class="content mt-3">
         <div class="container-fluid">
@@ -31,7 +31,7 @@
                                 <h4 class="m-0">{{$category->nom}}</h4>
                             </div>
                             <div class="card-tools">
-                                @can('ouvrage-categories.update',$category)
+                                @can('rayons.update',$category)
                                     <span
                                         title="Modifier" role="button" class="ml-2 mr-2" data-toggle="modal"
                                         data-target="#update-category-modal">
@@ -45,7 +45,7 @@
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
                                     <b>Groupe : </b> <span class="float-right">
-                                        <a href="{{$category->groupe==null?'#':route('bibliotheque.categories.show',[$category->groupe?->id])}}">{!! $category->groupe?->nom !!}</a>
+                                        <a href="{{$category->groupe==null?'#':route('bibliotheque.rayons.show',[$category->groupe?->id])}}">{!! $category->groupe?->nom !!}</a>
                                     </span>
                                 </li>
                                 <li class="list-group-item">
@@ -112,7 +112,7 @@
                                      aria-labelledby="custom-tabs-one-materiels-tab">
                                     <div class="table-responsive">
                                         <table class="table table-hover">
-                                            <thead class="table-dark">
+                                            <thead class="bg-primary">
                                             <tr>
                                                 <th style="width: 50px">#</th>
                                                 <th>TITRE</th>
@@ -172,14 +172,14 @@
                                                 <tr>
                                                     <td>{{ $i+1 }}</td>
                                                     <td>
-                                                        <a href="{{route('bibliotheque.categories.show',[$categ->id])}}">{!! $categ->nom !!}</a>
+                                                        <a href="{{route('bibliotheque.rayons.show',[$categ->id])}}">{!! $categ->nom !!}</a>
                                                     </td>
                                                     <td>{{ $categ->description }}</td>
                                                     <td>{{ $categ->ouvragesCount }}</td>
                                                     <td>{{ $categ->ouvragesCountAggregate }}</td>
                                                     <td>
                                                         <div class="d-flex float-right">
-                                                            @can('ouvrage-categories.delete',$categ)
+                                                            @can('rayons.delete',$categ)
                                                                 <button title="Supprimer"
                                                                         class="btn btn-danger">
                                                                     <i class="fas fa-trash"></i>
