@@ -38,6 +38,14 @@
                             </div>
                         </div>
                         <div class="card-body">
+                            <div class="text-center">
+                                <img style="max-height: 200px" class="img-fluid"
+                                     src="{{asset('storage/images/ouvrages/'.$ouvrage->id.'.png')}}"
+                                     alt="couverture ouvrage"
+                                     data-toggle="modal"
+                                     data-target="#view-image"
+                                >
+                            </div>
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
                                     <b>Sous Titre : </b> <span class="float-right">{{ $ouvrage->sous_titre }}</span>
