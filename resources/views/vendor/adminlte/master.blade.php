@@ -31,11 +31,9 @@
     {{-- <link rel="stylesheet" href="{{ asset('vendor/overlayScrollbars/css/OverlayScrollbars.min.css') }}">--}}
     {{-- Configured Stylesheets --}}
     @include('adminlte::plugins', ['type' => 'css'])
-    <link rel="stylesheet" href="{{ mix(config('adminlte.laravel_mix_css_path', 'css/app.css')) }}">
+    @vite('resources/sass/app.scss')
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/adminlte.css') }}">
     @stack('css')
-    @stack('js_top')
-
     {{-- Custom stylesheets (post AdminLTE) --}}
 
     {{-- Livewire Styles --}}
