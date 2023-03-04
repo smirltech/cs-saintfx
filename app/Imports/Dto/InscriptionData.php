@@ -2,10 +2,11 @@
 
 namespace App\Imports\Dto;
 
-use App\Models\Etudiant;
+use App\Models\Eleve;
+use App\Models\Inscription;
 use Exception;
 
-class EtudiantData
+class InscriptionData
 {
     public const ETUDIANT_END = 2;
     const ETUDIANT_START = 1;
@@ -13,9 +14,18 @@ class EtudiantData
     /**
      * @throws Exception
      */
-    public static function fromRow(array $row): Etudiant
+    public static function fromRow(array $row): Inscription
     {
-        Etudiant::firstOrCreate(
+        $eleve = Eleve::firstOrCreate(
+            [
+                'id' => self::validateId($row[self::ETUDIANT_START])
+            ],
+            [
+                'id' => self::validateId($row[self::ETUDIANT_START]),
+                'nom' => $row[self::ETUDIANT_END]
+            ]);
+
+        $inscription = Inscription::firstOrCreate(
             [
                 'id' => self::validateId($row[self::ETUDIANT_START])
             ],
@@ -25,7 +35,7 @@ class EtudiantData
             ]
         );
 
-        return Etudiant::find($row[self::ETUDIANT_START]);
+        return Inscription::find($row[self::ETUDIANT_START]);
 
     }
 

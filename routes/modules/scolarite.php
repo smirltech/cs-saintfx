@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\InscriptionController;
 use App\Http\Livewire\Scolarite;
 
 Route::get('scolarite', Scolarite\DashboardComponent::class)->name('scolarite')->middleware('auth');
@@ -57,7 +58,8 @@ Route::prefix('scolarite')->middleware(['auth:web'])->as('scolarite.')->group(fu
     Route::get('non-inscriptions', Scolarite\Eleve\ElevesNonInscritsComponent::class)->name('non-inscriptions');
 
     // Inscription
-    Route::get('inscriptions/import', Scolarite\Inscription\InscriptionCreateComponent::class)->name('inscriptions.import');
+    Route::get('inscriptions/import', [InscriptionController::class, 'create'])->name('inscriptions.import');
+    Route::post('inscriptions', [InscriptionController::class, 'store'])->name('inscriptions.store');
     Route::get('inscriptions/create', Scolarite\Inscription\InscriptionCreateComponent::class)->name('inscriptions.create');
     Route::get('inscriptions/{inscription}/edit', Scolarite\Inscription\InscriptionEditComponent::class)->name('inscriptions.edit');
     Route::get('inscriptions/tous', Scolarite\Inscription\InscriptionIndexComponent::class)->name('inscriptions.index');

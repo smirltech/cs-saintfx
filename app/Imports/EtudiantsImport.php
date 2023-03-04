@@ -2,7 +2,7 @@
 
 namespace App\Imports;
 
-use App\Imports\Dto\EtudiantData;
+use App\Imports\Dto\InscriptionData;
 use Exception;
 use Rap2hpoutre\FastExcel\FastExcel;
 
@@ -27,8 +27,8 @@ class EtudiantsImport
     public function import(string $file): void
     {
         (new FastExcel)->withoutHeaders()->import($file, function ($line) {
-            if (EtudiantData::isValideId($line[0])) {
-                return EtudiantData::createEtudiant($line);
+            if (InscriptionData::isValideId($line[0])) {
+                return InscriptionData::createEtudiant($line);
             }
             return null;
         });
