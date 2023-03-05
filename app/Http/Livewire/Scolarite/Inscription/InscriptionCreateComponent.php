@@ -66,6 +66,8 @@ class InscriptionCreateComponent extends BaseComponent
     public $telephone;
     public $email;
     public $adresse;
+    public $pere;
+    public $mere;
     public $numero_permanent;
 
     //responsable
@@ -95,6 +97,8 @@ class InscriptionCreateComponent extends BaseComponent
         'sexe' => 'nullable',
         'telephone' => 'nullable|string',
         'email' => 'nullable',
+        'pere' => 'nullable',
+        'mere' => 'nullable',
 
         'classe_id' => 'required|numeric|min:1|not_in:0',
         'filiere_id' => 'nullable|numeric|min:1|not_in:0',
@@ -181,6 +185,8 @@ class InscriptionCreateComponent extends BaseComponent
             'date_naissance' => $this->date_naissance,
             'numero_permanent' => $this->numero_permanent,
             'section_id' => $this->section_id,
+            'pere' => $this->pere,
+            'mere' => $this->mere,
         ]);
     }
 
@@ -285,6 +291,11 @@ class InscriptionCreateComponent extends BaseComponent
             $this->responsable_nom = null;
             $this->responsable_id = null;
         }
+    }
+
+    function updatedSectionId(): void
+    {
+       $this->changeSection();
     }
 
     public function changeSection()

@@ -33,8 +33,8 @@
                         <div>
                             <h4 class="font-weight-bold"><u>Information Personnelle</u></h4>
                             <div class="row">
-                                <div class="form-group col-md-4 ">
-                                    <label for="">Nom <i class="text-red">*</i></label>
+                                <div class="form-group col-md-12 ">
+                                    <label for="">Nom Complet (Nom  Postnom  Prénom) <i class="text-red">*</i></label>
                                     <input placeholder="Saisir le nom" type="text" wire:model="nom"
                                            class="form-control  @error('nom') is-invalid @enderror">
                                     @error('nom')
@@ -91,6 +91,22 @@
                                 </div>
 
                             </div>
+
+                            <h6 class="font-weight-bold"><u>Informations sur les parents</u></h6>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label for="">Père</label>
+                                    <input placeholder="Saisir le nom complet du père" type="text" wire:model="pere"
+                                           class="form-control">
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="">Mère</label>
+                                    <input placeholder="Saisir le nom complet de la mère" type="text" wire:model="mere"
+                                           class="form-control">
+                                </div>
+
+                            </div>
                         </div>
                         {{-- ./Information Personnelle--}}
                         <hr>
@@ -123,7 +139,7 @@
                                         required
                                         label="Section"
                                         wire:model="section_id"
-                                        wire:change="changeSection"
+                                        wire:click="changeSection"
                                         placeholder="Choisir section"
                                     >
                                         @foreach ($sections as $section )
