@@ -12,7 +12,7 @@ return new class extends Migration {
             $table->string('nom');
             $table->string('sexe')->nullable();
             $table->string('lieu_naissance')->nullable();
-            $table->string('date_naissance')->nullable();
+            $table->date('date_naissance')->nullable();
             $table->json('pere')->nullable();
             $table->json('mere')->nullable();
             $table->string('adresse')->nullable();

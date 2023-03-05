@@ -25,6 +25,8 @@ class Eleve extends Model
     protected $casts = [
         'sexe' => Sexe::class,
         'date_naissance' => 'datetime',
+        'pere' => 'array',
+        'mere' => 'array',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
@@ -39,14 +41,13 @@ class Eleve extends Model
 
     // route model binding
 
-    protected static function boot()
+    protected static function booted(): void
     {
-        parent::boot();
-
-        static::creating(function (self $model) {
-
-            $model->id = self::generateUniqueId($model->section_id);
-            // remove section_id from model
+        static::saving(function (self $model) {
+            if (!$model->id) {
+                $model->id = self::generateUniqueId($model->section_id);
+                // remove section_id from model
+            }
             unset($model->section_id);
         });
     }

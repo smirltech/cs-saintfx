@@ -2,7 +2,6 @@
 
 namespace App\Imports;
 
-use App\Enums\DeliberationType;
 use App\Imports\Dto\InscriptionData;
 use Exception;
 use Rap2hpoutre\FastExcel\FastExcel;
@@ -32,9 +31,9 @@ class InscriptionsImport
         foreach ($rows as $key => $row) {
             if ($key >= 14) { # 6 pour les cotes, soit ligne 8
                 if (!intval($row[0])) {
-                    throw new Exception("{$row[0]}' doit être un nombre");
+                    break;
                 }
-                $inscription = InscriptionData::fromRow($row);
+                InscriptionData::fromRow(data: $row, annee_id: $this->annee_id, classe_id: $this->classe_id);
             }
         }
     }
