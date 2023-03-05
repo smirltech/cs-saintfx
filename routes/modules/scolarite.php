@@ -58,7 +58,7 @@ Route::prefix('scolarite')->middleware(['auth:web'])->as('scolarite.')->group(fu
     Route::get('non-inscriptions', Scolarite\Eleve\ElevesNonInscritsComponent::class)->name('non-inscriptions');
 
     // Inscription
-    Route::get('inscriptions/import', [InscriptionController::class, 'create'])->name('inscriptions.import');
+    Route::get('inscriptions/import', Scolarite\Eleve\EleveImportComponent::class)->name('inscriptions.import');
     Route::post('inscriptions', [InscriptionController::class, 'store'])->name('inscriptions.store');
     Route::get('inscriptions/create', Scolarite\Inscription\InscriptionCreateComponent::class)->name('inscriptions.create');
     Route::get('inscriptions/{inscription}/edit', Scolarite\Inscription\InscriptionEditComponent::class)->name('inscriptions.edit');
