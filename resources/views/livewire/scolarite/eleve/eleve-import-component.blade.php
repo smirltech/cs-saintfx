@@ -45,6 +45,7 @@
                                 </div>
 
                                 <div class="form-group col-md-4">
+                                    {{--   @json($options)--}}
                                     <x-form::select label="Option"
                                                     placeholder="Choisir option"
                                                     wire:model="fiche.option">
@@ -56,6 +57,7 @@
                                 </div>
 
                                 <div class="form-group col-md-4">
+                                    {{--                                    @json($classes)--}}
                                     <x-form::select label="Classe" required placeholder="Choisir classe"
                                                     wire:model="fiche.classe">
                                         @foreach($classes as $classe)

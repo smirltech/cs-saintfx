@@ -5,9 +5,7 @@ namespace App\Http\Livewire\Scolarite\Eleve;
 use App\Http\Livewire\BaseComponent;
 use App\Imports\EtudiantsImport;
 use App\Models\Annee;
-use App\Models\Classe;
 use App\Models\Eleve;
-use App\Models\Option;
 use App\Models\Section;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -28,8 +26,8 @@ class EleveImportComponent extends BaseComponent
 
     public Collection $annees;
     public Collection $sections;
-    public Collection $options;
-    public Collection $classes;
+    public array|Collection $options = [];
+    public array|Collection $classes = [];
     protected $listeners = ['confirmed' => 'confirmed'];
 
 
@@ -42,8 +40,6 @@ class EleveImportComponent extends BaseComponent
         $this->title = 'Impomrter la liste d\'élèves';
         $this->annees = Annee::all();
         $this->sections = Section::all();
-        $this->options = Option::all();
-        $this->classes = Classe::all();
     }
 
 
@@ -99,6 +95,22 @@ class EleveImportComponent extends BaseComponent
             'fiche.option' => 'nullable',
             'fiche.classe' => 'required',
         ];
+    }
+
+    // updatedFicheSection
+    public function updatedFicheSection($value): void
+    {
+        $section = $this->sections->find($value);
+        $this->options = $section->options;
+        $this->classes = $section->classes;
+
+        $this->emit('$refresh');
+    }
+
+    // updatedFicheOption
+    public function updatedFicheOption($value): void
+    {
+        $this->classes = $this->options->find($value)->classes;
     }
 
 }
