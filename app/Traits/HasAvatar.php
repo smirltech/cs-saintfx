@@ -17,7 +17,7 @@ trait HasAvatar
 
     public function getAvatarAttribute(): string
     {
-        return $this->image ?? Helpers::fetchAvatar($this->full_name ?? $this->name);
+        return $this->image ?? Helpers::fetchAvatar($this->full_name ?? $this->name ?? $this->nom ?? $this->email);
     }
 
 

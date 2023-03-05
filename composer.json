@@ -20,6 +20,7 @@
         "livewire/livewire": "^2.10",
         "owen-it/laravel-auditing": "^13.0",
         "pharaonic/laravel-readable": "^1.0",
+        "rap2hpoutre/fast-excel": "^5.1",
         "simplesoftwareio/simple-qrcode": "^4.2",
         "smirltech/laravel-form": "^2.0",
         "smirltech/laravel-fullcalendar": "^1.0",

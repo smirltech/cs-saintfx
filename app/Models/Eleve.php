@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Enums\Sexe;
 use App\Helpers\Helpers;
-use App\Traits\HasAvatar;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use JetBrains\PhpStorm\Pure;
+use SmirlTech\LaravelMedia\Traits\HasAvatar;
 use Str;
 
 
@@ -25,24 +25,31 @@ class Eleve extends Model
     protected $casts = [
         'sexe' => Sexe::class,
         'date_naissance' => 'datetime',
+        'pere' => 'array',
+        'mere' => 'array',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
-
-
-    public function user(): BelongsTo|null
-    {
-        return $this->belongsTo(User::class);
-    }
-
-
-    // route model binding
 
     public static function nonInscritsAnneeEnCours(): Collection|array
     {
         return self::whereDoesntHave('inscriptions', function ($q) {
             $q->where('annee_id', Annee::id());
         })->get();
+    }
+
+
+    // route model binding
+
+    protected static function booted(): void
+    {
+        static::saving(function (self $model) {
+            if (!$model->id) {
+                $model->id = self::generateUniqueId($model->section_id);
+                // remove section_id from model
+            }
+            unset($model->section_id);
+        });
     }
 
     /** generate matricule
@@ -64,16 +71,9 @@ class Eleve extends Model
         return $first_part . $second_part;
     }
 
-    protected static function boot()
+    public function user(): BelongsTo|null
     {
-        parent::boot();
-
-        static::creating(function (self $model) {
-
-            $model->id = self::generateUniqueId($model->section_id);
-            // remove section_id from model
-            unset($model->section_id);
-        });
+        return $this->belongsTo(User::class);
     }
 
     public function getPresencesAttribute(): Collection
@@ -134,7 +134,7 @@ class Eleve extends Model
 
     public function getFullNameAttribute(): string
     {
-        return "{$this->nom} {$this->postnom} {$this->prenom}";
+        return "{$this->nom}";
     }
 
     public function responsable_eleve(): HasOne
@@ -181,7 +181,7 @@ class Eleve extends Model
     }
 
     /** Devoirs for this eleve on this year and a specific class
-     * @return string
+     * @return Collection
      */
     public function getDevoirsAttribute(): Collection
     {

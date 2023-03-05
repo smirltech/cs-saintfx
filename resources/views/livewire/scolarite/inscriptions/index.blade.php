@@ -73,8 +73,8 @@ $data=[];
                     <div class="card-header">
                         <div class="card-title d-flex">
                             @can('inscriptions.create')
-                                <a href="{{ route('scolarite.inscriptions.create') }}" title="ajouter"
-                                   class="btn btn-primary mr-2"><span class="fa fa-plus"></span></a>
+                                <a href="{{ route('scolarite.inscriptions.import') }}" title="ajouter"
+                                   class="btn btn-success mr-2"><span class="fa fa-file-excel"></span></a>
                             @endcan
                         </div>
                         <div class="card-tools d-flex my-auto">

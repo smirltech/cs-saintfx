@@ -30,14 +30,6 @@ class Classe extends Model
         return $this->morphTo();
     }
 
-    public function inscriptions(): HasMany
-    {
-        return $this->hasMany(Inscription::class)->where('annee_id', Annee::encours()->id);
-    }
-
-    /*
-     * Return a list of inscriptions sorted by place of the results as of type
-     */
     public function inscriptionsAsOfPlaceOfResultats(ResultatType $resultatType)
     {
         $inscriptions_temp = $this->inscriptions->all();
@@ -49,36 +41,49 @@ class Classe extends Model
         return $inscriptions_temp;
     }
 
-    // eleves
+    /*
+     * Return a list of inscriptions sorted by place of the results as of type
+     */
+
     public function eleves(): BelongsToMany
     {
         return $this->belongsToMany(Eleve::class, 'inscriptions')->where('annee_id', Annee::encours()->id);
     }
 
-    // full_name
+    // eleves
+
     public function getFullNameAttribute(): string
     {
         return "{$this->filierable->fullName} {$this->grade->value}";
     }
+
+    // full_name
 
     public function getFullReverseNameAttribute(): string
     {
         return "{$this->grade->value} {$this->filierable->fullName}";
     }
 
-    // full_name
+    public function getNomAttribute(): string
+    {
+        return $this->full_reverse_name;
+    }
+
     public function getFullCodeAttribute(): string
     {
         return "{$this->grade->value} {$this->filierable->fullCode}";
     }
 
+
     // full_name
+
     public function getShortCodeAttribute(): string
     {
         return "{$this->grade->value} {$this->filierable->shortCode}";
     }
 
-    // parent_url
+    // full_name
+
     public function getParentUrlAttribute(): ?string
     {
         $parent_url = "";
@@ -94,6 +99,8 @@ class Classe extends Model
         return $parent_url;
     }
 
+    // parent_url
+
     public function enseignantsPrimaire(): BelongsToMany
     {
         return $this->belongsToMany(Enseignant::class, 'classe_enseignants')->where('annee_id', Annee::encours()->id);
@@ -104,21 +111,19 @@ class Classe extends Model
         return $this->belongsToMany(Enseignant::class, 'cours_enseignants')->where('annee_id', Annee::encours()->id);
     }
 
-
-    // cours
-
     public function cours(): BelongsToMany
     {
         return $this->belongsToMany(Cours::class, 'cours_enseignants')->where('annee_id', Annee::encours()->id)->withPivot('classe_id');
     }
+
+
+    // cours
 
     public function coursEnseignants(): HasMany
     {
         return $this->hasMany(CoursEnseignant::class)->where('annee_id', Annee::encours()->id);
     }
 
-
-    // get section id from filierable attribute
     public function getSectionIdAttribute(): ?int
     {
         $section_id = null;
@@ -134,30 +139,37 @@ class Classe extends Model
         return $section_id;
     }
 
-    // get section from section_id attribute
+
+    // get section id from filierable attribute
+
     public function getSectionAttribute(): ?Section
     {
         return Section::find($this->section_id);
     }
 
-    // get enseignant id from classe enseignant pivot table
+    // get section from section_id attribute
+
     public function getEnseignantIdAttribute(): ?string
 
     {
         return $this->enseignantsPrimaire->first()?->pivot->enseignant_id;
     }
 
-    // get enseignant from enseignant_id attribute
+    // get enseignant id from classe enseignant pivot table
+
     public function getEnseignantAttribute(): ?Enseignant
     {
         return Enseignant::find($this->enseignant_id);
     }
 
-    // function primaire
+    // get enseignant from enseignant_id attribute
+
     public function primaire($strict = false): bool
     {
         return $this->section->primaire(strict: $strict);
     }
+
+    // function primaire
 
     public function maternelle(): bool
     {
@@ -169,7 +181,7 @@ class Classe extends Model
         return $this->section->secondaire();
     }
 
-    public  function presences()
+    public function presences()
     {
         return $this->hasManyThrough(Presence::class, Inscription::class)->with('inscription');
     }
@@ -177,9 +189,14 @@ class Classe extends Model
     public function nonInscriptions($date)
     {
         $df = $this->inscriptions()->whereDoesntHave('presences', function ($q) use ($date) {
-$q->where('date', $date);
+            $q->where('date', $date);
         })->get();
-      //  dd($df);
+        //  dd($df);
         return $df;
+    }
+
+    public function inscriptions(): HasMany
+    {
+        return $this->hasMany(Inscription::class)->where('annee_id', Annee::encours()->id);
     }
 }

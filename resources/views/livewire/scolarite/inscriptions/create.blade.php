@@ -41,20 +41,6 @@
                                     <span class="text-red">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="form-group col-md-4 ">
-                                    <label for="">Postnom <i class="text-red">*</i></label>
-                                    <input placeholder="Saisir le postnom" type="text" wire:model="postnom"
-                                           class="form-control  @error('postnom') is-invalid @enderror">
-                                    @error('postnom')
-                                    <span class="text-red">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                                <div class="form-group col-md-4 ">
-                                    <label for="">Prenom</label>
-                                    <input placeholder="Saisir le prenom" type="text" wire:model="prenom"
-                                           class="form-control">
-
-                                </div>
                             </div>
 
                             <div class="row">
