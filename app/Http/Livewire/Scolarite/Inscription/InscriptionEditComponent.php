@@ -263,8 +263,6 @@ class InscriptionEditComponent extends Component
     {
         return [
             'etudiant.nom' => 'required',
-            'etudiant.postnom' => 'required',
-            'etudiant.prenom' => 'nullable|string',
             'etudiant.lieu_naissance' => 'nullable|string',
             'etudiant.date_naissance' => 'required|date',
             'etudiant.sexe' => 'string|nullable',

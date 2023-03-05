@@ -29,20 +29,26 @@ class Eleve extends Model
         'updated_at' => 'datetime',
     ];
 
-
-    public function user(): BelongsTo|null
-    {
-        return $this->belongsTo(User::class);
-    }
-
-
-    // route model binding
-
     public static function nonInscritsAnneeEnCours(): Collection|array
     {
         return self::whereDoesntHave('inscriptions', function ($q) {
             $q->where('annee_id', Annee::id());
         })->get();
+    }
+
+
+    // route model binding
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function (self $model) {
+
+            $model->id = self::generateUniqueId($model->section_id);
+            // remove section_id from model
+            unset($model->section_id);
+        });
     }
 
     /** generate matricule
@@ -64,16 +70,9 @@ class Eleve extends Model
         return $first_part . $second_part;
     }
 
-    protected static function boot()
+    public function user(): BelongsTo|null
     {
-        parent::boot();
-
-        static::creating(function (self $model) {
-
-            $model->id = self::generateUniqueId($model->section_id);
-            // remove section_id from model
-            unset($model->section_id);
-        });
+        return $this->belongsTo(User::class);
     }
 
     public function getPresencesAttribute(): Collection
@@ -134,7 +133,7 @@ class Eleve extends Model
 
     public function getFullNameAttribute(): string
     {
-        return "{$this->nom} {$this->postnom} {$this->prenom}";
+        return "{$this->prenom}";
     }
 
     public function responsable_eleve(): HasOne

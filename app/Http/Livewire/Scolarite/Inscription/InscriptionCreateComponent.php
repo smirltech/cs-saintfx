@@ -28,7 +28,6 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
 
 class InscriptionCreateComponent extends BaseComponent
 {
@@ -61,8 +60,6 @@ class InscriptionCreateComponent extends BaseComponent
 
     //eleve
     public $nom;
-    public $postnom;
-    public $prenom;
     public $lieu_naissance = "Lubumbashi";
     public $date_naissance;
     public $sexe;
@@ -93,8 +90,6 @@ class InscriptionCreateComponent extends BaseComponent
     protected $listeners = ['onModalClosed'];
     protected $rules = [
         'nom' => 'required|string',
-        'postnom' => 'required|string',
-        'prenom' => 'nullable|string',
         'lieu_naissance' => 'nullable',
         'date_naissance' => 'nullable|date',
         'sexe' => 'nullable',
@@ -178,8 +173,6 @@ class InscriptionCreateComponent extends BaseComponent
         // $ucode = $this->getGeneratedUniqueCode();
         return Eleve::create([
             'nom' => $this->nom,
-            'postnom' => $this->postnom,
-            'prenom' => $this->prenom,
             'sexe' => $this->sexe,
             'telephone' => $this->telephone,
             'email' => $this->email,
