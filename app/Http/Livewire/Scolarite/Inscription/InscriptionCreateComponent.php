@@ -395,6 +395,11 @@ class InscriptionCreateComponent extends BaseComponent
 
     }
 
+    function updatedOptionId(): void
+    {
+       // dd('updatedOptionId');
+        $this->changeOption();
+    }
     public function changeOption()
     {
         $this->filieres = [];
@@ -407,6 +412,11 @@ class InscriptionCreateComponent extends BaseComponent
         $this->loadAvailableClasses();
     }
 
+    function updatedFiliereId(): void
+    {
+        // dd('updatedOptionId');
+        $this->changeFiliere();
+    }
     public function changeFiliere()
     {
         $this->classe_id = null;
@@ -416,6 +426,11 @@ class InscriptionCreateComponent extends BaseComponent
 
     // Perception add for inscription
 
+    function updatedClasseId(): void
+    {
+        // dd('updatedOptionId');
+        $this->changeClasse();
+    }
     public function changeClasse()
     {
         $this->loadAvailableClasses();

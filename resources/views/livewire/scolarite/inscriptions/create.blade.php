@@ -139,7 +139,7 @@
                                         required
                                         label="Section"
                                         wire:model="section_id"
-                                        wire:click="changeSection"
+                                       {{-- wire:click="changeSection"--}}
                                         placeholder="Choisir section"
                                     >
                                         @foreach ($sections as $section )
@@ -154,8 +154,7 @@
                                     <x-form::select
                                         label="Option"
                                         wire:model="option_id"
-                                        placeholder="Choisir option"
-                                        wire:change="changeOption">
+                                        placeholder="Choisir option">
                                         @foreach ($options as $option )
                                             <option value="{{ $option->id }}">{{ $option->nom }}</option>
                                         @endforeach
@@ -165,7 +164,7 @@
                                 <div class="form-group col-md-3">
                                     <label for="">Filière</label>
                                     <x-form::select wire:model="filiere_id"
-                                                    wire:change="changeFiliere" class="form-control">
+                                                     class="form-control">
                                         <option value=null>Choisir filière</option>
                                         @foreach ($filieres as $filiere )
                                             <option value="{{ $filiere->id }}">{{ $filiere->nom }}</option>
@@ -174,7 +173,7 @@
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="">Classe <i class="text-red">*</i></label>
-                                    <x-form::select wire:change="changeClasse" wire:model="classe_id"
+                                    <x-form::select  wire:model="classe_id"
                                                     class="form-control">
                                         <option value=null>Choisir classe</option>
                                         @foreach ($classes as $classe )
