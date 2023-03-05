@@ -24,8 +24,10 @@
                         <form wire:submit.prevent="submit" class="container">
                             <div class="row">
                                 <div class="form-group col-md-6">
-                                    <x-form::select label="Année" required placeholder="Choisir année scolaire"
-                                                    wire:model="annee">
+                                    <x-form::select label="Année"
+                                                    required
+                                                    placeholder="Choisir année scolaire"
+                                                    wire:model="annee_id">
                                         @foreach($annees as $annee)
                                             <option value="{{$annee->id}}">{{$annee->nom}}
                                             </option>
@@ -34,12 +36,11 @@
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    {{--                                    @json($classes)--}}
                                     <x-form::select
                                         label="Classe"
                                         required
                                         placeholder="Choisir classe"
-                                        wire:model="classe">
+                                        wire:model="classe_id">
                                         @foreach($classes as $classe)
                                             <option value="{{$classe->id}}">{{$classe->nom}}
                                             </option>

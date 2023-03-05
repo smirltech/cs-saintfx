@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Enums\Sexe;
 use App\Helpers\Helpers;
-use App\Traits\HasAvatar;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use JetBrains\PhpStorm\Pure;
+use SmirlTech\LaravelMedia\Traits\HasAvatar;
 use Str;
 
 
@@ -134,7 +134,7 @@ class Eleve extends Model
 
     public function getFullNameAttribute(): string
     {
-        return "{$this->prenom}";
+        return "{$this->nom}";
     }
 
     public function responsable_eleve(): HasOne
@@ -181,7 +181,7 @@ class Eleve extends Model
     }
 
     /** Devoirs for this eleve on this year and a specific class
-     * @return string
+     * @return Collection
      */
     public function getDevoirsAttribute(): Collection
     {

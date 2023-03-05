@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\Scolarite\Eleve;
 
 use App\Http\Livewire\BaseComponent;
-use App\Imports\EtudiantsImport;
+use App\Imports\InscriptionsImport;
 use App\Models\Annee;
 use App\Models\Classe;
 use App\Models\Eleve;
@@ -20,8 +20,8 @@ class EleveImportComponent extends BaseComponent
     use WithFileUploads;
 
     public mixed $file = null;
-    public string $annee;
-    public string $classe;
+    public mixed $annee_id = '';
+    public string $classe_id = '';
     protected $listeners = ['confirmed' => 'confirmed'];
 
     /**
@@ -48,25 +48,13 @@ class EleveImportComponent extends BaseComponent
      */
     public function submit(): void
     {
-
         try {
-            // $this->emit('hideModal');
-            EtudiantsImport::build()->import($this->file->getRealPath());
-            $this->success('Liste des étudiants importée avec succès');
-            $this->emitUp('refresh');
+            InscriptionsImport::build(annee_id: $this->annee_id, classe_id: $this->classe_id)->import($this->file->getRealPath());
+            $this->flashSuccess('Liste des élèves importée avec succès', route('scolarite.inscriptions.index'));
+            $this->emit('refresh');
         } catch (Exception $e) {
             $this->error($e->getMessage(), $e->getMessage());
-        }// confirm dialog
-        /*$this->confirm('Confirmez l\'envoi de la grille pour l\'année ' . $this->annee . ', promotion ' . $this->promotion, [
-            'toast' => false,
-            'position' => 'center',
-            'showConfirmButton' => true,
-            'cancelButtonText' => "Annuler",
-            'confirmButtonText' => "Confirmer",
-            'onConfirmed' => 'confirmed',
-            'onCancelled' => 'cancelled'
-        ]);
-        $this->confirmed();*/
+        }
     }
 
     // con
@@ -75,25 +63,14 @@ class EleveImportComponent extends BaseComponent
     /**
      * @throws Exception
      */
-    public function confirmed(): void
-    {
-        try {
-            $this->emit('hideModal');
-            EtudiantsImport::build()->import($this->file->getRealPath());
-            $this->success('Liste des étudiants importée avec succès');
-            $this->emitUp('refresh');
-        } catch (Exception $e) {
-            $this->error($e->getMessage(), $e->getMessage());
-        }
-    }
 
     // rules()
     public function rules(): array
     {
         return [
             'file' => 'required|mimes:xlsx',
-            'annee' => 'required',
-            'classe' => 'required',
+            'annee_id' => 'required',
+            'classe_id' => 'required'
         ];
     }
 

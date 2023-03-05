@@ -41,19 +41,17 @@ class InscriptionData
                 'email' => $data[10],
             ]);
 
-        $inscription = Inscription::firstOrCreate(
+
+        return Inscription::firstOrCreate(
             [
                 'eleve_id' => $eleve->id,
                 'annee_id' => $annee_id,
-                'classe_id' => $classe_id,
             ],
             [
                 'eleve_id' => $eleve->id,
                 'annee_id' => $annee_id,
                 'classe_id' => $classe_id,
             ]);
-
-        return $inscription;
 
     }
 
