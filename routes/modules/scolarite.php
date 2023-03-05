@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\InscriptionController;
 use App\Http\Livewire\Scolarite;
+use App\Imports\InscriptionsImport;
 
 Route::get('scolarite', Scolarite\DashboardComponent::class)->name('scolarite')->middleware('auth');
 
@@ -58,6 +59,9 @@ Route::prefix('scolarite')->middleware(['auth:web'])->as('scolarite.')->group(fu
     Route::get('non-inscriptions', Scolarite\Eleve\ElevesNonInscritsComponent::class)->name('non-inscriptions');
 
     // Inscription
+    Route::get('inscriptions/import-test', function () {
+        InscriptionsImport::build(annee_id: 1, classe_id: 1)->import("models/FICHE D'IDENTIFICATION CENK 1e-PRIMAIRE.xlsx");
+    })->name('inscriptions.import-test');
     Route::get('inscriptions/import', Scolarite\Eleve\EleveImportComponent::class)->name('inscriptions.import');
     Route::post('inscriptions', [InscriptionController::class, 'store'])->name('inscriptions.store');
     Route::get('inscriptions/create', Scolarite\Inscription\InscriptionCreateComponent::class)->name('inscriptions.create');

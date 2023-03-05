@@ -9,7 +9,7 @@ use Exception;
 class InscriptionData
 {
     public const ETUDIANT_END = 2;
-    const ETUDIANT_START = 1;
+    const ELEVE_NOM = 1;
 
     /**
      * @throws Exception
@@ -18,24 +18,23 @@ class InscriptionData
     {
         $eleve = Eleve::firstOrCreate(
             [
-                'id' => self::validateId($row[self::ETUDIANT_START])
+                'nom' => $row[self::ELEVE_NOM]
             ],
             [
-                'id' => self::validateId($row[self::ETUDIANT_START]),
-                'nom' => $row[self::ETUDIANT_END]
+                'nom' => $row[self::ELEVE_NOM]
             ]);
 
         $inscription = Inscription::firstOrCreate(
             [
-                'id' => self::validateId($row[self::ETUDIANT_START])
+                'id' => self::validateId($row[self::ELEVE_NOM])
             ],
             [
-                'id' => self::validateId($row[self::ETUDIANT_START]),
+                'id' => self::validateId($row[self::ELEVE_NOM]),
                 'nom' => $row[self::ETUDIANT_END]
             ]
         );
 
-        return Inscription::find($row[self::ETUDIANT_START]);
+        return Inscription::find($row[self::ELEVE_NOM]);
 
     }
 

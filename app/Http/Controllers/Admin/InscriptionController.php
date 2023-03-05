@@ -47,7 +47,7 @@ class InscriptionController extends Controller
     {
 
         try {
-            InscriptionsImport::build(annee: $request->annee)->import(file: $request->fiche->getRealPath());
+            InscriptionsImport::build(annee_id: $request->annee)->import(file: $request->fiche->getRealPath());
             return Redirect::route(route: 'scolarite.inscriptions.index')->with('success', 'Les inscriptions ont été importées avec succès');
         } catch (Exception $e) {
             return Redirect::back()->with('error', $e->getMessage());

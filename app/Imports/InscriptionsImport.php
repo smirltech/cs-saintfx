@@ -9,15 +9,15 @@ use Rap2hpoutre\FastExcel\FastExcel;
 
 class InscriptionsImport
 {
-    public function __construct(private string $annee)
+    public function __construct(private string $annee_id, private string $classe_id)
     {
         //
     }
 
     // build
-    public static function build(string $annee): self
+    public static function build(string $annee_id, string $classe_id): self
     {
-        return new self(annee: $annee);
+        return new self(annee_id: $annee_id, classe_id: $classe_id);
     }
 
     // import
