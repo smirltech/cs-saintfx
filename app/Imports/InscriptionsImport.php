@@ -30,10 +30,9 @@ class InscriptionsImport
         $rows = (new FastExcel)->withoutHeaders()->import($file);
 
         foreach ($rows as $key => $row) {
-            if ($key >= 15) { # 6 pour les cotes, soit ligne 8
-                if ($row[5]) {
-                    $section = $row[5];
-                    continue;
+            if ($key >= 14) { # 6 pour les cotes, soit ligne 8
+                if (!intval($row[0])) {
+                    throw new Exception("{$row[0]}' doit être un nombre");
                 }
                 $inscription = InscriptionData::fromRow($row);
             }

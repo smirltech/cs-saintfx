@@ -10,6 +10,8 @@ class InscriptionData
 {
     public const ETUDIANT_END = 2;
     const ELEVE_NOM = 1;
+    const ELEVE_SEXE = 2;
+    const ELEVE_LIEU_DATE_NAISSANCE = 3;
 
     /**
      * @throws Exception
@@ -21,7 +23,10 @@ class InscriptionData
                 'nom' => $row[self::ELEVE_NOM]
             ],
             [
-                'nom' => $row[self::ELEVE_NOM]
+                'nom' => $row[self::ELEVE_NOM],
+                'sexe' => $row[self::ELEVE_SEXE],
+                'lieu_naissance' => self::getLieuNaissance($row[self::ELEVE_LIEU_DATE_NAISSANCE]),
+                'date_naissance' => self::getDateNaissance($row[self::ELEVE_LIEU_DATE_NAISSANCE]),
             ]);
 
         $inscription = Inscription::firstOrCreate(
@@ -39,6 +44,18 @@ class InscriptionData
     }
 
     // is valid student id
+
+    private static function getLieuNaissance(string $value): string
+    {
+        $lieu = explode(',', $value);
+        return trim($lieu[0]);
+    }
+
+    private static function getDateNaissance(mixed $value): string
+    {
+        $date = explode(',', $value);
+        return trim($date[1]);
+    }
 
     /**
      * @throws Exception
