@@ -33,31 +33,15 @@
                         <div>
                             <h4 class="font-weight-bold"><u>Information Personnelle</u></h4>
                             <div class="row">
-                                <div class="form-group col-md-12 ">
-                                    <label for="">Nom Complet (Nom  Postnom  Prénom) <i class="text-red">*</i></label>
+                                <div class="form-group col-md-9 col-sm-12 ">
+                                    <label for="">Nom Complet (Nom Postnom Prénom) <i class="text-red">*</i></label>
                                     <input placeholder="Saisir le nom" type="text" wire:model="nom"
                                            class="form-control  @error('nom') is-invalid @enderror">
                                     @error('nom')
                                     <span class="text-red">{{ $message }}</span>
                                     @enderror
                                 </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="form-group col-md-3">
-                                    <label for="">Lieu de naissance</label>
-                                    <input placeholder="Saisir la ville / village de naissance" type="text"
-                                           wire:model="lieu_naissance"
-                                           class="form-control">
-
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label for="">Date de naissance</label>
-                                    <input type="date" wire:model="date_naissance"
-                                           class="form-control">
-
-                                </div>
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-3 col-sm-12">
                                     <label for="">Sexe <i class="text-red">*</i></label>
                                     <x-form::select wire:model="sexe">
                                         @foreach (Sexe::cases() as $es)
@@ -65,7 +49,24 @@
                                         @endforeach
                                     </x-form::select>
                                 </div>
-                                <div class="form-group col-md-3">
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-4 col-sm-12">
+                                    <label for="">Lieu de naissance</label>
+                                    <input placeholder="Saisir la ville / village de naissance" type="text"
+                                           wire:model="lieu_naissance"
+                                           class="form-control">
+
+                                </div>
+                                <div class="form-group col-md-4 col-sm-12">
+                                    <label for="">Date de naissance</label>
+                                    <input type="date" wire:model="date_naissance"
+                                           class="form-control">
+
+                                </div>
+
+                                <div class="form-group col-md-4 col-sm-12">
                                     <label for="">No. permanent</label>
                                     <input placeholder="Saisir le numero permanent" type="text"
                                            wire:model="numero_permanent"
@@ -74,17 +75,17 @@
                             </div>
                             <h6 class="font-weight-bold"><u>Informations de contacts</u></h6>
                             <div class="row">
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-4 col-sm-12">
                                     <label for="">Téléphone</label>
                                     <input placeholder="Saisir le numéro de téléphone" type="tel" wire:model="telephone"
                                            class="form-control">
                                 </div>
-                                <div class="form-group col-md-4 ">
+                                <div class="form-group col-md-4 col-sm-12 ">
                                     <label for="">E-mail</label>
                                     <input placeholder="Saisir l'adresse e-mail" type="text" wire:model="email"
                                            class="form-control">
                                 </div>
-                                <div class="form-group col-md-4 ">
+                                <div class="form-group col-md-4 col-sm-12 ">
                                     <label for="">Adresse </label>
                                     <textarea placeholder="Saisir l'adresse du domicile" wire:model="adresse" rows="1"
                                               class="form-control"></textarea>
@@ -94,13 +95,13 @@
 
                             <h6 class="font-weight-bold"><u>Informations sur les parents</u></h6>
                             <div class="row">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-6 col-sm-12">
                                     <label for="">Père</label>
                                     <input placeholder="Saisir le nom complet du père" type="text" wire:model="pere"
                                            class="form-control">
                                 </div>
 
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-6 col-sm-12">
                                     <label for="">Mère</label>
                                     <input placeholder="Saisir le nom complet de la mère" type="text" wire:model="mere"
                                            class="form-control">
@@ -134,12 +135,13 @@
                                 l'option, et
                                 enfin la classe.</p>
                             <div class="row">
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-3 col-sm-12">
                                     <x-form::select
                                         required
                                         label="Section"
                                         wire:model="section_id"
-                                       {{-- wire:click="changeSection"--}}
+                                        refresh="true"
+                                        {{-- wire:click="changeSection"--}}
                                         placeholder="Choisir section"
                                     >
                                         @foreach ($sections as $section )
@@ -150,10 +152,11 @@
                                     <span class="text-red">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-3 col-sm-12">
                                     <x-form::select
                                         label="Option"
                                         wire:model="option_id"
+                                        refresh="true"
                                         placeholder="Choisir option">
                                         @foreach ($options as $option )
                                             <option value="{{ $option->id }}">{{ $option->nom }}</option>
@@ -161,20 +164,24 @@
                                     </x-form::select>
 
                                 </div>
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-3 col-sm-12">
                                     <label for="">Filière</label>
-                                    <x-form::select wire:model="filiere_id"
-                                                     class="form-control">
+                                    <x-form::select
+                                        wire:model="filiere_id"
+                                        refresh="true"
+                                        class="form-control">
                                         <option value=null>Choisir filière</option>
                                         @foreach ($filieres as $filiere )
                                             <option value="{{ $filiere->id }}">{{ $filiere->nom }}</option>
                                         @endforeach
                                     </x-form::select>
                                 </div>
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-3 col-sm-12">
                                     <label for="">Classe <i class="text-red">*</i></label>
-                                    <x-form::select  wire:model="classe_id"
-                                                    class="form-control">
+                                    <x-form::select
+                                        wire:model="classe_id"
+                                        refresh="true"
+                                        class="form-control">
                                         <option value=null>Choisir classe</option>
                                         @foreach ($classes as $classe )
                                             <option value="{{ $classe->id }}">{{ $classe->code }}</option>
@@ -186,9 +193,11 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group col-md-3 ">
+                                <div class="form-group col-md-3 col-sm-12 ">
                                     <label for="">Categorie <i class="text-red">*</i></label>
-                                    <x-form::select wire:model="categorie">
+                                    <x-form::select
+
+                                        wire:model="categorie">
                                         <option value="" disabled>Choisir categorie...</option>
                                         @foreach (InscriptionCategorie::cases() as $es )
                                             <option value="{{$es->name}}">{{ $es->label() }}</option>
@@ -198,14 +207,14 @@
                                         @enderror
                                     </x-form::select>
                                 </div>
-                                <div class="form-group col-md-3 ">
+                                <div class="form-group col-md-3 col-sm-12 ">
                                     <label for="">Frais d'inscription</label>
                                     <input readonly placeholder="Saisir frais d'inscription" type="number"
                                            wire:model="fee_montant"
                                            class="form-control">
                                 </div>
                                 @if($fee_id)
-                                    <div class="form-group col-md-3 ">
+                                    <div class="form-group col-md-3 col-sm-12 ">
                                         <label for="">Payé</label>
                                         <div class="form-check">
                                             <input disabled wire:model="has_paid" type="checkbox"
@@ -217,7 +226,7 @@
                                     </div>
                                 @endif
                                 @if($has_paid && $fee_id)
-                                    <div class="form-group col-md-3 ">
+                                    <div class="form-group col-md-3 col-sm-12 ">
                                         <label for="">Payé par</label>
                                         <input placeholder="Saisir nom de celui qui paie" type="text"
                                                wire:model="paid_by"
