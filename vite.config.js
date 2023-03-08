@@ -15,7 +15,7 @@ export default defineConfig({
                     'resources/views/**',
                     'routes/**',
                 ],
-                /*config: {delay: 300}*/
+                /*config: {delay: 300},*/
             }],
         }),
     ],

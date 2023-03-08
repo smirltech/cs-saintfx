@@ -15,7 +15,7 @@ class ResponsableEleveFactory extends Factory
 {
     protected $model = ResponsableEleve::class;
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'responsable_id' => $this->faker->randomElement(Responsable::pluck('id')->toArray()),

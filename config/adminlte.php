@@ -290,21 +290,7 @@ return [
                     'can' => 'inscriptions.create',
                 ],
                 [
-                    'text' => 'Elèves inscrits',
-                    'url' => 'scolarite/inscriptions',
-                    'icon' => 'fa fa-users-line',
-                    'shift' => 'ml-1',
-                    'can' => 'inscriptions.view.*'
-                ],
-                [
-                    'text' => 'Elèves non inscrits',
-                    'url' => 'scolarite/non-inscriptions',
-                    'icon' => 'fa fa-users-rays',
-                    'shift' => 'ml-1',
-                    'can' => 'inscriptions.view.*'
-                ],
-                [
-                    'text' => 'Elèves',
+                    'text' => 'Liste des élèves',
                     'url' => 'scolarite/eleves',
                     'icon' => 'fa fa-users',
                     'shift' => 'ml-1',

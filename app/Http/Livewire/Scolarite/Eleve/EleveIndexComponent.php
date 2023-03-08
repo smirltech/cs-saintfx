@@ -4,8 +4,6 @@ namespace App\Http\Livewire\Scolarite\Eleve;
 
 use App\Http\Livewire\BaseComponent;
 use App\Models\Eleve;
-use App\Models\Responsable;
-use App\Models\Role;
 use App\Traits\FakeProfileImage;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
@@ -31,11 +29,11 @@ class EleveIndexComponent extends BaseComponent
         $this->loadData();
     }
 
-    public function loadData()
+    public function loadData(): void
     {
-      //  dd("Is parent : ".Auth::user()->isParent());
-        if(Auth::user()->isParent())
-            $this->eleves =Auth::user()->responsable?->eleves??[];
+        //  dd("Is parent : ".Auth::user()->isParent());
+        if (Auth::user()->isParent())
+            $this->eleves = Auth::user()->responsable?->eleves ?? [];
         else
             $this->eleves = Eleve::orderBy('nom')->get();
         //$this->eleves = Eleve::orderBy('nom')->get();
