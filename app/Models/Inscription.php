@@ -38,25 +38,21 @@ class Inscription extends Model
         return self::where('annee_id', Annee::id())->get();
     }
 
-    protected static function boot()
+    protected static function booted(): void
     {
-        parent::boot();
-
         static::creating(function (self $model) {
-            $model->id = self::generateUniqueId($model->eleve_id);
+            $model->id = self::generateUniqueId($model->eleve_id, $model->casse_id);
         });
     }
 
-    public static function generateUniqueId(string $eleve_id): string
+    public static function generateUniqueId(string $eleve_id, string $classe_id): string
     {
 
         $first_part = $eleve_id;
+        $second_part = Str::padLeft($classe_id, 2, '0');
+        $third_part = self::where('id', 'like', $first_part . '%')->count() + 1;
 
-        $count = self::where('id', 'like', $first_part . '%')->count() + 1;
-
-        $second_part = Str::padLeft($count, 2, '0');
-
-        return $first_part . $second_part;
+        return $first_part . $second_part . $third_part;
     }
 
     public function eleve(): BelongsTo
