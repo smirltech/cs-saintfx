@@ -22,14 +22,10 @@
     <div class="content mt-3">
         <div class="container-fluid">
             <div class="card">
-
                 <div id="inscriptionPrint" class="card-body">
-                    {{-- <x-form::validation-errors class="mb-4" :errors="$errors"/>--}}
-
                     <form wire:submit.prevent="submit">
                         {{-- Information Personnelle--}}
                         <div>
-                            @json($eleve)
                             <h4 class="font-weight-bold"><u>Information Personnelle</u></h4>
                             <div class="row">
                                 <div class="form-group col-md-8">
@@ -76,7 +72,6 @@
                                 </div>
                             </div>
                             <div>
-                                @json($eleve)
                                 <h6 class="font-weight-bold"><u>Informations sur les parents</u></h6>
                                 <div class="row">
                                     <div class="form-group col-md-6">
@@ -98,7 +93,6 @@
                                 </div>
                             </div>
                             <div>
-                                @json($eleve)
                                 <h6 class="font-weight-bold"><u>Informations de contacts</u></h6>
                                 <div class="row">
                                     <div class="form-group col-md-4">
@@ -134,41 +128,38 @@
 
                         <hr>
                         <div>
-                            @json($responsableEleve)
                             <h4 class="font-weight-bold"><u>Information sur le responsable / tuteur</u></h4>
                             <div class="form-group">
                                 <div class="row mt-2 mb-2">
-                                    <div class="form-group   @if($responsableEleve->responsable_id)col-md-6 @endif">
+                                    <div class="form-group col-md-6">
                                         <x-form::select
                                             label="Responsable"
-                                            wire:change.debounce="changeSelectedResponsable"
                                             wire:model="responsableEleve.responsable_id">
                                             @foreach ($responsables as $respo)
                                                 <option value="{{$respo->id}}">{{ $respo->detail }}</option>
                                             @endforeach
                                         </x-form::select>
                                     </div>
-                                    @if($responsableEleve->responsable_id)
-                                        <div class="form-group col-md-6">
-                                            <x-form::select
-                                                label="Relation"
-                                                wire:model="responsableEleve.relation">
-                                                @foreach (ResponsableRelation::cases() as $es )
-                                                    <option value="{{$es->value}}">{{ $es->label() }}</option>
-                                                @endforeach
-                                            </x-form::select>
-                                        </div>
-                                    @endif
+
+                                    <div class="form-group col-md-6">
+                                        <x-form::select
+                                            label="Relation"
+                                            wire:model="responsableEleve.relation">
+                                            @foreach (ResponsableRelation::cases() as $es )
+                                                <option value="{{$es->value}}">{{ $es->label() }}</option>
+                                            @endforeach
+                                        </x-form::select>
+                                    </div>
                                 </div>
                             </div>
                             <hr>
                         </div>
 
                         <div>
-                            @json($inscription)
                             <h4 class="font-weight-bold"><u>Choix de classe</u></h4>
                             <div class="row">
                                 <div class="col-md-6 mb-3">
+                                    @json($section_id)
                                     <x-form::select
                                         wire:model="inscription.classe_id"
                                         label="Classe">

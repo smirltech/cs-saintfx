@@ -46,6 +46,7 @@ class InscriptionCreateComponent extends BaseComponent
     public ResponsableEleve $responsableEleve;
 
     public Collection $responsables;
+    public ?string $section_id = null;
     /**
      * @var HigherOrderCollectionProxy|mixed
      */
@@ -60,6 +61,7 @@ class InscriptionCreateComponent extends BaseComponent
         'eleve.adresse' => 'nullable',
         'eleve.pere.nom' => 'nullable',
         'eleve.mere.nom' => 'nullable',
+        'eleve.numero_permanent' => 'nullable',
 
 
         'responsableEleve.responsable_id' => 'nullable',
@@ -69,16 +71,15 @@ class InscriptionCreateComponent extends BaseComponent
         'inscription.categorie' => 'required|string',
 
         'perception.frais_id' => 'nullable',
+        'perception.paid_by' => 'nullable',
         'perception.montant' => 'nullable',
     ];
     protected $messages = [
-
         'eleve.nom.required' => 'Ce nom est obligatoire !',
         'inscription.classe_id.required' => 'La classe est obligatoire !',
         'inscription.categorie.required' => 'La categorie est obligatoire !',
 
     ];
-    private string $section_id;
 
     /**
      * @throws AuthorizationException
@@ -133,11 +134,15 @@ class InscriptionCreateComponent extends BaseComponent
 
     private function saveInscription(): bool
     {
-        return $this->inscription->fill([
-            'eleve_id' => $this->eleve->id,
-            'annee_id' => Annee::id(),
-            'status' => InscriptionStatus::approved->value,
-        ])->save();
+        try {
+            return $this->inscription->fill([
+                'eleve_id' => $this->eleve->id,
+                'annee_id' => Annee::id(),
+                'status' => InscriptionStatus::approved->value,
+            ])->save();
+        } catch (Exception $exception) {
+            $this->error(local: $exception->getMessage(), production: "Echec d'enregistrement de l'inscription !");
+        }
     }
 
     public function savePerception(): void
@@ -166,13 +171,15 @@ class InscriptionCreateComponent extends BaseComponent
 
     public function updatedInscriptionClasseId(): void
     {
+
         $classe = Classe::find($this->inscription?->classe_id);
         $frais_inscription = $classe?->frais_inscription;
         $this->section_id = $classe?->section_id;
+        
+        $this->perception->montant = $frais_inscription?->montant;
+        $this->perception->frais_id = $frais_inscription?->id;
+        $this->perception->frequence = $frais_inscription?->frequence;
 
-        $this->perception->montant = $frais_inscription->montant;
-        $this->perception->frais_id = $frais_inscription->id;
-        $this->perception->frequence = $frais_inscription->frequence;
     }
 
 }

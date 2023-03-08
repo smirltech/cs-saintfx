@@ -24,7 +24,6 @@ class Eleve extends Model
     public $guarded = [];
     protected $casts = [
         'sexe' => Sexe::class,
-        'date_naissance' => 'datetime',
         'pere' => 'array',
         'mere' => 'array',
         'created_at' => 'datetime',
