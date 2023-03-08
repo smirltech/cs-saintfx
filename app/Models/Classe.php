@@ -256,8 +256,8 @@ class Classe extends Model
                 return $frais;
             }
         }
-        if ($$this->section_id) {
-            $frais = Frais::where('annee_id', $this->annee_courante->id)
+        if ($this->section_id) {
+            $frais = Frais::where('annee_id', $annee_id)
                 ->where('type', FraisType::inscription)
                 ->where('classable_type', 'like', '%Section')
                 ->where('classable_id', $this->section_id)

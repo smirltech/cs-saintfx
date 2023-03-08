@@ -25,13 +25,11 @@
 
                 <div id="inscriptionPrint" class="card-body">
                     {{-- <x-form::validation-errors class="mb-4" :errors="$errors"/>--}}
-                    @json($eleve)
-                    @json($inscription)
-                    @json($perception)
-                    @json($responsableEleve)
+
                     <form wire:submit.prevent="submit">
                         {{-- Information Personnelle--}}
                         <div>
+                            @json($eleve)
                             <h4 class="font-weight-bold"><u>Information Personnelle</u></h4>
                             <div class="row">
                                 <div class="form-group col-md-8">
@@ -78,6 +76,7 @@
                                 </div>
                             </div>
                             <div>
+                                @json($eleve)
                                 <h6 class="font-weight-bold"><u>Informations sur les parents</u></h6>
                                 <div class="row">
                                     <div class="form-group col-md-6">
@@ -99,6 +98,7 @@
                                 </div>
                             </div>
                             <div>
+                                @json($eleve)
                                 <h6 class="font-weight-bold"><u>Informations de contacts</u></h6>
                                 <div class="row">
                                     <div class="form-group col-md-4">
@@ -133,39 +133,42 @@
                         </div>
 
                         <hr>
-
-                        <h4 class="font-weight-bold"><u>Information sur le responsable / tuteur</u></h4>
-                        <div class="form-group">
-                            <div class="row mt-2 mb-2">
-                                <div class="form-group   @if($responsableEleve->responsable_id)col-md-6 @endif">
-                                    <x-form::select
-                                        label="Responsable"
-                                        wire:change.debounce="changeSelectedResponsable"
-                                        wire:model="responsableEleve.responsable_id">
-                                        @foreach ($responsables as $respo)
-                                            <option value="{{$respo->id}}">{{ $respo->detail }}</option>
-                                        @endforeach
-                                    </x-form::select>
-                                </div>
-                                @if($responsableEleve->responsable_id)
-                                    <div class="form-group col-md-6">
+                        <div>
+                            @json($responsableEleve)
+                            <h4 class="font-weight-bold"><u>Information sur le responsable / tuteur</u></h4>
+                            <div class="form-group">
+                                <div class="row mt-2 mb-2">
+                                    <div class="form-group   @if($responsableEleve->responsable_id)col-md-6 @endif">
                                         <x-form::select
-                                            label="Relation"
-                                            wire:model="responsableEleve.relation">
-                                            @foreach (ResponsableRelation::cases() as $es )
-                                                <option value="{{$es->value}}">{{ $es->label() }}</option>
+                                            label="Responsable"
+                                            wire:change.debounce="changeSelectedResponsable"
+                                            wire:model="responsableEleve.responsable_id">
+                                            @foreach ($responsables as $respo)
+                                                <option value="{{$respo->id}}">{{ $respo->detail }}</option>
                                             @endforeach
                                         </x-form::select>
                                     </div>
-                                @endif
+                                    @if($responsableEleve->responsable_id)
+                                        <div class="form-group col-md-6">
+                                            <x-form::select
+                                                label="Relation"
+                                                wire:model="responsableEleve.relation">
+                                                @foreach (ResponsableRelation::cases() as $es )
+                                                    <option value="{{$es->value}}">{{ $es->label() }}</option>
+                                                @endforeach
+                                            </x-form::select>
+                                        </div>
+                                    @endif
+                                </div>
                             </div>
+                            <hr>
                         </div>
-                        <hr>
 
                         <div>
+                            @json($inscription)
                             <h4 class="font-weight-bold"><u>Choix de classe</u></h4>
                             <div class="row">
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-6 mb-3">
                                     <x-form::select
                                         wire:model="inscription.classe_id"
                                         label="Classe">
@@ -174,30 +177,31 @@
                                         @endforeach
                                     </x-form::select>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <label for="">Categorie <i class="text-red">*</i></label>
-                                <x-form::select
 
-                                    wire:model="inscription.categorie">
-                                    <option value="" disabled>Choisir categorie...</option>
-                                    @foreach (InscriptionCategorie::cases() as $es )
-                                        <option value="{{$es->name}}">{{ $es->label() }}</option>
-                                    @endforeach
-                                    @error('categorie')
-                                    <span class="text-red">{{ $message }}</span>
-                                    @enderror
-                                </x-form::select>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="">Frais d'inscription</label>
-                                <input readonly placeholder="Saisir frais d'inscription" type="number"
-                                       wire:model="perception.fee_montant"
-                                       class="form-control">
-                            </div>
-                            @if($perception->fee_id)
+
+                                <div class="form-group col-md-6">
+                                    <label for="">Categorie <i class="text-red">*</i></label>
+                                    <x-form::select
+
+                                        wire:model="inscription.categorie">
+                                        <option value="" disabled>Choisir categorie...</option>
+                                        @foreach (InscriptionCategorie::cases() as $es )
+                                            <option value="{{$es->name}}">{{ $es->label() }}</option>
+                                        @endforeach
+                                        @error('categorie')
+                                        <span class="text-red">{{ $message }}</span>
+                                        @enderror
+                                    </x-form::select>
+                                </div>
+                                @json($frais_inscription)
+                                <div class="form-group col-md-6">
+                                    <label for="">Frais d'inscription</label>
+                                    <input readonly placeholder="Saisir frais d'inscription" type="number"
+                                           wire:model="perception.fee_montant"
+                                           class="form-control">
+                                </div>
+                                @json($perception)
+                                {{--  @if($perception->fee_id)--}}
                                 <div class="form-group col-md-3">
                                     <label for="">Payé</label>
                                     <div class="form-check">
@@ -208,16 +212,17 @@
                                             d'inscription payé</label>
                                     </div>
                                 </div>
-                            @endif
-                            @if($has_paid && $perception->fee_id)
+                                {{-- @endif--}}
+                                {{--  @if($has_paid && $perception->fee_id)--}}
                                 <div class="form-group col-md-3 ">
                                     <label for="">Payé par</label>
                                     <input placeholder="Saisir nom de celui qui paie" type="text"
                                            wire:model="paid_by"
                                            class="form-control">
                                 </div>
-                            @endif
+                                {{-- @endif--}}
 
+                            </div>
                         </div>
 
                         {{-- ./Choix de classe --}}

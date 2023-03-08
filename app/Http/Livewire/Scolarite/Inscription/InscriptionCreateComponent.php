@@ -8,6 +8,7 @@ use App\Http\Livewire\BaseComponent;
 use App\Models\Annee;
 use App\Models\Classe;
 use App\Models\Eleve;
+use App\Models\Frais;
 use App\Models\Inscription;
 use App\Models\Perception;
 use App\Models\Responsable;
@@ -25,6 +26,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\HigherOrderCollectionProxy;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class InscriptionCreateComponent extends BaseComponent
@@ -45,6 +47,10 @@ class InscriptionCreateComponent extends BaseComponent
     public ResponsableEleve $responsableEleve;
 
     public Collection $responsables;
+    /**
+     * @var HigherOrderCollectionProxy|mixed
+     */
+    public Frais $frais_inscription;
     protected $listeners = ['onModalClosed'];
     protected $rules = [
         'eleve.nom' => 'required|string',
@@ -169,8 +175,8 @@ class InscriptionCreateComponent extends BaseComponent
 
 
     //updatedClasseId
-    public function updatedClasseId(): void
+    public function updatedInscriptionClasseId(): void
     {
-        $this->frais_inscription = Classe::find($this->classe_id)->frais_inscription;
+        $this->frais_inscription = Classe::find($this->inscription?->classe_id)->frais_inscription;
     }
 }
