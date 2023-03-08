@@ -28,7 +28,6 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
 
 class InscriptionCreateComponent extends BaseComponent
 {
@@ -61,14 +60,14 @@ class InscriptionCreateComponent extends BaseComponent
 
     //eleve
     public $nom;
-    public $postnom;
-    public $prenom;
     public $lieu_naissance = "Lubumbashi";
     public $date_naissance;
     public $sexe;
     public $telephone;
     public $email;
     public $adresse;
+    public $pere;
+    public $mere;
     public $numero_permanent;
 
     //responsable
@@ -93,13 +92,13 @@ class InscriptionCreateComponent extends BaseComponent
     protected $listeners = ['onModalClosed'];
     protected $rules = [
         'nom' => 'required|string',
-        'postnom' => 'required|string',
-        'prenom' => 'nullable|string',
         'lieu_naissance' => 'nullable',
         'date_naissance' => 'nullable|date',
         'sexe' => 'nullable',
         'telephone' => 'nullable|string',
         'email' => 'nullable',
+        'pere' => 'nullable',
+        'mere' => 'nullable',
 
         'classe_id' => 'required|numeric|min:1|not_in:0',
         'filiere_id' => 'nullable|numeric|min:1|not_in:0',
@@ -178,8 +177,6 @@ class InscriptionCreateComponent extends BaseComponent
         // $ucode = $this->getGeneratedUniqueCode();
         return Eleve::create([
             'nom' => $this->nom,
-            'postnom' => $this->postnom,
-            'prenom' => $this->prenom,
             'sexe' => $this->sexe,
             'telephone' => $this->telephone,
             'email' => $this->email,
@@ -188,6 +185,8 @@ class InscriptionCreateComponent extends BaseComponent
             'date_naissance' => $this->date_naissance,
             'numero_permanent' => $this->numero_permanent,
             'section_id' => $this->section_id,
+            'pere' => $this->pere,
+            'mere' => $this->mere,
         ]);
     }
 
@@ -294,6 +293,11 @@ class InscriptionCreateComponent extends BaseComponent
         }
     }
 
+    function updatedSectionId(): void
+    {
+       $this->changeSection();
+    }
+
     public function changeSection()
     {
         $this->options = [];
@@ -391,6 +395,11 @@ class InscriptionCreateComponent extends BaseComponent
 
     }
 
+    function updatedOptionId(): void
+    {
+       // dd('updatedOptionId');
+        $this->changeOption();
+    }
     public function changeOption()
     {
         $this->filieres = [];
@@ -403,6 +412,11 @@ class InscriptionCreateComponent extends BaseComponent
         $this->loadAvailableClasses();
     }
 
+    function updatedFiliereId(): void
+    {
+        // dd('updatedOptionId');
+        $this->changeFiliere();
+    }
     public function changeFiliere()
     {
         $this->classe_id = null;
@@ -412,6 +426,11 @@ class InscriptionCreateComponent extends BaseComponent
 
     // Perception add for inscription
 
+    function updatedClasseId(): void
+    {
+        // dd('updatedOptionId');
+        $this->changeClasse();
+    }
     public function changeClasse()
     {
         $this->loadAvailableClasses();

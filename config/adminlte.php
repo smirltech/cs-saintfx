@@ -249,7 +249,7 @@ return [
     |
     */
 
-    'enabled_laravel_mix' => true,
+    'enabled_laravel_mix' => false,
     'laravel_mix_css_path' => 'css/app.css',
     'laravel_mix_js_path' => 'js/app.js',
 
@@ -466,7 +466,7 @@ return [
                     'text' => 'Categories',
                     'icon' => 'fas fa-fw fa-layer-group',
                     'shift' => 'ml-2',
-                    'url' => 'logistique/categories',
+                    'url' => 'logistique/rayons',
                     'can' => 'materiel-categories.view.*',
                 ],
                 [
@@ -488,7 +488,7 @@ return [
 
         [
             'header' => 'BIBLIOTHÈQUE',
-            'can' => ['ouvrages.view.*', 'auteurs.view.*', 'tags.view.*', 'ouvrage-categories.view.*'],
+            'can' => ['ouvrages.view.*', 'auteurs.view.*', 'tags.view.*', 'rayons.view.*'],
         ],
         [
             'text' => 'Ouvrages',
@@ -497,10 +497,10 @@ return [
             'can' => 'ouvrages.view.*',
         ],
         [
-            'text' => 'Catégories',
-            'url' => 'bibliotheque/categories',
+            'text' => 'Rayons',
+            'url' => 'bibliotheque/rayons',
             'icon' => 'fas fa-fw fa-layer-group',
-            'can' => 'ouvrage-categories.view.*',
+            'can' => 'rayons.view.*',
         ],
         [
             'text' => 'Auteurs',
@@ -683,7 +683,7 @@ return [
             ],
         ],
         'Chartjs' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',

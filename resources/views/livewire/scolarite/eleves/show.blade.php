@@ -83,16 +83,6 @@
                                         {{$eleve->nom}}
                                     </p>
                                     <hr>
-                                    <strong><i class="fas fa-user mr-1"></i> Postnom</strong>
-                                    <p class="text-muted">
-                                        {{$eleve->postnom}}
-                                    </p>
-                                    <hr>
-                                    <strong><i class="fas fa-user mr-1"></i> Prenom</strong>
-                                    <p class="text-muted">
-                                        {{$eleve->prenom}}
-                                    </p>
-                                    <hr>
                                     <strong><i class="fas fa-venus-mars mr-1"></i> Sexe</strong>
                                     <p class="text-muted">
                                         {{$eleve->sexe?->label()??''}}

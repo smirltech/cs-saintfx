@@ -26,7 +26,7 @@
             </div>
             <div class="form-group col-md-6 col-sm-12">
                 <label for="">Groupe</label>
-                <x-form::select wire:model="ouvrage.ouvrage_category_id"
+                <x-form::select wire:model="ouvrage.rayon_id"
                                 class="form-control">
                     <option value=null>Choisir groupe...</option>
                     @foreach ($categories as $es )
@@ -130,7 +130,7 @@
             </div>
             <div class="form-group col-md-6 col-sm-12">
                 <label for="">Groupe</label>
-                <x-form::select wire:model="ouvrage.ouvrage_category_id"
+                <x-form::select wire:model="ouvrage.rayon_id"
                                 class="form-control">
                     <option value=null>Choisir groupe...</option>
                     @foreach ($categories as $es )

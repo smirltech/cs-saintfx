@@ -5,7 +5,7 @@ namespace App\Http\Livewire\Bibliotheque\Ouvrage;
 use App\Enums\MediaType;
 use App\Models\Auteur;
 use App\Models\Ouvrage;
-use App\Models\OuvrageCategory;
+use App\Models\Rayon;
 use App\Models\Tag;
 use App\Traits\HasLivewireAlert;
 use App\Traits\WithFileUploads;
@@ -27,9 +27,10 @@ class OuvrageCreateComponent extends Component
     public $ouvrage_pdf;
     public array $ouvrage_auteurs = [];
     public array $ouvrage_tags = [];
+    public mixed $cover = null;
     protected $listeners = ['refresh' => '$refresh'];
     protected $rules = [
-        'ouvrage.ouvrage_category_id' => 'required|exists:ouvrage_categories,id',
+        'ouvrage.rayon_id' => 'required|exists:rayons,id',
         'ouvrage.titre' => 'required',
         'ouvrage.sous_titre' => 'nullable',
         'ouvrage.resume' => 'nullable',
@@ -41,6 +42,7 @@ class OuvrageCreateComponent extends Component
         'ouvrage_tags' => 'nullable|array',
         'ouvrage_auteurs' => 'nullable|array',
         'ouvrage_pdf' => 'nullable|mimes:pdf|max:10000',
+        'ouvrage_cover' => 'nullable|image|max:10000',
     ];
 
     public function render(): Factory|View|Application
@@ -51,7 +53,7 @@ class OuvrageCreateComponent extends Component
     public function mount(Ouvrage $ouvrage): void
     {
         $this->ouvrage = $ouvrage;
-        $this->categories = OuvrageCategory::orderBy('nom')->get();
+        $this->categories = Rayon::orderBy('nom')->get();
         $this->tags = Tag::orderBy('name')->get();
         $this->auteurs = Auteur::all();
 
@@ -67,16 +69,31 @@ class OuvrageCreateComponent extends Component
         $this->ouvrage->save();
 
         if ($this->ouvrage_pdf) {
-            $this->ouvrage->deleteAllMedia();
+            $this->ouvrage->deleteAllMedia(MediaType::document->value);
             $this->ouvrage->addMedia($this->ouvrage_pdf, MediaType::document->value);
             $this->reset('ouvrage_pdf');
         }
-        $this->emit('refresh');
+
+        if ($this->cover) {
+            $this->ouvrage->deleteAllMedia('images');
+            $this->ouvrage->addImage($this->cover);
+            $this->reset('cover');
+        }
+
         if ($id) {
             $this->success("Ouvrage modifié avec succès !");
         } else {
             $this->flashSuccess("Ouvrage ajouté avec succès !", route('bibliotheque.ouvrages.edit', $this->ouvrage->id));
         }
 
+        $this->emit('refresh');
+    }
+
+    // deleteMedia() is a custom method
+    public function deleteMedia($id): void
+    {
+        $this->ouvrage->media()->findOrFail($id)->delete();
+        $this->success("Fichier supprimé avec succès !");
+        $this->emit('refresh');
     }
 }

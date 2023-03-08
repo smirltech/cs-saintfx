@@ -5,7 +5,6 @@ namespace App\Http\Livewire\Scolarite\Eleve;
 use App\Enums\InscriptionCategorie;
 use App\Enums\InscriptionStatus;
 use App\Enums\ResponsableRelation;
-use App\Enums\UserRole;
 use App\Http\Livewire\BaseComponent;
 use App\Models\Annee;
 use App\Models\Eleve;
@@ -49,8 +48,6 @@ class EleveShowComponent extends BaseComponent
     public $inscription2_filiere_id;
     public $inscription2_classe_id;
     public $eleve_nom;
-    public $eleve_postnom;
-    public $eleve_prenom;
     public $eleve_sexe;
     public $eleve_lieu_naissance;
     public $eleve_date_naissance;
@@ -128,8 +125,6 @@ class EleveShowComponent extends BaseComponent
     public function preloadEleve()
     {
         $this->eleve_nom = $this->eleve->nom;
-        $this->eleve_postnom = $this->eleve->postnom;
-        $this->eleve_prenom = $this->eleve->prenom;
         $this->eleve_sexe = $this->eleve->sexe;
         $this->eleve_lieu_naissance = $this->eleve->lieu_naissance;
         $this->eleve_date_naissance = $this->eleve->date_naissance->format('Y-m-d');
@@ -148,7 +143,7 @@ class EleveShowComponent extends BaseComponent
     /**
      * @throws AuthorizationException
      */
-    public function mount( $eleve)
+    public function mount($eleve)
     {
         $eleve = Eleve::find($eleve);
         $this->authorize('view', $eleve);
@@ -244,8 +239,6 @@ class EleveShowComponent extends BaseComponent
         ]);
         $done = $this->eleve->update([
             'nom' => $this->eleve_nom,
-            'postnom' => $this->eleve_postnom,
-            'prenom' => $this->eleve_prenom,
             'sexe' => $this->eleve_sexe,
             'lieu_naissance' => $this->eleve_lieu_naissance,
             'date_naissance' => $this->eleve_date_naissance,
@@ -488,7 +481,7 @@ class EleveShowComponent extends BaseComponent
         if ($this->eleve->user == null) {
             $user = User::create([
                 'name' => $this->nom,
-                'email' => $this->email??$this->eleve->id."@college-enk.com",
+                'email' => $this->email ?? $this->eleve->id . "@college-enk.com",
                 'password' => 'password',
             ]);
             $user->assignRole('eleve');
@@ -496,7 +489,7 @@ class EleveShowComponent extends BaseComponent
                 'user_id' => $user->id,
             ]);
             $this->alert('success', "Compte élève a été ajouté avec succès ! Un email a été envoyé avec le mot de passe !");
-        }else{
+        } else {
             $this->eleve->user->update([
                 'password' => 'password',
             ]);

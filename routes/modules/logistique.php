@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\Logistique;
 use App\Http\Livewire\Logistique\Fongible\Consommable\ConsommableIndexComponent;
 use App\Http\Livewire\Logistique\Fongible\Consommable\ConsommableShowComponent;
 use App\Http\Livewire\Logistique\Fongible\Unit\UnitIndexComponent;
@@ -8,7 +9,6 @@ use App\Http\Livewire\Logistique\NonFongible\Materiel\MaterielShowComponent;
 use App\Http\Livewire\Logistique\NonFongible\MaterielCategory\MaterielCategoryIndexComponent;
 use App\Http\Livewire\Logistique\NonFongible\MaterielCategory\MaterielCategoryShowComponent;
 use App\Http\Livewire\Logistique\NonFongible\Mouvement\MouvementIndexComponent;
-use App\Http\Livewire\Logistique;
 
 Route::get('logistique', Logistique\DashboardComponent::class)->name('logistique')->middleware('auth');
 

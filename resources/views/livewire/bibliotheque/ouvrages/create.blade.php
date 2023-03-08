@@ -1,3 +1,4 @@
+@section('title', $title)
 @section('content_header')
     <div class="row mr-2 ml-2">
         <div class="col-6">
@@ -22,13 +23,21 @@
                     <div class="card-body m-b-40">
                         <form wire:submit.prevent="submit">
                             <div class="row">
-                                <div class="form-group col-md-12">
+                                <div class="form-group col-md-6">
                                     <x-form::input
                                         required
                                         type="text"
                                         label="Titre"
                                         wire:model="ouvrage.titre">
                                     </x-form::input>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <x-form::input-image
+                                        label="Couverture"
+                                        height="70"
+                                        :cover="$cover"
+                                        wire:model="cover"/>
                                 </div>
 
                                 <div class="form-group col-md-12">
@@ -44,7 +53,7 @@
                                         label="Groupe"
                                         required
                                         placeholder="Choisir groupe"
-                                        wire:model="ouvrage.ouvrage_category_id">
+                                        wire:model="ouvrage.rayon_id">
                                         @foreach ($categories as $es )
                                             <option value="{{$es->id}}">{{ $es->nom }}</option>
                                         @endforeach

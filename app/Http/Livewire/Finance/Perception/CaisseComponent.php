@@ -9,7 +9,6 @@ use App\Models\Perception;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
 use Str;
 
 class CaisseComponent extends BaseComponent
@@ -82,10 +81,7 @@ class CaisseComponent extends BaseComponent
         if ($terms != null && Str::length($terms) > 1) {
             $this->inscriptions = Inscription::where('annee_id', $this->annee->id)
                 ->whereHas('eleve', function ($q) use ($terms) {
-                    $q->where('nom', 'like', '%' . $terms . '%')
-                        ->orWhere('postnom', 'like', '%' . $terms . '%')
-                        ->orWhere('prenom', 'like', '%' . $terms . '%')
-                        ->orWhere('matricule', 'like', '%' . $terms . '%');
+                    $q->where('nom', 'like', '%' . $terms . '%');
 
                 })
                 ->get()
@@ -96,15 +92,6 @@ class CaisseComponent extends BaseComponent
 
     }
 
-    public function onModalClosed($p_id)
-    {
-        $this->dispatchBrowserEvent('closeModal', ['modal' => $p_id]);
-      //  $this->clearSearch();
-       // $this->searchInscription();
-       // $this->perception = Perception::find($this->perception->id);
-    }
-
-    // paiement et impression facture
     public function payFacture()
     {
         $this->validate();
@@ -117,6 +104,16 @@ class CaisseComponent extends BaseComponent
         } else {
             $this->alert('warning', "Echec de paiement de facture !");
         }
+    }
+
+    // paiement et impression facture
+
+    public function onModalClosed($p_id)
+    {
+        $this->dispatchBrowserEvent('closeModal', ['modal' => $p_id]);
+        //  $this->clearSearch();
+        // $this->searchInscription();
+        // $this->perception = Perception::find($this->perception->id);
     }
 
     private function printIt()
