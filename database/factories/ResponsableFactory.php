@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Enums\Sexe;
 use App\Models\Responsable;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -13,7 +12,7 @@ class ResponsableFactory extends Factory
 {
     protected $model = Responsable::class;
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'nom' => $this->faker->name,

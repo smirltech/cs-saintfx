@@ -4571,16 +4571,16 @@
         },
         {
             "name": "smirltech/laravel-form",
-            "version": "v2.0.5",
+            "version": "v2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/smirltech/laravel-form.git",
-                "reference": "437815333cc81cf1582c8071bb534a6250433563"
+                "reference": "71e24a16862d01022957ad055a4b307235b2b432"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/smirltech/laravel-form/zipball/437815333cc81cf1582c8071bb534a6250433563",
-                "reference": "437815333cc81cf1582c8071bb534a6250433563",
+                "url": "https://api.github.com/repos/smirltech/laravel-form/zipball/71e24a16862d01022957ad055a4b307235b2b432",
+                "reference": "71e24a16862d01022957ad055a4b307235b2b432",
                 "shasum": ""
             },
             "require": {
@@ -4634,9 +4634,9 @@
             ],
             "support": {
                 "issues": "https://github.com/smirltech/laravel-form/issues",
-                "source": "https://github.com/smirltech/laravel-form/tree/v2.0.5"
+                "source": "https://github.com/smirltech/laravel-form/tree/v2.1.0"
             },
-            "time": "2023-02-18T11:37:17+00:00"
+            "time": "2023-03-06T13:06:48+00:00"
         },
         {
             "name": "smirltech/laravel-fullcalendar",
@@ -8924,16 +8924,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "9.2.25",
+            "version": "9.2.26",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "0e2b40518197a8c0d4b08bc34dfff1c99c508954"
+                "reference": "443bc6912c9bd5b409254a40f4b0f4ced7c80ea1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/0e2b40518197a8c0d4b08bc34dfff1c99c508954",
-                "reference": "0e2b40518197a8c0d4b08bc34dfff1c99c508954",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/443bc6912c9bd5b409254a40f4b0f4ced7c80ea1",
+                "reference": "443bc6912c9bd5b409254a40f4b0f4ced7c80ea1",
                 "shasum": ""
             },
             "require": {
@@ -8955,8 +8955,8 @@
                 "phpunit/phpunit": "^9.3"
             },
             "suggest": {
-                "ext-pcov": "*",
-                "ext-xdebug": "*"
+                "ext-pcov": "PHP extension that provides line coverage",
+                "ext-xdebug": "PHP extension that provides line coverage as well as branch and path coverage"
             },
             "type": "library",
             "extra": {
@@ -8989,7 +8989,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/php-code-coverage/issues",
-                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/9.2.25"
+                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/9.2.26"
             },
             "funding": [
                 {
@@ -8997,7 +8997,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-02-25T05:32:00+00:00"
+            "time": "2023-03-06T12:58:08+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -10726,5 +10726,5 @@
         "php": "^8.1"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.3.0"
 }
