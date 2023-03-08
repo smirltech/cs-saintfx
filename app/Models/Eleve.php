@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\Sexe;
 use App\Helpers\Helpers;
 use App\Traits\HasAvatar;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -94,7 +95,7 @@ class Eleve extends Model
         return $this->id;
     }
 
-    public function getInscriptionAttribute(): Inscription|null
+    public function getInscriptionAttribute(): ?Inscription
     {
         return $this->inscriptions()->where('annee_id', Annee::id())->first();
     }
@@ -102,6 +103,11 @@ class Eleve extends Model
     public function inscriptions(): HasMany
     {
         return $this->hasMany(Inscription::class);
+    }
+
+    public function getClasseAttribute(): ?Classe
+    {
+        return $this->inscription->classe ?? null;
     }
 
     public function resultats(): HasManyThrough
@@ -185,5 +191,10 @@ class Eleve extends Model
     public function getDevoirsAttribute(): Collection
     {
         return $this->inscription?->devoirs ?? new Collection();
+    }
+    
+    public function getDateNaissanceAttribute($value): Carbon
+    {
+        return Carbon::parse($value);
     }
 }

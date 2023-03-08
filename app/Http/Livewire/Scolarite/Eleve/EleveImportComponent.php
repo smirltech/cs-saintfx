@@ -50,7 +50,7 @@ class EleveImportComponent extends BaseComponent
     {
         try {
             InscriptionsImport::build(annee_id: $this->annee_id, classe_id: $this->classe_id)->import($this->file->getRealPath());
-            $this->flashSuccess('Liste des élèves importée avec succès', route('scolarite.inscriptions.index'));
+            $this->flashSuccess('Liste des élèves importée avec succès', route('scolarite.eleves.index'));
             $this->emit('refresh');
         } catch (Exception $e) {
             $this->error($e->getMessage(), $e->getMessage());

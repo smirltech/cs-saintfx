@@ -8,7 +8,7 @@
         <div class="col-6">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="">Accueil</a></li>
-                <li class="breadcrumb-item"><a href="{{route('scolarite.inscriptions.index')}}">Déliberations</a></li>
+                <li class="breadcrumb-item"><a href="{{route('scolarite.eleves.index')}}">Déliberations</a></li>
                 <li class="breadcrumb-item active">{{$title}}</li>
             </ol>
         </div>

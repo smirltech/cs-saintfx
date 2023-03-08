@@ -111,7 +111,7 @@ class InscriptionCreateComponent extends BaseComponent
          $this->alert('success', "Élève inscrit avec succès !");*/
 
         // Todo: Comment line below when the printing above is to be considered
-        $this->flashSuccess('Élève inscrit avec succès', route('scolarite.inscriptions.index'));
+        $this->flashSuccess('Élève inscrit avec succès', route('scolarite.eleves.index'));
 
 
         //  $this->alert('error', "L'enregistrement de l'étudiant n'a pas aboutis, veuillez reéssayer !");
@@ -175,7 +175,7 @@ class InscriptionCreateComponent extends BaseComponent
         $classe = Classe::find($this->inscription?->classe_id);
         $frais_inscription = $classe?->frais_inscription;
         $this->section_id = $classe?->section_id;
-        
+
         $this->perception->montant = $frais_inscription?->montant;
         $this->perception->frais_id = $frais_inscription?->id;
         $this->perception->frequence = $frais_inscription?->frequence;

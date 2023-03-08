@@ -1,15 +1,15 @@
 @php
     use App\Enums\InscriptionStatus;
-    use App\Helpers\Helpers;use App\Models\Annee;
+    use App\Enums\Sexe;use App\Helpers\Helpers;use App\Models\Annee;
     $heads = [
             ['', 'no-export' => false, 'width' => 5],
             'MATRICULE',
-            'ELEVE',
+            'NOM',
             'SEXE',
             'AGE',
-            'ADRESSE',
+            'CLASSE',
             'RESPONSABLE',
-
+            'STATUS',
             ['Actions', 'no-export' => true, 'width' => 5],
         ];
 
@@ -22,13 +22,12 @@ $data=[];
             $data[] = [
                 '<img class="img-circle" style="width:50px; height:50px" src="'.$eleve->profile_url.'"></img>',
                 $eleve->matricule,
-                $eleve->fullName,
-                $eleve->sexe->value??'',
+                $eleve->full_name,
+                $eleve->sexe?->label(),
                 $eleve->date_naissance->age??'',
-
-                $eleve->adresse,
+                $eleve->classe->code,
                 $eleve->responsable_eleve?->responsable?->nom??'',
-
+    '<a href="'.route('scolarite.inscriptions.status',['status'=>$eleve->inscription?->status->name]).'"><span class="badge bg-gradient-'.$eleve->inscription?->status->variant().'">'. $eleve->inscription?->status->label(Sexe::f).'</span></a>',
                 '<nobr>' . $btn1. '</nobr>',
             ];
 
@@ -37,12 +36,9 @@ $data=[];
         $config = [
             'data' => $data ?? [],
             'order' => [[1, 'asc']],
-            'columns' => [['orderable' => false],['orderable' => true], null, null, null, null, null,['orderable' => false]],
+            'columns' => [['orderable' => false],['orderable' => true], null,null, null, null, null, null,['orderable' => false]],
         ];
 @endphp
-@section('title')
-    - élèves
-@endsection
 @section('content_header')
     <div class="row">
         <div class="col-6">
@@ -65,18 +61,19 @@ $data=[];
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title d-flex">
-                            {{--<a href="{{ route('scolarite.responsables.create') }}" title="ajouter"
-                               class="btn btn-primary mr-2"><span class="fa fa-plus"></span></a>--}}
+                            @can('inscriptions.create')
+                                <a href="{{ route('scolarite.inscriptions.import') }}" title="ajouter"
+                                   class="btn btn-success mr-2"><span class="fa fa-file-excel"></span></a>
+                            @endcan
                         </div>
                         <div class="card-tools d-flex my-auto">
-
-                            {{--  <a href="{{ route('scolarite.responsables.create') }}" title="ajouter"
-                                 class="btn btn-primary mr-2"><span class="fa fa-plus"></span></a>
-  --}}
+                            @can('inscriptions.create')
+                                <a href="{{ route('scolarite.inscriptions.create') }}" title="ajouter"
+                                   class="btn btn-primary mr-2"><span class="fa fa-plus"></span></a>
+                            @endcan
 
                         </div>
                     </div>
-
                     <div class="mb-3 card-body">
                         <div class="table-responsive m-b-40">
                             <x-adminlte-datatable id="table7" :heads="$heads" theme="light" :config="$config" striped
