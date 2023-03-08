@@ -1,7 +1,4 @@
 @php use App\Models\Eleve;use Carbon\Carbon, App\Enums\GraviteRetard, App\Helpers\Helpers; @endphp
-@section('title')
-    - élève - {{$eleve->fullName}}
-@endsection
 @section('content_header')
     <div class="row">
         <div class="col-6">
@@ -11,7 +8,7 @@
         <div class="col-6">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('scolarite') }}">Accueil</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('scolarite.eleves') }}">Élèves</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('scolarite.eleves.index') }}">Élèves</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('scolarite.inscriptions') }}">Inscriptions</a></li>
                 <li class="breadcrumb-item active">Élève</li>
             </ol>

@@ -228,7 +228,7 @@ class EleveShowComponent extends BaseComponent
     public function render()
     {
         return view('livewire.scolarite.eleves.show')
-            ->layout(AdminLayout::class, ['title' => 'Détail sur l\'élève']);
+            ->layout(AdminLayout::class, ['title' => $this->eleve->nom]);
     }
 
     public function editEleve()
@@ -302,7 +302,7 @@ class EleveShowComponent extends BaseComponent
             ResponsableEleve::where('eleve_id', $this->eleve->id)->delete();
             if ($this->eleve->delete()) {
                 $this->alert('success', "Élève supprimé avec succès !");
-                $this->flash('success', 'Élève supprimé avec succès', [], route('scolarite.eleves'));
+                $this->flash('success', 'Élève supprimé avec succès', [], route('scolarite.eleves.index'));
             }
         } else {
 

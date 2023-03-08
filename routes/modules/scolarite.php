@@ -66,7 +66,7 @@ Route::prefix('scolarite')->middleware(['auth:web'])->as('scolarite.')->group(fu
     Route::get('inscriptions/{inscription}/edit', Scolarite\Inscription\InscriptionEditComponent::class)->name('inscriptions.edit');
     //Route::get('inscriptions/tous', Scolarite\Inscription\InscriptionIndexComponent::class)->name('inscriptions.index');
     Route::get('inscriptions/status/{status}', Scolarite\Inscription\ByStatus\InscriptionStatusComponent::class)->name('inscriptions.status');
-    Route::get('inscriptions', Scolarite\Inscription\InscriptionIndexComponent::class)->name('inscriptions');
+    Route::redirect('inscriptions', 'eleves')->name('inscriptions');
     // Responsables
     Route::get('responsables/{responsable}', Scolarite\Responsable\ResponsableShowComponent::class)->name('responsables.show');
     Route::get('responsables', Scolarite\Responsable\ResponsableIndexComponent::class)->name('responsables');
