@@ -83,7 +83,7 @@
                                         <x-form::input
                                             label="Père"
                                             placeholder="Saisir le nom du père"
-                                            wire:model="eleve.pere"
+                                            wire:model="eleve.pere.nom"
                                             class="form-control"/>
                                     </div>
 
@@ -91,7 +91,7 @@
                                         <x-form::input
                                             label="Mère"
                                             placeholder="Saisir le nom complet de la mère" type="text"
-                                            wire:model="eleve.mere"
+                                            wire:model="eleve.mere.nom"
                                             class="form-control"/>
                                     </div>
 
@@ -193,40 +193,35 @@
                                         @enderror
                                     </x-form::select>
                                 </div>
-                                @json($frais_inscription)
                                 <div class="form-group col-md-6">
-                                    <label for="">Frais d'inscription</label>
-                                    <input readonly placeholder="Saisir frais d'inscription" type="number"
-                                           wire:model="perception.fee_montant"
-                                           class="form-control">
+                                    <x-form::input-money
+                                        currency="CDF"
+                                        :disabled="!($perception->frais_id)"
+                                        label="Frais d'inscription"
+                                        placeholder="Saisir frais d'inscription"
+                                        wire:model="perception.montant"
+                                        class="form-control"/>
+                                    <x-form::checkbox
+                                        :disabled="!($perception->frais_id)"
+                                        label="Payé"
+                                        wire:model="has_paid"/>
                                 </div>
-                                @json($perception)
-                                {{--  @if($perception->fee_id)--}}
-                                <div class="form-group col-md-3">
-                                    <label for="">Payé</label>
-                                    <div class="form-check">
-                                        <input disabled wire:model="has_paid" type="checkbox"
-                                               class=" form-check-input"
-                                               id="exampleCheck2">
-                                        <label class="form-check-label" for="exampleCheck2">Cocher si frais
-                                            d'inscription payé</label>
-                                    </div>
-                                </div>
-                                {{-- @endif--}}
-                                {{--  @if($has_paid && $perception->fee_id)--}}
-                                <div class="form-group col-md-3 ">
+
+                                <div class="form-group col-md-6">
                                     <label for="">Payé par</label>
-                                    <input placeholder="Saisir nom de celui qui paie" type="text"
-                                           wire:model="paid_by"
-                                           class="form-control">
+                                    <x-form::input
+                                        :disabled="!($has_paid && $perception->frais_id)"
+                                        placeholder="Saisir nom de celui qui paie"
+                                        type="text"
+                                        wire:model="perception.paid_by"
+                                        class="form-control"/>
                                 </div>
-                                {{-- @endif--}}
 
                             </div>
                         </div>
 
                         {{-- ./Choix de classe --}}
-                        <x-form::button type="submit" class="btn btn-primary">Soumettre</x-form::button>
+                        <x-form::button-primary type="submit" class="float-end">Soumettre</x-form::button-primary>
                     </form>
                 </div>
             </div>

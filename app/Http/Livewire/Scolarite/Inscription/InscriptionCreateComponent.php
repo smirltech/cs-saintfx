@@ -8,7 +8,6 @@ use App\Http\Livewire\BaseComponent;
 use App\Models\Annee;
 use App\Models\Classe;
 use App\Models\Eleve;
-use App\Models\Frais;
 use App\Models\Inscription;
 use App\Models\Perception;
 use App\Models\Responsable;
@@ -50,7 +49,6 @@ class InscriptionCreateComponent extends BaseComponent
     /**
      * @var HigherOrderCollectionProxy|mixed
      */
-    public Frais $frais_inscription;
     protected $listeners = ['onModalClosed'];
     protected $rules = [
         'eleve.nom' => 'required|string',
@@ -60,17 +58,18 @@ class InscriptionCreateComponent extends BaseComponent
         'eleve.telephone' => 'nullable|string',
         'eleve.email' => 'nullable',
         'eleve.adresse' => 'nullable',
-        'eleve.pere' => 'nullable',
-        'eleve.mere' => 'nullable',
+        'eleve.pere.nom' => 'nullable',
+        'eleve.mere.nom' => 'nullable',
 
-        'inscription.classe_id' => 'required|numeric|min:1|not_in:0',
 
         'responsableEleve.responsable_id' => 'nullable',
         'responsableEleve.relation' => 'nullable',
 
+        'inscription.classe_id' => 'required|numeric|min:1|not_in:0',
         'inscription.categorie' => 'required|string',
-        'perception.fee_id' => 'nullable',
-        'perception.fee_montant' => 'nullable',
+
+        'perception.frais_id' => 'nullable',
+        'perception.montant' => 'nullable',
     ];
     protected $messages = [
 
@@ -79,6 +78,7 @@ class InscriptionCreateComponent extends BaseComponent
         'inscription.categorie.required' => 'La categorie est obligatoire !',
 
     ];
+    private string $section_id;
 
     /**
      * @throws AuthorizationException
@@ -98,85 +98,81 @@ class InscriptionCreateComponent extends BaseComponent
     {
         $this->validate();
 
-        $ele = $this->submitEleve();
-        /*  if ($this->responsable != null)
-              $res_ele = $this->submitResponsableEleve($this->responsable, $ele);*/
-        $insc = $this->submitInscription($ele);
+        $this->saveEleve();
+        $this->saveResponsableEleve();
+        $this->saveInscription();
 
+        if ($this->has_paid)
+            $this->savePerception();
 
         // Todo: uncomment block below to enable the printing of the inscription form
         /* $this->printIt();
          $this->alert('success', "Élève inscrit avec succès !");*/
 
         // Todo: Comment line below when the printing above is to be considered
-        $this->flash('success', 'Élève inscrit avec succès', [], route('scolarite.inscriptions'));
+        $this->flashSuccess('Élève inscrit avec succès', route('scolarite.inscriptions.index'));
 
 
         //  $this->alert('error', "L'enregistrement de l'étudiant n'a pas aboutis, veuillez reéssayer !");
 
     }
 
-    public function submitEleve(): bool
+    public function saveEleve(): bool
     {
-        // $ucode = $this->getGeneratedUniqueCode();
-        return $this->eleve->save();
+        return $this->eleve->fill([
+            'section_id' => $this->section_id,
+        ])->save();
     }
 
-    private function submitInscription($eleve): bool
+    private function saveResponsableEleve(): void
+    {
+        $this->responsableEleve->fill([
+            'eleve_id' => $this->eleve->id,
+        ])->save();
+    }
+
+    private function saveInscription(): bool
     {
         return $this->inscription->fill([
-            'eleve_id' => $eleve->id,
+            'eleve_id' => $this->eleve->id,
             'annee_id' => Annee::id(),
-            'montant' => $this->montant,
             'status' => InscriptionStatus::approved->value,
         ])->save();
     }
 
-    public function addPerception($inscription_id): void
+    public function savePerception(): void
     {
-        if ($this->has_paid) {
-            $this->validate([
-                'perception.fee_id' => 'required',
-                'perception.fee_montant' => 'required',
-                'paid_by' => 'nullable',
-            ]);
-
-            try {
-                $this->perception = Perception::create(
-                    [
-                        'user_id' => Auth::id(),
-                        'frais_id' => $this->fee_id,
-                        'inscription_id' => $inscription_id,
-                        'frequence' => $this->frequence->name,
-                        'custom_property' => FraisFrequence::annuel,
-                        'annee_id' => $this->annee_courante->id,
-                        'montant' => $this->fee_montant,
-                        'due_date' => Carbon::now()->format('Y-m-d'),
-                        'paid' => $this->fee_montant,
-                        //'paid' => ($this->fee->type == FraisType::inscription and $this->paid == null) ? $this->montant : $this->paid,
-                        'paid_by' => $this->paid_by,
-                    ]
-                );
-
-                // $this->flash('success', "Frais imputé avec succès !", [], route('finance.perceptions'));
-
-            } catch (Exception $exception) {
-                $this->error(local: $exception->getMessage(), production: "Echec d'imputation de frais déjà existante !");
-            }
+        try {
+            $this->perception->fill([
+                    'user_id' => Auth::id(),
+                    'inscription_id' => $this->inscription->id,
+                    'custom_property' => FraisFrequence::annuel,
+                    'annee_id' => Annee::id(),
+                    'due_date' => Carbon::now()->format('Y-m-d'),
+                    'paid' => true,
+                ]
+            );
+        } catch (Exception $exception) {
+            $this->error(local: $exception->getMessage(), production: "Echec d'imputation de frais déjà existante !");
         }
     }
 
+
     public function render(): Factory|View|Application
     {
-        // $this->responsables = Responsable::orderBy('nom')->get();
         return view('livewire.scolarite.inscriptions.create')
             ->layout(AdminLayout::class, ['title' => 'Inscription Élève']);
     }
 
-
-    //updatedClasseId
     public function updatedInscriptionClasseId(): void
     {
-        $this->frais_inscription = Classe::find($this->inscription?->classe_id)->frais_inscription;
+        $classe = Classe::find($this->inscription?->classe_id);
+        $frais_inscription = $classe?->frais_inscription;
+        $this->section_id = $classe?->section_id;
+
+        $this->perception->montant = $frais_inscription->montant;
+        $this->perception->frais_id = $frais_inscription->id;
+        $this->perception->frequence = $frais_inscription->frequence;
     }
+
 }

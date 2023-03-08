@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5ecc12c76f055ddf179175955c8a2e10",
+    "content-hash": "4d417f4d24cfc6a2a03fb3d032462875",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -4571,17 +4571,11 @@
         },
         {
             "name": "smirltech/laravel-form",
-            "version": "v2.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/smirltech/laravel-form.git",
-                "reference": "71e24a16862d01022957ad055a4b307235b2b432"
-            },
+            "version": "dev-develop",
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/smirltech/laravel-form/zipball/71e24a16862d01022957ad055a4b307235b2b432",
-                "reference": "71e24a16862d01022957ad055a4b307235b2b432",
-                "shasum": ""
+                "type": "path",
+                "url": "D:/Projets/Lab/packages/laravel-form",
+                "reference": "ef58d0081e33ab73ae1e9a364e5d5cd6b0cf944f"
             },
             "require": {
                 "illuminate/contracts": "^9.0",
@@ -4614,7 +4608,28 @@
                     "SmirlTech\\LaravelForm\\Database\\Factories\\": "database/factories"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "SmirlTech\\LaravelForm\\Tests\\": "tests"
+                }
+            },
+            "scripts": {
+                "post-autoload-dump": [
+                    "@php ./vendor/bin/testbench package:discover --ansi"
+                ],
+                "analyse": [
+                    "vendor/bin/phpstan analyse"
+                ],
+                "test": [
+                    "vendor/bin/pest"
+                ],
+                "test-coverage": [
+                    "vendor/bin/pest --coverage"
+                ],
+                "format": [
+                    "vendor/bin/pint"
+                ]
+            },
             "license": [
                 "MIT"
             ],
@@ -4632,11 +4647,9 @@
                 "laravel",
                 "laravel-form"
             ],
-            "support": {
-                "issues": "https://github.com/smirltech/laravel-form/issues",
-                "source": "https://github.com/smirltech/laravel-form/tree/v2.1.0"
-            },
-            "time": "2023-03-06T13:06:48+00:00"
+            "transport-options": {
+                "relative": false
+            }
         },
         {
             "name": "smirltech/laravel-fullcalendar",
@@ -8019,16 +8032,16 @@
         },
         {
             "name": "filp/whoops",
-            "version": "2.15.0",
+            "version": "2.15.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filp/whoops.git",
-                "reference": "3e8aebbca9f0ae6f618962c4ad514077fd365ab3"
+                "reference": "e864ac957acd66e1565f25efda61e37791a5db0b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filp/whoops/zipball/3e8aebbca9f0ae6f618962c4ad514077fd365ab3",
-                "reference": "3e8aebbca9f0ae6f618962c4ad514077fd365ab3",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/e864ac957acd66e1565f25efda61e37791a5db0b",
+                "reference": "e864ac957acd66e1565f25efda61e37791a5db0b",
                 "shasum": ""
             },
             "require": {
@@ -8078,7 +8091,7 @@
             ],
             "support": {
                 "issues": "https://github.com/filp/whoops/issues",
-                "source": "https://github.com/filp/whoops/tree/2.15.0"
+                "source": "https://github.com/filp/whoops/tree/2.15.1"
             },
             "funding": [
                 {
@@ -8086,7 +8099,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-03-03T12:00:00+00:00"
+            "time": "2023-03-06T18:09:13+00:00"
         },
         {
             "name": "hamcrest/hamcrest-php",
@@ -10719,7 +10732,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "smirltech/laravel-form": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
