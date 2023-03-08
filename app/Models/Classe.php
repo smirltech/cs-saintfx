@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\ClasseGrade;
+use App\Enums\FraisType;
 use App\Enums\ResultatType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -126,17 +127,35 @@ class Classe extends Model
 
     public function getSectionIdAttribute(): ?int
     {
-        $section_id = null;
         $classable = $this->filierable;
         if ($classable instanceof Filiere) {
-            $section_id = $classable->option->section_id;
+            return $classable->option->section_id;
         } else if ($classable instanceof Option) {
-            $section_id = $classable->section_id;
+            return $classable->section_id;
         } else if ($classable instanceof Section) {
-            $section_id = $classable->id;
+            return $classable->id;
         }
+        return null;
+    }
 
-        return $section_id;
+    public function getOptionIdAttribute(): ?int
+    {
+        $classable = $this->filierable;
+        if ($classable instanceof Filiere) {
+            return $classable->option->id;
+        } else if ($classable instanceof Option) {
+            return $classable->id;
+        }
+        return null;
+    }
+
+    public function getFiliereIdAttribute(): ?int
+    {
+        $classable = $this->filierable;
+        if ($classable instanceof Filiere) {
+            return $classable->id;
+        }
+        return null;
     }
 
 
@@ -199,4 +218,56 @@ class Classe extends Model
     {
         return $this->hasMany(Inscription::class)->where('annee_id', Annee::encours()->id);
     }
+
+    // get frais inscription attribute
+    public function getFraisInscriptionAttribute(): ?Frais
+    {
+        $annee_id = Annee::id();
+
+        $frais = Frais::where('annee_id', $annee_id)
+            ->where('type', FraisType::inscription)
+            ->where('classable_type', 'like', '%Classe')
+            ->where('classable_id', $this->id)
+            ->first();
+        if ($frais != null) {
+            return $frais;
+        }
+
+
+        if ($this->filiere_id) {
+            $frais = Frais::where('annee_id', $annee_id)
+                ->where('type', FraisType::inscription)
+                ->where('classable_type', 'like', '%Filiere')
+                ->where('classable_id', $this->filiere_id)
+                ->orderBy('nom')
+                ->first();
+            if ($frais != null) {
+                return $frais;
+            }
+        }
+
+        if ($this->option_id) {
+            $frais = Frais::where('annee_id', $annee_id)
+                ->where('type', FraisType::inscription)
+                ->where('classable_type', 'like', '%Option')
+                ->where('classable_id', $this->option_id)
+                ->first();
+            if ($frais != null) {
+                return $frais;
+            }
+        }
+        if ($$this->section_id) {
+            $frais = Frais::where('annee_id', $this->annee_courante->id)
+                ->where('type', FraisType::inscription)
+                ->where('classable_type', 'like', '%Section')
+                ->where('classable_id', $this->section_id)
+                ->first();
+            if ($frais != null) {
+                return $frais;
+            }
+        }
+        return null;
+    }
+
+
 }

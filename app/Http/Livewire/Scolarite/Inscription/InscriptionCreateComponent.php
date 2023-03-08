@@ -3,13 +3,11 @@
 namespace App\Http\Livewire\Scolarite\Inscription;
 
 use App\Enums\FraisFrequence;
-use App\Enums\FraisType;
 use App\Enums\InscriptionStatus;
 use App\Http\Livewire\BaseComponent;
 use App\Models\Annee;
 use App\Models\Classe;
 use App\Models\Eleve;
-use App\Models\Frais;
 use App\Models\Inscription;
 use App\Models\Perception;
 use App\Models\Responsable;
@@ -173,25 +171,6 @@ class InscriptionCreateComponent extends BaseComponent
     //updatedClasseId
     public function updatedClasseId(): void
     {
-
-    }
-
-    private function getAvailableFrais(): void
-    {
-        $ff = null;
-        if ($this->classe_id != null) {
-            $ff = Frais::where('annee_id', $this->annee_courante->id)
-                ->where('type', FraisType::inscription)
-                ->where('classable_type', 'like', '%Classe')
-                ->where('classable_id', $this->classe_id)
-                ->orderBy('nom')
-                ->first();
-            if ($ff != null) {
-                $this->fee_id = $ff->id;
-                $this->fee_montant = $ff->montant;
-                $this->frequence = $ff->frequence;
-            }
-        }
-
+        $this->frais_inscription = Classe::find($this->classe_id)->frais_inscription;
     }
 }
