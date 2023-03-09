@@ -31,7 +31,7 @@
     {{-- <link rel="stylesheet" href="{{ asset('vendor/overlayScrollbars/css/OverlayScrollbars.min.css') }}">--}}
     {{-- Configured Stylesheets --}}
     @include('adminlte::plugins', ['type' => 'css'])
-    @vite('resources/sass/app.scss')
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/adminlte.css') }}">
     @stack('css')
     {{-- Custom stylesheets (post AdminLTE) --}}
@@ -78,18 +78,15 @@
 
 
 {{-- Base Scripts --}}
-@if(!config('adminlte.enabled_laravel_mix'))
-    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
-    <script src="https://code.jquery.com/jquery-3.6.2.min.js"
-            integrity="sha256-2krYZKh//PcchRtd+H+VyyQoZ/e3EcrkxhM8ycwASPA=" crossorigin="anonymous"></script>
-    {{-- <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>--}}
-    <script src="{{ asset('vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
-    @include('adminlte::plugins', ['type' => 'js'])
 
-    <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
-@else
-    <script src="{{ mix(config('adminlte.laravel_mix_js_path', 'js/app.js')) }}"></script>
-@endif
+<script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+<script src="https://code.jquery.com/jquery-3.6.2.min.js"
+        integrity="sha256-2krYZKh//PcchRtd+H+VyyQoZ/e3EcrkxhM8ycwASPA=" crossorigin="anonymous"></script>
+{{-- <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>--}}
+<script src="{{ asset('vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
+@include('adminlte::plugins', ['type' => 'js'])
+
+<script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
 
 
 <livewire:modals/>
@@ -97,7 +94,7 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <x-livewire-alert::scripts/>
 <x-livewire-alert::flash/>
-@vite('resources/js/app.js')
+{{--@vite('resources/js/app.js')--}}
 <x-modals::scripts/>
 {{-- Custom Scripts --}}
 @yield('adminlte_js')

@@ -45,7 +45,7 @@ class EditAvatarModal extends Component
     }
 
     //submit
-    #[NoReturn] public function submit()
+    #[NoReturn] public function submit(): void
     {
 
         if ($this->avatar) {
@@ -54,11 +54,11 @@ class EditAvatarModal extends Component
             foreach ($old_avatars as $old_avatar) {
                 $old_avatar->delete();
             }
-            if (is_array($this->avatar)) {
-                $this->avatar = $this->avatar[0];
-            }
-            $this->model->addMedia($this->avatar, MediaType::avatar->folder());
         }
+        if (is_array($this->avatar)) {
+            $this->avatar = $this->avatar[0];
+        }
+        $this->model->addMedia($this->avatar, MediaType::avatar->folder());
 
         $this->success("La photo de profil a été modifiée avec succès");
         $this->emit('hideModal');

@@ -29,7 +29,3 @@
         <b>Version</b> {{App\Helpers\Helpers::$appVersion}} | {{date('d.m.Y H:i')}}
     </div>
 @stop
-
-@section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
-@stop
