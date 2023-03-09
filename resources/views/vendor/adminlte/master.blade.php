@@ -52,7 +52,7 @@
         @if(app()->version() >= 7)
             @livewireStyles
         @else
-            <livewire:styles/>
+
         @endif
     @endif
 
