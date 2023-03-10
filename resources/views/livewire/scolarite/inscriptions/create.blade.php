@@ -41,7 +41,7 @@
                                         required
                                         wire:model="eleve.sexe">
                                         @foreach (Sexe::cases() as $es)
-                                            <option value="{{$es->name}}">{{ $es->label() }}</option>
+                                            <option value="{{$es}}">{{ $es->label() }}</option>
                                         @endforeach
                                     </x-form::select>
                                 </div>

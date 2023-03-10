@@ -26,7 +26,7 @@
                             <x-form::select wire:model="responsable_sexe"
                                             class="form-control">
                                 @foreach (Sexe::cases() as $es )
-                                    <option value="{{$es->value}}">{{ $es->label() }}</option>
+                                    <option value="{{$es}}">{{ $es->label() }}</option>
                                 @endforeach
                             </x-form::select>
                         </div>

@@ -421,7 +421,7 @@
                                                 class="form-control  @error('eleve_sexe') is-invalid @enderror">
                                     <option value="" disabled>Choisir sexe...</option>
                                     @foreach (Sexe::cases() as $es )
-                                        <option value="{{ strtoupper($es->value)}}">{{ $es->label() }}</option>
+                                        <option value="{{ $es}}">{{ $es->label() }}</option>
                                     @endforeach
                                     @error('eleve_sexe')
                                     <span class="text-red">{{ $message }}</span>

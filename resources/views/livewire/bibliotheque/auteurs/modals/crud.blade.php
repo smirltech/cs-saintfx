@@ -29,7 +29,7 @@
                                 class="form-control">
                     <option value=null>Choisir sexe...</option>
                     @foreach (Sexe::cases() as $es )
-                        <option value="{{$es->name}}">{{ $es->label() }}</option>
+                        <option value="{{$es}}">{{ $es->label() }}</option>
                     @endforeach
                 </x-form::select>
             </div>
@@ -72,7 +72,7 @@
                                 class="form-control">
                     <option value=null>Choisir sexe...</option>
                     @foreach (Sexe::cases() as $es )
-                        <option value="{{$es->name}}">{{ $es->label() }}</option>
+                        <option value="{{$es}}">{{ $es->label() }}</option>
                     @endforeach
                 </x-form::select>
             </div>
