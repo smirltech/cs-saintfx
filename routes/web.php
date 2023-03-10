@@ -8,7 +8,6 @@ use App\Http\Livewire\Finance;
 use App\Http\Livewire\MainDashboardComponent;
 use App\Http\Livewire\Profile\UserEditComponent;
 use App\Http\Livewire\Roles;
-use App\Http\Livewire\Scolarite;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -26,13 +25,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', MainDashboardComponent::class)->name('home')->middleware('auth');
 
 
-
-
 Route::get('darkmode/toggle', [DarkmodeController::class, 'toggle'])
     ->name('darkmode.toggle');
 
 // parametres
-Route::get('roles', Roles\IndexComponent::class)->name('roles.index');
+Route::get('roles', Roles\RolesIndexComponent::class)->name('roles.index');
 Route::get('roles/create', Roles\RoleModal::class)->name('roles.create');
 Route::get('roles/{role}', Roles\RoleModal::class)->name('roles.show');
 

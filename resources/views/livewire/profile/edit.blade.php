@@ -133,26 +133,14 @@
                                         </div>
                                     </div>
                                 @endcan
-                                @if ($user->hasVerifiedEmail())
-                                    <div class="form-group row">
-                                        <label for="role_id" class="col-md-4 col-form-label text-md-right"></label>
-
-                                        <div class="col-md-6">
-                                            <a href="{{ route('users.password.autoreset',$user) }}"
-                                               class="btn btn-warning btn-sm">
-                                                <i class="fa fa-key"></i> {{ __('Reset Password') }}
-                                            </a>
-                                        </div>
-                                    </div>
-                                @endif
-
-
                                 <hr hidden>
                                 <div class="card-footer">
-
-                                    <a href="{{route('users.index')}}" class="btn btn-outline-primary btn-sm">
-                                        <i class="fa fa-chevron-left"></i>
-                                    </a>
+                                    @if ($user->hasVerifiedEmail())
+                                        <a href="{{ route('users.password.autoreset',$user) }}"
+                                           class="btn btn-warning btn-sm">
+                                            <i class="fa fa-key"></i> {{ __('Reset Password') }}
+                                        </a>
+                                    @endif
                                     @can('users.create')
                                         <button type="submit" class="btn btn-primary btn-sm float-right">
                                             <i class="fa fa-save"></i> {{__('Save')}}
