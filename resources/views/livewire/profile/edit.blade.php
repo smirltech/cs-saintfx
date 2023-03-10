@@ -28,7 +28,7 @@
                             <div class="sw-13 position-relative mb-3">
                                 {{$user->media}}
                                 {{$user->avatar}}
-                                <x-avatar :model="$user"/>
+                                {{-- <x-avatar :model="$user"/>--}}
                             </div>
                             <div class="h5 mb-0">{{$user->name}}</div>
                             <div class="text-muted text-center">
