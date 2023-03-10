@@ -111,8 +111,6 @@ class UserController extends Controller
     {
         $roles = Role::where('name', '!=', 'super-admin')->get();
         $facultes = Option::all();
-
-        return view('users.edit', compact('user', 'roles', 'facultes'))->with('title', $user->name);
     }
 
     public function resetPassword(Request $request, User $user)
