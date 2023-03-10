@@ -9,8 +9,7 @@
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('scolarite') }}">Accueil</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('scolarite.eleves.index') }}">Élèves</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('scolarite.inscriptions') }}">Inscriptions</a></li>
-                <li class="breadcrumb-item active">Élève</li>
+                <li class="breadcrumb-item active">{{$eleve->nom}}</li>
             </ol>
         </div>
     </div>
@@ -183,7 +182,7 @@
                                 @endif
                             </div>
                             @if($eleve->responsable_eleve)
-                                <div id="infoTuto" class="collapse hide" aria-labelledby="headingTuto"
+                                <div id="infoTuto" class="collapse show" aria-labelledby="headingTuto"
                                      data-parent="#accordionTuto">
                                     <div class="card-body">
                                         <ul class="list-group list-group-unbordered mb-3">

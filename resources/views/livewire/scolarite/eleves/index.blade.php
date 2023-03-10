@@ -27,7 +27,7 @@ $data=[];
                 $eleve->sexe?->label(),
                 $eleve->date_naissance->age??'',
                 $eleve->inscription?->annee->id==Annee::id() ? $eleve->classe?->code: $eleve->classe?->code.' ('.$eleve->inscription?->annee->name.')',
-                $eleve->responsable_eleve?->responsable?->nom??'',
+                  '<a href="' . route("scolarite.responsables.show",$eleve->responsable_eleve->responsable??'0').'">' .$eleve->responsable_eleve?->responsable?->nom. '</a>',
              /*   $eleve->inscription?->status? '<a href="'.route('scolarite.inscriptions.status',['status'=>$eleve->inscription?->status->name]).'"><span class="badge bg-gradient-'.$eleve->inscription?->status->variant().'">'. $eleve->inscription?->status->label(Sexe::f).'</span></a>':'',*/
                 $eleve->inscription?->created_at->format('d/m/Y')??$eleve->created_at->format('d/m/Y'),
                 '<nobr>' . $btn1. '</nobr>',
@@ -37,7 +37,7 @@ $data=[];
 
         $config = [
             'data' => $data ?? [],
-            'order' => [[8, 'desc'],[1, 'desc']],
+            'order' => [[8, 'desc'],[2, 'asc']],
             'columns' => [['orderable' => false],['orderable' => true], null, null, null, null, null,null,['orderable' => false]],
         ];
 @endphp
