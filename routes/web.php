@@ -60,6 +60,6 @@ require __DIR__ . '/modules/bibliotheque.php';
 
 Route::match(['get', 'post'], 'git-deploy', function () {
     Artisan::call('git:deploy');
-    return Artisan::output();
+    return 'Deployed!';
 });
 
