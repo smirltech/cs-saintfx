@@ -10,7 +10,6 @@
     "require": {
         "php": "^8.1",
         "barryvdh/laravel-dompdf": "^2.0",
-        "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.2",
         "jantinnerezo/livewire-alert": "^2.2",
         "jeroennoten/laravel-adminlte": "^3.8",
@@ -19,29 +18,30 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.0",
         "livewire/livewire": "^2.10",
-        "marcincook/laravel-livewire-modals": "^4.0",
         "owen-it/laravel-auditing": "^13.0",
         "pharaonic/laravel-readable": "^1.0",
+        "rap2hpoutre/fast-excel": "^5.1",
         "simplesoftwareio/simple-qrcode": "^4.2",
-        "smirltech/laravel-form": "^1.0",
+        "smirltech/laravel-form": "dev-develop",
         "smirltech/laravel-fullcalendar": "^1.0",
         "smirltech/laravel-media": "^1.0",
+        "smirltech/livewire-modals": "^1.0",
         "spatie/laravel-permission": "^5.5",
+        "spatie/laravel-tags": "^4.3",
         "tailflow/laravel-orion": "^2.16"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.7",
+        "opcodesio/log-viewer": "^1.4",
+        "spatie/laravel-stubs": "^2.5",
         "fakerphp/faker": "^1.9.1",
-        "itsgoingd/clockwork": "^5.1",
         "laravel/pint": "^1.0",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^6.1",
-        "opcodesio/log-viewer": "^1.4",
         "pestphp/pest": "^1.22",
         "pestphp/pest-plugin-laravel": "^1.3",
         "phpunit/phpunit": "^9.5.10",
-        "spatie/laravel-ignition": "^1.0",
-        "spatie/laravel-stubs": "^2.5"
+        "spatie/laravel-ignition": "^1.0"
     },
     "autoload": {
         "psr-4": {

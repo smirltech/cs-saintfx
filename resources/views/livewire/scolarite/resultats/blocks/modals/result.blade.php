@@ -4,7 +4,7 @@
     <form id="f1a" wire:submit.prevent="updateResultat">
         <div class="row">
             <div class="form-group col-md-5 col-sm-12">
-                <x-form-input
+                <x-form::input
                     type="number"
                     label="Pourcentage"
                     step="0.01"
@@ -12,38 +12,38 @@
                     wire:model="resultat.pourcentage"
                     :is-valid="$errors->has('resultat.pourcentage')?false:null"
                     :error="$errors->first('resultat.pourcentage')">
-                </x-form-input>
+                </x-form::input>
             </div>
             <div class="form-group col-md-3 col-sm-12">
-                <x-form-input
+                <x-form::input
                     type="number"
                     label="Place"
                     required
                     wire:model="resultat.place"
                     :is-valid="$errors->has('resultat.place')?false:null"
                     :error="$errors->first('resultat.place')">
-                </x-form-input>
+                </x-form::input>
             </div>
             <div class="form-group col-md-4 col-sm-12">
                 <label for="">Conduite</label>
-                <x-form-select wire:model="resultat.conduite"
-                               class="form-control">
+                <x-form::select wire:model="resultat.conduite"
+                                class="form-control">
 
                     @foreach (Conduite::cases() as $es )
                         <option value="{{$es->name}}">{{strtoupper($es->name)}}</option>
                     @endforeach
-                </x-form-select>
+                </x-form::select>
 
             </div>
 
             <div class="form-group col-md-12">
                 @if(!$resultat->bulletin)
-                    <x-form-file-pdf wire:model="bulletin"
-                                     label="Bulletin"
-                                     target="bulletin"
-                                     required
-                                     :isValid="$errors->has('bulletin') ? false : null"
-                                     error="{{$errors->first('bulletin')}}"/>
+                    <x-form::input-pdf wire:model="bulletin"
+                                       label="Bulletin"
+                                       target="bulletin"
+                                       required
+                                       :isValid="$errors->has('bulletin') ? false : null"
+                                       error="{{$errors->first('bulletin')}}"/>
                 @endif
                 <ol class="list-group mt-3">
                     @foreach($resultat->media as $m)

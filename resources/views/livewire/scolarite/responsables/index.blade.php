@@ -43,12 +43,12 @@ $data=[];
 
         $config = [
             'data' => $data ?? [],
-            'order' => [[1, 'asc']],
+            'order' => [[6, 'desc'],[1, 'asc']],
             'columns' => [['orderable' => true], null,null, null, null, null, null,['orderable' => false]],
         ];
 @endphp
 @section('title')
-    - responsables
+    Liste de responsables
 @endsection
 @section('content_header')
     <div class="row">

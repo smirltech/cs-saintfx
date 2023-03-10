@@ -10,7 +10,7 @@
 
         <div class="col-6">
             <ol class="breadcrumb float-right">
-                <li class="breadcrumb-item"><a href="{{ route('scolarite') }}">Accueil</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('logistique') }}">Accueil</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('logistique.materiels') }}">Matériels</a></li>
                 <li class="breadcrumb-item active">{{$materiel->nom}}</li>
             </ol>
@@ -46,7 +46,7 @@
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
                                     <b>Catégorie : </b> <span class="float-right">
-                                        <a href="{{route('logistique.categories.show',[$materiel->categoryId])}}">{!! $materiel->categoryNom !!}</a>
+                                        <a href="{{route('logistique.rayons.show',[$materiel->categoryId])}}">{!! $materiel->categoryNom !!}</a>
                                     </span>
                                 </li>
                                 <li class="list-group-item">

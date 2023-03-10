@@ -4911,7 +4911,7 @@
 			lengths  = d2 ? menu[0] : menu,
 			language = d2 ? menu[1] : menu;
 
-		var select = $('<select/>', {
+		var select = $('<x-form::select/>', {
 			'name':          tableId+'_length',
 			'aria-controls': tableId,
 			'class':         classes.sLengthSelect
@@ -11807,14 +11807,14 @@
 			 *    $(document).ready( function() {
 			 *      $('#example').dataTable( {
 			 *        "language": {
-			 *          "lengthMenu": 'Display <select>'+
+			 *          "lengthMenu": 'Display <x-form::select>'+
 			 *            '<option value="10">10</option>'+
 			 *            '<option value="20">20</option>'+
 			 *            '<option value="30">30</option>'+
 			 *            '<option value="40">40</option>'+
 			 *            '<option value="50">50</option>'+
 			 *            '<option value="-1">All</option>'+
-			 *            '</select> records'
+			 *            '</x-form::select> records'
 			 *        }
 			 *      } );
 			 *    } );

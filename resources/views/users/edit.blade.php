@@ -9,7 +9,7 @@
                         <div class="mb-4">
                             <div class="d-flex align-items-center flex-column">
                                 <div class="sw-13 position-relative mb-3">
-                                    <x-avatar-edit :model="$user"/>
+                                    <x-avatar :model="$user"/>
                                 </div>
                                 <div class="h5 mb-0">{{$user->name}}@if ($user->hasVerifiedEmail())
                                         <i class="fa fa-check-circle"></i>
@@ -37,6 +37,7 @@
                                         </form>
                                     @endcan
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -91,13 +92,13 @@
                                     }}</label>
 
                                             <div class="col-md-6">
-                                                <select name="role_id" id="role_id"
-                                                        class="form-control  form-select">
+                                                <x-form::select name="role_id" id="role_id"
+                                                                class="form-control  form-select">
                                                     @foreach ($roles as $role)
                                                         <option
                                                             value="{{$role->id}}">{{$role->display_name}}</option>
                                                     @endforeach
-                                                </select>
+                                                </x-form::select>
                                             </div>
                                         </div>
                                     @endcan

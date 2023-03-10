@@ -17,7 +17,7 @@ class InscriptionFactory extends Factory
 {
     protected $model = Inscription::class;
 
-    public function definition()
+    public function definition(): array
     {
 
         return [

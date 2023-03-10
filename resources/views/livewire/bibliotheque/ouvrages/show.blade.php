@@ -10,8 +10,8 @@
 
         <div class="col-6">
             <ol class="breadcrumb float-right">
-                <li class="breadcrumb-item"><a href="{{ route('scolarite') }}">Accueil</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('bibliotheque.ouvrages') }}">Ouvrages</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('bibliotheque') }}">Accueil</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('bibliotheque.ouvrages.index') }}">Ouvrages</a></li>
                 <li class="breadcrumb-item active">{{$ouvrage->titre}}</li>
             </ol>
         </div>
@@ -19,10 +19,6 @@
 
 @stop
 <div class="">
-    @include('livewire.bibliotheque.ouvrages.modals.crud')
-    @include('livewire.bibliotheque.ouvrages.modals.auteur')
-    @include('livewire.bibliotheque.ouvrages.modals.etiquette')
-
     <div class="content mt-3">
         <div class="container-fluid">
             <div class="row">
@@ -34,23 +30,29 @@
                             </div>
                             <div class="card-tools">
                                 @can('ouvrages.update',$ouvrage)
-                                    <span
-                                        title="Modifier" role="button" class="ml-2 mr-2" data-toggle="modal"
-                                        data-target="#update-category-modal">
-                                    <span class="fa fa-pen"></span>
-                                </span>
+                                    <a href="{{ route('bibliotheque.ouvrages.edit',$ouvrage) }}">
+                                        <span class="fa fa-pen"></span>
+                                    </a>
                                 @endcan
 
                             </div>
                         </div>
                         <div class="card-body">
+                            <div class="text-center">
+                                <img style="max-height: 200px" class="img-fluid"
+                                     src="{{asset('storage/images/ouvrages/'.$ouvrage->id.'.png')}}"
+                                     alt="couverture ouvrage"
+                                     data-toggle="modal"
+                                     data-target="#view-image"
+                                >
+                            </div>
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
                                     <b>Sous Titre : </b> <span class="float-right">{{ $ouvrage->sous_titre }}</span>
                                 </li>
-                                <li class="list-group-item">
+                                <li class="list-group-item container">
                                     <b>Catégorie : </b> <span class="float-right">
-                                        <a href="{{$ouvrage->category==null?'#':route('bibliotheque.categories.show',[$ouvrage->ouvrage_category_id])}}">{!! $ouvrage->categoryNom !!}</a>
+                                        <a href="{{$ouvrage->category==null?'#':route('bibliotheque.rayons.show',[$ouvrage->rayon_id])}}">{!! $ouvrage->categoryNom !!}</a>
                                     </span>
                                 </li>
                                 <li class="list-group-item">
@@ -58,12 +60,13 @@
                                         <a wire:click.debounce="addLecture" href="{{$ouvrage->url}}"
                                            target=“_blank”
                                            title="Aller au lien">
-                                                        <i>{{$ouvrage->url}}</i>
+                                                        <i>Lire ici</i>
                                                     </a>
                                     </span>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Résumé : </b> <span class="float-right">{{ $ouvrage->resume }}</span>
+                                    <b>Résumé : </b>
+                                    <div>{!! $ouvrage->resume !!}</div>
                                 </li>
                                 <li class="list-group-item">
                                     <b>Édition : </b> <span class="float-right">{{ $ouvrage->edition }}</span>
@@ -81,57 +84,25 @@
                                 <li class="list-group-item">
                                     <div>
                                         <b>Auteurs : </b>
-                                        <span class="float-right">
-                                              @can('ouvrages.update',$ouvrage)
-                                                <button wire:click="initAuteur"
-                                                        class="btn btn-default mb-1"
-                                                        data-toggle="modal"
-                                                        data-target="#add-auteur-modal">
-                                                <span
-                                                    class="fa fa-plus"></span>
-                                            </button>
-                                            @endcan
-                                        </span>
                                     </div>
                                     <div class=" wrapper p-2">
-                                        @foreach($ouvrage->ouvrage_auteurs as $ouvrage_auteur)
+                                        @foreach($ouvrage->auteurs as $auteur)
                                             <span class="badge badge-warning m-1 text-xs">
-                                        {{$ouvrage_auteur->nom}}
-                                        <span title="Supprimer de l'ouvrage"
-                                              wire:click="deleteAuteur({{$ouvrage_auteur->id}})"
-                                              class="p-0 btn text-danger btn-xs"><span
-                                                class="fa fa-close"></span></span>
-                                    </span>
+                                            {{$auteur->nom}}
+                                            </span>
                                         @endforeach
-
-
                                     </div>
                                 </li>
                                 <li class="list-group-item">
                                     <div>
-                                        <b>Étiquettes : </b> <span class="float-right">
-                                              @can('ouvrages.update',$ouvrage)
-                                                <button wire:click="initEtiquette"
-                                                        class="btn btn-default mb-1"
-                                                        data-toggle="modal"
-                                                        data-target="#add-etiquette-modal">
-                                                <span
-                                                    class="fa fa-plus"></span></button>
-                                            @endcan
-                                        </span>
+                                        <b>Étiquettes : </b>
                                     </div>
                                     <div class=" wrapper p-2">
-                                        @foreach($ouvrage->ouvrage_etiquettes as $ouvrage_etiquette)
+                                        @foreach($ouvrage->tags as $ouvrage_etiquette)
                                             <span class="badge badge-info m-1 text-xs">
                                         {{$ouvrage_etiquette->nom}}
-                                        <span title="Supprimer de l'ouvrage"
-                                              wire:click="deleteEtiquette({{$ouvrage_etiquette->id}})"
-                                              class="p-0 btn text-danger btn-xs"><span
-                                                class="fa fa-close"></span></span>
-                                    </span>
+                                        </span>
                                         @endforeach
-
-
                                     </div>
                                 </li>
 
@@ -175,9 +146,9 @@
                                        aria-selected="true">Visites</a>
                                 </li>
                                 {{-- <li class="nav-item">
-                                     <a class="nav-link" id="custom-tabs-one-categories-tab" data-toggle="pill"
-                                        href="#custom-tabs-one-categories" role="tab"
-                                        aria-controls="custom-tabs-one-categories" aria-selected="false">Auteurs</a>
+                                     <a class="nav-link" id="custom-tabs-one-rayons-tab" data-toggle="pill"
+                                        href="#custom-tabs-one-rayons" role="tab"
+                                        aria-controls="custom-tabs-one-rayons" aria-selected="false">Auteurs</a>
                                  </li>--}}
                             </ul>
                         </div>
@@ -212,8 +183,8 @@
                                     </div>
                                 </div>
 
-                                {{--  <div class="tab-pane fade" id="custom-tabs-one-categories" role="tabpanel"
-                                       aria-labelledby="custom-tabs-one-categories-tab">
+                                {{--  <div class="tab-pane fade" id="custom-tabs-one-rayons" role="tabpanel"
+                                       aria-labelledby="custom-tabs-one-rayons-tab">
                                       <div class="table-responsive">
                                           --}}{{--<table class="table">
                                               <thead>
@@ -227,11 +198,11 @@
                                               </tr>
                                               </thead>
                                               <tbody>
-                                              @foreach ($category->categories as $i=>$categ)
+                                              @foreach ($category->rayons as $i=>$categ)
                                                   <tr>
                                                       <td>{{ $i+1 }}</td>
                                                       <td>
-                                                          <a href="{{route('bibliotheque.categories.show',[$categ->id])}}">{!! $categ->nom !!}</a>
+                                                          <a href="{{route('bibliotheque.rayons.show',[$categ->id])}}">{!! $categ->nom !!}</a>
                                                       </td>
                                                       <td>{{ $categ->description }}</td>
                                                       <td>{{ $categ->ouvragesCount }}</td>

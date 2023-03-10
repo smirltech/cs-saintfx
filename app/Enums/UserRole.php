@@ -5,8 +5,9 @@ namespace App\Enums;
 enum UserRole: string
 {
 
-    case promoteur = 'promoteur';
+
     case admin = 'admin';
+    case promoteur = 'promoteur';
     case caissier = 'caissier';
     case eleve = 'eleve';
     case parent = 'parent';
@@ -21,11 +22,34 @@ enum UserRole: string
                 RolePermission::roles_all->value,
                 RolePermission::permissions_all->value,
                 RolePermission::annees_all->value,
+                RolePermission::tags_all->value,
             ],
             self::admin => [
-                RolePermission::eleves_all->value,
-                RolePermission::inscriptions_all->value,
+                RolePermission::annees_all->value,
+                RolePermission::materiel_categories_all->value,
+                RolePermission::cours_all->value,
                 RolePermission::enseignants_all->value,
+                RolePermission::inscriptions_all->value,
+                RolePermission::options_all->value,
+                RolePermission::permissions_all->value,
+                RolePermission::roles_all->value,
+                RolePermission::units_all->value,
+                RolePermission::tags_all->value,
+                RolePermission::auteurs_all->value,
+                RolePermission::classes_all->value,
+                RolePermission::devoirs_all->value,
+                RolePermission::responsables_all->value,
+                RolePermission::sections_all->value,
+                RolePermission::users_all->value,
+                RolePermission::rayons_all->value,
+                RolePermission::consommables_all->value,
+                RolePermission::depenses_all->value,
+                RolePermission::frais_all->value,
+                RolePermission::mouvements_all->value,
+                RolePermission::perceptions_all->value,
+                RolePermission::revenus_all->value,
+                RolePermission::depense_types_all->value,
+                RolePermission::eleves_all->value,
             ],
             self::enseignant => [
                 RolePermission::devoirs_all->value,

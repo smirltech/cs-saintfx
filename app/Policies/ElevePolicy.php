@@ -20,7 +20,7 @@ class ElevePolicy
 
     public function view(User $user, Eleve $eleve): Response
     {
-        return $user->can('eleves.view.' . $eleve->id)
+        return $user->can('eleves.view.' . $eleve->id) || $user->id == $eleve->user_id
             ? Response::allow()
             : Response::deny('Vous n\'êtes pas autorisé à voir cet élève.');
     }

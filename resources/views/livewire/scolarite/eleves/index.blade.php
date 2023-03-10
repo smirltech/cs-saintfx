@@ -1,17 +1,16 @@
 @php
     use App\Enums\InscriptionStatus;
-    use App\Helpers\Helpers;use App\Models\Annee;
+    use App\Enums\Sexe;use App\Helpers\Helpers;use App\Models\Annee;
     $heads = [
             ['', 'no-export' => false, 'width' => 5],
             'MATRICULE',
-            'ELEVE',
+            'NOM',
             'SEXE',
             'AGE',
-            'TELEPHONE',
-            'EMAIL',
-            'ADRESSE',
+            'CLASSE',
             'RESPONSABLE',
-            'RELATION',
+          /*  'STATUS',*/
+            'DATE',
             ['Actions', 'no-export' => true, 'width' => 5],
         ];
 
@@ -22,16 +21,15 @@ $data=[];
             $btn1 = '<a href="' . route("scolarite.eleves.show",$eleve) . '" class="btn btn-success btn-sm m-1" title="Voir Élève"><i class="fa fa-eye"></i></a>';
 
             $data[] = [
-                '<img class="img-circle" style="width:50px; height:50px" src="'.$eleve->profile_url.'"></img>',
+                '<a href="' . route("scolarite.eleves.show",$eleve) . '" title="Voir Élève"><img class="img-circle" style="width:50px; height:50px" src="'.$eleve->profile_url.'"></img></a>',
                 $eleve->matricule,
-                $eleve->fullName,
-                $eleve->sexe->value??'',
+                $eleve->full_name,
+                $eleve->sexe?->label(),
                 $eleve->date_naissance->age??'',
-                 '<a href="tel:'.$eleve->telephone.'">'.$eleve->telephone.'</a>',
-                '<a href = "mailto:'.$eleve->email.'">'.$eleve->email.'</a>',
-                $eleve->adresse,
-                $eleve->responsable_eleve?->responsable?->nom??'',
-                $eleve->responsable_eleve?->relation?->label()??'',
+                $eleve->inscription?->annee->id==Annee::id() ? $eleve->classe?->code: $eleve->classe?->code.' ('.$eleve->inscription?->annee->name.')',
+                  '<a href="' . route("scolarite.responsables.show",$eleve->responsable_eleve->responsable??'0').'">' .$eleve->responsable_eleve?->responsable?->nom. '</a>',
+             /*   $eleve->inscription?->status? '<a href="'.route('scolarite.inscriptions.status',['status'=>$eleve->inscription?->status->name]).'"><span class="badge bg-gradient-'.$eleve->inscription?->status->variant().'">'. $eleve->inscription?->status->label(Sexe::f).'</span></a>':'',*/
+                $eleve->inscription?->created_at->format('d/m/Y')??$eleve->created_at->format('d/m/Y'),
                 '<nobr>' . $btn1. '</nobr>',
             ];
 
@@ -39,13 +37,10 @@ $data=[];
 
         $config = [
             'data' => $data ?? [],
-            'order' => [[1, 'asc']],
-            'columns' => [['orderable' => false],['orderable' => true],  null, null, null, null, null, null, null, null,['orderable' => false]],
+            'order' => [[8, 'desc'],[2, 'asc']],
+            'columns' => [['orderable' => false],['orderable' => true], null, null, null, null, null,null,['orderable' => false]],
         ];
 @endphp
-@section('title')
-    - élèves
-@endsection
 @section('content_header')
     <div class="row">
         <div class="col-6">
@@ -68,18 +63,19 @@ $data=[];
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title d-flex">
-                            {{--<a href="{{ route('scolarite.responsables.create') }}" title="ajouter"
-                               class="btn btn-primary mr-2"><span class="fa fa-plus"></span></a>--}}
+                            @can('inscriptions.create')
+                                <a href="{{ route('scolarite.inscriptions.import') }}" title="ajouter"
+                                   class="btn btn-success mr-2"><span class="fa fa-file-excel"></span></a>
+                            @endcan
                         </div>
                         <div class="card-tools d-flex my-auto">
-
-                            {{--  <a href="{{ route('scolarite.responsables.create') }}" title="ajouter"
-                                 class="btn btn-primary mr-2"><span class="fa fa-plus"></span></a>
-  --}}
+                            @can('inscriptions.create')
+                                <a href="{{ route('scolarite.inscriptions.create') }}" title="ajouter"
+                                   class="btn btn-primary mr-2"><span class="fa fa-plus"></span></a>
+                            @endcan
 
                         </div>
                     </div>
-
                     <div class="mb-3 card-body">
                         <div class="table-responsive m-b-40">
                             <x-adminlte-datatable id="table7" :heads="$heads" theme="light" :config="$config" striped

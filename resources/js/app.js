@@ -1,22 +1,24 @@
+import './bootstrap';
 import Alpine from 'alpinejs'
 import Swal from 'sweetalert2';
 import printJS from 'print-js';
+import {Modal} from 'bootstrap';
 
-require('./bootstrap');
 require('@popperjs/core');
 require('bootstrap');
-require('../../vendor/marcincook/laravel-livewire-modals/resources/js/modals');
 
 
 window.Alpine = Alpine;
 window.Swal = Swal;
 window.PrintJS = printJS;
 
+window.Modal = Modal;
+
 Alpine.start();
 
 
 window.addEventListener('closeModal', event => {
-     //alert(event.detail.modal);
+    //alert(event.detail.modal);
     //event.detail.modal.style.display = "none"
     //   var modal = document.getElementById(event.detail.modal);
     //   modal.hide();

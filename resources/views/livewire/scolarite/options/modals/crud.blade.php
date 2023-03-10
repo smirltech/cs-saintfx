@@ -124,7 +124,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <x-validation-errors class="mb-4" :errors="$errors"/>
+                <x-form::validation-errors class="mb-4" :errors="$errors"/>
                 <form id="f1" wire:submit.prevent="addOption">
 
                     <div class="row">
@@ -145,8 +145,8 @@
                         </div>
                         <div class="form-group col-5">
                             <label for="">Section <i class="text-red">*</i></label>
-                            <select wire:model="section_id"
-                                    class="form-control  @error('section_id') is-invalid @enderror">
+                            <x-form::select wire:model="section_id"
+                                            class="form-control  @error('section_id') is-invalid @enderror">
                                 <option value="-1">Choisir section</option>
                                 @foreach ($sections as $section )
                                     <option value="{{ $section->id }}">{{ $section->nom }}</option>
@@ -154,7 +154,7 @@
                                 @error('section_id')
                                 <span class="text-red">{{ $message }}</span>
                                 @enderror
-                            </select>
+                            </x-form::select>
                         </div>
                     </div>
                 </form>
@@ -183,7 +183,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <x-validation-errors class="mb-4" :errors="$errors"/>
+                <x-form::validation-errors class="mb-4" :errors="$errors"/>
                 <form id="f2" wire:submit.prevent="updateOption">
                     <div class="row">
                         <div class="form-group col-5">
@@ -201,8 +201,8 @@
                         </div>
                         <div class="form-group col-5">
                             <label for="">Section <i class="text-red">*</i></label>
-                            <select wire:model="section_id"
-                                    class="form-control  @error('section_id') is-invalid @enderror">
+                            <x-form::select wire:model="section_id"
+                                            class="form-control  @error('section_id') is-invalid @enderror">
                                 <option value="-1">Choisir section</option>
                                 @foreach ($sections as $section )
                                     <option value="{{ $section->id }}">{{ $section->nom }}</option>
@@ -210,7 +210,7 @@
                                 @error('section_id')
                                 <span class="text-red">{{ $message }}</span>
                                 @enderror
-                            </select>
+                            </x-form::select>
                         </div>
                     </div>
                 </form>
@@ -268,7 +268,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <x-validation-errors class="mb-4" :errors="$errors"/>
+                <x-form::validation-errors class="mb-4" :errors="$errors"/>
                 <form id="f4" wire:submit.prevent="addFiliere">
 
                     <div class="row">

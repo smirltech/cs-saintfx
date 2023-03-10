@@ -109,6 +109,7 @@
 <x-livewire-alert::scripts/>
 <x-livewire-alert::flash/>
 <script src="{{ mix('js/app.js') }}"></script>
+<x-modals::scripts/>
 
 {{-- Custom Scripts --}}
 @yield('adminlte_js')

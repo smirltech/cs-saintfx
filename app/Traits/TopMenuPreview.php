@@ -15,6 +15,7 @@ trait TopMenuPreview
     // private $company2;
     public function bootTopMenuPreview()
     {
+        # TODO: fix responsive menu on mobile before enabling this
         //  $this->init();
     }
 

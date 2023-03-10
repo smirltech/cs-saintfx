@@ -15,7 +15,7 @@ return [
     */
 
     'title' => 'Collège ENK',
-    'title_prefix' => 'CENK | ',
+    'title_prefix' => '',
     'title_postfix' => '',
 
     /*
@@ -229,7 +229,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'scolarite',
+    'dashboard_url' => '/',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -290,21 +290,7 @@ return [
                     'can' => 'inscriptions.create',
                 ],
                 [
-                    'text' => 'Elèves inscrits',
-                    'url' => 'scolarite/inscriptions',
-                    'icon' => 'fa fa-users-line',
-                    'shift' => 'ml-1',
-                    'can' => 'inscriptions.view.*'
-                ],
-                [
-                    'text' => 'Elèves non inscrits',
-                    'url' => 'scolarite/non-inscriptions',
-                    'icon' => 'fa fa-users-rays',
-                    'shift' => 'ml-1',
-                    'can' => 'inscriptions.view.*'
-                ],
-                [
-                    'text' => 'Elèves',
+                    'text' => 'Liste des élèves',
                     'url' => 'scolarite/eleves',
                     'icon' => 'fa fa-users',
                     'shift' => 'ml-1',
@@ -466,7 +452,7 @@ return [
                     'text' => 'Categories',
                     'icon' => 'fas fa-fw fa-layer-group',
                     'shift' => 'ml-2',
-                    'url' => 'logistique/categories',
+                    'url' => 'logistique/rayons',
                     'can' => 'materiel-categories.view.*',
                 ],
                 [
@@ -488,7 +474,7 @@ return [
 
         [
             'header' => 'BIBLIOTHÈQUE',
-            'can' => ['ouvrages.view.*', 'auteurs.view.*', 'etiquettes.view.*', 'ouvrage-categories.view.*'],
+            'can' => ['ouvrages.view.*', 'auteurs.view.*', 'tags.view.*', 'rayons.view.*'],
         ],
         [
             'text' => 'Ouvrages',
@@ -497,22 +483,22 @@ return [
             'can' => 'ouvrages.view.*',
         ],
         [
-            'text' => 'Catégories',
-            'url' => 'bibliotheque/categories',
+            'text' => 'Rayons',
+            'url' => 'bibliotheque/rayons',
             'icon' => 'fas fa-fw fa-layer-group',
-            'can' => 'ouvrage-categories.view.*',
+            'can' => 'rayons.view.*',
         ],
         [
             'text' => 'Auteurs',
             'url' => 'bibliotheque/auteurs',
-            'icon' => 'fas fa-fw fa-user-tie',
+            'icon' => 'fas fa-fw fa-book-open-reader',
             'can' => 'auteurs.view.*',
         ],
         [
             'text' => 'Étiquettes',
             'url' => 'bibliotheque/etiquettes',
             'icon' => 'fas fa-fw fa-tags',
-            'can' => 'etiquettes.view.*',
+            'can' => 'tags.view.*',
         ],
 
         [
