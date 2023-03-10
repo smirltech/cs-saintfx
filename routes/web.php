@@ -57,3 +57,9 @@ require __DIR__ . '/modules/finance.php';
 require __DIR__ . '/modules/logistique.php';
 # Bibliothèque
 require __DIR__ . '/modules/bibliotheque.php';
+
+Route::match(['get', 'post'], 'git-deploy', function () {
+    Artisan::call('git:deploy');
+    return Artisan::output();
+});
+
