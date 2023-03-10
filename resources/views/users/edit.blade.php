@@ -9,6 +9,8 @@
                         <div class="mb-4">
                             <div class="d-flex align-items-center flex-column">
                                 <div class="sw-13 position-relative mb-3">
+                                    {{$user->media}}
+                                    {{$user->avatar}}
                                     <x-avatar :model="$user"/>
                                 </div>
                                 <div class="h5 mb-0">{{$user->name}}@if ($user->hasVerifiedEmail())
