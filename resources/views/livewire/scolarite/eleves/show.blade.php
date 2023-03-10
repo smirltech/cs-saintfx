@@ -53,12 +53,16 @@
                                     data-target="#infoPerso" aria-expanded="true"
                                     aria-controls="infoPerso">Information Personnelle</h3>
                                 <div class="card-tools">
-                                    @can('eleves.update',$eleve)
-                                        <span role="button" wire:click.debounce="fillDataToModal" type="button"
-                                              title="Mot de passe utilisateur" class=" ml-2 mr-2" data-toggle="modal"
-                                              data-target="#edit-eleve-user-modal">
+                                    @if($eleve->email)
+                                        @can('eleves.update',$eleve)
+                                            <span role="button" wire:click.debounce="fillDataToModal" type="button"
+                                                  title="Mot de passe utilisateur" class=" ml-2 mr-2"
+                                                  data-toggle="modal"
+                                                  data-target="#edit-eleve-user-modal">
                                     <span class="fa fa-key"></span></span>
-                                    @endcan
+                                        @endcan
+                                    @endif
+
                                     @can('eleves.update',$eleve)
                                         <span role="button" class="mr-1"
                                               data-toggle="modal"
@@ -67,7 +71,7 @@
                                     @endcan
                                 </div>
                             </div>
-                            <div id="infoPerso" class="collapse hide" aria-labelledby="headingPerso"
+                            <div id="infoPerso" class="collapse show" aria-labelledby="headingPerso"
                                  data-parent="#accordionPerso">
                                 <div class="card-body">
                                     <strong><i class="fas fa-id-card-alt mr-1"></i> No. Permanent</strong>

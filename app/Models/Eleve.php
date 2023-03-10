@@ -192,7 +192,7 @@ class Eleve extends Model
     {
         return $this->inscription?->devoirs ?? new Collection();
     }
-    
+
     public function getDateNaissanceAttribute($value): Carbon
     {
         return Carbon::parse($value);

@@ -59,7 +59,7 @@ class InscriptionData
 
     private static function getSexe(string $value): ?Sexe
     {
-        return Sexe::tryFrom(strtolower($value));
+        return Sexe::tryFrom($value);
     }
 
     private static function getLieuNaissance(string $value): string

@@ -41,7 +41,7 @@ class Inscription extends Model
     protected static function booted(): void
     {
         static::creating(function (self $model) {
-            $model->id = self::generateUniqueId($model->eleve_id, $model->casse_id);
+            $model->id = self::generateUniqueId($model->eleve_id, $model->classe_id);
         });
     }
 

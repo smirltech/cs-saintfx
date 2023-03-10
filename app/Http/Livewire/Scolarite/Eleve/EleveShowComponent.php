@@ -238,7 +238,6 @@ class EleveShowComponent extends BaseComponent
     {
         $this->validate([
             'eleve_nom' => 'required',
-            'eleve_postnom' => 'required',
         ]);
         $done = $this->eleve->update([
             'nom' => $this->eleve_nom,
@@ -254,7 +253,7 @@ class EleveShowComponent extends BaseComponent
 
         if ($done) {
             $this->reloadData();
-            $this->alert('success', "Élève modifié avec succès !");
+            $this->flashSuccess("Élève modifié avec succès !", route('scolarite.eleves.show', $this->eleve));
             $this->dispatchBrowserEvent('closeModal', ['modal' => 'edit-eleve-modal']);
         } else {
             $this->alert('warning', "Echec de modification d'élève !");

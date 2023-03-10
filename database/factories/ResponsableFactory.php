@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\Sexe;
 use App\Models\Responsable;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
