@@ -1,5 +1,7 @@
 <?php
 
+use App\View\Components\AdminLayout;
+
 return [
 
     /*
@@ -39,7 +41,7 @@ return [
     |
     */
 
-    'layout' => 'livewire.layout',
+    'layout' => AdminLayout::class,
 
     /*
     |--------------------------------------------------------------------------

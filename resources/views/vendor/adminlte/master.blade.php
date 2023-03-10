@@ -5,6 +5,7 @@
 
     {{-- Base Meta Tags --}}
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -28,12 +29,22 @@
     @yield('adminlte_css_pre')
 
     {{-- Base Stylesheets --}}
-    {{-- <link rel="stylesheet" href="{{ asset('vendor/overlayScrollbars/css/OverlayScrollbars.min.css') }}">--}}
-    {{-- Configured Stylesheets --}}
-    @include('adminlte::plugins', ['type' => 'css'])
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-    <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/adminlte.css') }}">
-    @stack('css')
+    @if(!config('adminlte.enabled_laravel_mix'))
+        <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+        <link rel="stylesheet" href="{{ asset('vendor/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
+
+        {{-- Configured Stylesheets --}}
+        @include('adminlte::plugins', ['type' => 'css'])
+        <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/adminlte.css') }}">
+        <link rel="stylesheet"
+              href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    @else
+        <link rel="stylesheet" href="{{ mix(config('adminlte.laravel_mix_css_path', 'css/app.css')) }}">
+    @endif
+
+    @stack('js_top')
+
     {{-- Custom stylesheets (post AdminLTE) --}}
 
     {{-- Livewire Styles --}}
@@ -41,7 +52,7 @@
         @if(app()->version() >= 7)
             @livewireStyles
         @else
-            <livewire:styles/>
+
         @endif
     @endif
 
@@ -78,15 +89,18 @@
 
 
 {{-- Base Scripts --}}
+@if(!config('adminlte.enabled_laravel_mix'))
+    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.2.min.js"
+            integrity="sha256-2krYZKh//PcchRtd+H+VyyQoZ/e3EcrkxhM8ycwASPA=" crossorigin="anonymous"></script>
+    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
+    @include('adminlte::plugins', ['type' => 'js'])
 
-<script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
-<script src="https://code.jquery.com/jquery-3.6.2.min.js"
-        integrity="sha256-2krYZKh//PcchRtd+H+VyyQoZ/e3EcrkxhM8ycwASPA=" crossorigin="anonymous"></script>
-{{-- <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>--}}
-<script src="{{ asset('vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
-@include('adminlte::plugins', ['type' => 'js'])
-
-<script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
+    <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
+@else
+    <script src="{{ mix(config('adminlte.laravel_mix_js_path', 'js/app.js')) }}"></script>
+@endif
 
 
 <livewire:modals/>
@@ -94,8 +108,8 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <x-livewire-alert::scripts/>
 <x-livewire-alert::flash/>
-{{--@vite('resources/js/app.js')--}}
-<x-modals::scripts/>
+<script src="{{ mix('js/app.js') }}"></script>
+
 {{-- Custom Scripts --}}
 @yield('adminlte_js')
 

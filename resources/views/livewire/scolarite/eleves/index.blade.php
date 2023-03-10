@@ -21,7 +21,7 @@ $data=[];
             $btn1 = '<a href="' . route("scolarite.eleves.show",$eleve) . '" class="btn btn-success btn-sm m-1" title="Voir Élève"><i class="fa fa-eye"></i></a>';
 
             $data[] = [
-                '<img class="img-circle" style="width:50px; height:50px" src="'.$eleve->profile_url.'"></img>',
+                '<a href="' . route("scolarite.eleves.show",$eleve) . '" title="Voir Élève"><img class="img-circle" style="width:50px; height:50px" src="'.$eleve->profile_url.'"></img></a>',
                 $eleve->matricule,
                 $eleve->full_name,
                 $eleve->sexe?->label(),

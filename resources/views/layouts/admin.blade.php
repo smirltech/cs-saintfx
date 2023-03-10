@@ -29,3 +29,7 @@
         <b>Version</b> {{App\Helpers\Helpers::$appVersion}} | {{date('d.m.Y H:i')}}
     </div>
 @stop
+
+@push('css')
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+@endpush

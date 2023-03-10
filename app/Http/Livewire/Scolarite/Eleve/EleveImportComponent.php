@@ -38,7 +38,7 @@ class EleveImportComponent extends BaseComponent
 
     public function render(): Factory|View|Application
     {
-        return view('livewire.scolarite.eleve.eleve-import-component')->layoutData(['title' => $this->title]);
+        return view('livewire.scolarite.eleves.eleve-import-component')->layoutData(['title' => $this->title]);
     }
 
     // submit form
