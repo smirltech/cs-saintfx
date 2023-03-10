@@ -26,7 +26,7 @@
                 <div class="col-md-3">
                     <div class="card card-primary card-outline">
                         <div class="card-body box-profile">
-                            <x-user-avatar :model="$eleve"/>
+                            <x-avatar :model="$eleve"/>
                             {{-- <livewire:profile.edit-avatar-modal :model="$eleve"/>--}}
                             <h3 class="profile-username text-center">{{$eleve->fullName}}</h3>
                             <p class="text-muted text-center">CODE : {{$eleve->code}}</p>

@@ -2,6 +2,7 @@
 
 namespace App\Imports\Dto;
 
+use App\Enums\InscriptionStatus;
 use App\Enums\Sexe;
 use App\Models\Classe;
 use App\Models\Eleve;
@@ -51,6 +52,7 @@ class InscriptionData
                 'eleve_id' => $eleve->id,
                 'annee_id' => $annee_id,
                 'classe_id' => $classe_id,
+                'status' => InscriptionStatus::approved
             ]);
 
     }

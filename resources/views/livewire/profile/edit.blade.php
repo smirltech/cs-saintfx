@@ -26,7 +26,7 @@
                     <div class="card-body box-profile">
                         <div class="d-flex align-items-center flex-column">
                             <div class="sw-13 position-relative mb-3">
-                                <x-user-avatar :model="$user"/>
+                                <x-avatar :model="$user"/>
                             </div>
                             <div class="h5 mb-0">{{$user->name}}</div>
                             <div class="text-muted text-center">

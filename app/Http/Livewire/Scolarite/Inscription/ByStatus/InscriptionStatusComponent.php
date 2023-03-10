@@ -19,9 +19,9 @@ class InscriptionStatusComponent extends Component
 
     public $status;
 
-    public function mount($status)
+    public function mount(InscriptionStatus $status): void
     {
-        $this->status = InscriptionStatus::from($status);
+        $this->status = $status;
     }
 
     public function render()

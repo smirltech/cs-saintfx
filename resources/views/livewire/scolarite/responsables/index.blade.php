@@ -48,7 +48,7 @@ $data=[];
         ];
 @endphp
 @section('title')
-    - responsables
+    Liste de responsables
 @endsection
 @section('content_header')
     <div class="row">

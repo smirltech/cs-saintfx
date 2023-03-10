@@ -9,7 +9,7 @@
             'AGE',
             'CLASSE',
             'RESPONSABLE',
-            'STATUS',
+          /*  'STATUS',*/
             'DATE',
             ['Actions', 'no-export' => true, 'width' => 5],
         ];
@@ -26,10 +26,10 @@ $data=[];
                 $eleve->full_name,
                 $eleve->sexe?->label(),
                 $eleve->date_naissance->age??'',
-                $eleve->classe->code,
+                $eleve->inscription?->annee->id==Annee::id() ? $eleve->classe?->code: $eleve->classe?->code.' ('.$eleve->inscription?->annee->name.')',
                 $eleve->responsable_eleve?->responsable?->nom??'',
-    '<a href="'.route('scolarite.inscriptions.status',['status'=>$eleve->inscription?->status->name]).'"><span class="badge bg-gradient-'.$eleve->inscription?->status->variant().'">'. $eleve->inscription?->status->label(Sexe::f).'</span></a>',
-    $eleve->inscription?->created_at->format('d/m/Y')??$eleve->created_at->format('d/m/Y'),
+             /*   $eleve->inscription?->status? '<a href="'.route('scolarite.inscriptions.status',['status'=>$eleve->inscription?->status->name]).'"><span class="badge bg-gradient-'.$eleve->inscription?->status->variant().'">'. $eleve->inscription?->status->label(Sexe::f).'</span></a>':'',*/
+                $eleve->inscription?->created_at->format('d/m/Y')??$eleve->created_at->format('d/m/Y'),
                 '<nobr>' . $btn1. '</nobr>',
             ];
 
@@ -38,7 +38,7 @@ $data=[];
         $config = [
             'data' => $data ?? [],
             'order' => [[8, 'desc'],[1, 'desc']],
-            'columns' => [['orderable' => false],['orderable' => true], null,null, null, null, null, null,null,['orderable' => false]],
+            'columns' => [['orderable' => false],['orderable' => true], null, null, null, null, null,null,['orderable' => false]],
         ];
 @endphp
 @section('content_header')

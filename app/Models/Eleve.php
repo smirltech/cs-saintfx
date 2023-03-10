@@ -97,7 +97,11 @@ class Eleve extends Model
 
     public function getInscriptionAttribute(): ?Inscription
     {
-        return $this->inscriptions()->where('annee_id', Annee::id())->first();
+        $i = $this->inscriptions()->where('annee_id', Annee::id())->first();
+        if (!$i) {
+            return $this->inscriptions()->latest()->first();
+        }
+        return $i;
     }
 
     public function inscriptions(): HasMany
