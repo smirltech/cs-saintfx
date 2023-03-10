@@ -4694,16 +4694,16 @@
         },
         {
             "name": "smirltech/laravel-media",
-            "version": "v1.1.1",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/smirltech/laravel-media.git",
-                "reference": "6567b765cc17386ca1893507ca4851142c9713ee"
+                "reference": "e608a2f10f5c03b6c12383de56edc74b823a1682"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/smirltech/laravel-media/zipball/6567b765cc17386ca1893507ca4851142c9713ee",
-                "reference": "6567b765cc17386ca1893507ca4851142c9713ee",
+                "url": "https://api.github.com/repos/smirltech/laravel-media/zipball/e608a2f10f5c03b6c12383de56edc74b823a1682",
+                "reference": "e608a2f10f5c03b6c12383de56edc74b823a1682",
                 "shasum": ""
             },
             "require": {
@@ -4758,9 +4758,9 @@
             ],
             "support": {
                 "issues": "https://github.com/smirltech/laravel-media/issues",
-                "source": "https://github.com/smirltech/laravel-media/tree/v1.1.1"
+                "source": "https://github.com/smirltech/laravel-media/tree/v1.2.0"
             },
-            "time": "2023-02-09T02:04:22+00:00"
+            "time": "2023-03-10T16:19:04+00:00"
         },
         {
             "name": "smirltech/livewire-modals",
