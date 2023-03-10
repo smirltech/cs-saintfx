@@ -46,7 +46,7 @@ class DatabaseSeeder extends Seeder
             ])->assignRole(UserRole::admin->value);
 
 
-            if (!App::isProduction()) {
+            if (App::isLocal()) {
 
                 User::factory()->create([
                     'email' => 'caissier@college-enk.com',
