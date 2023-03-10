@@ -52,7 +52,7 @@
         @if(app()->version() >= 7)
             @livewireStyles
         @else
-            <livewire:styles/>
+
         @endif
     @endif
 
@@ -93,7 +93,7 @@
     <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.6.2.min.js"
             integrity="sha256-2krYZKh//PcchRtd+H+VyyQoZ/e3EcrkxhM8ycwASPA=" crossorigin="anonymous"></script>
-    {{--    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>--}}
+    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
     @include('adminlte::plugins', ['type' => 'js'])
 
@@ -109,7 +109,7 @@
 <x-livewire-alert::scripts/>
 <x-livewire-alert::flash/>
 <script src="{{ mix('js/app.js') }}"></script>
-<x-modals::scripts/>
+
 {{-- Custom Scripts --}}
 @yield('adminlte_js')
 
