@@ -4,8 +4,8 @@ import Swal from 'sweetalert2';
 import printJS from 'print-js';
 import {Modal} from 'bootstrap';
 
-import '@popperjs/core';
-import 'bootstrap';
+require('@popperjs/core');
+require('bootstrap');
 
 
 window.Alpine = Alpine;
