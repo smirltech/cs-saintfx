@@ -2,14 +2,11 @@
     use App\Enums\RolePermission;
     use App\Enums\UserRole;
 @endphp
-@section('title')
-    profile | {{$user->role->name??'N/A'}}
-@endsection
 @section('content_header')
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Profile</h1>
+                <h1>{{$title}}</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -29,7 +26,7 @@
                     <div class="card-body box-profile">
                         <div class="d-flex align-items-center flex-column">
                             <div class="sw-13 position-relative mb-3">
-                                <x-avatar-edit :model="$user"/>
+                                <x-user-avatar :model="$user"/>
                             </div>
                             <div class="h5 mb-0">{{$user->name}}</div>
                             <div class="text-muted text-center">

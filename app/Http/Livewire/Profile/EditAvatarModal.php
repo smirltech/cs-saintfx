@@ -26,7 +26,7 @@ class EditAvatarModal extends Component
      */
     #[NoReturn] public function mount(string $model_type, string $model_id): void
     {
-
+        
         $model_type = 'App\\Models\\' . $model_type;
 
         if ($model_id && class_exists($model_type)) {
