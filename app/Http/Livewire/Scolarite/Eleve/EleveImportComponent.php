@@ -32,6 +32,7 @@ class EleveImportComponent extends BaseComponent
         $this->authorize('create', Eleve::class);
         $this->title = 'Impomrter la liste d\'élèves';
         $this->annees = Annee::all();
+        $this->annee_id = Annee::id();
         $this->classes = Classe::all();
     }
 
