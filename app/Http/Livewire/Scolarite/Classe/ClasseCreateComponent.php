@@ -11,7 +11,6 @@ use App\Traits\CanHandleClasseCode;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
 
 class ClasseCreateComponent extends BaseComponent
 {
@@ -65,7 +64,7 @@ class ClasseCreateComponent extends BaseComponent
             $section->classes()->save($classe);
         }
 
-        $this->flash('success', 'Classe ajoutée avec succès', [], route('scolarite.classes'));
+        $this->flash('success', 'Classe ajoutée avec succès', [], route('scolarite.classes.index'));
         //return redirect()->to(route('scolarite.promotions'));
     }
 

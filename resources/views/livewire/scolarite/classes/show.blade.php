@@ -15,7 +15,7 @@
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('scolarite') }}">Accueil</a></li>
                 <li class="breadcrumb-item"><a href="{{ $parent_url }}">{{$classe->filierable->nom}}</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('scolarite.classes') }}">Classes</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('scolarite.classes.index') }}">Classes</a></li>
                 <li class="breadcrumb-item active">{{$classe->grade->label()}}</li>
             </ol>
         </div>
@@ -32,10 +32,10 @@
                         </div>
                         <div class="card-tools">
                             @can('classes.update',$classe)
-                            <a href="/scolarite/classes/{{ $classe->id }}/edit" title="modifier"
-                               class="ml-2">
-                                <i class="fas fa-pen"></i>
-                            </a>
+                                <a href="/scolarite/classes/{{ $classe->id }}/edit" title="modifier"
+                                   class="ml-2">
+                                    <i class="fas fa-pen"></i>
+                                </a>
                             @endcan
                         </div>
                     </div>
