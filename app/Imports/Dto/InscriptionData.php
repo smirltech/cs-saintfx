@@ -62,9 +62,9 @@ class InscriptionData
 
     private static function createResponsable(array $data): ?Responsable
     {
-        $responsable = null;
+
         if ($data[6]) {
-            $responsable = Responsable::updateOrCreate(
+            return Responsable::updateOrCreate(
                 [
                     'nom' => $data[6],
                 ],
@@ -79,7 +79,7 @@ class InscriptionData
         }
 
         if ($data[7]) {
-            $responsable = Responsable::updateOrCreate(
+            return Responsable::updateOrCreate(
                 [
                     'nom' => $data[7],
                 ],
@@ -92,7 +92,7 @@ class InscriptionData
                     'email' => $data[12],
                 ]);
         }
-        return $responsable;
+        return null;
     }
 
     private static function createEleve(array $data, string $section_id): Eleve
