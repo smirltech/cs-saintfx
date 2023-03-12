@@ -89,7 +89,7 @@ class InscriptionData
         return null;
     }
 
-    private static function createEleve(array $data, string $section_id): Eleve
+    private static function createEleve(array $data, Classe $section_id): Eleve
     {
         return Eleve::updateOrCreate(
             [
@@ -98,20 +98,20 @@ class InscriptionData
             [
                 'section_id' => $section_id,
                 'nom' => $data[1],
-                'sexe' => self::getSexe($data[2]),
-                'lieu_naissance' => self::getLieuNaissance($data[3]),
-                'date_naissance' => self::getDateNaissance($data[3]),
+                'sexe' => self::getSexe($data[3]),
+                'lieu_naissance' => self::getLieuNaissance($data[4]),
+                'date_naissance' => self::getDateNaissance($data[4]),
                 'pere' => [
-                    'nom' => $data[4],
-                    'profession' => $data[6],
+                    'nom' => $data[6],
+                    'profession' => $data[8],
                 ],
                 'mere' => [
-                    'nom' => $data[5],
-                    'profession' => $data[7],
+                    'nom' => $data[7],
+                    'profession' => $data[9],
                 ],
-                'adresse' => $data[8],
-                'telephone' => $data[9],
-                'email' => $data[10],
+                'adresse' => $data[10],
+                'telephone' => $data[11],
+                'email' => $data[12],
             ]);
 
     }
