@@ -29,10 +29,9 @@ class InscriptionsImport
         $rows = (new FastExcel)->withoutHeaders()->import($file);
 
         foreach ($rows as $key => $row) {
-            if ($key >= 15) {
-                dd($row);
+            if ($key > 15) {
                 if (!intval($row[0])) {
-                    break;
+                    continue;
                 }
                 InscriptionData::fromRow(data: $row, annee_id: $this->annee_id, classe_id: $this->classe_id);
             }

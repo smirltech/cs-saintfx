@@ -12,6 +12,7 @@ use App\Models\Responsable;
 use App\Models\ResponsableEleve;
 use Carbon\Carbon;
 use Exception;
+use Str;
 
 class InscriptionData
 {
@@ -27,8 +28,13 @@ class InscriptionData
 
         $responsable = self::createResponsable(data: $data);
         $eleve = self::createEleve(data: $data, section_id: $section_id);
+
+        if ($responsable) {
+            self::createResponsableEleve(eleve_id: $eleve->id, responsable_id: $responsable?->id, relation: $data[6] ? ResponsableRelation::pere : ResponsableRelation::mere);
+        }
+
         self::createInscription(eleve_id: $eleve->id, annee_id: $annee_id, classe_id: $classe->id);
-        self::createResponsableEleve(eleve_id: $eleve->id, responsable_id: $responsable?->id, relation: $data[4] ? ResponsableRelation::pere : ResponsableRelation::mere);
+
 
         return true;
 
@@ -56,8 +62,9 @@ class InscriptionData
 
     private static function createResponsable(array $data): ?Responsable
     {
-        if ($data[4]) {
-            return Responsable::updateOrCreate(
+        $responsable = null;
+        if ($data[6]) {
+            $responsable = Responsable::updateOrCreate(
                 [
                     'nom' => $data[6],
                 ],
@@ -71,8 +78,8 @@ class InscriptionData
                 ]);
         }
 
-        if ($data[5]) {
-            return Responsable::updateOrCreate(
+        if ($data[7]) {
+            $responsable = Responsable::updateOrCreate(
                 [
                     'nom' => $data[7],
                 ],
@@ -85,11 +92,10 @@ class InscriptionData
                     'email' => $data[12],
                 ]);
         }
-
-        return null;
+        return $responsable;
     }
 
-    private static function createEleve(array $data, Classe $section_id): Eleve
+    private static function createEleve(array $data, string $section_id): Eleve
     {
         return Eleve::updateOrCreate(
             [
@@ -129,10 +135,12 @@ class InscriptionData
 
     private static function getDateNaissance(mixed $value): string
     {
+        $value = Str::replace('le', '', $value);
         $date = explode(',', $value);
         if (count($date) < 2) {
             return '';
         }
+
 
         $date = explode('/', $date[1]);
 
@@ -140,21 +148,6 @@ class InscriptionData
         $c = Carbon::create(trim($date[2]), trim($date[1]), trim($date[0]));
 
         return $c->format('Y-m-d');
-    }
-
-    private static function createInscription(string $eleve_id, string $annee_id, string $classe_id): Inscription
-    {
-        return Inscription::firstOrCreate(
-            [
-                'eleve_id' => $eleve_id,
-                'annee_id' => $annee_id,
-            ],
-            [
-                'eleve_id' => $eleve_id,
-                'annee_id' => $annee_id,
-                'classe_id' => $classe_id,
-                'status' => InscriptionStatus::approved
-            ]);
     }
 
     private static function createResponsableEleve(string $eleve_id, string $responsable_id, ResponsableRelation $relation): void
@@ -168,6 +161,21 @@ class InscriptionData
                 'eleve_id' => $eleve_id,
                 'responsable_id' => $responsable_id,
                 'relation' => $relation,
+            ]);
+    }
+
+    private static function createInscription(string $eleve_id, string $annee_id, string $classe_id): void
+    {
+        Inscription::firstOrCreate(
+            [
+                'eleve_id' => $eleve_id,
+                'annee_id' => $annee_id,
+            ],
+            [
+                'eleve_id' => $eleve_id,
+                'annee_id' => $annee_id,
+                'classe_id' => $classe_id,
+                'status' => InscriptionStatus::approved
             ]);
     }
 
