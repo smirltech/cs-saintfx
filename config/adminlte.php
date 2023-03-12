@@ -452,7 +452,7 @@ return [
                     'text' => 'Categories',
                     'icon' => 'fas fa-fw fa-layer-group',
                     'shift' => 'ml-2',
-                    'url' => 'logistique/rayons',
+                    'url' => 'logistique/categories',
                     'can' => 'materiel-categories.view.*',
                 ],
                 [
