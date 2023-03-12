@@ -48,13 +48,13 @@ class EleveImportComponent extends BaseComponent
      */
     public function submit(): void
     {
-        /* try {*/
-        InscriptionsImport::build(annee_id: $this->annee_id)->import($this->file->getRealPath());
-        $this->flashSuccess('Liste des élèves importée avec succès', route('scolarite.eleves.index'));
-        $this->emit('refresh');
-        /* } catch (Exception $e) {
-             $this->error($e->getMessage(), $e->getMessage());
-         }*/
+        try {
+            InscriptionsImport::build(annee_id: $this->annee_id)->import($this->file->getRealPath());
+            $this->flashSuccess('Liste des élèves importée avec succès', route('scolarite.eleves.index'));
+            $this->emit('refresh');
+        } catch (Exception $e) {
+            $this->error($e->getMessage(), $e->getMessage());
+        }
     }
 
     // con

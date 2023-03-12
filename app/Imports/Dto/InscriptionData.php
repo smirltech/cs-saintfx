@@ -54,7 +54,7 @@ class InscriptionData
         $classe = Classe::where('code', $data[2])->first();
 
         if (!$classe) {
-            throw new Exception('Classe non trouvée pour le code ' . $data[2]);
+            throw new Exception('Classe ' . $data[2] . ' non trouvée, veuillez corriger le code ou créer la classe avant de continuer');
         }
         return $classe;
 
