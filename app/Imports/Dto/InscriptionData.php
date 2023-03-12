@@ -19,14 +19,15 @@ class InscriptionData
     /**
      * @throws Exception
      */
-    public static function fromRow(array $data, string $annee_id, string $classe_id): bool
+    public static function fromRow(array $data, string $annee_id, ?string $classe_id): bool
     {
-        $section_id = Classe::find($classe_id)->section_id;
+        $classe = self::getClasse(data: $data, classe_id: $classe_id);
+        $section_id = $classe->section_id;
 
 
         $responsable = self::createResponsable(data: $data);
         $eleve = self::createEleve(data: $data, section_id: $section_id);
-        self::createInscription(eleve_id: $eleve->id, annee_id: $annee_id, classe_id: $classe_id);
+        self::createInscription(eleve_id: $eleve->id, annee_id: $annee_id, classe_id: $classe->id);
         self::createResponsableEleve(eleve_id: $eleve->id, responsable_id: $responsable?->id, relation: $data[4] ? ResponsableRelation::pere : ResponsableRelation::mere);
 
         return true;
@@ -35,35 +36,53 @@ class InscriptionData
 
     // is valid student id
 
+    /**
+     * @throws Exception
+     */
+    private static function getClasse(array $data, ?string $classe_id): Classe|null
+    {
+        if ($classe_id) {
+            return Classe::find($classe_id);
+        }
+
+        $classe = Classe::where('code', $data[2])->first();
+
+        if (!$classe) {
+            throw new Exception('Classe non trouvée pour le code ' . $data[2]);
+        }
+        return $classe;
+
+    }
+
     private static function createResponsable(array $data): ?Responsable
     {
         if ($data[4]) {
             return Responsable::updateOrCreate(
                 [
-                    'nom' => $data[4],
+                    'nom' => $data[6],
                 ],
                 [
-                    'nom' => $data[4],
-                    'profession' => $data[6],
-                    'adresse' => $data[8],
+                    'nom' => $data[6],
+                    'profession' => $data[8],
+                    'adresse' => $data[10],
                     'sexe' => Sexe::m,
-                    'telephone' => $data[9],
-                    'email' => $data[10],
+                    'telephone' => $data[11],
+                    'email' => $data[12],
                 ]);
         }
 
         if ($data[5]) {
             return Responsable::updateOrCreate(
                 [
-                    'nom' => $data[5],
+                    'nom' => $data[7],
                 ],
                 [
-                    'nom' => $data[5],
-                    'profession' => $data[7],
-                    'adresse' => $data[8],
+                    'nom' => $data[7],
+                    'profession' => $data[9],
+                    'adresse' => $data[10],
                     'sexe' => Sexe::f,
-                    'telephone' => $data[9],
-                    'email' => $data[10],
+                    'telephone' => $data[11],
+                    'email' => $data[12],
                 ]);
         }
 

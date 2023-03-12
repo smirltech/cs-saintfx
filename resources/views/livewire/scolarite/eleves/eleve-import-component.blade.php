@@ -23,7 +23,7 @@
                     <div class="mb-3 card-body">
                         <form wire:submit.prevent="submit" class="container">
                             <div class="row">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-12">
                                     <x-form::select label="Année"
                                                     required
                                                     placeholder="Choisir année scolaire"
@@ -35,7 +35,7 @@
                                     </x-form::select>
                                 </div>
 
-                                <div class="form-group col-md-6">
+                                {{--<div class="form-group col-md-6">
                                     <x-form::select
                                         label="Classe"
                                         required
@@ -46,7 +46,7 @@
                                             </option>
                                         @endforeach
                                     </x-form::select>
-                                </div>
+                                </div>--}}
 
 
                                 <div class="form-group col-md-12">
