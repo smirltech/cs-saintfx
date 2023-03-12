@@ -6,7 +6,6 @@ namespace App\Models;
 use App\Enums\UserRole;
 use App\Traits\HasAvatar;
 use Closure;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -14,7 +13,6 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
-use LaravelIdea\Helper\App\Models\_IH_User_C;
 use Spatie\Permission\Traits\HasRoles;
 
 
@@ -35,29 +33,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public static function getStaff(): Collection|array|_IH_User_C
-    {
-        return self::whereHas('roles', function ($q) {
-            $q->where('name', '!=', UserRole::parent->value)
-                ->where('name', '!=', UserRole::eleve->value);
-        })->orderByDesc('id')->get();
-    }
-
     public function lectures(): HasMany
     {
         return $this->hasMany(Lecture::class);
     }
 
-    // get nom attribute
-
     public function eleve(): HasOne
     {
         return $this->hasOne(Eleve::class);
-    }
-
-    public function getNomAttribute(): string
-    {
-        return $this->eleve->nom ?? $this->responsable->nom ?? $this->name ?? "N/A";
     }
 
     public function responsable(): HasOne
@@ -91,10 +74,12 @@ class User extends Authenticatable
         return $this->avatar;
     }
 
+
     public function adminlte_desc(): string
     {
         return $this->roles->first()->name ?? "N/A";
     }
+
 
     public function adminlte_profile_url(): string
     {
@@ -106,30 +91,36 @@ class User extends Authenticatable
         return $this->role->name ?? 'Non assigné';
     }
 
-    // set password attribute
-
     public function getRoleAttribute(): Closure|Role|null
     {
         return $this->roles->first();
     }
 
+    // set password attribute
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = Hash::make($value);
     }
-
-    // all permission names attribute
-
-    // display permissions attribute
 
     public function setRoleIdAttribute($role_id)
     {
         $this->syncRoles($role_id);
     }
 
+    // all permission names attribute
+
+    // display permissions attribute
     public function getDisplayPermissionsAttribute(): string
     {
         return $this->getAllPermissions()->pluck('name')->implode(', ');
+    }
+
+    public static function getStaff(): \Illuminate\Database\Eloquent\Collection|array|\LaravelIdea\Helper\App\Models\_IH_User_C
+    {
+        return self::whereHas('roles', function ($q){
+            $q->where('name', '!=', UserRole::parent->value)
+                ->where('name', '!=', UserRole::eleve->value);
+        })->orderByDesc('id')->get();
     }
 
 }

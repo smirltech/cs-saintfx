@@ -47,6 +47,7 @@ class DatabaseSeeder extends Seeder
 
 
             if (App::isLocal()) {
+
                 User::factory()->create([
                     'email' => 'caissier@college-enk.com',
                     'name' => 'Caissier',

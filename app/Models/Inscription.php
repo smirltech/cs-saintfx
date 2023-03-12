@@ -96,10 +96,10 @@ class Inscription extends Model
         return $this->hasMany(Presence::class);
     }
 
-    /*public function annee(): BelongsTo
+    public function annee(): BelongsTo
     {
         return $this->belongsTo(Annee::class);
-    }*/
+    }
 
     public function media(): MorphMany
     {
@@ -113,15 +113,7 @@ class Inscription extends Model
         if ($annee_id) {
             return $query->where('annee_id', $annee_id);
         }
-        return $query->where('annee_id', Annee::id());
-    }
-
-    public function scopeStatus($query, $status = null)
-    {
-        if ($status) {
-            return $query->where('status', $status);
-        }
-        return $query->where('status', InscriptionStatus::approved);
+        return $query->where('annee_id', Annee::encours()->id);
     }
 
     // scope eleve
