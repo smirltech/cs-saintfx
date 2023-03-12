@@ -8,15 +8,15 @@ use Rap2hpoutre\FastExcel\FastExcel;
 
 class InscriptionsImport
 {
-    public function __construct(private string $annee_id, private string $classe_id)
+    public function __construct(private string $annee_id, private ?string $classe_id = null)
     {
         //
     }
 
     // build
-    public static function build(string $annee_id, string $classe_id): self
+    public static function build(string $annee_id, string $classe_id = null): self
     {
-        return new self(annee_id: $annee_id, classe_id: $classe_id);
+        return new self(annee_id: $annee_id, classe_id: $classe_id = null);
     }
 
     // import
@@ -29,9 +29,9 @@ class InscriptionsImport
         $rows = (new FastExcel)->withoutHeaders()->import($file);
 
         foreach ($rows as $key => $row) {
-            if ($key >= 14) { # 6 pour les cotes, soit ligne 8
+            if ($key > 15) {
                 if (!intval($row[0])) {
-                    break;
+                    continue;
                 }
                 InscriptionData::fromRow(data: $row, annee_id: $this->annee_id, classe_id: $this->classe_id);
             }

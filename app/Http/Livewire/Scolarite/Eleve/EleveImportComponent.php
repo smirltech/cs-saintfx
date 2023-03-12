@@ -5,7 +5,6 @@ namespace App\Http\Livewire\Scolarite\Eleve;
 use App\Http\Livewire\BaseComponent;
 use App\Imports\InscriptionsImport;
 use App\Models\Annee;
-use App\Models\Classe;
 use App\Models\Eleve;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -21,7 +20,7 @@ class EleveImportComponent extends BaseComponent
 
     public mixed $file = null;
     public mixed $annee_id = '';
-    public string $classe_id = '';
+    // public string $classe_id = '';
     protected $listeners = ['confirmed' => 'confirmed'];
 
     /**
@@ -33,7 +32,7 @@ class EleveImportComponent extends BaseComponent
         $this->title = 'Impomrter la liste d\'élèves';
         $this->annees = Annee::all();
         $this->annee_id = Annee::id();
-        $this->classes = Classe::all();
+        // $this->classes = Classe::all();
     }
 
 
@@ -50,7 +49,7 @@ class EleveImportComponent extends BaseComponent
     public function submit(): void
     {
         try {
-            InscriptionsImport::build(annee_id: $this->annee_id, classe_id: $this->classe_id)->import($this->file->getRealPath());
+            InscriptionsImport::build(annee_id: $this->annee_id)->import($this->file->getRealPath());
             $this->flashSuccess('Liste des élèves importée avec succès', route('scolarite.eleves.index'));
             $this->emit('refresh');
         } catch (Exception $e) {
@@ -71,7 +70,7 @@ class EleveImportComponent extends BaseComponent
         return [
             'file' => 'required|mimes:xlsx',
             'annee_id' => 'required',
-            'classe_id' => 'required'
+            //   'classe_id' => 'required'
         ];
     }
 
