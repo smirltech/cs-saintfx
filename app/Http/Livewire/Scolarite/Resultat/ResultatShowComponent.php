@@ -100,7 +100,7 @@ class ResultatShowComponent extends Component
                 //$this->loadData();
                 // $this->alert('success', "Responsable supprimé avec succès !");
                 // $this->dispatchBrowserEvent('closeModal', ['modal' => 'delete-responsable-modal']);
-                $this->flash('success', 'Responsable supprimé avec succès', [], route('scolarite.responsables'));
+                $this->flash('success', 'Responsable supprimé avec succès', [], route('scolarite.responsables.index'));
 
             }
         } else {

@@ -2,11 +2,12 @@
 
 namespace App\Http\Livewire\Scolarite;
 
-use App\Enums\InscriptionStatus;
 use App\Models\Annee;
-use App\Models\Inscription;
+use App\Models\Classe;
+use App\Models\Eleve;
+use App\Models\Enseignant;
+use App\Models\Responsable;
 use App\Traits\TopMenuPreview;
-use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -16,82 +17,82 @@ use Livewire\Component;
 class DashboardComponent extends Component
 {
     use TopMenuPreview;
+
     public $boxes = [];
-    public $inscrits = [];
+
     public $annee_courante;
 
-    public function mount()
+    public function mount(): void
     {
         // set user email vefied if not yet
         if (!Auth::user()->hasVerifiedEmail()) {
             Auth::user()->update(['email_verified_at' => now()]);
         }
 
-        $moisCourrant = Carbon::today()->subMonth(1)->toDateString();
+        $start_year = Annee::encours()->start_year;
 
 
-        $this->annee_courante = Annee::where('encours', true)->first();
+        $eleves = Eleve::count();
+        $parents = Responsable::count();
 
-        $this->inscrits = Inscription::where('annee_id', $this->annee_courante->id)->get();
-        $inscritsValid = Inscription::where('annee_id', $this->annee_courante->id)->where('status', InscriptionStatus::approved->name)->get();
-        $inscritsReject = Inscription::where('annee_id', $this->annee_courante->id)->where('status', InscriptionStatus::rejected->name)->get();
-        $inscritsPending = Inscription::where('annee_id', $this->annee_courante->id)->where('status', InscriptionStatus::pending->name)->get();
+        $classes = Classe::count();
+        $enseignants = Enseignant::count();
 
-        $moisInscrits = Inscription::where('annee_id', $this->annee_courante->id)->where('created_at', '>', $moisCourrant)->get();
-        $moisInscritsValid = Inscription::where('annee_id', $this->annee_courante->id)->where('status', InscriptionStatus::approved->name)->where('created_at', '>', $moisCourrant)->get();
-        $moisInscritsReject = Inscription::where('annee_id', $this->annee_courante->id)->where('status', InscriptionStatus::rejected->name)->where('created_at', '>', $moisCourrant)->get();
-        $moisInscritspending = Inscription::where('annee_id', $this->annee_courante->id)->where('status', InscriptionStatus::pending->name)->where('created_at', '>', $moisCourrant)->get();
+        $anneeEleves = Eleve::where('created_at', '>', $start_year)->count();
+        $anneeParents = Responsable::where('created_at', '>', $start_year)->count();
+        $anneeClasses = Classe::where('updated_at', '>', $start_year)->count();
+        $anneeEnseignants = Enseignant::where('created_at', '>', $start_year)->count();
 
 
-        $rateInscritsMois = $moisInscrits->count() > 0 ? intval(($moisInscrits->count() / $moisInscrits->count()) * 100) : 0;
-        $rateInscritsMoisValid = $moisInscritsValid->count() > 0 ? intval(($moisInscritsValid->count() / $moisInscrits->count()) * 100) : 0;
-        $rateInscritsMoisReject = $moisInscritsReject->count() > 0 ? intval(($moisInscritsReject->count() / $moisInscrits->count()) * 100) : 0;
-        $rateInscritsMoisPending = $moisInscritspending->count() > 0 ? intval(($moisInscritspending->count() / $moisInscrits->count()) * 100) : 0;
+        $rateElevesAnnee = $anneeEleves > 0 ? intval(($eleves / $anneeEleves) * 100) : 0;
+        $rateParentsAnnee = $anneeParents > 0 ? intval(($parents / $anneeParents) * 100) : 0;
+        $rateClasseAnnee = $anneeClasses > 0 ? intval(($classes / $anneeClasses) * 100) : 0;
+        $rateEnseignantsAnnee = $anneeEnseignants > 0 ? intval(($enseignants / $anneeEnseignants) * 100) : 0;
 
         $this->boxes = [
             [
-                'title' => count($moisInscrits),
-                'text' => 'Inscrits',
-                'icon' => 'far fa-bookmark',
-                'url' => route('scolarite.inscriptions'),
+                'title' => $anneeEleves,
+                'text' => 'Eleves',
+                'icon' => 'fa-user-graduate',
+                'url' => route('scolarite.eleves.index'),
                 'theme' => 'danger',
-                'rate' => "$rateInscritsMois%",
-                'subtitle' => "+{$rateInscritsMois}% en 1 mois",
+                'rate' => "$rateElevesAnnee%",
+                'subtitle' => "+{$rateElevesAnnee}% cette année",
 
             ],
             [
-                'title' => count($moisInscritsValid),
-                'text' => 'Validés',
-                'icon' => 'far fa-bookmark',
-                'url' => route("scolarite.inscriptions.status",'approved'),
+                'title' => $anneeParents,
+                'text' => 'Parents',
+                'icon' => 'fas fa-person-pregnant',
+                'url' => route("scolarite.responsables.index", 'approved'),
                 'theme' => 'primary',
-                'rate' => "$rateInscritsMoisValid%",
-                'subtitle' => "+$rateInscritsMoisValid% en 1 mois",
+                'rate' => "$rateParentsAnnee%",
+                'subtitle' => "+$rateParentsAnnee% cette année",
             ],
             [
-                'title' => count($moisInscritsReject),
+                'title' => $anneeClasses,
                 'text' => 'Rejetés',
                 'icon' => 'far fa-bookmark',
-                'url' => route("scolarite.inscriptions.status",'rejected'),
+                'url' => route("scolarite.inscriptions.status", 'rejected'),
                 'theme' => 'warning',
-                'rate' => "$rateInscritsMoisReject%",
-                'subtitle' => "+$rateInscritsMoisReject% en 1 mois",
+                'rate' => "$rateClasseAnnee%",
+                'subtitle' => "+$rateClasseAnnee% cette année",
             ],
             [
-                'title' => count($moisInscritspending),
+                'title' => $anneeEnseignants,
                 'text' => 'En Attente',
                 'icon' => 'far fa-bookmark',
-                'url' => route("scolarite.inscriptions.status",'pending'),
+                'url' => route("scolarite.inscriptions.status", 'pending'),
                 'theme' => 'success',
-                'rate' => "$rateInscritsMoisPending%",
-                'subtitle' => "+$rateInscritsMoisPending% en 1 mois",
+                'rate' => "$rateEnseignantsAnnee%",
+                'subtitle' => "+$rateEnseignantsAnnee% cette année",
             ]
         ];
     }
 
     public function render(): Factory|View|Application
     {
-        return view('livewire.scolarite.dashboard')->layoutData(['title'=> 'Scolarité']);
+        return view('livewire.scolarite.dashboard')->layoutData(['title' => 'Scolarité']);
     }
 
 }
