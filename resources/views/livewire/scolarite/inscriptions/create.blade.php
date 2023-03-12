@@ -159,12 +159,11 @@
                             <h4 class="font-weight-bold"><u>Choix de classe</u></h4>
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    @json($section_id)
                                     <x-form::select
                                         wire:model="inscription.classe_id"
                                         label="Classe">
                                         @foreach ($classes as $classe )
-                                            <option value="{{ $classe->id }}">{{ $classe->code }}</option>
+                                            <option value="{{ $classe->id }}">{{ $classe->nom }}</option>
                                         @endforeach
                                     </x-form::select>
                                 </div>

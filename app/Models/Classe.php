@@ -55,14 +55,14 @@ class Classe extends Model
 
     public function getFullNameAttribute(): string
     {
-        return "{$this->filierable->fullName} {$this->grade->value}";
+        return "{$this->filierable?->fullName} {$this->grade->value}";
     }
 
     // full_name
 
     public function getFullReverseNameAttribute(): string
     {
-        return "{$this->grade->value} {$this->filierable->fullName}";
+        return "{$this->grade->value} {$this->filierable?->fullName}";
     }
 
     public function getNomAttribute(): string
@@ -72,7 +72,7 @@ class Classe extends Model
 
     public function getFullCodeAttribute(): string
     {
-        return "{$this->grade->value} {$this->filierable->fullCode}";
+        return "{$this->grade->value} {$this->filierable?->fullCode}";
     }
 
 
@@ -80,7 +80,7 @@ class Classe extends Model
 
     public function getShortCodeAttribute(): string
     {
-        return "{$this->grade->value} {$this->filierable->shortCode}";
+        return "{$this->grade->value} {$this->filierable?->shortCode}";
     }
 
     // full_name
