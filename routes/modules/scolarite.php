@@ -24,7 +24,7 @@ Route::prefix('scolarite')->middleware(['auth:web'])->as('scolarite.')->group(fu
     Route::get('classes/create', Scolarite\Classe\ClasseCreateComponent::class)->name('classes.create');
     Route::get('classes/{classe}/edit', Scolarite\Classe\ClasseEditComponent::class)->name('classes.edit');
     Route::get('classes/{classe}', Scolarite\Classe\ClasseShowComponent::class)->name('classes.show');
-    Route::get('classes', Scolarite\Classe\ClasseIndexComponent::class)->name('classes');
+    Route::get('classes', Scolarite\Classe\ClasseIndexComponent::class)->name('classes.index');
 
     // cours
     Route::get('cours', Scolarite\Cours\CoursIndexComponent::class)->name('cours.index');
@@ -69,6 +69,6 @@ Route::prefix('scolarite')->middleware(['auth:web'])->as('scolarite.')->group(fu
     Route::redirect('inscriptions', 'eleves')->name('inscriptions');
     // Responsables
     Route::get('responsables/{responsable}', Scolarite\Responsable\ResponsableShowComponent::class)->name('responsables.show');
-    Route::get('responsables', Scolarite\Responsable\ResponsableIndexComponent::class)->name('responsables');
+    Route::get('responsables', Scolarite\Responsable\ResponsableIndexComponent::class)->name('responsables.index');
 });
 

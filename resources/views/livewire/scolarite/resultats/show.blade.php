@@ -3,7 +3,7 @@
     use App\Helpers\Helpers;use App\Models\Annee;
 @endphp
 @section('title')
-     - responsable - {{$responsable->nom}}
+    - responsable - {{$responsable->nom}}
 @endsection
 @section('content_header')
     <div class="row">
@@ -14,7 +14,7 @@
         <div class="col-6">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('scolarite') }}">Accueil</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('scolarite.responsables') }}">Responsables</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('scolarite.responsables.index') }}">Responsables</a></li>
                 <li class="breadcrumb-item active">{{$responsable->nom}}</li>
             </ol>
         </div>

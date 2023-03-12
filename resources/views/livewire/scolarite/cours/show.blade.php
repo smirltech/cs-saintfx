@@ -3,7 +3,7 @@
 @endphp
 
 @section('title')
-     - classe - {{$classe->code}}
+    - classe - {{$classe->code}}
 @endsection
 @section('content_header')
     <div class="row">
@@ -15,7 +15,7 @@
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('scolarite') }}">Accueil</a></li>
                 <li class="breadcrumb-item"><a href="{{ $parent_url }}">{{$classe->filierable->nom}}</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('scolarite.classes') }}">Classes</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('scolarite.classes.index') }}">Classes</a></li>
                 <li class="breadcrumb-item active">{{$classe->grade->label()}}</li>
             </ol>
         </div>
