@@ -41,7 +41,8 @@ class UserEditComponent extends Component
 
     public function render(): Factory|View|Application
     {
-        return view('livewire.profile.edit');
+        $this->title = "{$this->user->name}";
+        return view('livewire.profile.edit')->layoutData(['title' => $this->title, "contentHeaderIcon" => "fas fa-fw fa-user"]);
     }
 
     //submit

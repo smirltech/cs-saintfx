@@ -102,7 +102,7 @@ class ResponsableShowComponent extends BaseComponent
                 //$this->loadData();
                 // $this->alert('success', "Responsable supprimé avec succès !");
                 // $this->dispatchBrowserEvent('closeModal', ['modal' => 'delete-responsable-modal']);
-                $this->flash('success', 'Responsable supprimé avec succès', [], route('scolarite.responsables'));
+                $this->flash('success', 'Responsable supprimé avec succès', [], route('scolarite.responsables.index'));
 
             }
         } else {
@@ -163,7 +163,7 @@ class ResponsableShowComponent extends BaseComponent
                 'user_id' => $user->id,
             ]);
             $this->alert('success', "Compte responsable a été ajouté avec succès ! Un email a été envoyé avec le mot de passe !");
-        }else{
+        } else {
             $this->responsable->user->update([
                 'password' => 'password',
             ]);

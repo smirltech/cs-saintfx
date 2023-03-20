@@ -5,7 +5,6 @@ namespace App\Http\Livewire\Scolarite\Eleve;
 use App\Http\Livewire\BaseComponent;
 use App\Imports\InscriptionsImport;
 use App\Models\Annee;
-use App\Models\Classe;
 use App\Models\Eleve;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -21,7 +20,7 @@ class EleveImportComponent extends BaseComponent
 
     public mixed $file = null;
     public mixed $annee_id = '';
-    public string $classe_id = '';
+    // public string $classe_id = '';
     protected $listeners = ['confirmed' => 'confirmed'];
 
     /**
@@ -32,13 +31,14 @@ class EleveImportComponent extends BaseComponent
         $this->authorize('create', Eleve::class);
         $this->title = 'Impomrter la liste d\'élèves';
         $this->annees = Annee::all();
-        $this->classes = Classe::all();
+        $this->annee_id = Annee::id();
+        // $this->classes = Classe::all();
     }
 
 
     public function render(): Factory|View|Application
     {
-        return view('livewire.scolarite.eleve.eleve-import-component')->layoutData(['title' => $this->title]);
+        return view('livewire.scolarite.eleves.eleve-import-component')->layoutData(['title' => $this->title]);
     }
 
     // submit form
@@ -49,8 +49,8 @@ class EleveImportComponent extends BaseComponent
     public function submit(): void
     {
         try {
-            InscriptionsImport::build(annee_id: $this->annee_id, classe_id: $this->classe_id)->import($this->file->getRealPath());
-            $this->flashSuccess('Liste des élèves importée avec succès', route('scolarite.inscriptions.index'));
+            InscriptionsImport::build(annee_id: $this->annee_id)->import($this->file->getRealPath());
+            $this->flashSuccess('Liste des élèves importée avec succès', route('scolarite.eleves.index'));
             $this->emit('refresh');
         } catch (Exception $e) {
             $this->error($e->getMessage(), $e->getMessage());
@@ -70,7 +70,7 @@ class EleveImportComponent extends BaseComponent
         return [
             'file' => 'required|mimes:xlsx',
             'annee_id' => 'required',
-            'classe_id' => 'required'
+            //   'classe_id' => 'required'
         ];
     }
 

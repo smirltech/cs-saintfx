@@ -2,8 +2,7 @@
     use App\Enums\InscriptionStatus;
     use App\Helpers\Helpers;use App\Models\Annee;
     $heads = [
-            'NO.',
-            'RESPONSABLE',
+            'NOM',
             'SEXE',
             'TELEPHONE',
             'EMAIL',
@@ -29,9 +28,8 @@ $data=[];
         //    $badgeColor = Helpers::admissionStatusColor($inscription->status);
 
             $data[] = [
-                $key+1,
                 $responsable->nom,
-                $responsable->sexe->value??'',
+                $responsable->sexe?->label(),
                 '<a href="tel:'.$responsable->telephone.'">'.$responsable->telephone.'</a>',
                 '<a href = "mailto:'.$responsable->email.'">'.$responsable->email.'</a>',
                 $responsable->adresse,
@@ -43,12 +41,12 @@ $data=[];
 
         $config = [
             'data' => $data ?? [],
-            'order' => [[1, 'asc']],
-            'columns' => [['orderable' => true], null,null, null, null, null, null,['orderable' => false]],
+            'order' => [[5, 'desc'],[0, 'asc']],
+            'columns' => [null,null, null, null, null, null,['orderable' => false]],
         ];
 @endphp
 @section('title')
-    - responsables
+    Liste de responsables
 @endsection
 @section('content_header')
     <div class="row">

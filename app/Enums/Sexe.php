@@ -4,15 +4,15 @@ namespace App\Enums;
 
 enum Sexe: string
 {
-    case f = 'f';
-    case m = 'm';
+    case f = 'F';
+    case m = 'M';
 
     // label() is a method that returns the label of the enum value
     public function label(): string
     {
         return match ($this) {
-            self::f => 'Femme',
-            self::m => 'Homme',
+            self::f => 'Feminin',
+            self::m => 'Masculin',
         };
     }
 }

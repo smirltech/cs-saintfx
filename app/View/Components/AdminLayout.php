@@ -16,6 +16,6 @@ class AdminLayout extends Component
      */
     public function render(): View|Factory|Application
     {
-        return view('livewire.layout');
+        return view('layouts.admin');
     }
 }

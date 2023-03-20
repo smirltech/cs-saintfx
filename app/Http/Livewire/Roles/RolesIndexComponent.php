@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Roles;
 
 use App\Enums\RolePermission;
+use App\Enums\UserRole;
 use App\Http\Livewire\BaseComponent;
 use App\Models\Permission;
 use App\Models\Role;
@@ -12,7 +13,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 
-class IndexComponent extends BaseComponent
+class RolesIndexComponent extends BaseComponent
 {
 
     public Collection $roles;
@@ -34,15 +35,22 @@ class IndexComponent extends BaseComponent
     {
         return view('livewire.roles.index-component')/*->with([
             'title' => 'Rôles',
-        ])*/->layoutData(['title'=> $this->title, "contentHeaderIcon" => "fas fa-fw fa-wand-magic-sparkles"]);
+        ])*/ ->layoutData(['title' => $this->title, "contentHeaderIcon" => "fas fa-fw fa-wand-magic-sparkles"]);
     }
 
     public function refreshPermissions(): void
     {
+
         foreach (RolePermission::cases() as $permission) {
             Permission::firstOrCreate(
                 ['name' => $permission->value]
             );
+        }
+
+        foreach (UserRole::cases() as $userRole) {
+            $role = Role::firstOrCreate(['name' => $userRole->value]);
+
+            $role->givePermissionTo($userRole->permissions());
         }
     }
 }

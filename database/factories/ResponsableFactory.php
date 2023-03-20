@@ -13,7 +13,7 @@ class ResponsableFactory extends Factory
 {
     protected $model = Responsable::class;
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'nom' => $this->faker->name,

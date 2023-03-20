@@ -20,6 +20,9 @@ use App\Traits\FakeProfileImage;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Throwable;
 
 class EleveShowComponent extends BaseComponent
@@ -72,7 +75,7 @@ class EleveShowComponent extends BaseComponent
     protected $listeners = ['onModalClosed', 'refreshComponent' => '$refresh', 'refresh' => '$refresh'];
 
 
-    public function runSearchResponsables()
+    public function runSearchResponsables(): void
     {
         $this->responsables = Responsable::where('nom', 'LIKE', "%$this->searchResponsable%")->orderBy('nom')->get();
         if ($this->responsables->count() > 0) {
@@ -82,7 +85,7 @@ class EleveShowComponent extends BaseComponent
         }
     }
 
-    public function changeSelectedResponsable()
+    public function changeSelectedResponsable(): void
     {
         $this->responsable = Responsable::find($this->responsable_id);
         if ($this->responsable == null) {
@@ -92,7 +95,7 @@ class EleveShowComponent extends BaseComponent
         }
     }
 
-    public function attachResponsable()
+    public function attachResponsable(): void
     {
         $done = ResponsableEleve::create([
             'relation' => $this->responsable_relation2,
@@ -111,7 +114,7 @@ class EleveShowComponent extends BaseComponent
 
     }
 
-    public function reloadData()
+    public function reloadData(): void
     {
         $this->eleve = Eleve::find($this->eleve->id);
         $this->inscription = Inscription::where(['eleve_id' => $this->eleve->id, 'annee_id' => $this->annee_courante->id])->first();
@@ -122,7 +125,7 @@ class EleveShowComponent extends BaseComponent
         $this->emit('refreshComponent');
     }
 
-    public function preloadEleve()
+    public function preloadEleve(): void
     {
         $this->eleve_nom = $this->eleve->nom;
         $this->eleve_sexe = $this->eleve->sexe;
@@ -134,7 +137,7 @@ class EleveShowComponent extends BaseComponent
         $this->numero_permanent = $this->eleve->numero_permanent;
     }
 
-    public function onModalClosed()
+    public function onModalClosed(): void
     {
         // $this->clearValidation();
         $this->reset(['inscription_status']);
@@ -143,7 +146,7 @@ class EleveShowComponent extends BaseComponent
     /**
      * @throws AuthorizationException
      */
-    public function mount($eleve)
+    public function mount($eleve): void
     {
         $eleve = Eleve::find($eleve);
         $this->authorize('view', $eleve);
@@ -173,7 +176,7 @@ class EleveShowComponent extends BaseComponent
         $this->setFakeProfileImageUrl();
     }
 
-    public function getSelectedInscription(Inscription $inscription)
+    public function getSelectedInscription(Inscription $inscription): void
     {
         $this->inscription2 = $inscription;
         $this->inscription2_categorie = $inscription->categorie;
@@ -211,7 +214,7 @@ class EleveShowComponent extends BaseComponent
         // dd($inscription);
     }
 
-    private function loadAvailableClasses()
+    private function loadAvailableClasses(): void
     {
         if ($this->inscription2_filiere_id > 0) {
             $filiere = Filiere::find($this->inscription2_filiere_id);
@@ -225,17 +228,16 @@ class EleveShowComponent extends BaseComponent
         }
     }
 
-    public function render()
+    public function render(): Factory|View|Application
     {
         return view('livewire.scolarite.eleves.show')
-            ->layout(AdminLayout::class, ['title' => 'Détail sur l\'élève']);
+            ->layout(AdminLayout::class, ['title' => $this->eleve->nom]);
     }
 
-    public function editEleve()
+    public function editEleve(): void
     {
         $this->validate([
             'eleve_nom' => 'required',
-            'eleve_postnom' => 'required',
         ]);
         $done = $this->eleve->update([
             'nom' => $this->eleve_nom,
@@ -251,7 +253,7 @@ class EleveShowComponent extends BaseComponent
 
         if ($done) {
             $this->reloadData();
-            $this->alert('success', "Élève modifié avec succès !");
+            $this->flashSuccess("Élève modifié avec succès !", route('scolarite.eleves.show', $this->eleve));
             $this->dispatchBrowserEvent('closeModal', ['modal' => 'edit-eleve-modal']);
         } else {
             $this->alert('warning', "Echec de modification d'élève !");
@@ -260,7 +262,7 @@ class EleveShowComponent extends BaseComponent
 
     }
 
-    public function editInscriptionCategorie()
+    public function editInscriptionCategorie(): void
     {
         $done = $this->validate(['inscription2_categorie' => 'required']);
         $this->inscription2->update([
@@ -278,7 +280,7 @@ class EleveShowComponent extends BaseComponent
 
     }
 
-    public function editInscriptionStatus()
+    public function editInscriptionStatus(): void
     {
         $done = $this->validate(['inscription_status' => 'required']);
         $this->inscription2->update([
@@ -296,13 +298,13 @@ class EleveShowComponent extends BaseComponent
 
     }
 
-    public function deleteEleve()
+    public function deleteEleve(): void
     {
         if (count($this->eleve->inscriptions) == 0) {
             ResponsableEleve::where('eleve_id', $this->eleve->id)->delete();
             if ($this->eleve->delete()) {
                 $this->alert('success', "Élève supprimé avec succès !");
-                $this->flash('success', 'Élève supprimé avec succès', [], route('scolarite.eleves'));
+                $this->flash('success', 'Élève supprimé avec succès', [], route('scolarite.eleves.index'));
             }
         } else {
 
@@ -311,7 +313,7 @@ class EleveShowComponent extends BaseComponent
         }
     }
 
-    public function editRelation()
+    public function editRelation(): void
     {
 
         $done = $this->eleve->responsable_eleve->update([
@@ -329,7 +331,7 @@ class EleveShowComponent extends BaseComponent
 
     }
 
-    public function deleteRelation()
+    public function deleteRelation(): void
     {
 
         $done = $this->eleve->responsable_eleve->delete();
@@ -345,7 +347,7 @@ class EleveShowComponent extends BaseComponent
 
     }
 
-    public function addInscription()
+    public function addInscription(): void
     {
         $this->validate([
             'inscription2_classe_id' => 'required',

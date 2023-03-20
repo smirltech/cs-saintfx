@@ -22,7 +22,7 @@
         "pharaonic/laravel-readable": "^1.0",
         "rap2hpoutre/fast-excel": "^5.1",
         "simplesoftwareio/simple-qrcode": "^4.2",
-        "smirltech/laravel-form": "^2.0",
+        "smirltech/laravel-form": "dev-develop",
         "smirltech/laravel-fullcalendar": "^1.0",
         "smirltech/laravel-media": "^1.0",
         "smirltech/livewire-modals": "^1.0",

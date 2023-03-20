@@ -24,7 +24,7 @@ class SectionSeeder extends Seeder
             ],
             [
                 'nom' => 'Primaire',
-                'code' => 'PRI',
+                'code' => 'P',
             ],
             [
                 'nom' => 'Secondaire',

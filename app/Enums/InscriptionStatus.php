@@ -10,6 +10,20 @@ enum InscriptionStatus: string
     case canceled = 'canceled';
 
     // label() is a method that returns the label of the enum
+    public function variant(): string
+    {
+        return match ($this) {
+            InscriptionStatus::pending => "info",
+            InscriptionStatus::approved => "success",
+            InscriptionStatus::rejected => "danger",
+            InscriptionStatus::canceled => "secondary",
+            default => "default",
+        };
+    }
+
+
+    // label() is a method that returns the label of the enum
+
     public function label($sexe = Sexe::m): string
     {
         if ($sexe == Sexe::m) return match ($this) {
@@ -26,8 +40,6 @@ enum InscriptionStatus: string
         };
     }
 
-
-    // label() is a method that returns the label of the enum
     public function pluralLabel($sexe = Sexe::m): string
     {
         if ($sexe == Sexe::m) return match ($this) {

@@ -10,7 +10,7 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('responsable_eleves', function (Blueprint $table) {
-            $table->id();
+            $table->ulid('id')->primary();
             $table->foreignIdFor(Eleve::class);
             $table->foreignIdFor(Responsable::class);
             $table->string('relation');

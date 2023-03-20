@@ -49,6 +49,11 @@ class Annee extends Model
         return $this->code;
     }
 
+    public function getNameAttribute(): string
+    {
+        return $this->code;
+    }
+
     public function getCodeAttribute(): string
     {
         return $this->start_year . '-' . $this->end_year;

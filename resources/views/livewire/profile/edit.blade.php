@@ -2,14 +2,11 @@
     use App\Enums\RolePermission;
     use App\Enums\UserRole;
 @endphp
-@section('title')
-    profile | {{$user->role->name??'N/A'}}
-@endsection
 @section('content_header')
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Profile</h1>
+                <h1>{{$title}}</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -29,7 +26,7 @@
                     <div class="card-body box-profile">
                         <div class="d-flex align-items-center flex-column">
                             <div class="sw-13 position-relative mb-3">
-                                <x-avatar-edit :model="$user"/>
+                                <x-avatar :model="$user"/>
                             </div>
                             <div class="h5 mb-0">{{$user->name}}</div>
                             <div class="text-muted text-center">
@@ -133,26 +130,14 @@
                                         </div>
                                     </div>
                                 @endcan
-                                @if ($user->hasVerifiedEmail())
-                                    <div class="form-group row">
-                                        <label for="role_id" class="col-md-4 col-form-label text-md-right"></label>
-
-                                        <div class="col-md-6">
-                                            <a href="{{ route('users.password.autoreset',$user) }}"
-                                               class="btn btn-warning btn-sm">
-                                                <i class="fa fa-key"></i> {{ __('Reset Password') }}
-                                            </a>
-                                        </div>
-                                    </div>
-                                @endif
-
-
                                 <hr hidden>
                                 <div class="card-footer">
-
-                                    <a href="{{route('users.index')}}" class="btn btn-outline-primary btn-sm">
-                                        <i class="fa fa-chevron-left"></i>
-                                    </a>
+                                    @if ($user->hasVerifiedEmail())
+                                        <a href="{{ route('users.password.autoreset',$user) }}"
+                                           class="btn btn-warning btn-sm">
+                                            <i class="fa fa-key"></i> {{ __('Reset Password') }}
+                                        </a>
+                                    @endif
                                     @can('users.create')
                                         <button type="submit" class="btn btn-primary btn-sm float-right">
                                             <i class="fa fa-save"></i> {{__('Save')}}

@@ -14,7 +14,7 @@
         <div class="col-6">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('scolarite') }}">Accueil</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('scolarite.responsables') }}">Responsables</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('scolarite.responsables.index') }}">Responsables</a></li>
                 <li class="breadcrumb-item active">{{$responsable->nom}}</li>
             </ol>
         </div>
@@ -60,7 +60,8 @@
                                     <b>Nom : </b> <span class="float-right">{{ $responsable->nom }}</span>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Sexe : </b> <span class="float-right">{{ strtoupper($responsable->sexe->value) }}</span>
+                                    <b>Sexe : </b> <span
+                                        class="float-right">{{ strtoupper($responsable->sexe->value) }}</span>
                                 </li>
                                 <li class="list-group-item">
                                     <b>Phone : </b> <span class="float-right"><a
@@ -68,7 +69,9 @@
                                 </li>
                                 <li class="list-group-item">
                                     <b>E-mail : </b> <span class="float-right"><a
-                                            href="mailto:{{ $responsable->email }}">{{ $responsable->email }}</a>@if($responsable->user != null) <span class="ml-4 fa fa-thumbs-up"></span> @endif  </span>
+                                            href="mailto:{{ $responsable->email }}">{{ $responsable->email }}</a>@if($responsable->user != null)
+                                            <span class="ml-4 fa fa-thumbs-up"></span>
+                                        @endif  </span>
                                 </li>
                                 <li class="list-group-item">
                                     <b>Enfants : </b> <span
