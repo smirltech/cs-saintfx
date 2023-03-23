@@ -43,6 +43,7 @@ enum UserRole: string
                 RolePermission::users_all->value,
                 RolePermission::rayons_all->value,
                 RolePermission::consommables_all->value,
+                RolePermission::ouvrages_all->value,
                 RolePermission::depenses_all->value,
                 RolePermission::frais_all->value,
                 RolePermission::mouvements_all->value,
