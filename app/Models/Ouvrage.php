@@ -68,7 +68,7 @@ class Ouvrage extends Model
             foreach ($auteurs as $auteur) {
                 $this->ouvrageAuteurs()->create([
                     'auteur_id' => $auteur,
-                    'ouvrage_id' => $this->id,
+                    //    'ouvrage_id' => $this->id,
                 ]);
             }
         }
