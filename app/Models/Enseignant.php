@@ -2,29 +2,24 @@
 
 namespace App\Models;
 
-use App\Helpers\Helpers;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use SmirlTech\LaravelMedia\Traits\HasAvatar;
 
 class Enseignant extends Model
 {
-    use HasFactory, HasUlids;
+    use HasFactory, HasUlids, HasAvatar;
 
     public $guarded = [];
 
     // section
-    public function section()
+    public function section(): BelongsTo
     {
         return $this->belongsTo(Section::class);
-    }
-
-    // avatar
-    public function getAvatarAttribute()
-    {
-        return Helpers::fetchAvatar($this->nom);
     }
 
     // classes
@@ -34,14 +29,14 @@ class Enseignant extends Model
         return $this->classes()->where('annee_id', Annee::encours()->id)->first();
     }
 
-    public function classes()
+    public function classes(): BelongsToMany
     {
         return $this->belongsToMany(Classe::class, 'classe_enseignants');
     }
 
     // get cours of a classe to array
 
-    public function coursOfClasse($classe_id)
+    public function coursOfClasse($classe_id): array
     {
         $cours = $this->cours($classe_id)->get();
         $cours_array = [];

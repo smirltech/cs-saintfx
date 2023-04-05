@@ -38,8 +38,7 @@
                         </div>
                         <div class="card-body box-profile">
                             <div class="text-center">
-                                <img class="profile-user-img img-fluid img-circle mb-2"
-                                     src="{{$enseignant->avatar}}" alt="User profile picture">
+                                <x-media::avatar edit :model="$enseignant"/>
                             </div>
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
