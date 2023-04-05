@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Scolarite\Enseignant;
 
-use App\Enums\Sexe;
 use App\Http\Livewire\BaseComponent;
 use App\Models\Enseignant;
 use App\Models\Section;
@@ -12,7 +11,6 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Date;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use JetBrains\PhpStorm\NoReturn;
 
@@ -33,6 +31,7 @@ class EnseignantCreateComponent extends BaseComponent
         'enseignant.section_id.required' => 'La section est requise',
         'enseignant.lieu_naissance.required' => 'Le lieu de naissance est obligatoire',
         'enseignant.date_naissance.required' => 'La date de naissance est obligatoire',
+        'enseignant.date_naissance.before' => 'L\'âge doit être supérieur à 18 ans',
     ];
 
     #[NoReturn] public function submit(): void
@@ -51,12 +50,12 @@ class EnseignantCreateComponent extends BaseComponent
         $this->enseignant = new Enseignant();
         $this->sections = Section::all();
 
-        if (app()->isLocal()) {
-            $this->enseignant->date_naissance = Date::create(1999, 1, 1)->format('Y-m-d');
-            $this->enseignant->lieu_naissance = 'Yaound';
-            $this->enseignant->sexe = Sexe::f;
-            $this->enseignant->section_id = $this->sections->first()->id;
-        }
+        /* if (app()->isLocal()) {
+             $this->enseignant->date_naissance = Date::create(1999, 1, 1)->format('Y-m-d');
+             $this->enseignant->lieu_naissance = 'Yaound';
+             $this->enseignant->sexe = Sexe::f;
+             $this->enseignant->section_id = $this->sections->first()->id;
+         }*/
     }
 
     public function render(): View|\Illuminate\Foundation\Application|Factory|Application

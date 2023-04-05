@@ -13,8 +13,8 @@ use App\Models\Section;
 use App\Traits\CanHandleClasseCode;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
+use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
 
 class ClasseEditComponent extends BaseComponent
 {
@@ -46,10 +46,16 @@ class ClasseEditComponent extends BaseComponent
 
     public function mount(Classe $classe)
     {
-        $this->authorize('update', $classe);
+        if ($classe->id) {
+            $this->authorize("update", $classe);
+        } else {
+            $this->authorize("create", Classe::class);
+        }
+
+
         $this->classe = $classe;
         $this->enseignant_id = $this->classe->enseignant_id;
-        $this->grade = $this->classe->grade->value;
+        $this->grade = $this->classe?->grade?->value;
         $this->code = $this->classe->code;
         $this->loadFilieresData();
         $classable = $classe->filierable;
@@ -78,6 +84,7 @@ class ClasseEditComponent extends BaseComponent
 
     public function submit()
     {
+        $_id = $this->classe->id;
         $this->validate();
 
 
@@ -109,8 +116,11 @@ class ClasseEditComponent extends BaseComponent
             );
         }
 
-
-        $this->alert('success', 'Classe modifiée avec succès');
+        if ($_id) {
+            $this->success('Classe modifiée avec succès');
+        } else {
+            $this->flashSuccess('Classe ajoutée avec succès', route('scolarite.classes.index'));
+        }
 
     }
 
@@ -120,11 +130,22 @@ class ClasseEditComponent extends BaseComponent
             ->layout(AdminLayout::class, ['title' => 'Modification de la classe']);
     }
 
-    public function changeSection()
+    public function updatedGrade($value)
     {
-        if ($this->section_id > 0) {
-            $section = Section::find($this->section_id);
+        $this->setCode();
+    }
 
+    public function updatedCode($value)
+    {
+        $this->validate([
+            'code' => 'required|unique:classes,code,' . $this->classe->id,
+        ]);
+    }
+
+    public function updatedSectionId($value)
+    {
+        $section = Section::find($this->section_id);
+        if ($section) {
             $this->options = $section->options;
             if (count($this->options) > 0) {
                 $option = $this->options[0];
@@ -149,11 +170,10 @@ class ClasseEditComponent extends BaseComponent
         $this->setCode();
     }
 
-    public function changeOption()
+    public function updatedOptionId($value)
     {
-        if ($this->option_id > 0) {
-            $option = Option::find($this->option_id);
-            //$this->setCode();
+        $option = Option::find($this->option_id);
+        if ($option) {
             $this->filieres = $option->filieres;
             if (count($this->filieres) > 0) {
                 $this->filiere_id = null;
@@ -175,9 +195,11 @@ class ClasseEditComponent extends BaseComponent
             'grade' => "required",
             'code' => [
                 "required",
-                //  Rule::unique((new Classe())->getTable(), "code")->ignore($this->classe->id)
+                Rule::unique((new Classe())->getTable(), "code")->ignore($this->classe->id)
             ],
             'section_id' => 'required',
+            'option_id' => 'nullable',
+            'filiere_id' => 'nullable',
             'enseignant_id' => 'nullable',
         ];
     }
