@@ -57,30 +57,32 @@
                                     @endforeach
                                 </x-form::select>
                             </div>
-                            <div class="form-group col-md-4">
-                                <x-form::select
-                                    refresh
-                                    wire:model="option_id"
-                                    label="Option"
-                                    class="form-control">
-                                    @foreach ($options as $option )
-                                        <option value="{{ $option->id }}">{{ $option->nom }}</option>
-                                    @endforeach
-                                </x-form::select>
+                            @if($section_id==3)
+                                <div class="form-group col-md-4">
+                                    <x-form::select
+                                        refresh
+                                        wire:model="option_id"
+                                        label="Option"
+                                        class="form-control">
+                                        @foreach ($options as $option )
+                                            <option value="{{ $option->id }}">{{ $option->nom }}</option>
+                                        @endforeach
+                                    </x-form::select>
 
-                            </div>
-                            <div class="form-group col-md-4">
-                                <x-form::select
-                                    label="Filière"
-                                    refresh
-                                    wire:change="setCode"
-                                    wire:model="filiere_id">
-                                    @foreach ($filieres as $filiere )
-                                        <option value="{{ $filiere->id }}">{{ $filiere->nom }}</option>
-                                    @endforeach
-                                </x-form::select>
-                            </div>
-                            @if($classe->section?->primaire())
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <x-form::select
+                                        label="Filière"
+                                        refresh
+                                        wire:change="setCode"
+                                        wire:model="filiere_id">
+                                        @foreach ($filieres as $filiere )
+                                            <option value="{{ $filiere->id }}">{{ $filiere->nom }}</option>
+                                        @endforeach
+                                    </x-form::select>
+                                </div>
+                            @endif
+                            @if($section_id==1 or $section_id==2)
                                 <div class="form-group col-md-4">
                                     <x-form::select
                                         wire:model="enseignant_id"
