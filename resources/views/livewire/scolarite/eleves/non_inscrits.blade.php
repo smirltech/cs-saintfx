@@ -28,7 +28,7 @@
                 $eleve->matricule,
                 $eleve->fullName,
                 $eleve->sexe->value??'',
-                $eleve->date_naissance->age??'',
+                $eleve->age??'',
                 $eleve->responsable_eleve?->responsable?->nom??'',
                 $eleve->responsable_eleve?->relation?->label()??'',
                 $eleve,

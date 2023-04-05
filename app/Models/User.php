@@ -113,7 +113,7 @@ class User extends Authenticatable
         return $this->roles->first();
     }
 
-    public function setPasswordAttribute($value)
+    public function setPasswordAttribute($value): void
     {
         $this->attributes['password'] = Hash::make($value);
     }
@@ -122,7 +122,7 @@ class User extends Authenticatable
 
     // display permissions attribute
 
-    public function setRoleIdAttribute($role_id)
+    public function setRoleIdAttribute($role_id): void
     {
         $this->syncRoles($role_id);
     }

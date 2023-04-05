@@ -8,11 +8,13 @@ use App\Models\Enseignant;
 use App\Models\Section;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Date;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use JetBrains\PhpStorm\NoReturn;
-use Livewire\Component;
 
 class EnseignantCreateComponent extends BaseComponent
 {
@@ -33,7 +35,7 @@ class EnseignantCreateComponent extends BaseComponent
         'enseignant.date_naissance.required' => 'La date de naissance est obligatoire',
     ];
 
-    #[NoReturn] public function submit()
+    #[NoReturn] public function submit(): void
     {
         $this->validate();
 
@@ -43,7 +45,7 @@ class EnseignantCreateComponent extends BaseComponent
         $this->flash('success', 'Enseignant ajoutée avec succès', [], route('scolarite.enseignants.index'));
     }
 
-    public function mount()
+    public function mount(): void
     {
         $this->authorize("create", Enseignant::class);
         $this->enseignant = new Enseignant();
@@ -57,7 +59,7 @@ class EnseignantCreateComponent extends BaseComponent
         }
     }
 
-    public function render()
+    public function render(): View|\Illuminate\Foundation\Application|Factory|Application
     {
 
         $data = ['title' => 'Ajout d\'un enseignant'];

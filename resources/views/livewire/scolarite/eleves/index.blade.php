@@ -25,7 +25,7 @@ $data=[];
                 $eleve->matricule,
                 $eleve->full_name,
                 $eleve->sexe?->label(),
-                $eleve->date_naissance->age??'',
+                $eleve->age??'',
                 $eleve->inscription?$eleve->inscription->annee?->id==Annee::id() ? $eleve->classe?->code: $eleve->classe?->code.' ('.$eleve->inscription?->annee->name.')':'',
                   '<a href="' . route("scolarite.responsables.show",$eleve->responsable_eleve->responsable??'0').'">' .$eleve->responsable_eleve?->responsable?->nom. '</a>',
              /*   $eleve->inscription?->status? '<a href="'.route('scolarite.inscriptions.status',['status'=>$eleve->inscription?->status->name]).'"><span class="badge bg-gradient-'.$eleve->inscription?->status->variant().'">'. $eleve->inscription?->status->label(Sexe::f).'</span></a>':'',*/
