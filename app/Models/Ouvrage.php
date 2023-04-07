@@ -61,12 +61,15 @@ class Ouvrage extends Model
             $this->media->each->delete();
     }
 
-    public function setAuteursAttribute(?array $value): void
+    public function setAuteursAttribute(?array $auteurs): void
     {
         $this->ouvrageAuteurs()->delete();
-        if ($value) {
-            foreach ($value as $auteur) {
-                $this->ouvrageAuteurs()->create(['auteur_id' => $auteur]);
+        if ($auteurs) {
+            foreach ($auteurs as $auteur) {
+                $this->ouvrageAuteurs()->create([
+                    'auteur_id' => $auteur,
+                    //    'ouvrage_id' => $this->id,
+                ]);
             }
         }
     }
@@ -108,25 +111,16 @@ class Ouvrage extends Model
         return false;
     }
 
-    public function getPdf()
-    {
-        foreach ($this->media as $media) {
-            if ($media->mime_type === 'application/pdf') {
-                return $media;
-            }
-        }
-        return null;
-    }
     public function getPdfUrlAttribute(): string
     {
 
         return $this->getPdf()?->url ?? '';
     }
 
-    public function getImage()
+    public function getPdf()
     {
         foreach ($this->media as $media) {
-            if (str_starts_with($media->mime_type, 'image/')) {
+            if ($media->mime_type === 'application/pdf') {
                 return $media;
             }
         }
@@ -137,6 +131,16 @@ class Ouvrage extends Model
     {
 
         return $this->getImage()?->url ?? '';
+    }
+
+    public function getImage()
+    {
+        foreach ($this->media as $media) {
+            if (str_starts_with($media->mime_type, 'image/')) {
+                return $media;
+            }
+        }
+        return null;
     }
 
 

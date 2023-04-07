@@ -110,7 +110,7 @@
                                                 <td>{{ $responsable_eleve->eleve->code??'' }}</td>
                                                 <td>{{ $responsable_eleve->eleve->fullName??'' }}</td>
                                                 <td>{{ $responsable_eleve->eleve->sexe??'' }}</td>
-                                                <td>{{ $responsable_eleve->eleve->date_naissance->age??'' }}</td>
+                                                <td>{{ $responsable_eleve->eleve->age??'' }}</td>
                                                 <td>{{ $responsable_eleve->eleve->telephone??'' }}</td>
                                                 <td>{{ $responsable_eleve->eleve->email??'' }}</td>
                                                 <td>{{ $responsable_eleve?->relation?->reverse($responsable_eleve->eleve->sexe??'')??'' }}

@@ -209,8 +209,15 @@ class Eleve extends Model
         return $this->inscription?->devoirs ?? new Collection();
     }
 
-    public function getDateNaissanceAttribute($value): Carbon
+
+//TODO: if uncommented, the date is not displayed in livewire date input
+    /* public function getDateNaissanceAttribute($value): Carbon
+     {
+         return Carbon::parse($value)->age;
+     }*/
+
+    public function getAgeAttribute($value): int
     {
-        return Carbon::parse($value);
+        return Carbon::parse($value)->age;
     }
 }

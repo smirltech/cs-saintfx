@@ -130,7 +130,7 @@ class EleveShowComponent extends BaseComponent
         $this->eleve_nom = $this->eleve->nom;
         $this->eleve_sexe = $this->eleve->sexe;
         $this->eleve_lieu_naissance = $this->eleve->lieu_naissance;
-        $this->eleve_date_naissance = $this->eleve->date_naissance->format('Y-m-d');
+        $this->eleve_date_naissance = $this->eleve->date_naissance;
         $this->eleve_adresse = $this->eleve->adresse;
         $this->eleve_email = $this->eleve->email;
         $this->eleve_telephone = $this->eleve->telephone;

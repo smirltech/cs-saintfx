@@ -64,6 +64,8 @@ class OuvrageCreateComponent extends Component
     #[NoReturn] public function submit(): void
     {
         $id = $this->ouvrage->id;
+        $this->ouvrage->save();
+
         $this->ouvrage->auteurs = $this->ouvrage_auteurs;
         $this->ouvrage->tags = $this->ouvrage_tags;
         $this->ouvrage->save();

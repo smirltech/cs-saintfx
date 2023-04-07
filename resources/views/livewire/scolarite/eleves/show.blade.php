@@ -95,7 +95,7 @@
                                     <hr>
                                     <strong><i class="fas fa-calendar-alt mr-1"></i> Date de naissance</strong>
                                     <p class="text-muted">
-                                        {{$eleve->date_naissance?->format('d/m/Y')??''}}
+                                        {{$eleve->date_naissance??''}}
                                         <strong
                                             class="float-right badge bg-gradient-info">{{Carbon::now()->diffInYears($eleve->date_naissance)}}
                                             ans</strong>

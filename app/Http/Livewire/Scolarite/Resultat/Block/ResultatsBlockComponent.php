@@ -53,13 +53,13 @@ class ResultatsBlockComponent extends Component
 
     }
 
-    public function selectResultatType()
+    public function selectResultatType(): void
     {
         $this->resultatType = ResultatType::from($this->resultatTypeValue);
         //  $this->loadData();
     }
 
-    private function initResultat()
+    private function initResultat(): void
     {
         $this->resultat = new Resultat();
         $this->resultat->annee_id = Annee::id();
@@ -68,12 +68,12 @@ class ResultatsBlockComponent extends Component
 
     }
 
-    private function initInscription()
+    private function initInscription(): void
     {
         $this->inscription = new Inscription();
     }
 
-    public function selectInscription($id)
+    public function selectInscription($id): void
     {
         $this->inscription = Inscription::find($id);
         $temp = $this->inscription->resultats()->where('custom_property', $this->resultatType)->first();
@@ -91,12 +91,12 @@ class ResultatsBlockComponent extends Component
         return view('livewire.scolarite.resultats.blocks.list');
     }
 
-    public function loadData()
+    public function loadData(): void
     {
         $this->inscriptions = $this->classe->inscriptionsAsOfPlaceOfResultats($this->resultatType);
     }
 
-    public function updateResultat()
+    public function updateResultat(): void
     {
         $this->validate();
         $this->resultat->custom_property = $this->resultatType->value;
@@ -131,7 +131,7 @@ class ResultatsBlockComponent extends Component
 
     }
 
-    public function onModalClosing($modalId)
+    public function onModalClosing($modalId): void
     {
         $this->dispatchBrowserEvent('closeModal', ['modal' => $modalId]);
         $this->initResultat();
@@ -141,7 +141,7 @@ class ResultatsBlockComponent extends Component
         //$this->reset(['nom', 'description', 'montant', 'classable_type', 'classable_id']);
     }
 
-    public function printIt()
+    public function printIt(): void
     {
         $this->loadData();
         $this->dispatchBrowserEvent('printIt', ['elementId' => "resultatsPrint", 'type' => 'html', 'maxWidth' => '100%']);

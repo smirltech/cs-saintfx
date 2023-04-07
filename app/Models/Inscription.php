@@ -96,10 +96,10 @@ class Inscription extends Model
         return $this->hasMany(Presence::class);
     }
 
-    /*public function annee(): BelongsTo
+    public function annee(): BelongsTo
     {
         return $this->belongsTo(Annee::class);
-    }*/
+    }
 
     public function media(): MorphMany
     {

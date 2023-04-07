@@ -21,7 +21,7 @@ Route::prefix('scolarite')->middleware(['auth:web'])->as('scolarite.')->group(fu
     Route::get('filieres', Scolarite\Filiere\FiliereIndexComponent::class)->name('filieres');
 
 // Classe
-    Route::get('classes/create', Scolarite\Classe\ClasseCreateComponent::class)->name('classes.create');
+    Route::get('classes/create', Scolarite\Classe\ClasseEditComponent::class)->name('classes.create');
     Route::get('classes/{classe}/edit', Scolarite\Classe\ClasseEditComponent::class)->name('classes.edit');
     Route::get('classes/{classe}', Scolarite\Classe\ClasseShowComponent::class)->name('classes.show');
     Route::get('classes', Scolarite\Classe\ClasseIndexComponent::class)->name('classes.index');
