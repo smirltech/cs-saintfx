@@ -365,7 +365,7 @@
                                                                         {{-- role="button"--}} class="bg-green"
                                                                         {{--data-toggle="modal"
                                                                         data-target="#edit-inscription-modal"--}}
-                                                                    >{{$inscription->classe->shortCode}} ({{$inscription->annee->nom}})</span>
+                                                                    >{{$inscription?->classe?->shortCode}} ({{$inscription?->annee?->nom}})</span>
                                                     </div>
 
                                                     <div>

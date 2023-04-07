@@ -48,9 +48,6 @@ class Eleve extends Model
         });
     }
 
-
-    // route model binding
-
     /** generate matricule
      * // {annee}{section_id}{count on section+1}
      * //ex: 2022010001
@@ -68,6 +65,14 @@ class Eleve extends Model
         $second_part = Str::padLeft($count, 4, '0');
 
         return $first_part . $second_part;
+    }
+
+
+    // route model binding
+
+    public function getIncrementing(): bool
+    {
+        return false;
     }
 
     /**
