@@ -23,22 +23,34 @@
 @endsection
 
 @section('footer')
-    <strong>Copyright© {{ date('Y') }} CENK</strong>
+    <strong>Copyright© {{ date('Y') }} {{config('app.name')}}</strong>
     {{__('All rights reserved.')}}
     <div class="float-right d-none d-sm-inline-block">
-        <b>Version</b> {{App\Helpers\Helpers::$appVersion}} | {{date('d.m.Y H:i')}}
+        {{date('d.m.Y H:i')}}
     </div>
 @stop
-
 @push('css')
-    @include('analytics')
-@endpush
+    {{-- @vite(['resources/sass/admin.scss', 'resources/js/admin.js'])--}}
+    <link rel="stylesheet" href="{{mix('css/app.css')}}">
+    <style>
+        .sidebar-dark-primary {
+            background-color: var(--dark) !important;
+        }
 
+        .sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link {
+            color: var(--white) !important;
+        }
+
+        .sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active {
+            background-color: var(--primary) !important;
+        }
+    </style>
+@endpush
 @push('js')
+    <script defer src="{{mix('js/app.js')}}"></script>
     <livewire:modals/>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <x-livewire-alert::scripts/>
     <x-livewire-alert::flash/>
-    <script src="{{ mix('js/app.js') }}"></script>
     <x-modals::scripts/>
 @endpush

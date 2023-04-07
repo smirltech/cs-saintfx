@@ -13,6 +13,7 @@ Route::prefix('finance')->middleware(['auth:web'])->as('finance.')->group(functi
     Route::get('revenus', Finance\Revenu\RevenuIndexComponent::class)->name('revenus');
 
     //Depense
+    Route::get('depenses/create', Finance\Depenses\DepenseCreateComponent::class)->name('depenses.create');
     Route::get('depenses', Finance\Depenses\DepenseIndexComponent::class)->name('depenses');
 
     Route::get('depense-types', Finance\DepenseType\DepenseTypeIndexComponent::class)->name('depense-types');

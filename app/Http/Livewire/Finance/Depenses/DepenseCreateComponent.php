@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Collection;
 use LaravelIdea\Helper\App\Models\_IH_DepenseType_C;
 use Livewire\Component;
 
-class DepenseCreateModal extends Component
+class DepenseCreateComponent extends Component
 {
 
     /**
@@ -25,12 +25,20 @@ class DepenseCreateModal extends Component
 
     public function render(): View|\Illuminate\Foundation\Application|Factory|Application
     {
-        return view('livewire.finance.depenses.depense-create-modal');
+        return view('livewire.finance.depenses.depense-create-component');
     }
 
     // submit
     public function submit(): void
     {
         $this->validate();
+    }
+
+    protected function rules(): array
+    {
+        return [
+            'depense.type_id' => 'required',
+            'depense.montant' => 'required',
+        ];
     }
 }
