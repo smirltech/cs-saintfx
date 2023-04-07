@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,6 +18,7 @@ return new class extends Migration {
             $table->json('mere')->nullable();
             $table->string('adresse')->nullable();
             $table->string('email')->nullable();
+            $table->foreignIdFor(User::class, 'user_id')->nullable()->constrained('users', 'id')->restrictOnDelete();
             $table->string('telephone')->nullable();
             $table->string('numero_permanent')->nullable()->unique()->comment('Numéro permanent de l\'élève attribue par le ministère de l\'education');
             $table->timestamps();
