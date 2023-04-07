@@ -7,7 +7,6 @@ use App\Helpers\Helpers;
 use App\Traits\HasAvatar;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -20,7 +19,7 @@ use Str;
 
 class Eleve extends Model
 {
-    use HasFactory, HasUlids, HasAvatar;
+    use HasFactory, HasAvatar;
 
     public $guarded = [];
     protected $casts = [
@@ -38,9 +37,6 @@ class Eleve extends Model
         })->get();
     }
 
-
-    // route model binding
-
     protected static function booted(): void
     {
         static::saving(function (self $model) {
@@ -51,6 +47,9 @@ class Eleve extends Model
             unset($model->section_id);
         });
     }
+
+
+    // route model binding
 
     /** generate matricule
      * // {annee}{section_id}{count on section+1}
@@ -69,6 +68,14 @@ class Eleve extends Model
         $second_part = Str::padLeft($count, 4, '0');
 
         return $first_part . $second_part;
+    }
+
+    /**
+     * @return string
+     */
+    public function getKeyType(): string
+    {
+        return $this->keyType;
     }
 
     public function user(): BelongsTo|null

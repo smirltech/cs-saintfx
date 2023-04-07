@@ -5,7 +5,13 @@
     <x-form::validation-errors class="mb-4" :errors="$errors"/>
     <div class="row">
         <div class="form-group col-md-12 col-sm-12">
+            @if($presence_eleve)
+                <div>
+                    <x-media::avatar :model="$presence_eleve" size="150" class="mr-2"/>
+                </div>
+            @endif
             <label for="">Élève </label>
+
             <x-form::select refresh wire:model="presence.inscription_id"
                             class="form-control">
                 @foreach ($nonInscriptions as $es )
