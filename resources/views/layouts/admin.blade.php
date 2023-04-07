@@ -13,10 +13,9 @@
         <div class="col-6">
             <ol class="breadcrumb float-right">
                 @foreach($breadcrumbs??[] as $breadcrumb)
+                    <li class="breadcrumb-item"><a href="{{$breadcrumb['url']}}">{{$breadcrumb['label']}}</a></li>
                     @if($loop->last)
-                        <li class="breadcrumb-item active">{{$breadcrumb['label']}}</li>
-                    @else
-                        <li class="breadcrumb-item"><a href="{{$breadcrumb['url']}}">{{$breadcrumb['label']}}</a></li>
+                        <li class="breadcrumb-item active">{{$title}}</li>
                     @endif
                 @endforeach
             </ol>

@@ -33,7 +33,6 @@ class DepenseCreateComponent extends Component
             'icon' => 'money-bill-wave',
             'breadcrumbs' => [
                 ['url' => route('finance.depenses'), 'label' => 'Dépenses'],
-                ['url' => route('finance.depenses.create'), 'label' => 'Nouvelle dépense'],
             ],
         ]);
     }
