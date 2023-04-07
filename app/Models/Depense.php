@@ -22,7 +22,7 @@ class Depense extends Model
 
     protected $with = ['user'];
 
-    public static function dataOfLast($days = 7)
+    public static function dataOfLast($days = 7): array
     {
         $data = [];
         for ($i = $days - 1; $i >= 0; $i--) {
@@ -32,16 +32,6 @@ class Depense extends Model
         return $data;
     }
 
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    public function type(): BelongsTo
-    {
-        return $this->belongsTo(DepenseType::class,'depense_type_id');
-    }
-
     public static function sommeBetween($annee_id, $ddebut, $dfin)
     {
         $debut = Carbon::parse($ddebut)->startOfDay();
@@ -49,7 +39,7 @@ class Depense extends Model
         return self::where('annee_id', $annee_id)->whereBetween('created_at', [$debut, $fin])->sum('montant');
     }
 
-    public static function sommeDepensesByTypeBetween(int $annee_id, $ddebut, $dfin)
+    public static function sommeDepensesByTypeBetween(int $annee_id, $ddebut, $dfin): array
     {
         $debut = Carbon::parse($ddebut)->startOfDay();
         $fin = Carbon::parse($dfin)->endOfDay();
@@ -60,5 +50,15 @@ class Depense extends Model
         }
 
         return $data;
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function type(): BelongsTo
+    {
+        return $this->belongsTo(DepenseType::class, 'depense_type_id');
     }
 }
