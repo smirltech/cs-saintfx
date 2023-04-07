@@ -29,3 +29,16 @@
         <b>Version</b> {{App\Helpers\Helpers::$appVersion}} | {{date('d.m.Y H:i')}}
     </div>
 @stop
+
+@push('css')
+    @include('analytics')
+@endpush
+
+@push('js')
+    <livewire:modals/>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <x-livewire-alert::scripts/>
+    <x-livewire-alert::flash/>
+    <script src="{{ mix('js/app.js') }}"></script>
+    <x-modals::scripts/>
+@endpush
