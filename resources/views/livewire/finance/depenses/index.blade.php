@@ -49,7 +49,6 @@
 
 @stop
 <div wire:ignore.self class="">
-    <livewire:finance.depenses.depense-create-modal/>
     @include('livewire.finance.depenses.modals.crud')
 
     <div class="content mt-3">
@@ -63,10 +62,10 @@
                             </div>
                             <div class="card-tools d-flex my-auto">
                                 @can('depenses.create')
-                                    <button type="button"
-                                            onclick="showModal('finance.depenses.depense-create-modal')"
-                                            class="btn btn-primary  ml-2"><span
-                                            class="fa fa-plus"></span></button>
+                                    <a href="{{ route('finance.depenses.create') }}"
+                                       type="button"
+                                       class="btn btn-primary  ml-2"><span
+                                            class="fa fa-plus"></span></a>
                                 @endcan
                             </div>
                         </div>
