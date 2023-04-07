@@ -6,7 +6,7 @@
     <div class="row">
         <div class="form-group col-md-12 col-sm-12">
             <label for="">Élève </label>
-            <x-form::select wire:model="presence.inscription_id"
+            <x-form::select refresh wire:model="presence.inscription_id"
                             class="form-control">
                 @foreach ($nonInscriptions as $es )
                     <option value="{{$es->id}}">{{$es->nomComplet}}</option>

@@ -218,6 +218,11 @@ enum RolePermission: string
 
     //------------------ ./Users ---------------- //
 
+    //------------------ Presences ---------------- //
+    case presences_all = 'presences.*';
+
+    //------------------ Cotisations ---------------- //
+    case cotisations_all = 'cotisations.*';
 
     public function label(): string
     {

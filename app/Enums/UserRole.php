@@ -50,6 +50,7 @@ enum UserRole: string
                 RolePermission::revenus_all->value,
                 RolePermission::depense_types_all->value,
                 RolePermission::eleves_all->value,
+                RolePermission::presences_all->value,
             ],
             self::enseignant => [
                 RolePermission::devoirs_all->value,
