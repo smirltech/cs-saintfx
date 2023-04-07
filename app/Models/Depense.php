@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Spatie\ModelStatus\HasStatuses;
 
 class Depense extends Model
 {
-    use HasFactory, HasUlids;
+    use HasFactory, HasUlids, HasStatuses;
 
     public $guarded = [];
     protected $casts = [

@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->ulid('id')->primary();
             $table->foreignIdFor(DepenseType::class)->constrained();
             $table->float('montant');
-            $table->mediumText('note')->nullable();
+            $table->text('note')->nullable();
             $table->string('reference')->nullable();
             $table->foreignIdFor(Annee::class)->constrained();
             $table->foreignIdFor(User::class)->constrained();

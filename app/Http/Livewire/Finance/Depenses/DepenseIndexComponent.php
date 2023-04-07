@@ -1,9 +1,7 @@
 <?php
 
-namespace App\Http\Livewire\Finance\Depense;
+namespace App\Http\Livewire\Finance\Depenses;
 
-use App\Enums\DepenseCategorie;
-use App\Http\Integrations\Scolarite\Requests\Annee\GetCurrentAnnneRequest;
 use App\Http\Livewire\BaseComponent;
 use App\Models\Annee;
 use App\Models\Depense;
@@ -12,7 +10,6 @@ use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Illuminate\Support\Facades\Auth;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
 
 class DepenseIndexComponent extends BaseComponent
 {
@@ -46,7 +43,7 @@ class DepenseIndexComponent extends BaseComponent
         $this->authorize('viewAny', Depense::class);
         $this->annee_id = Annee::id();
         $this->types = DepenseType::orderBy('nom')->get();
-        $this->type = $this->types[0]??new DepenseType();
+        $this->type = $this->types[0] ?? new DepenseType();
     }
 
     public function render()
@@ -93,7 +90,7 @@ class DepenseIndexComponent extends BaseComponent
     public function onModalClosed()
     {
         $this->clearValidation();
-        $this->reset([ 'montant', 'note', 'reference']);
+        $this->reset(['montant', 'note', 'reference']);
     }
 
     public function getSelectedDepense($depense_id)

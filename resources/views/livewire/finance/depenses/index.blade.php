@@ -1,5 +1,5 @@
 @php
-    $heads =[
+    use App\Helpers\Helpers;$heads =[
         ['label'=>'DATE', 'width'=>10],
         'TYPE',
         'MONTANT',
@@ -13,7 +13,7 @@
         $data[] =[
             $depense->created_at->format('d-m-Y'),
             $depense->type->nom,
-            \App\Helpers\Helpers::currencyFormat($depense->montant, symbol: 'Fc'),
+            Helpers::currencyFormat($depense->montant, symbol: 'Fc'),
             $depense->note,
             $depense->reference,
             $depense->user->name,
@@ -49,6 +49,7 @@
 
 @stop
 <div wire:ignore.self class="">
+    <livewire:finance.depenses.depense-create-modal/>
     @include('livewire.finance.depenses.modals.crud')
 
     <div class="content mt-3">
@@ -63,8 +64,8 @@
                             <div class="card-tools d-flex my-auto">
                                 @can('depenses.create')
                                     <button type="button"
-                                            class="btn btn-primary  ml-2" data-toggle="modal"
-                                            data-target="#add-depense-modal"><span
+                                            onclick="showModal('finance.depenses.depense-create-modal')"
+                                            class="btn btn-primary  ml-2"><span
                                             class="fa fa-plus"></span></button>
                                 @endcan
                             </div>
