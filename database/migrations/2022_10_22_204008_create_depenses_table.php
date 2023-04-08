@@ -15,7 +15,9 @@ return new class extends Migration {
             $table->foreignIdFor(DepenseType::class)->constrained();
             $table->float('montant');
             $table->text('note')->nullable();
+            $table->date('date')->nullable();
             $table->string('reference')->nullable();
+            $table->json('reviewers')->nullable();
             $table->foreignIdFor(Annee::class)->constrained();
             $table->foreignIdFor(User::class)->constrained();
             $table->timestamps();

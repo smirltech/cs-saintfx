@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Finance\Depenses;
 
+use App\Http\Livewire\BaseComponent;
 use App\Models\Depense;
 use App\Models\DepenseType;
 use Illuminate\Contracts\Foundation\Application;
@@ -9,9 +10,8 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use LaravelIdea\Helper\App\Models\_IH_DepenseType_C;
-use Livewire\Component;
 
-class DepenseCreateComponent extends Component
+class DepenseCreateComponent extends BaseComponent
 {
 
     /**
@@ -32,7 +32,7 @@ class DepenseCreateComponent extends Component
             'title' => 'Nouvelle dépense',
             'icon' => 'money-bill-wave',
             'breadcrumbs' => [
-                ['url' => route('finance.depenses'), 'label' => 'Dépenses'],
+                ['url' => route('finance.depenses.index'), 'label' => 'Dépenses'],
             ],
         ]);
     }
@@ -41,6 +41,9 @@ class DepenseCreateComponent extends Component
     public function submit(): void
     {
         $this->validate();
+        $this->depense->save();
+
+        $this->flashSuccess('Dépense enregistrée avec succès', route('finance.depenses.index'));
     }
 
     protected function rules(): array

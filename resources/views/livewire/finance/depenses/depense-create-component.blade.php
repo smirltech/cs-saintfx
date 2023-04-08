@@ -39,6 +39,7 @@
                                 rows="2"
                                 wire:model="depense.note"/>
                         </div>
+                        <x-form::button-primary icon="save" class="float-end" label="Enregistrer"/>
                     </form>
                 </div>
             </div>
