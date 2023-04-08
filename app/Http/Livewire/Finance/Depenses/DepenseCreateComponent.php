@@ -43,6 +43,7 @@ class DepenseCreateComponent extends BaseComponent
         $this->validate();
         $this->depense->save();
 
+
         $this->flashSuccess('Dépense enregistrée avec succès', route('finance.depenses.index'));
     }
 

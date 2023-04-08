@@ -53,6 +53,13 @@ class Depense extends Model
         return $data;
     }
 
+    protected static function booted(): void
+    {
+        self::created(function ($depense) {
+            $depense->user->notify(new DepenseCreated($depense));
+        });
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
