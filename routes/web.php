@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Livewire\Bibliotheque\Etiquette\EtiquetteIndexComponent;
 use App\Http\Livewire\Finance;
 use App\Http\Livewire\MainDashboardComponent;
+use App\Http\Livewire\Notification\NoficationIndexComponent;
 use App\Http\Livewire\Profile\UserEditComponent;
 use App\Http\Livewire\Roles;
 use Illuminate\Support\Facades\Auth;
@@ -50,7 +51,7 @@ Auth::routes([
 ]);
 
 Route::get('notifications/get', [NotificationController::class, 'getNotificationsData'])->name('notifications.get');
-Route::get('notifications', [NotificationController::class, 'index'])->name('notifications.index');
+Route::get('notifications', NoficationIndexComponent::class)->name('notifications.index');
 
 
 //Scolarite

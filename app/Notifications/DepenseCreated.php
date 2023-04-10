@@ -48,6 +48,7 @@ class DepenseCreated extends Notification
     public function toArray(object $notifiable): array
     {
         return [
+            'title' => 'Finance',
             'message' => 'Une nouvelle dépense a été créée',
             'link' => route('finance.depenses.show', $this->depense),
         ];

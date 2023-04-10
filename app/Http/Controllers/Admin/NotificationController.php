@@ -30,7 +30,7 @@ class NotificationController
                        {$notification->created_at->diffForHumans()}
                      </span>";
 
-            $text = Str::limit($notification->data['message'], 30);
+            $text = Str::limit($notification->data['message'] ?? '', 30);
             //$url = $notification->data['url'];
 
 
@@ -57,7 +57,7 @@ class NotificationController
     public function index()
     {
         $notifications = Auth::user()->notifications;
-        //return view('admin.notifications.index', compact('notifications'));
+        return view('notifications.index', compact('notifications'));
     }
 
 }

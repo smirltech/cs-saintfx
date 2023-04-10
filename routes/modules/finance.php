@@ -14,6 +14,7 @@ Route::prefix('finance')->middleware(['auth:web'])->as('finance.')->group(functi
 
     //Depense
     Route::get('depenses/create', Finance\Depenses\DepenseCreateComponent::class)->name('depenses.create');
+    Route::get('depenses/{depense}', Finance\Depenses\DepenseCreateComponent::class)->name('depenses.show');
     Route::get('depenses', Finance\Depenses\DepenseIndexComponent::class)->name('depenses.index');
 
     Route::get('depense-types', Finance\DepenseType\DepenseTypeIndexComponent::class)->name('depense-types');
