@@ -2,22 +2,19 @@
 
 namespace App\Http\Livewire\Finance\Depenses;
 
+use App\Enums\UserRole;
 use App\Http\Livewire\BaseComponent;
 use App\Models\Depense;
 use App\Models\DepenseType;
+use App\Notifications\DepenseCreated;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
-use LaravelIdea\Helper\App\Models\_IH_DepenseType_C;
 
 class DepenseCreateComponent extends BaseComponent
 {
-
-    /**
-     * @var DepenseType[]|Collection|_IH_DepenseType_C
-     */
-    public _IH_DepenseType_C|array|Collection $types;
+    public array|Collection $types;
     public Depense $depense;
 
     public function mount(Depense $depense): void
@@ -44,16 +41,23 @@ class DepenseCreateComponent extends BaseComponent
         $this->depense->save();
 
 
+        // notify all admins amd promoteurs
+        $this->depense->notifyAll(
+            notification: new DepenseCreated($this->depense),
+            roles: [UserRole::admin->value, UserRole::promoteur->value]
+        );
+
         $this->flashSuccess('Dépense enregistrée avec succès', route('finance.depenses.index'));
     }
 
     protected function rules(): array
     {
         return [
-            'depense.type_id' => 'required',
+            'depense.depense_type_id' => 'required',
             'depense.montant' => 'required',
             'depense.reference' => 'nullable',
             'depense.date' => 'nullable|date',
+            'depense.note' => 'nullable|string',
         ];
     }
 }

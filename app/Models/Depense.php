@@ -3,16 +3,19 @@
 namespace App\Models;
 
 use App\Enums\DepenseCategorie;
+use App\Notifications\DepenseCreated;
+use Auth;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Notification;
 use Spatie\ModelStatus\HasStatuses;
 
 class Depense extends Model
 {
-    use HasFactory, HasUlids, HasStatuses;
+    use HasFactory, HasStatuses, HasUlids;
 
     public $guarded = [];
     protected $casts = [
@@ -55,8 +58,16 @@ class Depense extends Model
 
     protected static function booted(): void
     {
-        self::created(function ($depense) {
-            $depense->user->notify(new DepenseCreated($depense));
+
+        self::creating(function ($depense) {
+            // $depense->user->notify(new DepenseCreated($depense));
+            if (!$depense->annee_id) {
+                $depense->annee_id = Annee::id();
+            }
+
+            if (!$depense->user_id) {
+                $depense->user_id = Auth::id();
+            }
         });
     }
 
@@ -68,5 +79,11 @@ class Depense extends Model
     public function type(): BelongsTo
     {
         return $this->belongsTo(DepenseType::class, 'depense_type_id');
+    }
+
+    public function notifyAll(DepenseCreated $notification, array $roles): void
+    {
+        $users = User::role($roles)->get();
+        Notification::send($users, $notification);
     }
 }
