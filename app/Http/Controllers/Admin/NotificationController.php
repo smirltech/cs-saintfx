@@ -18,7 +18,7 @@ class NotificationController
         ];
 
 
-        $notifications = Auth::user()->notifications;
+        $notifications = Auth::user()->unreadNotifications;
 
         $dropdownHtml = '';
 
@@ -51,13 +51,6 @@ class NotificationController
             'icon_color' => $colors[rand(0, 5)],
             'dropdown' => $dropdownHtml,
         ];
-    }
-
-    // index
-    public function index()
-    {
-        $notifications = Auth::user()->notifications;
-        return view('notifications.index', compact('notifications'));
     }
 
 }
