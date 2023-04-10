@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AuditController;
 use App\Http\Controllers\Admin\DarkmodeController;
+use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Livewire\Bibliotheque\Etiquette\EtiquetteIndexComponent;
 use App\Http\Livewire\Finance;
@@ -47,6 +48,9 @@ Auth::routes([
     'confirm' => false,
     'verify' => false
 ]);
+
+Route::get('notifications/get', [NotificationController::class, 'getNotificationsData'])->name('notifications.get');
+Route::get('notifications', [NotificationController::class, 'index'])->name('notifications.index');
 
 
 //Scolarite
