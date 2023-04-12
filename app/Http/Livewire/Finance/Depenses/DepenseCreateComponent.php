@@ -26,7 +26,7 @@ class DepenseCreateComponent extends BaseComponent
     public function render(): View|\Illuminate\Foundation\Application|Factory|Application
     {
         return view('livewire.finance.depenses.depense-create-component')->layoutData([
-            'title' => 'Nouvelle dépense',
+            'title' => $this->depense->exists ? 'Modifier une dépense' : 'Ajouter une dépense',
             'icon' => 'money-bill-wave',
             'breadcrumbs' => [
                 ['url' => route('finance.depenses.index'), 'label' => 'Dépenses'],

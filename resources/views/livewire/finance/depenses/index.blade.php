@@ -90,17 +90,14 @@
                                         <td>
                                             <div class="d-flex float-right">
                                                 @can('depenses.update',$row[6])
-                                                    <button wire:click="getSelectedDepense({{$row[6]->id}})"
-                                                            type="button"
-                                                            title="Modifier" class="btn btn-sm btn-info  m-1"
-                                                            data-toggle="modal"
-                                                            data-target="#edit-depense-modal">
+                                                    <a class="btn btn-sm btn-warning m-1"
+                                                       href="{{ route('finance.depenses.show',$row[6]->id)}}">
                                                         <span class="fa fa-pen"></span>
-                                                    </button>
+                                                    </a>
                                                 @endcan
                                                 @can('depenses.delete',$row[6])
                                                     <button wire:click="getSelectedDepense({{$row[6]}})" type="button"
-                                                            title="supprimer" class="btn btn-sm btn-danger  m-1"
+                                                            title="supprimer" class="btn btn-sm btn-danger m-1"
                                                             data-toggle="modal"
                                                             data-target="#delete-depense-modal">
                                                         <span class="fa fa-trash"></span>
