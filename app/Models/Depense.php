@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\DepenseCategorie;
 use App\Enums\DepenseStatus;
+use App\Enums\Devise;
 use App\Notifications\DepenseCreated;
 use Auth;
 use Carbon\Carbon;
@@ -24,6 +25,7 @@ class Depense extends Model
         'categorie' => DepenseCategorie::class,
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
+        'devise' => Devise::class,
     ];
 
     protected $with = ['user'];
@@ -72,7 +74,7 @@ class Depense extends Model
         });
 
         self::created(function (Depense $depense) {
-            $depense->setStatus(DepenseStatus::pending->value);
+            $depense->setStatus(DepenseStatus::pending->value, "{$depense->user->name} a créé dépense pour {$depense->type->nom} de {$depense->montant} {$depense->devise}");
         });
     }
 

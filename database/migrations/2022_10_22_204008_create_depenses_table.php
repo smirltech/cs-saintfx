@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\Devise;
 use App\Models\Annee;
 use App\Models\DepenseType;
 use App\Models\User;
@@ -14,6 +15,7 @@ return new class extends Migration {
             $table->ulid('id')->primary();
             $table->foreignIdFor(DepenseType::class)->constrained();
             $table->float('montant');
+            $table->string('devise')->default(Devise::USD->value);
             $table->text('note')->nullable();
             $table->date('date')->nullable();
             $table->string('reference')->nullable();
