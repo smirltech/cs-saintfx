@@ -49,7 +49,7 @@ class DepenseCreated extends Notification
     {
         return [
             'title' => 'Finance',
-            'message' => 'Une nouvelle dépense a été créée',
+            'message' => $this->depense?->status()?->reason,
             'link' => route('finance.depenses.show', $this->depense),
         ];
     }
