@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\DepenseCategorie;
+use App\Enums\DepenseStatus;
 use App\Notifications\DepenseCreated;
 use Auth;
 use Carbon\Carbon;
@@ -11,6 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Notification;
+use Spatie\ModelStatus\Events\StatusUpdated;
 use Spatie\ModelStatus\HasStatuses;
 
 class Depense extends Model
@@ -59,8 +61,7 @@ class Depense extends Model
     protected static function booted(): void
     {
 
-        self::creating(function ($depense) {
-            // $depense->user->notify(new DepenseCreated($depense));
+        self::creating(function (Depense $depense) {
             if (!$depense->annee_id) {
                 $depense->annee_id = Annee::id();
             }
@@ -69,6 +70,36 @@ class Depense extends Model
                 $depense->user_id = Auth::id();
             }
         });
+
+        self::created(function (Depense $depense) {
+            $depense->setStatus(DepenseStatus::pending->value);
+        });
+    }
+
+    public function notifyAll(DepenseCreated $notification, array $roles): void
+    {
+        $users = User::role($roles)->get();
+        Notification::send($users, $notification);
+    }
+
+    public function getStatusRolesAttribute(): ?array
+    {
+        return DepenseStatus::tryFrom($this->status)?->roles();
+    }
+
+    public function forceSetStatus(string $name, ?string $reason = null): self
+    {
+        $oldStatus = $this->latestStatus();
+
+        $newStatus = $this->statuses()->create([
+            'name' => $name,
+            'reason' => $reason,
+            'user_id' => Auth::id()
+        ]);
+
+        event(new StatusUpdated($oldStatus, $newStatus, $this));
+
+        return $this;
     }
 
     public function user(): BelongsTo
@@ -79,11 +110,5 @@ class Depense extends Model
     public function type(): BelongsTo
     {
         return $this->belongsTo(DepenseType::class, 'depense_type_id');
-    }
-
-    public function notifyAll(DepenseCreated $notification, array $roles): void
-    {
-        $users = User::role($roles)->get();
-        Notification::send($users, $notification);
     }
 }

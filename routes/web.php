@@ -50,8 +50,10 @@ Auth::routes([
     'verify' => false
 ]);
 
-Route::get('notifications/get', [NotificationController::class, 'getNotificationsData'])->name('notifications.get');
-Route::get('notifications', NoficationIndexComponent::class)->name('notifications.index');
+Route::middleware('auth:web')->group(function () {
+    Route::get('notifications/get', [NotificationController::class, 'getNotificationsData'])->name('notifications.get');
+    Route::get('notifications', NoficationIndexComponent::class)->name('notifications.index');
+});
 
 
 //Scolarite

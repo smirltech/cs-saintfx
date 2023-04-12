@@ -3,10 +3,10 @@
         ['label'=>'DATE', 'width'=>10],
         'TYPE',
         'MONTANT',
-        'NOTE',
-        'REFERENCE',
         'PAR',
-        ['label'=>'', 'no-export'=>true, 'width'=>5]
+        'VALIDÉ PAR',
+        'ETAT',
+         ['label'=>'', 'no-export'=>true, 'width'=>5]
 ];
    $data =[];
    foreach ($depenses as $depense){
@@ -14,11 +14,11 @@
             $depense->created_at->format('d-m-Y'),
             $depense->type->nom,
             Helpers::currencyFormat($depense->montant, symbol: 'Fc'),
-            $depense->note,
-            $depense->reference,
             $depense->user->name,
-            $depense,
-];
+            $depense->reference,
+            $depense->status,
+            $depense];
+
    }
 
     $config =[

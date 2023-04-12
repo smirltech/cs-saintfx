@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,6 +13,7 @@ class CreateStatusesTable extends Migration
             $table->ulid('id')->primary();
             $table->string('name');
             $table->text('reason')->nullable();
+            $table->foreignIdFor(User::class)->nullable();
             $table->morphs('model');
             $table->timestamps();
         });

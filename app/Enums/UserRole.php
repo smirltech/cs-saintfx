@@ -8,6 +8,7 @@ enum UserRole: string
 
     case admin = 'admin';
     case promoteur = 'promoteur';
+    case coordinateur = 'coordinateur';
     case caissier = 'caissier';
     case eleve = 'eleve';
     case parent = 'parent';
@@ -59,12 +60,10 @@ enum UserRole: string
             self::caissier => [
                 RolePermission::perceptions_all->value,
             ],
-            self::eleve => [
-
-            ],
             self::parent => [
                 RolePermission::eleves_view->value,
-            ]
+            ],
+            default => []
 
         };
 

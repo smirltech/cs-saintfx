@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 
 class UnitSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
         foreach ($this->data() as $depense) {
             Unit::create($depense);
