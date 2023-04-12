@@ -31,15 +31,13 @@ enum DepenseStatus: string
     public function color(): string
     {
         return match ($this) {
-            self::pending => 'bg-yellow-500',
-            self::approved_1 => 'bg-green-500',
-            self::rejected_1 => 'bg-red-500',
-            self::approved_2 => 'bg-green-500',
-            self::rejected_2 => 'bg-red-500',
-            self::canceled => 'bg-red-500',
-            self::issued => 'bg-green-500',
-            self::done => 'bg-green-500',
-            default => 'bg-gray-500',
+            self::pending => 'info',
+            self::approved_1, self::approved_2 => 'success',
+            self::rejected_1, self::rejected_2 => 'danger',
+            self::canceled => 'warning',
+            self::issued => 'primary',
+            self::done => 'secondary',
+            default => 'default',
         };
     }
 
@@ -49,8 +47,8 @@ enum DepenseStatus: string
     public function roles(): ?array
     {
         return match ($this) {
-            self::pending, self::rejected_1 => [UserRole::coordinateur, UserRole::admin],
-            self::approved_1, self::rejected_2 => [UserRole::promoteur, UserRole::admin],
+            self::pending, self::rejected_1 => [UserRole::coordinateur->value, UserRole::admin->value],
+            self::approved_1, self::rejected_2 => [UserRole::promoteur->value, UserRole::admin->value],
             default => null,
         };
     }

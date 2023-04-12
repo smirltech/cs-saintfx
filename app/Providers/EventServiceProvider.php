@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Listeners\StatusUpdatedListener;
 use Event;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -21,7 +22,7 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
         StatusUpdated::class => [
-            \App\Listeners\StatusUpdated::class,
+            StatusUpdatedListener::class,
         ],
     ];
 

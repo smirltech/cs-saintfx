@@ -4,8 +4,9 @@ namespace App\Listeners;
 
 use App\Models\Depense;
 use App\Notifications\DepenseCreated;
+use Spatie\ModelStatus\Events\StatusUpdated;
 
-class StatusUpdated
+class StatusUpdatedListener
 {
     /**
      * Create the event listener.
@@ -20,8 +21,7 @@ class StatusUpdated
      */
     public function handle(StatusUpdated $event): void
     {
-        $status = $event->status;
-        $model = $status->model;
+        $model = $event->model;
 
         if ($model instanceof Depense) {
             $model->notifyAll(new DepenseCreated($model), $model->status_roles);

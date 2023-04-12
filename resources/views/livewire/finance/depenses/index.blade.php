@@ -15,10 +15,9 @@
             $depense->type->nom,
             Helpers::currencyFormat($depense->montant, symbol: 'Fc'),
             $depense->user->name,
-            $depense->reference,
-            $depense->status,
+            $depense?->status()?->user?->name,
+            "<span class='badge badge-".($depense?->status()?->color)."'>".$depense?->status()?->label."</span>",
             $depense];
-
    }
 
     $config =[
