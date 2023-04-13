@@ -20,6 +20,14 @@ class DepenseCreateComponent extends BaseComponent
 
     public function mount(Depense $depense): void
     {
+
+        //authorize if user can create depense or update depense
+        if ($depense->exists) {
+            $this->authorize('update', $depense);
+        } else {
+            $this->authorize('create', Depense::class);
+        }
+
         $this->depense = $depense;
         $this->types = DepenseType::all();
     }
