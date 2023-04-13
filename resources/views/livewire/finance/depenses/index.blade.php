@@ -89,9 +89,15 @@
                                         <td>{!! $row[5] !!}</td>
                                         <td>
                                             <div class="d-flex float-right">
+                                                @can('depenses.view',$row[6])
+                                                    <a class="btn btn-sm btn-primary m-1"
+                                                       href="{{ route('finance.depenses.show',$row[6]->id)}}">
+                                                        <span class="fa fa-eye"></span>
+                                                    </a>
+                                                @endcan
                                                 @can('depenses.update',$row[6])
                                                     <a class="btn btn-sm btn-warning m-1"
-                                                       href="{{ route('finance.depenses.show',$row[6]->id)}}">
+                                                       href="{{ route('finance.depenses.edit',$row[6]->id)}}">
                                                         <span class="fa fa-pen"></span>
                                                     </a>
                                                 @endcan

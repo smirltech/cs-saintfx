@@ -5,9 +5,11 @@ namespace App\Models;
 use App\Enums\DepenseCategorie;
 use App\Enums\DepenseStatus;
 use App\Enums\Devise;
+use App\Enums\UserRole;
 use App\Notifications\DepenseCreated;
 use Auth;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -89,6 +91,47 @@ class Depense extends Model
         return DepenseStatus::tryFrom($this->status)?->roles();
     }
 
+    public function type(): BelongsTo
+    {
+        return $this->belongsTo(DepenseType::class, 'depense_type_id');
+    }
+
+    public function getDisplayMontantAttribute(): string
+    {
+        return number_format($this->montant, 0, ',', ' ') . ' ' . $this->devise ?? 'CDF';
+    }
+
+    public function timeline(): array
+    {
+
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function reject(?string $status_note): void
+    {
+        $status_name = match (Auth::user()?->role?->name) {
+            UserRole::promoteur->value => DepenseStatus::rejected_promoteur->value,
+            UserRole::coordinateur->value => DepenseStatus::rejected_coordonateur->value,
+            default => null,
+        };
+        if ($status_name) {
+            $this->forceSetStatus($status_name, $status_note);
+        } else {
+            throw new Exception('Vous n\'avez pas le droit de rejeter cette dépense');
+        }
+
+
+    }
+
+    // timeline
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function forceSetStatus(string $name, ?string $reason = null): self
     {
         $oldStatus = $this->latestStatus();
@@ -104,13 +147,21 @@ class Depense extends Model
         return $this;
     }
 
-    public function user(): BelongsTo
+    /**
+     * @throws Exception
+     */
+    public function approve(?string $status_note): void
     {
-        return $this->belongsTo(User::class);
-    }
+        $status_name = match (Auth::user()?->role?->name) {
+            UserRole::promoteur->value => DepenseStatus::approved_promoteur->value,
+            UserRole::coordinateur->value => DepenseStatus::rejected_promoteur->value,
+            default => null,
+        };
+        if ($status_name) {
+            $this->forceSetStatus($status_name, $status_note);
+        } else {
+            throw new Exception('Vous n\'avez pas le droit d\'approuver cette dépense');
+        }
 
-    public function type(): BelongsTo
-    {
-        return $this->belongsTo(DepenseType::class, 'depense_type_id');
     }
 }

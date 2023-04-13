@@ -5,10 +5,10 @@ namespace App\Enums;
 enum DepenseStatus: string
 {
     case pending = 'pending';
-    case approved_1 = 'approved_1';
-    case rejected_1 = 'rejected_1';
-    case approved_2 = 'approved_2';
-    case rejected_2 = 'rejected_2';
+    case approved_coordonnateur = 'approved_coordonnateur';
+    case rejected_coordonateur = 'rejected_coordonateur';
+    case approved_promoteur = 'approved_promoteur';
+    case rejected_promoteur = 'rejected_promoteur';
     case canceled = 'canceled';
     case issued = 'issued';
     case done = 'done';
@@ -17,10 +17,10 @@ enum DepenseStatus: string
     {
         return match ($this) {
             self::pending => 'En attente',
-            self::approved_1 => 'Approuvé par le coordinateur',
-            self::rejected_1 => 'Rejeté par le coordinateur',
-            self::approved_2 => 'Approuvé par le promoteur',
-            self::rejected_2 => 'Rejeté par le promoteur',
+            self::approved_coordonnateur => 'Approuvé par le coordinateur',
+            self::rejected_coordonateur => 'Rejeté par le coordinateur',
+            self::approved_promoteur => 'Approuvé par le promoteur',
+            self::rejected_promoteur => 'Rejeté par le promoteur',
             self::canceled => 'Annulé',
             self::issued => 'Payé',
             self::done => 'Terminé',
@@ -32,8 +32,8 @@ enum DepenseStatus: string
     {
         return match ($this) {
             self::pending => 'info',
-            self::approved_1, self::approved_2 => 'success',
-            self::rejected_1, self::rejected_2 => 'danger',
+            self::approved_coordonnateur, self::approved_promoteur => 'success',
+            self::rejected_coordonateur, self::rejected_promoteur => 'danger',
             self::canceled => 'warning',
             self::issued => 'primary',
             self::done => 'secondary',
@@ -47,8 +47,8 @@ enum DepenseStatus: string
     public function roles(): ?array
     {
         return match ($this) {
-            self::pending, self::rejected_1 => [UserRole::coordinateur->value, UserRole::admin->value],
-            self::approved_1, self::rejected_2 => [UserRole::promoteur->value, UserRole::admin->value],
+            self::pending, self::rejected_coordonateur => [UserRole::coordinateur->value, UserRole::admin->value],
+            self::approved_coordonnateur, self::rejected_promoteur => [UserRole::promoteur->value, UserRole::admin->value],
             default => null,
         };
     }
