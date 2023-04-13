@@ -30,7 +30,7 @@ class Depense extends Model
         'devise' => Devise::class,
     ];
 
-    protected $with = ['user', 'statuses'];
+    protected $with = ['user'];
 
     public static function dataOfLast($days = 7): array
     {
