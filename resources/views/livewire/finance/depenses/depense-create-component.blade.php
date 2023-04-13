@@ -41,7 +41,7 @@
                                     rows="2"
                                     wire:model="depense.note"/>
                             </div>
-                            @if(!$depense->isApprovedByCoordonnateur())
+                            @if(!$depense->isApprovedByCoordonnateur() and !$depense->canBeApprovedByUser())
                                 <x-form::button-primary icon="save" class="float-end" label="Enregistrer"/>
                             @endif
                         </form>

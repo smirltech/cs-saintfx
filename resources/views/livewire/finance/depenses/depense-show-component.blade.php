@@ -92,7 +92,7 @@
                                     wire:model="status_note"/>
                             </div>
                         </div>
-                        @if(!$depense->isApproved())
+                        @if(!$depense->isApproved() and !$depense->canBeApprovedByUser())
                             <x-form::button-primary
                                 type="button"
                                 icon="check"

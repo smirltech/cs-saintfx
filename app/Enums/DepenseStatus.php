@@ -47,7 +47,7 @@ enum DepenseStatus: string
     public function roles(): ?array
     {
         return match ($this) {
-            self::pending, self::rejected_coordonnateur => [UserRole::coordinateur->value, UserRole::admin->value],
+            self::pending, self::rejected_coordonnateur => [UserRole::coordonnateur->value, UserRole::admin->value],
             self::approved_coordonnateur, self::rejected_promoteur => [UserRole::promoteur->value, UserRole::admin->value],
             default => null,
         };

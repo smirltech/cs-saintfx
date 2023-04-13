@@ -8,7 +8,7 @@ enum UserRole: string
 
     case admin = 'admin';
     case promoteur = 'promoteur';
-    case coordinateur = 'coordinateur';
+    case coordonnateur = 'coordonnateur';
     case caissier = 'caissier';
     case eleve = 'eleve';
     case parent = 'parent';
