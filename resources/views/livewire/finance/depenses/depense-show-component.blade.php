@@ -44,8 +44,11 @@
 
                 </div>
                 <div class="card">
+                    <div class="card-header">
+                        Documents
+                    </div>
                     <div class="card-body">
-                        <x-form::list-files :media="$depense->media"/>
+                        <x-form::list-files class="mt-0" :media="$depense->media"/>
                     </div>
                 </div>
             </div>

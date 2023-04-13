@@ -51,7 +51,7 @@ class DepenseCreated extends Notification
 
         return [
             'title' => 'Depense',
-            'message' => $status->reason ?? $status->label,
+            'message' => 'Depense ' . ($status->reason ?? $status->label),
             'link' => route('finance.depenses.show', $this->depense),
         ];
     }
