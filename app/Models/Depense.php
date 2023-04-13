@@ -77,7 +77,7 @@ class Depense extends Model
         });
 
         self::created(function (Depense $depense) {
-            $depense->setStatus(DepenseStatus::pending->value, "{$depense->user->name} a créé dépense pour {$depense->type->nom} de {$depense->montant} {$depense->devise}");
+            $depense->setStatus(DepenseStatus::pending->value, "{$depense->user->name} a créé une dépense pour {$depense->type->nom} de {$depense->montant} {$depense?->devise?->value}");
         });
     }
 

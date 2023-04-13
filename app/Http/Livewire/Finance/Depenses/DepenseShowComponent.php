@@ -28,7 +28,7 @@ class DepenseShowComponent extends BaseComponent
     public function render(): View|\Illuminate\Foundation\Application|Factory|Application
     {
         return view('livewire.finance.depenses.depense-show-component')->layoutData([
-            'title' => "Détails de la dépense - {$this->depense->montant} {$this->depense->devise}",
+            'title' => "Détails de la dépense - {$this->depense->montant} {$this->depense?->devise?->value}",
             'icon' => 'money-bill-wave',
             'breadcrumbs' => [
                 ['url' => route('finance.depenses.index'), 'label' => 'Dépenses'],
