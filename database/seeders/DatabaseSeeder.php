@@ -39,6 +39,11 @@ class DatabaseSeeder extends Seeder
                 'name' => 'Promoteur',
             ])->assignRole(UserRole::promoteur->value);
 
+            User::factory()->create([
+                'email' => 'coordonnateur@college-enk.com',
+                'name' => 'Coordonnateur',
+            ])->assignRole(UserRole::coordonnateur->value);
+
             // create admin
             User::factory()->create([
                 'email' => 'admin@college-enk.com',
