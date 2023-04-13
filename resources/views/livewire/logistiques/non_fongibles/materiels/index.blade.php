@@ -5,7 +5,6 @@
             ['label'=>'#', 'width'=>5],
             'MATÉRIEL',
             'CATÉGORIE',
-            'DESCRIPTION',
             ['label'=>'DATE', 'width'=>10],
             'VIE',
             'RESTE',
@@ -19,7 +18,7 @@
                 $i+1,
                 $materiel->nom,
                 $materiel->category,
-                $materiel->description,
+
                $materiel->date == null?'': Carbon::parse($materiel->date)->format('d-m-Y'),
                 $materiel->vie,
                 $materiel->vieRestante,
@@ -32,7 +31,7 @@
         $config =[
       'data'=>$datas,
       'order'=>[[1, 'asc']],
-      'columns'=>[null,null,null, null, null, null, null, null, null, ['orderable'=>false]],
+      'columns'=>[null,null,null, null, null, null, null, null, ['orderable'=>false]],
       'destroy'=>false,
 
     ];
@@ -93,32 +92,31 @@
                                         <td>{!! $row[3] !!}</td>
                                         <td>{!! $row[4] !!}</td>
                                         <td>{!! $row[5] !!}</td>
-                                        <td>{!! $row[6] !!}</td>
+                                        <td><span
+                                                class="badge badge-{!! $row[6]?->color() !!}">{!! $row[6]?->label() !!}</span>
+                                        </td>
                                         <td><span
                                                 class="badge badge-{!! $row[7]?->color() !!}">{!! $row[7]?->label() !!}</span>
                                         </td>
-                                        <td><span
-                                                class="badge badge-{!! $row[8]?->color() !!}">{!! $row[8]?->label() !!}</span>
-                                        </td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                @can('materiels.view', $row[9])
-                                                    <a href="{{route('logistique.materiels.show',[$row[9]->id])}}"
+                                                @can('materiels.view', $row[8])
+                                                    <a href="{{route('logistique.materiels.show',[$row[8]->id])}}"
                                                        title="Voir"
                                                        class="btn btn-warning">
                                                         <i class="fas fa-eye"></i>
                                                     </a>
                                                 @endcan
-                                                @can('materiels.update', $row[9])
-                                                    <button wire:click="getSelectedMateriel({{$row[9]}})" type="button"
+                                                @can('materiels.update', $row[8])
+                                                    <button wire:click="getSelectedMateriel({{$row[8]}})" type="button"
                                                             title="Modifier" class="btn btn-info  ml-2"
                                                             data-toggle="modal"
                                                             data-target="#update-materiel-modal">
                                                         <span class="fa fa-pen"></span>
                                                     </button>
                                                 @endcan
-                                                @can('materiels.delete', $row[9])
-                                                    <button wire:click="getSelectedMateriel({{$row[9]}})" type="button"
+                                                @can('materiels.delete', $row[8])
+                                                    <button wire:click="getSelectedMateriel({{$row[8]}})" type="button"
                                                             title="supprimer" class="btn btn-danger  ml-2"
                                                             data-toggle="modal"
                                                             data-target="#delete-materiel-modal">

@@ -13,7 +13,6 @@ use App\View\Components\AdminLayout;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
 
 class MaterielShowComponent extends BaseComponent
 {
@@ -54,14 +53,14 @@ class MaterielShowComponent extends BaseComponent
         $this->initMouvement();
     }
 
-    public function loadData()
+    public function loadData(): void
     {
         $this->categories = MaterielCategory::orderBy('nom', 'ASC')->get();
-        $this->users = User::orderBy('nom', 'ASC')->get();
+        $this->users = User::orderBy('name', 'ASC')->get();
         // dd($this->users);
     }
 
-    public function initMouvement()
+    public function initMouvement(): void
     {
         $this->mouvement = new Mouvement();
         $this->mouvement->date = Carbon::now()->format('Y-m-d');
