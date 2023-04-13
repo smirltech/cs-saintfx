@@ -24,7 +24,7 @@
                     <div class="card-body">
                         <strong><i class="fas fa-money-check"></i> Montant</strong>
                         <p class="text-muted">
-                            {{$depense->montant}}
+                            {{$depense->display_montant}}
                         </p>
                         <hr>
                         <strong><i class="fas fa-calculator"></i> Type</strong>
@@ -43,7 +43,11 @@
                     </div>
 
                 </div>
-
+                <div class="card">
+                    <div class="card-body">
+                        <x-form::list-files :media="$depense->media"/>
+                    </div>
+                </div>
             </div>
             <div class="col-md-5">
                 <div class="card p-3">

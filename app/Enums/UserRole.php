@@ -18,12 +18,13 @@ enum UserRole: string
     {
         // return permissions based on user role
         return match ($this) {
-            self::promoteur => [
+            self::promoteur, self::coordonnateur => [
                 RolePermission::users_all->value,
                 RolePermission::roles_all->value,
                 RolePermission::permissions_all->value,
                 RolePermission::annees_all->value,
                 RolePermission::tags_all->value,
+                RolePermission::depenses_all->value,
             ],
             self::admin => [
                 RolePermission::annees_all->value,

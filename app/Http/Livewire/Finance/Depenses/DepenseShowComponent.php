@@ -20,10 +20,17 @@ class DepenseShowComponent extends BaseComponent
 
     public function mount(Depense $depense): void
     {
+        $this->loadData($depense);
+    }
+
+    private function loadData(Depense $depense): void
+    {
         $this->depense = $depense;
         $this->depense_statuses = $depense->statuses;
         $this->types = DepenseType::all();
     }
+
+    // submit
 
     public function render(): View|\Illuminate\Foundation\Application|Factory|Application
     {
@@ -36,7 +43,6 @@ class DepenseShowComponent extends BaseComponent
         ]);
     }
 
-    // submit
     public function rejectDepense(): void
     {
         if (!$this->status_note) {
@@ -46,6 +52,7 @@ class DepenseShowComponent extends BaseComponent
         try {
             $this->depense->reject($this->status_note);
             $this->success('Dépense rejetée avec succès');
+            $this->loadData($this->depense);
         } catch (Exception $e) {
             $this->error(local: $e->getMessage());
         }
@@ -59,6 +66,7 @@ class DepenseShowComponent extends BaseComponent
         try {
             $this->depense->approve($this->status_note);
             $this->success('Dépense approuvée avec succès');
+            $this->loadData($this->depense);
 
         } catch (Exception $e) {
             $this->error(local: $e->getMessage());

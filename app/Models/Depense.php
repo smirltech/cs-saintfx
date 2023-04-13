@@ -100,7 +100,7 @@ class Depense extends Model
 
     public function getDisplayMontantAttribute(): string
     {
-        return number_format($this->montant, 0, ',', ' ') . ' ' . $this->devise ?? 'CDF';
+        return number_format($this->montant, 0, ',', ' ') . ' ' . $this->devise?->value;
     }
 
 
@@ -169,10 +169,10 @@ class Depense extends Model
     public function canBeApprovedByUser(): bool
     {
         return (match ($this->status) {
-                    DepenseStatus::approved_coordonnateur, DepenseStatus::rejected_promoteur => true,
+                    DepenseStatus::approved_coordonnateur->value, DepenseStatus::rejected_promoteur => true,
                     default => false
                 } && Auth::user()?->role?->name === UserRole::promoteur->value) || (match ($this->status) {
-                    DepenseStatus::pending, DepenseStatus::rejected_coordonnateur => true,
+                    DepenseStatus::pending->value, DepenseStatus::rejected_coordonnateur->value => true,
                     default => false
                 } && Auth::user()?->role?->name === UserRole::coordonnateur->value);
     }
