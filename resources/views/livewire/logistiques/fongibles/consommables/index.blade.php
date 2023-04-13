@@ -17,7 +17,7 @@
                 $i+1,
                 $consommable->code,
                 $consommable->nom,
-                $consommable->description,
+                Str::limit($consommable->description, 50)   ,
                 $consommable->stock_minimum.' '.$consommable->unit->code,
                 $consommable->quantite.' '.$consommable->unit->code,
                 $consommable->alertText,

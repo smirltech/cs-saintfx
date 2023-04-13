@@ -11,9 +11,11 @@ use App\Models\User;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Carbon\Carbon;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
 
 class ConsommableShowComponent extends BaseComponent
 {
@@ -42,7 +44,7 @@ class ConsommableShowComponent extends BaseComponent
         'operation.observation' => 'nullable',
     ];
 
-    public function mount(Consommable $consommable)
+    public function mount(Consommable $consommable): void
     {
         $this->authorize("view", $consommable);
         $this->consommable = $consommable;
@@ -51,14 +53,14 @@ class ConsommableShowComponent extends BaseComponent
         $this->initOperation();
     }
 
-    public function loadData()
+    public function loadData(): void
     {
         $this->units = Unit::orderBy('nom', 'ASC')->get();
-        $this->users = User::orderBy('nom', 'ASC')->get();
+        $this->users = User::orderBy('name', 'ASC')->get();
         // dd($this->users);
     }
 
-    public function initOperation()
+    public function initOperation(): void
     {
         $this->operation = new Operation();
         $this->operation->date = Carbon::now()->format('Y-m-d');
@@ -67,7 +69,7 @@ class ConsommableShowComponent extends BaseComponent
         $this->operation->quantite = null;
     }
 
-    public function render()
+    public function render(): View|\Illuminate\Foundation\Application|Factory|Application
     {
         $this->loadData();
         return view('livewire.logistiques.fongibles.consommables.show')
