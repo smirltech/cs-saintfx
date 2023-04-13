@@ -23,7 +23,7 @@
                     :error="$errors->first('materiel.nom')">
                 </x-form::input>
             </div>
-            <div class="form-group col-md-4 col-sm-12">
+            <div class="form-group col-md-6">
                 <x-form::input
                     type="number"
                     label="Montant"
@@ -32,17 +32,17 @@
                     :error="$errors->first('materiel.montant')">
                 </x-form::input>
             </div>
-            <div class="form-group col-md-4 col-sm-12">
+            <div class="form-group col-md-6">
                 <x-form::input
                     type="date"
                     label="Date"
                     wire:model="materiel.date">
                 </x-form::input>
             </div>
-            <div class="form-group col-md-4 col-sm-12">
+            <div class="form-group col-md-12">
                 <x-form::input
                     type="number"
-                    label="Vie"
+                    label="Durée de vie (en année)"
                     wire:model="materiel.vie">
                 </x-form::input>
             </div>

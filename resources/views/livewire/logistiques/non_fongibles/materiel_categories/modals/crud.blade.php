@@ -1,7 +1,6 @@
 {{--add category--}}
 <x-adminlte-modal wire:ignore.self id="add-category-modal" icon="fa fa-people-group"
                   title="Ajout de Catégorie de Matériel">
-    <x-form::validation-errors class="mb-4" :errors="$errors"/>
     <form id="f1a" wire:submit.prevent="addCategory">
         <div class="row">
             <div class="form-group col-md-6 col-sm-12">
@@ -17,9 +16,8 @@
                 <x-form::input
                     type="text"
                     label="Nom"
-                    wire:model="category.nom"
-                    :is-valid="$errors->has('category.nom')?false:null"
-                    :error="$errors->first('category.nom')">
+                    required
+                    wire:model="category.nom">
                 </x-form::input>
             </div>
             <div class="form-group col-md-12 col-sm-12">

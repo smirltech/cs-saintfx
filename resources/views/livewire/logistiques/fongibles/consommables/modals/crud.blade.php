@@ -4,7 +4,7 @@
     <x-form::validation-errors class="mb-4" :errors="$errors"/>
     <form id="f1a" wire:submit.prevent="addConsommable">
         <div class="row">
-            <div class="form-group col-md-8 col-sm-12">
+            <div class="form-group col-md-12">
                 <x-form::input
                     type="text"
                     label="Nom"
@@ -13,7 +13,7 @@
                     :error="$errors->first('consommable.nom')">
                 </x-form::input>
             </div>
-            <div class="form-group col-md-4 col-sm-12">
+            <div class="form-group col-md-12">
                 <label for="">Unité de mesure </label>
                 <x-form::select :select-placeholder='false' wire:model.defer="consommable.unit_id"
                                 class="form-control">
@@ -24,11 +24,12 @@
             </div>
 
             <div class="form-group col-md-12 col-sm-12">
-                <x-form::input
+                <x-form::textarea
+                    rows="3"
                     type="text"
                     label="Description"
                     wire:model.defer="consommable.description">
-                </x-form::input>
+                </x-form::textarea>
             </div>
         </div>
     </form>

@@ -430,7 +430,6 @@ return [
                 [
                     'text' => 'Liste des consommables',
                     'icon' => 'fas fa-fw fa-screwdriver-wrench',
-                    'shift' => 'ml-2',
                     'url' => 'logistique/consommables',
                     'can' => 'consommables.view.*',
                 ],
@@ -444,7 +443,6 @@ return [
                 [
                     'text' => 'Unités de mesure',
                     'icon' => 'fas fa-fw fa-ruler-combined',
-                    'shift' => 'ml-2',
                     'can' => 'units.view.*',
                     'url' => 'logistique/units',
                 ],
@@ -458,21 +456,18 @@ return [
                 [
                     'text' => 'Liste des materiels',
                     'icon' => 'fas fa-fw fa-wrench',
-                    'shift' => 'ml-2',
                     'url' => 'logistique/materiels',
                     'can' => 'materiels.view.*',
                 ],
                 [
                     'text' => 'Categories',
                     'icon' => 'fas fa-fw fa-layer-group',
-                    'shift' => 'ml-2',
                     'url' => 'logistique/categories',
                     'can' => 'materiel-categories.view.*',
                 ],
                 [
                     'text' => 'Mouvements des materiels',
                     'icon' => 'fas fa-fw fa-people-carry-box',
-                    'shift' => 'ml-2',
                     'url' => 'logistique/mouvements',
                     'can' => 'mouvements.view.*',
                 ],

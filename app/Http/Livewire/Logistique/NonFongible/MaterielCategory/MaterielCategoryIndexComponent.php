@@ -7,9 +7,11 @@ use App\Models\MaterielCategory;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
 
 class MaterielCategoryIndexComponent extends BaseComponent
 {
@@ -20,37 +22,37 @@ class MaterielCategoryIndexComponent extends BaseComponent
     public MaterielCategory $category;
 
     protected $rules = [
-        'category.nom' => 'required|unique:materiel_categories, nom',
+        'category.nom' => 'required|unique:materiel_categories,nom',
         'category.materiel_category_id' => 'nullable',
         'category.description' => 'nullable',
     ];
 
-    public function mount()
+    public function mount(): void
     {
         $this->authorize("viewAny", MaterielCategory::class);
         $this->initCategory();
     }
 
-    public function initCategory()
+    public function initCategory(): void
     {
         $this->category = new MaterielCategory();
     }
 
-    public function render()
+    public function render(): View|\Illuminate\Foundation\Application|Factory|Application
     {
         $this->loadData();
         return view('livewire.logistiques.non_fongibles.materiel_categories.index')
             ->layout(AdminLayout::class, ['title' => 'Liste de Categories des Matériels']);
     }
 
-    public function loadData()
+    public function loadData(): void
     {
         $this->categories = MaterielCategory::orderBy('nom', 'ASC')->get()/* ->sortBy('groupe_nom')*/
         ;
         //  dd($this->categories);
     }
 
-    public function addCategory()
+    public function addCategory(): void
     {
         $this->validate();
 
@@ -71,19 +73,19 @@ class MaterielCategoryIndexComponent extends BaseComponent
 
     }
 
-    public function onModalClosed($p_id)
+    public function onModalClosed($p_id): void
     {
         $this->dispatchBrowserEvent('closeModal', ['modal' => $p_id]);
 
     }
 
-    public function getSelectedCategory(MaterielCategory $category)
+    public function getSelectedCategory(MaterielCategory $category): void
     {
         $this->category = $category;
         // dd($this->category->categories);
     }
 
-    public function updateCategory()
+    public function updateCategory(): void
     {
         $this->validate([
             'category.nom' => [
@@ -104,7 +106,7 @@ class MaterielCategoryIndexComponent extends BaseComponent
 
     }
 
-    public function deleteCategory()
+    public function deleteCategory(): void
     {
         if ($this->category->categories->count() == 0 && $this->category->materiels->count() == 0) {
             if ($this->category->delete()) {
