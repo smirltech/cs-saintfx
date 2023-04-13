@@ -7,13 +7,18 @@
 @section('content_header')
     <div class="row">
         <div class="col-6">
-            <h1 class="ms-3"><i class="{{$contentHeaderIcon??''}} mr-2"></i>{{$title??''}}</h1>
+            <h1 class="ms-3"><i class="fa fa-{{$icon??null}} mr-2"></i>{{$title??null}}</h1>
         </div>
 
         <div class="col-6">
-            @isset($contentHeaderToolSlot)
-                {{ $contentHeaderToolSlot }}
-            @endisset
+            <ol class="breadcrumb float-right">
+                @foreach($breadcrumbs??[] as $breadcrumb)
+                    <li class="breadcrumb-item"><a href="{{$breadcrumb['url']}}">{{$breadcrumb['label']}}</a></li>
+                    @if($loop->last)
+                        <li class="breadcrumb-item active">{{$title}}</li>
+                    @endif
+                @endforeach
+            </ol>
         </div>
     </div>
 @stop
@@ -23,9 +28,34 @@
 @endsection
 
 @section('footer')
-    <strong>Copyright© {{ date('Y') }} CENK</strong>
+    <strong>Copyright© {{ date('Y') }} {{config('app.name')}}</strong>
     {{__('All rights reserved.')}}
     <div class="float-right d-none d-sm-inline-block">
-        <b>Version</b> {{App\Helpers\Helpers::$appVersion}} | {{date('d.m.Y H:i')}}
+        {{date('d.m.Y H:i')}}
     </div>
 @stop
+@push('css')
+    {{-- @vite(['resources/sass/admin.scss', 'resources/js/admin.js'])--}}
+    <link rel="stylesheet" href="{{mix('css/app.css')}}">
+    <style>
+        .sidebar-dark-primary {
+            background-color: var(--dark) !important;
+        }
+
+        .sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link {
+            color: var(--white) !important;
+        }
+
+        .sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active {
+            background-color: var(--primary) !important;
+        }
+    </style>
+@endpush
+@push('js')
+    <script defer src="{{mix('js/app.js')}}"></script>
+    <livewire:modals/>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <x-livewire-alert::scripts/>
+    <x-livewire-alert::flash/>
+    <x-modals::scripts/>
+@endpush

@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\Devise;
 use App\Models\Annee;
 use App\Models\DepenseType;
 use App\Models\User;
@@ -8,14 +9,17 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
-    public function up()
+    public function up(): void
     {
         Schema::create('depenses', function (Blueprint $table) {
             $table->ulid('id')->primary();
             $table->foreignIdFor(DepenseType::class)->constrained();
             $table->float('montant');
-            $table->mediumText('note')->nullable();
+            $table->string('devise')->default(Devise::USD->value);
+            $table->text('note')->nullable();
+            $table->date('date')->nullable();
             $table->string('reference')->nullable();
+            $table->json('reviewers')->nullable();
             $table->foreignIdFor(Annee::class)->constrained();
             $table->foreignIdFor(User::class)->constrained();
             $table->timestamps();

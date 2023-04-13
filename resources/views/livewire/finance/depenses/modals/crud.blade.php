@@ -3,7 +3,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Ajouter Dépense</h4>
+                <h4 class="modal-title">Initier une dépense</h4>
                 <button wire:click="$emit('onModalClosed')" type="button" class="close" data-dismiss="modal"
                         aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -15,8 +15,9 @@
                     <div class="row">
                         <div class="form-group col-md-4 col-sm-12">
                             <label for="">Type</label>
-                            <x-form::select wire:model="type.id"
-                                            class="form-control">
+                            <x-form::select
+                                wire:model="type.id"
+                                class="form-control">
                                 <option value=null>Choisir type...</option>
                                 @foreach ($types as $es )
                                     <option value="{{$es->id}}">{{ $es->nom }}</option>

@@ -8,7 +8,7 @@ use Illuminate\Database\Seeder;
 
 class TagSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
         foreach ($this->data() as $etiquette) {
             Tag::create($etiquette);

@@ -1,24 +1,23 @@
 @php
-    $heads =[
+    use App\Helpers\Helpers;$heads =[
         ['label'=>'DATE', 'width'=>10],
         'TYPE',
         'MONTANT',
-        'NOTE',
-        'REFERENCE',
         'PAR',
-        ['label'=>'', 'no-export'=>true, 'width'=>5]
+        'VALIDÉ PAR',
+        'ETAT',
+         ['label'=>'', 'no-export'=>true, 'width'=>5]
 ];
    $data =[];
    foreach ($depenses as $depense){
         $data[] =[
             $depense->created_at->format('d-m-Y'),
             $depense->type->nom,
-            \App\Helpers\Helpers::currencyFormat($depense->montant, symbol: 'Fc'),
-            $depense->note,
-            $depense->reference,
+            Helpers::currencyFormat($depense->montant, symbol: 'Fc'),
             $depense->user->name,
-            $depense,
-];
+            $depense?->status()?->user?->name,
+            "<span class='badge badge-".($depense?->status()?->color)."'>".$depense?->status()?->label."</span>",
+            $depense];
    }
 
     $config =[
@@ -55,17 +54,17 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="card">
+                    <div class="card card-primary">
                         <div class="card-header">
                             <div class="card-title">
 
                             </div>
                             <div class="card-tools d-flex my-auto">
                                 @can('depenses.create')
-                                    <button type="button"
-                                            class="btn btn-primary  ml-2" data-toggle="modal"
-                                            data-target="#add-depense-modal"><span
-                                            class="fa fa-plus"></span></button>
+                                    <a href="{{ route('finance.depenses.create') }}"
+                                       type="button"
+                                       class="btn btn-outline-primary  ml-2"><span
+                                            class="fa fa-plus"></span></a>
                                 @endcan
                             </div>
                         </div>
@@ -90,18 +89,22 @@
                                         <td>{!! $row[5] !!}</td>
                                         <td>
                                             <div class="d-flex float-right">
+                                                @can('depenses.view',$row[6])
+                                                    <a class="btn btn-sm btn-primary m-1"
+                                                       href="{{ route('finance.depenses.show',$row[6]->id)}}">
+                                                        <span class="fa fa-eye"></span>
+                                                    </a>
+                                                @endcan
                                                 @can('depenses.update',$row[6])
-                                                    <button wire:click="getSelectedDepense({{$row[6]->id}})"
-                                                            type="button"
-                                                            title="Modifier" class="btn btn-info  ml-2"
-                                                            data-toggle="modal"
-                                                            data-target="#edit-depense-modal">
+                                                    <a class="btn btn-sm btn-warning m-1"
+                                                       href="{{ route('finance.depenses.edit',$row[6]->id)}}">
                                                         <span class="fa fa-pen"></span>
-                                                    </button>
+                                                    </a>
                                                 @endcan
                                                 @can('depenses.delete',$row[6])
-                                                    <button wire:click="getSelectedDepense({{$row[6]}})" type="button"
-                                                            title="supprimer" class="btn btn-danger  ml-2"
+                                                    <button hidden wire:click="getSelectedDepense({{$row[6]}})"
+                                                            type="button"
+                                                            title="supprimer" class="btn btn-sm btn-danger m-1"
                                                             data-toggle="modal"
                                                             data-target="#delete-depense-modal">
                                                         <span class="fa fa-trash"></span>

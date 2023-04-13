@@ -272,6 +272,20 @@ return [
             'topnav_right' => true,
         ],
 
+        [
+            'type' => 'navbar-notification',
+            'id' => 'my-dropdown-notification',
+            'icon' => 'fas fa-bell',
+            'route' => 'notifications.index',
+            'topnav_right' => true,
+            'dropdown_mode' => true, // Enable dropdown mode.
+            'dropdown_flabel' => 'All notifications', // The label that will be used for the link to the configured url.
+            'update_cfg' => [
+                'route' => 'notifications.get',
+                'period' => 30,
+            ],
+        ],
+
 
         ['header' => 'SCOLARITÉ',
             'can' => ['eleves.view.*', 'inscriptions.view.*', 'eleves.create', 'inscriptions.create', 'responsables.view.*',

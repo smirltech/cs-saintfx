@@ -39,6 +39,12 @@ trait HasLivewireAlert
         $this->flash('success', $message, $options, $redirect);
     }
 
+    public function flashWarning(string $message, string $redirect, array $options = []): void
+    {
+
+        $this->flash('warning', $message, $options, $redirect);
+    }
+
     /**
      * @param string $message
      * @param array $options

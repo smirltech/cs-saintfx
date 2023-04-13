@@ -8,6 +8,7 @@ enum UserRole: string
 
     case admin = 'admin';
     case promoteur = 'promoteur';
+    case coordonnateur = 'coordonnateur';
     case caissier = 'caissier';
     case eleve = 'eleve';
     case parent = 'parent';
@@ -17,12 +18,13 @@ enum UserRole: string
     {
         // return permissions based on user role
         return match ($this) {
-            self::promoteur => [
+            self::promoteur, self::coordonnateur => [
                 RolePermission::users_all->value,
                 RolePermission::roles_all->value,
                 RolePermission::permissions_all->value,
                 RolePermission::annees_all->value,
                 RolePermission::tags_all->value,
+                RolePermission::depenses_all->value,
             ],
             self::admin => [
                 RolePermission::annees_all->value,
@@ -59,12 +61,10 @@ enum UserRole: string
             self::caissier => [
                 RolePermission::perceptions_all->value,
             ],
-            self::eleve => [
-
-            ],
             self::parent => [
                 RolePermission::eleves_view->value,
-            ]
+            ],
+            default => []
 
         };
 

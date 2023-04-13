@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Livewire\Finance;
 
 Route::get('finance', Finance\Dashboard\DashboardComponent::class)->name('finance')->middleware('auth');
@@ -12,7 +13,10 @@ Route::prefix('finance')->middleware(['auth:web'])->as('finance.')->group(functi
     Route::get('revenus', Finance\Revenu\RevenuIndexComponent::class)->name('revenus');
 
     //Depense
-    Route::get('depenses', Finance\Depense\DepenseIndexComponent::class)->name('depenses');
+    Route::get('depenses/{depense}/edit', Finance\Depenses\DepenseCreateComponent::class)->name('depenses.edit');
+    Route::get('depenses/create', Finance\Depenses\DepenseCreateComponent::class)->name('depenses.create');
+    Route::get('depenses/{depense}', Finance\Depenses\DepenseShowComponent::class)->name('depenses.show');
+    Route::get('depenses', Finance\Depenses\DepenseIndexComponent::class)->name('depenses.index');
 
     Route::get('depense-types', Finance\DepenseType\DepenseTypeIndexComponent::class)->name('depense-types');
     Route::get('depense-types/{depenseType}', Finance\DepenseType\DepenseTypeShowComponent::class)->name('depense-types.show');

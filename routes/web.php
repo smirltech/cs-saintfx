@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\Admin\AuditController;
 use App\Http\Controllers\Admin\DarkmodeController;
+use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Livewire\Bibliotheque\Etiquette\EtiquetteIndexComponent;
 use App\Http\Livewire\Finance;
 use App\Http\Livewire\MainDashboardComponent;
+use App\Http\Livewire\Notification\NoficationIndexComponent;
 use App\Http\Livewire\Profile\UserEditComponent;
 use App\Http\Livewire\Roles;
 use Illuminate\Support\Facades\Auth;
@@ -47,6 +49,11 @@ Auth::routes([
     'confirm' => false,
     'verify' => false
 ]);
+
+Route::middleware('auth:web')->group(function () {
+    Route::get('notifications/get', [NotificationController::class, 'getNotificationsData'])->name('notifications.get');
+    Route::get('notifications', NoficationIndexComponent::class)->name('notifications.index');
+});
 
 
 //Scolarite

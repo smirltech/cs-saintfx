@@ -10,7 +10,7 @@ use Illuminate\Database\Seeder;
 
 class FraisSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
         foreach ($this->data() as $frais) {
             Frais::create($frais);

@@ -30,6 +30,7 @@ use App\Models\Resultat;
 use App\Models\Revenu;
 use App\Models\User;
 use Database\Factories\UnitFactory;
+use Exception;
 use Illuminate\Database\Seeder;
 
 class FactorySeeder extends Seeder
@@ -41,42 +42,45 @@ class FactorySeeder extends Seeder
      */
     public function run(): void
     {
+        try {
+            User::factory(5)->create();
 
-        User::factory(5)->create();
+            Eleve::factory(1)->create();
+            Inscription::factory(1)->create();
 
-        Eleve::factory(1)->create();
-        Inscription::factory(1)->create();
+            Responsable::factory(1)->create();
+            ResponsableEleve::factory(1)->create();
 
-        Responsable::factory(1)->create();
-        ResponsableEleve::factory(1)->create();
+            Enseignant::factory(10)->create();
+            ClasseEnseignant::factory(10)->create();
 
-        Enseignant::factory(10)->create();
-        ClasseEnseignant::factory(10)->create();
+            Cours::factory(10)->create();
+            CoursEnseignant::factory(20)->create();
 
-        Cours::factory(10)->create();
-        CoursEnseignant::factory(20)->create();
+            Presence::factory(10)->create();
 
-        Presence::factory(10)->create();
+            Resultat::factory(10)->create();
 
-        Resultat::factory(10)->create();
+            Devoir::factory(10)->create();
+            DevoirReponse::factory(10)->create();
 
-        Devoir::factory(10)->create();
-        DevoirReponse::factory(10)->create();
-
-        # Finance
-        Revenu::factory(5)->create();
-        Depense::factory(5)->create();
-        Paiment::factory(5)->create();
-        //Perception::factory(5)->create();
-        MaterielCategory::factory(5)->create();
-        Materiel::factory(10)->create();
-        Mouvement::factory(15)->create();
-        Cession::factory(3)->create();
-        Consommable::factory(10)->create();
-        Operation::factory(10)->create();
-        Auteur::factory(5)->create();
-        Rayon::factory(5)->create();
-        Ouvrage::factory(20)->create();
+            # Finance
+            Revenu::factory(5)->create();
+            Depense::factory(5)->create();
+            Paiment::factory(5)->create();
+            //Perception::factory(5)->create();
+            MaterielCategory::factory(5)->create();
+            Materiel::factory(10)->create();
+            Mouvement::factory(15)->create();
+            Cession::factory(3)->create();
+            Consommable::factory(10)->create();
+            Operation::factory(10)->create();
+            Auteur::factory(5)->create();
+            Rayon::factory(5)->create();
+            Ouvrage::factory(20)->create();
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
 
     }
 }
