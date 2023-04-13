@@ -30,7 +30,7 @@ class Depense extends Model
         'devise' => Devise::class,
     ];
 
-    protected $with = ['user'];
+    protected $with = ['user', 'statuses'];
 
     public static function dataOfLast($days = 7): array
     {
@@ -83,6 +83,7 @@ class Depense extends Model
     public function notifyAll(DepenseCreated $notification, array $roles): void
     {
         $users = User::role($roles)->get();
+        $users->push($this->user);
         Notification::send($users, $notification);
     }
 
@@ -157,8 +158,9 @@ class Depense extends Model
             UserRole::coordinateur->value => DepenseStatus::rejected_promoteur->value,
             default => null,
         };
+
         if ($status_name) {
-            $this->forceSetStatus($status_name, $status_note);
+            $this->setStatus($status_name, $status_note);
         } else {
             throw new Exception('Vous n\'avez pas le droit d\'approuver cette dépense');
         }

@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use App\Enums\DepenseStatus;
 use App\Models\Depense;
 use App\Notifications\DepenseCreated;
 use Spatie\ModelStatus\Events\StatusUpdated;
@@ -23,8 +24,13 @@ class StatusUpdatedListener
     {
         $model = $event->model;
 
+        $status_roles = $model->status_roles;
+        if (empty($status_roles)) {
+            $status_roles = DepenseStatus::pending->roles();
+        }
+
         if ($model instanceof Depense) {
-            $model->notifyAll(new DepenseCreated($model), $model->status_roles);
+            $model->notifyAll(new DepenseCreated($model), $status_roles);
         }
     }
 }

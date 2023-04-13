@@ -47,9 +47,11 @@ class DepenseCreated extends Notification
      */
     public function toArray(object $notifiable): array
     {
+        $status = $this->depense->statuses()->latest()->first();
+
         return [
-            'title' => 'Finance',
-            'message' => $this->depense?->status()?->reason,
+            'title' => 'Depense',
+            'message' => $status->reason ?? $status->label,
             'link' => route('finance.depenses.show', $this->depense),
         ];
     }

@@ -70,7 +70,7 @@
                                         <span class="time"><i class="fas fa-clock"></i> {{$status->created_at->diffForHumans()}}</span>
                                         <h3 class="timeline-header"><a href="#">{{$status->user->name}}</a></h3>
                                         <div class="timeline-body">
-                                            {{$status->reason}}
+                                            {!! $status->reason !!}
                                         </div>
                                     </div>
                                 </div>

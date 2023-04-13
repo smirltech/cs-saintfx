@@ -35,12 +35,14 @@ class NotificationController
 
 
             $dropdownHtml .= "<a href='#' class='dropdown-item'>
-                                {$icon}{$text}{$time}
+                                {$icon}<br>{$text}{$time}
                               </a>";
 
             //   if ($key < count($not)) {
             $dropdownHtml .= "<div class='dropdown-divider'></div>";
             //}
+
+            if ($key == 4) break;
         }
 
         // Return the new notification data.
