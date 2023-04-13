@@ -102,10 +102,6 @@ class Depense extends Model
         return number_format($this->montant, 0, ',', ' ') . ' ' . $this->devise ?? 'CDF';
     }
 
-    public function timeline(): array
-    {
-
-    }
 
     /**
      * @throws Exception
@@ -126,12 +122,12 @@ class Depense extends Model
 
     }
 
-    // timeline
-
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
+
+    // timeline
 
     public function forceSetStatus(string $name, ?string $reason = null): self
     {
@@ -146,6 +142,14 @@ class Depense extends Model
         event(new StatusUpdated($oldStatus, $newStatus, $this));
 
         return $this;
+    }
+
+    public function isApproved(): bool
+    {
+        return match ($this->status()->name) {
+            DepenseStatus::approved_promoteur->value, DepenseStatus::done->value, DepenseStatus::issued->value => true,
+            default => false
+        };
     }
 
     /**

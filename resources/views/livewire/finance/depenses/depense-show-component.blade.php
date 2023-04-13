@@ -92,20 +92,21 @@
                                     wire:model="status_note"/>
                             </div>
                         </div>
+                        @if(!$depense->isApproved())
+                            <x-form::button-primary
+                                type="button"
+                                icon="check"
+                                wire:click="approveDepense"
+                                class="float-end m-1"
+                                label="Approuver"/>
 
-                        <x-form::button-primary
-                            type="button"
-                            icon="check"
-                            wire:click="approveDepense"
-                            class="float-end m-1"
-                            label="Approuver"/>
-
-                        <x-form::button-warning
-                            type="button"
-                            icon="close"
-                            wire:click="rejectDepense"
-                            class="float-start m-1"
-                            label="Rejetter"/>
+                            <x-form::button-warning
+                                type="button"
+                                icon="close"
+                                wire:click="rejectDepense"
+                                class="float-start m-1"
+                                label="Rejetter"/>
+                        @endif
                     </form>
                 </div>
             </div>
