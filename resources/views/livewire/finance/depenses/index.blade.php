@@ -102,7 +102,8 @@
                                                     </a>
                                                 @endcan
                                                 @can('depenses.delete',$row[6])
-                                                    <button wire:click="getSelectedDepense({{$row[6]}})" type="button"
+                                                    <button hidden wire:click="getSelectedDepense({{$row[6]}})"
+                                                            type="button"
                                                             title="supprimer" class="btn btn-sm btn-danger m-1"
                                                             data-toggle="modal"
                                                             data-target="#delete-depense-modal">

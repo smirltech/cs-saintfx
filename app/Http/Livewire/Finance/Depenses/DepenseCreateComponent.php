@@ -16,6 +16,7 @@ class DepenseCreateComponent extends BaseComponent
 {
     public array|Collection $types;
     public Depense $depense;
+    public mixed $depense_media = null;
 
     public function mount(Depense $depense): void
     {
@@ -49,6 +50,18 @@ class DepenseCreateComponent extends BaseComponent
 
         $this->flashSuccess('Dépense enregistrée avec succès', route('finance.depenses.index'));
     }
+
+    public function submitAttachment(): void
+    {
+        $this->validate([
+            'depense_media' => 'required|file|max:1024',
+        ]);
+
+        $this->depense->addMedia($this->depense_media,);
+
+        $this->flashSuccess('Pièce jointe ajoutée avec succès', route('finance.depenses.index'));
+    }
+
 
     protected function rules(): array
     {

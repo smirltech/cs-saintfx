@@ -15,12 +15,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Notification;
+use SmirlTech\LaravelMedia\Traits\HasMedia;
 use Spatie\ModelStatus\Events\StatusUpdated;
 use Spatie\ModelStatus\HasStatuses;
 
 class Depense extends Model
 {
-    use HasFactory, HasStatuses, HasUlids;
+    use HasFactory, HasStatuses, HasUlids, HasMedia;
 
     public $guarded = [];
     protected $casts = [
