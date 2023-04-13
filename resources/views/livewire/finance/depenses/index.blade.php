@@ -54,7 +54,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="card">
+                    <div class="card card-primary">
                         <div class="card-header">
                             <div class="card-title">
 
@@ -63,7 +63,7 @@
                                 @can('depenses.create')
                                     <a href="{{ route('finance.depenses.create') }}"
                                        type="button"
-                                       class="btn btn-primary  ml-2"><span
+                                       class="btn btn-outline-primary  ml-2"><span
                                             class="fa fa-plus"></span></a>
                                 @endcan
                             </div>

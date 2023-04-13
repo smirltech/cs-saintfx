@@ -111,7 +111,7 @@ class Depense extends Model
     {
         $status_name = match (Auth::user()?->role?->name) {
             UserRole::promoteur->value => DepenseStatus::rejected_promoteur->value,
-            UserRole::coordinateur->value => DepenseStatus::rejected_coordonateur->value,
+            UserRole::coordinateur->value => DepenseStatus::rejected_coordonnateur->value,
             default => null,
         };
         if ($status_name) {
@@ -147,7 +147,20 @@ class Depense extends Model
 
     public function isApproved(): bool
     {
-        return match ($this->status()->name) {
+        return $this->isApprovedByCoordonnateur() || $this->isApprovedByPromoteur();
+    }
+
+    public function isApprovedByCoordonnateur(): bool
+    {
+        return match ($this->status()?->name) {
+                DepenseStatus::approved_coordonnateur->value => true,
+                default => false
+            } || $this->isApprovedByPromoteur();
+    }
+
+    public function isApprovedByPromoteur(): bool
+    {
+        return match ($this->status()?->name) {
             DepenseStatus::approved_promoteur->value, DepenseStatus::done->value, DepenseStatus::issued->value => true,
             default => false
         };
