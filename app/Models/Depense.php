@@ -115,7 +115,7 @@ class Depense extends Model
             default => null,
         };
         if ($status_name) {
-            $this->forceSetStatus($status_name, $status_note);
+            $this->setStatus($status_name, $status_note);
         } else {
             throw new Exception('Vous n\'avez pas le droit de rejeter cette dépense');
         }
