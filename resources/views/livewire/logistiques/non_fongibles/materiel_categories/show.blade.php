@@ -11,7 +11,7 @@
         <div class="col-6">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('logistique') }}">Accueil</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('logistique.rayons') }}">Catégories</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('logistique.categories') }}">Catégories</a></li>
                 <li class="breadcrumb-item active">{{$category->nom}}</li>
             </ol>
         </div>
@@ -46,7 +46,7 @@
                                 <li class="list-group-item">
                                     <b>Groupe : </b> <span class="float-right">
                                         <a
-                                            href="{{$category->groupe==null?'#':route('logistique.rayons.show',[$category->groupe?->id])}}">{!! $category->groupe?->nom !!}</a>
+                                            href="{{$category->groupe==null?'#':route('logistique.categories.show',[$category->groupe?->id])}}">{!! $category->groupe?->nom !!}</a>
                                     </span>
                                 </li>
                                 <li class="list-group-item">
@@ -121,7 +121,7 @@
                                                 <tr>
                                                     <td>{{ $i+1 }}</td>
                                                     <td>{{ $materiel->nom }}</td>
-                                                    <td>{{ $materiel->description }}</td>
+                                                    <td>{{ Str::limit($materiel->description,50) }}</td>
                                                     <td>{{ Carbon::parse($materiel->date)->format('d-m-Y') }}</td>
                                                     <td>{{ $materiel->vie }}</td>
                                                     <td>{{ $materiel->vieRestante }}</td>
@@ -163,7 +163,7 @@
                                                 <tr>
                                                     <td>{{ $i+1 }}</td>
                                                     <td>
-                                                        <a href="{{route('logistique.rayons.show',[$categ->id])}}">{!! $categ->nom !!}</a>
+                                                        <a href="{{route('logistique.categories.show',[$categ->id])}}">{!! $categ->nom !!}</a>
                                                     </td>
                                                     <td>{{ $categ->description }}</td>
                                                     <td>{{ $categ->materielsCount }}</td>

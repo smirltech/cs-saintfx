@@ -13,7 +13,7 @@
             $i+1,
             $categorie->nom,
             $categorie->groupe,
-            $categorie->description,
+            Str::limit($categorie->description, 50),
             $categorie->materielsCount,
             $categorie,
 ];
