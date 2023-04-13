@@ -18,7 +18,6 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body card-block">
-                    <x-form::validation-errors class="mb-4" :errors="$errors"/>
                     <form wire:submit.prevent="save">
                         <div class="modal-body">
                             <div class="row">
@@ -39,7 +38,7 @@
                                 </div>
                                 <div class="form-group col-md-12 p-3">
                                     <strong>Permissions</strong>
-                                    <div class="row mb-3">
+                                    <div class="row mb-3 p-3">
                                         @php
                                             $fw = '';
                                         @endphp
