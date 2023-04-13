@@ -224,6 +224,10 @@ enum RolePermission: string
     //------------------ Cotisations ---------------- //
     case cotisations_all = 'cotisations.*';
 
+    //------------------ Operations ---------------- //
+    case operations_all = 'operations.*';
+    case cessions_all = 'cessions.*';
+
     public function label(): string
     {
         return match ($this) {

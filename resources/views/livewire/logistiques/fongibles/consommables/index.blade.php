@@ -5,7 +5,7 @@
             ['label'=>'#', 'width'=>5],
             'CODE',
             'CONSOMMABLE',
-            'DESCRIPTION',
+
             'MINIMUM',
             'QUANTITÉ',
             ['label'=>'NIVEAU', 'width'=>5],
@@ -17,7 +17,7 @@
                 $i+1,
                 $consommable->code,
                 $consommable->nom,
-                Str::limit($consommable->description, 50)   ,
+
                 $consommable->stock_minimum.' '.$consommable->unit->code,
                 $consommable->quantite.' '.$consommable->unit->code,
                 $consommable->alertText,
@@ -28,7 +28,7 @@
         $config =[
       'data'=>$datas,
       'order'=>[[1, 'asc']],
-      'columns'=>[null, null, null, null, null, null, null, ['orderable'=>false]],
+      'columns'=>[null, null, null, null, null, null, ['orderable'=>false]],
       'destroy'=>false,
 
     ];
@@ -80,25 +80,24 @@
                                                   hoverable
                                                   with-buttons>
                                 @foreach($config['data'] as $row)
-                                    <tr class="table-{{$row[7]->alertColor}}">
+                                    <tr class="table-{{$row[6]->alertColor}}">
                                         <td>{!! $row[0] !!}</td>
                                         <td>{!! $row[1] !!}</td>
                                         <td>{!! $row[2] !!}</td>
                                         <td>{!! $row[3] !!}</td>
                                         <td>{!! $row[4] !!}</td>
                                         <td>{!! $row[5] !!}</td>
-                                        <td>{!! $row[6] !!}</td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                @can('consommables.view', $row[7])
-                                                    <a href="{{route('logistique.consommables.show',[$row[7]->id])}}"
+                                                @can('consommables.view', $row[6])
+                                                    <a href="{{route('logistique.consommables.show',[$row[6]->id])}}"
                                                        title="Voir"
                                                        class="btn btn-warning">
                                                         <i class="fas fa-eye"></i>
                                                     </a>
                                                 @endcan
-                                                @can('consommables.update', $row[7])
-                                                    <button wire:click="getSelectedConsommable({{$row[7]}})"
+                                                @can('consommables.update', $row[6])
+                                                    <button wire:click="getSelectedConsommable({{$row[6]}})"
                                                             type="button"
                                                             title="Modifier" class="btn btn-info  ml-2"
                                                             data-toggle="modal"
@@ -106,8 +105,8 @@
                                                         <span class="fa fa-pen"></span>
                                                     </button>
                                                 @endcan
-                                                @can('consommables.delete', $row[7])
-                                                    <button wire:click="getSelectedConsommable({{$row[7]}})"
+                                                @can('consommables.delete', $row[6])
+                                                    <button wire:click="getSelectedConsommable({{$row[6]}})"
                                                             type="button"
                                                             title="supprimer" class="btn btn-danger  ml-2"
                                                             data-toggle="modal"

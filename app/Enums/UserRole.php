@@ -28,6 +28,9 @@ enum UserRole: string
             ],
             self::admin => [
                 RolePermission::annees_all->value,
+                RolePermission::operations_all->value,
+                RolePermission::cessions_all->value,
+                RolePermission::cotisations_all->value,
                 RolePermission::materiel_categories_all->value,
                 RolePermission::materiels_all->value,
                 RolePermission::cours_all->value,

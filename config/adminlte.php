@@ -423,24 +423,24 @@ return [
             'can' => ['consommables.view.*', 'operations.view.*', 'units.view.*', 'materiels.view.*', 'materiel-categories.view.*', 'mouvements.view.*', 'cessions.view.*'],
         ],
         [
-            'text' => 'Fongibles',
+            'text' => 'Consommables',
             'icon' => 'fas fa-fw fa-recycle',
             'can' => ['consommables.view.*', 'operations.view.*', 'units.view.*'],
             'submenu' => [
                 [
-                    'text' => 'Consommables',
+                    'text' => 'Liste des consommables',
                     'icon' => 'fas fa-fw fa-screwdriver-wrench',
                     'shift' => 'ml-2',
                     'url' => 'logistique/consommables',
                     'can' => 'consommables.view.*',
                 ],
-                [
-                    'text' => 'Opérations',
-                    'icon' => 'fas fa-fw fa-layer-group',
-                    'shift' => 'ml-2',
-                    'url' => '#',
-                    'can' => 'operations.view.*',
-                ],
+                /* [
+                     'text' => 'Les opérations',
+                     'icon' => 'fas fa-fw fa-layer-group',
+                     'shift' => 'ml-2',
+                     'url' => '#',
+                     'can' => 'operations.view.*',
+                 ],*/
                 [
                     'text' => 'Unités de mesure',
                     'icon' => 'fas fa-fw fa-ruler-combined',
@@ -451,12 +451,12 @@ return [
             ],
         ],
         [
-            'text' => 'Non Fongibles',
+            'text' => 'Materiels',
             'icon' => 'fas fa-fw fa-screwdriver-wrench',
             'can' => ['materiels.view.*', 'materiel-categories.view.*', 'mouvements.view.*', 'cessions.view.*'],
             'submenu' => [
                 [
-                    'text' => 'Materiels',
+                    'text' => 'Liste des materiels',
                     'icon' => 'fas fa-fw fa-wrench',
                     'shift' => 'ml-2',
                     'url' => 'logistique/materiels',
@@ -470,19 +470,19 @@ return [
                     'can' => 'materiel-categories.view.*',
                 ],
                 [
-                    'text' => 'Mouvements',
+                    'text' => 'Mouvements des materiels',
                     'icon' => 'fas fa-fw fa-people-carry-box',
                     'shift' => 'ml-2',
                     'url' => 'logistique/mouvements',
                     'can' => 'mouvements.view.*',
                 ],
-                [
-                    'text' => 'Cessions',
+                /*[
+                    'text' => 'Cessions des materiels',
                     'icon' => 'fas fa-fw fa-hand-holding-hand',
                     'shift' => 'ml-2',
                     'url' => 'logistique/cessions',
                     'can' => 'cessions.view.*',
-                ],
+                ],*/
             ],
         ],
 
