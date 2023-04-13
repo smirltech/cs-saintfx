@@ -15,8 +15,7 @@
                                     {{$notification->data['title']??''}}
                                 </h4>
                                 <p wire:click="openNotification('{{$notification->id}}')">
-                                    {{$notification->data['message']??''}}
-                                    <br>
+                                    {!! $notification->data['message']??'' !!}
                                     <small>{{$notification->created_at->diffForHumans()}}</small></p>
                             </div>
                         </div>

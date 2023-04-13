@@ -169,7 +169,7 @@ class Depense extends Model
     public function canBeApprovedByUser(): bool
     {
         return (match ($this->status) {
-                    DepenseStatus::approved_coordonnateur->value, DepenseStatus::rejected_promoteur => true,
+                    DepenseStatus::approved_coordonnateur->value, DepenseStatus::rejected_promoteur->value => true,
                     default => false
                 } && Auth::user()?->role?->name === UserRole::promoteur->value) || (match ($this->status) {
                     DepenseStatus::pending->value, DepenseStatus::rejected_coordonnateur->value => true,
