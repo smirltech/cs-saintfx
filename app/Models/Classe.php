@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\ClasseGrade;
 use App\Enums\FraisType;
 use App\Enums\ResultatType;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -205,7 +206,7 @@ class Classe extends Model
         return $this->hasManyThrough(Presence::class, Inscription::class)->with('inscription');
     }
 
-    public function nonInscriptions($date)
+    public function nonInscriptions($date): Collection|array
     {
         $df = $this->inscriptions()->whereDoesntHave('presences', function ($q) use ($date) {
             $q->where('date', $date);

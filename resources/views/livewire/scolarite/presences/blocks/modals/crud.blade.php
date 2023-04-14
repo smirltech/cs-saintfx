@@ -6,7 +6,7 @@
 
         <div class="form-group col-md-12 col-sm-12">
             <div>
-                <x-media::avatar :model="$presence->inscription->eleve" size="150" class="mr-2"/>
+                <x-media::avatar :model="$presence?->inscription?->eleve" size="150" class="mr-2"/>
             </div>
             <h3 style="text-align: center;">{{$presence->inscription?->nomComplet}}</h3>
         </div>
