@@ -48,6 +48,9 @@ class Eleve extends Model
         });
     }
 
+
+    // route model binding
+
     /** generate matricule
      * // {annee}{section_id}{count on section+1}
      * //ex: 2022010001
@@ -65,14 +68,6 @@ class Eleve extends Model
         $second_part = Str::padLeft($count, 4, '0');
 
         return $first_part . $second_part;
-    }
-
-
-    // route model binding
-
-    public function getIncrementing(): bool
-    {
-        return false;
     }
 
     /**
@@ -209,15 +204,8 @@ class Eleve extends Model
         return $this->inscription?->devoirs ?? new Collection();
     }
 
-
-//TODO: if uncommented, the date is not displayed in livewire date input
-    /* public function getDateNaissanceAttribute($value): Carbon
-     {
-         return Carbon::parse($value)->age;
-     }*/
-
-    public function getAgeAttribute($value): int
+    public function getDateNaissanceAttribute($value): Carbon
     {
-        return Carbon::parse($value)->age;
+        return Carbon::parse($value);
     }
 }

@@ -33,7 +33,10 @@ class PresencesBlockComponent extends Component
 
     public bool $hasNextDay = false;
     public $current_date;
-    public ?Eleve $presence_eleve;
+    /**
+     * @var Eleve
+     */
+    public Eleve $presence_eleve;
     protected $rules = [
         'presence.inscription_id' => 'required',
         'presence.date' => 'nullable',
@@ -54,7 +57,7 @@ class PresencesBlockComponent extends Component
     {
         $this->presences = $this->classe->presences->where('date', $this->current_date)->where('annee_id', Annee::id());
         $this->nonInscriptions = $this->classe->nonInscriptions($this->current_date);
-        $this->presence_eleve = empty($nonInscriptions) ? null : $this->nonInscriptions[0]->eleve;
+        $this->presence_eleve = $this->nonInscriptions[0]->eleve;
 
         $this->hasNextDay = Carbon::parse($this->current_date)->isBefore(Carbon::now()->startOfDay());
         // dd($this->presences);
