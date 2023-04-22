@@ -7,6 +7,7 @@ use App\Enums\DevoirStatus;
 use App\Enums\FraisType;
 use App\Enums\InscriptionCategorie;
 use App\Enums\InscriptionStatus;
+use App\Traits\HasScopeAnnee;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -20,7 +21,7 @@ use Str;
 
 class Inscription extends Model
 {
-    use HasFactory, HasUlids;
+    use HasFactory, HasUlids, HasScopeAnnee;
 
     public $guarded = [];
 
@@ -101,6 +102,7 @@ class Inscription extends Model
         return $this->belongsTo(Annee::class);
     }
 
+
     public function media(): MorphMany
     {
         return $this->morphMany(Media::class, 'mediable');
@@ -108,13 +110,6 @@ class Inscription extends Model
 
     // scope annee
 
-    public function scopeAnnee($query, $annee_id = null)
-    {
-        if ($annee_id) {
-            return $query->where('annee_id', $annee_id);
-        }
-        return $query->where('annee_id', Annee::id());
-    }
 
     public function scopeStatus($query, $status = null)
     {

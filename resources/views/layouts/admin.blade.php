@@ -5,22 +5,24 @@
 @endsection
 
 @section('content_header')
-    <div class="row">
-        <div class="col-6">
-            <h1 class="ms-3"><i class="fa fa-{{$icon??null}} mr-2"></i>{{$title??null}}</h1>
-        </div>
+    @if($title ?? null)
+        <div class="row">
+            <div class="col-6">
+                <h1 class="ms-3"><i class="fa fa-{{$icon??null}} mr-2"></i>{{$title??null}}</h1>
+            </div>
 
-        <div class="col-6">
-            <ol class="breadcrumb float-right">
-                @foreach($breadcrumbs??[] as $breadcrumb)
-                    <li class="breadcrumb-item"><a href="{{$breadcrumb['url']}}">{{$breadcrumb['label']}}</a></li>
-                    @if($loop->last)
-                        <li class="breadcrumb-item active">{{$title}}</li>
-                    @endif
-                @endforeach
-            </ol>
+            <div class="col-6">
+                <ol class="breadcrumb float-right">
+                    @foreach($breadcrumbs??[] as $breadcrumb)
+                        <li class="breadcrumb-item"><a href="{{$breadcrumb['url']}}">{{$breadcrumb['label']}}</a></li>
+                        @if($loop->last)
+                            <li class="breadcrumb-item active">{{$title}}</li>
+                        @endif
+                    @endforeach
+                </ol>
+            </div>
         </div>
-    </div>
+    @endif
 @stop
 
 @section('content')

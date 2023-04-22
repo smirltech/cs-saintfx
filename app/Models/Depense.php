@@ -63,6 +63,11 @@ class Depense extends Model
         return $data;
     }
 
+    public static function total()
+    {
+        return self::where('annee_id', Annee::id())->sum('montant');
+    }
+
     protected static function booted(): void
     {
 
@@ -147,15 +152,7 @@ class Depense extends Model
 
     public function isApproved(): bool
     {
-        return $this->isApprovedByCoordonnateur() || $this->isApprovedByPromoteur();
-    }
-
-    public function isApprovedByCoordonnateur(): bool
-    {
-        return match ($this->status()?->name) {
-                DepenseStatus::approved_coordonnateur->value => true,
-                default => false
-            } || $this->isApprovedByPromoteur();
+        return $this->isApprovedByPromoteur();
     }
 
     public function isApprovedByPromoteur(): bool
@@ -164,6 +161,14 @@ class Depense extends Model
             DepenseStatus::approved_promoteur->value, DepenseStatus::done->value, DepenseStatus::issued->value => true,
             default => false
         };
+    }
+
+    public function isApprovedByCoordonnateur(): bool
+    {
+        return match ($this->status()?->name) {
+                DepenseStatus::approved_coordonnateur->value => true,
+                default => false
+            } || $this->isApprovedByPromoteur();
     }
 
     public function canBeApprovedByUser(): bool
@@ -184,7 +189,7 @@ class Depense extends Model
     {
         $status_name = match (Auth::user()?->role?->name) {
             UserRole::promoteur->value => DepenseStatus::approved_promoteur->value,
-            UserRole::coordonnateur->value => DepenseStatus::rejected_promoteur->value,
+            UserRole::coordonnateur->value => DepenseStatus::approved_coordonnateur->value,
             default => null,
         };
 
