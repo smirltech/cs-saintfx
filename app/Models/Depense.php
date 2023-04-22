@@ -63,6 +63,11 @@ class Depense extends Model
         return $data;
     }
 
+    public static function total()
+    {
+        return self::where('annee_id', Annee::id())->sum('montant');
+    }
+
     protected static function booted(): void
     {
 

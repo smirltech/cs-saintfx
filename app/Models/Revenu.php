@@ -29,4 +29,9 @@ class Revenu extends Model
         $fin = Carbon::parse($dfin)->endOfDay();
         return self::where('annee_id', $annee_id)->whereBetween('created_at', [$debut, $fin])->sum('montant');
     }
+
+    public static function total()
+    {
+        return self::where('annee_id', Annee::id())->sum('montant');
+    }
 }
