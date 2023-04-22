@@ -7,7 +7,7 @@ enum UserGate
 
     // -------------------  ELEVES  ------------------- //
     case browse_eleves;
-case create_eleves;
+    case create_eleves;
     // -------------------  ./ELEVES  ------------------- //
     // -------------------  RESPONSABLES  ------------------- //
     case browse_responsables;
@@ -52,7 +52,7 @@ case create_eleves;
             ],
             self::browse_finance => [
                 UserRole::promoteur->value,
-                UserRole::caissier->value,
+                UserRole::comptable->value,
             ],
             self::browse_settings => [
                 UserRole::promoteur->value,
@@ -83,10 +83,10 @@ case create_eleves;
             self::browse_factures => [
                 UserRole::promoteur->value,
                 UserRole::admin->value,
-                UserRole::caissier->value,
+                UserRole::comptable->value,
             ],
             self::browse_inscriptions => [
-               // UserRole::promoteur->value,
+                // UserRole::promoteur->value,
                 UserRole::admin->value,
             ],
             self::browse_logistique => [

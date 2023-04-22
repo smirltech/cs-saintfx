@@ -285,7 +285,11 @@ return [
                 'period' => 30,
             ],
         ],
-
+        [
+            'text' => 'Dashboard',
+            'icon' => 'fas fa-fw fa-tachometer-alt',
+            'url' => '/',
+        ],
 
         ['header' => 'SCOLARITÉ',
             'can' => ['eleves.view.*', 'inscriptions.view.*', 'eleves.create', 'inscriptions.create', 'responsables.view.*',

@@ -18,6 +18,8 @@ class DepenseShowComponent extends BaseComponent
     public ?string $status_note = null;
     public mixed $depense_statuses;
 
+    protected $listeners = ['refresh' => '$refresh'];
+
     public function mount(Depense $depense): void
     {
         $this->loadData($depense);
@@ -52,7 +54,7 @@ class DepenseShowComponent extends BaseComponent
         try {
             $this->depense->reject($this->status_note);
             $this->success('Dépense rejetée avec succès');
-            $this->loadData($this->depense);
+            $this->emit('refresh');
         } catch (Exception $e) {
             $this->error(local: $e->getMessage());
         }
@@ -66,7 +68,7 @@ class DepenseShowComponent extends BaseComponent
         try {
             $this->depense->approve($this->status_note);
             $this->success('Dépense approuvée avec succès');
-            $this->loadData($this->depense);
+            $this->emit('refresh');
 
         } catch (Exception $e) {
             $this->error(local: $e->getMessage());

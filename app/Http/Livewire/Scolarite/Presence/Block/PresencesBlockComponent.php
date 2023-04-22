@@ -43,7 +43,7 @@ class PresencesBlockComponent extends Component
 
     ];
 
-    public function mount(Classe $classe): void
+    #[NoReturn] public function mount(Classe $classe): void
     {
         $this->classe = $classe;
         $this->loadData();
@@ -66,10 +66,9 @@ class PresencesBlockComponent extends Component
         $this->current_date = $this->current_date ?? Carbon::now()->format('Y-m-d');
         $this->presence = new Presence();
         $this->presence->inscription_id = $this->nonInscriptions[0]->id ?? null;
-        // dd($this->presence->inscription_id);
     }
 
-    public function render(): View|\Illuminate\Foundation\Application|Factory|Application
+    #[NoReturn] public function render(): View|\Illuminate\Foundation\Application|Factory|Application
     {
         $this->loadData();
         return view('livewire.scolarite.presences.blocks.list',

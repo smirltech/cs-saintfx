@@ -47,6 +47,8 @@ class DepenseCreateComponent extends BaseComponent
     public function submit(): void
     {
         $this->validate();
+        $id = $this->depense->id;
+
         $this->depense->save();
 
 
@@ -56,7 +58,13 @@ class DepenseCreateComponent extends BaseComponent
             roles: [UserRole::admin->value, UserRole::promoteur->value]
         );
 
-        $this->flashSuccess('Dépense enregistrée avec succès', route('finance.depenses.index'));
+        if ($id) {
+            $this->success('Dépense modifiée avec succès');
+        } else {
+            $this->flashSuccess('Dépense enregistrée avec succès', route('finance.depenses.edit', $this->depense->id));
+        }
+
+
     }
 
     public function submitAttachment(): void
