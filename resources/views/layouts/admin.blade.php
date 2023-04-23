@@ -37,6 +37,7 @@
     </div>
 @stop
 @push('css')
+
     {{-- @vite(['resources/sass/admin.scss', 'resources/js/admin.js'])--}}
     <link rel="stylesheet" href="{{mix('css/app.css')}}">
     <style>
@@ -54,10 +55,13 @@
     </style>
 @endpush
 @push('js')
-    <script defer src="{{mix('js/app.js')}}"></script>
+    <script src="{{mix('js/app.js')}}"></script>
     <livewire:modals/>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <x-livewire-alert::scripts/>
     <x-livewire-alert::flash/>
     <x-modals::scripts/>
+    {{-- <x-form::scripts/>--}}
+
+    @livewireChartsScripts
 @endpush
