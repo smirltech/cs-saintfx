@@ -55,8 +55,19 @@
                 @endphp
                 <div class="card">
                     <div class="card-header">
-                        Comparaison Revenues vs Depenses
-                        <x-form::select name="annee_id" :options="Annee::all()"/>
+                        <div class="row">
+                            <div class="col-md-6">
+                                Comparaison Revenues vs Depenses
+                            </div>
+                            <div class="col-md-6">
+                                <x-form::select
+                                    wire:model="annee_id"
+                                    :options="Annee::all()"
+                                />
+                            </div>
+                        </div>
+
+
                     </div>
                     <div class="card-body" style="height: 350px;">
                         <livewire:livewire-pie-chart

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a038968d574e17659c6cffc846bff2ff",
+    "content-hash": "94ab0f9a74802b7bf7aef43bb3696d4d",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -4626,16 +4626,16 @@
         },
         {
             "name": "smirltech/laravel-form",
-            "version": "v3.0.2",
+            "version": "v2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/smirltech/laravel-form.git",
-                "reference": "4ca21d785c547ff741d181ad0b7575665ce6ec06"
+                "reference": "4ea170b83b0b28059ff1a17877be1e3528f7298c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/smirltech/laravel-form/zipball/4ca21d785c547ff741d181ad0b7575665ce6ec06",
-                "reference": "4ca21d785c547ff741d181ad0b7575665ce6ec06",
+                "url": "https://api.github.com/repos/smirltech/laravel-form/zipball/4ea170b83b0b28059ff1a17877be1e3528f7298c",
+                "reference": "4ea170b83b0b28059ff1a17877be1e3528f7298c",
                 "shasum": ""
             },
             "require": {
@@ -4687,9 +4687,9 @@
             ],
             "support": {
                 "issues": "https://github.com/smirltech/laravel-form/issues",
-                "source": "https://github.com/smirltech/laravel-form/tree/v3.0.2"
+                "source": "https://github.com/smirltech/laravel-form/tree/v2.3.0"
             },
-            "time": "2023-04-17T17:44:56+00:00"
+            "time": "2023-04-14T21:37:38+00:00"
         },
         {
             "name": "smirltech/laravel-fullcalendar",
