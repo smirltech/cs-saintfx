@@ -60,5 +60,6 @@
     <x-livewire-alert::scripts/>
     <x-livewire-alert::flash/>
     <x-modals::scripts/>
+    <x-form::scripts/>
     @livewireChartsScripts
 @endpush
