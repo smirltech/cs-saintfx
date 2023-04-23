@@ -20,7 +20,12 @@ class AdminDashboardComponent extends Component
     public function mount(): void
     {
 
-        $this->boxes = [
+        $this->boxes = $this->getBoxes();
+    }
+
+    private function getBoxes(): array
+    {
+        return [
             [
                 'title' => Inscription::anneeScolaire()->count(),
                 'text' => 'Eleves',

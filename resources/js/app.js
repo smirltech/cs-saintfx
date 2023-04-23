@@ -3,6 +3,7 @@ import Alpine from 'alpinejs'
 import Swal from 'sweetalert2';
 import printJS from 'print-js';
 import {Modal} from 'bootstrap';
+import ApexCharts from 'apexcharts';
 
 require('@popperjs/core');
 require('bootstrap');
@@ -11,6 +12,7 @@ require('bootstrap');
 window.Alpine = Alpine;
 window.Swal = Swal;
 window.PrintJS = printJS;
+window.ApexCharts = ApexCharts;
 
 window.Modal = Modal;
 

@@ -1,3 +1,6 @@
+@php
+    use App\Models\Annee;use App\Models\Depense;use App\Models\Revenu;use Asantibanez\LivewireCharts\Models\ColumnChartModel;use Asantibanez\LivewireCharts\Models\PieChartModel;
+@endphp
 <x-admin-layout>
     <div class="pb-3"></div>
     <div class="container-fluid">
@@ -18,6 +21,49 @@
                             </div>
                         </div>
                     @endforeach
+                </div>
+            </div>
+            <div class="col-md-6">
+                @php
+                    $columnChartModel = (new ColumnChartModel())->multiColumn();
+                               $columnChartModel->setTitle(Annee::encours()->nom)
+                               ->addSeriesColumn('Peter', '2022-02-27', 20)
+                               ->addSeriesColumn('Peter', '2022-02-28', 40)
+                               ->addSeriesColumn('Harry', '2022-02-26', 15)
+                               ->addSeriesColumn('Harry', '2022-03-02', 35)
+                               ->addSeriesColumn('Sarah', '2022-02-02', 15)
+                               ->addSeriesColumn('Sarah', '2022-03-02', 35);
+                @endphp
+                <div class="card">
+                    <div class="card-header">
+                        Revevues vs Depenses
+                    </div>
+                    <div class="card-body" style="height: 350px;">
+                        <livewire:livewire-column-chart
+                            :column-chart-model="$columnChartModel"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                @php
+                    $pieChartModel = (new PieChartModel());
+                               $pieChartModel->setTitle(Annee::encours()->nom)
+                               ->addSlice('Revenues', Revenu::total(), '#00ff00')
+                               ->addSlice('Depenses', Depense::total(), '#ff0000');
+                @endphp
+                <div class="card">
+                    <div class="card-header">
+                        Comparaison Revenues vs Depenses
+                        <x-form::select name="annee_id" :options="Annee::all()"/>
+                    </div>
+                    <div class="card-body" style="height: 350px;">
+                        <livewire:livewire-pie-chart
+                            key="{{ $pieChartModel->reactiveKey() }}"
+                            :pie-chart-model="$pieChartModel"
+                        />
+                    </div>
                 </div>
             </div>
 
@@ -120,5 +166,4 @@
                     <!-- end dashbox -->--}}
         </div>
     </div>
-
 </x-admin-layout>
