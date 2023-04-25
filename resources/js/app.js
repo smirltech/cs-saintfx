@@ -14,6 +14,7 @@ window.Swal = Swal;
 window.PrintJS = printJS;
 window.ApexCharts = ApexCharts;
 
+
 window.Modal = Modal;
 
 Alpine.start();

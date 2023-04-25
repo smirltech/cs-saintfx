@@ -7,6 +7,7 @@ use App\Enums\DevoirStatus;
 use App\Enums\FraisType;
 use App\Enums\InscriptionCategorie;
 use App\Enums\InscriptionStatus;
+use App\Enums\Sexe;
 use App\Traits\HasScopeAnnee;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -46,6 +47,8 @@ class Inscription extends Model
         });
     }
 
+    // scope sexe
+
     public static function generateUniqueId(string $eleve_id, string $classe_id): string
     {
 
@@ -54,6 +57,16 @@ class Inscription extends Model
         $third_part = self::where('id', 'like', $first_part . '%')->count() + 1;
 
         return $first_part . $second_part . $third_part;
+    }
+
+    public function scopeSexe($query, Sexe|string $sexe = null)
+    {
+        if ($sexe) {
+            return $query->whereHas('eleve', function ($query) use ($sexe) {
+                $query->where('sexe', $sexe);
+            });
+        }
+        return $query;
     }
 
     public function eleve(): BelongsTo

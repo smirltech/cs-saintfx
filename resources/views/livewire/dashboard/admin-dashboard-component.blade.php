@@ -78,6 +78,15 @@
                 </div>
             </div>
 
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <x-charts.male-female-donut-chart/>
+                    </div>
+                </div>
+
+            </div>
+
 
             {{--        <!-- dashbox -->
                     <div class="col-12 col-xl-6">
