@@ -28,7 +28,9 @@
             <tbody>
             @foreach($perceptions as $perception)
                 <tr>
-                    <td>{{ $perception->eleve->nom }}</td>
+                    <td>
+                        <b>{{ $perception->eleve->nom }}</b> - {{ $perception->eleve->classe->code }}
+                    </td>
                     <td>{{ $perception->frais->nom }}</td>
                     <td>{{ $perception->montant }}{{ $perception->devise }}</td>
                     <td>{{ $perception->due_date }}</td>

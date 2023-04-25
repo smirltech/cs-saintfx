@@ -15,7 +15,7 @@ class FraisDueCard extends Component
 
     public function mount(): void
     {
-        $this->perceptions = Perception::all();
+        $this->perceptions = Perception::limit(5)->latest()->get();
     }
 
     public function render(): Factory|\Illuminate\Foundation\Application|View|Application
