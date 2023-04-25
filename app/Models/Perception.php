@@ -46,6 +46,16 @@ class Perception extends Model
         return self::where('annee_id', $annee_id)->whereBetween('created_at', [$debut, $fin])->sum('montant');
     }
 
+    public static function scopePaid($query)
+    {
+        return $query->where('paid', true);
+    }
+
+    public static function scopeUnpaid($query)
+    {
+        return $query->where('paid', false);
+    }
+
     protected static function booted(): void
     {
 

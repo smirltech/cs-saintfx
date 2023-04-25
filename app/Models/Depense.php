@@ -43,6 +43,7 @@ class Depense extends Model
         return $data;
     }
 
+
     public static function sommeBetween($annee_id, $ddebut, $dfin)
     {
         $debut = Carbon::parse($ddebut)->startOfDay();
@@ -66,6 +67,13 @@ class Depense extends Model
     public static function total()
     {
         return self::where('annee_id', Annee::id())->sum('montant');
+    }
+
+    public static function scopePaid($query)
+    {
+        return $query->whereHas('statuses', function ($q) {
+            $q->where('name', DepenseStatus::issued->value)->orWhere('name', DepenseStatus::done->value);
+        });
     }
 
     protected static function booted(): void
