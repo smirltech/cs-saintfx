@@ -16,7 +16,7 @@
 
     </div>
     <div class="card-body">
-        <table>
+        <table class="table">
             <thead>
             <tr>
                 <th>Eleve</th>
@@ -30,8 +30,8 @@
                 <tr>
                     <td>{{ $perception->eleve->nom }}</td>
                     <td>{{ $perception->frais->nom }}</td>
-                    <td>{{ $perception->montant }}</td>
-                    <td>{{ $perception->echeance }}</td>
+                    <td>{{ $perception->montant }}{{ $perception->devise }}</td>
+                    <td>{{ $perception->due_date }}</td>
                 </tr>
             @endforeach
             </tbody>
