@@ -16,7 +16,7 @@
             @foreach($recettes as $recette)
                 <tr>
                     <td>
-                        <b>{{ $recette->nom }}</b>
+                        <b>{{ $recette->frais->nom }}</b>
                     </td>
                     <td>{{ $recette->montant }}{{ $recette->devise }}</td>
                     <td>{{ $recette->created_at }}</td>

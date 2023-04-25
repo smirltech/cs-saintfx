@@ -20,15 +20,17 @@ class PerceptionFactory extends Factory
     public function definition(): array
     {
         $freq = $this->faker->randomElement(FraisFrequence::cases());
-       // dd($freq);
+        $frais = Frais::find($this->faker->randomElement(Frais::pluck('id')->toArray()));
+        // dd($freq);
         return [
             'user_id' => $this->faker->randomElement(User::pluck('id')->toArray()),
-            'frais_id' => $this->faker->randomElement(Frais::pluck('id')->toArray()),
+            'frais_id' => $frais->id,
             'inscription_id' => $this->faker->randomElement(Inscription::pluck('id')->toArray()),
             'frequence' => $freq->name,
             'custom_property' => $this->faker->randomElement($freq->children()),
             'annee_id' => Annee::id(),
-            'montant' => 50000,
+            'montant' => $frais->montant,
+            'paid' => $this->faker->boolean(60),
         ];
     }
 }

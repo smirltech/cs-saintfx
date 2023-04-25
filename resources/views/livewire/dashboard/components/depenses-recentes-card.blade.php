@@ -16,7 +16,7 @@
             @foreach($depenses as $depense)
                 <tr>
                     <td>
-                        <b>{{ $depense->nom }}</b>
+                        <b>{{ $depense->type->nom }}</b>
                     </td>
                     <td>{{ $depense->montant }}{{ $depense->devise }}</td>
                     <td>{{ $depense->created_at }}</td>

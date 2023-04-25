@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Notification;
 use SmirlTech\LaravelMedia\Traits\HasMedia;
 use Spatie\ModelStatus\Events\StatusUpdated;
+use Spatie\ModelStatus\Exceptions\InvalidStatus;
 use Spatie\ModelStatus\HasStatuses;
 
 class Depense extends Model
@@ -43,6 +44,7 @@ class Depense extends Model
         return $data;
     }
 
+    // set status
 
     public static function sommeBetween($annee_id, $ddebut, $dfin)
     {
@@ -92,6 +94,15 @@ class Depense extends Model
         self::created(function (Depense $depense) {
             $depense->setStatus(DepenseStatus::pending->value, "{$depense->user->name} a créé une dépense pour {$depense->type->nom} de {$depense->montant} {$depense?->devise?->value}");
         });
+    }
+
+    /**
+     * @throws InvalidStatus
+     */
+    public function setStatusAttribute(string $status): void
+    {
+        $this->save();
+        $this->setStatus($status);
     }
 
     public function notifyAll(DepenseCreated $notification, array $roles): void
@@ -207,5 +218,11 @@ class Depense extends Model
             throw new Exception('Vous n\'avez pas le droit d\'approuver cette dépense');
         }
 
+    }
+
+    // get nom attribute
+    public function getNomAttribute(): string
+    {
+        return $this->type->nom;
     }
 }
