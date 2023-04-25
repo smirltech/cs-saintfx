@@ -22,6 +22,7 @@ use App\Models\Mouvement;
 use App\Models\Operation;
 use App\Models\Ouvrage;
 use App\Models\Paiment;
+use App\Models\Perception;
 use App\Models\Presence;
 use App\Models\Rayon;
 use App\Models\Responsable;
@@ -45,8 +46,8 @@ class FactorySeeder extends Seeder
         try {
             User::factory(5)->create();
 
-            Eleve::factory(1)->create();
-            Inscription::factory(1)->create();
+            Eleve::factory(50)->create();
+            Inscription::factory(50)->create();
 
             Responsable::factory(1)->create();
             ResponsableEleve::factory(1)->create();
@@ -65,10 +66,10 @@ class FactorySeeder extends Seeder
             DevoirReponse::factory(10)->create();
 
             # Finance
-            Revenu::factory(5)->create();
-            Depense::factory(5)->create();
-            Paiment::factory(5)->create();
-            //Perception::factory(5)->create();
+            Revenu::factory(50)->create();
+            Depense::factory(50)->create();
+            Paiment::factory(50)->create();
+            Perception::factory(50)->create();
             MaterielCategory::factory(5)->create();
             Materiel::factory(10)->create();
             Mouvement::factory(15)->create();
