@@ -30,6 +30,20 @@
                     datasets: @json($dataset),
                     borderWidth: 1,
                 },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    //  cutoutPercentage: 50,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Eleves'
+                        }
+                    }
+                }
             }
         );
     </script>

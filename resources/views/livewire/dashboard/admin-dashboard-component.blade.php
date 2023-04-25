@@ -84,7 +84,10 @@
                         <x-charts.male-female-donut-chart/>
                     </div>
                 </div>
+            </div>
 
+            <div class="col-md-6">
+                <livewire:dashboard.components.frais-due-card/>
             </div>
 
 

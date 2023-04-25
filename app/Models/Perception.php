@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
 
 class Perception extends Model
@@ -26,7 +27,7 @@ class Perception extends Model
 
     // boot
 
-    public static function dataOfLast($days = 7)
+    public static function dataOfLast($days = 7): array
     {
         $data = [];
         for ($i = $days - 1; $i >= 0; $i--) {
@@ -36,6 +37,8 @@ class Perception extends Model
         return $data;
     }
 
+    // eleve through inscription
+
     public static function sommeBetween($annee_id, $ddebut, $dfin)
     {
         $debut = Carbon::parse($ddebut)->startOfDay();
@@ -43,9 +46,8 @@ class Perception extends Model
         return self::where('annee_id', $annee_id)->whereBetween('created_at', [$debut, $fin])->sum('montant');
     }
 
-    protected static function boot()
+    protected static function booted(): void
     {
-        parent::boot();
 
         static::creating(function (Perception $model) {
             $model->reference = self::generateReference();
@@ -66,15 +68,19 @@ class Perception extends Model
         return $month . $count;
     }
 
-
-    public function frais()
+    public function getEleveAttribute()
     {
-        return $this->belongsTo(Frais::class);
+        return $this->inscription->eleve;
     }
 
-    public function inscription()
+    public function inscription(): BelongsTo
     {
         return $this->belongsTo(Inscription::class);
+    }
+
+    public function frais(): BelongsTo
+    {
+        return $this->belongsTo(Frais::class);
     }
 
     public function getBalanceAttribute(): int

@@ -22,6 +22,7 @@ use App\Models\Mouvement;
 use App\Models\Operation;
 use App\Models\Ouvrage;
 use App\Models\Paiment;
+use App\Models\Perception;
 use App\Models\Presence;
 use App\Models\Rayon;
 use App\Models\Responsable;
@@ -68,7 +69,7 @@ class FactorySeeder extends Seeder
             Revenu::factory(5)->create();
             Depense::factory(5)->create();
             Paiment::factory(5)->create();
-            //Perception::factory(5)->create();
+            Perception::factory(5)->create();
             MaterielCategory::factory(5)->create();
             Materiel::factory(10)->create();
             Mouvement::factory(15)->create();
