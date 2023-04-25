@@ -27,12 +27,10 @@
                 @php
                     $columnChartModel = (new ColumnChartModel())->multiColumn();
                                $columnChartModel->setTitle(Annee::encours()->nom)
-                               ->addSeriesColumn('Peter', '2022-02-27', 20)
-                               ->addSeriesColumn('Peter', '2022-02-28', 40)
-                               ->addSeriesColumn('Harry', '2022-02-26', 15)
-                               ->addSeriesColumn('Harry', '2022-03-02', 35)
-                               ->addSeriesColumn('Sarah', '2022-02-02', 15)
-                               ->addSeriesColumn('Sarah', '2022-03-02', 35);
+                               ->addSeriesColumn('Depenses', '2022-02-27', 20)
+                               ->addSeriesColumn('Depenses', '2022-02-28', 40)
+                               ->addSeriesColumn('Revenus', '2022-02-26', 15)
+                               ->addSeriesColumn('Revenus', '2022-03-02', 35);
                 @endphp
                 <div class="card">
                     <div class="card-header">
