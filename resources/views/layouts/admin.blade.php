@@ -55,13 +55,13 @@
     </style>
 @endpush
 @push('js')
+    @livewireChartsScripts
+
     <script src="{{mix('js/app.js')}}"></script>
     <livewire:modals/>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <x-livewire-alert::scripts/>
     <x-livewire-alert::flash/>
     <x-modals::scripts/>
-    {{-- <x-form::scripts/>--}}
-
-    @livewireChartsScripts
+    <x-form::scripts/>
 @endpush
