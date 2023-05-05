@@ -56,7 +56,6 @@
 @endpush
 @push('js')
     @livewireChartsScripts
-
     <script src="{{mix('js/app.js')}}"></script>
     <livewire:modals/>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
