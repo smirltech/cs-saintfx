@@ -298,30 +298,14 @@ return [
         [
             'text' => 'Élèves',
             'icon' => 'fas fa-fw fa-user-graduate',
-            'can' => ['eleves.view.*', 'inscriptions.view.*', 'eleves.create', 'inscriptions.create', 'responsables.view.*'],
-            'submenu' => [
-                [
-                    'text' => 'Inscrire un élève',
-                    'url' => 'scolarite/inscriptions/create',
-                    'icon' => 'fa fa-plus',
-                    'shift' => 'ml-1',
-                    'can' => 'inscriptions.create',
-                ],
-                [
-                    'text' => 'Liste des élèves',
-                    'url' => 'scolarite/eleves',
-                    'icon' => 'fa fa-users',
-                    'shift' => 'ml-1',
-                    'can' => 'eleves.view.*'
-                ],
-                [
-                    'text' => 'Responsables',
-                    'url' => 'scolarite/responsables',
-                    'icon' => 'fas fa-fw fa-person-pregnant',
-                    'shift' => 'ml-1',
-                    'can' => 'responsables.view.*',
-                ],
-            ],
+            'can' => 'eleves.view.*',
+            'url' => 'scolarite/eleves',
+        ],
+        [
+            'text' => 'Responsables',
+            'url' => 'scolarite/responsables',
+            'icon' => 'fas fa-fw fa-person-pregnant',
+            'can' => 'responsables.view.*',
         ],
 
         [
