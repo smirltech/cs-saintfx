@@ -21,11 +21,12 @@ use Pharaonic\Laravel\Readable\Readable;
 class DashboardComponent extends Component
 {
     use TopMenuPreview;
+
     public $dayCount = 30;
     public $boxes = [];
     private $anneeEncours;
 
-    public function mount()
+    public function mount(): void
     {
         // set user email vefied if not yet
         if (!Auth::user()->hasVerifiedEmail()) {
@@ -43,7 +44,7 @@ class DashboardComponent extends Component
 
         // todo: we should consider annee_id wh en fetching data
         $revenuTotalSum = Revenu::where('annee_id', $this->anneeEncours->id)->sum("montant");
-        $revenuMonthSum = Revenu::where('annee_id', $this->anneeEncours->id)->whereBetween('created_at', [$monthFrom, $monthTo])->sum("montant");
+        $revenuMonthSum = Perception::paid()/*->whereBetween('created_at', [$monthFrom, $monthTo])*/ ->sum("montant");
         $rateRevenuMonth = $revenuTotalSum <= 0 ? 0 : intval($revenuMonthSum / $revenuTotalSum * 100);
 
         $depenseTotalSum = Depense::where('annee_id', $this->anneeEncours->id)->sum("montant");
@@ -60,9 +61,9 @@ class DashboardComponent extends Component
 
         $this->boxes = [
             [
-                'title' => 'Fc ' . Readable::getHumanNumber($depenseMonthSum, showDecimal: true, decimals: 2),// Helpers::currencyFormat($depenseMonthSum, symbol: 'Fc'),
-                'text' => 'Dépense',
-                'icon' => 'far fa-bookmark',
+                'title' => '$ ' . Readable::getHumanNumber($depenseMonthSum, showDecimal: true, decimals: 2),// Helpers::currencyFormat($depenseMonthSum, symbol: 'Fc'),
+                'text' => 'Dépenses',
+                'icon' => 'far fa-money-bill-alt',
                 'url' => "#",
                 'theme' => 'danger',
                 'rate' => "{$rateDepenseMonth}%",
@@ -70,8 +71,8 @@ class DashboardComponent extends Component
 
             ],
             [
-                'title' => 'Fc ' . Readable::getHumanNumber($perceptionSold, showDecimal: true, decimals: 2),
-                'text' => 'Á Recevoir',
+                'title' => '$ ' . Readable::getHumanNumber($perceptionSold, showDecimal: true, decimals: 2),
+                'text' => 'Frais impayées',
                 'icon' => 'fas fa-money-bill-wave',
                 'url' => "#",
                 'theme' => 'primary',
@@ -79,8 +80,8 @@ class DashboardComponent extends Component
                 'subtitle' => "de " . Helpers::currencyFormat($perceptionsDues, symbol: 'Fc') . " cette année scolaire",
             ],
             [
-                'title' => 13,
-                'text' => 'Rejetés',
+                'title' => number_format(($perceptionsPaid / $perceptionsDues) * 100) . '%',
+                'text' => 'Taux recouvrement',
                 'icon' => 'far fa-bookmark',
                 'url' => "scolarite/inscriptions/status/rejected",
                 'theme' => 'warning',
@@ -88,8 +89,8 @@ class DashboardComponent extends Component
                 'subtitle' => "+45% en 1 mois",
             ],
             [
-                'title' => 'Fc ' . Readable::getHumanNumber($revenuMonthSum, showDecimal: true, decimals: 2),
-                'text' => 'Revenu Auxiliaire',
+                'title' => '$ ' . Readable::getHumanNumber($revenuMonthSum, showDecimal: true, decimals: 2),
+                'text' => 'Perceptions',
                 'icon' => 'far fa-bookmark',
                 'url' => "",
                 'theme' => 'success',

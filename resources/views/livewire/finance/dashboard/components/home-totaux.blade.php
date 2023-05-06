@@ -62,7 +62,7 @@
                         -
                     @endif{{Readable::getHumanNumber(abs($totalPerceptions),showDecimal: true, decimals: 2)}}
                 </h5>
-                <span class="description-text">TOTAL FRAIS</span>
+                <span class="description-text">TOTAL FRAIS IMPAYES</span>
             </div>
 
         </div>

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\FraisFrequence;
+use App\Traits\HasScopeAnnee;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,7 +13,7 @@ use Illuminate\Support\Str;
 
 class Perception extends Model
 {
-    use HasFactory, HasUlids;
+    use HasFactory, HasUlids, HasScopeAnnee;
 
     public $guarded = [];
 
@@ -37,8 +38,6 @@ class Perception extends Model
         return $data;
     }
 
-    // eleve through inscription
-
     public static function sommeBetween($annee_id, $ddebut, $dfin)
     {
         $debut = Carbon::parse($ddebut)->startOfDay();
@@ -46,9 +45,11 @@ class Perception extends Model
         return self::where('annee_id', $annee_id)->whereBetween('created_at', [$debut, $fin])->sum('montant');
     }
 
-    public static function scopePaid($query)
+    // eleve through inscription
+
+    public static function scopePaid($query, $paid = true)
     {
-        return $query->where('paid', true);
+        return $query->where('paid', $paid);
     }
 
     public static function scopeUnpaid($query)
@@ -77,6 +78,7 @@ class Perception extends Model
         $month = Carbon::now()->format('ym');
         return $month . $count;
     }
+
 
     public function getEleveAttribute()
     {
