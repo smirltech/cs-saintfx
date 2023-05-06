@@ -114,6 +114,8 @@
         <div class="col-md-6">
             <livewire:dashboard.components.depenses-recentes-card/>
         </div>
-    </div>
+        <div class="col-md-12">
+            <livewire:scolarite.presence.charts.presences-line/>
+        </div>
     </div>
 </x-admin-layout>
