@@ -45,19 +45,19 @@ $data=[];
         ];
 @endphp
 @section('title')
-    - inscriptions {{strtolower($status->pluralLabel(Sexe::f))}} {{date('d-m-Y')}}
+    - inscriptions {{strtolower($status->pluralLabel(Sexe::F))}} {{date('d-m-Y')}}
 @endsection
 @section('content_header')
     <div class="row">
         <div class="col-6">
-            <h1 class="ms-3">Liste d'inscriptions {{strtolower($status->pluralLabel(Sexe::f))}}</h1>
+            <h1 class="ms-3">Liste d'inscriptions {{strtolower($status->pluralLabel(Sexe::F))}}</h1>
         </div>
 
         <div class="col-6">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('scolarite') }}">Accueil</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('scolarite.inscriptions') }}">Inscriptions</a></li>
-                <li class="breadcrumb-item active">{{$status->pluralLabel(Sexe::f)}}</li>
+                <li class="breadcrumb-item active">{{$status->pluralLabel(Sexe::F)}}</li>
             </ol>
         </div>
     </div>

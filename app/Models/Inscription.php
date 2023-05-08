@@ -59,7 +59,7 @@ class Inscription extends Model
         return $first_part . $second_part . $third_part;
     }
 
-    public function scopeSexe($query, Sexe|string $sexe = null)
+    public function scopeSexe($query, Sexe|string $sexe = Sexe::M)
     {
         if ($sexe) {
             return $query->whereHas('eleve', function ($query) use ($sexe) {

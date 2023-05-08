@@ -24,9 +24,9 @@ enum InscriptionStatus: string
 
     // label() is a method that returns the label of the enum
 
-    public function label($sexe = Sexe::m): string
+    public function label($sexe = Sexe::M): string
     {
-        if ($sexe == Sexe::m) return match ($this) {
+        if ($sexe == Sexe::M) return match ($this) {
             self::pending => 'En attente',
             self::approved => 'Approuvé',
             self::rejected => 'Rejeté',
@@ -40,9 +40,9 @@ enum InscriptionStatus: string
         };
     }
 
-    public function pluralLabel($sexe = Sexe::m): string
+    public function pluralLabel($sexe = Sexe::M): string
     {
-        if ($sexe == Sexe::m) return match ($this) {
+        if ($sexe == Sexe::M) return match ($this) {
             self::pending => 'En attente',
             self::approved => 'Approuvés',
             self::rejected => 'Rejetés',
