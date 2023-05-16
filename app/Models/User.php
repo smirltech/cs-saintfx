@@ -97,7 +97,7 @@ class User extends Authenticatable
         return route('users.edit', $this);
     }
 
-    public function getRoleNameAttribute()
+    public function getRoleNameAttribute(): string
     {
         return $this->role->name ?? 'Non assigné';
     }

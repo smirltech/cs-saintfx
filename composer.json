@@ -34,12 +34,15 @@
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.8.1",
-        "opcodesio/log-viewer": "^1.9.1",
         "fakerphp/faker": "^1.21",
         "laravel/pint": "^1.6",
         "mockery/mockery": "^1.5.1",
         "nunomaduro/collision": "^7.0",
+        "opcodesio/log-viewer": "^1.9.1",
+        "pestphp/pest-plugin-faker": "^2.0",
         "pestphp/pest-plugin-laravel": "^2.0",
+        "pestphp/pest-plugin-livewire": "^2.0",
+        "pestphp/pest-plugin-watch": "^2.0",
         "phpunit/phpunit": "^10.0.0",
         "spatie/laravel-ignition": "^2.0",
         "spatie/laravel-stubs": "^2.5.2"

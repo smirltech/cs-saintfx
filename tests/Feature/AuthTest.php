@@ -19,6 +19,6 @@ it('can login', function () {
 
 
     $this->post('/login', $creds)
-        ->assertRedirect('/dashboard');
-})->todo();
+        ->assertRedirect('/scolarite');
+});
 
