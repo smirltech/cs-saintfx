@@ -9,6 +9,12 @@ class Annee extends Model
 {
     public $guarded = [];
 
+    protected $casts = [
+        'date_debut' => 'date',
+        'date_fin' => 'date',
+        'encours' => 'boolean',
+    ];
+
     protected $appends = [
         'start_year',
         'end_year',
@@ -28,6 +34,18 @@ class Annee extends Model
     public static function encours(): self
     {
         return self::where('encours', true)->latest()->first();
+
+    }
+
+    public static function start(): Carbon
+    {
+        return self::encours()->date_debut;
+
+    }
+
+    public static function end(): Carbon
+    {
+        return self::encours()->date_fin;
 
     }
 
@@ -56,11 +74,11 @@ class Annee extends Model
 
     public function getStartYearAttribute(): string
     {
-        return Carbon::parse($this->date_debut)->year;
+        return $this->date_debut->year;
     }
 
     public function getEndYearAttribute(): string
     {
-        return Carbon::parse($this->date_fin)->year;
+        return $this->date_fin->year;
     }
 }

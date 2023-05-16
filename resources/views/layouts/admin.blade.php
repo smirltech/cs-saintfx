@@ -26,7 +26,9 @@
 @stop
 
 @section('content')
-    {{ $slot }}
+    <div class="p-3">
+        {{ $slot }}
+    </div>
 @endsection
 
 @section('footer')

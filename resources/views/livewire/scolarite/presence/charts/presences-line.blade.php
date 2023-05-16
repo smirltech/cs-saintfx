@@ -13,7 +13,6 @@
 
 
     foreach ($dates as $date) {
-
         $presences = Presence::whereDate('date', $date->format('Y-m-d'))->where('status',PresenceStatus::present->value)->get();
     $absences = Presence::whereDate('date', $date->format('Y-m-d'))->where('status',PresenceStatus::absent->value)->get();
     $malades = Presence::whereDate('date', $date->format('Y-m-d'))->where('status',PresenceStatus::malade->value)->get();
