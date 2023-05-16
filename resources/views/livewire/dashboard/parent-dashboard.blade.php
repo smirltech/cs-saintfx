@@ -28,17 +28,18 @@
             </div>
             @endforeach
         </div>
+    </div>
 
-        <div class="col-md-4">
-            <livewire:dashboard.components.children-presences-donut-chart/>
-        </div>
+    <div class="col-md-4">
+        <livewire:dashboard.components.children-presences-donut-chart/>
+    </div>
 
-        <div class="col-md-8">
-            <livewire:dashboard.components.frais-due-card/>
-        </div>
+    <div class="col-md-8">
+        <livewire:dashboard.components.frais-due-card/>
+    </div>
 
-        <div class="col-md-12">
-            <livewire:dashboard.components.children-card-component/>
-        </div>
+    <div class="col-md-12">
+        <livewire:dashboard.components.children-card-component/>
+    </div>
     </div>
 </x-admin-layout>
