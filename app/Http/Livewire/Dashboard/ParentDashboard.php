@@ -2,18 +2,14 @@
 
 namespace App\Http\Livewire\Dashboard;
 
-use App\Helpers\Helpers;
 use App\Models\Annee;
-use App\Models\Depense;
-use App\Models\Inscription;
+use App\Models\Eleve;
 use App\Models\Perception;
-use App\Models\Revenu;
-use Carbon\Carbon;
+use Auth;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
-use Pharaonic\Laravel\Readable\Readable;
 
 class ParentDashboard extends Component
 {
@@ -27,33 +23,25 @@ class ParentDashboard extends Component
     {
         $this->anneeEncours = Annee::encours();
 
+        //TODO: we should consider removing the fallback to all eleves
+        $eleves = Auth::user()?->eleves ?? Eleve::all();
 
-        $monthTo = Carbon::now()->endOfMonth();
-        $monthFrom = $monthTo->copy()->subMonth()->subDay()->addSecond();
+        //sum perceptions paid containing the user's eleves
+        $perceptionsRequest = Perception::where('annee_id', $this->anneeEncours->id)
+            ->whereIn('inscription_id', function ($query) use ($eleves) {
+                $query->select('id')
+                    ->from('inscriptions')
+                    ->whereIn('eleve_id', $eleves->pluck('id'));
+            });
 
-        //dd("$monthFrom === $monthTo");
 
-        // todo: we should consider annee_id wh en fetching data
-        $revenuTotalSum = Revenu::where('annee_id', $this->anneeEncours->id)->sum("montant");
-        $revenuMonthSum = Perception::paid()/*->whereBetween('created_at', [$monthFrom, $monthTo])*/ ->sum("montant");
-        $rateRevenuMonth = $revenuTotalSum <= 0 ? 0 : intval($revenuMonthSum / $revenuTotalSum * 100);
-
-        $depenseTotalSum = Depense::where('annee_id', $this->anneeEncours->id)->sum("montant");
-        $depenseMonthSum = Depense::where('annee_id', $this->anneeEncours->id)->whereBetween('created_at', [$monthFrom, $monthTo])->sum("montant");
-        $rateDepenseMonth = $depenseTotalSum <= 0 ? 0 : intval($depenseMonthSum / $depenseTotalSum * 100);
-
-        $perceptionsRequest = Perception::where('annee_id', $this->anneeEncours->id);
-        $perceptions = $perceptionsRequest->get();
         $perceptionsDues = $perceptionsRequest->sum("montant");
         $perceptionsPaid = $perceptionsRequest->sum("paid");
-        $perceptionSold = $perceptionsDues - $perceptionsPaid;
-        $ratePerceptionSold = $perceptionsDues <= 0 ? 0 : intval($perceptionSold / $perceptionsDues * 100);
 
-        $taux = $perceptionsDues <= 0 ? 0 : intval(100 - ($perceptionsPaid / $perceptionsDues) * 100, 1);
 
         return [
             [
-                'title' => Inscription::anneeScolaire()->count(),
+                'title' => $eleves?->count() ?? 0,
                 'text' => 'Eleves',
                 'icon' => 'fas fa-graduation-cap',
                 'theme' => 'gradient-primary',
@@ -61,7 +49,7 @@ class ParentDashboard extends Component
 
             ],
             [
-                'title' => '$' . $depenseTotalSum,
+                'title' => '$' . $perceptionsPaid,
                 'text' => 'Depenses',
                 'icon' => 'fas fa-credit-card',
                 'theme' => 'gradient-danger',
@@ -69,13 +57,11 @@ class ParentDashboard extends Component
 
             ],
             [
-                'title' => '$ ' . Readable::getHumanNumber($perceptionsDues, showDecimal: true, decimals: 2) . ' / ' . $perceptionsPaid <= 0 ? 0 : intval(100 - ($perceptionsPaid / $perceptionsDues) * 100, 1) . '%',
+                'title' => '$ ' . $perceptionsDues,
                 'text' => 'Frais impayées',
                 'icon' => 'fas fa-money-bill-wave',
                 'url' => "#",
                 'theme' => 'primary',
-                'rate' => "{$taux}",
-                'subtitle' => "de " . Helpers::currencyFormat($perceptionsDues, symbol: 'Fc') . " cette année scolaire",
             ],
         ];
     }
