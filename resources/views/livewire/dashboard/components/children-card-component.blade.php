@@ -19,26 +19,26 @@
                     <div class="card-footer p-0">
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a class="nav-link">
                                     Section <span
-                                        class="float-right badge bg-primary">{{$eleve->section->nom}}</span>
+                                        class="float-right text-dark">{{$eleve->section->nom}}</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a class="nav-link">
                                     Classe <span
-                                        class="float-right badge bg-info">{{$eleve->classe->code}}</span>
+                                        class="float-right text-dark">{{$eleve->classe->code}}</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a class="nav-link">
                                     Admit le <span
-                                        class="float-right badge bg-success">{{$eleve->inscription->created_at->format('d-m-Y')}}</span>
+                                        class="float-right text-dark">{{$eleve->inscription->created_at->format('d-m-Y')}}</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    Genre <span class="float-right badge bg-danger">{{$eleve->sexe}}</span>
+                                <a class="nav-link">
+                                    Genre <span class="float-right text-dark">{{$eleve->sexe}}</span>
                                 </a>
                             </li>
                         </ul>

@@ -6,7 +6,7 @@
         <div class="col-12">
             <div class="row g-2">
                 @foreach ($boxes as $box)
-                    <div class="col-md-3" bis_skin_checked="1">
+                    <div class="col-md-4" bis_skin_checked="1">
                         <div class="info-box" bis_skin_checked="1">
                                     <span class="info-box-icon  bg-{{ $box['theme'] }} elevation-1">
                                         <i class="{{ $box['icon'] }}"></i></span>

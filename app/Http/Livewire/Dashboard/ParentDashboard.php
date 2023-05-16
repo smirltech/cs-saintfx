@@ -9,6 +9,9 @@ use App\Models\Inscription;
 use App\Models\Perception;
 use App\Models\Revenu;
 use Carbon\Carbon;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Pharaonic\Laravel\Readable\Readable;
 
@@ -66,14 +69,6 @@ class ParentDashboard extends Component
 
             ],
             [
-                'title' => '$' . $perceptionsPaid,
-                'text' => 'Revenus',
-                'icon' => 'fas fa-coins',
-                'theme' => 'gradient-success',
-                'url' => '#'
-
-            ],
-            [
                 'title' => '$ ' . Readable::getHumanNumber($perceptionsDues, showDecimal: true, decimals: 2) . ' / ' . $perceptionsPaid <= 0 ? 0 : intval(100 - ($perceptionsPaid / $perceptionsDues) * 100, 1) . '%',
                 'text' => 'Frais impayées',
                 'icon' => 'fas fa-money-bill-wave',
@@ -84,8 +79,8 @@ class ParentDashboard extends Component
             ],
         ];
     }
-    
-    public function render()
+
+    public function render(): View|\Illuminate\Foundation\Application|Factory|Application
     {
         return view('livewire.dashboard.parent-dashboard');
     }
