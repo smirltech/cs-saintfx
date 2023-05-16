@@ -40,7 +40,7 @@ class Eleve extends Model
     protected static function booted(): void
     {
         static::saving(function (self $model) {
-            if (! $model->id) {
+            if (!$model->id) {
                 $model->id = self::generateUniqueId($model->section_id);
                 // remove section_id from model
             }
@@ -57,13 +57,13 @@ class Eleve extends Model
         $annee = Annee::encours();
         $start_year = $annee->start_year;
 
-        $first_part = $start_year.Helpers::pad($section_id);
+        $first_part = $start_year . Helpers::pad($section_id);
 
-        $count = self::where('id', 'like', $first_part.'%')->count() + 1;
+        $count = self::where('id', 'like', $first_part . '%')->count() + 1;
 
         $second_part = Str::padLeft($count, 4, '0');
 
-        return $first_part.$second_part;
+        return $first_part . $second_part;
     }
 
     // route model binding
@@ -106,7 +106,7 @@ class Eleve extends Model
     public function getInscriptionAttribute(): ?Inscription
     {
         $i = $this->inscriptions()->where('annee_id', Annee::id())->first();
-        if (! $i) {
+        if (!$i) {
             return $this->inscriptions()->latest()->first();
         }
 
@@ -122,6 +122,7 @@ class Eleve extends Model
     {
         return $this->inscription->classe ?? null;
     }
+
 
     public function resultats(): HasManyThrough
     {
@@ -146,10 +147,10 @@ class Eleve extends Model
     }
 
     #[Pure]
- public function getNomCompletAttribute(): string
- {
-     return $this->getFullNameAttribute();
- }
+    public function getNomCompletAttribute(): string
+    {
+        return $this->getFullNameAttribute();
+    }
 
     public function getFullNameAttribute(): string
     {
@@ -175,7 +176,7 @@ class Eleve extends Model
 
     public function getSectionAttribute(): ?Section
     {
-        return Section::find($this->section_id);
+        return $this->classe->section ?? null;
     }
 
     public function getMatriculeAttribute(): string
