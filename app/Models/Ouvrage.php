@@ -55,10 +55,11 @@ class Ouvrage extends Model
 
     public function deleteAllMedia(?string $collection_name = null): void
     {
-        if ($collection_name)
+        if ($collection_name) {
             $this->media()->where('collection_name', $collection_name)->delete();
-        else
+        } else {
             $this->media->each->delete();
+        }
     }
 
     public function setAuteursAttribute(?array $auteurs): void
@@ -108,6 +109,7 @@ class Ouvrage extends Model
                 return true;
             }
         }
+
         return false;
     }
 
@@ -124,6 +126,7 @@ class Ouvrage extends Model
                 return $media;
             }
         }
+
         return null;
     }
 
@@ -140,8 +143,7 @@ class Ouvrage extends Model
                 return $media;
             }
         }
+
         return null;
     }
-
-
 }

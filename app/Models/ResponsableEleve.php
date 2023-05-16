@@ -13,6 +13,7 @@ class ResponsableEleve extends Model
     use HasFactory, HasUlids;
 
     public $guarded = [];
+
     protected $casts = [
         'relation' => ResponsableRelation::class,
 

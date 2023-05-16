@@ -14,7 +14,6 @@ class Otp extends Model
         'expired_at' => 'datetime',
     ];
 
-
     protected $guarded = [];
 
     public function hasExpired()
@@ -22,9 +21,9 @@ class Otp extends Model
         if ($this->updated_at->diffInMinutes() > config('auth.otp.expire')) {
             return $this->delete();
         }
+
         return false;
     }
-
 
     public function routeNotificationForMail($notification)
     {

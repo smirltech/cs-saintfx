@@ -25,6 +25,7 @@ class Depense extends Model
     use HasFactory, HasStatuses, HasUlids, HasMedia;
 
     public $guarded = [];
+
     protected $casts = [
         'categorie' => DepenseCategorie::class,
         'created_at' => 'datetime',
@@ -41,6 +42,7 @@ class Depense extends Model
             $lDate = Carbon::now()->subDays($i);
             $data[] = self::whereDate('created_at', '=', $lDate)->sum('montant');
         }
+
         return $data;
     }
 
@@ -50,6 +52,7 @@ class Depense extends Model
     {
         $debut = Carbon::parse($ddebut)->startOfDay();
         $fin = Carbon::parse($dfin)->endOfDay();
+
         return self::where('annee_id', $annee_id)->whereBetween('created_at', [$debut, $fin])->sum('montant');
     }
 
@@ -82,11 +85,11 @@ class Depense extends Model
     {
 
         self::creating(function (Depense $depense) {
-            if (!$depense->annee_id) {
+            if (! $depense->annee_id) {
                 $depense->annee_id = Annee::id();
             }
 
-            if (!$depense->user_id) {
+            if (! $depense->user_id) {
                 $depense->user_id = Auth::id();
             }
         });
@@ -124,9 +127,8 @@ class Depense extends Model
 
     public function getDisplayMontantAttribute(): string
     {
-        return number_format($this->montant, 0, ',', ' ') . ' ' . $this->devise?->value;
+        return number_format($this->montant, 0, ',', ' ').' '.$this->devise?->value;
     }
-
 
     /**
      * @throws Exception
@@ -144,7 +146,6 @@ class Depense extends Model
             throw new Exception('Vous n\'avez pas le droit de rejeter cette dépense');
         }
 
-
     }
 
     public function user(): BelongsTo
@@ -161,7 +162,7 @@ class Depense extends Model
         $newStatus = $this->statuses()->create([
             'name' => $name,
             'reason' => $reason,
-            'user_id' => Auth::id()
+            'user_id' => Auth::id(),
         ]);
 
         event(new StatusUpdated($oldStatus, $newStatus, $this));
@@ -185,20 +186,20 @@ class Depense extends Model
     public function isApprovedByCoordonnateur(): bool
     {
         return match ($this->status()?->name) {
-                DepenseStatus::approved_coordonnateur->value => true,
-                default => false
-            } || $this->isApprovedByPromoteur();
+            DepenseStatus::approved_coordonnateur->value => true,
+            default => false
+        } || $this->isApprovedByPromoteur();
     }
 
     public function canBeApprovedByUser(): bool
     {
         return (match ($this->status) {
-                    DepenseStatus::approved_coordonnateur->value, DepenseStatus::rejected_promoteur->value => true,
-                    default => false
-                } && Auth::user()?->role?->name === UserRole::promoteur->value) || (match ($this->status) {
-                    DepenseStatus::pending->value, DepenseStatus::rejected_coordonnateur->value => true,
-                    default => false
-                } && Auth::user()?->role?->name === UserRole::coordonnateur->value);
+            DepenseStatus::approved_coordonnateur->value, DepenseStatus::rejected_promoteur->value => true,
+            default => false
+        } && Auth::user()?->role?->name === UserRole::promoteur->value) || (match ($this->status) {
+            DepenseStatus::pending->value, DepenseStatus::rejected_coordonnateur->value => true,
+            default => false
+        } && Auth::user()?->role?->name === UserRole::coordonnateur->value);
     }
 
     /**

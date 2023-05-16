@@ -16,6 +16,7 @@ class Presence extends Model implements Event
     use HasFactory, HasUlids;
 
     public $guarded = [];
+
     protected $casts = [
         'status' => PresenceStatus::class,
 
@@ -32,9 +33,8 @@ class Presence extends Model implements Event
         return $this->inscription->eleve;
     }
 
-
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function getTitle(): string
     {
@@ -60,7 +60,7 @@ class Presence extends Model implements Event
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function isAllDay(): bool
     {
@@ -68,7 +68,7 @@ class Presence extends Model implements Event
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function getStart(): DateTime
     {
@@ -77,7 +77,7 @@ class Presence extends Model implements Event
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function getEnd(): DateTime
     {
@@ -86,7 +86,7 @@ class Presence extends Model implements Event
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function getId(): int|string|null
     {

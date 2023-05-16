@@ -43,6 +43,7 @@ class Enseignant extends Model
         foreach ($cours as $cour) {
             $cours_array[$cour->id] = $cour->nom;
         }
+
         return $cours_array;
     }
 
@@ -55,6 +56,7 @@ class Enseignant extends Model
         if ($classe_id) {
             $query->where('classe_id', $classe_id);
         }
+
         return $query;
     }
 
@@ -70,6 +72,7 @@ class Enseignant extends Model
         if ($this->section->id == 1 || $this->section->id == 2) {
             return true;
         }
+
         return false;
     }
 }

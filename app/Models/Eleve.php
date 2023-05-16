@@ -16,12 +16,12 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use JetBrains\PhpStorm\Pure;
 use Str;
 
-
 class Eleve extends Model
 {
     use HasFactory, HasAvatar;
 
     public $guarded = [];
+
     protected $casts = [
         'sexe' => Sexe::class,
         'pere' => 'array',
@@ -40,7 +40,7 @@ class Eleve extends Model
     protected static function booted(): void
     {
         static::saving(function (self $model) {
-            if (!$model->id) {
+            if (! $model->id) {
                 $model->id = self::generateUniqueId($model->section_id);
                 // remove section_id from model
             }
@@ -52,21 +52,19 @@ class Eleve extends Model
      * // {annee}{section_id}{count on section+1}
      * //ex: 2022010001
      * */
-
     public static function generateUniqueId(string $section_id): string
     {
         $annee = Annee::encours();
         $start_year = $annee->start_year;
 
-        $first_part = $start_year . Helpers::pad($section_id);
+        $first_part = $start_year.Helpers::pad($section_id);
 
-        $count = self::where('id', 'like', $first_part . '%')->count() + 1;
+        $count = self::where('id', 'like', $first_part.'%')->count() + 1;
 
         $second_part = Str::padLeft($count, 4, '0');
 
-        return $first_part . $second_part;
+        return $first_part.$second_part;
     }
-
 
     // route model binding
 
@@ -75,9 +73,6 @@ class Eleve extends Model
         return false;
     }
 
-    /**
-     * @return string
-     */
     public function getKeyType(): string
     {
         return $this->keyType;
@@ -99,6 +94,7 @@ class Eleve extends Model
         foreach ($this->inscription->presences as $p) {
             $aa[] = $p->getColor();
         }
+
         return $aa;
     }
 
@@ -110,9 +106,10 @@ class Eleve extends Model
     public function getInscriptionAttribute(): ?Inscription
     {
         $i = $this->inscriptions()->where('annee_id', Annee::id())->first();
-        if (!$i) {
+        if (! $i) {
             return $this->inscriptions()->latest()->first();
         }
+
         return $i;
     }
 
@@ -148,10 +145,11 @@ class Eleve extends Model
         return $this->inscription;
     }
 
-    #[Pure] public function getNomCompletAttribute(): string
-    {
-        return $this->getFullNameAttribute();
-    }
+    #[Pure]
+ public function getNomCompletAttribute(): string
+ {
+     return $this->getFullNameAttribute();
+ }
 
     public function getFullNameAttribute(): string
     {
@@ -202,7 +200,6 @@ class Eleve extends Model
     }
 
     /** Devoirs for this eleve on this year and a specific class
-     * @return Collection
      */
     public function getDevoirsAttribute(): Collection
     {

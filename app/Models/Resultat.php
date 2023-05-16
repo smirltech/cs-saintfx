@@ -16,6 +16,7 @@ class Resultat extends Model
     use HasFactory, HasUlids, HasMedia;
 
     public $guarded = [];
+
     protected $casts = [
         'custom_property' => ResultatType::class,
         'conduite' => Conduite::class,

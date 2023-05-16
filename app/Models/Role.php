@@ -17,7 +17,7 @@ class Role extends SpatieRole
     public function getDisplayPermissionsAttribute(): string
     {
         return $this->permissions
-            ->map(fn($permission) => $permission->displayName)
+            ->map(fn ($permission) => $permission->displayName)
             ->implode(', ');
     }
 }

@@ -39,7 +39,7 @@ class Filiere extends Model
     // full_name
     public function getShortCodeAttribute(): string
     {
-        return "{$this->option->shortCode}" . substr("{$this->code}", 0, 1);
+        return "{$this->option->shortCode}".substr("{$this->code}", 0, 1);
     }
 
     /**

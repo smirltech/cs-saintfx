@@ -14,6 +14,7 @@ class Consommable extends Model
     use HasFactory;
 
     public $guarded = [];
+
     public $with = ['operations'];
 
     public function operations(): HasMany
@@ -40,17 +41,16 @@ class Consommable extends Model
 
     public function getQuantiteAttribute(): int
     {
-        return (int)($this->quantiteIn ?? 0) - (int)($this->quantiteOut ?? 0);
+        return (int) ($this->quantiteIn ?? 0) - (int) ($this->quantiteOut ?? 0);
     }
 
     /**
      * Le pourcentage du stock restant par rapport au stock minimum
      * Quand le stock minimum est 0 ou n'est pas donné, le pourcentage est toujours 100
-     * @return int
      */
     public function getAlertRateAttribute(): int
     {
-        return $this->stock_minimum == null || $this->stock_minimum == 0 ? 100 : (((int)($this->quantite ?? 0) / (int)($this->stock_minimum)) * 100) - 100;
+        return $this->stock_minimum == null || $this->stock_minimum == 0 ? 100 : (((int) ($this->quantite ?? 0) / (int) ($this->stock_minimum)) * 100) - 100;
     }
 
     public function getAlertTextAttribute(): string
@@ -65,6 +65,6 @@ class Consommable extends Model
 
     public function getAlertColorWithDefaultPrimaryAttribute(): string
     {
-        return strlen($this->alertColor)==0?'primary':$this->alertColor;
+        return strlen($this->alertColor) == 0 ? 'primary' : $this->alertColor;
     }
 }

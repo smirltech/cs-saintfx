@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Enums\MouvementStatus;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -22,13 +21,14 @@ class Operation extends Model
     ];
 
     protected $with = [
-        'facilitateur'
+        'facilitateur',
     ];
 
     public function facilitateur(): BelongsTo
     {
         return $this->belongsTo(User::class, 'facilitateur_id', 'id');
     }
+
     public function consommable(): BelongsTo
     {
         return $this->belongsTo(Consommable::class);

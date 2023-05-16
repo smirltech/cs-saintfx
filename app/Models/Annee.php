@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Annee extends Model
 {
-
     public $guarded = [];
 
     protected $appends = [
@@ -15,20 +14,16 @@ class Annee extends Model
         'end_year',
     ];
 
-
     /**
      * Renvoie l'id de l'année scolaire en cours
-     * @return int
      */
     public static function id(): int
     {
         return self::encours()->id;
     }
 
-
     /**
      * Renvoie l'année scolaire en cours
-     * @return Annee
      */
     public static function encours(): self
     {
