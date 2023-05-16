@@ -37,15 +37,7 @@
             <livewire:dashboard.components.depenses-recettes-pie-chart/>
         </div>
 
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <x-charts.male-female-donut-chart/>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6">
+        <div class="col-md-12">
             <livewire:dashboard.components.frais-due-card/>
         </div>
 
