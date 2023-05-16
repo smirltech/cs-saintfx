@@ -1,3 +1,4 @@
+@php use App\Models\Annee; @endphp
 @extends('adminlte::page')
 
 @section('title')
@@ -35,7 +36,7 @@
     <strong>Copyright© {{ date('Y') }} {{config('app.name')}}</strong>
     {{__('All rights reserved.')}}
     <div class="float-right d-none d-sm-inline-block">
-        {{date('d.m.Y H:i')}}
+        Année scolaire : .<strong>{{Annee::encours()->nom}}</strong> | {{date('d.m.Y H:i')}}
     </div>
 @stop
 @push('css')
