@@ -5,6 +5,7 @@ import printJS from 'print-js';
 import {Modal} from 'bootstrap';
 import ApexCharts from 'apexcharts';
 
+
 import('@popperjs/core');
 import('bootstrap');
 
@@ -16,6 +17,7 @@ window.ApexCharts = ApexCharts;
 
 
 window.Modal = Modal;
+
 
 Alpine.start();
 

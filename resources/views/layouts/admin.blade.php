@@ -41,6 +41,8 @@
 @stop
 @push('css')
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <style>
         .sidebar-dark-primary {
             background-color: var(--dark) !important;

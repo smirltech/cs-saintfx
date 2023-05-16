@@ -7,6 +7,7 @@
             </div>
             <div class="col-md-6">
                 <x-form::select
+                    placeholder="Choisir une classe"
                     wire:model="annee_id"
                     :options="Annee::all()"
                 />
