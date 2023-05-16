@@ -39,9 +39,7 @@
     </div>
 @stop
 @push('css')
-
-    {{-- @vite(['resources/sass/admin.scss', 'resources/js/admin.js'])--}}
-    <link rel="stylesheet" href="{{mix('css/app.css')}}">
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <style>
         .sidebar-dark-primary {
             background-color: var(--dark) !important;
@@ -58,7 +56,6 @@
 @endpush
 @push('js')
     @livewireChartsScripts
-    <script src="{{mix('js/app.js')}}"></script>
     <livewire:modals/>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <x-livewire-alert::scripts/>
