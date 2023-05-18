@@ -37,6 +37,7 @@ enum UserRole: string
                 RolePermission::enseignants_all->value,
                 RolePermission::inscriptions_all->value,
                 RolePermission::options_all->value,
+                RolePermission::filieres_all->value,
                 RolePermission::permissions_all->value,
                 RolePermission::roles_all->value,
                 RolePermission::units_all->value,
