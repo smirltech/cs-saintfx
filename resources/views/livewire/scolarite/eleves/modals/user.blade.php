@@ -15,11 +15,12 @@
                 <x-form::validation-errors class="mb-4" :errors="$errors"/>
                 <form id="fru1" wire:submit.prevent="addUserToEleve">
                     @if($eleve->email)
-                        <div>Le compte élève sera créé et un email avec information d'accès lui sera envoyé à l'adresse
+                        <div>Le compte élève sera créé et un email avec information d'accès lui sera
+                            envoyé à l'adresse
                             email : <b>{{ $eleve->email }}</b>
                         </div>
                     @else
-                        <div>
+                        <div class="text-danger">
                             Il n'y a pas d'adresse email pour cet élève. Veuillez en ajouter une dans la fiche de
                             l'élève
                         </div>
