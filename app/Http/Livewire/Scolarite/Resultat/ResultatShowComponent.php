@@ -112,7 +112,7 @@ class ResultatShowComponent extends Component
 
     }
 
-    public function editRelation()
+    public function editRelation(): void
     {
 
         $done = $this->responsable_eleve->update([

@@ -8,6 +8,9 @@ use App\Models\ResponsableEleve;
 use App\Models\User;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class ResponsableShowComponent extends BaseComponent
@@ -22,7 +25,7 @@ class ResponsableShowComponent extends BaseComponent
     public $email;
     public $adresse;
 
-    public $responsable_eleve;
+    public ResponsableEleve $responsable_eleve;
     public $responsable_relation;
 
     protected $rules = [
@@ -36,27 +39,26 @@ class ResponsableShowComponent extends BaseComponent
     protected $listeners = ['onModalClosed'];
 
 
-    public function mount(Responsable $responsable)
+    public function mount(Responsable $responsable): void
     {
         $this->authorize('view', $responsable);
         $this->responsable = $responsable;
     }
 
-    public function render()
+    public function render(): View|\Illuminate\Foundation\Application|Factory|Application
     {
         $this->reloadData();
         return view('livewire.scolarite.responsables.show')
             ->layout(AdminLayout::class, ['title' => 'Détail sur le responsable']);
     }
 
-    public function reloadData()
+    public function reloadData(): void
     {
         $this->responsable = Responsable::find($this->responsable->id);
     }
 
-    public function selectResponsableEleve($relationEleve_id)
+    public function selectResponsableEleve($relationEleve_id): void
     {
-        //   dd($relationEleve);
         $this->responsable_eleve = ResponsableEleve::find($relationEleve_id);
         $this->responsable_relation = $this->responsable_eleve->relation;
     }
@@ -70,7 +72,7 @@ class ResponsableShowComponent extends BaseComponent
         $this->adresse = $this->responsable->adresse;
     }
 
-    public function submitResponsable()
+    public function submitResponsable(): void
     {
         if (isset($this->nom)) {
             $this->responsable->update([
@@ -89,12 +91,14 @@ class ResponsableShowComponent extends BaseComponent
 
     }
 
-    public function onModalClosed()
+    public function onModalClosed(): void
     {
-        $this->reset(['nom', 'sexe', 'telephone', 'email', 'adresse', 'responsable_eleve', 'responsable_relation']);
+
+        $this->redirect(route('scolarite.responsables.show', $this->responsable->id));
+        // $this->reset(['nom', 'sexe', 'telephone', 'email', 'adresse', 'responsable_eleve', 'responsable_relation']);
     }
 
-    public function deleteResponsable()
+    public function deleteResponsable(): void
     {
         if (count($this->responsable->responsable_eleves) == 0) {
             ResponsableEleve::where('responsable_id', $this->responsable->id)->delete();
@@ -114,7 +118,7 @@ class ResponsableShowComponent extends BaseComponent
 
     }
 
-    public function editRelation()
+    public function editRelation(): void
     {
 
         $done = $this->responsable_eleve->update([
@@ -132,7 +136,7 @@ class ResponsableShowComponent extends BaseComponent
 
     }
 
-    public function deleteRelation()
+    public function deleteRelation(): void
     {
 
         $done = $this->responsable_eleve->delete();
@@ -150,7 +154,7 @@ class ResponsableShowComponent extends BaseComponent
 
 
     // create user for responsable
-    public function addUserToResponsable()
+    public function addUserToResponsable(): void
     {
         if ($this->responsable->user == null) {
             $user = User::create([
