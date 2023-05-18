@@ -391,7 +391,7 @@
                     {{-- Information Personnelle--}}
                     <div>
                         <div class="row">
-                            <div class="form-group col-md-4 col-sm-12">
+                            <div class="form-group col-md-6">
                                 <label for="">Nom <i class="text-red">*</i></label>
                                 <input placeholder="Saisir le nom" type="text" wire:model="eleve_nom"
                                        class="form-control  @error('eleve_nom') is-invalid @enderror">
@@ -399,26 +399,12 @@
                                 <span class="text-red">{{ $message }}</span>
                                 @enderror
                             </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="form-group col-lg-3 col-md-6 col-sm-12">
-                                <label for="">Lieu de naissance</label>
-                                <input placeholder="Saisir la ville / village de naissance" type="text"
-                                       wire:model="eleve_lieu_naissance"
-                                       class="form-control">
-
-                            </div>
-                            <div class="form-group col-lg-3 col-md-6 col-sm-12">
-                                <label for="">Date de naissance</label>
-                                <input type="date" wire:model="eleve_date_naissance"
-                                       class="form-control">
-
-                            </div>
-                            <div class="form-group col-lg-3 col-md-6 col-sm-12">
-                                <label for="">Sexe <i class="text-red">*</i></label>
-                                <x-form::select wire:model="eleve_sexe"
-                                                class="form-control  @error('eleve_sexe') is-invalid @enderror">
+                            <div class="form-group col-md-6">
+                                <x-form::select
+                                    wire:model="eleve_sexe"
+                                    required
+                                    label="Sexe">
                                     <option value="" disabled>Choisir sexe...</option>
                                     @foreach (Sexe::cases() as $es )
                                         <option value="{{ $es}}">{{ $es->label() }}</option>
@@ -428,7 +414,22 @@
                                     @enderror
                                 </x-form::select>
                             </div>
-                            <div class="form-group col-lg-3 col-md-6 col-sm-12">
+
+                            <div class="form-group col-md-4">
+                                <label for="">Lieu de naissance</label>
+                                <input placeholder="Saisir la ville / village de naissance" type="text"
+                                       wire:model="eleve_lieu_naissance"
+                                       class="form-control">
+
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="">Date de naissance</label>
+                                <input type="date" wire:model="eleve_date_naissance"
+                                       class="form-control">
+
+                            </div>
+
+                            <div class="form-group col-md-4">
                                 <label for="">No. Permanent</label>
                                 <input placeholder="Saisir le numero permanent" type="text"
                                        wire:model="numero_permanent"
