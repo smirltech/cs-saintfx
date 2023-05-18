@@ -207,8 +207,8 @@ class Eleve extends Model
         return $this->inscription?->devoirs ?? new Collection();
     }
 
-    public function dateNaissance($value): Carbon
+    public function dateNaissance(): Carbon
     {
-        return Carbon::parse($value);
+        return Carbon::parse($this->date_naissance);
     }
 }
