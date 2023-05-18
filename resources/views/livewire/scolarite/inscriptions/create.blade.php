@@ -134,7 +134,6 @@
                                     <div class="form-group col-md-6">
                                         <x-form::select
                                             label="Responsable"
-                                            required
                                             wire:model="responsableEleve.responsable_id">
                                             @foreach ($responsables as $respo)
                                                 <option value="{{$respo->id}}">{{ $respo->detail }}</option>
@@ -145,7 +144,6 @@
                                     <div class="form-group col-md-6">
                                         <x-form::select
                                             label="Relation"
-                                            required
                                             wire:model="responsableEleve.relation">
                                             @foreach (ResponsableRelation::cases() as $es )
                                                 <option value="{{$es->value}}">{{ $es->label() }}</option>

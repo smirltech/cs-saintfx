@@ -64,8 +64,8 @@ class InscriptionCreateComponent extends BaseComponent
         'eleve.numero_permanent' => 'nullable',
 
 
-        'responsableEleve.responsable_id' => 'required',
-        'responsableEleve.relation' => 'required',
+        'responsableEleve.responsable_id' => 'nullable',
+        'responsableEleve.relation' => 'nullable',
 
         'inscription.classe_id' => 'required|numeric|min:1|not_in:0',
         'inscription.categorie' => 'nullable|string',
@@ -100,7 +100,11 @@ class InscriptionCreateComponent extends BaseComponent
         $this->validate();
 
         $this->saveEleve();
-        $this->saveResponsableEleve();
+
+        if ($this->responsableEleve->responsable_id) {
+            $this->saveResponsableEleve();
+        }
+
         $this->saveInscription();
 
         if ($this->has_paid)
