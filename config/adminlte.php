@@ -292,8 +292,17 @@ return [
         ],
 
         ['header' => 'SCOLARITÉ',
-            'can' => ['eleves.view.*', 'inscriptions.view.*', 'eleves.create', 'inscriptions.create', 'responsables.view.*',
-                'devoirs.view.*', 'cours.view.*', 'enseignants.view.*', 'classes.view.*'],
+            'can' => [
+                'eleves.view.*',
+                'inscriptions.view.*',
+                'eleves.create',
+                'inscriptions.create',
+                'responsables.view.*',
+                'devoirs.view.*',
+                'cours.view.*',
+                'enseignants.view.*',
+                'classes.view.*'
+            ],
         ],
         [
             'text' => 'Élèves',
@@ -347,31 +356,15 @@ return [
             'can' => 'perceptions.view.*',
         ],
         [
+            'text' => 'Liste des Frais',
+            'url' => 'finance/frais',
+            'can' => 'frais.view.*',
+        ],
+        [
             'text' => 'Perceptions',
             'icon' => 'fas fa-fw fa-arrow-trend-up',
-            'can' => ['perceptions.create', 'perceptions.view.*', 'frais.view.*', 'revenus.view.*',],
-            'submenu' => [
-                [
-                    'text' => 'Ajouter facture',
-                    'url' => 'finance/perceptions/create',
-                    'shift' => 'ml-1',
-                    'can' => 'perceptions.create',
-                ],
-                [
-                    'text' => 'Liste de factures',
-                    'url' => 'finance/perceptions',
-                    'shift' => 'ml-1',
-                    'can' => 'perceptions.view.*',
-                ],
-                [
-                    'text' => 'Plans de frais',
-                    'url' => 'finance/frais',
-                    'shift' => 'ml-1',
-                    'can' => 'frais.view.*',
-                ],
-            ],
+            'can' => 'perceptions.view.*',
         ],
-
         [
             'text' => 'Revenu Auxiliaire',
             'icon' => 'fas fa-fw fa-money-bill-trend-up',
@@ -379,25 +372,16 @@ return [
             'can' => 'revenus.view.*',
         ],
         [
-            'text' => 'Dépenses',
+            'text' => 'Liste des Dépenses',
             'icon' => 'fas fa-fw fa-arrow-trend-down',
-            'can' => ['depenses.view.*', 'depense-types.view.*'],
-            'submenu' => [
-                [
-                    'text' => 'Liste des Dépenses',
-                    'icon' => 'fas fa-fw fa-coins',
-                    'can' => 'depenses.view.*',
-                    'url' => 'finance/depenses',
-                    'shift' => 'ml-1',
-                ],
-                [
-                    'text' => 'Types de Dépenses',
-                    'icon' => 'fas fa-fw fa-list-check',
-                    'can' => 'depense-types.view.*',
-                    'url' => 'finance/depense-types',
-                    'shift' => 'ml-1',
-                ],
-            ]
+            'can' => 'depenses.view.*',
+            'url' => 'finance/depenses',
+        ],
+        [
+            'text' => 'Types de Dépenses',
+            'icon' => 'fas fa-fw fa-list-check',
+            'can' => 'depense-types.view.*',
+            'url' => 'finance/depense-types',
         ],
         [
             'text' => 'Rapport financier',
