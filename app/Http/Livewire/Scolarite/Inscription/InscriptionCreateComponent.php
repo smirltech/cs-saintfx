@@ -64,11 +64,11 @@ class InscriptionCreateComponent extends BaseComponent
         'eleve.numero_permanent' => 'nullable',
 
 
-        'responsableEleve.responsable_id' => 'nullable',
-        'responsableEleve.relation' => 'nullable',
+        'responsableEleve.responsable_id' => 'required',
+        'responsableEleve.relation' => 'required',
 
         'inscription.classe_id' => 'required|numeric|min:1|not_in:0',
-        'inscription.categorie' => 'required|string',
+        'inscription.categorie' => 'nullable|string',
 
         'perception.frais_id' => 'nullable',
         'perception.paid_by' => 'nullable',
@@ -111,7 +111,7 @@ class InscriptionCreateComponent extends BaseComponent
          $this->alert('success', "Élève inscrit avec succès !");*/
 
         // Todo: Comment line below when the printing above is to be considered
-        $this->flashSuccess('Élève inscrit avec succès', route('scolarite.eleves.index'));
+        $this->flashSuccess('Élève inscrit avec succès', route('scolarite.inscriptions.create'));
 
 
         //  $this->alert('error', "L'enregistrement de l'étudiant n'a pas aboutis, veuillez reéssayer !");
@@ -134,15 +134,16 @@ class InscriptionCreateComponent extends BaseComponent
 
     private function saveInscription(): bool
     {
-        try {
-            return $this->inscription->fill([
-                'eleve_id' => $this->eleve->id,
-                'annee_id' => Annee::id(),
-                'status' => InscriptionStatus::approved->value,
-            ])->save();
-        } catch (Exception $exception) {
-            $this->error(local: $exception->getMessage(), production: "Echec d'enregistrement de l'inscription !");
-        }
+        //  try {
+        return $this->inscription->fill([
+            'eleve_id' => $this->eleve->id,
+            'annee_id' => Annee::id(),
+            'status' => InscriptionStatus::approved->value,
+        ])->save();
+        /* } catch (Exception $exception) {
+             $this->error(local: $exception->getMessage(), production: "Echec d'enregistrement de l'inscription !");
+         }
+         return false;*/
     }
 
     public function savePerception(): void

@@ -18,6 +18,7 @@
 @stop
 <div class="">
     @include('livewire.scolarite.inscriptions.modals.add_responsable')
+    <x-form::validation-errors/>
     <div class="content">
         <div class="container-fluid">
             <div class="card">
@@ -133,6 +134,7 @@
                                     <div class="form-group col-md-6">
                                         <x-form::select
                                             label="Responsable"
+                                            required
                                             wire:model="responsableEleve.responsable_id">
                                             @foreach ($responsables as $respo)
                                                 <option value="{{$respo->id}}">{{ $respo->detail }}</option>
@@ -143,6 +145,7 @@
                                     <div class="form-group col-md-6">
                                         <x-form::select
                                             label="Relation"
+                                            required
                                             wire:model="responsableEleve.relation">
                                             @foreach (ResponsableRelation::cases() as $es )
                                                 <option value="{{$es->value}}">{{ $es->label() }}</option>
@@ -159,6 +162,7 @@
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <x-form::select
+                                        required
                                         wire:model="inscription.classe_id"
                                         label="Classe">
                                         @foreach ($classes as $classe )
@@ -169,9 +173,8 @@
 
 
                                 <div class="form-group col-md-6">
-                                    <label for="">Categorie <i class="text-red">*</i></label>
                                     <x-form::select
-
+                                        label="Categorie"
                                         wire:model="inscription.categorie">
                                         <option value="" disabled>Choisir categorie...</option>
                                         @foreach (InscriptionCategorie::cases() as $es )
@@ -210,7 +213,10 @@
                         </div>
 
                         {{-- ./Choix de classe --}}
-                        <x-form::button-primary type="submit" class="float-end">Soumettre</x-form::button-primary>
+                        <x-form::button-primary
+                            type="submit"
+                            class="float-end"
+                            label="Soumettre"/>
                     </form>
                 </div>
             </div>
