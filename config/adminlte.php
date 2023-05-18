@@ -286,14 +286,23 @@ return [
             ],
         ],
         [
-            'text' => 'Dashboard',
+            'text' => 'Tableau de bord',
             'icon' => 'fas fa-fw fa-tachometer-alt',
             'url' => '/',
         ],
 
         ['header' => 'SCOLARITÉ',
-            'can' => ['eleves.view.*', 'inscriptions.view.*', 'eleves.create', 'inscriptions.create', 'responsables.view.*',
-                'devoirs.view.*', 'cours.view.*', 'enseignants.view.*', 'classes.view.*'],
+            'can' => [
+                'eleves.view.*',
+                'inscriptions.view.*',
+                'eleves.create',
+                'inscriptions.create',
+                'responsables.view.*',
+                'devoirs.view.*',
+                'cours.view.*',
+                'enseignants.view.*',
+                'classes.view.*'
+            ],
         ],
         [
             'text' => 'Élèves',
@@ -328,13 +337,6 @@ return [
             'url' => 'scolarite/enseignants',
             'can' => 'enseignants.view.*',
         ],
-        [
-            'text' => 'Classes',
-            'icon' => 'fas fa-fw fa-person-chalkboard',
-            'url' => 'scolarite/classes',
-            'can' => 'classes.view.*',
-        ],
-
 
         [
             'header' => 'FINANCE',
@@ -347,31 +349,17 @@ return [
             'can' => 'perceptions.view.*',
         ],
         [
-            'text' => 'Perceptions',
+            'text' => 'Liste de factures',
+            'url' => 'finance/perceptions',
             'icon' => 'fas fa-fw fa-arrow-trend-up',
-            'can' => ['perceptions.create', 'perceptions.view.*', 'frais.view.*', 'revenus.view.*',],
-            'submenu' => [
-                [
-                    'text' => 'Ajouter facture',
-                    'url' => 'finance/perceptions/create',
-                    'shift' => 'ml-1',
-                    'can' => 'perceptions.create',
-                ],
-                [
-                    'text' => 'Liste de factures',
-                    'url' => 'finance/perceptions',
-                    'shift' => 'ml-1',
-                    'can' => 'perceptions.view.*',
-                ],
-                [
-                    'text' => 'Plans de frais',
-                    'url' => 'finance/frais',
-                    'shift' => 'ml-1',
-                    'can' => 'frais.view.*',
-                ],
-            ],
+            'can' => 'perceptions.view.*',
         ],
-
+        [
+            'text' => 'Liste de Frais',
+            'url' => 'finance/frais',
+            'can' => 'frais.view.*',
+            'icon' => 'fas fa-fw fa-money-bill-wave',
+        ],
         [
             'text' => 'Revenu Auxiliaire',
             'icon' => 'fas fa-fw fa-money-bill-trend-up',
@@ -379,25 +367,16 @@ return [
             'can' => 'revenus.view.*',
         ],
         [
-            'text' => 'Dépenses',
+            'text' => 'Liste des Dépenses',
             'icon' => 'fas fa-fw fa-arrow-trend-down',
-            'can' => ['depenses.view.*', 'depense-types.view.*'],
-            'submenu' => [
-                [
-                    'text' => 'Liste des Dépenses',
-                    'icon' => 'fas fa-fw fa-coins',
-                    'can' => 'depenses.view.*',
-                    'url' => 'finance/depenses',
-                    'shift' => 'ml-1',
-                ],
-                [
-                    'text' => 'Types de Dépenses',
-                    'icon' => 'fas fa-fw fa-list-check',
-                    'can' => 'depense-types.view.*',
-                    'url' => 'finance/depense-types',
-                    'shift' => 'ml-1',
-                ],
-            ]
+            'can' => 'depenses.view.*',
+            'url' => 'finance/depenses',
+        ],
+        [
+            'text' => 'Types de Dépenses',
+            'icon' => 'fas fa-fw fa-list-check',
+            'can' => 'depense-types.view.*',
+            'url' => 'finance/depense-types',
         ],
         [
             'text' => 'Rapport financier',
@@ -411,63 +390,49 @@ return [
             'can' => ['consommables.view.*', 'operations.view.*', 'units.view.*', 'materiels.view.*', 'materiel-categories.view.*', 'mouvements.view.*', 'cessions.view.*'],
         ],
         [
-            'text' => 'Consommables',
-            'icon' => 'fas fa-fw fa-recycle',
-            'can' => ['consommables.view.*', 'operations.view.*', 'units.view.*'],
-            'submenu' => [
-                [
-                    'text' => 'Liste des consommables',
-                    'icon' => 'fas fa-fw fa-screwdriver-wrench',
-                    'url' => 'logistique/consommables',
-                    'can' => 'consommables.view.*',
-                ],
-                /* [
-                     'text' => 'Les opérations',
-                     'icon' => 'fas fa-fw fa-layer-group',
-                     'shift' => 'ml-2',
-                     'url' => '#',
-                     'can' => 'operations.view.*',
-                 ],*/
-                [
-                    'text' => 'Unités de mesure',
-                    'icon' => 'fas fa-fw fa-ruler-combined',
-                    'can' => 'units.view.*',
-                    'url' => 'logistique/units',
-                ],
-            ],
+            'text' => 'Liste des consommables',
+            'icon' => 'fas fa-fw fa-screwdriver-wrench',
+            'url' => 'logistique/consommables',
+            'can' => 'consommables.view.*',
+        ],
+        /* [
+             'text' => 'Les opérations',
+             'icon' => 'fas fa-fw fa-layer-group',
+
+             'url' => '#',
+             'can' => 'operations.view.*',
+         ],*/
+        [
+            'text' => 'Unités de mesure',
+            'icon' => 'fas fa-fw fa-ruler-combined',
+            'can' => 'units.view.*',
+            'url' => 'logistique/units',
         ],
         [
-            'text' => 'Materiels',
-            'icon' => 'fas fa-fw fa-screwdriver-wrench',
-            'can' => ['materiels.view.*', 'materiel-categories.view.*', 'mouvements.view.*', 'cessions.view.*'],
-            'submenu' => [
-                [
-                    'text' => 'Liste des materiels',
-                    'icon' => 'fas fa-fw fa-wrench',
-                    'url' => 'logistique/materiels',
-                    'can' => 'materiels.view.*',
-                ],
-                [
-                    'text' => 'Categories',
-                    'icon' => 'fas fa-fw fa-layer-group',
-                    'url' => 'logistique/categories',
-                    'can' => 'materiel-categories.view.*',
-                ],
-                [
-                    'text' => 'Mouvements des materiels',
-                    'icon' => 'fas fa-fw fa-people-carry-box',
-                    'url' => 'logistique/mouvements',
-                    'can' => 'mouvements.view.*',
-                ],
-                /*[
-                    'text' => 'Cessions des materiels',
-                    'icon' => 'fas fa-fw fa-hand-holding-hand',
-                    'shift' => 'ml-2',
-                    'url' => 'logistique/cessions',
-                    'can' => 'cessions.view.*',
-                ],*/
-            ],
+            'text' => 'Liste des materiels',
+            'icon' => 'fas fa-fw fa-wrench',
+            'url' => 'logistique/materiels',
+            'can' => 'materiels.view.*',
         ],
+        [
+            'text' => 'Categories des materiels',
+            'icon' => 'fas fa-fw fa-layer-group',
+            'url' => 'logistique/categories',
+            'can' => 'materiel-categories.view.*',
+        ],
+        [
+            'text' => 'Mouvements des materiels',
+            'icon' => 'fas fa-fw fa-people-carry-box',
+            'url' => 'logistique/mouvements',
+            'can' => 'mouvements.view.*',
+        ],
+        /*[
+            'text' => 'Cessions des materiels',
+            'icon' => 'fas fa-fw fa-hand-holding-hand',
+
+            'url' => 'logistique/cessions',
+            'can' => 'cessions.view.*',
+        ],*/
 
         [
             'header' => 'BIBLIOTHÈQUE',
@@ -499,60 +464,57 @@ return [
         ],
 
         [
-            'header' => 'ECOLE',
+            'header' => 'PROGRAMME',
             'can' => ['annees.view.*', 'filieres.view.*', 'options.view.*', 'sections.view.*'],
         ],
         [
-            'text' => 'Calendrier',
+            'text' => 'Classes',
+            'icon' => 'fas fa-fw fa-person-chalkboard',
+            'url' => 'scolarite/classes',
+            'can' => 'classes.view.*',
+        ],
+
+
+        [
+            'text' => 'Filières',
+            'url' => 'scolarite/filieres',
+            'icon' => 'fas fa-fw fa-layer-group',
+            'can' => 'filieres.view.*',
+        ],
+        [
+            'text' => 'Options',
+            'url' => 'scolarite/options',
+            'icon' => 'fas fa-fw fa-layer-group',
+            'can' => 'options.view.*',
+        ],
+        [
+            'text' => 'Sections',
+            'url' => 'scolarite/sections',
+            'icon' => 'fas fa-fw fa-layer-group',
+            'can' => 'sections.view.*',
+        ],
+        [
+            'text' => 'Années scolaires',
             'url' => 'scolarite/annees',
             'icon' => 'fas fa-fw fa-calendar-alt',
             'can' => 'annees.view.*',
         ],
         [
-            'text' => 'Programme',
-            'icon' => 'fas fa-fw fa-university',
-            'can' => ['filieres.view.*', 'options.view.*', 'sections.view.*'],
-            'submenu' => [
-                [
-                    'text' => 'Filières',
-                    'url' => 'scolarite/filieres',
-                    'shift' => 'ml-1',
-                    'can' => 'filieres.view.*',
-                ],
-                [
-                    'text' => 'Options',
-                    'url' => 'scolarite/options',
-                    'shift' => 'ml-1',
-                    'can' => 'options.view.*',
-                ],
-                [
-                    'text' => 'Sections',
-                    'url' => 'scolarite/sections',
-                    'shift' => 'ml-1',
-                    'can' => 'sections.view.*',
-                ],
-            ],
+            'header' => 'PARAMÈTRES',
+            'can' => ['users.view.*', 'roles.view'],
         ],
         [
-            'text' => 'Paramètres',
-            'icon' => 'fas fa-fw fa-cog',
-            'can' => ['users.view.*', 'roles.view'],
-            'submenu' => [
-                [
-                    'text' => 'Utilisateurs',
-                    'url' => 'users',
-                    'icon' => 'fas fa-fw fa-users',
-                    'can' => 'users.view.*',
-                ],
-                [
-                    'text' => 'Rôles',
-                    'url' => 'roles',
-                    'icon' => 'fas fa-fw fa-user-tag',
-                    'can' => 'roles.view',
-                ],
-            ],
+            'text' => 'Utilisateurs',
+            'url' => 'users',
+            'icon' => 'fas fa-fw fa-users',
+            'can' => 'users.view.*',
         ],
-
+        [
+            'text' => 'Rôles',
+            'url' => 'roles',
+            'icon' => 'fas fa-fw fa-user-tag',
+            'can' => 'roles.view',
+        ],
 
     ],
     /*
