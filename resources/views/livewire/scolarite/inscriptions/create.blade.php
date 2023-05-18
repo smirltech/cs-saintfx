@@ -18,8 +18,7 @@
 @stop
 <div class="">
     @include('livewire.scolarite.inscriptions.modals.add_responsable')
-
-    <div class="content mt-3">
+    <div class="content">
         <div class="container-fluid">
             <div class="card">
                 <div id="inscriptionPrint" class="card-body">
