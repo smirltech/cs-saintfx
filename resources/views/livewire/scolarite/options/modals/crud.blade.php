@@ -197,15 +197,11 @@
                         </div>
                         <div class="form-group col-5">
                             <label for="">Section <i class="text-red">*</i></label>
-                            <x-form::select wire:model="section_id"
-                                            class="form-control  @error('section_id') is-invalid @enderror">
-                                <option value="-1">Choisir section</option>
+                            <x-form::select
+                                wire:model="section_id">
                                 @foreach ($sections as $section )
                                     <option value="{{ $section->id }}">{{ $section->nom }}</option>
                                 @endforeach
-                                @error('section_id')
-                                <span class="text-red">{{ $message }}</span>
-                                @enderror
                             </x-form::select>
                         </div>
                     </div>
