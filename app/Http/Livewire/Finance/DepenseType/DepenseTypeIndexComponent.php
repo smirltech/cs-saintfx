@@ -8,7 +8,6 @@ use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
 
 class DepenseTypeIndexComponent extends BaseComponent
 {
@@ -31,18 +30,16 @@ class DepenseTypeIndexComponent extends BaseComponent
         $this->depenseType = new DepenseType();
     }
 
-
-    public function loadData()
-    {
-        $this->depenseTypes = DepenseType::orderBy('nom')->get();
-    }
-
-
     public function render()
     {
         $this->loadData();
         return view('livewire.finance.depenses_types.index')
             ->layout(AdminLayout::class);
+    }
+
+    public function loadData()
+    {
+        $this->depenseTypes = DepenseType::orderBy('nom')->get();
     }
 
     public function addTypeDepense()
@@ -60,11 +57,6 @@ class DepenseTypeIndexComponent extends BaseComponent
         $this->alert('success', "Dépense Type ajoutée avec succès !");
     }
 
-    public function onModalClosed($modal_id)
-    {
-       // $this->dispatchBrowserEvent('closeModal', ['modal' => 'edit-depense-modal']);
-        $this->dispatchBrowserEvent('closeModal', ['modal' => $modal_id]);
-    }
 
     public function getSelectedTypeDepense(DepenseType $depenseType)
     {

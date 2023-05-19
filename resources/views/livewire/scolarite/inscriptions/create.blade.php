@@ -18,8 +18,8 @@
 @stop
 <div class="">
     @include('livewire.scolarite.inscriptions.modals.add_responsable')
-
-    <div class="content mt-3">
+    <x-form::validation-errors/>
+    <div class="content">
         <div class="container-fluid">
             <div class="card">
                 <div id="inscriptionPrint" class="card-body">
@@ -160,6 +160,7 @@
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <x-form::select
+                                        required
                                         wire:model="inscription.classe_id"
                                         label="Classe">
                                         @foreach ($classes as $classe )
@@ -170,9 +171,8 @@
 
 
                                 <div class="form-group col-md-6">
-                                    <label for="">Categorie <i class="text-red">*</i></label>
                                     <x-form::select
-
+                                        label="Categorie"
                                         wire:model="inscription.categorie">
                                         <option value="" disabled>Choisir categorie...</option>
                                         @foreach (InscriptionCategorie::cases() as $es )
@@ -211,7 +211,10 @@
                         </div>
 
                         {{-- ./Choix de classe --}}
-                        <x-form::button-primary type="submit" class="float-end">Soumettre</x-form::button-primary>
+                        <x-form::button-primary
+                            type="submit"
+                            class="float-end"
+                            label="Soumettre"/>
                     </form>
                 </div>
             </div>

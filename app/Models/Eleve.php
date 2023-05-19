@@ -16,12 +16,12 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use JetBrains\PhpStorm\Pure;
 use Str;
 
-
 class Eleve extends Model
 {
     use HasFactory, HasAvatar;
 
     public $guarded = [];
+
     protected $casts = [
         'sexe' => Sexe::class,
         'pere' => 'array',
@@ -52,7 +52,6 @@ class Eleve extends Model
      * // {annee}{section_id}{count on section+1}
      * //ex: 2022010001
      * */
-
     public static function generateUniqueId(string $section_id): string
     {
         $annee = Annee::encours();
@@ -67,7 +66,6 @@ class Eleve extends Model
         return $first_part . $second_part;
     }
 
-
     // route model binding
 
     public function getIncrementing(): bool
@@ -75,9 +73,6 @@ class Eleve extends Model
         return false;
     }
 
-    /**
-     * @return string
-     */
     public function getKeyType(): string
     {
         return $this->keyType;
@@ -99,6 +94,7 @@ class Eleve extends Model
         foreach ($this->inscription->presences as $p) {
             $aa[] = $p->getColor();
         }
+
         return $aa;
     }
 
@@ -113,6 +109,7 @@ class Eleve extends Model
         if (!$i) {
             return $this->inscriptions()->latest()->first();
         }
+
         return $i;
     }
 
@@ -125,6 +122,7 @@ class Eleve extends Model
     {
         return $this->inscription->classe ?? null;
     }
+
 
     public function resultats(): HasManyThrough
     {
@@ -148,7 +146,8 @@ class Eleve extends Model
         return $this->inscription;
     }
 
-    #[Pure] public function getNomCompletAttribute(): string
+    #[Pure]
+    public function getNomCompletAttribute(): string
     {
         return $this->getFullNameAttribute();
     }
@@ -177,7 +176,7 @@ class Eleve extends Model
 
     public function getSectionAttribute(): ?Section
     {
-        return Section::find($this->section_id);
+        return $this->classe->section ?? null;
     }
 
     public function getMatriculeAttribute(): string
@@ -202,15 +201,14 @@ class Eleve extends Model
     }
 
     /** Devoirs for this eleve on this year and a specific class
-     * @return Collection
      */
     public function getDevoirsAttribute(): Collection
     {
         return $this->inscription?->devoirs ?? new Collection();
     }
 
-    public function getDateNaissanceAttribute($value): Carbon
+    public function dateNaissance(): Carbon
     {
-        return Carbon::parse($value);
+        return Carbon::parse($this->date_naissance);
     }
 }

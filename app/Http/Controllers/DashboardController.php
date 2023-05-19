@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\UserRole;
 use Auth;
 use Illuminate\Http\Request;
+use Redirect;
 
 class DashboardController
 {
@@ -16,8 +17,6 @@ class DashboardController
             UserRole::promoteur->value, UserRole::coordonnateur->value, UserRole::admin->value => $this->adminDashboard(),
             UserRole::comptable->value => $this->compableDashboard(),
             UserRole::parent->value => $this->parentDashboard(),
-            UserRole::eleve->value => $this->eleveDashboard(),
-            UserRole::enseignant->value => $this->enseignantDashboard(),
             default => $this->defaultDashboard()
         };
     }
@@ -37,6 +36,11 @@ class DashboardController
         return view('dashboard.parent');
     }
 
+    private function defaultDashboard()
+    {
+        return Redirect::route('scolarite');
+    }
+
     private function eleveDashboard()
     {
         return view('dashboard.eleve');
@@ -45,10 +49,5 @@ class DashboardController
     private function enseignantDashboard()
     {
         return view('dashboard.enseignant');
-    }
-
-    private function defaultDashboard()
-    {
-        return view('dashboard.default');
     }
 }

@@ -63,11 +63,5 @@ class MaterielCategoryShowComponent extends BaseComponent
         $this->category->refresh();
     }
 
-    public function onModalClosed($p_id)
-    {
-        $this->dispatchBrowserEvent('closeModal', ['modal' => $p_id]);
-
-    }
-
 
 }

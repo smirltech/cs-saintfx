@@ -14,12 +14,24 @@
             <div class="modal-body">
                 <x-form::validation-errors class="mb-4" :errors="$errors"/>
                 <form id="fru1" wire:submit.prevent="addUserToEleve">
-                    <div>Le compte élève sera créé et un email avec information d'accès lui sera envoyé</div>
+                    @if($eleve->email)
+                        <div>Le compte élève sera créé et un email avec information d'accès lui sera
+                            envoyé à l'adresse
+                            email : <b>{{ $eleve->email }}</b>
+                        </div>
+                    @else
+                        <div class="text-danger">
+                            Il n'y a pas d'adresse email pour cet élève. Veuillez en ajouter une dans la fiche de
+                            l'élève
+                        </div>
+                    @endif
                 </form>
             </div>
-            <div class="modal-footer justify-content-between">
-                <button form="fru1" type="submit" class="btn btn-primary">Enregistrer</button>
-            </div>
+            @if($eleve->email)
+                <div class="modal-footer justify-content-between">
+                    <button form="fru1" type="submit" class="btn btn-primary">Enregistrer</button>
+                </div>
+            @endif
         </div>
 
     </div>

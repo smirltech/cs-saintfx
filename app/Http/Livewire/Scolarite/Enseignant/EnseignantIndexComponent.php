@@ -26,6 +26,11 @@ class EnseignantIndexComponent extends BaseComponent
         $this->loadData();
     }
 
+    public function loadData()
+    {
+        $this->enseignants = Enseignant::latest()->get();
+    }
+
     public function render()
     {
         $data = ['title' => 'Liste d\'enseignants'];
@@ -33,22 +38,11 @@ class EnseignantIndexComponent extends BaseComponent
             ->layout(AdminLayout::class, $data);
     }
 
-    public function loadData()
-    {
-        $this->enseignants = Enseignant::latest()->get();
-    }
-
 
     /* public function delete(Enseignant $enseignant)
      {
          $this->deleteModel($enseignant, 'Enseignant supprimé avec succès');
      }*/
-
-    public function onModalClosed($p_id)
-    {
-        $this->dispatchBrowserEvent('closeModal', ['modal' => $p_id]);
-        $this->enseignant = null;
-    }
 
     public function getSelectedEnseignant($enseignant_id)
     {

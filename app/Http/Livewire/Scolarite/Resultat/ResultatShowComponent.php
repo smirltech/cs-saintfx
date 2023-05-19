@@ -87,10 +87,6 @@ class ResultatShowComponent extends Component
 
     }
 
-    public function onModalClosed()
-    {
-        $this->reset(['nom', 'sexe', 'telephone', 'email', 'adresse', 'responsable_eleve', 'responsable_relation']);
-    }
 
     public function deleteResponsable()
     {
@@ -112,7 +108,7 @@ class ResultatShowComponent extends Component
 
     }
 
-    public function editRelation()
+    public function editRelation(): void
     {
 
         $done = $this->responsable_eleve->update([

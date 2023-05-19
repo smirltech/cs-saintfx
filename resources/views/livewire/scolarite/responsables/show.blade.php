@@ -126,7 +126,7 @@
                                                 <td>{{ $responsable_eleve?->relation?->reverse($responsable_eleve->eleve->sexe??'')??'' }}
                                                     @can('eleves.update',$responsable_eleve->eleve)
                                                         <span
-                                                            wire:click="selectResponsableEleve({{$responsable_eleve->id??''}})"
+                                                            wire:click="selectResponsableEleve('{{$responsable_eleve->id??''}}')"
                                                             type="button"
                                                             title="Modifier Relation" class="ml-2" data-toggle="modal"
                                                             data-target="#edit-relation-modal">

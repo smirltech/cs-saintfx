@@ -31,9 +31,9 @@ enum ResponsableRelation: string
     public function reverse(Sexe $sexe): string
     {
         return match ($this) {
-            self::oncle, self::tante => $sexe == Sexe::m ? 'Neveux' : 'Niece',
-            self::pere, self::mere => $sexe == Sexe::m ? 'Fils' : 'Fille',
-            self::frere, self::soeur => $sexe == Sexe::m ? 'Frère' : 'Soeur',
+            self::oncle, self::tante => $sexe == Sexe::M ? 'Neveux' : 'Niece',
+            self::pere, self::mere => $sexe == Sexe::M ? 'Fils' : 'Fille',
+            self::frere, self::soeur => $sexe == Sexe::M ? 'Frère' : 'Soeur',
             self::autre => 'Autre',
         };
     }

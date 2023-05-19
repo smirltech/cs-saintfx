@@ -20,6 +20,7 @@ class Paiment extends Model
             $lDate = Carbon::now()->subDays($i);
             $data[] = self::whereDate('created_at', '=', $lDate)->sum('montant');
         }
+
         return $data;
     }
 }

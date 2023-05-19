@@ -8,7 +8,6 @@ use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Exception;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
 
 class ClasseIndexComponent extends BaseComponent
 {
@@ -36,11 +35,6 @@ class ClasseIndexComponent extends BaseComponent
         $this->classes = Classe::orderBy('code')->get();
     }
 
-    public function onModalClosed($p_id)
-    {
-        $this->dispatchBrowserEvent('closeModal', ['modal' => $p_id]);
-        $this->classe = null;
-    }
 
     public function getSelectedClasse($classe_id)
     {

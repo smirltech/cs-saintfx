@@ -10,7 +10,6 @@ use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Illuminate\Support\Facades\Auth;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
 
 class MaterielIndexComponent extends BaseComponent
 {
@@ -79,11 +78,6 @@ class MaterielIndexComponent extends BaseComponent
         }
     }
 
-    public function onModalClosed($p_id)
-    {
-        $this->dispatchBrowserEvent('closeModal', ['modal' => $p_id]);
-
-    }
 
     public function getSelectedMateriel(Materiel $materiel)
     {

@@ -9,7 +9,6 @@ use App\View\Components\AdminLayout;
 use Exception;
 use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
 
 class UnitIndexComponent extends BaseComponent
 {
@@ -70,11 +69,6 @@ class UnitIndexComponent extends BaseComponent
 
     }
 
-    public function onModalClosed($p_id)
-    {
-        $this->dispatchBrowserEvent('closeModal', ['modal' => $p_id]);
-
-    }
 
     public function getSelectedUnit(Unit $unit)
     {

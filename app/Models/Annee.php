@@ -7,32 +7,43 @@ use Illuminate\Database\Eloquent\Model;
 
 class Annee extends Model
 {
-
     public $guarded = [];
+
+    protected $casts = [
+        'encours' => 'boolean',
+    ];
 
     protected $appends = [
         'start_year',
         'end_year',
     ];
 
-
     /**
      * Renvoie l'id de l'année scolaire en cours
-     * @return int
      */
     public static function id(): int
     {
         return self::encours()->id;
     }
 
-
     /**
      * Renvoie l'année scolaire en cours
-     * @return Annee
      */
     public static function encours(): self
     {
         return self::where('encours', true)->latest()->first();
+
+    }
+
+    public static function start(): Carbon
+    {
+        return self::encours()->date_debut;
+
+    }
+
+    public static function end(): Carbon
+    {
+        return self::encours()->date_fin;
 
     }
 
@@ -59,13 +70,24 @@ class Annee extends Model
         return $this->start_year . '-' . $this->end_year;
     }
 
-    public function getStartYearAttribute(): string
+    public function getStartYearAttribute(): ?string
     {
-        return Carbon::parse($this->date_debut)->year;
+        return $this->dateDebut()?->year;
     }
 
-    public function getEndYearAttribute(): string
+    // get date debut
+    public function dateDebut(): ?Carbon
     {
-        return Carbon::parse($this->date_fin)->year;
+        return Carbon::parse($this->date_debut);
+    }
+
+    public function getEndYearAttribute(): ?string
+    {
+        return $this->dateFin()?->year;
+    }
+
+    public function dateFin(): ?Carbon
+    {
+        return Carbon::parse($this->date_fin);
     }
 }

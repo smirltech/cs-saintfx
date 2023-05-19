@@ -76,15 +76,15 @@
                                 @can('perceptions.create')
                                     <a href="{{route('finance.perceptions.classe-create')}}" title="facturer une classe"
                                        class="btn btn-outline-primary  ml-2 mr-2">
-                                        <i class="fas fa-plus"></i> par classe
+                                        <i class="fas fa-plus"></i> Facturer par classe
                                     </a>
                                 @endcan
-                                    @can('perceptions.create')
-                                        <a href="{{route('finance.perceptions.create')}}" title="facturer un élève"
-                                           class="btn btn-primary  ml-2">
-                                            <i class="fas fa-plus"></i>
-                                        </a>
-                                    @endcan
+                                @can('perceptions.create')
+                                    <a href="{{route('finance.perceptions.create')}}" title="facturer un élève"
+                                       class="btn btn-primary  ml-2">
+                                        <i class="fas fa-plus"></i> Facturer
+                                    </a>
+                                @endcan
                             </div>
                         </div>
 
@@ -103,7 +103,8 @@
 
                                         <td>{!! Helpers::currencyFormat($row[5]) !!} Fc</td>
                                         <td>
-                                            {!! Helpers::currencyFormat($row[6]) !!} Fc</td>
+                                            {!! Helpers::currencyFormat($row[6]) !!} Fc
+                                        </td>
                                         <td><span
                                                 class="badge @if($row[7] > 0) badge-danger @else badge-success @endif">{!! Helpers::currencyFormat($row[7]) !!} Fc</span>
                                         </td>

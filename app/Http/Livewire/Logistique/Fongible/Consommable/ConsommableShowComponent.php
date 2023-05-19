@@ -90,11 +90,6 @@ class ConsommableShowComponent extends BaseComponent
         $this->consommable->refresh();
     }
 
-    public function onModalClosed($p_id)
-    {
-        $this->dispatchBrowserEvent('closeModal', ['modal' => $p_id]);
-        $this->initOperation();
-    }
 
     public function getSelectedOperation(Operation $operation)
     {

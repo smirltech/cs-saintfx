@@ -13,6 +13,7 @@ class Responsable extends Model
     use HasFactory, HasUlids;
 
     public $guarded = [];
+
     protected $casts = [
         'sexe' => Sexe::class,
         'created_at' => 'datetime',
@@ -31,12 +32,11 @@ class Responsable extends Model
 
     public function getElevesAttribute()
     {
-        return $this->responsable_eleves->map(fn($eleve) => $eleve->eleve);
+        return $this->responsable_eleves->map(fn ($eleve) => $eleve->eleve);
     }
 
     public function getDetailAttribute(): string
     {
         return "{$this->nom} - Phone:({$this->telephone}) - Adresse:({$this->adresse})";
     }
-
 }

@@ -1,3 +1,4 @@
+@php use App\Models\Annee; @endphp
 @extends('adminlte::page')
 
 @section('title')
@@ -26,20 +27,22 @@
 @stop
 
 @section('content')
-    {{ $slot }}
+    <div class="p-3">
+        {{ $slot }}
+    </div>
 @endsection
 
 @section('footer')
     <strong>Copyright© {{ date('Y') }} {{config('app.name')}}</strong>
     {{__('All rights reserved.')}}
     <div class="float-right d-none d-sm-inline-block">
-        {{date('d.m.Y H:i')}}
+        Année scolaire : .<strong>{{Annee::encours()->nom}}</strong> | {{date('d.m.Y H:i')}}
     </div>
 @stop
 @push('css')
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    {{-- @vite(['resources/sass/admin.scss', 'resources/js/admin.js'])--}}
-    <link rel="stylesheet" href="{{mix('css/app.css')}}">
     <style>
         .sidebar-dark-primary {
             background-color: var(--dark) !important;
@@ -56,7 +59,6 @@
 @endpush
 @push('js')
     @livewireChartsScripts
-    <script src="{{mix('js/app.js')}}"></script>
     <livewire:modals/>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <x-livewire-alert::scripts/>

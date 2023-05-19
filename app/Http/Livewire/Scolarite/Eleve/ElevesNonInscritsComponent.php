@@ -23,7 +23,6 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
 
 class ElevesNonInscritsComponent extends BaseComponent
 {
@@ -112,30 +111,6 @@ class ElevesNonInscritsComponent extends BaseComponent
         $this->loadAvailableClasses();
     }
 
-    public function changeOption()
-    {
-        $this->filieres = [];
-        if ($this->option_id > 0) {
-            $option = Option::find($this->option_id);
-            $this->filieres = $option?->filieres ?? [];
-        }
-        $this->filiere_id = null;
-        $this->classe_id = null;
-        $this->loadAvailableClasses();
-    }
-
-    public function changeFiliere()
-    {
-        $this->classe_id = null;
-        $this->loadAvailableClasses();
-    }
-
-    public function changeClasse()
-    {
-        $this->loadAvailableClasses();
-    }
-
-
     private function loadAvailableClasses()
     {
         if ($this->filiere_id > 0) {
@@ -193,8 +168,32 @@ class ElevesNonInscritsComponent extends BaseComponent
         $this->fee = $ff;
     }
 
+    public function changeOption()
+    {
+        $this->filieres = [];
+        if ($this->option_id > 0) {
+            $option = Option::find($this->option_id);
+            $this->filieres = $option?->filieres ?? [];
+        }
+        $this->filiere_id = null;
+        $this->classe_id = null;
+        $this->loadAvailableClasses();
+    }
+
+    public function changeFiliere()
+    {
+        $this->classe_id = null;
+        $this->loadAvailableClasses();
+    }
+
+    public function changeClasse()
+    {
+        $this->loadAvailableClasses();
+    }
+
 
     // Do the inscription
+
     public function addReinscription()
     {
         $this->submitInscription();
@@ -256,9 +255,4 @@ class ElevesNonInscritsComponent extends BaseComponent
     }
 
 
-    public function onModalClosed($p_id)
-    {
-        $this->dispatchBrowserEvent('closeModal', ['modal' => $p_id]);
-        $this->eleve = null;
-    }
 }

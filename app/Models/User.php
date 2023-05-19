@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-
 use App\Enums\UserRole;
 use App\Traits\HasAvatar;
 use Closure;
@@ -17,11 +16,8 @@ use Illuminate\Support\Facades\Hash;
 use LaravelIdea\Helper\App\Models\_IH_User_C;
 use Spatie\Permission\Traits\HasRoles;
 
-
 class User extends Authenticatable
 {
-
-
     use HasFactory, Notifiable, HasRoles, HasAvatar, HasUlids;
 
     protected $guarded = [];
@@ -57,7 +53,7 @@ class User extends Authenticatable
 
     public function getNomAttribute(): string
     {
-        return $this->eleve->nom ?? $this->responsable->nom ?? $this->name ?? "N/A";
+        return $this->eleve->nom ?? $this->responsable->nom ?? $this->name ?? 'N/A';
     }
 
     public function responsable(): HasOne
@@ -93,7 +89,7 @@ class User extends Authenticatable
 
     public function adminlte_desc(): string
     {
-        return $this->roles->first()->name ?? "N/A";
+        return $this->roles->first()->name ?? 'N/A';
     }
 
     public function adminlte_profile_url(): string
@@ -101,7 +97,7 @@ class User extends Authenticatable
         return route('users.edit', $this);
     }
 
-    public function getRoleNameAttribute()
+    public function getRoleNameAttribute(): string
     {
         return $this->role->name ?? 'Non assigné';
     }
@@ -131,5 +127,4 @@ class User extends Authenticatable
     {
         return $this->getAllPermissions()->pluck('name')->implode(', ');
     }
-
 }

@@ -7,7 +7,7 @@ use App\Models\Responsable;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
+use JetBrains\PhpStorm\NoReturn;
 use Livewire\WithPagination;
 
 class ResponsableIndexComponent extends BaseComponent
@@ -46,7 +46,7 @@ class ResponsableIndexComponent extends BaseComponent
             ->layout(AdminLayout::class, ['title' => "Liste de responsables"]);
     }
 
-    public function addThisResponsable()
+    public function addThisResponsable(): void
     {
 
         $this->validate([
@@ -72,15 +72,11 @@ class ResponsableIndexComponent extends BaseComponent
 
     }
 
-    public function onModalClosed()
-    {
-        $this->reset(['responsable_nom', 'responsable_sexe', 'responsable_telephone', 'responsable_email', 'responsable_adresse']);
-    }
 
-    public function deleteResponsable($responsable_id)
+    #[NoReturn] public function deleteResponsable($responsable_id)
     {
         $responsable = Responsable::find($responsable_id);
-        dd($responsable);
+        // dd($responsable);
         if (count($responsable->responsable_eleves) == 0) {
             if ($responsable->delete()) {
                 $this->loadData();

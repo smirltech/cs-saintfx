@@ -133,13 +133,6 @@ class PresencesBlockComponent extends Component
         }
     }
 
-    public function onModalClosed($modalId): void
-    {
-        $this->dispatchBrowserEvent('closeModal', ['modal' => $modalId]);
-        $this->classe->refresh();
-        $this->loadData();
-        $this->initPresence();
-    }
 
     public function updatePresence($status): void
     {

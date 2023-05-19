@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -15,6 +14,7 @@ class MaterielCategory extends Model
     public $guarded = [];
 
     protected $with = ['groupe'];
+
     protected $appends = ['groupe_nom'];
 
     public function groupe(): BelongsTo
@@ -32,17 +32,17 @@ class MaterielCategory extends Model
         return $this->hasMany(self::class);
     }
 
-    public function getGroupeNomAttribute():string|null
+    public function getGroupeNomAttribute(): string|null
     {
         return $this->groupe?->nom;
     }
 
-    public function getMaterielsCountAttribute():int
+    public function getMaterielsCountAttribute(): int
     {
         return $this->materiels->count();
     }
 
-    public function getMaterielsCountAggregateAttribute():int
+    public function getMaterielsCountAggregateAttribute(): int
     {
         return $this->materiels->count() + $this->categories->sum('materielsCountAggregate');
     }

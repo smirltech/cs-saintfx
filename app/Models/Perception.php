@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\FraisFrequence;
+use App\Traits\HasScopeAnnee;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,7 +13,7 @@ use Illuminate\Support\Str;
 
 class Perception extends Model
 {
-    use HasFactory, HasUlids;
+    use HasFactory, HasUlids, HasScopeAnnee;
 
     public $guarded = [];
 
@@ -34,21 +35,23 @@ class Perception extends Model
             $lDate = Carbon::now()->subDays($i);
             $data[] = self::whereDate('created_at', '=', $lDate)->sum('montant');
         }
+
         return $data;
     }
-
-    // eleve through inscription
 
     public static function sommeBetween($annee_id, $ddebut, $dfin)
     {
         $debut = Carbon::parse($ddebut)->startOfDay();
         $fin = Carbon::parse($dfin)->endOfDay();
+
         return self::where('annee_id', $annee_id)->whereBetween('created_at', [$debut, $fin])->sum('montant');
     }
 
-    public static function scopePaid($query)
+    // eleve through inscription
+
+    public static function scopePaid($query, $paid = true)
     {
-        return $query->where('paid', true);
+        return $query->where('paid', $paid);
     }
 
     public static function scopeUnpaid($query)
@@ -68,14 +71,14 @@ class Perception extends Model
      * Create a reference for the perception based on the current month and year and the number of perceptions for the current month
      * Model: {count:4 digits}{month:2 digits}{year:2 digits}
      * Ex : 00010123
-     * @return string
      */
     public static function generateReference(): string
     {
         $count = self::whereMonth('created_at', Carbon::now()->month)->count();
         $count = Str::padLeft($count + 1, 4, '0');
         $month = Carbon::now()->format('ym');
-        return $month . $count;
+
+        return $month.$count;
     }
 
     public function getEleveAttribute()

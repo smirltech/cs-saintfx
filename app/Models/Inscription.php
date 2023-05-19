@@ -54,18 +54,19 @@ class Inscription extends Model
 
         $first_part = $eleve_id;
         $second_part = Str::padLeft($classe_id, 2, '0');
-        $third_part = self::where('id', 'like', $first_part . '%')->count() + 1;
+        $third_part = self::where('id', 'like', $first_part.'%')->count() + 1;
 
-        return $first_part . $second_part . $third_part;
+        return $first_part.$second_part.$third_part;
     }
 
-    public function scopeSexe($query, Sexe|string $sexe = null)
+    public function scopeSexe($query, Sexe|string $sexe = Sexe::M)
     {
         if ($sexe) {
             return $query->whereHas('eleve', function ($query) use ($sexe) {
                 $query->where('sexe', $sexe);
             });
         }
+
         return $query;
     }
 
@@ -102,6 +103,7 @@ class Inscription extends Model
     public function presence(?string $date = null)
     {
         $date = $date ?? date('Y-m-d');
+
         return $this->presences()->where('date', $date)->first();
     }
 
@@ -115,7 +117,6 @@ class Inscription extends Model
         return $this->belongsTo(Annee::class);
     }
 
-
     public function media(): MorphMany
     {
         return $this->morphMany(Media::class, 'mediable');
@@ -123,12 +124,12 @@ class Inscription extends Model
 
     // scope annee
 
-
     public function scopeStatus($query, $status = null)
     {
         if ($status) {
             return $query->where('status', $status);
         }
+
         return $query->where('status', InscriptionStatus::approved);
     }
 
@@ -139,6 +140,7 @@ class Inscription extends Model
         if ($eleve_id) {
             return $query->where('eleve_id', $eleve_id);
         }
+
         return $query;
     }
 
@@ -149,6 +151,7 @@ class Inscription extends Model
         if ($classe_id) {
             return $query->where('classe_id', $classe_id);
         }
+
         return $query;
     }
 
@@ -170,9 +173,8 @@ class Inscription extends Model
             })
             ->first()?->paid;
         // dd((int)($perc));
-        return (int)($perc);
+        return (int) ($perc);
     }
-
 
     // SOMMES
 

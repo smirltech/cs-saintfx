@@ -15,6 +15,7 @@ class Materiel extends Model
     use HasFactory;
 
     public $guarded = [];
+
     protected $casts = [
         'status' => MaterialStatus::class,
         'created_at' => 'datetime',
@@ -22,7 +23,7 @@ class Materiel extends Model
     ];
 
     protected $with = [
-       'mouvements'
+        'mouvements',
     ];
 
     public function category(): BelongsTo
@@ -47,15 +48,20 @@ class Materiel extends Model
 
     public function getVieConsommeeAttribute(): int|null
     {
-        if ($this->date == null) return null;
+        if ($this->date == null) {
+            return null;
+        }
         $n0 = Carbon::parse($this->date);
         $n = Carbon::now();
+
         return $n->diffInYears($n0, absolute: true);
     }
 
     public function getVieRestanteAttribute(): int|null
     {
-        if ($this->date == null) return null;
+        if ($this->date == null) {
+            return null;
+        }
         $n0 = Carbon::parse($this->date);
         $n = Carbon::now();
         $d = $n->diffInYears($n0, absolute: true);
@@ -96,7 +102,9 @@ class Materiel extends Model
     public function genererTableAmortissements(): array
     {
         $base = [];
-        if ($this->date == null) return $base;
+        if ($this->date == null) {
+            return $base;
+        }
         $annee0 = Carbon::parse($this->date)->year;
         $amoCum = 0;
         for ($i = 1; $i <= $this->vie; $i++) {

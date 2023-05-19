@@ -11,7 +11,6 @@ class Section extends Model
 
     public $guarded = [];
 
-
     public function options()
     {
         return $this->hasMany(Option::class);
@@ -44,9 +43,10 @@ class Section extends Model
     {
         if ($strict && $this->id == 2) {
             return true;
-        } else if (!$strict && ($this->id == 1 || $this->id == 2)) {
+        } elseif (! $strict && ($this->id == 1 || $this->id == 2)) {
             return true;
         }
+
         return false;
     }
 
@@ -55,6 +55,7 @@ class Section extends Model
         if ($this->id == 1) {
             return true;
         }
+
         return false;
     }
 
@@ -63,6 +64,7 @@ class Section extends Model
         if ($this->id == 3) {
             return true;
         }
+
         return false;
     }
 }

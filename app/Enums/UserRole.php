@@ -37,6 +37,7 @@ enum UserRole: string
                 RolePermission::enseignants_all->value,
                 RolePermission::inscriptions_all->value,
                 RolePermission::options_all->value,
+                RolePermission::filieres_all->value,
                 RolePermission::permissions_all->value,
                 RolePermission::roles_all->value,
                 RolePermission::units_all->value,
@@ -67,9 +68,14 @@ enum UserRole: string
             ],
             self::parent => [
                 RolePermission::eleves_view->value,
+                RolePermission::devoirs_view->value,
+                RolePermission::frais_view->value,
             ],
-            default => []
-
+            self::eleve => [
+                RolePermission::devoirs_view->value,
+                RolePermission::frais_all->value,
+                RolePermission::enseignants_view->value,
+            ],
         };
 
     }

@@ -29,12 +29,12 @@ class ResultatIndexComponent extends Component
         $this->classe = $classe;
         #TODO: move this to mount()
         $this->resultats = $this->loadData();
-dd($this->resultats);
+        dd($this->resultats);
     }
 
     public function loadData()
     {
-        return Resultat::where('annee_id', Annee::id())->whereHas('eleves', function($q){
+        return Resultat::where('annee_id', Annee::id())->whereHas('eleves', function ($q) {
             $q->where('classe_id', $this->classe->id);
         })->get();
 
@@ -74,15 +74,11 @@ dd($this->resultats);
 
     }
 
-    public function onModalClosed()
-    {
-        $this->reset(['responsable_nom', 'responsable_sexe', 'responsable_telephone', 'responsable_email', 'responsable_adresse']);
-    }
 
     public function deleteResponsable($responsable_id)
     {
         $responsable = Responsable::find($responsable_id);
-       // dd($responsable);
+        // dd($responsable);
         if (count($responsable->responsable_eleves) == 0) {
             if ($responsable->delete()) {
                 $this->loadData();

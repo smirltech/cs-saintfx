@@ -24,8 +24,10 @@ return new class extends Migration {
             $table->string('frequence')->default(FraisFrequence::mensuel->name)->nullable()->comment('Fréquence de perception');
             $table->string('custom_property')->nullable()->comment('Par rapport à la fréquence, la perception concerne quelle periode');
             $table->double('montant')->nullable();
+
             $table->boolean('paid')->default(false);
             $table->string('paid_by')->nullable();
+            $table->dateTime('paid_at')->nullable();
 
             $table->date('due_date')->default(Carbon::now()->format('Y-m-d'));
             $table->timestamps();

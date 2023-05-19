@@ -72,7 +72,7 @@ class InscriptionData
                     'nom' => $data[6],
                     'profession' => $data[8],
                     'adresse' => $data[10],
-                    'sexe' => Sexe::m,
+                    'sexe' => Sexe::M,
                     'telephone' => $data[11],
                     'email' => $data[12],
                 ]);
@@ -87,7 +87,7 @@ class InscriptionData
                     'nom' => $data[7],
                     'profession' => $data[9],
                     'adresse' => $data[10],
-                    'sexe' => Sexe::f,
+                    'sexe' => Sexe::F,
                     'telephone' => $data[11],
                     'email' => $data[12],
                 ]);

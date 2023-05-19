@@ -95,12 +95,6 @@ class MaterielShowComponent extends BaseComponent
         $this->materiel->refresh();
     }
 
-    public function onModalClosed($p_id)
-    {
-        $this->dispatchBrowserEvent('closeModal', ['modal' => $p_id]);
-        $this->initMouvement();
-    }
-
 
     // Mouvement du matériel
 

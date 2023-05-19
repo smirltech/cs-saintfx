@@ -34,7 +34,7 @@ class LoginController extends Controller
 
     public static function redirectTo()
     {
-        $role = Auth::user()?->role->name;
+        $role = Auth::user()?->role?->name;
 
         return match ($role) {
             UserRole::comptable->value => 'finance',

@@ -11,7 +11,6 @@ use App\View\Components\AdminLayout;
 use Exception;
 use Faker\Factory;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
 
 class ConsommableIndexComponent extends BaseComponent
 {
@@ -76,11 +75,6 @@ class ConsommableIndexComponent extends BaseComponent
         }
     }
 
-    public function onModalClosed($p_id)
-    {
-        $this->dispatchBrowserEvent('closeModal', ['modal' => $p_id]);
-
-    }
 
     public function getSelectedConsommable(Consommable $consommable)
     {

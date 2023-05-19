@@ -34,9 +34,9 @@
                             </div>
                             <div class="card-tools d-flex my-auto">
                                 @can('annees.create')
-                                <button type="button" class="btn btn-primary btn-sm"
-                                        data-toggle="modal"
-                                        data-target="#add-annee-modal">
+                                    <button type="button" class="btn btn-primary btn-sm"
+                                            data-toggle="modal"
+                                            data-target="#add-annee-modal">
                                     <span
                                         class="fa fa-plus"></span></button>
                                 @endcan
@@ -60,25 +60,26 @@
                                     <tr>
                                         <td>{{ $i+1}}</td>
                                         <td>{{ $annee->nom}}</td>
-                                        <td>{{ Carbon\Carbon::parse($annee->date_debut)->format('d-m-Y')}}</td>
-                                        <td>{{  Carbon\Carbon::parse($annee->date_fin)->format('d-m-Y')}}</td>
+                                        <td>{{ $annee->datedebut()->format('d-m-Y')}}</td>
+                                        <td>{{  $annee->datefin()->format('d-m-Y')}}</td>
                                         <td>
                                             @if($annee->encours)
-                                            <span class="badge badge-success p-1">EN COURS</span>
+                                                <span class="badge badge-success p-1">EN COURS</span>
                                             @else
                                                 @can('annees.encours')
-                                                <button title="Metter en cours"
-                                                        wire:click="setAnneeEnCours({{ $annee->id }})"
-                                                        class="btn btn-warning btn-sm mr-2">
-                                                    <i class="fa fa-check"></i>
-                                                </button>
+                                                    <button title="Metter en cours"
+                                                            wire:click="setAnneeEnCours({{ $annee->id }})"
+                                                            class="btn btn-warning btn-sm mr-2">
+                                                        <i class="fa fa-check"></i>
+                                                    </button>
                                                 @endcan
                                             @endif
                                         </td>
                                         <td>
                                             <div class="d-flex float-right">
                                                 @can('annees.update',$annee)
-                                                    <button wire:click="getSelectedAnnee({{ $annee->id }})" type="button"
+                                                    <button wire:click="getSelectedAnnee({{ $annee->id }})"
+                                                            type="button"
                                                             title="Modifier"
                                                             class="btn btn-info btn-sm" data-toggle="modal"
                                                             data-target="#edit-annee-modal">
@@ -86,13 +87,13 @@
                                                 @endcan
                                                 @if (!$annee->encours)
                                                     @can('annees.delete',$annee)
-                                                    <button title="Supprimer"
-                                                            wire:click="getSelectedAnnee({{ $annee->id }})"
-                                                            class="btn btn-danger btn-sm ml-1"
-                                                            data-toggle="modal"
-                                                            data-target="#delete-annee-modal">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
+                                                        <button title="Supprimer"
+                                                                wire:click="getSelectedAnnee({{ $annee->id }})"
+                                                                class="btn btn-danger btn-sm ml-1"
+                                                                data-toggle="modal"
+                                                                data-target="#delete-annee-modal">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
                                                     @endcan
                                                 @endif
 

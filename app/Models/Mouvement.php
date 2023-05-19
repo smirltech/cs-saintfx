@@ -6,7 +6,6 @@ use App\Enums\MaterialStatus;
 use App\Enums\MouvementStatus;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
@@ -25,7 +24,7 @@ class Mouvement extends Model
     ];
 
     protected $with = [
-        'facilitateur'
+        'facilitateur',
     ];
 
     public function facilitateur(): BelongsTo
@@ -45,6 +44,6 @@ class Mouvement extends Model
 
     public function getShortObservationAttribute(): string|null
     {
-        return Str::limit( $this->observation, $limit = 30, $end = '...');
+        return Str::limit($this->observation, $limit = 30, $end = '...');
     }
 }

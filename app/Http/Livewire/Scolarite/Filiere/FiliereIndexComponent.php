@@ -8,9 +8,11 @@ use App\Models\Option;
 use App\Models\Section;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
 
 class FiliereIndexComponent extends BaseComponent
 {
@@ -33,7 +35,7 @@ class FiliereIndexComponent extends BaseComponent
         'nom' => 'required|unique:filieres',
         'code' => 'required|unique:filieres',
         'description' => 'nullable',
-        'option_id' => 'required|numeric',
+        'option_id' => 'required',
 
     ];
 
@@ -43,8 +45,6 @@ class FiliereIndexComponent extends BaseComponent
 
         'code.required' => 'Ce code est obligatoire !',
         'code.unique' => 'Ce code est déjà pris, cherchez-en un autre !',
-
-        'option_id.required' => 'L\'option est obligatoire !',
     ];
 
     protected $listeners = ['onSaved', 'onUpdated', 'onDeleted', 'onModalOpened', 'onModalClosed'];
@@ -81,14 +81,20 @@ class FiliereIndexComponent extends BaseComponent
         $this->sections = Section::orderBy('nom')->get();
     }
 
-    public function render()
+    public function render(): View|\Illuminate\Foundation\Application|Factory|Application
     {
         $this->loadData();
         return view('livewire.scolarite.filieres.index')
             ->layout(AdminLayout::class, ['title' => 'Liste de Filières']);
     }
 
-    public function changeSection()
+    // updated section_id
+    public function updatedSectionId(): void
+    {
+        $this->changeSection();
+    }
+
+    public function changeSection(): void
     {
         if ($this->section_id > 0) {
             $section = Section::find($this->section_id);
@@ -127,11 +133,6 @@ class FiliereIndexComponent extends BaseComponent
         $this->onModalClosed();
     }
 
-    public function onModalClosed()
-    {
-        $this->clearValidation();
-        $this->reset(['nom', 'code', 'section_id', 'options', 'description']);
-    }
 
     public function getSelectedFiliere(Filiere $filiere)
     {

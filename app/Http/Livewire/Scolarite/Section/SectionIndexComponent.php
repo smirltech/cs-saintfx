@@ -10,7 +10,6 @@ use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
 
 class SectionIndexComponent extends BaseComponent
 {
@@ -48,6 +47,11 @@ class SectionIndexComponent extends BaseComponent
         $this->loadData();
     }
 
+    public function loadData()
+    {
+        $this->sections = Section::orderBy('nom', 'ASC')->get();
+    }
+
     public function onModalOpened()
     {
         $this->clearValidation();
@@ -56,11 +60,6 @@ class SectionIndexComponent extends BaseComponent
     public function onSaved()
     {
         $this->loadData();
-    }
-
-    public function loadData()
-    {
-        $this->sections = Section::orderBy('nom', 'ASC')->get();
     }
 
     public function onUpdated()
@@ -103,11 +102,6 @@ class SectionIndexComponent extends BaseComponent
         $this->onModalClosed();
     }
 
-    public function onModalClosed()
-    {
-        $this->clearValidation();
-        $this->reset(['nom', 'code']);
-    }
 
     public function getSelectedSection(Section $section)
     {

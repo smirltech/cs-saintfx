@@ -137,11 +137,6 @@ class EleveShowComponent extends BaseComponent
         $this->numero_permanent = $this->eleve->numero_permanent;
     }
 
-    public function onModalClosed(): void
-    {
-        // $this->clearValidation();
-        $this->reset(['inscription_status']);
-    }
 
     /**
      * @throws AuthorizationException

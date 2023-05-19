@@ -73,11 +73,6 @@ class MaterielCategoryIndexComponent extends BaseComponent
 
     }
 
-    public function onModalClosed($p_id): void
-    {
-        $this->dispatchBrowserEvent('closeModal', ['modal' => $p_id]);
-
-    }
 
     public function getSelectedCategory(MaterielCategory $category): void
     {

@@ -23,7 +23,6 @@ class Classe extends Model
 
     ];
 
-
     /*
      * Get parents that can be Section, Option or Filiere
      * */
@@ -38,8 +37,10 @@ class Classe extends Model
         usort($inscriptions_temp, function ($insc1, $insc2) use ($resultatType) {
             $r1 = $insc1->resultats->where('custom_property', $resultatType)->first();
             $r2 = $insc2->resultats->where('custom_property', $resultatType)->first();
+
             return $r1?->place > $r2?->place;
         });
+
         return $inscriptions_temp;
     }
 
@@ -76,7 +77,6 @@ class Classe extends Model
         return "{$this->grade->value} {$this->filierable?->fullCode}";
     }
 
-
     // full_name
 
     public function getShortCodeAttribute(): string
@@ -88,13 +88,13 @@ class Classe extends Model
 
     public function getParentUrlAttribute(): ?string
     {
-        $parent_url = "";
+        $parent_url = '';
         $classable = $this->filierable;
         if ($classable instanceof Filiere) {
             $parent_url = route('scolarite.filieres.show', $classable->id);
-        } else if ($classable instanceof Option) {
+        } elseif ($classable instanceof Option) {
             $parent_url = route('scolarite.options.show', $classable->id);
-        } else if ($classable instanceof Section) {
+        } elseif ($classable instanceof Section) {
             $parent_url = route('scolarite.sections.show', $classable->id);
         }
 
@@ -118,7 +118,6 @@ class Classe extends Model
         return $this->belongsToMany(Cours::class, 'cours_enseignants')->where('annee_id', Annee::encours()->id)->withPivot('classe_id');
     }
 
-
     // cours
 
     public function coursEnseignants(): HasMany
@@ -131,11 +130,12 @@ class Classe extends Model
         $classable = $this->filierable;
         if ($classable instanceof Filiere) {
             return $classable->option->section_id;
-        } else if ($classable instanceof Option) {
+        } elseif ($classable instanceof Option) {
             return $classable->section_id;
-        } else if ($classable instanceof Section) {
+        } elseif ($classable instanceof Section) {
             return $classable->id;
         }
+
         return null;
     }
 
@@ -144,9 +144,10 @@ class Classe extends Model
         $classable = $this->filierable;
         if ($classable instanceof Filiere) {
             return $classable->option->id;
-        } else if ($classable instanceof Option) {
+        } elseif ($classable instanceof Option) {
             return $classable->id;
         }
+
         return null;
     }
 
@@ -156,9 +157,9 @@ class Classe extends Model
         if ($classable instanceof Filiere) {
             return $classable->id;
         }
+
         return null;
     }
-
 
     // get section id from filierable attribute
 
@@ -170,7 +171,6 @@ class Classe extends Model
     // get section from section_id attribute
 
     public function getEnseignantIdAttribute(): ?string
-
     {
         return $this->enseignantsPrimaire->first()?->pivot->enseignant_id;
     }
@@ -234,7 +234,6 @@ class Classe extends Model
             return $frais;
         }
 
-
         if ($this->filiere_id) {
             $frais = Frais::where('annee_id', $annee_id)
                 ->where('type', FraisType::inscription)
@@ -267,8 +266,7 @@ class Classe extends Model
                 return $frais;
             }
         }
+
         return null;
     }
-
-
 }

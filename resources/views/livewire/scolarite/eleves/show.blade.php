@@ -52,14 +52,12 @@
                                     data-target="#infoPerso" aria-expanded="true"
                                     aria-controls="infoPerso">Information Personnelle</h3>
                                 <div class="card-tools">
-                                    @if($eleve->email)
-                                        @can('eleves.update',$eleve)
-                                            <span role="button" wire:click.debounce="fillDataToModal" type="button"
-                                                  title="Mot de passe utilisateur" class=" ml-2 mr-2"
-                                                  data-toggle="modal"
-                                                  data-target="#edit-eleve-user-modal">
+                                    @can('eleves.update',$eleve)
+                                        <span role="button" wire:click.debounce="fillDataToModal" type="button"
+                                              title="Mot de passe utilisateur" class=" ml-2 mr-2"
+                                              data-toggle="modal"
+                                              data-target="#edit-eleve-user-modal">
                                     <span class="fa fa-key"></span></span>
-                                        @endcan
                                     @endif
 
                                     @can('eleves.update',$eleve)
@@ -95,9 +93,9 @@
                                     <hr>
                                     <strong><i class="fas fa-calendar-alt mr-1"></i> Date de naissance</strong>
                                     <p class="text-muted">
-                                        {{$eleve->date_naissance?->format('d/m/Y')??''}}
+                                        {{$eleve->dateNaissance()?->format('d/m/Y')??''}}
                                         <strong
-                                            class="float-right badge bg-gradient-info">{{Carbon::now()->diffInYears($eleve->date_naissance)}}
+                                            class="float-right badge bg-gradient-info">{{Carbon::now()->diffInYears($eleve->dateNaissance())}}
                                             ans</strong>
                                     </p>
                                     <hr>

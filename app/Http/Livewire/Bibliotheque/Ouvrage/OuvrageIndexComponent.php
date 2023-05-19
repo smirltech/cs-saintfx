@@ -65,12 +65,6 @@ class OuvrageIndexComponent extends BaseComponent
 
     }
 
-    public function onModalClosed($p_id): void
-    {
-        $this->dispatchBrowserEvent('closeModal', ['modal' => $p_id]);
-        // $this->initOuvrage();
-    }
-
 
     // Lectures
 

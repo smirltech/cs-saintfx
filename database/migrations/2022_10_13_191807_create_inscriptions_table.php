@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->foreignIdFor(Eleve::class)->constrained();
             $table->foreignIdFor(Classe::class)->constrained();
             $table->foreignIdFor(Annee::class)->constrained()->restrictOnDelete();
-            $table->string('categorie')->default(InscriptionCategorie::normal->name);
+            $table->string('categorie')->nullable()->default(InscriptionCategorie::normal->name);
             $table->integer('montant')->nullable();
             $table->string('status')->default(InscriptionStatus::approved->value);
             $table->unique(['eleve_id', 'annee_id'], 'eleve_annee');

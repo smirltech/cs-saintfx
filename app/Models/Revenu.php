@@ -20,6 +20,7 @@ class Revenu extends Model
             $lDate = Carbon::now()->subDays($i);
             $data[] = self::whereDate('created_at', '=', $lDate)->sum('montant');
         }
+
         return $data;
     }
 
@@ -27,6 +28,7 @@ class Revenu extends Model
     {
         $debut = Carbon::parse($ddebut)->startOfDay();
         $fin = Carbon::parse($dfin)->endOfDay();
+
         return self::where('annee_id', $annee_id)->whereBetween('created_at', [$debut, $fin])->sum('montant');
     }
 

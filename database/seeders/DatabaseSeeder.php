@@ -53,7 +53,7 @@ class DatabaseSeeder extends Seeder
 
             if (!App::isProduction()) {
                 User::factory()->create([
-                    'email' => 'caissier@college-enk.com',
+                    'email' => 'comptable@college-enk.com',
                     'name' => 'Caissier',
                 ])->assignRole(UserRole::comptable->value);
 

@@ -9,7 +9,6 @@ use App\Models\Revenu;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
 
 class RevenuIndexComponent extends BaseComponent
 {
@@ -76,11 +75,6 @@ class RevenuIndexComponent extends BaseComponent
         $this->onModalClosed();
     }
 
-    public function onModalClosed()
-    {
-        $this->clearValidation();
-        $this->reset(['nom', 'montant', 'description']);
-    }
 
     public function getSelectedRevenu(Revenu $revenu)
     {

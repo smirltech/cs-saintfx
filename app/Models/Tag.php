@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Tags\Tag as SpatieTag;
 
-
 class Tag extends SpatieTag
 {
     use HasFactory;

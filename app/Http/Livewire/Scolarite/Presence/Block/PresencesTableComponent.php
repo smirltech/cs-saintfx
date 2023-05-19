@@ -47,15 +47,22 @@ class PresencesTableComponent extends Component
 
     }
 
+    public function loadData()
+    {
+        $this->presences = $this->classe->presences->where('date', $this->current_date)->where('annee_id', Annee::id());
+        $this->nonInscriptions = $this->classe->nonInscriptions($this->current_date);
+
+        $this->hasNextDay = Carbon::parse($this->current_date)->isBefore(Carbon::now()->startOfDay());
+        // dd($this->presences);
+    }
 
     public function initPresence()
     {
         $this->current_date = $this->current_date ?? Carbon::now()->format('Y-m-d');
         $this->presence = new Presence();
-        $this->presence->inscription_id = $this->nonInscriptions[0]->id??null;
-       // dd($this->presence->inscription_id);
+        $this->presence->inscription_id = $this->nonInscriptions[0]->id ?? null;
+        // dd($this->presence->inscription_id);
     }
-
 
     public function render()
     {
@@ -68,29 +75,21 @@ class PresencesTableComponent extends Component
         );
     }
 
-    public function loadData()
-    {
-        $this->presences = $this->classe->presences->where('date', $this->current_date)->where('annee_id', Annee::id());
-        $this->nonInscriptions = $this->classe->nonInscriptions($this->current_date);
-
-       $this->hasNextDay = Carbon::parse($this->current_date)->isBefore(Carbon::now()->startOfDay());
-        // dd($this->presences);
-    }
-
     public function previousDate()
     {
         //->format('Y-m-d')
         $dd = Carbon::parse($this->current_date) ?? Carbon::now();
         $this->current_date = $dd->subDay()->format('Y-m-d');
     }
+
     public function nextDate()
     {
         //->format('Y-m-d')
         $dd = Carbon::parse($this->current_date) ?? Carbon::now();
-          $ddo = $dd->addDay();
-      if( $ddo->isBefore(Carbon::now()->endOfDay())) {
-          $this->current_date = $ddo->format('Y-m-d');
-      }
+        $ddo = $dd->addDay();
+        if ($ddo->isBefore(Carbon::now()->endOfDay())) {
+            $this->current_date = $ddo->format('Y-m-d');
+        }
     }
 
     public function selectPresence($presence_id)
@@ -118,7 +117,7 @@ class PresencesTableComponent extends Component
                 $this->loadData();
                 $this->initPresence();
                 $this->alert('success', "Présence ajoutée avec succès !");
-                if($this->nonInscriptions->count() == 0) {
+                if ($this->nonInscriptions->count() == 0) {
                     $this->onModalClosed('add-presence');
                 }
             } else {
@@ -165,13 +164,6 @@ class PresencesTableComponent extends Component
         }
     }
 
-    public function onModalClosed($modalId)
-    {
-        $this->dispatchBrowserEvent('closeModal', ['modal' => $modalId]);
-        $this->classe->refresh();
-        $this->loadData();
-        $this->initPresence();
-    }
 
     public function printIt()
     {

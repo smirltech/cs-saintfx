@@ -10,7 +10,6 @@ class Audit extends Model implements \OwenIt\Auditing\Contracts\Audit
 {
     use \OwenIt\Auditing\Audit;
 
-
     protected $guarded = [];
 
     protected $casts = [

@@ -18,14 +18,14 @@ class MaleFemaleDonutChart extends Component
      */
     public function __construct()
     {
-        $this->labels = ['Garçons', 'Filles'];
+        $this->labels = ['Garçons - ' . Inscription::sexe()->count(), 'Filles - ' . Inscription::sexe(Sexe::F)->count()];
 
         $this->dataset = [
             [
                 'backgroundColor' => ['#3e95cd', '#8e5ea2'],
                 'data' => [
-                    Inscription::sexe(Sexe::m)->count(),
-                    Inscription::sexe(Sexe::f)->count(),
+                    Inscription::sexe()->count(),
+                    Inscription::sexe(Sexe::F)->count(),
                 ]
             ],
         ];

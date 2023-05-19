@@ -10,7 +10,6 @@ use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
 
 class SectionShowComponent extends BaseComponent
 {
@@ -121,12 +120,6 @@ class SectionShowComponent extends BaseComponent
         }
         $this->onModalClosed();
 
-    }
-
-    public function onModalClosed()
-    {
-        $this->clearValidation();
-        $this->reset(['nom', 'code']);
     }
 
 

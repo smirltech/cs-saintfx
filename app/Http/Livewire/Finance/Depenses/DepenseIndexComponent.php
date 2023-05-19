@@ -87,11 +87,6 @@ class DepenseIndexComponent extends BaseComponent
         $this->onModalClosed();
     }
 
-    public function onModalClosed()
-    {
-        $this->clearValidation();
-        $this->reset(['montant', 'note', 'reference']);
-    }
 
     public function getSelectedDepense($depense_id)
     {
