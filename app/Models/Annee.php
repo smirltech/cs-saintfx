@@ -10,8 +10,6 @@ class Annee extends Model
     public $guarded = [];
 
     protected $casts = [
-        'date_debut' => 'date',
-        'date_fin' => 'date',
         'encours' => 'boolean',
     ];
 
@@ -74,11 +72,22 @@ class Annee extends Model
 
     public function getStartYearAttribute(): ?string
     {
-        return $this->date_debut?->year;
+        return $this->dateDebut()?->year;
+    }
+
+    // get date debut
+    public function dateDebut(): ?Carbon
+    {
+        return Carbon::parse($this->date_debut);
     }
 
     public function getEndYearAttribute(): ?string
     {
-        return $this->date_fin?->year;
+        return $this->dateFin()?->year;
+    }
+
+    public function dateFin(): ?Carbon
+    {
+        return Carbon::parse($this->date_fin);
     }
 }
