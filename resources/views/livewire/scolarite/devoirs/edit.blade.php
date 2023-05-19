@@ -31,9 +31,10 @@
 
                             <div class="col-6">
                                 @can('devoirs.delete',$devoir)
-                                    <x-form::button wire:click="deleteDevoir" class="btn btn-sm btn-danger float-right">
+                                    <x-form::button
+                                        wire:click="deleteDevoir" class="btn btn-sm btn-danger float-right">
                                         <i class="fa fa-trash-alt"></i>
-                                        </x-button>
+                                    </x-form::button>
                                 @endcan
                             </div>
                         </div>
@@ -117,7 +118,7 @@
                                 </div>
 
                             </div>
-                            <x-form::button class="btn-primary float-end">Soumettre</x-button>
+                            <x-form::button class="btn-primary float-end">Soumettre</x-form::button>
                         </form>
                     </div>
                 </div>
@@ -156,7 +157,7 @@
                             @foreach ($reponses as $k=>$reponse)
                                 <tr>
                                     <td>
-                                        <x-avatar src="{{$reponse->eleve->avatar}}"/>
+                                        <x-media::avatar size="50" :model="$reponse->eleve"/>
                                     </td>
                                     <td>
                                         {{ $reponse->eleve->nom_complet }}
@@ -175,11 +176,11 @@
                                                     <i class="fas fa-file"></i>
                                                 </a>
                                             @endif
-                                            <a href="{{route('scolarite.devoirs.edit',$reponse )}}"
-                                               title="modifier"
-                                               class="btn btn-outline-info  ml-2">
-                                                <i class="fas fa-eye"></i>
-                                            </a>
+                                            {{-- <a href="{{route('scolarite.devoir.edit',$reponse )}}"
+                                                title="modifier"
+                                                class="btn btn-outline-info  ml-2">
+                                                 <i class="fas fa-eye"></i>
+                                             </a>--}}
                                         </div>
                                     </td>
                                 </tr>
