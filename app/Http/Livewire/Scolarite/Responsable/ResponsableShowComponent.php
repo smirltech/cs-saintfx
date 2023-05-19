@@ -93,9 +93,10 @@ class ResponsableShowComponent extends BaseComponent
 
     public function onModalClosed(): void
     {
-
-        $this->redirect(route('scolarite.responsables.show', $this->responsable->id));
-        // $this->reset(['nom', 'sexe', 'telephone', 'email', 'adresse', 'responsable_eleve', 'responsable_relation']);
+        //$this->redirect(route('scolarite.responsables.show', $this->responsable->id));
+        if ($this->nom) {
+            $this->reset(['nom', 'sexe', 'telephone', 'email', 'adresse', 'responsable_eleve', 'responsable_relation']);
+        }
     }
 
     public function deleteResponsable(): void
