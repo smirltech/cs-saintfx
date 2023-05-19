@@ -4,7 +4,6 @@ namespace App\Http\Livewire\Scolarite\Annee;
 
 use App\Http\Livewire\BaseComponent;
 use App\Models\Annee;
-use App\Models\User;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Exception;
@@ -37,21 +36,21 @@ class AnneeComponent extends BaseComponent
         $this->annee = new Annee();
     }
 
-    public function getSelectedAnnee($id)
-    {
-        $this->annee = Annee::find($id);
-    }
-
     public function loadData()
     {
         $this->annees = Annee::orderBy('encours', 'DESC')->orderBy('date_debut', 'DESC')->get();
+    }
+
+    public function getSelectedAnnee($id)
+    {
+        $this->annee = Annee::find($id);
     }
 
     public function render()
     {
         $this->loadData();
         return view('livewire.scolarite.annees.index')
-            ->layout(AdminLayout::class)->layoutData(['title'=> $this->title, "contentHeaderIcon" => "fas fa-fw fa-calendar-alt"]);
+            ->layout(AdminLayout::class)->layoutData(['title' => $this->title, "contentHeaderIcon" => "fas fa-fw fa-calendar-alt"]);
     }
 
     public function addAnnee()
@@ -71,7 +70,7 @@ class AnneeComponent extends BaseComponent
     public function deleteAnnee()
     {
 
-        try{
+        try {
             if ($this->annee->delete()) {
                 $this->onModalClosed('delete-annee-modal');
                 $this->initAnnee();
@@ -79,7 +78,7 @@ class AnneeComponent extends BaseComponent
             } else {
                 $this->alert('warning', "Échec de suppression d'année scolaire !");
             }
-        }catch (Exception $e){
+        } catch (Exception $e) {
             $this->alert('error', "Année scolaire n'a pas été supprimée, il y a des éléments attachés !");
         }
     }
@@ -113,9 +112,4 @@ class AnneeComponent extends BaseComponent
 
     }
 
-    public function onModalClosed($p_id)
-    {
-        $this->dispatchBrowserEvent('closeModal', ['modal' => $p_id]);
-
-    }
 }

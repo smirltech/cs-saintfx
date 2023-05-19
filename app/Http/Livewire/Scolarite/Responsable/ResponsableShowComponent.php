@@ -12,7 +12,6 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use URL;
 
 class ResponsableShowComponent extends BaseComponent
 {
@@ -90,22 +89,6 @@ class ResponsableShowComponent extends BaseComponent
             $this->onModalClosed();
         }
 
-    }
-
-    public function onModalClosed(): void
-    {
-        // check if the field is not null then reset the field
-
-        /*$this->nom = null;
-        $this->sexe = null;
-        $this->telephone = null;
-        $this->email = null;
-        $this->adresse = null;
-        $this->responsable_eleve = null;
-        $this->responsable_relation = null;*/
-
-        //redirect to the same page
-        $this->redirect(URL::previous());
     }
 
     public function deleteResponsable(): void

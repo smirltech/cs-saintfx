@@ -13,7 +13,6 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use URL;
 
 class FiliereIndexComponent extends BaseComponent
 {
@@ -134,13 +133,6 @@ class FiliereIndexComponent extends BaseComponent
         $this->onModalClosed();
     }
 
-    public function onModalClosed()
-    {
-        $this->clearValidation();
-        $this->reset(['nom', 'code', 'section_id', 'options', 'description']);
-
-        $this->redirect(URL::previous());
-    }
 
     public function getSelectedFiliere(Filiere $filiere)
     {

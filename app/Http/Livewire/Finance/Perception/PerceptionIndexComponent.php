@@ -9,7 +9,6 @@ use App\Models\Perception;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
 
 class PerceptionIndexComponent extends BaseComponent
 {
@@ -54,10 +53,5 @@ class PerceptionIndexComponent extends BaseComponent
 
     }
 
-    public function onModalClosed()
-    {
-        // $this->clearValidation();
-        //$this->reset(['categorie', 'montant', 'note', 'reference']);
-    }
 
 }

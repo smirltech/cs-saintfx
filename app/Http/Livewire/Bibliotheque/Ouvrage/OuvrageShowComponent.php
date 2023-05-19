@@ -64,11 +64,6 @@ class OuvrageShowComponent extends BaseComponent
         $this->category->refresh();
     }
 
-    public function onModalClosed($p_id): void
-    {
-        $this->dispatchBrowserEvent('closeModal', ['modal' => $p_id]);
-
-    }
 
 
     // Auteurs

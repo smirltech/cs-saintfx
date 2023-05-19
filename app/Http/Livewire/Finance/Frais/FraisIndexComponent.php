@@ -15,7 +15,6 @@ use App\Models\Section;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
 
 class FraisIndexComponent extends BaseComponent
 {
@@ -119,18 +118,9 @@ class FraisIndexComponent extends BaseComponent
         ]);
         $this->onModalClosed('add-frais-modal');
         $this->alert('success', "Frais ajouté avec succès !");
-       // $this->dispatchBrowserEvent('closeModal', ['modal' => 'add-frais-modal']);
+        // $this->dispatchBrowserEvent('closeModal', ['modal' => 'add-frais-modal']);
     }
 
-    public function onModalClosed($p_id)
-    {
-        $this->dispatchBrowserEvent('closeModal', ['modal' => $p_id]);
-        //$this->clearValidation();
-        $this->reset(['nom', 'description', 'montant',
-            'classable_type', 'classable_id',
-            'section_id', 'option_id', 'filiere_id', 'classe_id'
-        ]);
-    }
 
     public function getSelectedFrais(Frais $fee)
     {

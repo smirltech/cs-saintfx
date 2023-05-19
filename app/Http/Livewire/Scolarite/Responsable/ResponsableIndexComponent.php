@@ -72,11 +72,6 @@ class ResponsableIndexComponent extends BaseComponent
 
     }
 
-    public function onModalClosed(): void
-    {
-        if ($this->responsable_nom)
-            $this->reset(['responsable_nom', 'responsable_sexe', 'responsable_telephone', 'responsable_email', 'responsable_adresse']);
-    }
 
     #[NoReturn] public function deleteResponsable($responsable_id)
     {

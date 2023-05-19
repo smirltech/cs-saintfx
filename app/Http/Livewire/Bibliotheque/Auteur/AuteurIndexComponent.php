@@ -4,28 +4,25 @@ namespace App\Http\Livewire\Bibliotheque\Auteur;
 
 use App\Http\Livewire\BaseComponent;
 use App\Models\Auteur;
-use App\Models\OuvrageAuteur;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Exception;
-use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
 
 class AuteurIndexComponent extends BaseComponent
 {
     use TopMenuPreview;
     use LivewireAlert;
-   // protected $paginationTheme = 'bootstrap';
 
-    private $auteurs = [];
+    // protected $paginationTheme = 'bootstrap';
+
     public Auteur $auteur;
-
     protected $rules = [
         'auteur.nom' => 'required',
         'auteur.prenom' => 'nullable',
         'auteur.sexe' => 'required',
     ];
+    private $auteurs = [];
 
     public function mount()
     {
@@ -71,12 +68,6 @@ class AuteurIndexComponent extends BaseComponent
             $this->alert('error', "Échec de d'ajout d'auteur, ce nom existe déjà !");
         }
 
-    }
-
-    public function onModalClosed($p_id)
-    {
-        $this->dispatchBrowserEvent('closeModal', ['modal' => $p_id]);
-        $this->initAuteur();
     }
 
     public function getSelectedAuteur(Auteur $auteur)

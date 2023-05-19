@@ -87,10 +87,6 @@ class ResultatShowComponent extends Component
 
     }
 
-    public function onModalClosed()
-    {
-        $this->reset(['nom', 'sexe', 'telephone', 'email', 'adresse', 'responsable_eleve', 'responsable_relation']);
-    }
 
     public function deleteResponsable()
     {

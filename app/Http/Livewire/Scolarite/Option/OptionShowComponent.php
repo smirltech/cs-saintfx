@@ -11,7 +11,6 @@ use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
 
 class OptionShowComponent extends BaseComponent
 {
@@ -128,11 +127,6 @@ class OptionShowComponent extends BaseComponent
 
     }
 
-    public function onModalClosed()
-    {
-        $this->clearValidation();
-        $this->reset(['nom', 'code', 'section_id']);
-    }
 
     // ---------------------------
 

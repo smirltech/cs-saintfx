@@ -108,13 +108,6 @@ class CaisseComponent extends BaseComponent
 
     // paiement et impression facture
 
-    public function onModalClosed($p_id)
-    {
-        $this->dispatchBrowserEvent('closeModal', ['modal' => $p_id]);
-        //  $this->clearSearch();
-        // $this->searchInscription();
-        // $this->perception = Perception::find($this->perception->id);
-    }
 
     private function printIt()
     {

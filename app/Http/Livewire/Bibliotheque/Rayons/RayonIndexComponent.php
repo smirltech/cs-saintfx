@@ -77,11 +77,6 @@ class RayonIndexComponent extends BaseComponent
 
     }
 
-    public function onModalClosed($p_id)
-    {
-        $this->dispatchBrowserEvent('closeModal', ['modal' => $p_id]);
-        $this->initCategory();
-    }
 
     public function getSelectedCategory(Rayon $category)
     {

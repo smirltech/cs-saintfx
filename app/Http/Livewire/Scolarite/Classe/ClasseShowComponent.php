@@ -21,7 +21,6 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Validation\Rule;
-use Livewire\Component;
 
 class ClasseShowComponent extends BaseComponent
 {
@@ -64,10 +63,6 @@ class ClasseShowComponent extends BaseComponent
         }
     }
 
-    public function onModalClosed()
-    {
-
-    }
 
     // hydrate
 

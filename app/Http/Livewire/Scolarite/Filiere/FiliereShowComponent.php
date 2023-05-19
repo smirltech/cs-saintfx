@@ -15,7 +15,6 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use URL;
 
 class FiliereShowComponent extends BaseComponent
 {
@@ -165,13 +164,6 @@ class FiliereShowComponent extends BaseComponent
 
     }
 
-    public function onModalClosed(): void
-    {
-        $this->clearValidation();
-        $this->reset(['nom', 'code', 'section_id', 'option_id', 'options', 'description']);
-
-        $this->redirect(URL::previous());
-    }
 
     public function addClasse()
     {
