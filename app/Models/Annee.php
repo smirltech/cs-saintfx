@@ -72,13 +72,13 @@ class Annee extends Model
         return $this->start_year . '-' . $this->end_year;
     }
 
-    public function getStartYearAttribute(): string
+    public function getStartYearAttribute(): ?string
     {
-        return $this->date_debut->year;
+        return $this->date_debut?->year;
     }
 
-    public function getEndYearAttribute(): string
+    public function getEndYearAttribute(): ?string
     {
-        return $this->date_fin->year;
+        return $this->date_fin?->year;
     }
 }
