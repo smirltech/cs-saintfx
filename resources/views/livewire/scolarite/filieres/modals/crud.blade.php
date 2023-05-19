@@ -113,12 +113,6 @@
                                 label="Option"
                                 :options="$options"/>
                         </div>
-                        <div class="form-group col-md-12">
-                            <x-form::ckeditor
-                                label="Description"
-                                wire:model="description"
-                                class="form-control"/>
-                        </div>
                     </div>
                 </form>
             </div>
