@@ -6,7 +6,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Ajouter Responsable</h4>
-                <button wire:click="$emit('onModalClosed')" type="button" class="close" data-dismiss="modal"
+                <button type="button" class="close" data-dismiss="modal"
                         aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -15,26 +15,24 @@
                 <x-form::validation-errors class="mb-4" :errors="$errors"/>
                 <form id="f1" wire:submit.prevent="addThisResponsable">
                     <div class="row">
-                        <div class="form-group col-md-9 col-sm-12">
-                            <label for="">Nom</label>
-                            <input placeholder="Saisir le nom du responsable" type="text"
-                                   wire:model="responsable_nom"
-                                   class="form-control" required>
+                        <div class="form-group col-md-9">
+                            <x-form::input
+                                label="Nom"
+                                wire:model="responsable_nom"
+                                required/>
                         </div>
-                        <div class="form-group col-md-3 col-sm-12">
-                            <label for="">Sexe</label>
-                            <x-form::select wire:model="responsable_sexe"
-                                            class="form-control">
-                                @foreach (Sexe::cases() as $es )
-                                    <option value="{{$es}}">{{ $es->label() }}</option>
-                                @endforeach
+                        <div class="form-group col-md-3">
+                            <x-form::select
+                                label="Sexe"
+                                :options="Sexe::cases()"
+                                wire:model="responsable_sexe">
                             </x-form::select>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-6 col-sm-12">
+
+                        <div class="form-group col-md-6">
                             <label for="">Téléphone</label>
-                            <input placeholder="Saisir le numéro de téléphone" type="tel"
+                            <input placeholder="Saisir le numéro de téléphone"
+                                   type="tel"
                                    wire:model="responsable_telephone"
                                    class="form-control">
                         </div>
@@ -45,13 +43,12 @@
                                    class="form-control">
                         </div>
 
-                    </div>
-                    <div class="form-group">
-                        <label for="">Adresse </label>
-                        <textarea placeholder="Saisir l'adresse du domicile"
-                                  wire:model="responsable_adresse"
-                                  rows="1"
-                                  class="form-control"></textarea>
+                        <div class="form-group">
+                            <x-form::input
+                                required
+                                placeholder="Saisir l'adresse du domicile"
+                                wire:model="responsable_adresse"/>
+                        </div>
                     </div>
                 </form>
             </div>
