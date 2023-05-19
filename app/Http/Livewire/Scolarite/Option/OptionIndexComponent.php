@@ -10,7 +10,7 @@ use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
+use URL;
 
 class OptionIndexComponent extends BaseComponent
 {
@@ -105,6 +105,8 @@ class OptionIndexComponent extends BaseComponent
     {
         $this->clearValidation();
         $this->reset(['nom', 'code', 'section_id']);
+
+        $this->redirect(URL::previous());
     }
 
     public function getSelectedOption(Option $option)
