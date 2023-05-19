@@ -10,9 +10,12 @@ use App\Models\Section;
 use App\Traits\FiliereCode;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
+use URL;
 
 class FiliereShowComponent extends BaseComponent
 {
@@ -64,9 +67,16 @@ class FiliereShowComponent extends BaseComponent
         $this->loadData();
     }
 
+    // updated classe_grade
+
     public function loadData()
     {
         //  $this->filieres = Filiere::/* orderBy('encours', 'DESC')-> */ orderBy('nom', 'ASC')->get();
+    }
+
+    public function updatedClasseGrade()
+    {
+        $this->setCode();
     }
 
     public function onUpdated()
@@ -93,13 +103,13 @@ class FiliereShowComponent extends BaseComponent
         $this->options = Option::where('section_id', $this->section_id)->orderBy('nom')->get();
     }
 
-    public function render()
+    public function render(): View|\Illuminate\Foundation\Application|Factory|Application
     {
         return view('livewire.scolarite.filieres.show')
             ->layout(AdminLayout::class, ['title' => 'Détail sur la filière']);
     }
 
-    public function changeSection()
+    public function changeSection(): void
     {
         if ($this->section_id > 0) {
             $section = Section::find($this->section_id);
@@ -155,10 +165,12 @@ class FiliereShowComponent extends BaseComponent
 
     }
 
-    public function onModalClosed()
+    public function onModalClosed(): void
     {
         $this->clearValidation();
         $this->reset(['nom', 'code', 'section_id', 'option_id', 'options', 'description']);
+
+        $this->redirect(URL::previous());
     }
 
     public function addClasse()

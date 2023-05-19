@@ -205,26 +205,19 @@
                 <x-form::validation-errors class="mb-4" :errors="$errors"/>
                 <form id="f4" wire:submit.prevent="addClasse">
                     <div class="row">
-                        <div class="form-group col">
-                            <label for="">Grade <i class="text-red">*</i></label>
-                            <x-form::select wire:change="setCode" wire:model="classe_grade"
-                                            class="form-control  @error('classe_grade') is-invalid @enderror">
-                                <option value="">Choisir grade</option>
-                                @foreach (ClasseGrade::cases() as $grade )
-                                    <option value="{{ $grade->value}}">{{ $grade->label() }}</option>
-                                @endforeach
-                            </x-form::select>
-                            @error('classe_grade')
-                            <span class="text-red">{{ $message }}</span>
-                            @enderror
+                        <div class="form-group col-md-6">
+                            <x-form::select
+                                label="Grade"
+                                required
+                                wire:change="setCode"
+                                wire:model="classe_grade"
+                                :options="ClasseGrade::cases()"/>
                         </div>
-                        <div class="form-group col">
-                            <label for="">Code <i class="text-red">*</i></label>
-                            <input type="text" readonly wire:model="classe_code"
-                                   class="form-control  @error('classe_code') is-invalid @enderror">
-                            @error('classe_code')
-                            <span class="text-red">{{ $message }}</span>
-                            @enderror
+                        <div class="form-group col-md-6">
+                            <x-form::input
+                                type="text"
+                                label="Code"
+                                readonly wire:model="classe_code"/>
                         </div>
                     </div>
                 </form>
