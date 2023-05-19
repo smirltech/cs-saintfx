@@ -65,19 +65,19 @@ $data=[];
 @stop
 <div>
     @include('livewire.scolarite.responsables.modals.crud')
-    <div class="content mt-3">
+    <div class="content">
         <div class="container-fluid">
+            {{--<livewire:scolarite.responsables.responsable-create-component/>--}}
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div hidden class="card-header">
+                        <div class="card-header">
                             <div class="card-title d-flex">
                                 {{--<a href="{{ route('scolarite.responsables.create') }}" title="ajouter"
                                    class="btn btn-primary mr-2"><span class="fa fa-plus"></span></a>--}}
                             </div>
                             <div class="card-tools d-flex my-auto">
-
-                                <button hidden type="button"
+                                <button type="button"
                                         title="Ajouter" class="btn btn-primary" data-toggle="modal"
                                         data-target="#add-responsable-modal">
                                     <span class="fa fa-plus"></span>
