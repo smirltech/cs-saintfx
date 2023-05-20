@@ -21,24 +21,24 @@
                             <li class="nav-item">
                                 <a class="nav-link">
                                     Section <span
-                                        class="float-right text-dark">{{$eleve->section->nom}}</span>
+                                        class="float-right text-dark">{{$eleve?->section?->nom}}</span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link">
                                     Classe <span
-                                        class="float-right text-dark">{{$eleve->classe->code}}</span>
+                                        class="float-right text-dark">{{$eleve?->classe?->code}}</span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link">
                                     Admit le <span
-                                        class="float-right text-dark">{{$eleve->inscription->created_at->format('d-m-Y')}}</span>
+                                        class="float-right text-dark">{{$eleve->inscription?->created_at->format('d-m-Y')}}</span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link">
-                                    Genre <span class="float-right text-dark">{{$eleve->sexe}}</span>
+                                    Genre <span class="float-right text-dark">{{$eleve?->sexe}}</span>
                                 </a>
                             </li>
                         </ul>
