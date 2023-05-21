@@ -12,11 +12,11 @@ class BaseComponent extends Component
 {
     use AuthorizesRequests, HasLivewireAlert, WithFileUploads;
 
-    public function onModalClosed($id = null): void
+    public function onModalClosedx($id = null): void
     {
-        if ($id)
-            $this->dispatchBrowserEvent('closeModal', ['modal' => $id]);
-        else
-            $this->redirect(URL::previous());
+        /* if ($id)
+             $this->dispatchBrowserEvent('closeModal', ['modal' => $id]);
+         else*/
+        $this->redirect(URL::previous());
     }
 }

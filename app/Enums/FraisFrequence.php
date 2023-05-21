@@ -24,7 +24,7 @@ enum FraisFrequence: string
     public function children(): array
     {
         return match ($this) {
-            self::mensuel => Mois::cases(),
+            self::mensuel => array_column(Mois::cases(), 'value'),
             self::trimestriel => ['trimestre_1', 'trimestre_2', 'trimestre_3', 'trimestre_4'],
             self::semestriel => ['semestre_1', 'semestre_2'],
             self::annuel => ['annee'],

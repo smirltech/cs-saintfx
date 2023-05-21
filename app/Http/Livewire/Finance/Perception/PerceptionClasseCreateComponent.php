@@ -21,6 +21,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
+use URL;
 
 class PerceptionClasseCreateComponent extends BaseComponent
 {
@@ -232,7 +233,7 @@ class PerceptionClasseCreateComponent extends BaseComponent
         $this->inscriptions = Inscription::where(['classe_id' => $this->classe_id, 'annee_id' => $this->annee_id])->get();
         $this->inscriptions->each(fn($inscription) => $this->addPerceptionForInscription($inscription));
 
-        $this->flash('success', "Classe facturée avec succès !", [], route('finance.perceptions'));
+        $this->flashSuccess("Classe facturée avec succès !", URL::previous());
     }
 
     private function addPerceptionForInscription(Inscription $inscription): void
@@ -252,7 +253,7 @@ class PerceptionClasseCreateComponent extends BaseComponent
                 ]
             );
         } catch (Exception $exception) {
-            $this->error(local: $exception->getMessage(), production: "Echec d'imputation de frais déjà existante !");
+            $this->error(local: $exception->getMessage());
         }
     }
 

@@ -71,10 +71,11 @@
                                     </div>
                                     <div class="form-group col-sm-12 col-md-6">
                                         <label for="">Raison</label>
-                                        <x-form::select wire:model="custom_property"
+                                        <x-form::select change
+                                                        wire:model="custom_property"
                                                         class="form-control">
                                             @foreach ($raisons as $raison )
-                                                <option value="{{$raison}}">{{$raison}}</option>
+                                                <option value="{{$raison}}">{{Str::ucfirst($raison)}}</option>
                                             @endforeach
                                         </x-form::select>
                                     </div>
@@ -92,7 +93,7 @@
                                     <div class="form-group col-sm-12 col-md-6">
                                         <label for="">Montant à Payer ({{$fee?->devise?->symbol()}}) <i
                                                 class="text-red">*</i></label>
-                                        <input readonly type="number" wire:model="montant"
+                                        <input type="number" wire:model="montant"
                                                class="form-control @error('montant') is-invalid @enderror">
                                         @error('montant')
                                         <span class="text-red">{{ $message }}</span>
