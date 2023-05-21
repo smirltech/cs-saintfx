@@ -14,7 +14,9 @@ class BaseComponent extends Component
 
     public function onModalClosed($id = null): void
     {
-        // $this->dispatchBrowserEvent('closeModal', ['modal' => $id]);
-        $this->redirect(URL::previous());
+        if ($id)
+            $this->dispatchBrowserEvent('closeModal', ['modal' => $id]);
+        else
+            $this->redirect(URL::previous());
     }
 }

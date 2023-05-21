@@ -4,7 +4,7 @@
     use App\Helpers\Helpers;
 @endphp
 @section('title')
-    - Caisse  {{date('d-m-Y')}}
+    Caisse  {{date('d-m-Y')}}
 @endsection
 @section('content_header')
     <div class="row">
@@ -27,36 +27,35 @@
     <div class="content mt-3">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-7">
                     <div class="card">
                         <div class="card-header">
                             <div class="card-title">
-                                <h4>Liste d'élèves avec des factures en cours</h4>
+                                <h4>Liste d'élèves avec des factures impayées</h4>
                             </div>
                         </div>
                         <div class="card-body m-b-40">
-                            <div class="input-group  mb-3">
-                                <div class="input-group-prepend mr-2">
+                            <div class="row mb-3">
+                                <div class="col-1">
                                     <span class="input-group-text rounded">{{count($inscriptions)}}</span>
                                 </div>
-
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text rounded">Élève : </span>
+                                <div class="col-5">
+                                    <x-form::select
+                                        wire:model="classe_id"
+                                        :options="$classes"
+                                        placeholder="Classe"/>
                                 </div>
 
-                                <input wire:keydown.debounce="searchInscription" type="text"
-                                       wire:model.debounce="searchTerm"
-                                       class="form-control" placeholder="Saisir nom ou matricule de l'élève...">
-
-                                <div class="input-group-append" id="button-addon4">
-                                    <button wire:click.debounce="searchInscription" title="Rechercher"
-                                            class="input-group-texte rounded btn btn-default">
-                                        <i class="fas fa-play"></i>
-                                    </button>
+                                <div class="col-5">
+                                    <x-form::select
+                                        wire:model="inscription_id"
+                                        :options="$inscriptionOptions"
+                                        placeholder="Elève"/>
                                 </div>
-                                <div class="input-group-append" id="button-addon4">
+
+                                <div class="col-1">
                                     <button wire:click.debounce="clearSearch" title="Annuler recherche"
-                                            class="btn btn-default  ml-2">
+                                            class="btn btn-default">
                                         <i class="fas fa-close"></i>
                                     </button>
                                 </div>
@@ -67,7 +66,7 @@
                                     <tr>
                                         <th style="width: 50px;">#</th>
                                         <th>MATRICULE</th>
-                                        <th>ÉLÈVE</th>
+                                        <th>NOM</th>
                                         <th>CLASSE</th>
                                         <th style="width: 50px;"></th>
 
@@ -101,7 +100,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-5">
                     <div class="card">
                         <div class="card-header">
                             <div class="card-title">
@@ -120,24 +119,30 @@
                         <div class="card-body m-b-40">
 
                             <div class="">
-                                <ul class="list-group list-group-unbordered mb-3">
+                                <table class="table table-striped-columns table-borderless mb-3">
                                     @foreach($perceptions as $percept)
-                                        <li class="list-group-item">
-                                            <b>Facture : {{$percept->frais->nom}} {{$percept->custom_property}}</b>
-                                            <span
-                                                class="float-right">{{number_format($percept->balance)}} Fc
-                                            <button wire:click="getSelectedPerception('{{$percept->id}}')"
-                                                    title="Payer facture"
-                                                    class="btn btn-default btn-sm ml-2"
-                                                    data-toggle="modal"
-                                                    data-target="#paiement-facture">
-                                                        <i class="fas fa-hand-holding-dollar"></i>
-                                                    </button>
-                                            </span>
-                                        </li>
+                                        <tr>
+                                            <td>Facture : {{$percept->frais->nom}} {{$percept->custom_property}}</td>
+                                            <td>
+                                                {{number_format($percept->balance)}}
+                                            </td>
+                                            {{-- <td>
+                                                 {{number_format($percept->montant)}}
+                                             </td>--}}
+                                            <td>
+                                                <button wire:click="getSelectedPerception('{{$percept->id}}')"
+                                                        title="Payer facture"
+                                                        class="btn btn-primary btn-sm ml-2"
+                                                        data-toggle="modal"
+                                                        data-target="#paiement-facture">
+                                                    <i class="fas fa-hand-holding-dollar"></i>
+                                                </button>
+                                            </td>
+
+                                        </tr>
                                     @endforeach
 
-                                </ul>
+                                </table>
                             </div>
                         </div>
                     </div>

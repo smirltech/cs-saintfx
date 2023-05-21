@@ -9,6 +9,7 @@ class Annee extends Model
 {
     public $guarded = [];
 
+
     protected $casts = [
         'encours' => 'boolean',
     ];
