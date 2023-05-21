@@ -68,6 +68,8 @@ class FraisIndexComponent extends BaseComponent
             ->layout(AdminLayout::class, ['title' => 'Liste de Frais']);
     }
 
+    // updated
+
     public function loadData()
     {
         $this->loadAvailableClasses();
@@ -95,6 +97,59 @@ class FraisIndexComponent extends BaseComponent
         $this->filieres = ($this->option_id > 0) ? Option::find($this->option_id)->filieres ?? [] : [];
     }
 
+    public function updatedSectionId(): void
+    {
+        $this->changeSection();
+    }
+
+    public function changeSection()
+    {
+        $this->options = [];
+        $this->filieres = [];
+        if ($this->section_id > 0) {
+            $section = Section::find($this->section_id);
+            $this->options = $section->options ?? [];
+        }
+        $this->classable_id = $this->section_id;
+        $this->classable_type = Section::class;
+        $this->option_id = null;
+        $this->filiere_id = null;
+        $this->classe_id = null;
+        $this->loadAvailableClasses();
+    }
+
+    public function updatedOptionId(): void
+    {
+        $this->changeOption();
+    }
+
+    public function changeOption(): void
+    {
+        $this->filieres = [];
+        if ($this->option_id > 0) {
+            $option = Option::find($this->option_id);
+            $this->filieres = $option->filieres ?? [];
+        }
+        $this->classable_id = $this->option_id;
+        $this->classable_type = Option::class;
+        $this->filiere_id = null;
+        $this->classe_id = null;
+        $this->loadAvailableClasses();
+    }
+
+    public function updatedFiliereId(): void
+    {
+        $this->changeFiliere();
+    }
+
+    public function changeFiliere()
+    {
+        $this->classable_id = $this->filiere_id;
+        $this->classable_type = Filiere::class;
+        $this->classe_id = null;
+        $this->loadAvailableClasses();
+    }
+
     public function addFrais()
     {
         // dd($this->nom);
@@ -120,7 +175,6 @@ class FraisIndexComponent extends BaseComponent
         $this->alert('success', "Frais ajouté avec succès !");
         // $this->dispatchBrowserEvent('closeModal', ['modal' => 'add-frais-modal']);
     }
-
 
     public function getSelectedFrais(Frais $fee)
     {
@@ -168,6 +222,9 @@ class FraisIndexComponent extends BaseComponent
         }
     }
 
+
+    // =================================================
+
     private function manipulateFilierableFiliere(): void
     {
         $filiere = $this->filiere_id != null ? Filiere::find($this->filiere_id) : null;
@@ -209,9 +266,6 @@ class FraisIndexComponent extends BaseComponent
 
     }
 
-
-    // =================================================
-
     public function deleteFrais()
     {
 
@@ -225,44 +279,6 @@ class FraisIndexComponent extends BaseComponent
             $this->alert('warning', "Frais n'a pas été supprimé, il y a des perceptions attachées !");
         }
 
-    }
-
-    public function changeSection()
-    {
-        $this->options = [];
-        $this->filieres = [];
-        if ($this->section_id > 0) {
-            $section = Section::find($this->section_id);
-            $this->options = $section->options ?? [];
-        }
-        $this->classable_id = $this->section_id;
-        $this->classable_type = Section::class;
-        $this->option_id = null;
-        $this->filiere_id = null;
-        $this->classe_id = null;
-        $this->loadAvailableClasses();
-    }
-
-    public function changeOption()
-    {
-        $this->filieres = [];
-        if ($this->option_id > 0) {
-            $option = Option::find($this->option_id);
-            $this->filieres = $option->filieres ?? [];
-        }
-        $this->classable_id = $this->option_id;
-        $this->classable_type = Option::class;
-        $this->filiere_id = null;
-        $this->classe_id = null;
-        $this->loadAvailableClasses();
-    }
-
-    public function changeFiliere()
-    {
-        $this->classable_id = $this->filiere_id;
-        $this->classable_type = Filiere::class;
-        $this->classe_id = null;
-        $this->loadAvailableClasses();
     }
 
     public function onClasseSelected()

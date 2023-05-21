@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Finance\Perception;
 
-use App\Http\Integrations\Scolarite\Requests\Annee\GetCurrentAnnneRequest;
 use App\Http\Livewire\BaseComponent;
 use App\Models\Annee;
 use App\Models\Perception;

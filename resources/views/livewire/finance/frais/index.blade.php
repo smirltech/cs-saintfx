@@ -1,5 +1,5 @@
 @php
-    $heads =[
+    use App\Helpers\Helpers;$heads =[
         ['label'=>'DATE', 'width'=>10],
         'NOM',
         'MONTANT',
@@ -15,7 +15,7 @@
         $data[] =[
             $fee->created_at->format('d-m-Y'),
             $fee->nom,
-            \App\Helpers\Helpers::currencyFormat($fee->montant, symbol: 'Fc'),
+            Helpers::currencyFormat($fee->montant, symbol: 'Fc'),
             $fee->description,
             $fee->type->label(),
             $fee->frequence->label(),
@@ -34,7 +34,7 @@
 @endphp
 
 @section('title')
-    - frais  {{date('d-m-Y')}}
+    Liste de frais  {{date('d-m-Y')}}
 @endsection
 @section('content_header')
     <div class="row">
