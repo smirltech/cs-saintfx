@@ -64,8 +64,7 @@
                                                 <option value="{{$feee->id}}">{{ $feee->nom }}
                                                     [{{ $feee->type->label() }}
                                                     - {{ $feee->frequence->label() }}
-                                                    - {{ $feee->montant }} {{ $feee->devise}}
-                                                    ]
+                                                    - {{ $feee->montant }} {{ $feee->devise}}]
                                                 </option>
                                             @endforeach
                                         </x-form::select>
@@ -74,7 +73,6 @@
                                         <label for="">Raison</label>
                                         <x-form::select wire:model="custom_property"
                                                         class="form-control">
-                                            <option value="">Choisir raison... !</option>
                                             @foreach ($raisons as $raison )
                                                 <option value="{{$raison}}">{{$raison}}</option>
                                             @endforeach
