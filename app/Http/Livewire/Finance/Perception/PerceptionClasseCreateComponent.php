@@ -36,7 +36,6 @@ class PerceptionClasseCreateComponent extends BaseComponent
     public $custom_property;
     public $eleveNbr = 0;
     public $classes = [];
-    private Classe|null $classe;
     public $classe_id;
     public $due_date;
     protected $rules = [
@@ -46,6 +45,7 @@ class PerceptionClasseCreateComponent extends BaseComponent
         'due_date' => 'required',
         'montant' => 'required',
     ];
+    private Classe|null $classe;
     private $frais = [];
     private $inscriptions = [];
 
@@ -58,7 +58,7 @@ class PerceptionClasseCreateComponent extends BaseComponent
         $this->user_id = Auth::id();
         $this->annee_id = Annee::id();
         $this->due_date = Carbon::now()->format('Y-m-d');
-        //$this->classe = new Classe();
+        $this->frais = Frais::where('annee_id', $this->annee_id)->get();
         $this->loadClasses();
 
     }
@@ -66,6 +66,20 @@ class PerceptionClasseCreateComponent extends BaseComponent
     private function loadClasses(): void
     {
         $this->classes = Classe::all();
+    }
+
+    //updatedFeeId
+    public function updatedFeeId($value): void
+    {
+        $this->feeSelected();
+    }
+
+    public function feeSelected(): void
+    {
+        $this->fee = Frais::find($this->fee_id);
+        $this->montant = $this->fee->montant ?? null;
+        $this->raisons = $this->fee != null ? $this->fee->frequence->children() : [];
+
     }
 
     public function render(): Factory|View|Application
@@ -76,27 +90,12 @@ class PerceptionClasseCreateComponent extends BaseComponent
             ->layout(AdminLayout::class, ['title' => 'Nouvelle Perception']);
     }
 
+    // uptadedClasseId
+
     private function reloadData(): void
     {
         $this->loadClasses();
         $this->chooseSuitableFrais();
-    }
-
-    public function changeClasse(): void
-    {
-        $this->classe = Classe::find($this->classe_id);
-        if ($this->classe) {
-            $this->inscriptions = Inscription::where(['classe_id' => $this->classe_id, 'annee_id' => $this->annee_id])->get();
-            $this->eleveNbr = $this->inscriptions->count();
-        } else {
-            $this->inscriptions = [];
-            $this->eleveNbr = 0;
-        }
-        $this->fee_id = null;
-        $this->fee = null;
-        $this->montant = null;
-        $this->custom_property = null;
-        $this->raisons = [];
     }
 
     private function chooseSuitableFrais(): void
@@ -197,12 +196,26 @@ class PerceptionClasseCreateComponent extends BaseComponent
         }
     }
 
-    public function feeSelected(): void
+    public function updatedClasseId(): void
     {
-        $this->fee = Frais::find($this->fee_id);
-        $this->montant = $this->fee->montant ?? null;
-        $this->raisons = $this->fee != null ? $this->fee->frequence->children() : [];
+        $this->changeClasse();
+    }
 
+    public function changeClasse(): void
+    {
+        $this->classe = Classe::find($this->classe_id);
+        if ($this->classe) {
+            $this->inscriptions = Inscription::where(['classe_id' => $this->classe_id, 'annee_id' => $this->annee_id])->get();
+            $this->eleveNbr = $this->inscriptions->count();
+        } else {
+            $this->inscriptions = [];
+            $this->eleveNbr = 0;
+        }
+        $this->fee_id = null;
+        $this->fee = null;
+        $this->montant = null;
+        $this->custom_property = null;
+        $this->raisons = [];
     }
 
     public function addPerceptionsAndClose(): void
@@ -210,6 +223,16 @@ class PerceptionClasseCreateComponent extends BaseComponent
         $this->addPerceptions();
         $this->flash('success', "Classe facturée avec succès !", [], route('finance.perceptions'));
 
+    }
+
+    public function addPerceptions(): void
+    {
+        $this->validate();
+
+        $this->inscriptions = Inscription::where(['classe_id' => $this->classe_id, 'annee_id' => $this->annee_id])->get();
+        $this->inscriptions->each(fn($inscription) => $this->addPerceptionForInscription($inscription));
+
+        $this->flash('success', "Classe facturée avec succès !", [], route('finance.perceptions'));
     }
 
     private function addPerceptionForInscription(Inscription $inscription): void
@@ -231,16 +254,6 @@ class PerceptionClasseCreateComponent extends BaseComponent
         } catch (Exception $exception) {
             $this->error(local: $exception->getMessage(), production: "Echec d'imputation de frais déjà existante !");
         }
-    }
-
-    public function addPerceptions(): void
-    {
-        $this->validate();
-
-        $this->inscriptions = Inscription::where(['classe_id'=> $this->classe_id, 'annee_id' => $this->annee_id])->get();
-        $this->inscriptions->each(fn($inscription) => $this->addPerceptionForInscription($inscription));
-
-        $this->flash('success', "Classe facturée avec succès !", [], route('finance.perceptions'));
     }
 
 }

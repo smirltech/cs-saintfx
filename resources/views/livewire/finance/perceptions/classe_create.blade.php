@@ -20,7 +20,6 @@
 
 @stop
 <div wire:ignore.self class="">
-
     <div class="content mt-3">
         <div class="container-fluid">
             <div class="row">
@@ -34,7 +33,7 @@
 
                                     <div class="form-group col-sm-12 col-md-6">
                                         <label for="">Classe <i class="text-red">*</i></label>
-                                        <x-form::select wire:change="changeClasse" wire:model="classe_id"
+                                        <x-form::select wire:model="classe_id"
                                                         class="form-control">
                                             <option value=null>Choisir classe</option>
                                             @foreach ($classes as $classe )
@@ -56,14 +55,17 @@
                                 <div class="row">
                                     <div class="form-group col-sm-12 col-md-6">
                                         <label for="">Frais</label>
-                                        <x-form::select wire:ignore.self wire:change="feeSelected" wire:model="fee_id"
-                                                        class="form-control">
-                                            <option value=null>Choisir frais... !</option>
+                                        <x-form::select
+                                            wire:ignore.self
+                                            wire:change="feeSelected"
+                                            wire:model="fee_id"
+                                            class="form-control">
                                             @foreach ($frais as $feee )
                                                 <option value="{{$feee->id}}">{{ $feee->nom }}
                                                     [{{ $feee->type->label() }}
-                                                    - {{ $feee->classable->fullCode }}
-                                                    - {{ $feee->frequence->label() }}]
+                                                    - {{ $feee->frequence->label() }}
+                                                    - {{ $feee->montant }} {{ $feee->devise}}
+                                                    ]
                                                 </option>
                                             @endforeach
                                         </x-form::select>
@@ -90,32 +92,20 @@
                                         @enderror
                                     </div>
                                     <div class="form-group col-sm-12 col-md-6">
-                                        <label for="">Montant à Payer (Fc) <i class="text-red">*</i></label>
+                                        <label for="">Montant à Payer ({{$fee?->devise?->symbol()}}) <i
+                                                class="text-red">*</i></label>
                                         <input readonly type="number" wire:model="montant"
                                                class="form-control @error('montant') is-invalid @enderror">
                                         @error('montant')
                                         <span class="text-red">{{ $message }}</span>
                                         @enderror
                                     </div>
-                                    {{-- <div class="form-group col-sm-12 col-md-4">
-                                         <label for="">Montant Payé</label>
-                                         <input type="number" wire:model="paid"
-                                                class="form-control">
-                                     </div>
-                                     <div class="form-group col-sm-12 col-md-4">
-                                         <label for="">Payé Par</label>
-                                         <input type="text" wire:model="paid_by"
-                                                class="form-control">
-                                     </div>--}}
                                 </div>
 
                             </form>
                         </div>
                         <div class="card-footer">
                             <button form="f1" type="submit" class="btn btn-primary">Facturer</button>
-                            {{-- <button wire:click="addPerceptionAndClose" type="button" class="btn btn-success ml-5">
-                                 Facturer et Terminer
-                             </button>--}}
                         </div>
                     </div>
                 </div>

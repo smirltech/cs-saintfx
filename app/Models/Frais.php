@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\Devise;
 use App\Enums\FraisFrequence;
 use App\Enums\FraisType;
 use Carbon\Carbon;
@@ -21,6 +22,7 @@ class Frais extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',
+        'devise' => Devise::class,
     ];
 
     public static function montantFraisType(int $annee_id, FraisType $type)

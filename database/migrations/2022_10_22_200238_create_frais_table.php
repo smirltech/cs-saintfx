@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\Devise;
 use App\Models\Annee;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -15,8 +16,9 @@ return new class extends Migration {
             $table->float('montant');
             $table->string('frequence'); //App\Enum\FraisFrequence
             $table->string('type'); //App\Enum\FraisType
-            $table->morphs('classable');
-            $table->foreignIdFor(Annee::class);
+            $table->nullableMorphs('classable');
+            $table->string('devise')->default(Devise::USD->value);
+            $table->foreignIdFor(Annee::class)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
