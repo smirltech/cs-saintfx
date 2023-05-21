@@ -4,7 +4,7 @@
     use App\Helpers\Helpers;
 @endphp
 @section('title')
-    Finance | Perceptions  {{date('d-m-Y')}}
+    Perceptions  {{date('d-m-Y')}}
 @endsection
 @section('content_header')
     <div class="row">
@@ -76,20 +76,20 @@
                                 @can('perceptions.create')
                                     <a href="{{route('finance.perceptions.classe-create')}}" title="facturer une classe"
                                        class="btn btn-outline-primary  ml-2 mr-2">
-                                        <i class="fas fa-plus"></i> Facturer par classe
+                                        <i class="fas fa-plus"></i> Facturer une classe
                                     </a>
                                 @endcan
                                 @can('perceptions.create')
                                     <a href="{{route('finance.perceptions.create')}}" title="facturer un élève"
                                        class="btn btn-primary  ml-2">
-                                        <i class="fas fa-plus"></i> Facturer
+                                        <i class="fas fa-plus"></i> Facturer un élève
                                     </a>
                                 @endcan
                             </div>
                         </div>
 
                         <div class="card-body m-b-40 table-responsive">
-                            <x-adminlte-datatable wire:ignore.self head-theme="dark" theme="light" id="table1"
+                            <x-adminlte-datatable wire:ignore.self head-theme="primary" theme="s" id="table1"
                                                   :heads="$heads" striped
                                                   hoverable with-buttons>
                                 @foreach($config['data'] as $row)
