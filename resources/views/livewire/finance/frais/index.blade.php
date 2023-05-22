@@ -3,31 +3,23 @@
         ['label'=>'DATE', 'width'=>10],
         'NOM',
         'MONTANT',
-        'DESCRIPTION',
-        'TYPE',
-        'FREQUENCE',
-        'CLASSE',
         ['label'=>'', 'no-export'=>true, 'width'=>5]
 ];
    $data =[];
    foreach ($frais as $fee){
-//dd($fee->classable);
         $data[] =[
             $fee->created_at->format('d-m-Y'),
             $fee->nom,
             Helpers::currencyFormat($fee->montant, symbol: 'Fc'),
-            $fee->description,
-            $fee->type->label(),
-            $fee->frequence->label(),
-           $fee->classable->code??'---',
-            $fee,
+
+             $fee,
 ];
    }
 
     $config =[
   'data'=>$data,
   'order'=>[[1, 'asc']],
-  'columns'=>[null, null,null, null,null,null, null, ['orderable'=>false]],
+  'columns'=>[null,null, null, ['orderable'=>false]],
   'destroy'=>true,
 
 ];
@@ -84,23 +76,19 @@
                                         <td>{!! $row[0] !!}</td>
                                         <td>{!! $row[1] !!}</td>
                                         <td>{!! $row[2] !!}</td>
-                                        <td>{!! $row[3] !!}</td>
-                                        <td>{!! $row[4] !!}</td>
-                                        <td>{!! $row[5] !!}</td>
-                                        <td>{!! $row[6] !!}</td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                @can('frais.update',$row[7])
-                                                    <button wire:click="getSelectedFrais({{$row[7]}})" type="button"
-                                                            title="Modifier" class="btn btn-info  ml-2"
+                                                @can('frais.update',$row[3])
+                                                    <button wire:click="getSelectedFrais({{$row[3]}})" type="button"
+                                                            title="Modifier" class="btn btn-info  ml-2 btn-sm"
                                                             data-toggle="modal"
                                                             data-target="#edit-frais-modal">
                                                         <span class="fa fa-pen"></span>
                                                     </button>
                                                 @endcan
-                                                @can('frais.delete',$row[7])
-                                                    <button wire:click="getSelectedFrais({{$row[7]}})" type="button"
-                                                            title="supprimer" class="btn btn-danger  ml-2"
+                                                @can('frais.delete',$row[3])
+                                                    <button wire:click="getSelectedFrais({{$row[3]}})" type="button"
+                                                            title="supprimer" class="btn btn-danger ml-2 btn-sm"
                                                             data-toggle="modal"
                                                             data-target="#delete-frais-modal">
                                                         <span class="fa fa-trash"></span>

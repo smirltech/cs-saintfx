@@ -2,7 +2,7 @@
 @php use App\Enums\FraisFrequence; @endphp
 
 @section('title')
-    - Modifier Facture  {{date('d-m-Y')}}
+    Modifier Facture  {{date('d-m-Y')}}
 @endsection
 @section('content_header')
     <div class="row">
@@ -57,18 +57,6 @@
                                         </x-form::select>
                                     </div>
                                     <div class="form-group col-sm-12 col-md-6">
-                                        <label for="">Raison {{$perception->custom_property}}</label>
-                                        <x-form::select change wire:model="perception.custom_property"
-                                                        class="form-control">
-                                            @foreach ($raisons as $raison )
-                                                <option value="{{$raison}}">{{$raison}}</option>
-                                            @endforeach
-                                        </x-form::select>
-                                    </div>
-
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-sm-12 col-md-6">
                                         <label for="">Echéance <i class="text-red">*</i></label>
                                         <input type="date" wire:model="perception.due_date"
                                                class="form-control @error('perception.due_date') is-invalid @enderror">
@@ -100,7 +88,10 @@
                         </div>
                         <div class="card-footer ">
                             <div class="d-flex justify-content-between">
-                                <button form="f1" type="submit" class="btn btn-primary">Valider</button>
+                                <x-form::button
+                                    target="editPerception" form="f1" type="submit" class="btn btn-primary">
+                                    Valider
+                                </x-form::button>
                                 {{--<button wire:click="printIt" type="button" class="btn btn-success">Valider et Imprimer
                                 </button>--}}
                             </div>
