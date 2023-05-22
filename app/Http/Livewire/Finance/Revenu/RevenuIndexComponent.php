@@ -8,6 +8,9 @@ use App\Models\Annee;
 use App\Models\Revenu;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class RevenuIndexComponent extends BaseComponent
@@ -30,27 +33,27 @@ class RevenuIndexComponent extends BaseComponent
 
     protected $listeners = ['onModalClosed'];
 
-    public function mount()
+    public function mount(): void
     {
         $this->authorize('viewAny', Revenu::class);
         $this->annee_id = Annee::id();
 
     }
 
-    public function render()
+    public function render(): View|\Illuminate\Foundation\Application|Factory|Application
     {
         $this->loadData();
         return view('livewire.finance.revenus.index')
             ->layout(AdminLayout::class, ['title' => 'Liste de Revenus']);
     }
 
-    public function loadData()
+    public function loadData(): void
     {
         // todo: we should consider annee_id when fetching data
         $this->revenus = Revenu::where('annee_id', $this->annee_id)->orderBy('created_at', 'DESC')->get();
     }
 
-    public function addRevenu()
+    public function addRevenu(): void
     {
         // dd($this->nom);
 
@@ -76,16 +79,15 @@ class RevenuIndexComponent extends BaseComponent
     }
 
 
-    public function getSelectedRevenu(Revenu $revenu)
+    public function getSelectedRevenu(Revenu $revenu): void
     {
-
         $this->revenu = $revenu;
         $this->nom = $revenu->nom;
         $this->montant = $revenu->montant;
         $this->description = $revenu->description;
     }
 
-    public function updateRevenu()
+    public function updateRevenu(): void
     {
         $this->validate([
             'montant' => "required",
@@ -109,7 +111,7 @@ class RevenuIndexComponent extends BaseComponent
 
     }
 
-    public function deleteRevenu()
+    public function deleteRevenu(): void
     {
 
         if ($this->revenu->delete()) {

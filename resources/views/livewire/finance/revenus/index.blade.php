@@ -1,5 +1,5 @@
 @php
-    $heads =[
+    use App\Helpers\Helpers;$heads =[
         ['label'=>'DATE', 'width'=>10],
         'TITRE',
         'MONTANT',
@@ -11,9 +11,9 @@
         $data[] =[
             $revenu->created_at->format('d-m-Y'),
             $revenu->nom,
-            \App\Helpers\Helpers::currencyFormat($revenu->montant, symbol: 'Fc'),
+            Helpers::currencyFormat($revenu->montant, symbol: 'Fc'),
             $revenu->description,
-            $revenu,
+            $revenu->id,
 ];
    }
 
@@ -76,7 +76,8 @@
                                         <td>
                                             <div class="d-flex float-right">
                                                 @can('revenus.update',$row[4])
-                                                    <button wire:click="getSelectedRevenu({{$row[4]}})" type="button"
+                                                    <button wire:click="getSelectedRevenu('{{$row[4]}}')"
+                                                            type="button"
                                                             title="Modifier" class="btn btn-info  ml-2"
                                                             data-toggle="modal"
                                                             data-target="#edit-revenu-modal">
@@ -84,7 +85,7 @@
                                                     </button>
                                                 @endcan
                                                 @can('revenus.delete',$row[4])
-                                                    <button wire:click="getSelectedRevenu({{$row[4]}})" type="button"
+                                                    <button wire:click="getSelectedRevenu('{{$row[4]}}')" type="button"
                                                             title="supprimer" class="btn btn-danger  ml-2"
                                                             data-toggle="modal"
                                                             data-target="#delete-revenu-modal">
