@@ -1,6 +1,6 @@
 @php
     use App\Helpers\Helpers;$heads =[
-        ['label'=>'DATE', 'width'=>10],
+       'DATE',
         'NOM',
         'MONTANT',
         ['label'=>'', 'no-export'=>true, 'width'=>5]
@@ -52,12 +52,12 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">
-                                {{--  <span class="ml-2">Section {{$section_id}}</span>
-                                  <span class="ml-2">Option {{$option_id}}</span>
-                                  <span class="ml-2">Filiere {{$filiere_id}}</span>
-                                  <span class="ml-2">Classe {{$classe_id}}</span>--}}
-                            </div>
+                            {{--<div class="card-title">
+                                <span class="ml-2">Section {{$section_id}}</span>
+                                <span class="ml-2">Option {{$option_id}}</span>
+                                <span class="ml-2">Filiere {{$filiere_id}}</span>
+                                <span class="ml-2">Classe {{$classe_id}}</span>
+                            </div>--}}
                             <div class="card-tools d-flex my-auto">
                                 @can('frais.create')
                                     <button type="button"
