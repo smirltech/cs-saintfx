@@ -52,8 +52,6 @@
                                             <option value="">Choisir frais... !</option>
                                             @foreach ($frais as $feee )
                                                 <option value="{{$feee->id}}">{{ $feee->nom }}
-                                                    [{{ $feee->type->label() }}]
-                                                    [{{ $feee->frequence->label() }}]
                                                 </option>
                                             @endforeach
                                         </x-form::select>

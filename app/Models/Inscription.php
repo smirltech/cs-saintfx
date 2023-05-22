@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Enums\AdmissionType;
 use App\Enums\DevoirStatus;
-use App\Enums\FraisType;
 use App\Enums\InscriptionCategorie;
 use App\Enums\InscriptionStatus;
 use App\Enums\Sexe;
@@ -174,13 +173,15 @@ class Inscription extends Model
 
     public function getMontantAttribute(): int|null
     {
-        $perc = $this->perceptions()
-            ->whereHas('frais', function ($q) {
-                $q->where('type', FraisType::inscription);
-            })
-            ->first()?->paid;
-        // dd((int)($perc));
-        return (int)($perc);
+        /* $perc = $this->perceptions()
+             ->whereHas('frais', function ($q) {
+                 $q->where('type', FraisType::inscription);
+             })
+             ->first()?->paid;
+         // dd((int)($perc));
+         return (int)($perc);*/
+
+        return null;
     }
 
     // SOMMES

@@ -17,7 +17,7 @@
                             <img width="80px" src="{{url('/images/logo.png')}}" alt="cenk logo">
                         </div>
                         <h2 hidden="hidden" class="text-center"><strong>COLLEGE CENK</strong></h2>
-                        <div class="text-center">{{$fee?->type->label()}}</div>
+                        <div class="text-center">{{$fee?->nom}}</div>
                         <div hidden class=" text-center"><span>phone:000</span>
                             <span hidden class="">email:email</span>
                         </div>

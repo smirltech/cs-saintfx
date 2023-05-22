@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Finance\Perception;
 
-use App\Enums\FraisType;
 use App\Http\Livewire\BaseComponent;
 use App\Models\Annee;
 use App\Models\Classe;
@@ -15,6 +14,9 @@ use App\Traits\HasLivewireAlert;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
@@ -83,9 +85,6 @@ class PerceptionEditComponent extends BaseComponent
         $cclasse = Classe::find($this->inscription->classe_id);
         $fofo = Frais::
         where('annee_id', $this->annee_id)
-            ->whereNot('type', FraisType::inscription)
-            ->where('classable_type', 'like', '%Classe')
-            ->where('classable_id', $cclasse->id)
             ->orderBy('nom')
             ->get();
 
@@ -96,9 +95,6 @@ class PerceptionEditComponent extends BaseComponent
         if ($cfiliere) {
             $frais2 = Frais::
             where('annee_id', $this->annee_id)
-                ->whereNot('type', FraisType::inscription)
-                ->where('classable_type', 'like', '%Filiere')
-                ->where('classable_id', $cfiliere->id)
                 ->orderBy('nom')
                 ->get();
             $this->frais = $this->frais->merge($frais2);
@@ -108,9 +104,6 @@ class PerceptionEditComponent extends BaseComponent
             if ($foption) {
                 $frais2f = Frais::
                 where('annee_id', $this->annee_id)
-                    ->whereNot('type', FraisType::inscription)
-                    ->where('classable_type', 'like', '%Option')
-                    ->where('classable_id', $foption->id)
                     ->orderBy('nom')
                     ->get();
                 $this->frais = $this->frais->merge($frais2f);
@@ -121,9 +114,6 @@ class PerceptionEditComponent extends BaseComponent
             if ($fsection) {
                 $frais3f = Frais::
                 where('annee_id', $this->annee_id)
-                    ->whereNot('type', FraisType::inscription)
-                    ->where('classable_type', 'like', '%Section')
-                    ->where('classable_id', $fsection->id)
                     ->orderBy('nom')
                     ->get();
                 $this->frais = $this->frais->merge($frais3f);
@@ -135,9 +125,6 @@ class PerceptionEditComponent extends BaseComponent
         if ($coption) {
             $frais3 = Frais::
             where('annee_id', $this->annee_id)
-                ->whereNot('type', FraisType::inscription)
-                ->where('classable_type', 'like', '%Option')
-                ->where('classable_id', $coption->id)
                 ->orderBy('nom')
                 ->get();
             $this->frais = $this->frais->merge($frais3);
@@ -147,9 +134,6 @@ class PerceptionEditComponent extends BaseComponent
             if ($osection) {
                 $frais3o = Frais::
                 where('annee_id', $this->annee_id)
-                    ->whereNot('type', FraisType::inscription)
-                    ->where('classable_type', 'like', '%Section')
-                    ->where('classable_id', $osection->id)
                     ->orderBy('nom')
                     ->get();
                 $this->frais = $this->frais->merge($frais3o);
@@ -160,9 +144,6 @@ class PerceptionEditComponent extends BaseComponent
         if ($csection) {
             $frais4 = Frais::
             where('annee_id', $this->annee_id)
-                ->whereNot('type', FraisType::inscription)
-                ->where('classable_type', 'like', '%Section')
-                ->where('classable_id', $csection->id)
                 ->orderBy('nom')
                 ->get();
             $this->frais = $this->frais->merge($frais4);
@@ -182,7 +163,7 @@ class PerceptionEditComponent extends BaseComponent
 
     }
 
-    public function render()
+    public function render(): View|\Illuminate\Foundation\Application|Factory|Application
     {
         $this->reloadData();
         return view('livewire.finance.perceptions.edit',
@@ -190,7 +171,7 @@ class PerceptionEditComponent extends BaseComponent
             ->layout(AdminLayout::class, ['title' => 'Modifier Perception']);
     }
 
-    private function reloadData()
+    private function reloadData(): void
     {
         // $this->inscriptions = Inscription::where('annee_id', Annee::id())->get();
 

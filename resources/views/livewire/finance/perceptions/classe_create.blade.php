@@ -62,20 +62,8 @@
                                             class="form-control">
                                             @foreach ($frais as $feee )
                                                 <option value="{{$feee->id}}">{{ $feee->nom }}
-                                                    [{{ $feee->type->label() }}
-                                                    - {{ $feee->frequence->label() }}
-                                                    - {{ $feee->montant }} {{ $feee->devise}}]
+                                                    [- {{ $feee->montant }} {{ $feee->devise}}]
                                                 </option>
-                                            @endforeach
-                                        </x-form::select>
-                                    </div>
-                                    <div class="form-group col-sm-12 col-md-6">
-                                        <label for="">Raison</label>
-                                        <x-form::select change
-                                                        wire:model="custom_property"
-                                                        class="form-control">
-                                            @foreach ($raisons as $raison )
-                                                <option value="{{$raison}}">{{Str::ucfirst($raison)}}</option>
                                             @endforeach
                                         </x-form::select>
                                     </div>

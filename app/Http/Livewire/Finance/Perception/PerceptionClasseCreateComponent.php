@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Finance\Perception;
 
-use App\Enums\FraisType;
 use App\Http\Livewire\BaseComponent;
 use App\Models\Annee;
 use App\Models\Classe;
@@ -105,9 +104,6 @@ class PerceptionClasseCreateComponent extends BaseComponent
             $this->classe = Classe::find($this->classe_id);
             $this->frais = Frais::
             where('annee_id', $this->annee_id)
-                ->whereNot('type', FraisType::inscription)
-                ->where('classable_type', 'like', '%Classe')
-                ->where('classable_id', $this->classe_id)
                 ->orderBy('nom')
                 ->get();
 
@@ -115,9 +111,6 @@ class PerceptionClasseCreateComponent extends BaseComponent
                 $filiere_id = $this->classe->filierable->id;
                 $frais2 = Frais::
                 where('annee_id', $this->annee_id)
-                    ->whereNot('type', FraisType::inscription)
-                    ->where('classable_type', 'like', '%Filiere')
-                    ->where('classable_id', $filiere_id)
                     ->orderBy('nom')
                     ->get();
 
@@ -128,9 +121,6 @@ class PerceptionClasseCreateComponent extends BaseComponent
                     $option_id = $filiere2->option_id;
                     $frais3 = Frais::
                     where('annee_id', $this->annee_id)
-                        ->whereNot('type', FraisType::inscription)
-                        ->where('classable_type', 'like', '%Option')
-                        ->where('classable_id', $option_id)
                         ->orderBy('nom')
                         ->get();
 
@@ -142,9 +132,6 @@ class PerceptionClasseCreateComponent extends BaseComponent
 
                         $frais4 = Frais::
                         where('annee_id', $this->annee_id)
-                            ->whereNot('type', FraisType::inscription)
-                            ->where('classable_type', 'like', '%Section')
-                            ->where('classable_id', $section_id)
                             ->orderBy('nom')
                             ->get();
 
@@ -157,9 +144,6 @@ class PerceptionClasseCreateComponent extends BaseComponent
                 $option_id = $this->classe->filierable->id;
                 $frais2 = Frais::
                 where('annee_id', $this->annee_id)
-                    ->whereNot('type', FraisType::inscription)
-                    ->where('classable_type', 'like', '%Option')
-                    ->where('classable_id', $option_id)
                     ->orderBy('nom')
                     ->get();
 
@@ -171,9 +155,6 @@ class PerceptionClasseCreateComponent extends BaseComponent
 
                     $frais4 = Frais::
                     where('annee_id', $this->annee_id)
-                        ->whereNot('type', FraisType::inscription)
-                        ->where('classable_type', 'like', '%Section')
-                        ->where('classable_id', $section_id)
                         ->orderBy('nom')
                         ->get();
 
@@ -186,9 +167,6 @@ class PerceptionClasseCreateComponent extends BaseComponent
                 //   dd($section_id);
                 $frais2 = Frais::
                 where('annee_id', $this->annee_id)
-                    ->whereNot('type', FraisType::inscription)
-                    ->where('classable_type', 'like', '%Section')
-                    ->where('classable_id', $section_id)
                     ->orderBy('nom')
                     ->get();
 
@@ -243,11 +221,13 @@ class PerceptionClasseCreateComponent extends BaseComponent
                 [
                     'frais_id' => $this->fee_id,
                     'inscription_id' => $inscription->id,
-                    'custom_property' => $this->custom_property,
                     'annee_id' => $this->annee_id,
+                    'due_date' => $this->due_date,
                 ], [
-                    'frequence' => $this->fee->frequence->name,
                     'user_id' => $this->user_id,
+                    'frais_id' => $this->fee_id,
+                    'inscription_id' => $inscription->id,
+                    'annee_id' => $this->annee_id,
                     'montant' => $this->montant,
                     'due_date' => $this->due_date,
                 ]
