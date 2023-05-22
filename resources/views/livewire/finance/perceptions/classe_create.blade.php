@@ -32,7 +32,7 @@
                                 <div class="row">
 
                                     <div class="form-group col-sm-12 col-md-6">
-                                        <label for="">Classe <i class="text-red">*</i></label>
+                                        <label for="">Classe - {{$eleveNbr}} élèves <i class="text-red">*</i></label>
                                         <x-form::select wire:model="classe_id"
                                                         class="form-control">
                                             <option value=null>Choisir classe</option>
@@ -46,14 +46,6 @@
                                     </div>
 
                                     <div class="form-group col-sm-12 col-md-6">
-                                        <label for="">Nombre d'élèves</label>
-                                        <input readonly type="text" wire:model="eleveNbr"
-                                               class="form-control">
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="form-group col-sm-12 col-md-6">
                                         <label for="">Frais</label>
                                         <x-form::select
                                             wire:ignore.self
@@ -62,7 +54,7 @@
                                             class="form-control">
                                             @foreach ($frais as $feee )
                                                 <option value="{{$feee->id}}">{{ $feee->nom }}
-                                                    [- {{ $feee->montant }} {{ $feee->devise}}]
+                                                    [{{ $feee->montant }} {{ $feee->devise}}]
                                                 </option>
                                             @endforeach
                                         </x-form::select>

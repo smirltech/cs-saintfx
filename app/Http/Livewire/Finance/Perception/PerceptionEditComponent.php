@@ -70,8 +70,6 @@ class PerceptionEditComponent extends BaseComponent
 
 
         $this->fee = $this->perception->frais;
-        //dd($this->fee);
-        $this->raisons = $this->fee != null ? $this->fee->frequence->children() : [];
 
 
         $this->chooseSuitableFrais();
@@ -159,7 +157,6 @@ class PerceptionEditComponent extends BaseComponent
     {
         $this->fee = Frais::find($value);
         $this->montant = $this->fee->montant ?? null;
-        $this->raisons = $this->fee != null ? $this->fee->frequence->children() : [];
 
     }
 

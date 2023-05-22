@@ -114,14 +114,14 @@
                                                 @can('perceptions.update',$row[9])
                                                     <a href="{{route('finance.perceptions.edit', ['perception'=>$row[9]])}}"
                                                        title="voir"
-                                                       class="btn btn-success  ml-2">
+                                                       class="btn btn-success btn-sm m-1">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
                                                 @endcan
                                                 @can('perceptions.delete',$row[9])
-                                                    <button wire:click="getSelectedPerception({{$row[9]}})"
+                                                    <button wire:click="getSelectedPerception('{{$row[9]}}')"
                                                             type="button"
-                                                            title="Modifier" class="btn btn-danger  ml-4"
+                                                            title="Modifier" class="btn btn-danger btn-sm m-1"
                                                             data-toggle="modal"
                                                             data-target="#delete-perception">
                                                         <span class="fa fa-trash"></span>
@@ -132,7 +132,6 @@
                                     </tr>
                                 @endforeach
                             </x-adminlte-datatable>
-
                         </div>
                     </div>
                 </div>
