@@ -11,7 +11,7 @@ refresh:
 
 
 install: .env vendor/autoload.php public/storage
-	php artisan migrate --seed
+	php artisan migrate --force
 	php artisan cache:clear
 
 .env:
