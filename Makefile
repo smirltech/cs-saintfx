@@ -7,11 +7,11 @@ deploy-refresh:
 
 
 refresh:
-	php artisan migrate:refresh --seed --force
+	php artisan migrate:fresh --seed --step --force
 
 
 install: .env vendor/autoload.php public/storage
-	php artisan migrate --force
+	php artisan migrate --step --force
 	php artisan cache:clear
 
 .env:
