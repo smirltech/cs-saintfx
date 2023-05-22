@@ -47,7 +47,7 @@ class DepenseTypeIndexComponent extends BaseComponent
         // dd($this->nom);
 
         $this->validate([
-            'depenseType.nom' => 'required|unique:depense_types, nom',
+            'depenseType.nom' => 'required|unique:depense_types,nom',
             'depenseType.description' => 'nullable',
         ]);
 

@@ -56,7 +56,7 @@
                         @if($devoir->document)
                             <strong><i class="fas fa-file-pdf mr-1"></i>Pièce jointe</strong>
                             <p class="text-muted">
-                                <x-form::list-files :media="$devoir->media"/>
+                                <x-media::list :media="$devoir->media"/>
                             </p>
                         @endif
 

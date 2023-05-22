@@ -48,7 +48,7 @@
                         Documents
                     </div>
                     <div class="card-body">
-                        <x-form::list-files class="mt-0" :media="$depense->media"/>
+                        <x-media::list class="mt-0" :media="$depense->media"/>
                     </div>
                 </div>
             </div>
