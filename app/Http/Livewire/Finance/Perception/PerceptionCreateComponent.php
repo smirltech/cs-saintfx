@@ -116,7 +116,7 @@ class PerceptionCreateComponent extends BaseComponent
                 ]
             );
 
-            $this->flash('success', "Frais imputé avec succès !", [], route('finance.perceptions'));
+            $this->flashSuccess("Frais imputé avec succès !", URL::previous());
 
         } catch (Exception $exception) {
             $this->error(local: $exception->getMessage(), production: "Echec d'imputation de frais déjà existante !");
