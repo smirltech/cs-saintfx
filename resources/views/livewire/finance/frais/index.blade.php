@@ -33,7 +33,6 @@
         <div class="col-6">
             <h1 class="ms-3">Plans de frais</h1>
         </div>
-
         <div class="col-6">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('finance') }}">Accueil</a></li>
@@ -43,10 +42,8 @@
     </div>
 
 @stop
-<div wire:ignore.self class="">
-    @include('livewire.finance.frais.modals.crud')
-
-    <div class="content mt-3">
+<div>
+    <div class="content">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
@@ -61,8 +58,8 @@
                             <div class="card-tools d-flex my-auto">
                                 @can('frais.create')
                                     <button type="button"
-                                            class="btn btn-primary  ml-2" data-toggle="modal"
-                                            data-target="#add-frais-modal"><span
+                                            onclick="showModal('finance.frais.frais-create-component')"
+                                            class="btn btn-primary  ml-2"><span
                                             class="fa fa-plus"></span></button>
                                 @endcan
                             </div>
@@ -79,18 +76,17 @@
                                         <td>
                                             <div class="d-flex float-right">
                                                 @can('frais.update',$row[3])
-                                                    <button wire:click="getSelectedFrais({{$row[3]}})" type="button"
-                                                            title="Modifier" class="btn btn-info  ml-2 btn-sm"
-                                                            data-toggle="modal"
-                                                            data-target="#edit-frais-modal">
+                                                    <button
+                                                        onclick="showModal('finance.frais.frais-create-component','{{$row[3]->id}}')"
+                                                        type="button"
+                                                        title="Modifier" class="btn btn-info  ml-2 btn-sm">
                                                         <span class="fa fa-pen"></span>
                                                     </button>
                                                 @endcan
                                                 @can('frais.delete',$row[3])
-                                                    <button wire:click="getSelectedFrais({{$row[3]}})" type="button"
-                                                            title="supprimer" class="btn btn-danger ml-2 btn-sm"
-                                                            data-toggle="modal"
-                                                            data-target="#delete-frais-modal">
+                                                    <button onclick="showDeleteModal('Frais','{{$row[3]->id}}')"
+                                                            type="button"
+                                                            title="supprimer" class="btn btn-danger ml-2 btn-sm">
                                                         <span class="fa fa-trash"></span>
                                                     </button>
                                                 @endcan
