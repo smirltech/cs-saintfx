@@ -54,11 +54,29 @@ class PerceptionCreateComponent extends BaseComponent
         $this->inscription = new Inscription();
         $this->loadInscriptionFrais();
 
+//TODO: remove this in production and make suitable for the classe
+        $this->frais = Frais::where(['annee_id' => $this->annee_id])->whereNot('type', FraisType::inscription)->orderBy('nom')->get();
+
     }
 
     private function loadInscriptionFrais()
     {
-       // $this->frais = Frais::where(['annee_id' => $this->annee_id])->whereNot('type', FraisType::inscription)->orderBy('nom')->get();
+        // $this->frais = Frais::where(['annee_id' => $this->annee_id])->whereNot('type', FraisType::inscription)->orderBy('nom')->get();
+    }
+
+
+    //updatedFeeId
+    public function updatedFeeId($value): void
+    {
+        $this->feeSelected($value);
+    }
+
+    public function feeSelected($value): void
+    {
+        $this->fee = Frais::find($value);
+        $this->montant = $this->fee->montant ?? null;
+        $this->raisons = $this->fee != null ? $this->fee->frequence->children() : [];
+
     }
 
     public function render()
@@ -206,14 +224,6 @@ class PerceptionCreateComponent extends BaseComponent
         $this->fee_id = null;
         $this->fee = null;
         $this->reloadData();
-    }
-
-    public function feeSelected()
-    {
-        $this->fee = Frais::find($this->fee_id);
-        $this->montant = $this->fee->montant ?? null;
-        $this->raisons = $this->fee != null ? $this->fee->frequence->children() : [];
-
     }
 
     public function addPerceptionAndClose()

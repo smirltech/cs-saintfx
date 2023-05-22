@@ -14,9 +14,6 @@ return new class extends Migration {
             $table->string('nom');
             $table->string('description')->nullable();
             $table->float('montant');
-            $table->string('frequence'); //App\Enum\FraisFrequence
-            $table->string('type'); //App\Enum\FraisType
-            $table->nullableMorphs('classable');
             $table->string('devise')->default(Devise::USD->value);
             $table->foreignIdFor(Annee::class)->nullable();
             $table->timestamps();

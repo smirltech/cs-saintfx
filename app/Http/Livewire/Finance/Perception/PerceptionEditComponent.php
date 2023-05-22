@@ -8,7 +8,6 @@ use App\Models\Annee;
 use App\Models\Classe;
 use App\Models\Filiere;
 use App\Models\Frais;
-use App\Models\Inscription;
 use App\Models\Option;
 use App\Models\Perception;
 use App\Models\Section;
@@ -18,7 +17,6 @@ use App\View\Components\AdminLayout;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
-use Livewire\Component;
 
 class PerceptionEditComponent extends BaseComponent
 {
@@ -171,6 +169,19 @@ class PerceptionEditComponent extends BaseComponent
         }
     }
 
+    public function updatedFeeId($value): void
+    {
+        $this->feeSelected($value);
+    }
+
+    public function feeSelected($value): void
+    {
+        $this->fee = Frais::find($value);
+        $this->montant = $this->fee->montant ?? null;
+        $this->raisons = $this->fee != null ? $this->fee->frequence->children() : [];
+
+    }
+
     public function render()
     {
         $this->reloadData();
@@ -181,7 +192,7 @@ class PerceptionEditComponent extends BaseComponent
 
     private function reloadData()
     {
-       // $this->inscriptions = Inscription::where('annee_id', Annee::id())->get();
+        // $this->inscriptions = Inscription::where('annee_id', Annee::id())->get();
 
         /*if ($this->perception->inscription_id) {
             $this->inscription = Inscription::find($this->inscription_id);
@@ -190,13 +201,6 @@ class PerceptionEditComponent extends BaseComponent
         }*/
 
         $this->chooseSuitableFrais();
-    }
-
-    public function feeSelected()
-    {
-        $this->fee = Frais::find($this->perception->frais_id);
-        $this->perception->montant = $this->fee->montant ?? null;
-        $this->raisons = $this->fee != null ? $this->fee->frequence->children() : [];
     }
 
     public function editAndPrintPerception()

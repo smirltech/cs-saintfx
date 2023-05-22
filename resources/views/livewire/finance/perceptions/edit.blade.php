@@ -60,9 +60,8 @@
                                     </div>
                                     <div class="form-group col-sm-12 col-md-6">
                                         <label for="">Raison {{$perception->custom_property}}</label>
-                                        <x-form::select wire:model="perception.custom_property"
+                                        <x-form::select change wire:model="perception.custom_property"
                                                         class="form-control">
-                                            <option value="">Choisir raison... !</option>
                                             @foreach ($raisons as $raison )
                                                 <option value="{{$raison}}">{{$raison}}</option>
                                             @endforeach
@@ -81,7 +80,7 @@
                                     </div>
                                     <div class="form-group col-sm-12 col-md-6">
                                         <label for="">Montant à Payer <i class="text-red">*</i></label>
-                                        <input readonly type="number" wire:model="perception.montant"
+                                        <input type="number" wire:model="perception.montant"
                                                class="form-control @error('montant') is-invalid @enderror">
                                         @error('montant')
                                         <span class="text-red">{{ $message }}</span>
