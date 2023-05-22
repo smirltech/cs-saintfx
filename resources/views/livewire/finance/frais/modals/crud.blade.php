@@ -31,72 +31,12 @@
                             <span class="text-red">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="form-group col-md-6 col-sm-12">
-                            <label for="">Type</label>
-                            <x-form::select
-                                wire:model="type"
-                                class="form-control">
-                                @foreach (FraisType::cases() as $es )
-                                    <option value="{{$es->value}}">{{ $es->label() }}</option>
-                                @endforeach
-                            </x-form::select>
-                        </div>
-                        <div class="form-group col-md-6 col-sm-12">
-                            <label for="">Fréquence</label>
-                            <x-form::select wire:model="frequence"
-                                            class="form-control">
-                                @foreach (FraisFrequence::cases() as $es )
-                                    <option value="{{$es->value}}">{{ $es->label() }}</option>
-                                @endforeach
-                            </x-form::select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-3">
-                            <label for="">Section <i class="text-red">*</i></label>
-                            <x-form::select wire:model="section_id" wire:change="changeSection">
-                                <option value=null>Choisir section</option>
-                                @foreach ($sections as $section )
-                                    <option value="{{ $section->id }}">{{ $section->nom }}</option>
-                                @endforeach
-                            </x-form::select>
-                            @error('section_id')
-                            <span class="text-red">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="form-group col-3">
-                            <label for="">Option</label>
-                            <x-form::select refresh wire:model="option_id" wire:change="changeOption"
-                                            class="form-control">
-                                @foreach ($options as $option )
-                                    <option value="{{ $option->id }}">{{ $option->nom }}</option>
-                                @endforeach
-                            </x-form::select>
+
+                        <div class="form-group col-sm-12">
+                            <label for="">Description</label>
+                            <textarea rows="2" wire:model="description" class="form-control"></textarea>
 
                         </div>
-                        <div class="form-group col-3">
-                            <label for="">Filière</label>
-                            <x-form::select refresh wire:model="filiere_id"
-                                            wire:change="changeFiliere" class="form-control">
-                                @foreach ($filieres as $filiere)
-                                    <option value="{{ $filiere->id }}">{{ $filiere->nom }}</option>
-                                @endforeach
-                            </x-form::select>
-                        </div>
-                        <div class="form-group col-3">
-                            <label for="">Classe <i class="text-red">*</i></label>
-                            <x-form::select refresh wire:model="classe_id" wire:change="onClasseSelected"
-                                            class="form-control">
-                                @foreach ($classes as $classe )
-                                    <option value="{{ $classe->id }}">{{ $classe->code }}</option>
-                                @endforeach
-                            </x-form::select>
-                        </div>
-                    </div>
-                    <div class="form-group col-sm-12">
-                        <label for="">Description</label>
-                        <textarea rows="2" wire:model="description" class="form-control"></textarea>
-
                     </div>
                 </form>
             </div>
@@ -142,25 +82,6 @@
                             @error('montant')
                             <span class="text-red">{{ $message }}</span>
                             @enderror
-                        </div>
-                        <div class="form-group col-md-6 col-sm-12">
-                            <label for="">Type</label>
-                            <x-form::select
-                                wire:model="type"
-                                class="form-control">
-                                @foreach (FraisType::cases() as $es )
-                                    <option value="{{$es->value}}">{{ $es->label() }}</option>
-                                @endforeach
-                            </x-form::select>
-                        </div>
-                        <div class="form-group col-md-6 col-sm-12">
-                            <label for="">Fréquence</label>
-                            <x-form::select wire:model="frequence"
-                                            class="form-control">
-                                @foreach (FraisFrequence::cases() as $es )
-                                    <option value="{{$es->value}}">{{ $es->label() }}</option>
-                                @endforeach
-                            </x-form::select>
                         </div>
                     </div>
                     <div class="row">

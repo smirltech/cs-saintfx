@@ -34,9 +34,9 @@ class PerceptionIndexComponent extends BaseComponent
             ->layout(AdminLayout::class, ['title' => 'Liste de Perceptions']);
     }
 
-    public function getSelectedPerception(int $id)
+    public function getSelectedPerception(Perception $perception): void
     {
-        $this->perception = Perception::find($id);
+        $this->perception = $perception;
 
     }
 

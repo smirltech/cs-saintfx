@@ -73,6 +73,15 @@ class Frais extends Model
         return $data;
     }
 
+    protected static function booted(): void
+    {
+        static::creating(function ($model) {
+            if ($model->annee_id == null) {
+                $model->annee_id = Annee::id();
+            }
+        });
+    }
+
     public function montantPerceptions()
     {
         return $this->perceptions()->sum('montant');

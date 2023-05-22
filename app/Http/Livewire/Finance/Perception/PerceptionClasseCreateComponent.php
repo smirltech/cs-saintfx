@@ -2,14 +2,11 @@
 
 namespace App\Http\Livewire\Finance\Perception;
 
-use App\Enums\FraisType;
 use App\Http\Livewire\BaseComponent;
 use App\Models\Annee;
 use App\Models\Classe;
-use App\Models\Filiere;
 use App\Models\Frais;
 use App\Models\Inscription;
-use App\Models\Option;
 use App\Models\Perception;
 use App\Traits\HasLivewireAlert;
 use App\Traits\TopMenuPreview;
@@ -42,7 +39,6 @@ class PerceptionClasseCreateComponent extends BaseComponent
     protected $rules = [
         'classe_id' => 'required',
         'fee_id' => 'required',
-        'custom_property' => 'required',
         'due_date' => 'required',
         'montant' => 'required',
     ];
@@ -60,16 +56,10 @@ class PerceptionClasseCreateComponent extends BaseComponent
         $this->annee_id = Annee::id();
         $this->due_date = Carbon::now()->format('Y-m-d');
         $this->frais = Frais::where('annee_id', $this->annee_id)->get();
-        $this->loadClasses();
-
-    }
-
-    private function loadClasses(): void
-    {
         $this->classes = Classe::all();
+
     }
 
-    //updatedFeeId
     public function updatedFeeId($value): void
     {
         $this->feeSelected();
@@ -79,122 +69,13 @@ class PerceptionClasseCreateComponent extends BaseComponent
     {
         $this->fee = Frais::find($this->fee_id);
         $this->montant = $this->fee->montant ?? null;
-        $this->raisons = $this->fee != null ? $this->fee->frequence->children() : [];
-
     }
 
     public function render(): Factory|View|Application
     {
-        $this->reloadData();
         return view('livewire.finance.perceptions.classe_create',
             ['inscriptions' => $this->inscriptions, 'frais' => $this->frais])
             ->layout(AdminLayout::class, ['title' => 'Nouvelle Perception']);
-    }
-
-    // uptadedClasseId
-
-    private function reloadData(): void
-    {
-        $this->loadClasses();
-        $this->chooseSuitableFrais();
-    }
-
-    private function chooseSuitableFrais(): void
-    {
-        if ($this->classe_id != null) {
-            $this->classe = Classe::find($this->classe_id);
-            $this->frais = Frais::
-            where('annee_id', $this->annee_id)
-                ->whereNot('type', FraisType::inscription)
-                ->where('classable_type', 'like', '%Classe')
-                ->where('classable_id', $this->classe_id)
-                ->orderBy('nom')
-                ->get();
-
-            if (str_ends_with($this->classe->filierable_type, 'Filiere')) {
-                $filiere_id = $this->classe->filierable->id;
-                $frais2 = Frais::
-                where('annee_id', $this->annee_id)
-                    ->whereNot('type', FraisType::inscription)
-                    ->where('classable_type', 'like', '%Filiere')
-                    ->where('classable_id', $filiere_id)
-                    ->orderBy('nom')
-                    ->get();
-
-                $this->frais = $this->frais->merge($frais2);
-
-                $filiere2 = Filiere::find($filiere_id);
-                if ($filiere2) {
-                    $option_id = $filiere2->option_id;
-                    $frais3 = Frais::
-                    where('annee_id', $this->annee_id)
-                        ->whereNot('type', FraisType::inscription)
-                        ->where('classable_type', 'like', '%Option')
-                        ->where('classable_id', $option_id)
-                        ->orderBy('nom')
-                        ->get();
-
-                    $this->frais = $this->frais->merge($frais3);
-
-                    $option2 = Option::find($option_id);
-                    if ($option2) {
-                        $section_id = $option2->section_id;
-
-                        $frais4 = Frais::
-                        where('annee_id', $this->annee_id)
-                            ->whereNot('type', FraisType::inscription)
-                            ->where('classable_type', 'like', '%Section')
-                            ->where('classable_id', $section_id)
-                            ->orderBy('nom')
-                            ->get();
-
-                        $this->frais = $this->frais->merge($frais4);
-                    }
-                }
-            }
-
-            if (str_ends_with($this->classe->filierable_type, 'Option')) {
-                $option_id = $this->classe->filierable->id;
-                $frais2 = Frais::
-                where('annee_id', $this->annee_id)
-                    ->whereNot('type', FraisType::inscription)
-                    ->where('classable_type', 'like', '%Option')
-                    ->where('classable_id', $option_id)
-                    ->orderBy('nom')
-                    ->get();
-
-                $this->frais = $this->frais->merge($frais2);
-
-                $option2 = Option::find($option_id);
-                if ($option2) {
-                    $section_id = $option2->section_id;
-
-                    $frais4 = Frais::
-                    where('annee_id', $this->annee_id)
-                        ->whereNot('type', FraisType::inscription)
-                        ->where('classable_type', 'like', '%Section')
-                        ->where('classable_id', $section_id)
-                        ->orderBy('nom')
-                        ->get();
-
-                    $this->frais = $this->frais->merge($frais4);
-                }
-            }
-
-            if (str_ends_with($this->classe->filierable_type, 'Section')) {
-                $section_id = $this->classe->filierable->id;
-                //   dd($section_id);
-                $frais2 = Frais::
-                where('annee_id', $this->annee_id)
-                    ->whereNot('type', FraisType::inscription)
-                    ->where('classable_type', 'like', '%Section')
-                    ->where('classable_id', $section_id)
-                    ->orderBy('nom')
-                    ->get();
-
-                $this->frais = $this->frais->merge($frais2);
-            }
-        }
     }
 
     public function updatedClasseId(): void
@@ -215,8 +96,6 @@ class PerceptionClasseCreateComponent extends BaseComponent
         $this->fee_id = null;
         $this->fee = null;
         $this->montant = null;
-        $this->custom_property = null;
-        $this->raisons = [];
     }
 
     public function addPerceptionsAndClose(): void
@@ -243,11 +122,13 @@ class PerceptionClasseCreateComponent extends BaseComponent
                 [
                     'frais_id' => $this->fee_id,
                     'inscription_id' => $inscription->id,
-                    'custom_property' => $this->custom_property,
                     'annee_id' => $this->annee_id,
+                    'due_date' => $this->due_date,
                 ], [
-                    'frequence' => $this->fee->frequence->name,
                     'user_id' => $this->user_id,
+                    'frais_id' => $this->fee_id,
+                    'inscription_id' => $inscription->id,
+                    'annee_id' => $this->annee_id,
                     'montant' => $this->montant,
                     'due_date' => $this->due_date,
                 ]

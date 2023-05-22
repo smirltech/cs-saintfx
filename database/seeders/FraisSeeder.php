@@ -2,8 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Enums\FraisFrequence;
-use App\Enums\FraisType;
 use App\Models\Annee;
 use App\Models\Frais;
 use Illuminate\Database\Seeder;
@@ -22,13 +20,14 @@ class FraisSeeder extends Seeder
         return [
             [
                 'nom' => 'Frais d\'inscription',
-                'description' => 'Frais d\'inscription',
-                'montant' => 50000,
-                'classable_id' => 1,
-                'classable_type' => 'App\Models\Section',
+                'montant' => 15,
                 'annee_id' => Annee::id(),
-                'frequence' => FraisFrequence::annuel,
-                'type' => FraisType::inscription
+            ],
+
+            [
+                'nom' => 'Minerval',
+                'montant' => 50,
+                'annee_id' => Annee::id(),
             ],
         ];
     }
