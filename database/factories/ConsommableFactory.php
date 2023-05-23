@@ -19,7 +19,6 @@ class ConsommableFactory extends Factory
         return [
             'nom' => $this->faker->unique()->name, //$this->faker->word,
             'description' => $this->faker->paragraph,
-            'code' => $this->faker->unique()->creditCardNumber,
             'stock_minimum' => $this->faker->randomNumber(2),
             'unit_id' => $this->faker->randomElement(Unit::pluck('id')->toArray()),
             'annee_id' => Annee::id(),

@@ -35,7 +35,7 @@
 @endphp
 
 @section('title')
-    - consommables de patrimoine
+    Consommables de patrimoine
 @endsection
 @section('content_header')
     <div class="row">
@@ -76,9 +76,10 @@
                         </div>
 
                         <div class="card-body m-b-40 table-responsive">
-                            <x-adminlte-datatable wire:ignore.self theme="light" id="table1" :heads="$heads" striped
-                                                  hoverable
-                                                  with-buttons>
+                            <x-adminlte-datatable
+                                wire:ignore.self theme="light" id="table1" :heads="$heads" striped
+                                hoverable
+                                with-buttons>
                                 @foreach($config['data'] as $row)
                                     <tr class="table-{{$row[6]->alertColor}}">
                                         <td>{!! $row[0] !!}</td>

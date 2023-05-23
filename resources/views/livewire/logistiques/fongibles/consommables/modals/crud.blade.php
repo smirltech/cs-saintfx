@@ -1,7 +1,6 @@
 {{--add category--}}
 <x-adminlte-modal wire:ignore.self id="add-consommable-modal" icon="fa fa-wrench"
                   title="Ajout de Consommable">
-    <x-form::validation-errors class="mb-4" :errors="$errors"/>
     <form id="f1a" wire:submit.prevent="addConsommable">
         <div class="row">
             <div class="form-group col-md-12">

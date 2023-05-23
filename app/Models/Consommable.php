@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Str;
 
 class Consommable extends Model
 {
@@ -17,9 +18,25 @@ class Consommable extends Model
 
     public $with = ['operations'];
 
-    public function operations(): HasMany
+
+    protected static function booted(): void
     {
-        return $this->hasMany(Operation::class)->orderBy('date', 'DESC');
+        self::creating(function (Consommable $consommable) {
+            if ($consommable->code == null) {
+                $consommable->code = self::generateCode();
+            }
+        });
+    }
+
+    public static function generateCode(): string
+    {
+
+        $part1 = "CENK-" . date('Y');
+
+        $count = Consommable::where('code', 'like', $part1 . '%')->count() + 1;
+
+        $part2 = Str::padLeft($count, 4, '0');
+        return "{$part1}-C{$part2}";
     }
 
     public function unit(): BelongsTo
@@ -33,6 +50,11 @@ class Consommable extends Model
 
     }
 
+    public function operations(): HasMany
+    {
+        return $this->hasMany(Operation::class)->orderBy('date', 'DESC');
+    }
+
     public function getQuantiteOutAttribute(): int|null
     {
         return $this->operations()->where('direction', MouvementStatus::out->name)->sum('quantite');
@@ -41,7 +63,7 @@ class Consommable extends Model
 
     public function getQuantiteAttribute(): int
     {
-        return (int) ($this->quantiteIn ?? 0) - (int) ($this->quantiteOut ?? 0);
+        return (int)($this->quantiteIn ?? 0) - (int)($this->quantiteOut ?? 0);
     }
 
     /**
@@ -50,7 +72,7 @@ class Consommable extends Model
      */
     public function getAlertRateAttribute(): int
     {
-        return $this->stock_minimum == null || $this->stock_minimum == 0 ? 100 : (((int) ($this->quantite ?? 0) / (int) ($this->stock_minimum)) * 100) - 100;
+        return $this->stock_minimum == null || $this->stock_minimum == 0 ? 100 : (((int)($this->quantite ?? 0) / (int)($this->stock_minimum)) * 100) - 100;
     }
 
     public function getAlertTextAttribute(): string
