@@ -14,7 +14,7 @@ class ConsommableFactory extends Factory
 {
     protected $model = Consommable::class;
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'nom' => $this->faker->unique()->name, //$this->faker->word,
