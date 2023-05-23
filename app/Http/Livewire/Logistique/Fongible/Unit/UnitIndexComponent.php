@@ -7,6 +7,9 @@ use App\Models\Unit;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
@@ -35,12 +38,12 @@ class UnitIndexComponent extends BaseComponent
         $this->unit = new Unit();
     }
 
-    public function loadData()
+    public function loadData(): void
     {
         $this->units = Unit::orderBy('nom')->get();
     }
 
-    public function render()
+    public function render(): View|\Illuminate\Foundation\Application|Factory|Application
     {
         $this->loadData();
         return view('livewire.logistiques.fongibles.units.index')
@@ -48,7 +51,7 @@ class UnitIndexComponent extends BaseComponent
     }
 
 
-    public function addUnit()
+    public function addUnit(): void
     {
         $this->validate();
 

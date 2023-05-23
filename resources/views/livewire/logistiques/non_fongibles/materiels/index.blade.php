@@ -38,7 +38,7 @@
 @endphp
 
 @section('title')
-    - matériels de patrimoine
+    Liste de matériels
 @endsection
 @section('content_header')
     <div class="row">

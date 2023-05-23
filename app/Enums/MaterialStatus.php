@@ -15,7 +15,7 @@ enum MaterialStatus: string
         return match ($this) {
             self::ok => 'Ok',
             self::damaged => 'Endommagé',
-            self::repairing => 'À la reparation',
+            self::repairing => 'À la réparation',
             self::lost => 'Perdu',
         };
     }

@@ -1,6 +1,6 @@
 @php  @endphp
 @section('title')
-    - Matériel - {{$materiel->nom}}
+    Matériel - {{$materiel->nom}}
 @endsection
 @section('content_header')
     <div class="row">
@@ -22,10 +22,10 @@
     @include('livewire.logistiques.non_fongibles.materiels.modals.crud')
     @include('livewire.logistiques.non_fongibles.materiels.modals.mouvement')
 
-    <div class="content mt-3">
+    <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-3 col-sm-12">
+                <div class="col-md-4">
                     <div class="card card-primary card-outline">
                         <div class="card-header">
                             <div class="card-title">
@@ -108,7 +108,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-9 col-sm-12">
+                <div class="col-md-8">
                     <div class="card card-primary card-tabs">
                         <div class="card-header p-0 pt-1">
                             <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
