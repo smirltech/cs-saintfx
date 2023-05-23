@@ -69,7 +69,7 @@ class ConsommableIndexComponent extends BaseComponent
 
         $done = $this->consommable->save();
         if ($done) {
-            $this->onModalClosed();
+            $this->onModalClosed('add-consommable-modal');
             $this->loadData();
             $this->initConsommable();
             $this->alert('success', "Consommable ajouté avec succès !");
@@ -91,7 +91,7 @@ class ConsommableIndexComponent extends BaseComponent
 
         $done = $this->consommable->save();
         if ($done) {
-            $this->onModalClosed();
+            $this->onModalClosed('update-consommable-modal');
             $this->alert('success', "Consommable modifié avec succès !");
         } else {
             $this->alert('warning', "Échec de modification de consommable !");
@@ -113,7 +113,7 @@ class ConsommableIndexComponent extends BaseComponent
             $this->alert('error', "Consommable n'a pas été supprimé, il y a des éléments attachés !");
         }
 
-        $this->onModalClosed();
+        $this->onModalClosed('delete-consommable-modal');
 
     }
 }
