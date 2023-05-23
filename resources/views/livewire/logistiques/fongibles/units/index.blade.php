@@ -1,5 +1,5 @@
 @section('title')
-    - unités de mesure
+    Liste d'unités de mesure
 @endsection
 @section('content_header')
     <div class="row">

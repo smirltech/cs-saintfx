@@ -19,7 +19,7 @@ class UnitIndexComponent extends BaseComponent
     public Unit $unit;
 
     protected $rules = [
-        'unit.nom' => 'required|unique:units, nom',
+        'unit.nom' => 'required|unique:units,nom',
         'unit.code' => 'required',
     ];
 
