@@ -9,7 +9,7 @@
 @section('content_header')
     <div class="row">
         <div class="col-6">
-            <h1 class="ms-3"> Perception </h1>
+            <h1 class="ms-3"> Perceptionx </h1>
         </div>
 
         <div class="col-6">
