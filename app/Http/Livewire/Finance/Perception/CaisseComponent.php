@@ -124,6 +124,8 @@ class CaisseComponent extends BaseComponent
         $this->validate();
         $done = $this->perception->save();
 
+
+        dd($done);
         if ($done) {
            // $this->onModalClosed('paiement-facture');
             $this->alert('success', "Facture payée avec succès !");
