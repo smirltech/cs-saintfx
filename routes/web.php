@@ -39,9 +39,10 @@ Route::get("audits", [AuditController::class, 'index'])->name("audits.index")->c
 Route::get("audits/{audit}", [AuditController::class, 'show'])->name("audits.show")->can('audits.view');
 
 //Users
-Route::get('users/{user}/reset-password', [UserController::class, 'resetPassword'])->name('users.password.autoreset');
+
 Route::resource('users', UserController::class)->except(['show', 'edit']);
 Route::get('users/{user}/edit', UserEditComponent::class)->name('users.edit');
+Route::get('users/{user}/reset-password', [UserController::class, 'resetPassword'])->name('users.password.autoreset');
 // auth routes except register
 Auth::routes([
     'register' => false,

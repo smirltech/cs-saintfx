@@ -129,6 +129,14 @@
                                             </x-form::select>
                                         </div>
                                     </div>
+                                    <div class="form-group row">
+                                        <label for="password"
+                                               class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+
+                                        <div class="col-md-6">
+                                            <x-form::input.password name="password" required/>
+                                        </div>
+                                    </div>
                                 @endcan
                                 <hr hidden>
                                 <div class="card-footer">

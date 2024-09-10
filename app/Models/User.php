@@ -111,7 +111,10 @@ class User extends Authenticatable
 
     public function setPasswordAttribute($value): void
     {
-        $this->attributes['password'] = Hash::make($value);
+        if ($value) {
+            $this->attributes['password'] = Hash::make($value);
+        }
+
     }
 
     // all permission names attribute

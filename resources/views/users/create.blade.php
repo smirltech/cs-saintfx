@@ -1,11 +1,11 @@
 @php use App\Enums\RolePermission; @endphp
 @extends('adminlte::page')
 @section('content')
-    <div class="container">
+    <div class="container mt-3">
         @can('users.create')
-            <div class="row justify-content-center">
+            <div class="row justify-content-center p-3">
                 <div class="col-md-10">
-
+                    <x-form::validation-errors/>
                     <div class="card">
                         <div class="card-header">
                             <strong>Informations personnelles</strong>
@@ -52,7 +52,6 @@
                                 <div class="form-group row">
                                     <label for="role_id"
                                            class="col-md-4 col-form-label text-md-right">{{ __('Role') }}</label>
-
                                     <div class="col-md-6">
                                         <x-form::select name="role_id" id="role_id" class="form-control  form-select">
                                             @foreach ($roles as $role)
@@ -62,9 +61,18 @@
                                     </div>
                                 </div>
 
+                                <div class="form-group row">
+                                    <label for="password"
+                                           class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+
+                                    <div class="col-md-6">
+                                        <x-form::input.password name="password" required/>
+                                    </div>
+                                </div>
+
 
                                 <hr>
-                                <div class="card-footerx">
+                                <div class="card-footer">
 
                                     <a href="{{url()->previous()}}" class="btn btn-outline-primary btn-sm">
                                         <i class="fa fa-chevron-left"></i>

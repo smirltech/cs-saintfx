@@ -32,7 +32,7 @@ class UserEditComponent extends Component
     /**
      * @throws Exception
      */
-    #[NoReturn] public function mount(User $user): void
+    public function mount(User $user): void
     {
         $this->user = $user;
         $this->permissions = Permission::all();

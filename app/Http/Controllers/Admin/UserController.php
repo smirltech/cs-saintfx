@@ -51,14 +51,11 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        // Generate a random password for the user
-        $password = Str::random(8);
 
-
-        $user = User::create(array_merge($request->validated(), compact('password')));
+        User::create($request->validated());
 
         // Send an email to the user with the password, surround with try/catch to prevent errors
-        try {
+      /*  try {
             $user->notify(new UserCreatedNotification($password));
         } catch (Exception $e) {
             // log the error
@@ -69,10 +66,10 @@ class UserController extends Controller
 
             // redirect to the user creation page with an error message
             return redirect()->route('users.create')->with('error', __('Une erreur est survenue lors de l\'envoi du mail. Veuillez réessayer.'));
-        }
+        }*/
 
 
-        return redirect()->route('users.index')->with('success', __('Utilisateur créé avec succès'));
+        return redirect()->route('users.index')->with('success', __(':resource created successfully!', ['resource' => __('User')]));
     }
 
     /**
@@ -82,12 +79,13 @@ class UserController extends Controller
      */
     public function create()
     {
-        //  get alls roles except super admin
+
 
         $roles = Role::where('name', '!=', 'super-admin')->where('name', '!=', UserRole::parent->value)->where('name', '!=', UserRole::eleve->value)->get();
-        $facultes = Option::all();
 
-        return view('users.create', compact('roles', 'facultes'))->with('title', __('Ajouter un utilisateur'));
+        $options = Option::all();
+
+        return view('users.create', compact('roles', 'options'))->with('title', __('Ajouter un utilisateur'));
     }
 
     /**
@@ -105,7 +103,7 @@ class UserController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param User $user
-     * @return Application|Factory|View
+     * @return void
      */
     public function edit(User $user)
     {
