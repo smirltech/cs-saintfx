@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Scolarite\Inscription;
 
-use App\Enums\FraisFrequence;
+use App\Enums\MinervalType;
 use App\Enums\InscriptionStatus;
 use App\Http\Livewire\BaseComponent;
 use App\Models\Annee;
@@ -156,7 +156,7 @@ class InscriptionCreateComponent extends BaseComponent
             $this->perception->fill([
                     'user_id' => Auth::id(),
                     'inscription_id' => $this->inscription->id,
-                    'custom_property' => FraisFrequence::annuel,
+                    'custom_property' => MinervalType::annuel,
                     'annee_id' => Annee::id(),
                     'due_date' => Carbon::now()->format('Y-m-d'),
                     'paid' => true,
@@ -178,12 +178,13 @@ class InscriptionCreateComponent extends BaseComponent
     {
 
         $classe = Classe::find($this->inscription?->classe_id);
-        $frais_inscription = $classe?->frais_inscription;
         $this->section_id = $classe?->section_id;
+        //  $frais_inscription = $classe?->frais_inscription;
 
-        $this->perception->montant = $frais_inscription?->montant;
-        $this->perception->frais_id = $frais_inscription?->id;
-        $this->perception->frequence = $frais_inscription?->frequence;
+
+        /* $this->perception->montant = $frais_inscription?->montant;
+         $this->perception->frais_id = $frais_inscription?->id;
+         $this->perception->frequence = $frais_inscription?->frequence;*/
 
     }
 

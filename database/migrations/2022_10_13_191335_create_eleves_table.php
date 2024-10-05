@@ -10,6 +10,7 @@ return new class extends Migration {
     {
         Schema::create('eleves', function (Blueprint $table) {
             $table->ulid('id')->primary()->comment('Matricule de l\'élève attribue par l\'école');
+            $table->string('matricule')->nullable();
             $table->string('nom');
             $table->string('sexe')->nullable();
             $table->string('lieu_naissance')->nullable();

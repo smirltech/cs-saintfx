@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Classe extends Model
@@ -201,7 +202,7 @@ class Classe extends Model
         return $this->section->secondaire();
     }
 
-    public function presences()
+    public function presences(): HasManyThrough
     {
         return $this->hasManyThrough(Presence::class, Inscription::class)->with('inscription');
     }
@@ -226,7 +227,7 @@ class Classe extends Model
         $annee_id = Annee::id();
 
         $frais = Frais::where('annee_id', $annee_id)
-            ->where('type', FraisType::inscription)
+            ->where('type', FraisType::INSCRIPTION)
             ->where('classable_type', 'like', '%Classe')
             ->where('classable_id', $this->id)
             ->first();
@@ -236,7 +237,7 @@ class Classe extends Model
 
         if ($this->filiere_id) {
             $frais = Frais::where('annee_id', $annee_id)
-                ->where('type', FraisType::inscription)
+                ->where('type', FraisType::INSCRIPTION)
                 ->where('classable_type', 'like', '%Filiere')
                 ->where('classable_id', $this->filiere_id)
                 ->orderBy('nom')
@@ -248,7 +249,7 @@ class Classe extends Model
 
         if ($this->option_id) {
             $frais = Frais::where('annee_id', $annee_id)
-                ->where('type', FraisType::inscription)
+                ->where('type', FraisType::INSCRIPTION)
                 ->where('classable_type', 'like', '%Option')
                 ->where('classable_id', $this->option_id)
                 ->first();
@@ -258,7 +259,7 @@ class Classe extends Model
         }
         if ($this->section_id) {
             $frais = Frais::where('annee_id', $annee_id)
-                ->where('type', FraisType::inscription)
+                ->where('type', FraisType::INSCRIPTION)
                 ->where('classable_type', 'like', '%Section')
                 ->where('classable_id', $this->section_id)
                 ->first();

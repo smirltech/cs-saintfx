@@ -100,14 +100,14 @@
                             </div>
                         </div>
                         @if(!$depense->isApproved()  and $depense->canBeApprovedByUser())
-                            <x-form::button-primary
+                            <x-form::button.primary
                                 type="button"
                                 icon="check"
                                 wire:click="approveDepense"
                                 class="float-end m-1"
                                 label="Approuver"/>
 
-                            <x-form::button-warning
+                            <x-form::button.warning
                                 type="button"
                                 icon="close"
                                 wire:click="rejectDepense"

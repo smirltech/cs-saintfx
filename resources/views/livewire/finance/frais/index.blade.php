@@ -1,16 +1,16 @@
 @php
     use App\Helpers\Helpers;$heads =[
-       'DATE',
+       'NO.',
         'NOM',
         'MONTANT',
         ['label'=>'', 'no-export'=>true, 'width'=>5]
 ];
    $data =[];
-   foreach ($frais as $fee){
+   foreach ($frais as $key=>$fee){
         $data[] =[
-            $fee->created_at->format('d-m-Y'),
+            $key+1,
             $fee->nom,
-            Helpers::currencyFormat($fee->montant, symbol: 'Fc'),
+           $fee->montant . ' ' . $fee->devise?->symbol(),
 
              $fee,
 ];
@@ -60,7 +60,7 @@
                                     <button type="button"
                                             onclick="showModal('finance.frais.frais-create-component')"
                                             class="btn btn-primary  ml-2"><span
-                                            class="fa fa-plus"></span></button>
+                                                class="fa fa-plus"></span></button>
                                 @endcan
                             </div>
                         </div>
@@ -77,9 +77,9 @@
                                             <div class="d-flex float-right">
                                                 @can('frais.update',$row[3])
                                                     <button
-                                                        onclick="showModal('finance.frais.frais-create-component','{{$row[3]->id}}')"
-                                                        type="button"
-                                                        title="Modifier" class="btn btn-info  ml-2 btn-sm">
+                                                            onclick="showModal('finance.frais.frais-create-component','{{$row[3]->id}}')"
+                                                            type="button"
+                                                            title="Modifier" class="btn btn-info  ml-2 btn-sm">
                                                         <span class="fa fa-pen"></span>
                                                     </button>
                                                 @endcan

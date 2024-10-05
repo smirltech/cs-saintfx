@@ -110,7 +110,7 @@
                                 @endif
 
                                 <div class="form-group col-md-12">
-                                    <x-form::input-pdf wire:model="document"
+                                    <x-form::input.pdf wire:model="document"
                                                        label="Document du devoir"
                                                        target="document"
                                                        :isValid="$errors->has('document') ? false : null"

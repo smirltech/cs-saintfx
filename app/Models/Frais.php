@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Enums\Devise;
-use App\Enums\FraisFrequence;
+use App\Enums\MinervalType;
 use App\Enums\FraisType;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,7 +18,7 @@ class Frais extends Model
 
     protected $casts = [
         'type' => FraisType::class,
-        'frequence' => FraisFrequence::class,
+        'frequence' => MinervalType::class,
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',
@@ -30,6 +30,11 @@ class Frais extends Model
         return Perception::whereHas('frais', function ($q) use ($type) {
             $q->where('type', $type->value);
         })->where('annee_id', $annee_id)->sum('montant');
+    }
+
+    public function getLabelAttribute(): string
+    {
+        return $this->nom . ' - ' . $this->montant . ' ' . $this->devise->value;
     }
 
     public static function montantFraisTypeOf(int $annee_id, FraisType $type, int $days = 7)

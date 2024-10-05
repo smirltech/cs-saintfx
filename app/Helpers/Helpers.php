@@ -26,6 +26,17 @@ class Helpers
         return $permission;
     }
 
+    public static function balanceColor(float $reste): string
+    {
+        if ($reste < 0) {
+            return 'danger';
+        } else if ($reste == 0) {
+            return 'success';
+        } else {
+            return 'warning';
+        }
+    }
+
     // formatBytes
     public static function formatBytes($bytes, $precision = 1): string
     {

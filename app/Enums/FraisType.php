@@ -2,35 +2,45 @@
 
 namespace App\Enums;
 
+use Exception;
+
 enum FraisType: string
 {
-    case inscription = 'inscription';
-    case frais_scolarite = 'frais_scolarite';
-    case frais_divers = 'frais_divers';
-    case frais_direct = 'frais_direct';
-    case frais_administratif = 'frais_administratif';
+    case INSCRIPTION = 'INSCRIPTION';
+    case MINERVAL = 'MINERVAL';
+    case KIT = 'KIT';
+    case ETAT = 'ETAT';
+    case CONNEXE = 'CONNEXE';
 
     //folder() is a method that returns the folder name
     public function folder(): string
     {
         return match ($this) {
-            self::inscription => 'inscriptions',
-            self::frais_scolarite => 'frais_scolarite',
-            self::frais_divers => 'frais_divers',
-            self::frais_direct => 'frais_direct',
-            self::frais_administratif => 'frais_administratif',
+            self::INSCRIPTION => 'inscriptions',
+            self::KIT => 'kits',
+            self::ETAT => 'etat',
+            self::CONNEXE => 'connexe',
+            self::MINERVAL => 'minerval',
         };
     }
 
-    //label() is a method that returns the label of the enum
     public function label(): string
     {
         return match ($this) {
-            self::inscription => 'Inscription',
-            self::frais_scolarite => 'Frais de scolarite',
-            self::frais_divers => 'Frais divers',
-            self::frais_direct => 'Frais direct',
-            self::frais_administratif => 'Frais administratif',
+            self::INSCRIPTION => 'Frais d\'inscription',
+            self::KIT => 'Frais de kit',
+            self::ETAT => 'Frais de l\'état',
+            self::CONNEXE => 'Frais connexe',
+            self::MINERVAL => 'Frais de minerval',
+        };
+    }
+
+    public function subtypes(): ?array
+    {
+        return match ($this) {
+            self::MINERVAL => MinervalType::cases(),
+            self::ETAT => EtatType::cases(),
+            self::KIT, self::INSCRIPTION, self::CONNEXE => null,
         };
     }
 

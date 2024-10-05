@@ -49,34 +49,33 @@ class FiliereIndexComponent extends BaseComponent
 
     protected $listeners = ['onSaved', 'onUpdated', 'onDeleted', 'onModalOpened', 'onModalClosed'];
 
-    public function onModalOpened()
+    public function onModalOpened(): void
     {
         $this->clearValidation();
     }
 
-    public function onSaved()
+    public function onSaved(): void
     {
         $this->loadData();
     }
 
-    public function loadData()
+    public function loadData(): void
     {
-        $this->filieres = Filiere::/* orderBy('encours', 'DESC')-> */ orderBy('nom', 'ASC')->get();
+        $this->filieres = Filiere::orderBy('nom', 'ASC')->get();
     }
 
-    public function onUpdated()
+    public function onUpdated(): void
     {
         $this->loadData();
     }
 
-    public function onDeleted()
+    public function onDeleted(): void
     {
         $this->loadData();
     }
 
-    public function mount()
+    public function mount(): void
     {
-        $this->authorize("viewAny", Filiere::class);
         $this->options = [];
         $this->sections = Section::orderBy('nom')->get();
     }
@@ -84,6 +83,7 @@ class FiliereIndexComponent extends BaseComponent
     public function render(): View|\Illuminate\Foundation\Application|Factory|Application
     {
         $this->loadData();
+
         return view('livewire.scolarite.filieres.index')
             ->layout(AdminLayout::class, ['title' => 'Liste de Filières']);
     }

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\FraisFrequence;
+use App\Enums\MinervalType;
 use App\Traits\HasScopeAnnee;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
@@ -21,12 +21,21 @@ class Perception extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',
-        'frequence' => FraisFrequence::class,
+        'frequence' => MinervalType::class,
     ];
 
     protected $with = ['frais'];
 
-    // boot
+    // booted
+    protected static function booted(): void
+    {
+
+        static::creating(function (Perception $model) {
+            $model->reference = self::generateReference();
+            $model->user_id = auth()->id();
+            $model->annee_id = Annee::id();
+        });
+    }
 
     public static function dataOfLast($days = 7): array
     {
@@ -59,13 +68,7 @@ class Perception extends Model
         return $query->where('paid', false);
     }
 
-    protected static function booted(): void
-    {
 
-        static::creating(function (Perception $model) {
-            $model->reference = self::generateReference();
-        });
-    }
 
     /**
      * Create a reference for the perception based on the current month and year and the number of perceptions for the current month
@@ -75,7 +78,7 @@ class Perception extends Model
     public static function generateReference(): string
     {
         $count = self::whereMonth('created_at', Carbon::now()->month)->count();
-        $count = Str::padLeft($count + 1, 4, '0');
+        $count = Str::padLeft($count + 1, 3, '0');
         $month = Carbon::now()->format('ym');
 
         return $month.$count;
@@ -96,9 +99,10 @@ class Perception extends Model
         return $this->belongsTo(Frais::class);
     }
 
-    public function getBalanceAttribute(): int
+    public function getBalanceAttribute(): float
     {
-        return $this->montant - $this->paid;
+        // sum of all perceptions for the current year for the inscription and the fraistr
+        return $this->inscription->perceptions()->where('frais_id', $this->frais_id)->where('annee_id', Annee::id())->sum('montant');
     }
 
     public function getNomCompletAttribute(): string

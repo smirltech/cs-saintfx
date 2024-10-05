@@ -17,7 +17,7 @@ class PerceptionIndexComponent extends BaseComponent
     public $perceptions = [];
     public $perception;
 
-    public function mount()
+    public function mount(): void
     {
         $this->authorize('viewAny', Perception::class);
 
@@ -40,7 +40,7 @@ class PerceptionIndexComponent extends BaseComponent
 
     }
 
-    public function deletePerception()
+    public function deletePerception(): void
     {
 
         if ($this->perception->delete()) {

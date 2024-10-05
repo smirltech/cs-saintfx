@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Scolarite\Eleve;
 
-use App\Enums\FraisFrequence;
+use App\Enums\MinervalType;
 use App\Enums\FraisType;
 use App\Enums\InscriptionCategorie;
 use App\Enums\InscriptionStatus;
@@ -132,7 +132,7 @@ class ElevesNonInscritsComponent extends BaseComponent
         if ($this->classe_id != null) {
             $ff = Frais::
             where('annee_id', Annee::id())
-                ->where('type', FraisType::inscription)
+                ->where('type', FraisType::INSCRIPTION)
                 ->where('classable_type', 'like', '%Classe')
                 ->where('classable_id', $this->classe_id)
                 ->orderBy('nom')
@@ -141,7 +141,7 @@ class ElevesNonInscritsComponent extends BaseComponent
         if ($ff == null && $this->filiere_id != null) {
             $ff = Frais::
             where('annee_id', Annee::id())
-                ->where('type', FraisType::inscription)
+                ->where('type', FraisType::INSCRIPTION)
                 ->where('classable_type', 'like', '%Filiere')
                 ->where('classable_id', $this->filiere_id)
                 ->orderBy('nom')
@@ -150,7 +150,7 @@ class ElevesNonInscritsComponent extends BaseComponent
         if ($ff == null && $this->option_id != null) {
             $ff = Frais::
             where('annee_id', Annee::id())
-                ->where('type', FraisType::inscription)
+                ->where('type', FraisType::INSCRIPTION)
                 ->where('classable_type', 'like', '%Option')
                 ->where('classable_id', $this->option_id)
                 ->orderBy('nom')
@@ -159,7 +159,7 @@ class ElevesNonInscritsComponent extends BaseComponent
         if ($ff == null && $this->section_id != null) {
             $ff = Frais::
             where('annee_id', Annee::id())
-                ->where('type', FraisType::inscription)
+                ->where('type', FraisType::INSCRIPTION)
                 ->where('classable_type', 'like', '%Section')
                 ->where('classable_id', $this->section_id)
                 ->orderBy('nom')
@@ -235,12 +235,12 @@ class ElevesNonInscritsComponent extends BaseComponent
                     'user_id' => Auth::id(),
                     'frais_id' => $this->fee->id,
                     'inscription_id' => $inscription_id,
-                    'frequence' => FraisFrequence::annuel->name,
-                    'custom_property' => FraisFrequence::annuel,
+                    'frequence' => MinervalType::annuel->name,
+                    'custom_property' => MinervalType::annuel,
                     'annee_id' => Annee::id(),
                     'montant' => $this->fee->montant,
                     'due_date' => Carbon::now()->format('Y-m-d'),
-                    'paid' => $this->fee->montant,
+                    'frais_montant' => $this->fee->montant,
                     //'paid' => ($this->fee->type == FraisType::inscription and $this->paid == null) ? $this->montant : $this->paid,
                     'paid_by' => $this->paid_by,
                 ]

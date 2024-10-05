@@ -33,7 +33,7 @@
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <x-form::input-image
+                                    <x-form::input.image
                                         label="Couverture"
                                         height="70"
                                         :cover="$cover"
@@ -128,17 +128,17 @@
                                     </x-form::input>
                                 </div>
                                 <div class="form-group col-md-12">
-                                    <x-form::input-pdf
+                                    <x-form::input.pdf
                                         label="Fichier PDF"
                                         :media="$ouvrage->media"
                                         wire:model="ouvrage_pdf">
-                                    </x-form::input-pdf>
+                                    </x-form::input.pdf>
                                 </div>
 
                             </div>
-                            <x-form::button-primary class="float-right mt-3" type="submit">
+                            <x-form::button.primary class="float-right mt-3" type="submit">
                                 Soumettre
-                            </x-form::button-primary>
+                            </x-form::button.primary>
                         </form>
                     </div>
                 </div>

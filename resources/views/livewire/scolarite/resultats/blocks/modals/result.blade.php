@@ -38,7 +38,7 @@
 
             <div class="form-group col-md-12">
                 @if(!$resultat->bulletin)
-                    <x-form::input-pdf wire:model="bulletin"
+                    <x-form::input.pdf wire:model="bulletin"
                                        label="Bulletin"
                                        target="bulletin"
                                        required

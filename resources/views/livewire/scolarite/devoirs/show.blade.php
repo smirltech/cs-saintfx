@@ -95,7 +95,7 @@
                                 </div>
 
                                 <div class="form-group col-md-12">
-                                    <x-form::input-file
+                                    <x-form::input.file
                                         wire:model="document"
                                         :media="$devoir_reponse->media??[]" delete
                                         label="Pièce jointe"

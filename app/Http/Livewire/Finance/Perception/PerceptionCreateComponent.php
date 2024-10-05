@@ -32,7 +32,6 @@ class PerceptionCreateComponent extends BaseComponent
     public $montant;
     public $paid;
     public $paid_by;
-    public $inscription_id;
     public $eleveNom;
     public $classe_id;
     public $due_date;
@@ -43,22 +42,21 @@ class PerceptionCreateComponent extends BaseComponent
     ];
     private $frais = [];
     private $inscriptions = [];
+    public Perception $perception;
 
-    public function mount(): void
+    public function mount(Inscription $inscription): void
     {
         $this->authorize('create', Perception::class);
-        $this->user_id = Auth::id();
-        $this->annee_id = Annee::id();
-        $this->due_date = Carbon::now()->format('Y-m-d');
-        $this->inscription = new Inscription();
-        $this->frais = Frais::where(['annee_id' => $this->annee_id])->orderBy('nom')->get();
-        $this->inscriptions = Inscription::getCurrentInscriptions();
+
+        $this->perception = new Perception();
+        $this->inscription = $inscription;
+        $this->frais = Frais::orderBy('nom')->get();
 
     }
 
 
     //updatedFeeId
-    public function updatedFeeId($value): void
+    public function updatedPerceptionFraisId($value): void
     {
         $this->feeSelected($value);
     }
@@ -66,7 +64,7 @@ class PerceptionCreateComponent extends BaseComponent
     public function feeSelected($value): void
     {
         $this->fee = Frais::find($value);
-        $this->montant = $this->fee->montant ?? null;
+        $this->perception->frais_montant = $this->fee->montant ?? null;
 
     }
 
@@ -78,49 +76,25 @@ class PerceptionCreateComponent extends BaseComponent
 
     }
 
-    public function addPerceptionAndClose(): void
+    public function submit(): void
     {
-        $this->addPerception();
-        $this->flashSuccess("Frais imputé avec succès !", URL::previous());
+        $this->validate();
+        $this->perception->inscription_id = $this->inscription->id;
+        $this->perception->save();
+
+        $this->flashSuccess("Frais imputé avec succès !", route('finance.perceptions.print', $this->perception->id));
 
     }
 
-    public function addPerception(): void
+
+    public function rules(): array
     {
-        $this->validate([
-            'fee_id' => 'required',
-            'user_id' => 'required',
-            'annee_id' => 'required',
-            'due_date' => 'required',
-            'paid' => 'nullable|numeric',
-            'paid_by' => 'nullable',
-        ]);
-
-        try {
-            Perception::updateOrCreate(
-                [
-                    'frais_id' => $this->fee_id,
-                    'inscription_id' => $this->inscription_id,
-                    'due_date' => $this->due_date,
-                    'annee_id' => $this->annee_id,
-                ], [
-                    'user_id' => $this->user_id,
-                    'frais_id' => $this->fee_id,
-                    'inscription_id' => $this->inscription_id,
-                    'annee_id' => $this->annee_id,
-                    'montant' => $this->montant,
-                    'due_date' => $this->due_date,
-                    'paid' => $this->paid,
-                    'paid_at' => $this->paid ? Carbon::now() : null,
-                    'paid_by' => $this->paid_by,
-                ]
-            );
-
-            $this->flashSuccess("Frais imputé avec succès !", URL::previous());
-
-        } catch (Exception $exception) {
-            $this->error(local: $exception->getMessage(), production: "Echec d'imputation de frais déjà existante !");
-        }
+        return [
+            'perception.frais_id' => 'required',
+            'perception.montant' => 'required|numeric',
+            'perception.frais_montant' => 'required|numeric',
+            'perception.paid_by' => 'nullable',
+        ];
     }
 
 }

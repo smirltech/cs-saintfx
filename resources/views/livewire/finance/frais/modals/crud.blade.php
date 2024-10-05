@@ -1,6 +1,6 @@
 {{-- Add Section --}}
 @php use App\Enums\FraisType; @endphp
-@php use App\Enums\FraisFrequence; @endphp
+@php use App\Enums\MinervalType; @endphp
 <div wire:ignore.self class="modal fade" tabindex="-1" id="add-frais-modal">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Livewire\Finance;
+use Illuminate\Support\Facades\Route;
 
 Route::get('finance', Finance\Dashboard\DashboardComponent::class)->name('finance')->middleware('auth');
 
@@ -22,12 +23,14 @@ Route::prefix('finance')->middleware(['auth:web'])->as('finance.')->group(functi
     Route::get('depense-types/{depenseType}', Finance\DepenseType\DepenseTypeShowComponent::class)->name('depense-types.show');
 
     //Frais
+    Route::get('frais/create', Finance\Frais\FraisCreateComponent::class)->name('frais.create');
     Route::get('frais', Finance\Frais\FraisIndexComponent::class)->name('frais');
 
     //Perception
     Route::get('perceptions/create', Finance\Perception\PerceptionCreateComponent::class)->name('perceptions.create');
     Route::get('perceptions/classe_create', Finance\Perception\PerceptionClasseCreateComponent::class)->name('perceptions.classe-create');
     Route::get('perceptions/{perception}/edit', Finance\Perception\PerceptionEditComponent::class)->name('perceptions.edit');
+    Route::get('perceptions/{perception}/print', Finance\Perception\PerceptionPrintComponent::class)->name('perceptions.print');
     Route::get('perceptions', Finance\Perception\PerceptionIndexComponent::class)->name('perceptions');
     Route::get('caisse', Finance\Perception\CaisseComponent::class)->name('caisse');
 

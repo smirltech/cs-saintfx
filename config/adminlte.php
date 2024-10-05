@@ -343,19 +343,19 @@ return [
             'can' => ['perceptions.view.*', 'perceptions.create', 'frais.view.*', 'depenses.view.*', 'depenses-types.view.*'],
         ],
         [
-            'text' => 'Caisse',
+            'text' => 'Perception',
             'icon' => 'fas fa-fw fa-cash-register',
             'url' => 'finance/caisse',
             'can' => 'perceptions.view.*',
         ],
         [
-            'text' => 'Liste de factures',
+            'text' => 'Perceptions',
             'url' => 'finance/perceptions',
             'icon' => 'fas fa-fw fa-arrow-trend-up',
             'can' => 'perceptions.view.*',
         ],
         [
-            'text' => 'Liste de Frais',
+            'text' => 'Frais',
             'url' => 'finance/frais',
             'can' => 'frais.view.*',
             'icon' => 'fas fa-fw fa-money-bill-wave',
@@ -367,7 +367,7 @@ return [
             'can' => 'revenus.view.*',
         ],
         [
-            'text' => 'Liste des Dépenses',
+            'text' => 'Dépenses',
             'icon' => 'fas fa-fw fa-arrow-trend-down',
             'can' => 'depenses.view.*',
             'url' => 'finance/depenses',
@@ -390,7 +390,7 @@ return [
             'can' => ['consommables.view.*', 'operations.view.*', 'units.view.*', 'materiels.view.*', 'materiel-categories.view.*', 'mouvements.view.*', 'cessions.view.*'],
         ],
         [
-            'text' => 'Liste des consommables',
+            'text' => 'Consommables',
             'icon' => 'fas fa-fw fa-screwdriver-wrench',
             'url' => 'logistique/consommables',
             'can' => 'consommables.view.*',
@@ -409,7 +409,7 @@ return [
             'url' => 'logistique/units',
         ],
         [
-            'text' => 'Liste des materiels',
+            'text' => 'Materiels',
             'icon' => 'fas fa-fw fa-wrench',
             'url' => 'logistique/materiels',
             'can' => 'materiels.view.*',

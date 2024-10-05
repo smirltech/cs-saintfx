@@ -134,7 +134,7 @@
                                                class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                                         <div class="col-md-6">
-                                            <x-form::input.password name="password" required/>
+                                            <x-form::input.password name="password"/>
                                         </div>
                                     </div>
                                 @endcan

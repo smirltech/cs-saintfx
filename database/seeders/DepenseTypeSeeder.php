@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Enums\FraisFrequence;
+use App\Enums\MinervalType;
 use App\Enums\FraisType;
 use App\Models\DepenseType;
 use App\Models\Frais;

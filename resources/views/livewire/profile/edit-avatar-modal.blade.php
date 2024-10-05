@@ -4,7 +4,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="form-group col-md-12">
-                        <x-form::input-image required :avatar="$avatar" wire:model="avatar"
+                        <x-form::input.image required :avatar="$avatar" wire:model="avatar"
                                              label="Avatar"/>
                     </div>
                 </div>

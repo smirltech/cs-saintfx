@@ -47,7 +47,7 @@
 
 
                                     <div class="form-group col-md-12">
-                                        <x-form::input-xlsx required label="Fiche d identification"
+                                        <x-form::input.xlsx required label="Fiche d identification"
                                                             name="fiche"/>
                                         <div class="mt-2">
                                             Veuillez télécharger le modèle de la fiche d'identification <a

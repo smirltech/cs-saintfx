@@ -1,5 +1,5 @@
 @php use App\Enums\FraisType; @endphp
-@php use App\Enums\FraisFrequence; @endphp
+@php use App\Enums\MinervalType; @endphp
 
 @section('title')
     Modifier Facture  {{date('d-m-Y')}}
@@ -89,7 +89,7 @@
                         <div class="card-footer ">
                             <div class="d-flex justify-content-between">
                                 <x-form::button
-                                    target="editPerception" form="f1" type="submit" class="btn btn-primary">
+                                        target="editPerception" form="f1" type="submit" class="btn btn-primary">
                                     Valider
                                 </x-form::button>
                                 {{--<button wire:click="printIt" type="button" class="btn btn-success">Valider et Imprimer

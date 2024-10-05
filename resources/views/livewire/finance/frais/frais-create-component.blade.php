@@ -1,26 +1,34 @@
-@php use App\Enums\Devise; @endphp
+@php use App\Enums\Devise;use App\Enums\Section; @endphp
 <x-modals::form title="Ajouter un frais">
     <div class="row">
-        <div class="col-md-6">
-            <x-form::input
-                required
-                label="Nom"
-                wire:model="frais.nom"/>
+        <div class="col-md-12">
+            <x-form::select required label="{{ __('Type') }}" class="form-select" :options="$types"
+                            wire:model="fee.type"/>
         </div>
-        <div class="col-md-6">
-            <x-form::input-money
-                :currency="Devise::USD"
-                required
-                type="number"
-                label="Montant"
-                wire:model="frais.montant"/>
+        <div class="col-md-12">
+            <x-form::select :change='true'  label="{{ __('Sub-type') }}" class="form-select"
+                            :options="$fee->type?->subTypes()" wire:model="fee.sub_type"/>
+        </div>
+        <div class="col-md-12">
+            <x-form::select label="{{ __('Section') }}" class="form-select" :options="$sections"
+                            wire:model="fee.section"/>
         </div>
 
-        <div class="col-sm-12">
-            <x-form::textarea
-                label="Description"
-                rows="2"
-                wire:model="frais.description"/>
+        @if($fee->section == Section::SECONDAIRE->value)
+            <div class="col-md-12">
+                <x-form::select label="{{ __('Option') }}" class="form-select" :options="$options"
+                                wire:model="fee.option_id"/>
+            </div>
+        @endif
+        <div class="col-md-12">
+            <x-form::input required readonly label="{{ __('Name') }}" wire:model.defer="fee.nom"/>
+        </div>
+        <div class="col-md-6">
+            <x-form::input required label="{{ __('Amount') }}" wire:model.defer="fee.montant"/>
+        </div>
+        <div class="col-md-6">
+            <x-form::select required label="{{ __('Currency') }}" class="form-select" :options="Devise::cases()"
+                            wire:model="fee.devise"/>
         </div>
     </div>
 </x-modals::form>

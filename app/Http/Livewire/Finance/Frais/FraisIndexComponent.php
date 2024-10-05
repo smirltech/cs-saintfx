@@ -35,8 +35,6 @@ class FraisIndexComponent extends BaseComponent
 
     public function reloadFrais(): void
     {
-
-        //  dd('reloadFrais');
         $this->frais = Frais::where(['annee_id' => $this->annee_id])->orderBy('nom')->get();
     }
 

@@ -10,6 +10,7 @@ use App\Http\Livewire\Finance;
 use App\Http\Livewire\Notification\NoficationIndexComponent;
 use App\Http\Livewire\Profile\UserEditComponent;
 use App\Http\Livewire\Roles;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 

@@ -36,7 +36,7 @@ enum GraviteRetard: int
         };
     }
 
-    public static function retard($dateTime): string
+    public static function retard(string $dateTime): string
     {
         $dDate = Carbon::now();
         $dayCount = $dDate->diffInDays(Carbon::parse($dateTime));

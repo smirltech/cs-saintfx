@@ -26,7 +26,7 @@
                     <form wire:submit.prevent="submit">
                         {{-- Information Personnelle--}}
                         <div>
-                            <h4 class="font-weight-bold"><u>Information Personnelle</u></h4>
+                            <h4 class="font-weight-bold">Information Personnelle</h4>
                             <div class="row">
                                 <div class="form-group col-md-8">
                                     <x-form::input
@@ -72,7 +72,7 @@
                                 </div>
                             </div>
                             <div>
-                                <h6 class="font-weight-bold"><u>Informations sur les parents</u></h6>
+                                <h6 class="font-weight-bold">Informations sur les parents</h6>
                                 <div class="row">
                                     <div class="form-group col-md-6">
                                         <x-form::input
@@ -93,7 +93,7 @@
                                 </div>
                             </div>
                             <div>
-                                <h6 class="font-weight-bold"><u>Informations de contacts</u></h6>
+                                <h6 class="font-weight-bold">Informations de contacts</h6>
                                 <div class="row">
                                     <div class="form-group col-md-4">
                                         <x-form::input
@@ -127,7 +127,7 @@
                         </div>
 
                         <hr>
-                        <div>
+                       {{-- <div>
                             <h4 class="font-weight-bold"><u>Information sur le responsable / tuteur</u></h4>
                             <div class="form-group">
                                 <div class="row mt-2 mb-2">
@@ -153,10 +153,10 @@
                                 </div>
                             </div>
                             <hr>
-                        </div>
+                        </div>--}}
 
                         <div>
-                            <h4 class="font-weight-bold"><u>Choix de classe</u></h4>
+                            <h4 class="font-weight-bold">Choix de classe</h4>
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <x-form::select
@@ -183,15 +183,15 @@
                                         @enderror
                                     </x-form::select>
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <x-form::input-money
+                              {{--  <div class="form-group col-md-6">
+                                    <x-form::input.money
                                         currency="CDF"
                                         :disabled="!($perception->frais_id)"
                                         label="Frais d'inscription"
                                         placeholder="Saisir frais d'inscription"
                                         wire:model="perception.montant"
                                         class="form-control"/>
-                                    <x-form::checkbox
+                                    <x-form::input.checkbox
                                         :disabled="!($perception->frais_id)"
                                         label="Payé"
                                         wire:model="has_paid"/>
@@ -205,13 +205,13 @@
                                         type="text"
                                         wire:model="perception.paid_by"
                                         class="form-control"/>
-                                </div>
+                                </div>--}}
 
                             </div>
                         </div>
 
                         {{-- ./Choix de classe --}}
-                        <x-form::button-primary
+                        <x-form::button.primary
                             type="submit"
                             class="float-end"
                             label="Soumettre"/>

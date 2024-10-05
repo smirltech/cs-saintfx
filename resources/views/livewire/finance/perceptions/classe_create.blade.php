@@ -1,5 +1,5 @@
 @php use App\Enums\FraisType; @endphp
-@php use App\Enums\FraisFrequence; @endphp
+@php use App\Enums\MinervalType; @endphp
 @section('title')
     Facturer toute la classe  {{date('d-m-Y')}}
 @endsection
@@ -48,10 +48,10 @@
                                     <div class="form-group col-sm-12 col-md-6">
                                         <label for="">Frais</label>
                                         <x-form::select
-                                            wire:ignore.self
-                                            wire:change="feeSelected"
-                                            wire:model="fee_id"
-                                            class="form-control">
+                                                wire:ignore.self
+                                                wire:change="feeSelected"
+                                                wire:model="fee_id"
+                                                class="form-control">
                                             @foreach ($frais as $feee )
                                                 <option value="{{$feee->id}}">{{ $feee->nom }}
                                                     [{{ $feee->montant }} {{ $feee->devise}}]
@@ -72,7 +72,7 @@
                                     </div>
                                     <div class="form-group col-sm-12 col-md-6">
                                         <label for="">Montant à Payer ({{$fee?->devise?->symbol()}}) <i
-                                                class="text-red">*</i></label>
+                                                    class="text-red">*</i></label>
                                         <input type="number" wire:model="montant"
                                                class="form-control @error('montant') is-invalid @enderror">
                                         @error('montant')

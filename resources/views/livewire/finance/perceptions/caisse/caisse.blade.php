@@ -23,15 +23,14 @@
 @stop
 <div wire:ignore.self class="">
     @include('livewire.finance.perceptions.caisse.modals.paiement')
-    @include('livewire.finance.cards.recu')
     <div class="content mt-3">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-7">
+                <div class="col-md-5">
                     <div class="card">
                         <div class="card-header">
                             <div class="card-title">
-                                <h4>Liste d'élèves avec des factures impayées</h4>
+                                <h4>Liste d'élèves</h4>
                             </div>
                         </div>
                         <div class="card-body m-b-40">
@@ -82,10 +81,17 @@
                                             <td>{{$inscrit->fullName}}</td>
                                             <td>{{$inscrit->classe->code}}</td>
                                             <td>
+
                                                 <div class="d-flex float-right">
+                                                    <button
+                                                        onclick="showModal('finance.perception.perception-create-component','{{$inscrit->id}}')"
+                                                        title="Payer facture"
+                                                        class="btn btn-primary btn-sm m-1">
+                                                        <i class="fas fa-hand-holding-dollar"></i>
+                                                    </button>
                                                     <button wire:click="getSelectedInscription('{{$inscrit->id}}')"
                                                             title="Voir élève"
-                                                            class="btn btn-default btn-sm m-1">
+                                                            class="btn btn-info btn-sm m-1">
                                                         <i class="fas fa-eye"></i>
                                                     </button>
                                                 </div>
@@ -100,7 +106,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-7">
                     <div class="card">
                         <div class="card-header">
                             <div class="card-title">
@@ -119,24 +125,44 @@
                         <div class="card-body m-b-40">
 
                             <div class="">
-                                <table class="table table-striped-columns table-borderless mb-3">
-                                    @foreach($perceptions as $percept)
+                                <table class="table mb-3">
+                                    <thead class="bg-primary">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>FRAIS A PAYER</th>
+                                        <th>MONTANT DU</th>
+                                        <th>MONTANT PAYE</th>
+                                        <th>RESTE</th>
+                                        <th>DATE</th>
+                                        <th>ACTION</th>
+
+                                    </tr>
+                                    </thead>
+                                    @foreach($perceptions ?? [] as $percept)
+                                        @php($reste = $percept->frais_monant - $percept->balance)
                                         <tr>
-                                            <td>Facture : {{$percept->frais->nom}} {{$percept->custom_property}}</td>
+                                            <td> {{$loop->iteration}}
+                                            <td> {{$percept->frais->nom}} {{$percept->custom_property}}</td>
                                             <td>
-                                                {{number_format($percept->balance)}}
+                                                {{number_format($percept->frais_montant)}} {{ $percept->frais->devise }}
                                             </td>
-                                            {{-- <td>
-                                                 {{number_format($percept->montant)}}
-                                             </td>--}}
                                             <td>
-                                                <button wire:click="getSelectedPerception('{{$percept->id}}')"
-                                                        title="Payer facture"
-                                                        class="btn btn-primary btn-sm ml-2"
-                                                        data-toggle="modal"
-                                                        data-target="#paiement-facture">
-                                                    <i class="fas fa-hand-holding-dollar"></i>
-                                                </button>
+                                                {{number_format($percept->montant)}} {{ $percept->frais->devise }}
+                                            </td>
+                                            <td>
+                                                <span class="badge badge-{{Helpers::balanceColor($reste)}}">
+                                                {{$reste }} {{ $percept->frais->devise }}
+                                            </span>
+                                            </td>
+                                            <td>
+                                                {{ Carbon::parse($percept->created_at)->format('d/m/Y')}}
+                                            </td>
+                                            <td>
+                                                <x-form::button
+                                                    link="{{route('finance.perceptions.print', ['perception' => $percept->id])}}"
+                                                    class="btn btn-info btn-sm">
+                                                    <i class="fas fa-print"></i>
+                                                </x-form::button>
                                             </td>
 
                                         </tr>

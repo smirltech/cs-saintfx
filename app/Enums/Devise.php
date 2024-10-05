@@ -5,11 +5,13 @@ namespace App\Enums;
 enum Devise: string
 {
     case USD = 'USD';
+    case CDF = 'CDF';
 
     public function symbol(): string
     {
         return match ($this) {
             self::USD => '$',
+            self::CDF => 'FC',
         };
     }
 
@@ -18,6 +20,7 @@ enum Devise: string
     {
         return match ($this) {
             self::USD => 'Dollar Américain',
+            self::CDF => 'Franc Congolais',
         };
     }
 

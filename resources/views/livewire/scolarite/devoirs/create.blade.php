@@ -81,7 +81,7 @@
                                 </div>
 
                                 <div class="form-group col-md-12">
-                                    <x-form::input-pdf required wire:model="document"
+                                    <x-form::input.pdf required wire:model="document"
                                                        label="Document du devoir"
                                                        :isValid="$errors->has('document') ? false : null"
                                                        error="{{$errors->first('document')}}"/>

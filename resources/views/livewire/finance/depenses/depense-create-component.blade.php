@@ -20,7 +20,7 @@
                                     </x-form::select>
                                 </div>
                                 <div class="form-group col-md-4 col-sm-12">
-                                    <x-form::input-numeric
+                                    <x-form::input.numeric
                                         label="Montant"
                                         type="number"
                                         required
@@ -42,7 +42,7 @@
                                     wire:model="depense.note"/>
                             </div>
                             @if(!$depense->isApprovedByCoordonnateur())
-                                <x-form::button-primary icon="save" class="float-end" label="Enregistrer"/>
+                                <x-form::button.primary icon="save" class="float-end" label="Enregistrer"/>
                             @endif
                         </form>
                     </div>
@@ -53,7 +53,7 @@
                     <form id="f1" wire:submit.prevent="submitAttachment">
                         <div class="row">
                             <div class="form-group col-md-12">
-                                <x-form::input-file
+                                <x-form::input.file
                                     label="Documents (Facture, Bon de commande, etc)"
                                     required
                                     :media="$depense->media"
@@ -61,11 +61,11 @@
                                     @foreach ($types as $es )
                                         <option value="{{$es->id}}">{{ $es->nom }}</option>
                                     @endforeach
-                                </x-form::input-file>
+                                </x-form::input.file>
                             </div>
                         </div>
                         @if($depense->exists)
-                            <x-form::button-primary icon="upload" class="float-end" label="Soumettre"/>
+                            <x-form::button.primary icon="upload" class="float-end" label="Soumettre"/>
                         @endif
                     </form>
                 </div>

@@ -17,7 +17,7 @@
 
 @stop
 <div class="">
-    @include('livewire.scolarite.filieres.modals.crud')
+
 
     <div class="content mt-3">
         <div class="container-fluid">

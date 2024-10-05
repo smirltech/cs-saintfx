@@ -7,6 +7,7 @@ use App\Helpers\Helpers;
 use App\Traits\HasAvatar;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -18,7 +19,7 @@ use Str;
 
 class Eleve extends Model
 {
-    use HasFactory, HasAvatar;
+    use HasFactory, HasAvatar, HasUlids;
 
     public $guarded = [];
 
@@ -40,8 +41,8 @@ class Eleve extends Model
     protected static function booted(): void
     {
         static::saving(function (self $model) {
-            if (!$model->id) {
-                $model->id = self::generateUniqueId($model->section_id);
+            if (!$model->matricule) {
+                $model->matricule = self::generateUniqueId($model->section_id);
                 // remove section_id from model
             }
             unset($model->section_id);
@@ -177,11 +178,6 @@ class Eleve extends Model
     public function getSectionAttribute(): ?Section
     {
         return $this->classe->section ?? null;
-    }
-
-    public function getMatriculeAttribute(): string
-    {
-        return $this->id;
     }
 
     // MONTANTS

@@ -42,8 +42,9 @@ class CaisseComponent extends BaseComponent
         $this->authorize('viewAny', Perception::class);
         $this->annee = Annee::encours();
         $this->classes = Classe::all();
-        $this->inscriptionOptions = Inscription::where('annee_id', $this->annee->id)->get()
-            ->where('perceptions_encours_count', '>', 0);
+        $this->inscriptionOptions = Inscription::latest()->get();
+
+        $this->inscriptions = $this->inscriptionOptions;
     }
 
     public function render(): View|\Illuminate\Foundation\Application|Factory|Application
@@ -63,7 +64,7 @@ class CaisseComponent extends BaseComponent
     public function getSelectedInscription($id): void
     {
         $this->inscription = Inscription::find($id);
-        $this->perceptions = $this->inscription->perceptionsEncours;
+        $this->perceptions = $this->inscription?->perceptionsEncours;
     }
 
     // updatedClasseId
@@ -80,7 +81,7 @@ class CaisseComponent extends BaseComponent
     {
         $this->perception = Perception::find($id);
         $this->fee = $this->perception->frais;
-        //  dd($this->perception);
+        //dd($this->perception);
     }
 
     public function clearSelection(): void
@@ -122,14 +123,13 @@ class CaisseComponent extends BaseComponent
     public function payFacture(): void
     {
         $this->validate();
+
         $done = $this->perception->save();
 
-
-        dd($done);
         if ($done) {
            // $this->onModalClosed('paiement-facture');
             $this->alert('success', "Facture payée avec succès !");
-            $this->printIt();
+          //  $this->printIt();
         } else {
             $this->alert('warning', "Echec de paiement de facture !");
         }
@@ -138,10 +138,6 @@ class CaisseComponent extends BaseComponent
 
     // paiement et impression facture
 
-    private function printIt(): void
-    {
 
-        $this->dispatchBrowserEvent('printIt', ['elementId' => "factPrint", 'type' => 'html', 'maxWidth' => 301]);
-    }
 
 }
