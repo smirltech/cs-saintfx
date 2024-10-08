@@ -5,12 +5,14 @@ namespace App\Http\Livewire\Scolarite\Eleve;
 use App\Http\Livewire\BaseComponent;
 use App\Imports\InscriptionsImport;
 use App\Models\Annee;
+use App\Models\Classe;
 use App\Models\Eleve;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\DB;
 use Livewire\WithFileUploads;
 
 class EleveImportComponent extends BaseComponent
@@ -19,8 +21,8 @@ class EleveImportComponent extends BaseComponent
     use WithFileUploads;
 
     public mixed $file = null;
-    public mixed $annee_id = '';
-    // public string $classe_id = '';
+    public string|null $annee_id = null;
+    public ?string $classe_id = null;
     protected $listeners = ['confirmed' => 'confirmed'];
 
     /**
@@ -32,7 +34,7 @@ class EleveImportComponent extends BaseComponent
         $this->title = 'Impomrter la liste d\'élèves';
         $this->annees = Annee::all();
         $this->annee_id = Annee::id();
-        // $this->classes = Classe::all();
+        $this->classes = Classe::all();
     }
 
 
@@ -49,10 +51,13 @@ class EleveImportComponent extends BaseComponent
     public function submit(): void
     {
         try {
-            InscriptionsImport::build(annee_id: $this->annee_id)->import($this->file->getRealPath());
+            DB::beginTransaction();
+            InscriptionsImport::build(anneeId: $this->annee_id, classeId: $this->classe_id)->import($this->file->getRealPath());
+            DB::commit();
             $this->flashSuccess('Liste des élèves importée avec succès', route('scolarite.eleves.index'));
             $this->emit('refresh');
         } catch (Exception $e) {
+            DB::rollBack();
             $this->error($e->getMessage(), $e->getMessage());
         }
     }

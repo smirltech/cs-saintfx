@@ -14,8 +14,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Str;
 use JetBrains\PhpStorm\Pure;
-use Str;
 
 class Eleve extends Model
 {
@@ -43,7 +43,6 @@ class Eleve extends Model
         static::saving(function (self $model) {
             if (!$model->matricule) {
                 $model->matricule = self::generateUniqueId($model->section_id);
-                // remove section_id from model
             }
             unset($model->section_id);
         });
@@ -55,16 +54,28 @@ class Eleve extends Model
      * */
     public static function generateUniqueId(string $section_id): string
     {
-        $annee = Annee::encours();
-        $start_year = $annee->start_year;
+        $start_year = date('Y');
 
         $first_part = $start_year . Helpers::pad($section_id);
 
-        $count = self::where('id', 'like', $first_part . '%')->count() + 1;
+        $count =self::withoutGlobalScopes()->where('matricule', 'like', $first_part . '%')->count() + 1;
 
         $second_part = Str::padLeft($count, 4, '0');
 
-        return $first_part . $second_part;
+        return self::checkMatricule("{$first_part}{$second_part}");
+    }
+
+
+
+    public static function checkMatricule(string $matricule): string
+    {
+        $count = self::withoutGlobalScopes()->where('matricule', $matricule)->count();
+
+        if ($count > 0) {
+            return self::checkMatricule(((int)$matricule) + 1);
+        }
+
+        return $matricule;
     }
 
     // route model binding
@@ -206,5 +217,10 @@ class Eleve extends Model
     public function dateNaissance(): Carbon
     {
         return Carbon::parse($this->date_naissance);
+    }
+
+    public function getAgeAttribute(): int
+    {
+        return $this->dateNaissance()->age;
     }
 }

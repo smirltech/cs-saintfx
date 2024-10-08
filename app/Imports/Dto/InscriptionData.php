@@ -20,20 +20,22 @@ class InscriptionData
     /**
      * @throws Exception
      */
-    public static function fromRow(array $data, string $annee_id, ?string $classe_id): bool
+    public static function fromRow(array $data, string $anneeId, ?string $classeId): bool
     {
-        $classe = self::getClasse(data: $data, classe_id: $classe_id);
-        $section_id = $classe->section_id;
+        $data = (object)(array_change_key_case($data));
+
+        $classe = Classe::find($classeId);
+        $sectionId = $classe->section_id;
 
 
-        $responsable = self::createResponsable(data: $data);
-        $eleve = self::createEleve(data: $data, section_id: $section_id);
+        // $responsable = self::createResponsable(data: $data);
+        $eleve = self::createEleve(data: $data, section_id: $sectionId);
 
-        if ($responsable) {
-            self::createResponsableEleve(eleve_id: $eleve->id, responsable_id: $responsable?->id, relation: $data[6] ? ResponsableRelation::pere : ResponsableRelation::mere);
-        }
+//        if ($responsable) {
+//            self::createResponsableEleve(eleve_id: $eleve->id, responsable_id: $responsable->id, relation: $data[6] ? ResponsableRelation::pere : ResponsableRelation::mere);
+//        }
 
-        self::createInscription(eleve_id: $eleve->id, annee_id: $annee_id, classe_id: $classe->id);
+        self::createInscription(eleve_id: $eleve->id, annee_id: $anneeId, classe_id: $classe->id);
 
 
         return true;
@@ -95,29 +97,28 @@ class InscriptionData
         return null;
     }
 
-    private static function createEleve(array $data, string $section_id): Eleve
+    private static function createEleve(object $data, string $section_id): Eleve
     {
         return Eleve::updateOrCreate(
             [
-                'nom' => $data[1]
+                'nom' => $data->nom,
             ],
             [
                 'section_id' => $section_id,
-                'nom' => $data[1],
-                'sexe' => self::getSexe($data[3]),
-                'lieu_naissance' => self::getLieuNaissance($data[4]),
-                'date_naissance' => self::getDateNaissance($data[4]),
-                'pere' => [
-                    'nom' => $data[6],
-                    'profession' => $data[8],
-                ],
-                'mere' => [
-                    'nom' => $data[7],
-                    'profession' => $data[9],
-                ],
-                'adresse' => $data[10],
-                'telephone' => $data[11],
-                'email' => $data[12],
+                'sexe' => self::getSexe($data->sexe),
+                'lieu_naissance' => $data->lieu_naissance,
+                'date_naissance' => $data->date_naissance,
+//                'pere' => [
+//                    'nom' => $data[6],
+//                    'profession' => $data[8],
+//                ],
+//                'mere' => [
+//                    'nom' => $data[7],
+//                    'profession' => $data[9],
+//                ],
+//                'adresse' => $data[10],
+//                'telephone' => $data[11],
+//                'email' => $data[12],
             ]);
 
     }
@@ -166,7 +167,7 @@ class InscriptionData
 
     private static function createInscription(string $eleve_id, string $annee_id, string $classe_id): void
     {
-        Inscription::firstOrCreate(
+        Inscription::updateOrCreate(
             [
                 'eleve_id' => $eleve_id,
                 'annee_id' => $annee_id,

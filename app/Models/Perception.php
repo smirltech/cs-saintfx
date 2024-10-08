@@ -58,9 +58,9 @@ class Perception extends Model
 
     // eleve through inscription
 
-    public static function scopePaid($query, $paid = true)
+    public static function scopePaid($query)
     {
-        return $query->where('paid', $paid);
+        return $query->where('montant', '>', 0);
     }
 
     public static function scopeUnpaid($query)

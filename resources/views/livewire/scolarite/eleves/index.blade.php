@@ -25,11 +25,11 @@ $data=[];
                 $eleve->matricule,
                 $eleve->full_name,
                 $eleve->sexe?->label(),
-                $eleve->age??'',
+                $eleve->age,
                 $eleve->inscription?$eleve->inscription->annee?->id==Annee::id() ? $eleve->classe?->code: $eleve->classe?->code.' ('.$eleve->inscription?->annee->name.')':'',
                   '<a href="' . route("scolarite.responsables.show",$eleve->responsable_eleve->responsable??'0').'">' .$eleve->responsable_eleve?->responsable?->nom. '</a>',
              /*   $eleve->inscription?->status? '<a href="'.route('scolarite.inscriptions.status',['status'=>$eleve->inscription?->status->name]).'"><span class="badge bg-gradient-'.$eleve->inscription?->status->variant().'">'. $eleve->inscription?->status->label(Sexe::f).'</span></a>':'',*/
-                $eleve->inscription?->created_at->format('d/m/Y')??$eleve->created_at->format('d/m/Y'),
+                $eleve->inscription?->created_at->format('Y-m-d')??$eleve->created_at->format('Y-m-d'),
                 '<nobr>' . $btn1. '</nobr>',
             ];
 
@@ -37,7 +37,7 @@ $data=[];
 
         $config = [
             'data' => $data ?? [],
-            'order' => [[8, 'desc'],[2, 'asc']],
+            'order' => [[7, 'desc'],[2, 'asc']],
             'columns' => [['orderable' => false],['orderable' => true], null, null, null, null, null,null,['orderable' => false]],
         ];
 @endphp
@@ -64,8 +64,12 @@ $data=[];
                     <div class="card-header">
                         <div class="card-title d-flex">
                             @can('inscriptions.create')
-                                <a href="{{ route('scolarite.inscriptions.import') }}" title="ajouter"
-                                   class="btn btn-success mr-2"><span class="fa fa-file-excel"></span></a>
+                                <button
+                                    onclick="showModal('scolarite.eleve.eleve-import-component')"
+                                    title="ajouter"
+                                    class="btn btn-success mr-2"><span class="fa fa-file-excel">
+                                    </span>
+                                </button>
                             @endcan
                         </div>
                         <div class="card-tools d-flex my-auto">

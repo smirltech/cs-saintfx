@@ -2,39 +2,40 @@
 
 namespace App\Imports;
 
+use App\Imports\Dto\CoursData;
 use App\Imports\Dto\InscriptionData;
 use Exception;
+use OpenSpout\Common\Exception\IOException;
+use OpenSpout\Common\Exception\UnsupportedTypeException;
+use OpenSpout\Reader\Exception\ReaderNotOpenedException;
 use Rap2hpoutre\FastExcel\FastExcel;
 
 class InscriptionsImport
 {
-    public function __construct(private string $annee_id, private ?string $classe_id = null)
+    public function __construct(
+        private readonly string $anneeId,
+        private readonly string $classeId
+    )
     {
         //
     }
 
     // build
-    public static function build(string $annee_id, string $classe_id = null): self
+    public static function build(string $anneeId, string $classeId): self
     {
-        return new self(annee_id: $annee_id, classe_id: $classe_id = null);
+        return new self(anneeId: $anneeId, classeId: $classeId);
     }
 
-    // import
-
     /**
+     * @throws IOException
+     * @throws UnsupportedTypeException
+     * @throws ReaderNotOpenedException
      * @throws Exception
      */
     public function import(string $file): void
     {
-        $rows = (new FastExcel)->withoutHeaders()->import($file);
-
-        foreach ($rows as $key => $row) {
-            if ($key > 15) {
-                if (!intval($row[0])) {
-                    continue;
-                }
-                InscriptionData::fromRow(data: $row, annee_id: $this->annee_id, classe_id: $this->classe_id);
-            }
-        }
+        (new FastExcel)->import($file, function ($line) {
+            InscriptionData::fromRow(data: $line, anneeId: $this->anneeId, classeId: $this->classeId);
+        });
     }
 }

@@ -32,12 +32,11 @@ class EleveIndexComponent extends BaseComponent
     public function loadData(): void
     {
         //  dd("Is parent : ".Auth::user()->isParent());
-        if (Auth::user()->isParent())
+      /*  if (Auth::user()->isParent())
             $this->eleves = Auth::user()->responsable?->eleves ?? [];
-        else
-            $this->eleves = Eleve::orderBy('nom')->get();
-        //$this->eleves = Eleve::orderBy('nom')->get();
-        $this->setFakeProfileImageUrl();
+        else*/
+            $this->eleves = Eleve::orderBy('created_at','desc')->get();
+       // $this->setFakeProfileImageUrl();
     }
 
     public function render(): View|Factory|Application

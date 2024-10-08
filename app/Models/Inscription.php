@@ -25,7 +25,6 @@ class Inscription extends Model
 
     public $guarded = [];
 
-    //, SoftDeletes;
     protected $casts = [
         'type' => AdmissionType::class,
         'status' => InscriptionStatus::class,
@@ -39,24 +38,7 @@ class Inscription extends Model
         return self::where('annee_id', Annee::id())->get();
     }
 
-    // getLabelAttribute
 
-    protected static function booted(): void
-    {
-        static::creating(function (self $model) {
-            $model->id = self::generateUniqueId($model->eleve_id, $model->classe_id);
-        });
-    }
-
-    public static function generateUniqueId(string $eleve_id, string $classe_id): string
-    {
-
-        $first_part = $eleve_id;
-        $second_part = Str::padLeft($classe_id, 2, '0');
-        $third_part = self::where('id', 'like', $first_part . '%')->count() + 1;
-
-        return $first_part . $second_part . $third_part;
-    }
 
     // scope sexe
 
