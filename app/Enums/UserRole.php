@@ -9,7 +9,7 @@ enum UserRole: string
     case admin = 'admin';
     case promoteur = 'promoteur';
     case coordonnateur = 'coordonnateur';
-    case comptable = 'comptable';
+    case financier = 'financier';
     case eleve = 'eleve';
     case parent = 'parent';
     case enseignant = 'enseignant';
@@ -63,7 +63,7 @@ enum UserRole: string
             self::enseignant => [
                 RolePermission::devoirs_all->value,
             ],
-            self::comptable => [
+            self::financier => [
                 RolePermission::perceptions_all->value,
             ],
             self::parent => [

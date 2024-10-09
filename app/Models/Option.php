@@ -4,30 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Option extends Model
 {
-    use HasFactory;
 
     public $guarded = [];
 
-    protected $casts = [
-        'filiere_codes' => 'json',
-    ];
-
-    public function section()
-    {
-        return $this->belongsTo(Section::class);
-    }
-
-    public function filieres()
-    {
-        return $this->hasMany(Filiere::class);
-    }
-
-    public function classes()
+    public function classes(): MorphMany
     {
         return $this->morphMany(Classe::class, 'filierable');
+    }
+
+    public function section(): BelongsTo
+    {
+        return $this->belongsTo(Section::class);
     }
 
     // full_name

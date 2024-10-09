@@ -9,7 +9,6 @@ use App\Models\ClasseEnseignant;
 use App\Models\Cours;
 use App\Models\CoursEnseignant;
 use App\Models\Enseignant;
-use App\Models\Filiere;
 use App\Models\Option;
 use App\Models\Section;
 use App\Traits\HasLivewireAlert;
@@ -51,7 +50,7 @@ class ClasseShowComponent extends BaseComponent
         // $this->admissions = $this->promotion->admissions;
 
         $classable = $classe->filierable;
-        if ($classable instanceof Filiere) {
+        if ($classable instanceof Option) {
             $this->parent_url = "/scolarite/filieres/$classe->filierable_id";
             $this->parent = "Filière";
         } else if ($classable instanceof Option) {

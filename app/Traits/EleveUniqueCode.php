@@ -3,7 +3,6 @@
 namespace App\Traits;
 
 use App\Models\Eleve;
-use App\Models\Filiere;
 use App\Models\Option;
 use App\Models\Section;
 

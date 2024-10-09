@@ -4,9 +4,8 @@ namespace App\Http\Livewire\Scolarite\Inscription;
 
 use App\Enums\MediaType;
 use App\Models\Annee;
-use App\Models\Filiere;
-use App\Models\Inscription;
 use App\Models\Option;
+use App\Models\Inscription;
 use App\Traits\TopMenuPreview;
 use App\Traits\WithFileUploads;
 use App\View\Components\AdminLayout;
@@ -199,7 +198,7 @@ class InscriptionEditComponent extends Component
     public function changeFiliere()
     {
         if ($this->filiere_id > 0) {
-            $filiere = Filiere::find($this->filiere_id);
+            $filiere = Option::find($this->filiere_id);
             $this->promotions = $filiere->promotions;
             if (count($this->promotions) > 0) {
                 $this->admission->promotion_id = $this->promotions[0]->id;
@@ -246,7 +245,7 @@ class InscriptionEditComponent extends Component
     public function changeFiliere2()
     {
         if ($this->filiere2_id > 0) {
-            $filiere = Filiere::find($this->filiere2_id);
+            $filiere = Option::find($this->filiere2_id);
             $this->promotions2 = $filiere->promotions;
             if (count($this->promotions2) > 0) {
                 $this->admission->promotion2_id = $this->promotions2[0]->id;

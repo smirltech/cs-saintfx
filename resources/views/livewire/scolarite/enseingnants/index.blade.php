@@ -1,4 +1,4 @@
-@php use App\Models\Filiere; @endphp
+@php use App\Models\Option; @endphp
 @php use App\Models\Option; @endphp
 @php use App\Models\Section; @endphp
 @php
@@ -60,12 +60,13 @@
                                 @can('enseignants.create')
                                     <a href="{{ route('scolarite.enseignants.create') }}" title="ajouter"
                                        class="btn btn-primary mr-2"><span
-                                            class="fa fa-plus"></span></a>
+                                                class="fa fa-plus"></span></a>
                                 @endcan
                             </div>
                         </div>
                         <div class="card-body">
-                            <x-adminlte-datatable wire:ignore.self head-theme="light" theme="light" id="tableens1" :heads="$heads" striped
+                            <x-adminlte-datatable wire:ignore.self head-theme="light" theme="light" id="tableens1"
+                                                  :heads="$heads" striped
                                                   hoverable with-buttons>
                                 @foreach($config['data'] as $row)
                                     <tr>

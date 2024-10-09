@@ -2,7 +2,6 @@
 
 namespace App\Traits;
 
-use App\Models\Filiere;
 use App\Models\Option;
 use App\Models\Section;
 
@@ -12,7 +11,7 @@ trait CanHandleClasseCode
     public function setCode()
     {
         if ($this->grade and $this->filiere_id) {
-            $filiere = Filiere::find($this->filiere_id);
+            $filiere = Option::find($this->filiere_id);
             $this->code = "{$this->grade} {$filiere->code}";
         } else if ($this->grade and $this->option_id) {
             $option = Option::find($this->option_id);

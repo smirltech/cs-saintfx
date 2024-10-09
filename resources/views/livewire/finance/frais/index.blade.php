@@ -52,7 +52,7 @@
                             {{--<div class="card-title">
                                 <span class="ml-2">Section {{$section_id}}</span>
                                 <span class="ml-2">Option {{$option_id}}</span>
-                                <span class="ml-2">Filiere {{$filiere_id}}</span>
+                                <span class="ml-2">Option {{$filiere_id}}</span>
                                 <span class="ml-2">Classe {{$classe_id}}</span>
                             </div>--}}
                             <div class="card-tools d-flex my-auto">

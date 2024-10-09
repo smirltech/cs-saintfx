@@ -4,7 +4,6 @@ namespace App\Http\Livewire\Finance\DepenseType;
 
 use App\Http\Livewire\BaseComponent;
 use App\Models\DepenseType;
-use App\Models\Filiere;
 use App\Models\Option;
 use App\Models\Section;
 use App\Traits\OptionCode;

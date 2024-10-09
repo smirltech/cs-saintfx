@@ -52,7 +52,7 @@ enum UserGate
             ],
             self::browse_finance => [
                 UserRole::promoteur->value,
-                UserRole::comptable->value,
+                UserRole::financier->value,
             ],
             self::browse_settings => [
                 UserRole::promoteur->value,
@@ -83,7 +83,7 @@ enum UserGate
             self::browse_factures => [
                 UserRole::promoteur->value,
                 UserRole::admin->value,
-                UserRole::comptable->value,
+                UserRole::financier->value,
             ],
             self::browse_inscriptions => [
                 // UserRole::promoteur->value,

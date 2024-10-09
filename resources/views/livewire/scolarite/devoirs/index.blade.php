@@ -1,4 +1,4 @@
-@php use App\Models\Filiere; @endphp
+@php use App\Models\Option; @endphp
 @php use App\Models\Option; @endphp
 @php use App\Models\Section; @endphp
 @section('title')
@@ -32,7 +32,7 @@
                                 @can('devoirs.create')
                                     <a href="{{ route('scolarite.devoirs.create') }}" title="ajouter"
                                        class="btn btn-primary mr-2"><span
-                                            class="fa fa-plus"></span></a>
+                                                class="fa fa-plus"></span></a>
                                 @endcan
                             </div>
                         </div>

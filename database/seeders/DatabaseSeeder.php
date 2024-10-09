@@ -24,14 +24,13 @@ class DatabaseSeeder extends Seeder
                 AnneeSeeder::class,
                 SectionSeeder::class,
                 OptionSeeder::class,
-                FiliereSeeder::class,
                 ClasseSeeder::class,
-                FraisSeeder::class,
-                DepenseTypeSeeder::class,
-                UnitSeeder::class,
-                TagSeeder::class,
             ]);
 
+            User::factory()->create([
+                'email' => 'admin@college-enk.com',
+                'name' => 'Admin',
+            ])->assignRole(UserRole::admin->value);
 
             // create promoteur
             User::factory()->create([
@@ -46,17 +45,19 @@ class DatabaseSeeder extends Seeder
 
             // create admin
             User::factory()->create([
-                'email' => 'admin@college-enk.com',
-                'name' => 'Admin',
-            ])->assignRole(UserRole::admin->value);
+                'email' => 'financier@college-enk.com',
+                'name' => 'Financier',
+            ])->assignRole(UserRole::financier->value);
 
 
             if (!App::isProduction()) {
-                User::factory()->create([
-                    'email' => 'comptable@college-enk.com',
-                    'name' => 'Caissier',
-                ])->assignRole(UserRole::comptable->value);
 
+                $this->call([
+                   // FraisSeeder::class,
+                    DepenseTypeSeeder::class,
+                    UnitSeeder::class,
+                    TagSeeder::class,
+                ]);
                 // create admin
                 User::factory()->create([
                     'email' => 'eleve@college-enk.com',

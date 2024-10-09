@@ -25,7 +25,7 @@ class Classe extends Model
     ];
 
     /*
-     * Get parents that can be Section, Option or Filiere
+     * Get parents that can be Section, Option or Option
      * */
     public function filierable(): MorphTo
     {
@@ -91,7 +91,7 @@ class Classe extends Model
     {
         $parent_url = '';
         $classable = $this->filierable;
-        if ($classable instanceof Filiere) {
+        if ($classable instanceof Option) {
             $parent_url = route('scolarite.filieres.show', $classable->id);
         } elseif ($classable instanceof Option) {
             $parent_url = route('scolarite.options.show', $classable->id);
@@ -129,7 +129,7 @@ class Classe extends Model
     public function getSectionIdAttribute(): ?int
     {
         $classable = $this->filierable;
-        if ($classable instanceof Filiere) {
+        if ($classable instanceof Option) {
             return $classable->option->section_id;
         } elseif ($classable instanceof Option) {
             return $classable->section_id;
@@ -143,7 +143,7 @@ class Classe extends Model
     public function getOptionIdAttribute(): ?int
     {
         $classable = $this->filierable;
-        if ($classable instanceof Filiere) {
+        if ($classable instanceof Option) {
             return $classable->option->id;
         } elseif ($classable instanceof Option) {
             return $classable->id;
@@ -155,7 +155,7 @@ class Classe extends Model
     public function getFiliereIdAttribute(): ?int
     {
         $classable = $this->filierable;
-        if ($classable instanceof Filiere) {
+        if ($classable instanceof Option) {
             return $classable->id;
         }
 
@@ -238,7 +238,7 @@ class Classe extends Model
         if ($this->filiere_id) {
             $frais = Frais::where('annee_id', $annee_id)
                 ->where('type', FraisType::INSCRIPTION)
-                ->where('classable_type', 'like', '%Filiere')
+                ->where('classable_type', 'like', '%Option')
                 ->where('classable_id', $this->filiere_id)
                 ->orderBy('nom')
                 ->first();

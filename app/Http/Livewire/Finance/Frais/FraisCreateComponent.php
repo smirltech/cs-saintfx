@@ -7,9 +7,8 @@ use App\Enums\FraisType;
 use App\Enums\Section;
 use App\Http\Livewire\BaseComponent;
 use App\Models\Eleve;
-use App\Models\Filiere;
-use App\Models\Frais;
 use App\Models\Option;
+use App\Models\Frais;
 use App\Traits\HasLivewireAlert;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -34,7 +33,7 @@ class FraisCreateComponent extends BaseComponent
         $this->fee = $fee;
         $this->types = FraisType::cases();
         $this->sections = Section::cases();
-        $this->options = Filiere::all();
+        $this->options = Option::all();
     }
 
     public function render(): View|\Illuminate\Foundation\Application|Factory|Application
@@ -127,7 +126,7 @@ class FraisCreateComponent extends BaseComponent
     {
         $type = $this->fee->type?->label();
         $section = $this->fee->section ?: null;
-        $option = $this->fee->option_id ? Filiere::find($this->fee->option_id)->code : null;
+        $option = $this->fee->option_id ? Option::find($this->fee->option_id)->code : null;
 
         $this->fee->nom = trim(Str::replace(
             search: '  ',

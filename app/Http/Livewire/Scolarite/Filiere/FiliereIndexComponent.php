@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Scolarite\Filiere;
 
 use App\Http\Livewire\BaseComponent;
-use App\Models\Filiere;
 use App\Models\Option;
 use App\Models\Section;
 use App\Traits\TopMenuPreview;
@@ -61,7 +60,7 @@ class FiliereIndexComponent extends BaseComponent
 
     public function loadData(): void
     {
-        $this->filieres = Filiere::orderBy('nom', 'ASC')->get();
+        $this->filieres = Option::orderBy('nom', 'ASC')->get();
     }
 
     public function onUpdated(): void
@@ -118,7 +117,7 @@ class FiliereIndexComponent extends BaseComponent
         // dd($this->nom);
 
         $this->validate();
-        Filiere::create([
+        Option::create([
             'nom' => $this->nom,
             'description' => $this->description,
             'code' => $this->code,
@@ -134,7 +133,7 @@ class FiliereIndexComponent extends BaseComponent
     }
 
 
-    public function getSelectedFiliere(Filiere $filiere)
+    public function getSelectedFiliere(Option $filiere)
     {
         // dd($section);
         $this->filiere = $filiere;
@@ -151,12 +150,12 @@ class FiliereIndexComponent extends BaseComponent
         $this->validate([
             'nom' => [
                 "required",
-                Rule::unique((new Filiere())->getTable(), "nom")->ignore($this->filiere->id)
+                Rule::unique((new Option())->getTable(), "nom")->ignore($this->filiere->id)
 
             ],
             'code' => [
                 "required",
-                Rule::unique((new Filiere)->getTable(), "code")->ignore($this->filiere->id)
+                Rule::unique((new Option)->getTable(), "code")->ignore($this->filiere->id)
 
             ],
             'option_id' => 'required|numeric',

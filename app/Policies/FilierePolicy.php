@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Models\Filiere;
+use App\Models\Option;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
@@ -18,7 +18,7 @@ class FilierePolicy
             : Response::deny('Vous n\'êtes pas autorisé à voir les filières.');
     }
 
-    public function view(User $user, Filiere $filiere):Response|bool
+    public function view(User $user, Option $filiere):Response|bool
     {
         return $user->can('filieres.view.' . $filiere->id)
             ? Response::allow()
@@ -32,14 +32,14 @@ class FilierePolicy
             : Response::deny('Vous n\'êtes pas autorisé à créer une filière.');
     }
 
-    public function update(User $user, Filiere $filiere):Response|bool
+    public function update(User $user, Option $filiere):Response|bool
     {
         return $user->can('filieres.update.' . $filiere->id)
             ? Response::allow()
             : Response::deny('Vous n\'êtes pas autorisé à modifier cette filière.');
     }
 
-    public function delete(User $user, Filiere $filiere):Response|bool
+    public function delete(User $user, Option $filiere):Response|bool
     {
         return $user->can('filieres.delete.' . $filiere->id)
             ? Response::allow()

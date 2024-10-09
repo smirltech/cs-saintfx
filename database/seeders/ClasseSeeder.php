@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Enums\ClasseGrade;
 use App\Models\Classe;
-use App\Models\Filiere;
 use App\Models\Option;
 use App\Models\Section;
 use Illuminate\Database\Seeder;
@@ -90,43 +89,43 @@ class ClasseSeeder extends Seeder
             [
                 'grade' => ClasseGrade::g1,
                 'filierable_id' => 1,
-                'filierable_type' => Filiere::class,
+                'filierable_type' => Option::class,
                 'code' => '1HP',
             ],
             [
                 'grade' => ClasseGrade::g2,
                 'filierable_id' => 1,
-                'filierable_type' => Filiere::class,
+                'filierable_type' => Option::class,
                 'code' => '2HP',
             ],
             [
                 'grade' => ClasseGrade::g1,
                 'filierable_id' => 2,
-                'filierable_type' => Filiere::class,
+                'filierable_type' => Option::class,
                 'code' => '1HL',
             ],
             [
                 'grade' => ClasseGrade::g1,
                 'filierable_id' => 3,
-                'filierable_type' => Filiere::class,
+                'filierable_type' => Option::class,
                 'code' => '1HS',
             ],
             [
                 'grade' => ClasseGrade::g1,
                 'filierable_id' => 4,
-                'filierable_type' => Filiere::class,
+                'filierable_type' => Option::class,
                 'code' => '1MEC',
             ],
             [
                 'grade' => ClasseGrade::g1,
                 'filierable_id' => 5,
-                'filierable_type' => Filiere::class,
+                'filierable_type' => Option::class,
                 'code' => '1ELE',
             ],
             [
                 'grade' => ClasseGrade::g1,
                 'filierable_id' => 6,
-                'filierable_type' => Filiere::class,
+                'filierable_type' => Option::class,
                 'code' => '1TCC',
             ],
         ];

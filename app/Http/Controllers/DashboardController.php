@@ -15,7 +15,7 @@ class DashboardController
 
         return match ($user->role_name) {
             UserRole::promoteur->value, UserRole::coordonnateur->value, UserRole::admin->value => $this->adminDashboard(),
-            UserRole::comptable->value => $this->compableDashboard(),
+            UserRole::financier->value => $this->compableDashboard(),
             UserRole::parent->value => $this->parentDashboard(),
             default => $this->defaultDashboard()
         };

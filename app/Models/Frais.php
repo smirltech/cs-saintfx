@@ -114,8 +114,8 @@ class Frais extends Model
     {
         if (str_ends_with($this->classable_type, 'Classe')) {
             return Classe::find($this->classable_id);
-        } elseif (str_ends_with($this->classable_type, 'Filiere')) {
-            return Filiere::find($this->classable_id);
+        } elseif (str_ends_with($this->classable_type, 'Option')) {
+            return Option::find($this->classable_id);
         } elseif (str_ends_with($this->classable_type, 'Option')) {
             return Option::find($this->classable_id);
         } elseif (str_ends_with($this->classable_type, 'Section')) {

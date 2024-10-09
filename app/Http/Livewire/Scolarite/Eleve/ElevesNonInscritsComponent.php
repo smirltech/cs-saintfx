@@ -9,7 +9,7 @@ use App\Enums\InscriptionStatus;
 use App\Http\Livewire\BaseComponent;
 use App\Models\Annee;
 use App\Models\Eleve;
-use App\Models\Filiere;
+use App\Models\Option;
 use App\Models\Frais;
 use App\Models\Inscription;
 use App\Models\Option;
@@ -114,7 +114,7 @@ class ElevesNonInscritsComponent extends BaseComponent
     private function loadAvailableClasses()
     {
         if ($this->filiere_id > 0) {
-            $filiere = Filiere::find($this->filiere_id);
+            $filiere = Option::find($this->filiere_id);
             $this->classes = $filiere?->classes ?? [];
         } else if ($this->option_id > 0) {
             $option = Option::find($this->option_id);
@@ -142,7 +142,7 @@ class ElevesNonInscritsComponent extends BaseComponent
             $ff = Frais::
             where('annee_id', Annee::id())
                 ->where('type', FraisType::INSCRIPTION)
-                ->where('classable_type', 'like', '%Filiere')
+                ->where('classable_type', 'like', '%Option')
                 ->where('classable_id', $this->filiere_id)
                 ->orderBy('nom')
                 ->first();

@@ -1,11 +1,11 @@
 @php
-    use App\Enums\InscriptionStatus;use App\Helpers\Helpers;use App\Models\Classe;use App\Models\Filiere;use App\Models\Option;use App\Models\Section;
+    use App\Enums\InscriptionStatus;use App\Helpers\Helpers;use App\Models\Classe;use App\Models\Option;use App\Models\Option;use App\Models\Section;
 @endphp
 @section('content_header')
     <div class="row">
         <div class="col-6">
             <h1 class="ms-3"><span
-                    class="fas fa-fw fa-chalkboard-teacher mr-1"></span>Enseignant {{$enseignant->section->nom}}
+                        class="fas fa-fw fa-chalkboard-teacher mr-1"></span>Enseignant {{$enseignant->section->nom}}
             </h1>
         </div>
 

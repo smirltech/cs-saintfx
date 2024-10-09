@@ -37,7 +37,7 @@ class LoginController extends Controller
         $role = Auth::user()?->role?->name;
 
         return match ($role) {
-            UserRole::comptable->value => 'finance',
+            UserRole::financier->value => 'finance',
             default => 'scolarite',
         };
     }

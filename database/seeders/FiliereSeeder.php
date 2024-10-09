@@ -2,16 +2,16 @@
 
 namespace Database\Seeders;
 
-use App\Models\Filiere;
+use App\Models\Option;
 use Illuminate\Database\Seeder;
 
 class FiliereSeeder extends Seeder
 {
     public function run()
     {
-//        Filiere::truncate();
+//        Option::truncate();
         foreach ($this->data() as $faculte) {
-            Filiere::create($faculte);
+            Option::create($faculte);
         }
     }
 

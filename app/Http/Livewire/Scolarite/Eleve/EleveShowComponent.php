@@ -8,9 +8,8 @@ use App\Enums\ResponsableRelation;
 use App\Http\Livewire\BaseComponent;
 use App\Models\Annee;
 use App\Models\Eleve;
-use App\Models\Filiere;
-use App\Models\Inscription;
 use App\Models\Option;
+use App\Models\Inscription;
 use App\Models\Responsable;
 use App\Models\ResponsableEleve;
 use App\Models\Section;
@@ -183,7 +182,7 @@ class EleveShowComponent extends BaseComponent
         $this->inscription2_classe_id = $classe->id;
         $filierable = $classe->filierable;
 
-        if ($filierable instanceof Filiere) {
+        if ($filierable instanceof Option) {
             $this->inscription2_filiere_id = $filierable->id;
 
             $option = Option::find($filierable->option_id);
@@ -203,7 +202,7 @@ class EleveShowComponent extends BaseComponent
         }
 
         $this->options = Option::where('section_id', $this->inscription2_section_id)->orderBy('nom')->get();
-        $this->filieres = Filiere::where('option_id', $this->inscription2_option_id)->orderBy('nom')->get();
+        $this->filieres = Option::where('option_id', $this->inscription2_option_id)->orderBy('nom')->get();
         // $this->classes = Classe::orderBy('grade')->get();
         $this->loadAvailableClasses();
         // dd($inscription);
@@ -212,7 +211,7 @@ class EleveShowComponent extends BaseComponent
     private function loadAvailableClasses(): void
     {
         if ($this->inscription2_filiere_id > 0) {
-            $filiere = Filiere::find($this->inscription2_filiere_id);
+            $filiere = Option::find($this->inscription2_filiere_id);
             $this->classes = $filiere->classes;
         } else if ($this->inscription2_option_id > 0) {
             $option = Option::find($this->inscription2_option_id);

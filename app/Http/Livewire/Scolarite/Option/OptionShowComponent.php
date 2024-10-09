@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Scolarite\Option;
 
 use App\Http\Livewire\BaseComponent;
-use App\Models\Filiere;
 use App\Models\Option;
 use App\Models\Section;
 use App\Traits\OptionCode;
@@ -137,18 +136,18 @@ class OptionShowComponent extends BaseComponent
         $this->validate([
             'filiere_nom' => [
                 "required",
-                Rule::unique((new Filiere())->getTable(), "nom")
+                Rule::unique((new Option())->getTable(), "nom")
 
             ],
             'filiere_code' => [
                 "required",
-                Rule::unique((new Filiere())->getTable(), "code")
+                Rule::unique((new Option())->getTable(), "code")
 
             ],
 
         ]);
 
-        Filiere::create([
+        Option::create([
             'nom' => $this->filiere_nom,
             'code' => $this->filiere_code,
             'option_id' => $this->option->id,

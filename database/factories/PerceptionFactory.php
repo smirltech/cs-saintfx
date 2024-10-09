@@ -27,8 +27,8 @@ class PerceptionFactory extends Factory
             'frais_id' => $frais->id,
             'inscription_id' => $this->faker->randomElement(Inscription::pluck('id')->toArray()),
             'annee_id' => Annee::id(),
-            'montant' => $frais->montant,
-            'paid' => $this->faker->boolean(60),
+            'frais_montant' => $frais->montant,
+            'montant' => $this->faker->boolean(60),
         ];
     }
 }

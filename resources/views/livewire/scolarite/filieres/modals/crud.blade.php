@@ -1,4 +1,4 @@
-{{-- Add Filiere --}}
+{{-- Add Option --}}
 @php use App\Enums\ClasseGrade; @endphp
 <div wire:ignore.self class="modal fade" tabindex="-1" id="add-filiere-modal">
     <div class="modal-dialog">
@@ -67,7 +67,7 @@
 
 </div>
 
-{{-- EditModal Filiere --}}
+{{-- EditModal Option --}}
 <div wire:ignore.self class="modal fade" tabindex="2" id="edit-filiere-modal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -128,7 +128,7 @@
 
 </div>
 
-{{-- Delete Filiere --}}
+{{-- Delete Option --}}
 <div wire:ignore.self class="modal fade" tabindex="-1" id="delete-filiere-modal">
     <div class="modal-dialog">
         <div class="modal-content">

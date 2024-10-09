@@ -32,7 +32,7 @@ class Perception extends Model
 
         static::creating(function (Perception $model) {
             $model->reference = self::generateReference();
-            $model->user_id = auth()->id();
+            $model->user_id = $model->user_id??auth()->id();
             $model->annee_id = Annee::id();
         });
     }

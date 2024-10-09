@@ -16,7 +16,7 @@ Route::prefix('scolarite')->middleware(['auth:web'])->as('scolarite.')->group(fu
     Route::get('options/{option}', Scolarite\Option\OptionShowComponent::class)->name('options.show');
     Route::get('options', Scolarite\Option\OptionIndexComponent::class)->name('options');
 
-//Filiere
+//Option
     Route::get('filieres/{filiere}', Scolarite\Filiere\FiliereShowComponent::class)->name('filieres.show');
     Route::get('filieres', Scolarite\Filiere\FiliereIndexComponent::class)->name('filieres');
 

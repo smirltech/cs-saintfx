@@ -4,7 +4,6 @@ namespace App\Http\Livewire\Scolarite\Filiere;
 
 use App\Http\Livewire\BaseComponent;
 use App\Models\Classe;
-use App\Models\Filiere;
 use App\Models\Option;
 use App\Models\Section;
 use App\Traits\FiliereCode;
@@ -70,7 +69,7 @@ class FiliereShowComponent extends BaseComponent
 
     public function loadData()
     {
-        //  $this->filieres = Filiere::/* orderBy('encours', 'DESC')-> */ orderBy('nom', 'ASC')->get();
+        //  $this->filieres = Option::/* orderBy('encours', 'DESC')-> */ orderBy('nom', 'ASC')->get();
     }
 
     public function updatedClasseGrade()
@@ -88,7 +87,7 @@ class FiliereShowComponent extends BaseComponent
         $this->loadData();
     }
 
-    public function mount(Filiere $filiere)
+    public function mount(Option $filiere)
     {
         $this->authorize("view", $filiere);
         $this->sections = Section::orderBy('nom')->get();
@@ -132,12 +131,12 @@ class FiliereShowComponent extends BaseComponent
         $this->validate([
             'nom' => [
                 "required",
-                Rule::unique((new Filiere())->getTable(), "nom")->ignore($this->filiere->id)
+                Rule::unique((new Option())->getTable(), "nom")->ignore($this->filiere->id)
 
             ],
             'code' => [
                 "required",
-                Rule::unique((new Filiere)->getTable(), "code")->ignore($this->filiere->id)
+                Rule::unique((new Option)->getTable(), "code")->ignore($this->filiere->id)
 
             ],
             'option_id' => 'required|numeric',

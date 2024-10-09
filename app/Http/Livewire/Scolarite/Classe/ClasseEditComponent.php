@@ -7,7 +7,6 @@ use App\Http\Livewire\BaseComponent;
 use App\Models\Annee;
 use App\Models\Classe;
 use App\Models\ClasseEnseignant;
-use App\Models\Filiere;
 use App\Models\Option;
 use App\Models\Section;
 use App\Traits\CanHandleClasseCode;
@@ -59,19 +58,19 @@ class ClasseEditComponent extends BaseComponent
         $this->code = $this->classe->code;
         $this->loadFilieresData();
         $classable = $classe->filierable;
-        if ($classable instanceof Filiere) {
+        if ($classable instanceof Option) {
             $this->filiere_id = $this->classe->filierable_id;
-            $fily = Filiere::find($this->filiere_id);
+            $fily = Option::find($this->filiere_id);
             $this->option_id = $fily->option_id;
             $this->section_id = $fily->option->section_id;
             $this->options = Option::where("section_id", $this->section_id)->orderBy('nom')->get();
-            $this->filieres = Filiere::where("option_id", $this->option_id)->orderBy('nom')->get();
+            $this->filieres = Option::where("option_id", $this->option_id)->orderBy('nom')->get();
         } else if ($classable instanceof Option) {
             $this->option_id = $this->classe->filierable_id;
             $opy = Option::find($this->option_id);
             $this->section_id = $opy->section_id;
             $this->options = Option::where("section_id", $this->section_id)->orderBy('nom')->get();
-            $this->filieres = Filiere::where("option_id", $this->option_id)->orderBy('nom')->get();
+            $this->filieres = Option::where("option_id", $this->option_id)->orderBy('nom')->get();
         } else if ($classable instanceof Section) {
             $this->section_id = $this->classe->filierable_id;
         }
@@ -92,7 +91,7 @@ class ClasseEditComponent extends BaseComponent
         $this->classe->code = $this->code;
 
         if ($this->filiere_id > 0) {
-            $filiere = Filiere::find($this->filiere_id);
+            $filiere = Option::find($this->filiere_id);
             $filiere->classes()->save($this->classe);
         } else if ($this->option_id > 0) {
             $option = Option::find($this->option_id);
