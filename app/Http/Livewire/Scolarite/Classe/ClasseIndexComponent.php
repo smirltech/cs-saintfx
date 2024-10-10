@@ -32,7 +32,7 @@ class ClasseIndexComponent extends BaseComponent
 
     public function loadData()
     {
-        $this->classes = Classe::orderBy('code')->get();
+        $this->classes = Classe::orderBy('section_id')->orderBy('code')->get();
     }
 
 
