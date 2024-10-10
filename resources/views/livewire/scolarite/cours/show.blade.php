@@ -14,9 +14,9 @@
         <div class="col-6">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('scolarite') }}">Accueil</a></li>
-                <li class="breadcrumb-item"><a href="{{ $parent_url }}">{{$classe->filierable->nom}}</a></li>
+                <li class="breadcrumb-item"><a href="{{ $parent_url }}">{{$classe->parent->nom}}</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('scolarite.classes.index') }}">Classes</a></li>
-                <li class="breadcrumb-item active">{{$classe->grade->label()}}</li>
+                <li class="breadcrumb-item active">{{$classe->niveau->label()}}</li>
             </ol>
         </div>
     </div>
@@ -31,7 +31,7 @@
                     <div class="card card-primary card-outline">
                         <div class="card-header">
                             <div class="card-title">
-                                <h4 class="m-0">{{$classe->grade->label()}}</h4>
+                                <h4 class="m-0">{{$classe->niveau->label()}}</h4>
                             </div>
                             <div class="card-tools">
                                 <a href="/scolarite/classes/{{ $classe->id }}/edit" title="modifier"
@@ -43,7 +43,7 @@
                         <div class="card-body">
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
-                                    <b>Grade : </b> <span class="float-right">{{ $classe->grade->label() }}</span>
+                                    <b>Niveau : </b> <span class="float-right">{{ $classe->niveau->label() }}</span>
                                 </li>
                                 <li class="list-group-item">
                                     <b>Code : </b> <span class="float-right">{{ $classe->code }}</span>
@@ -53,7 +53,7 @@
                                 </li>
                                 <li class="list-group-item">
                                     <b>{{ $parent }} : </b> <span class="float-right"> <a
-                                            href="{{ $parent_url }}">{{  $classe->filierable->nom }}</a>
+                                            href="{{ $parent_url }}">{{  $classe->parent->nom }}</a>
          </span>
                                 </li>
                             </ul>

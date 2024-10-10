@@ -1,4 +1,4 @@
-@php use App\Enums\ClasseGrade;use App\Enums\Sexe; @endphp
+@php use App\Enums\ClasseNiveau;use App\Enums\Sexe; @endphp
 @section('title',$title)
 @section('content_header')
     <div class="row">
@@ -26,32 +26,29 @@
                         <div class="row">
                             <div class="form-group col-md-4">
                                 <x-form::input
-                                    required
-                                    wire:model="enseignant.nom"
-                                    label="Nom"/>
+                                        required
+                                        wire:model="enseignant.nom"
+                                        label="Nom"/>
                             </div>
 
                             <div class="form-group col-md-4">
                                 <x-form::input
-                                    required
-                                    wire:model="enseignant.telephone"
-                                    label="Téléphone"/>
+                                        wire:model="enseignant.telephone"
+                                        label="Téléphone"/>
                             </div>
 
                             <div class="form-group col-md-4">
                                 <x-form::input
-                                    required
-                                    wire:model="enseignant.email"
-                                    label="E-mail"
-                                    type="email"/>
+                                        wire:model="enseignant.email"
+                                        label="E-mail"
+                                        type="email"/>
                             </div>
 
 
                             <div class="form-group col-md-4">
                                 <x-form::select
-                                    required
-                                    wire:model="enseignant.sexe"
-                                    label="Sexe">
+                                        wire:model="enseignant.sexe"
+                                        label="Sexe">
                                     @foreach(Sexe::cases() as $sexe)
                                         <option value="{{ $sexe }}">{{ $sexe->label() }}</option>
                                     @endforeach
@@ -59,29 +56,26 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <x-form::input
-                                    required
-                                    wire:model="enseignant.date_naissance"
-                                    label="Date de naissance"
-                                    type="date"/>
+                                        wire:model="enseignant.date_naissance"
+                                        label="Date de naissance"
+                                        type="date"/>
                             </div>
                             <div class="form-group col-md-4">
                                 <x-form::input
-                                    required
-                                    wire:model="enseignant.lieu_naissance"
-                                    label="Lieu de naissance"/>
+                                        wire:model="enseignant.lieu_naissance"
+                                        label="Lieu de naissance"/>
                             </div>
                             <div class="form-group col-md-4">
                                 <x-form::input
-                                    required
-                                    wire:model="enseignant.adresse"
-                                    label="Adresse"/>
+                                        wire:model="enseignant.adresse"
+                                        label="Adresse"/>
                             </div>
 
                             <div class="form-group col-md-4">
                                 <x-form::select
-                                    required
-                                    wire:model="enseignant.section_id"
-                                    label="Section">
+                                        required
+                                        wire:model="enseignant.section_id"
+                                        label="Section">
                                     @foreach($sections as $section)
                                         <option value="{{ $section->id }}">{{ $section->nom }}</option>
                                     @endforeach

@@ -14,14 +14,14 @@ class InscriptionsImport
 {
     public function __construct(
         private readonly string $anneeId,
-        private readonly string $classeId
+        private readonly ?string $classeId
     )
     {
         //
     }
 
     // build
-    public static function build(string $anneeId, string $classeId): self
+    public static function build(string $anneeId, ?string $classeId): self
     {
         return new self(anneeId: $anneeId, classeId: $classeId);
     }

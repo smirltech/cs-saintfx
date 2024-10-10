@@ -7,32 +7,38 @@ use Illuminate\Database\Seeder;
 
 class OptionSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
-        foreach ($this->data() as $option) {
-            Option::updateOrCreate(['nom' => $option['nom']], $option);
+//        Option::truncate();
+        foreach ($this->data() as $faculte) {
+            Option::create($faculte);
         }
     }
 
-    private function data()
+    private function data(): array
     {
         return [
             [
-                'nom' => 'Education de Base',
+                'nom' => 'Etudes de Base',
                 'code' => 'EB',
-                'section_id' => 3,
             ],
             [
-                'nom' => 'Humanité',
-                'code' => 'HUM',
-                'section_id' => 3,
-            ],
-            [
-                'nom' => 'Technique',
-                'code' => 'TEC',
-                'section_id' => 3,
-            ],
+                'nom' => 'Humanités Scientifiques',
+                'code' => 'SC',
 
+            ],
+            [
+                'nom' => 'Techniques Coupe et Couture',
+                'code' => 'CC',
+            ],
+            [
+                'nom' => 'Humanités Commerciales et Gestion',
+                'code' => 'CG',
+            ],
+            [
+                'nom' => 'Humanités Eléctricité',
+                'code' => 'EL',
+            ],
         ];
     }
 }

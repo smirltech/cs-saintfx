@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use SmirlTech\LaravelMedia\Traits\HasAvatar;
 
 class Enseignant extends Model
@@ -24,10 +25,11 @@ class Enseignant extends Model
 
     // classes
 
-    public function getClasseAttribute()
+    public function classe(): HasOne
     {
-        return $this->classes()->where('annee_id', Annee::encours()->id)->first();
+        return $this->hasOne(Classe::class);
     }
+
 
     public function classes(): BelongsToMany
     {

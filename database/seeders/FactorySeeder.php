@@ -47,10 +47,10 @@ class FactorySeeder extends Seeder
             User::factory(5)->create();
 
             Eleve::factory(50)->create();
-            Inscription::factory(50)->create();
+            Inscription::factory(10)->create();
 
-            Responsable::factory(1)->create();
-            ResponsableEleve::factory(1)->create();
+            Responsable::factory(10)->create();
+            ResponsableEleve::factory(10)->create();
 
             Enseignant::factory(10)->create();
             ClasseEnseignant::factory(10)->create();
@@ -60,16 +60,16 @@ class FactorySeeder extends Seeder
 
             Presence::factory(10)->create();
 
-            Resultat::factory(10)->create();
+           // Resultat::factory(10)->create();
 
-            Devoir::factory(10)->create();
-            DevoirReponse::factory(10)->create();
+            //Devoir::factory(10)->create();
+           // DevoirReponse::factory(10)->create();
 
             # Finance
-            Revenu::factory(50)->create();
-            Depense::factory(50)->create();
-            Paiment::factory(50)->create();
-            Perception::factory(50)->create();
+            Revenu::factory(10)->create();
+            Depense::factory(10)->create();
+            Paiment::factory(10)->create();
+            Perception::factory(10)->create();
             MaterielCategory::factory(5)->create();
             Materiel::factory(10)->create();
             Mouvement::factory(15)->create();

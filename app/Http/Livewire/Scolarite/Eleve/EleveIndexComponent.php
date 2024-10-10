@@ -23,7 +23,7 @@ class EleveIndexComponent extends BaseComponent
     /**
      * @throws AuthorizationException
      */
-    public function mount()
+    public function mount(): void
     {
         $this->authorize('viewAny', Eleve::class);
         $this->loadData();

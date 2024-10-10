@@ -180,7 +180,7 @@ class EleveShowComponent extends BaseComponent
 
         $classe = $inscription->classe;
         $this->inscription2_classe_id = $classe->id;
-        $filierable = $classe->filierable;
+        $filierable = $classe->parent;
 
         if ($filierable instanceof Option) {
             $this->inscription2_filiere_id = $filierable->id;
@@ -203,7 +203,7 @@ class EleveShowComponent extends BaseComponent
 
         $this->options = Option::where('section_id', $this->inscription2_section_id)->orderBy('nom')->get();
         $this->filieres = Option::where('option_id', $this->inscription2_option_id)->orderBy('nom')->get();
-        // $this->classes = Classe::orderBy('grade')->get();
+        // $this->classes = Classe::orderBy('niveau')->get();
         $this->loadAvailableClasses();
         // dd($inscription);
     }

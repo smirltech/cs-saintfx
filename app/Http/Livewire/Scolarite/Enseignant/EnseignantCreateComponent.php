@@ -21,18 +21,6 @@ class EnseignantCreateComponent extends BaseComponent
 
     public Enseignant $enseignant;
     public Collection $sections;
-    protected $messages = [
-        'enseignant.nom.required' => 'Le nom est obligatoire',
-        'enseignant.nom.unique' => 'Le nom existe déjà',
-        'enseignant.email.required' => 'L\'email est obligatoire',
-        'enseignant.email.unique' => 'L\'email existe déjà',
-        'enseignant.telephone.required' => 'Le téléphone est obligatoire',
-        'enseignant.telephone.unique' => 'Le téléphone existe déjà',
-        'enseignant.section_id.required' => 'La section est requise',
-        'enseignant.lieu_naissance.required' => 'Le lieu de naissance est obligatoire',
-        'enseignant.date_naissance.required' => 'La date de naissance est obligatoire',
-        'enseignant.date_naissance.before' => 'L\'âge doit être supérieur à 18 ans',
-    ];
 
     #[NoReturn] public function submit(): void
     {
@@ -70,13 +58,13 @@ class EnseignantCreateComponent extends BaseComponent
     {
         return [
             'enseignant.nom' => 'required|unique:enseignants,nom',
-            'enseignant.email' => 'required|unique:enseignants,email',
-            'enseignant.telephone' => 'required|unique:enseignants,telephone',
+            'enseignant.email' => 'nullable|unique:enseignants,email',
+            'enseignant.telephone' => 'nullable|unique:enseignants,telephone',
             'enseignant.section_id' => 'required',
-            'enseignant.sexe' => 'required',
-            'enseignant.date_naissance' => 'required|date|before:today-18 years',
-            'enseignant.lieu_naissance' => 'required',
-            'enseignant.adresse' => 'required',
+            'enseignant.sexe' => 'nullable',
+            'enseignant.date_naissance' => 'nullable|date|before:today-18 years',
+            'enseignant.lieu_naissance' => 'nullable',
+            'enseignant.adresse' => 'nullable',
         ];
     }
 

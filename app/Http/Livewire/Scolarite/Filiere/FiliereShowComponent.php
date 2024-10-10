@@ -32,7 +32,7 @@ class FiliereShowComponent extends BaseComponent
 
     public $filiere;
 
-    public $classe_grade;
+    public $classe_niveau;
     public $classe_code;
 
     protected $rules = [
@@ -65,14 +65,14 @@ class FiliereShowComponent extends BaseComponent
         $this->loadData();
     }
 
-    // updated classe_grade
+    // updated classe_niveau
 
     public function loadData()
     {
         //  $this->filieres = Option::/* orderBy('encours', 'DESC')-> */ orderBy('nom', 'ASC')->get();
     }
 
-    public function updatedClasseGrade()
+    public function updatedClasseNiveau()
     {
         $this->setCode();
     }
@@ -176,7 +176,7 @@ class FiliereShowComponent extends BaseComponent
         ]);
 
         $classe = new Classe();
-        $classe->grade = $this->classe_grade;
+        $classe->niveau = $this->classe_grade;
         $classe->code = $this->classe_code;
 
         $this->filiere->classes()->save($classe);

@@ -126,7 +126,7 @@
                                     @foreach ($classes as $classe)
                                         <tr>
                                             <td>{{ $classe->code }}</td>
-                                            <td>{{ $classe->grade->label() }}</td>
+                                            <td>{{ $classe->niveau->label() }}</td>
                                             {{-- <td>
                                                  <div class="d-flex float-right">
                                                      <a href="/scolarite/classes/{{ $classe->id }}" title="Voir"

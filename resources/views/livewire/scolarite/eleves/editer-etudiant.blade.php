@@ -11,10 +11,10 @@
                     <form wire:submit.prevent="submit">
                         <div class="row">
                             <div class="form-group col-10">
-                                <label for="">Grade</label>
-                                <input type="text" wire:model="promotion.grade"
-                                       class="form-control  @error('promotion.grade') is-invalid @enderror">
-                                @error('promotion.grade')
+                                <label for="">Niveau</label>
+                                <input type="text" wire:model="promotion.niveau"
+                                       class="form-control  @error('promotion.niveau') is-invalid @enderror">
+                                @error('promotion.niveau')
                                 <span class="text-red">{{ $message }}</span>
                                 @enderror
                             </div>

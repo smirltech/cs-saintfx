@@ -75,7 +75,7 @@ class FraisCreateComponent extends BaseComponent
 //
 //        return view('livewire.finance.frais.create_update-frais', [
 //            'facultes' => Faculte::all(),
-//            'grades' => PromotionGrade::cases(),
+//            'grades' => PromotionNiveau::cases(),
 //            'currencies' => Devise::cases(),
 //            'types' => FraisType::cases(),
 //        ]);

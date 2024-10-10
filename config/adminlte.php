@@ -473,14 +473,6 @@ return [
             'url' => 'scolarite/classes',
             'can' => 'classes.view.*',
         ],
-
-
-        [
-            'text' => 'Filières',
-            'url' => 'scolarite/filieres',
-            'icon' => 'fas fa-fw fa-layer-group',
-            'can' => 'filieres.view.*',
-        ],
         [
             'text' => 'Options',
             'url' => 'scolarite/options',

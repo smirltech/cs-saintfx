@@ -79,7 +79,7 @@
                                                 <td>{{ $classe->code }}</td>
 
                                                 <td>
-                                                    <a href="{{$classe->parent_url}}">{{ $classe->filierable->fullName }}</a>
+                                                    <a href="{{$classe->parent_url}}">{{ $classe->parent->nom }}</a>
                                                 </td>
                                                 <td>
                                                     {{ $classe->inscriptions->count() }}

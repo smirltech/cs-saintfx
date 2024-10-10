@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
-use App\Enums\ClasseGrade;
+use App\Enums\ClasseNiveau;
 use App\Enums\FraisType;
 use App\Enums\ResultatType;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
@@ -20,17 +21,9 @@ class Classe extends Model
     public $guarded = [];
 
     protected $casts = [
-        'grade' => ClasseGrade::class,
-
+        'niveau' => ClasseNiveau::class,
     ];
 
-    /*
-     * Get parents that can be Section, Option or Option
-     * */
-    public function filierable(): MorphTo
-    {
-        return $this->morphTo();
-    }
 
     public function inscriptionsAsOfPlaceOfResultats(ResultatType $resultatType)
     {
@@ -54,35 +47,22 @@ class Classe extends Model
         return $this->belongsToMany(Eleve::class, 'inscriptions')->where('annee_id', Annee::encours()->id);
     }
 
-    // eleves
-
-    public function getFullNameAttribute(): string
-    {
-        return "{$this->filierable?->fullName} {$this->grade->value}";
-    }
-
-    // full_name
-
-    public function getFullReverseNameAttribute(): string
-    {
-        return "{$this->grade->value} - {$this->filierable?->fullName}";
-    }
 
     public function getNomAttribute(): string
     {
-        return $this->full_reverse_name;
+        return "{$this->niveau?->label()} - {$this->parent?->nom}";
     }
 
     public function getFullCodeAttribute(): string
     {
-        return "{$this->grade->value} {$this->filierable?->fullCode}";
+        return "{$this->niveau->value} {$this->parent?->fullCode}";
     }
 
     // full_name
 
     public function getShortCodeAttribute(): string
     {
-        return "{$this->grade->value} {$this->filierable?->shortCode}";
+        return "{$this->niveau->value} {$this->parent?->shortCode}";
     }
 
     // full_name
@@ -90,23 +70,19 @@ class Classe extends Model
     public function getParentUrlAttribute(): ?string
     {
         $parent_url = '';
-        $classable = $this->filierable;
-        if ($classable instanceof Option) {
-            $parent_url = route('scolarite.filieres.show', $classable->id);
-        } elseif ($classable instanceof Option) {
-            $parent_url = route('scolarite.options.show', $classable->id);
-        } elseif ($classable instanceof Section) {
-            $parent_url = route('scolarite.sections.show', $classable->id);
+        $parent = $this->parent;
+       if ($parent instanceof Option) {
+            $parent_url = route('scolarite.options.show', $parent->id);
+        } elseif ($parent instanceof Section) {
+            $parent_url = route('scolarite.sections.show', $parent->id);
         }
 
         return $parent_url;
     }
 
-    // parent_url
-
-    public function enseignantsPrimaire(): BelongsToMany
+    public function getParentAttribute(): Option|Section|null
     {
-        return $this->belongsToMany(Enseignant::class, 'classe_enseignants')->where('annee_id', Annee::encours()->id);
+       return  $this->option??$this->section;
     }
 
     public function enseignants(): BelongsToMany
@@ -126,61 +102,21 @@ class Classe extends Model
         return $this->hasMany(CoursEnseignant::class)->where('annee_id', Annee::encours()->id);
     }
 
-    public function getSectionIdAttribute(): ?int
-    {
-        $classable = $this->filierable;
-        if ($classable instanceof Option) {
-            return $classable->option->section_id;
-        } elseif ($classable instanceof Option) {
-            return $classable->section_id;
-        } elseif ($classable instanceof Section) {
-            return $classable->id;
-        }
 
-        return null;
+    public function section(): BelongsTo
+    {
+        return $this->belongsTo(Section::class);
     }
 
-    public function getOptionIdAttribute(): ?int
+    public function option(): BelongsTo
     {
-        $classable = $this->filierable;
-        if ($classable instanceof Option) {
-            return $classable->option->id;
-        } elseif ($classable instanceof Option) {
-            return $classable->id;
-        }
-
-        return null;
+        return $this->belongsTo(Option::class);
     }
 
-    public function getFiliereIdAttribute(): ?int
+
+    public function enseignant(): BelongsTo
     {
-        $classable = $this->filierable;
-        if ($classable instanceof Option) {
-            return $classable->id;
-        }
-
-        return null;
-    }
-
-    // get section id from filierable attribute
-
-    public function getSectionAttribute(): ?Section
-    {
-        return Section::find($this->section_id);
-    }
-
-    // get section from section_id attribute
-
-    public function getEnseignantIdAttribute(): ?string
-    {
-        return $this->enseignantsPrimaire->first()?->pivot->enseignant_id;
-    }
-
-    // get enseignant id from classe enseignant pivot table
-
-    public function getEnseignantAttribute(): ?Enseignant
-    {
-        return Enseignant::find($this->enseignant_id);
+        return $this->belongsTo(Enseignant::class);
     }
 
     // get enseignant from enseignant_id attribute

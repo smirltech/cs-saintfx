@@ -10,15 +10,15 @@ trait ClasseCode
     // set code
     public function setCode()
     {
-        if ($this->grade and $this->filiere_id) {
+        if ($this->niveau and $this->filiere_id) {
             $filiere = Option::find($this->filiere_id);
-            $this->code = "{$this->grade} {$filiere->code}";
-        }else if ($this->grade and $this->option_id) {
+            $this->code = "{$this->niveau} {$filiere->code}";
+        }else if ($this->niveau and $this->option_id) {
             $option = Option::find($this->option_id);
-            $this->code = "{$this->grade} {$option->code}";
-        }else if ($this->grade and $this->section_id) {
+            $this->code = "{$this->niveau} {$option->code}";
+        }else if ($this->niveau and $this->section_id) {
             $section = Section::find($this->section_id);
-            $this->code = "{$this->grade} {$section->code}";
+            $this->code = "{$this->niveau} {$section->code}";
         }
     }
 

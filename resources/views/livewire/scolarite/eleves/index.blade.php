@@ -29,7 +29,7 @@ $data=[];
                 $eleve->inscription?$eleve->inscription->annee?->id==Annee::id() ? $eleve->classe?->code: $eleve->classe?->code.' ('.$eleve->inscription?->annee->name.')':'',
                   '<a href="' . route("scolarite.responsables.show",$eleve->responsable_eleve->responsable??'0').'">' .$eleve->responsable_eleve?->responsable?->nom. '</a>',
              /*   $eleve->inscription?->status? '<a href="'.route('scolarite.inscriptions.status',['status'=>$eleve->inscription?->status->name]).'"><span class="badge bg-gradient-'.$eleve->inscription?->status->variant().'">'. $eleve->inscription?->status->label(Sexe::f).'</span></a>':'',*/
-                $eleve->inscription?->created_at->format('Y-m-d')??$eleve->created_at->format('Y-m-d'),
+               $eleve->created_at->format('Y-m-d H:i'),
                 '<nobr>' . $btn1. '</nobr>',
             ];
 

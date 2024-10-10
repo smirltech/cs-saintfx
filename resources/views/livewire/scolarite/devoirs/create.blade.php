@@ -1,4 +1,4 @@
-@php use App\Enums\ClasseGrade; @endphp
+@php use App\Enums\ClasseNiveau; @endphp
 @section('title')
     - Création d'un devoir
 @endsection
@@ -36,7 +36,7 @@
                                                     error="{{$errors->first('devoir.classe_id')}}">
                                         @foreach($classes as $classe)
                                             <option
-                                                value="{{$classe->id}}">
+                                                    value="{{$classe->id}}">
                                                 {{$classe->code}}
                                             </option>
                                         @endforeach
@@ -70,11 +70,11 @@
 
                                 <div class="form-group col-md-12">
                                     <x-form::ckeditor
-                                        required
-                                        placeholder="Saisir le contenu du devoir"
-                                        wire:model="devoir.contenu"
-                                        label="Contenu du devoir"
-                                        rows="10"
+                                            required
+                                            placeholder="Saisir le contenu du devoir"
+                                            wire:model="devoir.contenu"
+                                            label="Contenu du devoir"
+                                            rows="10"
                                     />
 
 

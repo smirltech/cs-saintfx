@@ -1,4 +1,4 @@
-@php use App\Enums\ClasseGrade; @endphp
+@php use App\Enums\ClasseNiveau; @endphp
 @section('title')
     - ajouter cours
 @endsection

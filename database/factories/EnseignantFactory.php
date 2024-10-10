@@ -26,7 +26,7 @@ class EnseignantFactory extends Factory
             'date_naissance' => $this->faker->date(),
             'lieu_naissance' => $this->faker->city(),
             'nationalite' => $this->faker->country(),
-            'grade' => $this->faker->sentence(3),
+            'niveau' => $this->faker->sentence(3),
             'specialite' => $this->faker->sentence(3),
             'diplome' => $this->faker->sentence(3),
             'date_embauche' => $this->faker->date(),

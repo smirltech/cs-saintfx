@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Enums\ClasseGrade;
+use App\Enums\ClasseNiveau;
 use App\Models\Classe;
 use App\Models\Option;
 use App\Models\Section;
@@ -17,116 +17,53 @@ class ClasseSeeder extends Seeder
         }
     }
 
-    private function data()
+    private function data(): array
     {
         return [
             [
-                'grade' => ClasseGrade::g1,
-                'filierable_id' => 1,
-                'filierable_type' => Section::class,
+                'niveau' => ClasseNiveau::n1,
+                'section_id' => 1,
                 'code' => '1MAT',
             ],
             [
-                'grade' => ClasseGrade::g2,
-                'filierable_id' => 1,
-                'filierable_type' => Section::class,
+                'niveau' => ClasseNiveau::n2,
+                'section_id' => 1,
                 'code' => '2MAT',
             ],
             [
-                'grade' => ClasseGrade::g3,
-                'filierable_id' => 1,
-                'filierable_type' => Section::class,
+                'niveau' => ClasseNiveau::n3,
+                'section_id' => 1,
                 'code' => '3MAT',
             ],
             [
-                'grade' => ClasseGrade::g1,
-                'filierable_id' => 2,
-                'filierable_type' => Section::class,
-                'code' => ClasseGrade::g1,
+                'niveau' => ClasseNiveau::n1,
+                'section_id' => 2,
+                'code' => '1P',
             ],
             [
-                'grade' => ClasseGrade::g2,
-                'filierable_id' => 2,
-                'filierable_type' => Section::class,
-                'code' => ClasseGrade::g2,
+                'niveau' => ClasseNiveau::n2,
+                'section_id' => 2,
+                'code' => '2P',
             ],
             [
-                'grade' => ClasseGrade::g3,
-                'filierable_id' => 2,
-                'filierable_type' => Section::class,
-                'code' => ClasseGrade::g3,
+                'niveau' => ClasseNiveau::n3,
+                'section_id' => 2,
+                'code' => '3P',
             ],
             [
-                'grade' => ClasseGrade::g4,
-                'filierable_id' => 2,
-                'filierable_type' => Section::class,
-                'code' => ClasseGrade::g4,
+                'niveau' => ClasseNiveau::n4,
+                'section_id' => 2,
+                'code' => '4P',
             ],
             [
-                'grade' => ClasseGrade::g5,
-                'filierable_id' => 2,
-                'filierable_type' => Section::class,
-                'code' => ClasseGrade::g5,
+                'niveau' => ClasseNiveau::n5,
+                'section_id' => 2,
+                'code' => '5P',
             ],
             [
-                'grade' => ClasseGrade::g6,
-                'filierable_id' => 2,
-                'filierable_type' => Section::class,
-                'code' => ClasseGrade::g6,
-            ],
-            [
-                'grade' => ClasseGrade::g7,
-                'filierable_id' => 1,
-                'filierable_type' => Option::class,
-                'code' => ClasseGrade::g7,
-            ],
-            [
-                'grade' => ClasseGrade::g8,
-                'filierable_id' => 1,
-                'filierable_type' => Option::class,
-                'code' => ClasseGrade::g8,
-            ],
-            [
-                'grade' => ClasseGrade::g1,
-                'filierable_id' => 1,
-                'filierable_type' => Option::class,
-                'code' => '1HP',
-            ],
-            [
-                'grade' => ClasseGrade::g2,
-                'filierable_id' => 1,
-                'filierable_type' => Option::class,
-                'code' => '2HP',
-            ],
-            [
-                'grade' => ClasseGrade::g1,
-                'filierable_id' => 2,
-                'filierable_type' => Option::class,
-                'code' => '1HL',
-            ],
-            [
-                'grade' => ClasseGrade::g1,
-                'filierable_id' => 3,
-                'filierable_type' => Option::class,
-                'code' => '1HS',
-            ],
-            [
-                'grade' => ClasseGrade::g1,
-                'filierable_id' => 4,
-                'filierable_type' => Option::class,
-                'code' => '1MEC',
-            ],
-            [
-                'grade' => ClasseGrade::g1,
-                'filierable_id' => 5,
-                'filierable_type' => Option::class,
-                'code' => '1ELE',
-            ],
-            [
-                'grade' => ClasseGrade::g1,
-                'filierable_id' => 6,
-                'filierable_type' => Option::class,
-                'code' => '1TCC',
+                'niveau' => ClasseNiveau::n6,
+                'section_id' => 2,
+                'code' => '6P',
             ],
         ];
     }

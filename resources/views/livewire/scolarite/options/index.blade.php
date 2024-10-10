@@ -48,7 +48,6 @@
                                 <tr>
                                     <th style="width: 200px">CODE</th>
                                     <th>OPTION</th>
-                                    <th>SECTION</th>
                                     <th style="width: 100px"></th>
                                 </tr>
                                 </thead>
@@ -57,9 +56,6 @@
                                     <tr>
                                         <td>{{ $option->code }}</td>
                                         <td>{{ $option->nom }}</td>
-                                        <td><a title="voir cette section"
-                                               href="/scolarite/sections/{{ $option->section->id }}">{{ $option->section->nom }}</a>
-                                        </td>
                                         <td>
                                             <div class="d-flex float-right">
                                                 @can('options.view', $option)

@@ -1,5 +1,4 @@
 @php use App\Models\Option; @endphp
-@php use App\Models\Option; @endphp
 @php use App\Models\Section; @endphp
 @php
     $heads =[

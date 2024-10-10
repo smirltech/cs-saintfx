@@ -2,10 +2,12 @@
 
 namespace App\Enums;
 
-enum InscriptionCategorie: string
+enum InscriptionCategorie: int
 {
-    case normal = "normal";
-    case enseignant = 'enseignant';
+    case normal = 1;
+    case enseignant = 2;
+    case enfant_4 = 3;
+    case enfant_5 = 4;
 
     // label() is a method that a string value
     public function label(): string
@@ -13,6 +15,8 @@ enum InscriptionCategorie: string
         return match ($this) {
             self::normal => 'Normal',
             self::enseignant => 'Enfant d\'enseignant',
+            self::enfant_4 => '4e enfant',
+            self::enfant_5 => '5e enfant',
         };
     }
 }

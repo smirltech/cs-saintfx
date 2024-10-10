@@ -1,4 +1,4 @@
-@php use App\Enums\ClasseGrade;use App\Enums\DevoirStatus; @endphp
+@php use App\Enums\ClasseNiveau;use App\Enums\DevoirStatus; @endphp
 @section('title')
     - {{$devoir->titre}}
 @endsection
@@ -32,7 +32,7 @@
                             <div class="col-6">
                                 @can('devoirs.delete',$devoir)
                                     <x-form::button
-                                        wire:click="deleteDevoir" class="btn btn-sm btn-danger float-right">
+                                            wire:click="deleteDevoir" class="btn btn-sm btn-danger float-right">
                                         <i class="fa fa-trash-alt"></i>
                                     </x-form::button>
                                 @endcan
@@ -50,7 +50,7 @@
                                                     error="{{$errors->first('devoir.classe_id')}}">
                                         @foreach($classes as $classe)
                                             <option
-                                                value="{{$classe->id}}">
+                                                    value="{{$classe->id}}">
                                                 {{$classe->code}}
                                             </option>
                                         @endforeach
@@ -85,13 +85,13 @@
 
                                 <div class="form-group col-md-12">
                                     <x-form::textarea
-                                        required
-                                        placeholder="Saisir le contenu du devoir"
-                                        wire:model.defer="devoir.contenu"
-                                        label="Contenu du devoir"
-                                        rows="10"
-                                        :isValid="$errors->has('devoir.contenu') ? false : null"
-                                        error="{{$errors->first('devoir.contenu')}}"/>
+                                            required
+                                            placeholder="Saisir le contenu du devoir"
+                                            wire:model.defer="devoir.contenu"
+                                            label="Contenu du devoir"
+                                            rows="10"
+                                            :isValid="$errors->has('devoir.contenu') ? false : null"
+                                            error="{{$errors->first('devoir.contenu')}}"/>
                                 </div>
                                 @if($devoir->status!=DevoirStatus::closed)
                                     <div class="form-group col-md-12">

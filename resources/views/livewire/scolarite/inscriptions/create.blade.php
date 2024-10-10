@@ -174,9 +174,8 @@
                                     <x-form::select
                                         label="Categorie"
                                         wire:model="inscription.categorie">
-                                        <option value="" disabled>Choisir categorie...</option>
-                                        @foreach (InscriptionCategorie::cases() as $es )
-                                            <option value="{{$es->name}}">{{ $es->label() }}</option>
+                                         @foreach (InscriptionCategorie::cases() as $es )
+                                            <option value="{{$es}}">{{ $es->label() }}</option>
                                         @endforeach
                                         @error('categorie')
                                         <span class="text-red">{{ $message }}</span>

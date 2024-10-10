@@ -1,104 +1,46 @@
-@php use App\Enums\ClasseGrade;use App\Models\Enseignant; @endphp
-@section('title')
-    - modifier classe - {{$classe->code}}
-@endsection
-@section('content_header')
-    <div class="row">
-        <div class="col-6">
-            <h1 class="ms-3">Modifier classe - {{$classe->code}}</h1>
-        </div>
+@php use App\Enums\ClasseNiveau;use App\Models\Enseignant;use App\Models\Option; @endphp
+<x-modals::form>
+    <x-form::select
+        wire:model="section_id"
+        label="Section"
+        required>
+        @foreach ($sections as $section )
+            <option value="{{ $section->id }}">{{ $section->nom }}</option>
+        @endforeach
+    </x-form::select>
 
-        <div class="col-6">
-            <ol class="breadcrumb float-right">
-                <li class="breadcrumb-item"><a href="{{ route('scolarite') }}">Accueil</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('scolarite.classes.index') }}">Classes</a></li>
-                <li class="breadcrumb-item active">{{$classe->code}}</li>
-            </ol>
-        </div>
-    </div>
+    @if($section_id == 3)
+        <x-form::select
+            required
+            refresh
+            wire:model="option_id"
+            label="Option">
+            @foreach (Option::all() as $option )
+                <option value="{{ $option->id }}">{{ $option->nom }}</option>
+            @endforeach
+        </x-form::select>
+    @endif
+    <x-form::select
+        label="Niveau"
+        required
+        wire:model="classe.niveau">
+        @foreach (ClasseNiveau::cases() as $niveau )
+            <option value="{{ $niveau->value}}">{{ $niveau->label() }}</option>
+        @endforeach
+    </x-form::select>
 
-@stop
-<div class="">
-    <div class="content mt-3">
-        <div class="container-fluid">
-            <div class="card">
+    <x-form::input
+        required
+        type="text"
+        readonly
+        label="Code"
+        wire:model="classe.code"/>
 
-                <div class="card-body">
-                    <x-form::validation-errors hidden class="mb-4" :errors="$errors"/>
-                    <form wire:submit.prevent="submit">
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <x-form::select
-                                    label="Niveau"
-                                    required
-                                    wire:model="grade">
-                                    @foreach (ClasseGrade::cases() as $grade )
-                                        <option value="{{ $grade->value}}">{{ $grade->label() }}</option>
-                                    @endforeach
-                                </x-form::select>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <x-form::input
-                                    required
-                                    type="text"
-                                    label="Code"
-                                    wire:model="code"/>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-4">
-                                <x-form::select
-                                    wire:model="section_id"
-                                    label="Section"
-                                    required>
-                                    <option value="">Choisir section</option>
-                                    @foreach ($sections as $section )
-                                        <option value="{{ $section->id }}">{{ $section->nom }}</option>
-                                    @endforeach
-                                </x-form::select>
-                            </div>
-                            @if($section_id==3)
-                                <div class="form-group col-md-4">
-                                    <x-form::select
-                                        refresh
-                                        wire:model="option_id"
-                                        label="Option"
-                                        class="form-control">
-                                        @foreach ($options as $option )
-                                            <option value="{{ $option->id }}">{{ $option->nom }}</option>
-                                        @endforeach
-                                    </x-form::select>
-
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <x-form::select
-                                        label="Filière"
-                                        refresh
-                                        wire:change="setCode"
-                                        wire:model="filiere_id">
-                                        @foreach ($filieres as $filiere )
-                                            <option value="{{ $filiere->id }}">{{ $filiere->nom }}</option>
-                                        @endforeach
-                                    </x-form::select>
-                                </div>
-                            @endif
-                            @if($section_id==1 or $section_id==2)
-                                <div class="form-group col-md-4">
-                                    <x-form::select
-                                        wire:model="enseignant_id"
-                                        label="Enseignant">
-                                        @foreach(Enseignant::classe($classe)->get() as $c)
-                                            <option value="{{ $c->id }}">{{ $c->nom }}</option>
-                                        @endforeach
-                                    </x-form::select>
-                                </div>
-                            @endif
-                        </div>
-                        <button type="submit" class="btn btn-primary">Soumettre</button>
-                    </form>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
+    <x-form::select
+        wire:model="enseignant_id"
+        label="Titulaire">
+        @foreach(Enseignant::all() as $c)
+            <option value="{{ $c->id }}">{{ $c->nom }}</option>
+        @endforeach
+    </x-form::select>
+</x-modals::form>

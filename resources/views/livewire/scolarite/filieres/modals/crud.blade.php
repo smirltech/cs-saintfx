@@ -1,5 +1,5 @@
 {{-- Add Option --}}
-@php use App\Enums\ClasseGrade; @endphp
+@php use App\Enums\ClasseNiveau; @endphp
 <div wire:ignore.self class="modal fade" tabindex="-1" id="add-filiere-modal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -17,40 +17,40 @@
                     <div class="row">
                         <div class="form-group col-md-9">
                             <x-form::input
-                                label="Nom"
-                                required
-                                type="text"
-                                wire:model="nom"/>
+                                    label="Nom"
+                                    required
+                                    type="text"
+                                    wire:model="nom"/>
                         </div>
                         <div class="form-group col-md-3">
                             <x-form::input
-                                type="text"
-                                required
-                                wire:model="code"
-                                label="Code"/>
+                                    type="text"
+                                    required
+                                    wire:model="code"
+                                    label="Code"/>
                         </div>
 
                         <div class="form-group col-6">
                             <x-form::select
-                                required
-                                wire:model="section_id"
-                                wire:change="changeSection"
-                                label="Section"
-                                :options="$sections"/>
+                                    required
+                                    wire:model="section_id"
+                                    wire:change="changeSection"
+                                    label="Section"
+                                    :options="$sections"/>
                         </div>
                         <div class="form-group col-6">
                             <x-form::select
-                                wire:model="option_id"
-                                required
-                                refresh
-                                label="Option"
-                                :options="$options"/>
+                                    wire:model="option_id"
+                                    required
+                                    refresh
+                                    label="Option"
+                                    :options="$options"/>
                         </div>
                         <div class="form-group col-md-12">
                             <x-form::ckeditor
-                                label="Description"
-                                wire:model="description"
-                                class="form-control"/>
+                                    label="Description"
+                                    wire:model="description"
+                                    class="form-control"/>
                         </div>
                     </div>
                 </form>
@@ -84,34 +84,34 @@
                     <div class="row">
                         <div class="form-group col-md-9">
                             <x-form::input
-                                label="Nom"
-                                required
-                                type="text"
-                                wire:model="nom"/>
+                                    label="Nom"
+                                    required
+                                    type="text"
+                                    wire:model="nom"/>
                         </div>
                         <div class="form-group col-md-3">
                             <x-form::input
-                                type="text"
-                                required
-                                wire:model="code"
-                                label="Code"/>
+                                    type="text"
+                                    required
+                                    wire:model="code"
+                                    label="Code"/>
                         </div>
 
                         <div class="form-group col-6">
                             <x-form::select
-                                required
-                                wire:model="section_id"
-                                wire:change="changeSection"
-                                label="Section"
-                                :options="$sections"/>
+                                    required
+                                    wire:model="section_id"
+                                    wire:change="changeSection"
+                                    label="Section"
+                                    :options="$sections"/>
                         </div>
                         <div class="form-group col-6">
                             <x-form::select
-                                wire:model="option_id"
-                                required
-                                refresh
-                                label="Option"
-                                :options="$options"/>
+                                    wire:model="option_id"
+                                    required
+                                    refresh
+                                    label="Option"
+                                    :options="$options"/>
                         </div>
                     </div>
                 </form>
@@ -174,17 +174,17 @@
                     <div class="row">
                         <div class="form-group col-md-6">
                             <x-form::select
-                                label="Grade"
-                                required
-                                wire:change="setCode"
-                                wire:model="classe_grade"
-                                :options="ClasseGrade::cases()"/>
+                                    label="Niveau"
+                                    required
+                                    wire:change="setCode"
+                                    wire:model="classe_niveau"
+                                    :options="ClasseNiveau::cases()"/>
                         </div>
                         <div class="form-group col-md-6">
                             <x-form::input
-                                type="text"
-                                label="Code"
-                                readonly wire:model="classe_code"/>
+                                    type="text"
+                                    label="Code"
+                                    readonly wire:model="classe_code"/>
                         </div>
                     </div>
                 </form>

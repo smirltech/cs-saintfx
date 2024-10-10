@@ -222,7 +222,7 @@
                                         class="form-control @error('promotion_id') is-invalid @enderror">
                             <option value="-1">Choisir la promotion...</option>
                             @foreach ($promotions as $promotion )
-                                <option value="{{ $promotion->id}}">{{ $promotion->grade->label() }}</option>
+                                <option value="{{ $promotion->id}}">{{ $promotion->niveau->label() }}</option>
                             @endforeach
 
                         </x-form::select>
@@ -265,7 +265,7 @@
                                 <option value="-1">Choisir la promotion...</option>
                                 @foreach ($promotions2 as $promotion )
                                     <option
-                                        value="{{ $promotion->id}}">{{ $promotion->grade->label() }}</option>
+                                        value="{{ $promotion->id}}">{{ $promotion->niveau->label() }}</option>
                                 @endforeach
 
                             </x-form::select>

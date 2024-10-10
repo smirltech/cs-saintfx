@@ -68,7 +68,7 @@ class InscriptionCreateComponent extends BaseComponent
         'responsableEleve.relation' => 'nullable',
 
         'inscription.classe_id' => 'required|numeric|min:1|not_in:0',
-        'inscription.categorie' => 'nullable|string',
+        'inscription.categorie' => 'nullable',
 
         'perception.frais_id' => 'nullable',
         'perception.paid_by' => 'nullable',
@@ -107,8 +107,8 @@ class InscriptionCreateComponent extends BaseComponent
 
         $this->saveInscription();
 
-        if ($this->has_paid)
-            $this->savePerception();
+       /* if ($this->has_paid)
+            $this->savePerception();*/
 
         // Todo: uncomment block below to enable the printing of the inscription form
         /* $this->printIt();
@@ -144,10 +144,6 @@ class InscriptionCreateComponent extends BaseComponent
             'annee_id' => Annee::id(),
             'status' => InscriptionStatus::approved->value,
         ])->save();
-        /* } catch (Exception $exception) {
-             $this->error(local: $exception->getMessage(), production: "Echec d'enregistrement de l'inscription !");
-         }
-         return false;*/
     }
 
     public function savePerception(): void
@@ -179,13 +175,6 @@ class InscriptionCreateComponent extends BaseComponent
 
         $classe = Classe::find($this->inscription?->classe_id);
         $this->section_id = $classe?->section_id;
-        //  $frais_inscription = $classe?->frais_inscription;
-
-
-        /* $this->perception->montant = $frais_inscription?->montant;
-         $this->perception->frais_id = $frais_inscription?->id;
-         $this->perception->frequence = $frais_inscription?->frequence;*/
-
     }
 
 }

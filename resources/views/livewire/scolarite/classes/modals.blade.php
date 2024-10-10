@@ -18,7 +18,7 @@
                                             label="Cours"
                                             :isValid="$errors->has('cours_enseignant.cours_id') ? false : null"
                                             error="{{$errors->first('cours_enseignant.cours_id')}}">
-                                @foreach(Cours::classe($classe)->get() as $c)
+                                @foreach(Cours::all() as $c)
                                     <option value="{{ $c->id }}">{{ $c->nom }}</option>
                                 @endforeach
                             </x-form::select>
@@ -30,7 +30,7 @@
                                                 :isValid="$errors->has('cours_enseignant.enseignant_id') ? false : null"
                                                 error="{{$errors->first('cours_enseignant.enseignant_id')}}">
 
-                                    @foreach(Enseignant::classe($classe)->get() as $c)
+                                    @foreach(Enseignant::all() as $c)
                                         <option value="{{ $c->id }}">{{ $c->nom }}</option>
                                     @endforeach
                                 </x-form::select>

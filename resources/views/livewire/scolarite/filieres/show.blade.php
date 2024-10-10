@@ -92,7 +92,7 @@
                                 @foreach ($filiere->classes as $classe)
                                     <tr>
                                         <td>{{ $classe->code }}</td>
-                                        <td>{{ $classe->grade->label() }}</td>
+                                        <td>{{ $classe->niveau->label() }}</td>
                                         <td>
                                             @can('classes.view', $classe)
                                                 <div class="d-flex float-right">

@@ -23,7 +23,7 @@
                                 <thead>
                                     <tr>
                                         <th>PROMOTION</th>
-                                       
+
                                         <th style="width: 300px">FILIERE</th>
                                         <th style="width: 100px">CODE</th>
                                         <th style="width: 100px"></th>
@@ -32,9 +32,9 @@
                                 <tbody>
                                     @foreach ($promotions as $promotion)
                                         <tr>
-                                            <td>{{ $promotion->grade }}</td>
+                                            <td>{{ $promotion->niveau }}</td>
                                             <td><a href="/promotion/{{ $promotion->filiere->id }}">{{ $promotion->filiere->nom }}</a></td>
-                                           
+
                                             <td>{{ $promotion->code }}</td>
                                             <td>
                                                 <div class="d-flex float-right">

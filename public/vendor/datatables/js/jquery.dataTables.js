@@ -10109,7 +10109,7 @@
 		 *          { "title": "Browser" },
 		 *          { "title": "Platform" },
 		 *          { "title": "Version" },
-		 *          { "title": "Grade" }
+		 *          { "title": "Niveau" }
 		 *        ]
 		 *      } );
 		 *    } );
@@ -10139,7 +10139,7 @@
 		 *          { "title": "Browser",  "data": "browser" },
 		 *          { "title": "Platform", "data": "platform" },
 		 *          { "title": "Version",  "data": "version" },
-		 *          { "title": "Grade",    "data": "grade" }
+		 *          { "title": "Niveau",    "data": "grade" }
 		 *        ]
 		 *      } );
 		 *    } );

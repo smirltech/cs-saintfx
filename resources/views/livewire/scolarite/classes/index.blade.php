@@ -1,5 +1,4 @@
 @php use App\Models\Option; @endphp
-@php use App\Models\Option; @endphp
 @php use App\Models\Section; @endphp
 @section('title')
     - classes
@@ -31,9 +30,9 @@
                             </div>
                             <div class="card-tools d-flex my-auto">
                                 @can('classes.create')
-                                    <a href="{{ route('scolarite.classes.create') }}" title="ajouter"
+                                    <button onclick="showModal('scolarite.classe.classe-edit-component')" title="ajouter"
                                        class="btn btn-primary mr-2"><span
-                                                class="fa fa-plus"></span></a>
+                                                class="fa fa-plus"></span></button>
                                 @endcan
                             </div>
                         </div>
@@ -43,28 +42,28 @@
                                 <tr>
                                     <th>NO.</th>
                                     <th>CODE</th>
-                                    <th>FILIERE</th>
+                                    <th>OPTION</th>
                                     <th>ELEVES</th>
-                                    <th>COURS</th>
+                                   {{-- <th>COURS</th>--}}
                                     <th>ENSEIGNANTS</th>
                                     <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ($classes as $key=>$classe)
+                                @foreach ($classes as $classe)
                                     <tr>
-                                        <td>{{ $key+1 }}</td>
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>{{ $classe->code }}</td>
                                         <td>
 
-                                            <a href="{{$classe->parent_url}}">{{ $classe->filierable->fullName }}</a>
+                                            <a href="{{$classe->parent_url}}">{{ $classe->classable }}</a>
                                         </td>
                                         <td>
                                             {{$classe->inscriptions->count()}}
                                         </td>
-                                        <td>
+                                       {{-- <td>
                                             {{$classe->cours->count()}}
-                                        </td>
+                                        </td>--}}
                                         <td>
                                             {{$classe->enseignants->count()}}
                                         </td>

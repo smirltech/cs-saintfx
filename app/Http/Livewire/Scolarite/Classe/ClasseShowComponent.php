@@ -49,15 +49,12 @@ class ClasseShowComponent extends BaseComponent
         $this->inscriptions = $this->classe->inscriptions;
         // $this->admissions = $this->promotion->admissions;
 
-        $classable = $classe->filierable;
-        if ($classable instanceof Option) {
-            $this->parent_url = "/scolarite/filieres/$classe->filierable_id";
-            $this->parent = "Filière";
-        } else if ($classable instanceof Option) {
-            $this->parent_url = "/scolarite/options/$classe->filierable_id";
+        $classable = $classe->parent;
+       if ($classable instanceof Option) {
+            $this->parent_url = "/scolarite/options/$classe->parent->id";
             $this->parent = "Option";
         } else if ($classable instanceof Section) {
-            $this->parent_url = "/scolarite/sections/$classe->filierable_id";
+            $this->parent_url = "/scolarite/sections/$classe->paerent->id";
             $this->parent = "Section";
         }
     }

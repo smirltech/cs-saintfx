@@ -24,7 +24,7 @@ class InscriptionData
     {
         $data = (object)(array_change_key_case($data));
 
-        $classe = Classe::find($classeId);
+        $classe =  Classe::find($classeId)??self::getClasse(data: $data);
         $sectionId = $classe->section_id;
 
 
@@ -47,16 +47,13 @@ class InscriptionData
     /**
      * @throws Exception
      */
-    private static function getClasse(array $data, ?string $classe_id): Classe|null
+    private static function getClasse(object $data): Classe|null
     {
-        if ($classe_id) {
-            return Classe::find($classe_id);
-        }
-
-        $classe = Classe::where('code', $data[2])->first();
+        $classeCode = optional($data)?->classe;
+        $classe = Classe::where('code', $classeCode)->first();
 
         if (!$classe) {
-            throw new Exception('Classe ' . $data[2] . ' non trouvée, veuillez corriger le code ou créer la classe avant de continuer');
+            throw new Exception('Classe ' . $classeCode . ' non trouvée, veuillez corriger le code ou créer la classe avant de continuer');
         }
         return $classe;
 

@@ -10,7 +10,7 @@ class ClasseResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'grade' => $this->grade,
+            'niveau' => $this->niveau,
             'filierable' => $this->filierable,
             'filierable_type' => $this->filierable_type,
             'code' => $this->code,

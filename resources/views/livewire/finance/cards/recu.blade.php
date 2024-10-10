@@ -19,7 +19,7 @@
     <br>
     <div style="text-align:center; width: 100%">
                             <span style="text-align:left; margin-right: 10px"
-                                  class="">{{$inscription?->classe->grade}} </span>
+                                  class="">{{$inscription?->classe->niveau}} </span>
         <span style="text-align:center; margin-right: 10px"
               class=""> {{$inscription?->classe->filierable->nom}} </span>
         <span style="text-align:right" class=""> {{$annee->nom}}</span>

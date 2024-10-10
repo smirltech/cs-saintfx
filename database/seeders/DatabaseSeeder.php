@@ -74,9 +74,9 @@ class DatabaseSeeder extends Seeder
                     'name' => 'Enseignant',
                 ])->assignRole(UserRole::enseignant->value);
 
-                $this->call([
+               /* $this->call([
                     FactorySeeder::class,
-                ]);
+                ]);*/
             }
         });
     }

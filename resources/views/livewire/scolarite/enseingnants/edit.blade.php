@@ -1,4 +1,4 @@
-@php use App\Enums\ClasseGrade;use App\Enums\Sexe; @endphp
+@php use App\Enums\ClasseNiveau;use App\Enums\Sexe; @endphp
 @section('content_header')
     <div class="row">
         <div class="col-6">
