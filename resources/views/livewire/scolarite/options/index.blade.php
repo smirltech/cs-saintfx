@@ -6,7 +6,6 @@
         <div class="col-6">
             <h1 class="ms-3">Liste d'options</h1>
         </div>
-
         <div class="col-6">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('scolarite') }}">Accueil</a></li>
@@ -14,11 +13,9 @@
             </ol>
         </div>
     </div>
-
 @stop
 <div class="">
     @include('livewire.scolarite.options.modals.crud')
-
     <div class="content mt-3">
         <div class="container-fluid">
             <x-form::validation-errors class="mb-4" :errors="$errors"/>
@@ -26,13 +23,8 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">
-
-                            </div>
                             <div class="card-tools d-flex my-auto">
-                                {{--<a href="{{ route('scolarite.options.create') }}" title="ajouter"
-                                   class="btn btn-primary mr-2"><span class="fa fa-plus"></span></a>--}}
-                                @can('options.create')
+                                 @can('options.create')
                                     <button type="button"
                                             class="btn btn-primary  ml-2" data-toggle="modal"
                                             data-target="#add-option-modal"><span

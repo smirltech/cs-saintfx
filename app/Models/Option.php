@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Option extends Model
@@ -12,14 +13,14 @@ class Option extends Model
 
     public $guarded = [];
 
-    public function classes(): MorphMany
+    public function classes(): HasMany
     {
-        return $this->morphMany(Classe::class, 'filierable');
+        return $this->hasMany(Classe::class);
     }
 
-    public function section(): BelongsTo
+    public function getSectionAttribute(): Section
     {
-        return $this->belongsTo(Section::class);
+        return Section::where('code',\App\Enums\Section::SECONDAIRE->value)->first();
     }
 
     // full_name

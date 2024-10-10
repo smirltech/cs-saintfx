@@ -48,12 +48,15 @@
                                 <li class="list-group-item">
                                     <b>Section : </b> <span class="float-right">{{ $section->nom }}</span>
                                 </li>
+                                <li class="list-group-item">
+                                    <b>Elèves : </b> <span class="float-right">{{ $section->inscriptions->count() }}</span>
+                                </li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-9 col-sm-12">
-                    @if(count($section->options) > 0)
+                    @if(count($section->options??[]) > 0)
                         <div class="card">
                             <div class="card-header">
                                 <div class="card-title">
@@ -119,6 +122,7 @@
                                     <tr>
                                         <th style="width: 100px">CODE</th>
                                         <th>CLASSE</th>
+                                        <th>ELEVES</th>
                                         {{-- <th></th>--}}
                                     </tr>
                                     </thead>
@@ -127,6 +131,7 @@
                                         <tr>
                                             <td>{{ $classe->code }}</td>
                                             <td>{{ $classe->niveau->label() }}</td>
+                                            <td>{{$classe->inscriptions->count()}}</td>
                                             {{-- <td>
                                                  <div class="d-flex float-right">
                                                      <a href="/scolarite/classes/{{ $classe->id }}" title="Voir"

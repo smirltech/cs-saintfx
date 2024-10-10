@@ -56,53 +56,6 @@
                     </div>
                 </div>
                 <div class="col-md-9 col-sm-12">
-                    @if(count($option->filieres) > 0)
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="card-title">
-                                    <h4 class="m-0">Filières</h4>
-                                </div>
-                                <div class="card-tools d-flex my-auto">
-
-                                    <button type="button"
-                                            class="btn btn-primary  ml-2" data-toggle="modal"
-                                            data-target="#add-filiere-modal"><span
-                                            class="fa fa-plus"></span></button>
-
-                                </div>
-                            </div>
-
-                            <div class="card-body p-0 table-responsive">
-                                <table class="table">
-                                    <thead>
-                                    <tr>
-                                        <th style="width: 200px">CODE</th>
-                                        <th>FILIERE</th>
-                                        <th style="width: 100px"></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach ($option->filieres as $filiere)
-                                        <tr>
-                                            <td>{{ $filiere->code }}</td>
-                                            <td>{{ $filiere->nom }}</td>
-                                            <td>
-                                                <div class="d-flex float-right">
-                                                    <a href="/scolarite/filieres/{{ $filiere->id }}" title="Voir"
-                                                       class="btn btn-warning">
-                                                        <i class="fas fa-eye"></i>
-                                                    </a>
-
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    @endif
-                    @if(count($classes) > 0)
                         <div class="card">
                             <div class="card-header">
                                 <div class="card-title">
@@ -150,7 +103,6 @@
                                 </table>
                             </div>
                         </div>
-                    @endif
                 </div>
             </div>
         </div>

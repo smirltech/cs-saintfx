@@ -19,7 +19,6 @@ class OptionShowComponent extends BaseComponent
 
     public $nom;
     public $code;
-    public $section_id;
 
     public $filiere_nom;
     public $filiere_code;
@@ -50,7 +49,6 @@ class OptionShowComponent extends BaseComponent
         $this->option = $option;
         $this->nom = $option->nom;
         $this->code = $option->code;
-        $this->section_id = $option->section->id;
 
         $this->sections = Section::orderBy('nom')->get();
         $this->classes = $this->option->classes;

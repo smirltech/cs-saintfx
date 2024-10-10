@@ -28,7 +28,7 @@ class SectionSeeder extends Seeder
             ],
             [
                 'nom' => 'Secondaire',
-                'code' => 'SEC',
+                'code' => 'S',
             ],
 
         ];

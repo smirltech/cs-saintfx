@@ -2,8 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Section extends Model
 {
@@ -11,14 +15,22 @@ class Section extends Model
 
     public $guarded = [];
 
-    public function options()
+    public function getOptionsAttribute(): ?Collection
     {
-        return $this->hasMany(Option::class);
+       if($this->isSecondaire()) {
+           return Option::all();
+       }
+       return  null;
     }
 
-    public function classes()
+    public function classes(): HasMany
     {
-        return $this->morphMany(Classe::class, 'filierable');
+        return $this->hasMany(Classe::class);
+    }
+
+    public function inscriptions(): HasManyThrough
+    {
+        return $this->hasManyThrough(Inscription::class,Classe::class);
     }
 
     // full_name
@@ -59,7 +71,7 @@ class Section extends Model
         return false;
     }
 
-    public function secondaire(): bool
+    public function isSecondaire(): bool
     {
         if ($this->id == 3) {
             return true;
