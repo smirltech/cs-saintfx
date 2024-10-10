@@ -12,7 +12,6 @@ use App\Models\Eleve;
 use App\Models\Option;
 use App\Models\Frais;
 use App\Models\Inscription;
-use App\Models\Option;
 use App\Models\Perception;
 use App\Models\Section;
 use App\Traits\FakeProfileImage;
