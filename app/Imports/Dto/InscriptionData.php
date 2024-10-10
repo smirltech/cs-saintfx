@@ -20,10 +20,8 @@ class InscriptionData
     /**
      * @throws Exception
      */
-    public static function fromRow(array $data, string $anneeId, ?string $classeId): bool
+    public static function fromRow(object $data, string $anneeId, ?string $classeId): bool
     {
-        $data = (object)(array_change_key_case($data));
-
         $classe =  Classe::find($classeId)??self::getClasse(data: $data);
         $sectionId = $classe->section_id;
 

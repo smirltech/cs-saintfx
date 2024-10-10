@@ -13,7 +13,7 @@ use Rap2hpoutre\FastExcel\FastExcel;
 class InscriptionsImport
 {
     public function __construct(
-        private readonly string $anneeId,
+        private readonly string  $anneeId,
         private readonly ?string $classeId
     )
     {
@@ -35,7 +35,10 @@ class InscriptionsImport
     public function import(string $file): void
     {
         (new FastExcel)->import($file, function ($line) {
-            InscriptionData::fromRow(data: $line, anneeId: $this->anneeId, classeId: $this->classeId);
+            $data = (object)(array_change_key_case($line));
+            if ($data->nom) {
+                InscriptionData::fromRow(data: $data, anneeId: $this->anneeId, classeId: $this->classeId);
+            }
         });
     }
 }
