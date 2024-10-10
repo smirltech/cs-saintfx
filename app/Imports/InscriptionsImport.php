@@ -35,7 +35,7 @@ class InscriptionsImport
     public function import(string $file): void
     {
         (new FastExcel)->import($file, function ($line) {
-            $data = (object)(array_change_key_case($line)));
+            $data = (object)(array_change_key_case($line));
             if (optional($data)?->nom) {
                 InscriptionData::fromRow(data: $data, anneeId: $this->anneeId, classeId: $this->classeId);
             }
