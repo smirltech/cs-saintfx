@@ -1,5 +1,5 @@
 @php use App\Enums\FraisType; @endphp
-@php use App\Enums\MinervalType; @endphp
+@php use App\Enums\MinervalMonth; @endphp
 
 @section('title')
     Modifier Facture  {{date('d-m-Y')}}

@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Enums\Devise;
-use App\Enums\MinervalType;
+use App\Enums\MinervalMonth;
 use App\Enums\FraisType;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,7 +18,7 @@ class Frais extends Model
 
     protected $casts = [
         'type' => FraisType::class,
-        'frequence' => MinervalType::class,
+        'frequence' => MinervalMonth::class,
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',

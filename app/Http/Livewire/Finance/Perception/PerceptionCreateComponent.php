@@ -28,7 +28,7 @@ class PerceptionCreateComponent extends BaseComponent
     public $annee_id;
     public $user_id;
     public $fee_id;
-    public $fee;
+    public ?Frais $fee = null;
     public $montant;
     public $paid;
     public $paid_by;
@@ -58,6 +58,7 @@ class PerceptionCreateComponent extends BaseComponent
     //updatedFeeId
     public function updatedPerceptionFraisId($value): void
     {
+        $this->fee = Frais::find($value);
         $this->feeSelected($value);
     }
 
@@ -94,6 +95,7 @@ class PerceptionCreateComponent extends BaseComponent
             'perception.montant' => 'required|numeric',
             'perception.frais_montant' => 'required|numeric',
             'perception.paid_by' => 'nullable',
+            'perception.custom_property' => 'nullable',
         ];
     }
 

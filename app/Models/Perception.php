@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use App\Enums\MinervalType;
+use App\Enums\FraisType;
+use App\Enums\MinervalMonth;
 use App\Traits\HasScopeAnnee;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
@@ -21,7 +22,6 @@ class Perception extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',
-        'frequence' => MinervalType::class,
     ];
 
     protected $with = ['frais'];
@@ -29,12 +29,20 @@ class Perception extends Model
     // booted
     protected static function booted(): void
     {
-
         static::creating(function (Perception $model) {
             $model->reference = self::generateReference();
-            $model->user_id = $model->user_id??auth()->id();
+            $model->user_id = $model->user_id ?? auth()->id();
             $model->annee_id = Annee::id();
         });
+    }
+
+    public function getLabelAttribute(): ?string
+    {
+        if ($this->frais->type == FraisType::MINERVAL) {
+          return  $this->frais->nom . ' - ' . MinervalMonth::tryFrom($this->custom_property)?->label();
+        }
+
+        return $this->frais->nom;
     }
 
     public static function dataOfLast($days = 7): array
@@ -69,7 +77,6 @@ class Perception extends Model
     }
 
 
-
     /**
      * Create a reference for the perception based on the current month and year and the number of perceptions for the current month
      * Model: {count:4 digits}{month:2 digits}{year:2 digits}
@@ -81,7 +88,7 @@ class Perception extends Model
         $count = Str::padLeft($count + 1, 3, '0');
         $month = Carbon::now()->format('ym');
 
-        return $month.$count;
+        return $month . $count;
     }
 
     public function getEleveAttribute()

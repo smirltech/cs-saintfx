@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum MinervalType: int
+enum MinervalMonth: int
 {
     case SEPTEMBRE = 9;
     case OCTOBRE = 10;

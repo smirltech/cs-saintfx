@@ -1,5 +1,5 @@
 @php
-    use Carbon\Carbon;
+    use App\Models\Perception;use Carbon\Carbon;
     use App\Enums\GraviteRetard;
     use App\Helpers\Helpers;
 @endphp
@@ -29,7 +29,7 @@
             'FRAIS',
             'ELEVE',
             'CLASSE',
-            'MONTANT',
+            'DU',
             'PAYE',
             'SOLDE',
              ['label'=>'ECHEANCE', 'width'=>8],
@@ -41,13 +41,12 @@
             $data[] =[
                 $key+1,
                 $perception->created_at->format('d-m-Y'),
-                $perception->frais->nom . ' - ' . $perception->custom_property,
+                $perception->label,
                 $perception->inscription?->eleve->fullName,
-
                 $perception->inscription?->classe->code,
-                $perception->montant,
-                (int)($perception->paid),
-                ( $perception->montant-(int)($perception->paid)),
+                 Helpers::currencyFormat($perception->frais_montant) .' '.$perception->frais->devise->value,
+                 Helpers::currencyFormat($perception->montant) .' '. $perception->frais->devise->value,
+                ( (int)$perception->frais_montant-(int)($perception->montant)),
                 Carbon::parse($perception->due_date),
                 $perception->id,
     ];
@@ -95,9 +94,9 @@
 
                                         <td>{!! $row[4] !!}</td>
 
-                                        <td>{!! Helpers::currencyFormat($row[5]) !!} Fc</td>
+                                        <td>{!! $row[5] !!}</td>
                                         <td>
-                                            {!! Helpers::currencyFormat($row[6]) !!} Fc
+                                            {!!$row[6] !!}
                                         </td>
                                         <td><span
                                                 class="badge @if($row[7] > 0) badge-danger @else badge-success @endif">{!! Helpers::currencyFormat($row[7]) !!} Fc</span>

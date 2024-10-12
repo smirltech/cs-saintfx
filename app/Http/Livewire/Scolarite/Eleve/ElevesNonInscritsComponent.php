@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Scolarite\Eleve;
 
-use App\Enums\MinervalType;
+use App\Enums\MinervalMonth;
 use App\Enums\FraisType;
 use App\Enums\InscriptionCategorie;
 use App\Enums\InscriptionStatus;
@@ -234,8 +234,8 @@ class ElevesNonInscritsComponent extends BaseComponent
                     'user_id' => Auth::id(),
                     'frais_id' => $this->fee->id,
                     'inscription_id' => $inscription_id,
-                    'frequence' => MinervalType::annuel->name,
-                    'custom_property' => MinervalType::annuel,
+                    'frequence' => MinervalMonth::annuel->name,
+                    'custom_property' => MinervalMonth::annuel,
                     'annee_id' => Annee::id(),
                     'montant' => $this->fee->montant,
                     'due_date' => Carbon::now()->format('Y-m-d'),

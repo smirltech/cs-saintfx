@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Enums\MinervalType;
+use App\Enums\MinervalMonth;
 use App\Models\Annee;
 use App\Models\Frais;
 use App\Models\Inscription;
@@ -19,7 +19,7 @@ class PerceptionFactory extends Factory
 
     public function definition(): array
     {
-        $freq = $this->faker->randomElement(MinervalType::cases());
+        $freq = $this->faker->randomElement(MinervalMonth::cases());
         $frais = Frais::find($this->faker->randomElement(Frais::pluck('id')->toArray()));
         // dd($freq);
         return [

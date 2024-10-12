@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Enums\MinervalType;
+use App\Enums\MinervalMonth;
 use App\Enums\FraisType;
 use App\Models\DepenseType;
 use App\Models\Frais;

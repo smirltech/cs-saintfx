@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Scolarite\Inscription;
 
-use App\Enums\MinervalType;
+use App\Enums\MinervalMonth;
 use App\Enums\InscriptionStatus;
 use App\Http\Livewire\BaseComponent;
 use App\Models\Annee;
@@ -152,7 +152,7 @@ class InscriptionCreateComponent extends BaseComponent
             $this->perception->fill([
                     'user_id' => Auth::id(),
                     'inscription_id' => $this->inscription->id,
-                    'custom_property' => MinervalType::annuel,
+                    'custom_property' => MinervalMonth::annuel,
                     'annee_id' => Annee::id(),
                     'due_date' => Carbon::now()->format('Y-m-d'),
                     'paid' => true,

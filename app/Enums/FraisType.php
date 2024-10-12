@@ -38,9 +38,16 @@ enum FraisType: string
     public function subtypes(): ?array
     {
         return match ($this) {
-            self::MINERVAL => MinervalType::cases(),
+            self::MINERVAL, self::KIT, self::INSCRIPTION, self::CONNEXE => null,
             self::ETAT => EtatType::cases(),
-            self::KIT, self::INSCRIPTION, self::CONNEXE => null,
+        };
+    }
+
+    public function properties(): ?array
+    {
+        return match ($this) {
+            self::MINERVAL => MinervalMonth::cases(),
+            self::ETAT, self::KIT, self::INSCRIPTION, self::CONNEXE => null,
         };
     }
 

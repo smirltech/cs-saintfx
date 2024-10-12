@@ -10,7 +10,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
-    public function up()
+    public function up(): void
     {
         Schema::create('perceptions', function (Blueprint $table) {
             $table->ulid('id')->primary();
@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->foreignIdFor(Inscription::class)->constrained();
             $table->foreignIdFor(Annee::class)->constrained();
             // $table->string('frequence')->default(FraisFrequence::mensuel->name)->nullable()->comment('Fréquence de perception');
-            //$table->string('custom_property')->nullable()->comment('Par rapport à la fréquence, la perception concerne quelle periode');
+            $table->string('custom_property')->nullable()->comment('Par rapport à la fréquence, la perception concerne quelle periode');
             $table->double('montant')->nullable()->comment('Montant a payer');
             $table->double('frais_montant')->nullable()->comment('Montant payé');
             $table->string('paid_by')->nullable();
