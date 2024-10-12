@@ -2,6 +2,7 @@
     use App\Helpers\Helpers;$heads =[
        'NO.',
         'NOM',
+        'TYPE',
         'MONTANT',
         ['label'=>'', 'no-export'=>true, 'width'=>5]
 ];
@@ -10,7 +11,9 @@
         $data[] =[
             $key+1,
             $fee->nom,
-           $fee->montant . ' ' . $fee->devise?->symbol(),
+
+           $fee->type->label(),
+              $fee->montant . ' ' . $fee->devise?->symbol(),
 
              $fee,
 ];
@@ -18,8 +21,8 @@
 
     $config =[
   'data'=>$data,
-  'order'=>[[1, 'asc']],
-  'columns'=>[null,null, null, ['orderable'=>false]],
+  'order'=>[[2, 'asc'], [2, 'asc']],
+  'columns'=>[null,null, null, null, ['orderable'=>false]],
   'destroy'=>true,
 
 ];
@@ -73,18 +76,19 @@
                                         <td>{!! $row[0] !!}</td>
                                         <td>{!! $row[1] !!}</td>
                                         <td>{!! $row[2] !!}</td>
+                                        <td>{!! $row[3] !!}</td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                @can('frais.update',$row[3])
+                                                @can('frais.update',$row[4])
                                                     <button
-                                                            onclick="showModal('finance.frais.frais-create-component','{{$row[3]->id}}')"
+                                                            onclick="showModal('finance.frais.frais-create-component','{{$row[4]->id}}')"
                                                             type="button"
                                                             title="Modifier" class="btn btn-info  ml-2 btn-sm">
                                                         <span class="fa fa-pen"></span>
                                                     </button>
                                                 @endcan
-                                                @can('frais.delete',$row[3])
-                                                    <button onclick="showDeleteModal('Frais','{{$row[3]->id}}')"
+                                                @can('frais.delete',$row[4])
+                                                    <button onclick="showDeleteModal('Frais','{{$row[4]->id}}')"
                                                             type="button"
                                                             title="supprimer" class="btn btn-danger ml-2 btn-sm">
                                                         <span class="fa fa-trash"></span>
