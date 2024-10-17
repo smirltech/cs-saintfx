@@ -25,6 +25,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\HigherOrderCollectionProxy;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
@@ -54,7 +55,7 @@ class InscriptionCreateComponent extends BaseComponent
     protected $rules = [
         'eleve.nom' => 'required|string',
         'eleve.lieu_naissance' => 'nullable',
-        'eleve.date_naissance' => 'nullable|date',
+        'eleve.date_naissance' => 'nullable',
         'eleve.sexe' => 'nullable',
         'eleve.telephone' => 'nullable|string',
         'eleve.email' => 'nullable',
@@ -73,12 +74,6 @@ class InscriptionCreateComponent extends BaseComponent
         'perception.frais_id' => 'nullable',
         'perception.paid_by' => 'nullable',
         'perception.montant' => 'nullable',
-    ];
-    protected $messages = [
-        'eleve.nom.required' => 'Ce nom est obligatoire !',
-        'inscription.classe_id.required' => 'La classe est obligatoire !',
-        'inscription.categorie.required' => 'La categorie est obligatoire !',
-
     ];
 
     /**
@@ -107,15 +102,15 @@ class InscriptionCreateComponent extends BaseComponent
 
         $this->saveInscription();
 
-       /* if ($this->has_paid)
-            $this->savePerception();*/
+        /* if ($this->has_paid)
+             $this->savePerception();*/
 
         // Todo: uncomment block below to enable the printing of the inscription form
         /* $this->printIt();
          $this->alert('success', "Élève inscrit avec succès !");*/
 
         // Todo: Comment line below when the printing above is to be considered
-        $this->flashSuccess('Élève inscrit avec succès', route('scolarite.inscriptions.create'));
+        $this->flashSuccess('Élève enregistré avec succès', URL::previous());
 
 
         //  $this->alert('error', "L'enregistrement de l'étudiant n'a pas aboutis, veuillez reéssayer !");
@@ -167,12 +162,11 @@ class InscriptionCreateComponent extends BaseComponent
     public function render(): Factory|View|Application
     {
         return view('livewire.scolarite.inscriptions.create')
-            ->layout(AdminLayout::class, ['title' => 'Inscription Élève']);
+            ->layout(AdminLayout::class, ['title' => $this->eleve->nom ?? 'Inscription Élève']);
     }
 
     public function updatedInscriptionClasseId(): void
     {
-
         $classe = Classe::find($this->inscription?->classe_id);
         $this->section_id = $classe?->section_id;
     }

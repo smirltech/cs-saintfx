@@ -27,6 +27,11 @@ class Perception extends Model
     protected $with = ['frais'];
 
     // booted
+    public static function total()
+    {
+        return self::where('annee_id', Annee::id())->sum('montant');
+    }
+
     protected static function booted(): void
     {
         static::creating(function (Perception $model) {

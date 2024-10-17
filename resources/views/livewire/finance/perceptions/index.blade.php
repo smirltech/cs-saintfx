@@ -72,11 +72,18 @@
 
                             </div>
                             <div class="card-tools d-flex my-auto">
+
                                 @can('perceptions.create')
                                     <a href="{{route('finance.caisse')}}" title="facturer un élève"
                                        class="btn btn-primary  ml-2">
                                         <i class="fas fa-plus"></i> Percevoir
                                     </a>
+                                @endcan
+                                @can('perceptions.create')
+                                     <button onclick="showModal('finance.perception.import-perception-component')" title="facturer un élève"
+                                       class="btn btn-success  ml-2">
+                                        <i class="fas fa-file-excel"></i> Import
+                                    </button>
                                 @endcan
                             </div>
                         </div>

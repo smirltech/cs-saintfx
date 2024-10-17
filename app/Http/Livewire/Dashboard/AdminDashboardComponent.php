@@ -8,11 +8,13 @@ use App\Models\Depense;
 use App\Models\Enseignant;
 use App\Models\Inscription;
 use App\Models\Materiel;
+use App\Models\Perception;
 use App\Models\Revenu;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Routing\Route;
 use Livewire\Component;
 
 class AdminDashboardComponent extends Component
@@ -67,12 +69,13 @@ class AdminDashboardComponent extends Component
                 'url' => '#'
 
             ],
+
             [
-                'title' => '$' . Revenu::total(),
-                'text' => 'Revenus',
+                'title' => '$' . Perception::total(),
+                'text' => 'Perceptions',
                 'icon' => 'fas fa-coins',
                 'theme' => 'gradient-success',
-                'url' => '#'
+                'url' => \route('finance.perceptions')
 
             ],
             [

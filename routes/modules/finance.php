@@ -27,6 +27,7 @@ Route::prefix('finance')->middleware(['auth:web'])->as('finance.')->group(functi
     Route::get('frais', Finance\Frais\FraisIndexComponent::class)->name('frais');
 
     //Perception
+    Route::get('perceptions/import', Finance\Perception\ImportPerceptionComponent::class)->name('perceptions.import');
     Route::get('perceptions/create', Finance\Perception\PerceptionCreateComponent::class)->name('perceptions.create');
     Route::get('perceptions/classe_create', Finance\Perception\PerceptionClasseCreateComponent::class)->name('perceptions.classe-create');
     Route::get('perceptions/{perception}/edit', Finance\Perception\PerceptionEditComponent::class)->name('perceptions.edit');

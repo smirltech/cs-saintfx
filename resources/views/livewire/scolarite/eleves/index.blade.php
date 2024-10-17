@@ -19,6 +19,7 @@ $data=[];
     foreach ($eleves as $eleve){
 
             $btn1 = '<a href="' . route("scolarite.eleves.show",$eleve) . '" class="btn btn-success btn-sm m-1" title="Voir Élève"><i class="fa fa-eye"></i></a>';
+            $btn2 = '<a href="' . route("scolarite.inscriptions.edit",$eleve->inscription) . '" class="btn btn-warning btn-sm m-1" title="Edit Élève"><i class="fa fa-edit"></i></a>';
 
             $data[] = [
                 '<a href="' . route("scolarite.eleves.show",$eleve) . '" title="Voir Élève"><img class="img-circle" style="width:50px; height:50px" src="'.$eleve->profile_url.'"></img></a>',
@@ -30,7 +31,7 @@ $data=[];
                   '<a href="' . route("scolarite.responsables.show",$eleve->responsable_eleve->responsable??'0').'">' .$eleve->responsable_eleve?->responsable?->nom. '</a>',
              /*   $eleve->inscription?->status? '<a href="'.route('scolarite.inscriptions.status',['status'=>$eleve->inscription?->status->name]).'"><span class="badge bg-gradient-'.$eleve->inscription?->status->variant().'">'. $eleve->inscription?->status->label(Sexe::f).'</span></a>':'',*/
                $eleve->created_at->format('Y-m-d H:i'),
-                '<nobr>' . $btn1. '</nobr>',
+                '<nobr>' . $btn1.$btn2. '</nobr>',
             ];
 
         }

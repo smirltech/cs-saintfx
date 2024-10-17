@@ -3,7 +3,7 @@
 @section('content_header')
     <div class="row">
         <div class="col-6">
-            <h1 class="ms-3">Inscription de l'élève</h1>
+            <h1 class="ms-3">{{$this->eleve->nom??"Inscription de l'élève"}}</h1>
         </div>
 
         <div class="col-6">
@@ -14,7 +14,6 @@
             </ol>
         </div>
     </div>
-
 @stop
 <div class="">
     @include('livewire.scolarite.inscriptions.modals.add_responsable')
