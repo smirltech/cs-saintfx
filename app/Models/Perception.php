@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\Devise;
 use App\Enums\FraisType;
 use App\Enums\MinervalMonth;
 use App\Traits\HasScopeAnnee;
@@ -21,6 +22,7 @@ class Perception extends Model
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
+        'devise' => Devise::class,
         'deleted_at' => 'datetime',
     ];
 
@@ -44,7 +46,7 @@ class Perception extends Model
     public function getLabelAttribute(): ?string
     {
         if ($this->frais->type == FraisType::MINERVAL) {
-          return  $this->frais->nom . ' - ' . MinervalMonth::tryFrom($this->custom_property)?->label();
+            return $this->frais->nom . ' - ' . MinervalMonth::tryFrom($this->custom_property)?->label();
         }
 
         return $this->frais->nom;

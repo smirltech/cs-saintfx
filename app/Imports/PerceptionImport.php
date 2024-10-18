@@ -89,7 +89,7 @@ class PerceptionImport
                     'frais_id' => $frais->id,
                     'montant' => $line[$month->value],
                     'frais_montant' => $frais->montant,
-                    //  'devise' => $frais->devise,
+                    'devise' => $frais->devise,
                 ]);
             }
         }
