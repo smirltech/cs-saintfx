@@ -66,6 +66,7 @@ class PerceptionCreateComponent extends BaseComponent
     {
         $this->fee = Frais::find($value);
         $this->perception->frais_montant = $this->fee->montant ?? null;
+        $this->perception->devise = $this->fee->devise ?? null;
 
     }
 
@@ -94,6 +95,7 @@ class PerceptionCreateComponent extends BaseComponent
             'perception.frais_id' => 'required',
             'perception.montant' => 'required|numeric',
             'perception.frais_montant' => 'required|numeric',
+            'perception.devise' => 'required',
             'perception.paid_by' => 'nullable',
             'perception.custom_property' => 'nullable',
         ];

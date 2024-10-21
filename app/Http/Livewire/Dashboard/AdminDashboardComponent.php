@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Dashboard;
 
 use App\Enums\UserRole;
+use App\Helpers\Helpers;
 use App\Models\Consommable;
 use App\Models\Depense;
 use App\Models\Enseignant;
@@ -16,6 +17,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Routing\Route;
 use Livewire\Component;
+use Pharaonic\Laravel\Readable\Readable;
 
 class AdminDashboardComponent extends Component
 {
@@ -27,6 +29,10 @@ class AdminDashboardComponent extends Component
 
     private function getBoxes(): array
     {
+        $perceptionsUSD =Readable::getHumanNumber(Perception::whereDevise('USD')->sum('montant'), showDecimal: true, decimals: 0);
+        $perceptionsCDF = Readable::getHumanNumber(Perception::whereDevise('CDF')->sum('montant'), showDecimal: true, decimals: 0);
+
+
         return [
             [
                 'title' => Inscription::anneeScolaire()->count(),
@@ -34,6 +40,14 @@ class AdminDashboardComponent extends Component
                 'icon' => 'fas fa-graduation-cap',
                 'theme' => 'gradient-primary',
                 'url' => '#'
+
+            ],
+            [
+                'title' => "{$perceptionsUSD}$ / {$perceptionsCDF}Fc",
+                'text' => 'Perceptions',
+                'icon' => 'fas fa-coins',
+                'theme' => 'gradient-success',
+                'url' => \route('finance.perceptions')
 
             ],
             [
@@ -70,14 +84,7 @@ class AdminDashboardComponent extends Component
 
             ],
 
-            [
-                'title' => '$' . Perception::total(),
-                'text' => 'Perceptions',
-                'icon' => 'fas fa-coins',
-                'theme' => 'gradient-success',
-                'url' => \route('finance.perceptions')
 
-            ],
             [
                 'title' => Consommable::count(),
                 'text' => 'Consommables',

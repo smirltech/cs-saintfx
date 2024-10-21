@@ -16,13 +16,13 @@ enum Devise: string
     }
 
     // label is used for displaying the enum value in the UI
-    public function label(): string
+    /*public function label(): string
     {
         return match ($this) {
             self::USD => 'Dollar Américain',
             self::CDF => 'Franc Congolais',
         };
-    }
+    }*/
 
 
 }
