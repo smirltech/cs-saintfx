@@ -50,8 +50,8 @@
                                         <x-form::input.xlsx required label="Fiche d identification"
                                                             name="fiche"/>
                                         <div class="mt-2">
-                                            Veuillez télécharger le modèle de la fiche d'identification <a
-                                                href="{{asset("models/FICHE D'IDENTIFICATION CENK.xlsx")}}">ici</a>
+                                            Veuillez télécharger le modèle <a
+                                                href="{{asset("models/MATERNELLE-Table 1.xlsx")}}">ici</a>
                                         </div>
                                     </div>
                                 </div>
