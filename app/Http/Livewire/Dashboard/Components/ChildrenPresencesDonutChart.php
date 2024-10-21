@@ -41,8 +41,8 @@ class ChildrenPresencesDonutChart extends Component
     {
         $inscription = Inscription::anneeScolaire()->where('eleve_id', $this->eleve_id)->first();
 
-        $presences = Presence::where('inscription_id', $inscription->id)->where('status', PresenceStatus::present->value)->count();
-        $absences = Presence::where('inscription_id', $inscription->id)->where('status', PresenceStatus::absent->value)->count();
+        $presences = Presence::where('inscription_id', $inscription->id)->where('status', PresenceStatus::PRESENT->value)->count();
+        $absences = Presence::where('inscription_id', $inscription->id)->where('status', PresenceStatus::ABSENT->value)->count();
         $this->labels = [
             'Présences - ' . $presences,
             'Absences - ' . $absences,

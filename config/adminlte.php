@@ -311,6 +311,12 @@ return [
             'url' => 'scolarite/eleves',
         ],
         [
+            'text' => 'Présences',
+            'icon' => 'fas fa-fw fa-user-graduate',
+          //  'can' => 'presences.view.*',
+            'url' => 'scolarite/presences',
+        ],
+        [
             'text' => 'Responsables',
             'url' => 'scolarite/responsables',
             'icon' => 'fas fa-fw fa-person-pregnant',

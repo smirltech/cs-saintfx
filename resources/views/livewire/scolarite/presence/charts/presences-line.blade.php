@@ -13,9 +13,9 @@
 
 
     foreach ($dates as $date) {
-        $presences = Presence::whereDate('date', $date->format('Y-m-d'))->where('status',PresenceStatus::present->value)->get();
-    $absences = Presence::whereDate('date', $date->format('Y-m-d'))->where('status',PresenceStatus::absent->value)->get();
-    $malades = Presence::whereDate('date', $date->format('Y-m-d'))->where('status',PresenceStatus::malade->value)->get();
+        $presences = Presence::whereDate('date', $date->format('Y-m-d'))->where('status',PresenceStatus::PRESENT->value)->get();
+    $absences = Presence::whereDate('date', $date->format('Y-m-d'))->where('status',PresenceStatus::ABSENT->value)->get();
+    $malades = Presence::whereDate('date', $date->format('Y-m-d'))->where('status',PresenceStatus::MALADE->value)->get();
 
     $lineChartModel->addSeriesPoint('Présences', $date->format('d'), $presences->count());
     $lineChartModel->addSeriesPoint('Absences', $date->format('d'), $absences->count());
