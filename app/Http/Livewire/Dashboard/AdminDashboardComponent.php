@@ -36,7 +36,7 @@ class AdminDashboardComponent extends Component
         return [
             [
                 'title' => Inscription::anneeScolaire()->count(),
-                'text' => 'Eleves',
+                'text' => 'Inscriptions',
                 'icon' => 'fas fa-graduation-cap',
                 'theme' => 'gradient-primary',
                 'url' => '#'

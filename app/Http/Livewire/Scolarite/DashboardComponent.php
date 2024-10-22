@@ -52,7 +52,7 @@ class DashboardComponent extends Component
         $this->boxes = [
             [
                 'title' => $anneeEleves,
-                'text' => 'Inscriptions',
+                'text' => 'Eleves',
                 'icon' => 'fa fa-user-graduate',
                 'url' => route('scolarite.eleves.index'),
                 'theme' => 'primary',
