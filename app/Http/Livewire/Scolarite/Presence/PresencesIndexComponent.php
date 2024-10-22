@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Livewire\Scolarite\Eleve;
+namespace App\Http\Livewire\Scolarite\Presence;
 
 use App\Http\Livewire\BaseComponent;
+use App\Models\Classe;
 use App\Models\Eleve;
+use App\Models\Section;
 use App\Traits\FakeProfileImage;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
@@ -13,7 +15,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 
-class EleveIndexComponent extends BaseComponent
+class PresencesIndexComponent extends BaseComponent
 {
     use TopMenuPreview, FakeProfileImage;
 
@@ -25,26 +27,17 @@ class EleveIndexComponent extends BaseComponent
      */
     public function mount(): void
     {
-        $this->authorize('viewAny', Eleve::class);
-        $this->loadData();
+        $this->eleves = Eleve::orderBy('created_at','desc')->get();
+        $this->sections = Section::all();
+        $this->classes = Classe::all();
     }
 
-    public function loadData(): void
-    {
-        //  dd("Is parent : ".Auth::user()->isParent());
-      /*  if (Auth::user()->isParent())
-            $this->eleves = Auth::user()->responsable?->eleves ?? [];
-        else*/
-            $this->eleves = Eleve::orderBy('created_at','desc')->get();
-       // $this->setFakeProfileImageUrl();
-    }
 
     public function render(): View|Factory|Application
     {
 
-        return view('livewire.scolarite.eleves.index', [
-            'eleves' => $this->eleves
-        ]);
+        return view('livewire.scolarite.presences.index')
+            ->layout(AdminLayout::class, ['title' => 'Liste des présences']);
     }
 
 }
