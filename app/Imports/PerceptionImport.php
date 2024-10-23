@@ -49,27 +49,24 @@ class PerceptionImport
         (new FastExcel)->import($file, function ($line) {
             $line = optional((array_change_key_case($line)));
 
-            $nom = $line['nom'];
+            $nom = $line['nom'] ?? null;
 
-            if (!$nom) {
-                throw new Exception("Le fichier doit contenir une colonne 'nom'");
-            }
+            if ($nom) {
+                $eleve = Eleve::where('nom', trim($nom))->first();
 
-            $eleve = Eleve::where('nom', $nom)->first();
+                $inscription = $eleve?->inscription;
 
-
-            $inscription = $eleve?->inscription;
-
-            if ($inscription) {
-                if ($this->frais->type = FraisType::MINERVAL) {
-                    $this->createMinerval(
-                        eleve: $eleve,
-                        frais: $this->frais,
-                        line: $line,
-                    );
+                if ($inscription) {
+                    if ($this->frais->type = FraisType::MINERVAL) {
+                        $this->createMinerval(
+                            eleve: $eleve,
+                            frais: $this->frais,
+                            line: $line,
+                        );
+                    }
+                } else {
+                    throw new Exception("L'élève {$nom} n'est pas inscrit dans une classe");
                 }
-            } else {
-                //throw new Exception("L'élève {$nom} n'est pas inscrit dans une classe");
             }
         });
     }
