@@ -5,12 +5,12 @@
     <div class="form-group">
         <x-form::select wire:model="frais_id" label="{{ __('Frais') }}" :options="$frais"/>
     </div>
-    @if($fee?->type?->properties())
+   {{-- @if($fee?->type?->properties())
         <div class="col-md-12">
             <x-form::select :change='true' label="{{ __('Mois') }}" class="form-select"
                             :options="$fee?->type?->properties()" wire:model="custom_property"/>
         </div>
-    @endif
+    @endif--}}
     <div class="form-group">
         <x-form::input.xlsx wire:model="file" label="{{ __('File') }}"/>
     </div>
