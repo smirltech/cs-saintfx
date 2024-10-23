@@ -29,8 +29,8 @@ class AdminDashboardComponent extends Component
 
     private function getBoxes(): array
     {
-        $perceptionsUSD =Readable::getHumanNumber(Perception::whereDevise('USD')->sum('montant'), showDecimal: true, decimals: 0);
-        $perceptionsCDF = Readable::getHumanNumber(Perception::whereDevise('CDF')->sum('montant'), showDecimal: true, decimals: 0);
+        $perceptionsUSD =Perception::whereDevise('USD')->sum('montant');
+        $perceptionsCDF = Perception::whereDevise('CDF')->sum('montant');
 
 
         return [
