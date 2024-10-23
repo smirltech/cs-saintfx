@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Livewire\Scolarite;
+use App\Http\Livewire\Scolarite\Eleve\RechercheEleveComponent;
 use App\Http\Livewire\Scolarite\Inscription\InscriptionCreateComponent;
 use Illuminate\Support\Facades\Route;
 
@@ -53,6 +54,7 @@ Route::prefix('scolarite')->middleware(['auth:web'])->as('scolarite.')->group(fu
     Route::get('annees', Scolarite\Annee\AnneeComponent::class)->name('annees');
 
 // Eleves
+    Route::get('eleves/recherche', RechercheEleveComponent::class)->name('eleves.recherche');
     Route::get('eleves/{eleve}', Scolarite\Eleve\EleveShowComponent::class)->name('eleves.show');
     Route::get('eleves/{eleve}/presence', Scolarite\Eleve\PresenceComponent::class)->name('eleves.presence');
     Route::get('eleves', Scolarite\Eleve\EleveIndexComponent::class)->name('eleves.index');

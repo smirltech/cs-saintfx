@@ -305,6 +305,12 @@ return [
             ],
         ],
         [
+            'text' => 'Recherche',
+            'icon' => 'fas fa-fw fa-search',
+            'can' => 'eleves.view.*',
+            'url' => 'scolarite/eleves/recherche',
+        ],
+        [
             'text' => 'Élèves',
             'icon' => 'fas fa-fw fa-user-graduate',
             'can' => 'eleves.view.*',
