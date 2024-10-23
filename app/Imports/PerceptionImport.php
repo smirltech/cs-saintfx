@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Imports;
 
+use App\Enums\Devise;
 use App\Enums\FraisType;
 use App\Enums\MinervalMonth;
 use App\Models\Annee;
@@ -19,7 +20,7 @@ class PerceptionImport
     public function __construct(
         private readonly Frais   $frais,
         private readonly Annee   $annee,
-        private readonly string $devise,
+        private readonly Devise $devise,
     )
     {
     }
@@ -28,7 +29,7 @@ class PerceptionImport
     public static function build(
         Frais   $frais,
         Annee   $annee,
-        ?string $devise,
+        Devise $devise,
     ): self
     {
         return new self(

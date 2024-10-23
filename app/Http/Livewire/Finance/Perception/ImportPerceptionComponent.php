@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Finance\Perception;
 
+use App\Enums\Devise;
 use App\Imports\PerceptionImport;
 use App\Models\Annee;
 use App\Models\Frais;
@@ -32,6 +33,7 @@ class ImportPerceptionComponent extends Component
     public Collection $annees;
     public ?Frais $fee = null;
     public ?string $custom_property = null;
+    public ?Devise $devise = null;
 
     public function mount(): void
     {
