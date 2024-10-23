@@ -13,14 +13,12 @@
 
 
     foreach ($dates as $date) {
-        $presences = Presence::whereDate('date', $date->format('Y-m-d'))->where('status',PresenceStatus::PRESENT->value)->get();
-    $absences = Presence::whereDate('date', $date->format('Y-m-d'))->where('status',PresenceStatus::ABSENT->value)->get();
-    $malades = Presence::whereDate('date', $date->format('Y-m-d'))->where('status',PresenceStatus::MALADE->value)->get();
+        $filles = Presence::whereDate('date', $date->format('Y-m-d'))->sum('filles');
+    $garcons = Presence::whereDate('date', $date->format('Y-m-d'))->sum('garcons');
 
-    $lineChartModel->addSeriesPoint('Présences', $date->format('d'), $presences->count());
-    $lineChartModel->addSeriesPoint('Absences', $date->format('d'), $absences->count());
-    $lineChartModel->addSeriesPoint('Malades', $date->format('d'), $malades->count());
-    }
+    $lineChartModel->addSeriesPoint('Filles', $date->format('d'), $filles);
+    $lineChartModel->addSeriesPoint('Garçons', $date->format('d'), $garcons);
+      }
 @endphp
 <div class="card">
 
@@ -30,7 +28,7 @@
 
     <div class="card-body" style="height: 20rem;">
         <livewire:livewire-line-chart
-            key="{{ $lineChartModel->reactiveKey() }}"
+                key="{{ $lineChartModel->reactiveKey() }}"
             :line-chart-model="$lineChartModel"/>
     </div>
 </div>

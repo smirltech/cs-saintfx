@@ -6,17 +6,17 @@ enum InscriptionCategorie: int
 {
     case normal = 1;
     case enseignant = 2;
-    case enfant_4 = 3;
-    case enfant_5 = 4;
+    case enfant_5 = 3;
+    case enfant_6 = 4;
 
     // label() is a method that a string value
     public function label(): string
     {
         return match ($this) {
             self::normal => 'Normal',
-            self::enseignant => 'Enfant d\'enseignant',
-            self::enfant_4 => '4e enfant',
+            self::enseignant => 'Enfant du personnel',
             self::enfant_5 => '5e enfant',
+            self::enfant_6 => '6e enfant',
         };
     }
 }

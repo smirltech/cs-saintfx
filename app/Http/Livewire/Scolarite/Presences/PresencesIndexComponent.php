@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Scolarite\Presence;
+namespace App\Http\Livewire\Scolarite\Presences;
 
 use App\Http\Livewire\BaseComponent;
 use App\Models\Classe;

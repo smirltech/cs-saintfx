@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Scolarite\Presence\Charts;
+namespace App\Http\Livewire\Scolarite\Presences\Charts;
 
 use App\Models\Presence;
 use Illuminate\Contracts\Foundation\Application;
@@ -20,6 +20,6 @@ class PresencesLine extends Component
 
     public function render(): View|\Illuminate\Foundation\Application|Factory|Application
     {
-        return view('livewire.scolarite.presence.charts.presences-line');
+        return view('livewire.scolarite.presences.charts.presences-line');
     }
 }

@@ -27,7 +27,7 @@
             </div>
         </div>
         <div class="col-md-12">
-            <livewire:scolarite.presence.charts.presences-line/>
+            <livewire:scolarite.presences.charts.presences-line/>
         </div>
     </div>
 </div>

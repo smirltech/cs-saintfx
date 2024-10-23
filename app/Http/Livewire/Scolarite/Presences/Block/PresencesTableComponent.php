@@ -1,24 +1,19 @@
 <?php
 
-namespace App\Http\Livewire\Scolarite\Presence\Block;
+namespace App\Http\Livewire\Scolarite\Presences\Block;
 
 use App\Models\Annee;
 use App\Models\Classe;
-use App\Models\Eleve;
 use App\Models\Presence;
 use App\Traits\TopMenuPreview;
 use Carbon\Carbon;
 use Exception;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
 use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use JetBrains\PhpStorm\NoReturn;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class PresencesBlockComponent extends Component
+class PresencesTableComponent extends Component
 {
     use TopMenuPreview;
     use LivewireAlert;
@@ -34,7 +29,7 @@ class PresencesBlockComponent extends Component
 
     public bool $hasNextDay = false;
     public $current_date;
-    public ?Eleve $presence_eleve;
+
     protected $rules = [
         'presence.inscription_id' => 'required',
         'presence.date' => 'nullable',
@@ -43,7 +38,8 @@ class PresencesBlockComponent extends Component
 
     ];
 
-    #[NoReturn] public function mount(Classe $classe): void
+
+    public function mount(Classe $classe)
     {
         $this->classe = $classe;
         $this->loadData();
@@ -51,27 +47,27 @@ class PresencesBlockComponent extends Component
 
     }
 
-    #[NoReturn] public function loadData(): void
+    public function loadData()
     {
         $this->presences = $this->classe->presences->where('date', $this->current_date)->where('annee_id', Annee::id());
         $this->nonInscriptions = $this->classe->nonInscriptions($this->current_date);
-        $this->presence_eleve = ($this->nonInscriptions[0] ?? null)?->eleve;
 
         $this->hasNextDay = Carbon::parse($this->current_date)->isBefore(Carbon::now()->startOfDay());
-
+        // dd($this->presences);
     }
 
-    public function initPresence(): void
+    public function initPresence()
     {
         $this->current_date = $this->current_date ?? Carbon::now()->format('Y-m-d');
         $this->presence = new Presence();
         $this->presence->inscription_id = $this->nonInscriptions[0]->id ?? null;
+        // dd($this->presence->inscription_id);
     }
 
-    #[NoReturn] public function render(): View|\Illuminate\Foundation\Application|Factory|Application
+    public function render()
     {
         $this->loadData();
-        return view('livewire.scolarite.presences.blocks.list',
+        return view('livewire.scolarite.presences.blocks.table',
             [
                 'presences' => $this->presences,
                 'nonInscriptions' => $this->nonInscriptions,
@@ -79,14 +75,14 @@ class PresencesBlockComponent extends Component
         );
     }
 
-    public function previousDate(): void
+    public function previousDate()
     {
         //->format('Y-m-d')
         $dd = Carbon::parse($this->current_date) ?? Carbon::now();
         $this->current_date = $dd->subDay()->format('Y-m-d');
     }
 
-    public function nextDate(): void
+    public function nextDate()
     {
         //->format('Y-m-d')
         $dd = Carbon::parse($this->current_date) ?? Carbon::now();
@@ -96,12 +92,12 @@ class PresencesBlockComponent extends Component
         }
     }
 
-    public function selectPresence($presence_id): void
+    public function selectPresence($presence_id)
     {
         $this->presence = Presence::find($presence_id);
     }
 
-    public function addPresence($status): void
+    public function addPresence($status)
     {
         $this->presence->status = $status;
         $this->presence->date = $this->current_date;
@@ -133,8 +129,7 @@ class PresencesBlockComponent extends Component
         }
     }
 
-
-    public function updatePresence($status): void
+    public function updatePresence($status)
     {
         $this->presence->status = $status;
         $this->validate([
@@ -157,7 +152,7 @@ class PresencesBlockComponent extends Component
         }
     }
 
-    public function deletePresence(): void
+    public function deletePresence()
     {
         $done = $this->presence->delete();
         if ($done) {
@@ -169,7 +164,8 @@ class PresencesBlockComponent extends Component
         }
     }
 
-    public function printIt(): void
+
+    public function printIt()
     {
         $this->loadData();
         $this->dispatchBrowserEvent('printIt', ['elementId' => "presencesPrint", 'type' => 'html', 'maxWidth' => '100%']);

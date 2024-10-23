@@ -143,14 +143,14 @@ class Classe extends Model
         return $this->hasManyThrough(Presence::class, Inscription::class)->with('inscription');
     }
 
-    public function nonInscriptions($date): Collection|array
+   /* public function nonInscriptions($date): Collection|array
     {
         $df = $this->inscriptions()->whereDoesntHave('presences', function ($q) use ($date) {
             $q->where('date', $date);
         })->get();
         //  dd($df);
         return $df;
-    }
+    }*/
 
     public function inscriptions(): HasMany
     {

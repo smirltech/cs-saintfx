@@ -1,7 +1,7 @@
 <div>
     <div class="card">
         <div class="card-header">
-            <div class="card-title d-flex">
+            <div class="card-title">
                 <div>
                     <form wire:submit.prevent="search" class="mt-1">
                         <div class="row">
@@ -29,20 +29,14 @@
             </div>
             <div class="card-tools d-flex my-auto">
                 @can('inscriptions.create')
-                    <button
-                        onclick="showModal('scolarite.eleve.eleve-import-component')"
-                        title="ajouter"
-                        class="btn btn-success mr-2"><span class="fa fa-file-excel">
-                                    </span>
-                    </button>
-                @endcan
-                @can('inscriptions.create')
-                    <a href="{{ route('scolarite.inscriptions.create') }}" title="ajouter"
-                       class="btn btn-primary mr-2"><span class="fa fa-plus"></span></a>
+                    <x-form::button.primary
+                        icon="plus"
+                        onclick="showModal('scolarite.presences.presence-classe-component')"
+                        title="ajouter"/>
                 @endcan
 
             </div>
         </div>
     </div>
-    <livewire:scolarite.presence.charts.presences-line/>
+  <livewire:scolarite.presences.charts.presences-line/>
 </div>

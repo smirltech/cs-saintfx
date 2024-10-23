@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('status')->default(PresenceStatus::PRESENT->value);
             $table->text('observation')->nullable();
             $table->timestamps();
-            $table->timestamps();
         });
     }
 };
