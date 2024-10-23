@@ -1,3 +1,4 @@
+@php use App\Enums\Devise @endphp
 <x-modals::form title="{{$this->title}}" size="modal-lg">
     <div class="form-group">
         <x-form::select wire:model="annee_id" label="{{ __('Annee') }}" :options="$annees"/>
@@ -11,6 +12,10 @@
                             :options="$fee?->type?->properties()" wire:model="custom_property"/>
         </div>
     @endif--}}
+    <div class="col-md-12">
+        <x-form::select required :change='true' label="{{ __('Devise') }}" class="form-select"
+                        :options="Devise::cases()" wire:model="devise"/>
+    </div>
     <div class="form-group">
         <x-form::input.xlsx wire:model="file" label="{{ __('File') }}"/>
     </div>

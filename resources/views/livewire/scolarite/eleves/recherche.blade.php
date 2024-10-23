@@ -1,4 +1,3 @@
-@php use App\Enums\EtudiantFilter;use App\Enums\EtudiantLimit;use App\Enums\EtudiantStatus; @endphp
 <div class="content">
     <div class="container-fluid">
         <div class="row">
@@ -57,11 +56,6 @@
                                             <button onclick="showModal('scolarite.inscription.inscription-create-component', '{{$etudiant->inscription->id}}')"
                                                class="btn btn-info btn-sm m-1" title="{{__('Eidt')}}"><i
                                                     class="fa fa-edit"></i></button>
-                                            <!--  <button class="btn btn-warning btn-sm m-1"
-                                                wire:click="download({{$etudiant}})" title="{{__('Download')}}">
-                                                <i class="fa fa-download"></i></button> -->
-
-
                                         </td>
                                     </tr>
                                 @empty
@@ -82,10 +76,3 @@
         </div>
     </div>
 </div>
-<style>
-    .table td.fit,
-    .table th.fit {
-        white-space: nowrap;
-        width: 1%;
-    }
-</style>

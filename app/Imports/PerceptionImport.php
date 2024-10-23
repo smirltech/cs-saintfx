@@ -19,7 +19,7 @@ class PerceptionImport
     public function __construct(
         private readonly Frais   $frais,
         private readonly Annee   $annee,
-        private readonly ?string $custom_property = null,
+        private readonly string $devise,
     )
     {
     }
@@ -28,13 +28,13 @@ class PerceptionImport
     public static function build(
         Frais   $frais,
         Annee   $annee,
-        ?string $custom_property = null,
+        ?string $devise,
     ): self
     {
         return new self(
             frais: $frais,
             annee: $annee,
-            custom_property: $custom_property
+            devise: $devise
         );
     }
 
@@ -86,7 +86,7 @@ class PerceptionImport
                     'frais_id' => $frais->id,
                     'montant' => $line[$month->value],
                     'frais_montant' => $frais->montant,
-                    'devise' => $frais->devise,
+                    'devise' => $this->devise,
                 ]);
             }
         }

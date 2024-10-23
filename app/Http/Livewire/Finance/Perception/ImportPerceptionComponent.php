@@ -45,6 +45,7 @@ class ImportPerceptionComponent extends Component
     public function updatedFraisId($value): void
     {
         $this->fee = Frais::find($value);
+        $this->devise = $this->fee->devise;
     }
 
 
@@ -85,7 +86,7 @@ class ImportPerceptionComponent extends Component
             $annee = Annee::find($this->annee_id);
 
             DB::beginTransaction();
-            PerceptionImport::build($frais, $annee,$this->custom_property)
+            PerceptionImport::build(frais: $frais, annee: $annee, devise: $frais->devise)
                 ->import($this->file->getRealPath());
             DB::commit();
 
@@ -100,6 +101,7 @@ class ImportPerceptionComponent extends Component
     {
         return [
             'file' => 'required|file',
+            'devise' => 'required',
             'frais_id' => 'required|exists:frais,id'
         ];
     }
