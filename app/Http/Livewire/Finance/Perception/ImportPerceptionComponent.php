@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Finance\Perception;
 
+use App\Enums\Devise;
 use App\Imports\PerceptionImport;
 use App\Models\Annee;
 use App\Models\Frais;
@@ -32,6 +33,7 @@ class ImportPerceptionComponent extends Component
     public Collection $annees;
     public ?Frais $fee = null;
     public ?string $custom_property = null;
+    public ?Devise $devise = null;
 
     public function mount(): void
     {
@@ -45,6 +47,7 @@ class ImportPerceptionComponent extends Component
     public function updatedFraisId($value): void
     {
         $this->fee = Frais::find($value);
+        $this->devise = $this->fee->devise;
     }
 
 
@@ -85,7 +88,7 @@ class ImportPerceptionComponent extends Component
             $annee = Annee::find($this->annee_id);
 
             DB::beginTransaction();
-            PerceptionImport::build($frais, $annee,$this->custom_property)
+            PerceptionImport::build(frais: $frais, annee: $annee, devise: $frais->devise)
                 ->import($this->file->getRealPath());
             DB::commit();
 
@@ -100,6 +103,7 @@ class ImportPerceptionComponent extends Component
     {
         return [
             'file' => 'required|file',
+            'devise' => 'required',
             'frais_id' => 'required|exists:frais,id'
         ];
     }

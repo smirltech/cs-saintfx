@@ -1,4 +1,4 @@
-@php use App\Enums\Devise;use App\Enums\Section; @endphp
+@php use App\Enums\Devise;use App\Enums\FraisType;use App\Enums\Section;use App\Models\Frais; @endphp
 <x-modals::form title="Ajouter un frais">
     <div class="row">
         <div class="col-md-12">
@@ -6,7 +6,7 @@
                             wire:model="fee.type"/>
         </div>
         <div class="col-md-12">
-            <x-form::select :change='true'  label="{{ __('Sub-type') }}" class="form-select"
+            <x-form::select :change='true' label="{{ __('Sub-type') }}" class="form-select"
                             :options="$fee->type?->subTypes()" wire:model="fee.sub_type"/>
         </div>
         <div class="col-md-12">
@@ -21,7 +21,14 @@
             </div>
         @endif
         <div class="col-md-12">
-            <x-form::input required readonly label="{{ __('Name') }}" wire:model.defer="fee.nom"/>
+            @if(($fee?->type == FraisType::AUTRE))
+                <x-form::input required label="{{ __('Name') }}"
+                               wire:model.defer="fee.nom"/>
+            @else
+                <x-form::input readonly required label="{{ __('Name') }}"
+                               wire:model.defer="fee.nom"/>
+            @endif
+
         </div>
         <div class="col-md-6">
             <x-form::input required label="{{ __('Amount') }}" wire:model.defer="fee.montant"/>

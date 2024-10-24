@@ -3,12 +3,14 @@
 namespace App\Http\Livewire\Dashboard;
 
 use App\Enums\UserRole;
+use App\Helpers\Helpers;
 use App\Models\Consommable;
 use App\Models\Depense;
 use App\Models\Enseignant;
 use App\Models\Inscription;
 use App\Models\Materiel;
 use App\Models\Perception;
+use App\Models\Presence;
 use App\Models\Revenu;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
@@ -16,6 +18,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Routing\Route;
 use Livewire\Component;
+use Pharaonic\Laravel\Readable\Readable;
 
 class AdminDashboardComponent extends Component
 {
@@ -27,13 +30,25 @@ class AdminDashboardComponent extends Component
 
     private function getBoxes(): array
     {
+        $perceptionsUSD =Perception::whereDevise('USD')->sum('montant');
+        $perceptionsCDF = Perception::whereDevise('CDF')->sum('montant');
+
+
         return [
             [
                 'title' => Inscription::anneeScolaire()->count(),
-                'text' => 'Eleves',
+                'text' => 'Inscriptions',
                 'icon' => 'fas fa-graduation-cap',
                 'theme' => 'gradient-primary',
                 'url' => '#'
+
+            ],
+            [
+                'title' => "{$perceptionsUSD}$ / {$perceptionsCDF}Fc",
+                'text' => 'Perceptions',
+                'icon' => 'fas fa-coins',
+                'theme' => 'gradient-success',
+                'url' => \route('finance.perceptions')
 
             ],
             [
@@ -54,9 +69,9 @@ class AdminDashboardComponent extends Component
             ]
             ,
             [
-                'title' => User::role(UserRole::parent->value)->count(),
-                'text' => 'Parents',
-                'icon' => 'fas fa-users',
+                'title' => Presence::ofToday()->sum('total'),
+                'text' => 'Presences',
+                'icon' => 'fas fa-user-check',
                 'theme' => 'gradient-info',
                 'url' => '#'
 
@@ -70,14 +85,7 @@ class AdminDashboardComponent extends Component
 
             ],
 
-            [
-                'title' => '$' . Perception::total(),
-                'text' => 'Perceptions',
-                'icon' => 'fas fa-coins',
-                'theme' => 'gradient-success',
-                'url' => \route('finance.perceptions')
 
-            ],
             [
                 'title' => Consommable::count(),
                 'text' => 'Consommables',

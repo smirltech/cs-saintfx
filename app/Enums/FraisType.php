@@ -11,8 +11,8 @@ enum FraisType: string
     case KIT = 'KIT';
     case ETAT = 'ETAT';
     case CONNEXE = 'CONNEXE';
+    case AUTRE = 'AUTRE';
 
-    //folder() is a method that returns the folder name
     public function folder(): string
     {
         return match ($this) {
@@ -21,6 +21,7 @@ enum FraisType: string
             self::ETAT => 'etat',
             self::CONNEXE => 'connexe',
             self::MINERVAL => 'minerval',
+            self::AUTRE => 'autre',
         };
     }
 
@@ -32,13 +33,14 @@ enum FraisType: string
             self::ETAT => 'Frais de l\'état',
             self::CONNEXE => 'Frais connexe',
             self::MINERVAL => 'Frais de minerval',
+            self::AUTRE => 'Autre frais',
         };
     }
 
     public function subtypes(): ?array
     {
         return match ($this) {
-            self::MINERVAL, self::KIT, self::INSCRIPTION, self::CONNEXE => null,
+            self::MINERVAL, self::KIT, self::INSCRIPTION, self::CONNEXE, self::AUTRE => null,
             self::ETAT => EtatType::cases(),
         };
     }
@@ -47,7 +49,7 @@ enum FraisType: string
     {
         return match ($this) {
             self::MINERVAL => MinervalMonth::cases(),
-            self::ETAT, self::KIT, self::INSCRIPTION, self::CONNEXE => null,
+            self::ETAT, self::KIT, self::INSCRIPTION, self::CONNEXE, self::AUTRE => null,
         };
     }
 
