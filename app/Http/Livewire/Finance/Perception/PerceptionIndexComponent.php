@@ -14,6 +14,7 @@ use App\Models\Perception;
 use App\Models\User;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
+use Illuminate\Support\Facades\Auth;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class PerceptionIndexComponent extends BaseComponent
@@ -40,6 +41,9 @@ class PerceptionIndexComponent extends BaseComponent
         $perceptionsTodayUSD =Perception::ofToday()->whereDevise('USD')->sum('montant');
         $perceptionsTodayCDF = Perception::ofToday()->whereDevise('CDF')->sum('montant');
 
+        $perceptionsMeTodayUSD =Perception::ofToday()->whereDevise('USD')->whereUserId(Auth::id())->sum('montant');
+        $perceptionsMeTodayCDF = Perception::ofToday()->whereDevise('CDF')->whereUserId(Auth::id())->sum('montant');
+
 
         return [
             [
@@ -51,7 +55,7 @@ class PerceptionIndexComponent extends BaseComponent
 
             ],
             [
-                'title' => "{$perceptionsTodayCDF}Fc / {$perceptionsUSD}$",
+                'title' => "{$perceptionsTodayCDF}Fc / {$perceptionsTodayUSD}$",
                 'text' => "Aujoud'hui",
                 'icon' => 'fas fa-coins',
                 'theme' => 'gradient-success',
@@ -66,14 +70,22 @@ class PerceptionIndexComponent extends BaseComponent
                 'url' => '#'
 
             ],
+            [
+                'title' => "{$perceptionsMeTodayCDF}Fc / {$perceptionsMeTodayUSD}$",
+                'text' => "Aujoud'hui",
+                'icon' => 'fas fa-user',
+                'theme' => 'gradient-success',
+                'url' => \route('finance.perceptions')
+
+            ],
         ];
     }
 
     public function render()
     {
         $perceptionsRequest = Perception::where('annee_id', $this->annee_id);
-        $this->perceptions = $perceptionsRequest->orderBy('created_at', 'DESC')->get();
-        // dd($this->perceptions);
+        $this->perceptions = $perceptionsRequest->latest()->get();
+
         return view('livewire.finance.perceptions.index', ['perceptions' => $this->perceptions])
             ->layout(AdminLayout::class, ['title' => 'Liste de Perceptions']);
     }

@@ -12,10 +12,11 @@
         'PAYE',
         'RESTE',
         'CAISSIER',
-        ['label'=>'ACTIONS', 'no-export'=>true, 'width'=>5]
-];
+    ];
    $data =[];
    foreach ($perceptions as $key=>$perception){
+      $reste =  ( (int)$perception->frais_montant-(int)($perception->montant));
+      $resteColor = $reste>0?'danger':'success';
 
         $data[] =[
             $perception->created_at->format('Y-m-d H:i'),
@@ -24,18 +25,14 @@
             $perception->inscription?->classe->code,
              Helpers::currencyFormat($perception->frais_montant) .' '.$perception->frais->devise->value,
              Helpers::currencyFormat($perception->montant) .' '. $perception->devise->value,
-            ( (int)$perception->frais_montant-(int)($perception->montant)),
-            $perception->user?->name,
-            $perception,
-];
-   }
+            '<span class="badge badge-'.$resteColor.'">'.Helpers::currencyFormat($reste) .' '. $perception->devise->value.'</span>',
+            $perception->user?->name
+            ];
+            }
 
     $config =[
   'data'=>$data,
   'order'=>[[0, 'desc'],[3, 'asc'],[2, 'asc']],
-  'columns'=>[null,null, null,null,null,null, null,null, null],
-  'destroy'=>true,
-
 ];
 @endphp
 @section('title')
@@ -99,46 +96,11 @@
                 </div>
 
                 <div class="card-body m-b-40 table-responsive">
-                    <x-adminlte-datatable wire:ignore.self head-theme="primary" theme="s" id="table1"
-                                          :heads="$heads" striped
-                                          hoverable with-buttons>
-                        @foreach($config['data'] as $row)
-                            <tr>
-                                <td>{!! $row[0] !!}</td>
-                                <td>{!! $row[1] !!}</td>
-                                <td>{!! $row[2] !!}</td>
-                                <td>{!! $row[3] !!}</td>
-
-                                <td>{!! $row[4] !!}</td>
-
-                                <td>{!! $row[5] !!}</td>
-                                <td><span
-                                        class="badge @if($row[6] > 0) badge-danger @else badge-success @endif">{!! Helpers::currencyFormat($row[6]) !!} {{$row[8]?->devise}}</span>
-                                </td>
-                                <td>{!! $row[7] !!}</td>
-                                <td>
-                                    <div class="d-flex float-right">
-                                        @can('perceptions.update',$row[8])
-                                            <a {{--href="{{route('finance.perceptions.edit', ['perception'=>$row[9]])}}--}}
-                                               title="voir"
-                                               class="btn btn-success btn-sm m-1">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                        @endcan
-                                        {{-- @can('perceptions.delete',$row[9])
-                                             <button wire:click="getSelectedPerception('{{$row[9]}}')"
-                                                     type="button"
-                                                     title="Modifier" class="btn btn-danger btn-sm m-1"
-                                                     data-toggle="modal"
-                                                     data-target="#delete-perception">
-                                                 <span class="fa fa-trash"></span>
-                                             </button>
-                                         @endcan--}}
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </x-adminlte-datatable>
+                    <x-adminlte-datatable head-theme="primary" theme="s" id="table1"
+                                          :heads="$heads"
+                                          :config="$config"
+                                          striped
+                                          hoverable with-buttons/>
                 </div>
             </div>
         </div>
