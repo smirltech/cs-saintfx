@@ -64,6 +64,8 @@ class PerceptionImport
                             frais: $this->frais,
                             line: $line,
                         );
+                    }else{
+                        throw new Exception("Le type de frais n'est pas pris en charge, seul les minerval sont pris en charge");
                     }
                 } else {
                     throw new Exception("L'élève {$nom} n'est pas inscrit dans une classe");
