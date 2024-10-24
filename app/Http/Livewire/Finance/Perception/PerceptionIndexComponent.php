@@ -2,9 +2,16 @@
 
 namespace App\Http\Livewire\Finance\Perception;
 
+use App\Enums\UserRole;
 use App\Http\Livewire\BaseComponent;
 use App\Models\Annee;
+use App\Models\Consommable;
+use App\Models\Depense;
+use App\Models\Enseignant;
+use App\Models\Inscription;
+use App\Models\Materiel;
 use App\Models\Perception;
+use App\Models\User;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -23,6 +30,43 @@ class PerceptionIndexComponent extends BaseComponent
 
         $this->annee_id = Annee::id();
 
+    }
+
+    public function getBoxesProperty(): array
+    {
+        $perceptionsUSD =Perception::whereDevise('USD')->sum('montant');
+        $perceptionsCDF = Perception::whereDevise('CDF')->sum('montant');
+
+        $perceptionsTodayUSD =Perception::ofToday()->whereDevise('USD')->sum('montant');
+        $perceptionsTodayCDF = Perception::ofToday()->whereDevise('CDF')->sum('montant');
+
+
+        return [
+            [
+                'title' => "{$perceptionsCDF}Fc / {$perceptionsUSD}$",
+                'text' => 'Perceptions',
+                'icon' => 'fas fa-coins',
+                'theme' => 'gradient-success',
+                'url' => \route('finance.perceptions')
+
+            ],
+            [
+                'title' => "{$perceptionsTodayCDF}Fc / {$perceptionsUSD}$",
+                'text' => "Aujoud'hui",
+                'icon' => 'fas fa-coins',
+                'theme' => 'gradient-success',
+                'url' => \route('finance.perceptions')
+
+            ],
+            [
+                'title' => '$' . Depense::total(),
+                'text' => 'Depenses',
+                'icon' => 'fas fa-credit-card',
+                'theme' => 'gradient-danger',
+                'url' => '#'
+
+            ],
+        ];
     }
 
     public function render()

@@ -12,10 +12,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
+use LaracraftTech\LaravelDateScopes\DateScopes;
 
 class Perception extends Model
 {
-    use HasFactory, HasUlids, HasScopeAnnee;
+    use HasFactory, HasUlids, HasScopeAnnee, DateScopes;
 
     public $guarded = [];
 
