@@ -4,38 +4,36 @@
     use App\Helpers\Helpers;
 
     $heads =[
-        ['label'=>'#', 'width'=>2],
         ['label'=>'DATE', 'width'=>10],
-         'LIBELLE',
+        'LIBELLE',
         'ELEVE',
         'CLASSE',
         'DU',
         'PAYE',
         'RESTE',
-         ['label'=>'OBSERVATION', 'width'=>8],
-        ['label'=>'', 'no-export'=>true, 'width'=>5]
+        'CAISSIER',
+        ['label'=>'ACTIONS', 'no-export'=>true, 'width'=>5]
 ];
    $data =[];
    foreach ($perceptions as $key=>$perception){
 
         $data[] =[
-            $key+1,
-            $perception->created_at->format('d-m-Y H:i'),
+            $perception->created_at->format('Y-m-d H:i'),
             $perception->label,
             $perception->inscription?->eleve->fullName,
             $perception->inscription?->classe->code,
              Helpers::currencyFormat($perception->frais_montant) .' '.$perception->frais->devise->value,
-             Helpers::currencyFormat($perception->montant) .' '. $perception->frais->devise->value,
+             Helpers::currencyFormat($perception->montant) .' '. $perception->devise->value,
             ( (int)$perception->frais_montant-(int)($perception->montant)),
-            Carbon::parse($perception->due_date),
+            $perception->user?->name,
             $perception,
 ];
    }
 
     $config =[
   'data'=>$data,
-  'order'=>[[1, 'desc']],
-  'columns'=>[null,null, null,null,null,null, null,null, null, ['orderable'=>false]],
+  'order'=>[[0, 'desc'],[3, 'asc'],[2, 'asc']],
+  'columns'=>[null,null, null,null,null,null, null,null, null],
   'destroy'=>true,
 
 ];
@@ -105,7 +103,7 @@
                                           :heads="$heads" striped
                                           hoverable with-buttons>
                         @foreach($config['data'] as $row)
-                            <tr class="table-{{GraviteRetard::color($row[8])}}">
+                            <tr>
                                 <td>{!! $row[0] !!}</td>
                                 <td>{!! $row[1] !!}</td>
                                 <td>{!! $row[2] !!}</td>
@@ -114,31 +112,28 @@
                                 <td>{!! $row[4] !!}</td>
 
                                 <td>{!! $row[5] !!}</td>
-                                <td>
-                                    {!!$row[6] !!}
-                                </td>
                                 <td><span
-                                        class="badge @if($row[7] > 0) badge-danger @else badge-success @endif">{!! Helpers::currencyFormat($row[7]) !!} {{$row[9]?->devise}}</span>
+                                        class="badge @if($row[6] > 0) badge-danger @else badge-success @endif">{!! Helpers::currencyFormat($row[6]) !!} {{$row[8]?->devise}}</span>
                                 </td>
-                                <td title="{!! $row[8]->format('d-m-Y') !!}">{!!$row[7]<=0?'OK':GraviteRetard::retard($row[8])!!}</td>
+                                <td>{!! $row[7] !!}</td>
                                 <td>
                                     <div class="d-flex float-right">
-                                   {{--     @can('perceptions.update',$row[9])
-                                            <a href="{{route('finance.perceptions.edit', ['perception'=>$row[9]])}}"
+                                        @can('perceptions.update',$row[8])
+                                            <a {{--href="{{route('finance.perceptions.edit', ['perception'=>$row[9]])}}--}}
                                                title="voir"
                                                class="btn btn-success btn-sm m-1">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                        @endcan--}}
-                                       {{-- @can('perceptions.delete',$row[9])
-                                            <button wire:click="getSelectedPerception('{{$row[9]}}')"
-                                                    type="button"
-                                                    title="Modifier" class="btn btn-danger btn-sm m-1"
-                                                    data-toggle="modal"
-                                                    data-target="#delete-perception">
-                                                <span class="fa fa-trash"></span>
-                                            </button>
-                                        @endcan--}}
+                                        @endcan
+                                        {{-- @can('perceptions.delete',$row[9])
+                                             <button wire:click="getSelectedPerception('{{$row[9]}}')"
+                                                     type="button"
+                                                     title="Modifier" class="btn btn-danger btn-sm m-1"
+                                                     data-toggle="modal"
+                                                     data-target="#delete-perception">
+                                                 <span class="fa fa-trash"></span>
+                                             </button>
+                                         @endcan--}}
                                     </div>
                                 </td>
                             </tr>

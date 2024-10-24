@@ -44,6 +44,11 @@ class Perception extends Model
         });
     }
 
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function getLabelAttribute(): ?string
     {
         if ($this->frais->type == FraisType::MINERVAL) {

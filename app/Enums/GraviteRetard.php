@@ -13,7 +13,7 @@ enum GraviteRetard: int
 
 
     // label() is a method that returns the label of the enum
-    public static function color($dateTime): string
+    public static function color(string $dateTime): string
     {
         $dDate = Carbon::now();
         $dayCount = $dDate->diffInDays(Carbon::parse($dateTime));
