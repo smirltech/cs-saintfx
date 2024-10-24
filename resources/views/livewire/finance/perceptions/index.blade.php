@@ -4,7 +4,6 @@
     use App\Helpers\Helpers;
 
     $heads =[
-        ['label'=>'#', 'width'=>2],
         ['label'=>'DATE', 'width'=>10],
          'LIBELLE',
         'ELEVE',
@@ -19,7 +18,6 @@
    foreach ($perceptions as $key=>$perception){
 
         $data[] =[
-            $key+1,
             $perception->created_at->format('d-m-Y H:i'),
             $perception->label,
             $perception->inscription?->eleve->fullName,
@@ -35,7 +33,7 @@
     $config =[
   'data'=>$data,
   'order'=>[[1, 'desc']],
-  'columns'=>[null,null, null,null,null,null, null,null, null, ['orderable'=>false]],
+  'columns'=>[null, null,null,null,null, null,null, null, ['orderable'=>false]],
   'destroy'=>true,
 
 ];
