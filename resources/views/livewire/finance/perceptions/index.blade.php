@@ -6,13 +6,13 @@
     $heads =[
         ['label'=>'#', 'width'=>2],
         ['label'=>'DATE', 'width'=>10],
-        'FRAIS',
+         'LIBELLE',
         'ELEVE',
         'CLASSE',
         'DU',
         'PAYE',
-        'SOLDE',
-         ['label'=>'ECHEANCE', 'width'=>8],
+        'RESTE',
+         ['label'=>'OBSERVATION', 'width'=>8],
         ['label'=>'', 'no-export'=>true, 'width'=>5]
 ];
    $data =[];
@@ -20,7 +20,7 @@
 
         $data[] =[
             $key+1,
-            $perception->created_at->format('d-m-Y'),
+            $perception->created_at->format('d-m-Y H:i'),
             $perception->label,
             $perception->inscription?->eleve->fullName,
             $perception->inscription?->classe->code,
@@ -28,7 +28,7 @@
              Helpers::currencyFormat($perception->montant) .' '. $perception->frais->devise->value,
             ( (int)$perception->frais_montant-(int)($perception->montant)),
             Carbon::parse($perception->due_date),
-            $perception->id,
+            $perception,
 ];
    }
 
@@ -118,19 +118,19 @@
                                     {!!$row[6] !!}
                                 </td>
                                 <td><span
-                                        class="badge @if($row[7] > 0) badge-danger @else badge-success @endif">{!! Helpers::currencyFormat($row[7]) !!} Fc</span>
+                                        class="badge @if($row[7] > 0) badge-danger @else badge-success @endif">{!! Helpers::currencyFormat($row[7]) !!} {{$row[9]?->devise}}</span>
                                 </td>
                                 <td title="{!! $row[8]->format('d-m-Y') !!}">{!!$row[7]<=0?'OK':GraviteRetard::retard($row[8])!!}</td>
                                 <td>
                                     <div class="d-flex float-right">
-                                        @can('perceptions.update',$row[9])
+                                   {{--     @can('perceptions.update',$row[9])
                                             <a href="{{route('finance.perceptions.edit', ['perception'=>$row[9]])}}"
                                                title="voir"
                                                class="btn btn-success btn-sm m-1">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                        @endcan
-                                        @can('perceptions.delete',$row[9])
+                                        @endcan--}}
+                                       {{-- @can('perceptions.delete',$row[9])
                                             <button wire:click="getSelectedPerception('{{$row[9]}}')"
                                                     type="button"
                                                     title="Modifier" class="btn btn-danger btn-sm m-1"
@@ -138,7 +138,7 @@
                                                     data-target="#delete-perception">
                                                 <span class="fa fa-trash"></span>
                                             </button>
-                                        @endcan
+                                        @endcan--}}
                                     </div>
                                 </td>
                             </tr>
