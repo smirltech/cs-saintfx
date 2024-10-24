@@ -44,7 +44,7 @@ class FraisCreateComponent extends BaseComponent
     public function rules(): array
     {
         return [
-            'fee.nom' => ['required', 'string', 'max:255','unique:frais,nom,'.$this->fee->id],
+            'fee.nom' => ['required', 'string', 'max:255', 'unique:frais,nom,' . $this->fee->id],
             'fee.montant' => ['required'],
             'fee.devise' => ['required'],
             'fee.type' => ['required'],
@@ -124,6 +124,9 @@ class FraisCreateComponent extends BaseComponent
 
     public function generateFeeName(): void
     {
+        $this->fee->nom = null;
+        if ($this->fee->type == FraisType::AUTRE) return;
+
         $type = $this->fee->type?->label();
         $section = $this->fee->section ?: null;
         $option = $this->fee->option_id ? Option::find($this->fee->option_id)->code : null;
