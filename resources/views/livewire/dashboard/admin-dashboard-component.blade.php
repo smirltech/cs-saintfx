@@ -43,28 +43,11 @@
                 @endforeach
             </div>
         </div>
-        <div class="col-md-6">
-            @php
-                $columnChartModel = (new ColumnChartModel())->multiColumn();
-                           $columnChartModel->setTitle(Annee::encours()->nom)
-                           ->addSeriesColumn('Depenses', '2022-02-27', 20)
-                           ->addSeriesColumn('Depenses', '2022-02-28', 40)
-                           ->addSeriesColumn('Revenus', '2022-02-26', 15)
-                           ->addSeriesColumn('Revenus', '2022-03-02', 35);
-            @endphp
-            <div class="card">
-                <div class="card-header">
-                    Revevues vs Depenses
-                </div>
-                <div class="card-body" style="height: 350px;">
-                    <livewire:livewire-column-chart
-                        :column-chart-model="$columnChartModel"
-                    />
-                </div>
-            </div>
+        <div class="col-md-8">
+           <livewire:dashboard.components.depenses-revenues-column-chart/>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-4">
             @php
                 $pieChartModel = (new PieChartModel());
                            $pieChartModel->setTitle(Annee::encours()->nom)
@@ -115,7 +98,7 @@
             <livewire:dashboard.components.depenses-recentes-card/>
         </div>
         <div class="col-md-12">
-            <livewire:scolarite.presences.charts.presences-line/>
+           {{-- <livewire:scolarite.presences.charts.presences-line/>--}}
         </div>
     </div>
 </x-admin-layout>

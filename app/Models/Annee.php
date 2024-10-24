@@ -12,6 +12,8 @@ class Annee extends Model
 
     protected $casts = [
         'encours' => 'boolean',
+        'date_debut' => 'date',
+        'date_fin' => 'date',
     ];
 
     protected $appends = [
