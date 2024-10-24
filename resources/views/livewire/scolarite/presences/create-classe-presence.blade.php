@@ -16,19 +16,25 @@
         </div>
         <div class="col-md-6">
             <x-form::input.numeric
-                label="Presence filles"
-                wire:model="presence.filles"/>
-        </div>
-        <div class="col-md-6">
-            <x-form::input.numeric
                 label="Presence garçons"
                 wire:model="presence.garcons"/>
         </div>
+        <div class="col-md-6">
+            <x-form::input.numeric
+                label="Presence filles"
+                wire:model="presence.filles"/>
+        </div>
+
         <div class="col-md-12">
             <x-form::input.numeric
                 required
-                label="Presence garçons"
+                label="Total Presence"
                 wire:model="presence.total"/>
+        </div>
+        <div class="col-md-12">
+            <x-form::input.numeric
+                label="Total Absences"
+                wire:model="presence.absents"/>
         </div>
     </div>
 </x-modals::form>

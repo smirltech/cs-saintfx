@@ -18,6 +18,7 @@
 
     $lineChartModel->addSeriesPoint('Filles', $date->format('d'), $filles);
     $lineChartModel->addSeriesPoint('Garçons', $date->format('d'), $garcons);
+    $lineChartModel->addSeriesPoint('Absents', $date->format('d'), Presence::whereDate('date', $date->format('Y-m-d'))->sum('absents'));
       }
 @endphp
 <div class="card">

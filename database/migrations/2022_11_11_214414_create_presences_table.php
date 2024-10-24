@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->date('date');
             $table->integer('filles')->nullable();
             $table->integer('garcons')->nullable();
+            $table->integer('absents')->nullable();
             $table->integer('total');
             $table->text('observation')->nullable();
             $table->timestamps();

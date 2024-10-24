@@ -21,12 +21,14 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 class PresenceClasseComponent extends Component
-{ use HasLivewireAlert;
-    public  ?Presence $presence;
+{
+    use HasLivewireAlert;
+
+    public ?Presence $presence;
     public function mount(): void
     {
         $this->presence = new Presence();
-        $this->classes = Classe::all();
+        $this->classes = Classe::orderBy('code')->get();
         $this->presence->date = Carbon::now()->toDateString();
     }
 
@@ -34,9 +36,10 @@ class PresenceClasseComponent extends Component
     {
         return view('livewire.scolarite.presences.create-classe-presence');
     }
+
     public function updatedPresenceGarcons($value): void
     {
-        $this->presence->total =  (int)$this->presence->filles + (int)$value;
+        $this->presence->total = (int)$this->presence->filles + (int)$value;
 
     }
 
@@ -48,9 +51,25 @@ class PresenceClasseComponent extends Component
     public function submit(): void
     {
         $this->validate();
-        $this->presence->save();
+        // save or update if class already exist
+        $presence = Presence::where('classe_id', $this->presence->classe_id)
+            ->whereDate('date', $this->presence->date)
+            ->first();
+
+        if ($presence) {
+            $presence->update([
+                'garcons' => $this->presence->garcons,
+                'filles' => $this->presence->filles,
+                'absents' => $this->presence->absents,
+                'total' => $this->presence->total,
+                'observation' => $this->presence->observation,
+            ]);
+        } else {
+            $this->presence->save();
+        }
+
         $this->success('La présence a été enregistrée avec succès');
-        $this->presence =  new Presence();
+        $this->presence = new Presence();
     }
 
     public function rules(): array
@@ -60,6 +79,7 @@ class PresenceClasseComponent extends Component
             'presence.date' => 'required',
             'presence.garcons' => 'numeric|nullable',
             'presence.filles' => 'numeric|nullable',
+            'presence.absents' => 'numeric|nullable',
             'presence.total' => 'numeric|required',
             'presence.observation' => 'nullable',
         ];

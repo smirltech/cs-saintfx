@@ -21,15 +21,18 @@ class PresencesIndexComponent extends BaseComponent
 
     public $eleves = [];
 
+    public string $classe_id = '';
+    public string $section_id = '';
+
+
 
     /**
      * @throws AuthorizationException
      */
     public function mount(): void
     {
-        $this->eleves = Eleve::orderBy('created_at','desc')->get();
         $this->sections = Section::all();
-        $this->classes = Classe::all();
+        $this->classes = Classe::orderBy('code')->get();
     }
 
 
