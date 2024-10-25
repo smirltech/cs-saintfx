@@ -53,8 +53,8 @@ class PresencesBlockComponent extends Component
 
     #[NoReturn] public function loadData(): void
     {
-        $this->presences = $this->classe->presences->where('date', $this->current_date)->where('annee_id', Annee::id());
-        $this->nonInscriptions = $this->classe->nonInscriptions($this->current_date);
+        $this->presences = $this->classe->presences;
+        $this->nonInscriptions = $this->classe->inscriptions;
         $this->presence_eleve = ($this->nonInscriptions[0] ?? null)?->eleve;
 
         $this->hasNextDay = Carbon::parse($this->current_date)->isBefore(Carbon::now()->startOfDay());

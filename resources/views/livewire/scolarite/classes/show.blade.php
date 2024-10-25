@@ -158,8 +158,8 @@
                             <div class="tab-pane fade" id="custom-tabs-one-presences" role="tabpanel"
                                  aria-labelledby="custom-tabs-one-presences-tab">
                                 <div class="card-body p-0 table-responsive">
-                                    <livewire:scolarite.presences.block.presences-block-component
-                                        :classe="$classe"/>
+                                 {{--   <livewire:scolarite.presences.block.presences-block-component
+                                        :classe="$classe"/>--}}
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel"

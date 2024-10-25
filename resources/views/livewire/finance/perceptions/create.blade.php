@@ -26,7 +26,7 @@
             <x-form::select change label="Payé en devise" type="number" :options="Devise::cases()" wire:model="perception.devise"/>
         </div>
         <div class="col-md-12 mb-3">
-            <x-form::input label="Montant Payé" required type="number" wire:model="perception.montant"/>
+            <x-form::input label="Montant Payé" step=".01" required type="number" wire:model="perception.montant"/>
         </div>
         <div class="col-md-12 mb-3">
             <x-form::input label="Payé Par" wire:model="perception.paid_by"/>
