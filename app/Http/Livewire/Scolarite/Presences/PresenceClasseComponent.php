@@ -26,11 +26,23 @@ class PresenceClasseComponent extends Component
     use HasLivewireAlert;
 
     public ?Presence $presence;
+
     public function mount(): void
     {
         $this->presence = new Presence();
         $this->classes = Classe::orderBy('code')->get();
         $this->presence->date = Carbon::now()->toDateString();
+    }
+
+    public function updatedPresenceClasseId(): void
+    {
+        $this->loadPresence();
+    }
+
+    public function updatedPresenceDate(): void
+    {
+        $this->loadPresence();
+
     }
 
     public function render(): View|\Illuminate\Foundation\Application|Factory|Application
@@ -52,24 +64,9 @@ class PresenceClasseComponent extends Component
     public function submit(): void
     {
         $this->validate();
-        // save or update if class already exist
-        $presence = Presence::where('classe_id', $this->presence->classe_id)
-            ->whereDate('date', $this->presence->date)
-            ->first();
+        $this->presence->save();
 
-        if ($presence) {
-            $presence->update([
-                'garcons' => $this->presence->garcons,
-                'filles' => $this->presence->filles,
-                'absents' => $this->presence->absents,
-                'total' => $this->presence->total,
-                'observation' => $this->presence->observation,
-            ]);
-        } else {
-            $this->presence->save();
-        }
-
-        $this->flashSuccess('La présence a été enregistrée avec succès',URL::previous());
+        $this->flashSuccess('La présence a été enregistrée avec succès', URL::previous());
         $this->presence = new Presence();
     }
 
@@ -84,5 +81,22 @@ class PresenceClasseComponent extends Component
             'presence.total' => 'numeric|required',
             'presence.observation' => 'nullable',
         ];
+    }
+
+    private function loadPresence(): void
+    {
+        $presence = Presence::where('classe_id', $this->presence->classe_id)
+            ->whereDate('date', $this->presence->date)
+            ->first();
+
+        if ($presence) {
+            $this->presence = $presence;
+        } else {
+            $this->presence->garcons = 0;
+            $this->presence->filles = 0;
+            $this->presence->absents = 0;
+            $this->presence->total = 0;
+            $this->presence->observation = null;
+        }
     }
 }
