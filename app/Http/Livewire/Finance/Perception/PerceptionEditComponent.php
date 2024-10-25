@@ -51,7 +51,7 @@ class PerceptionEditComponent extends BaseComponent
         $this->annee_id = $this->annee->id;
         $this->annee_nom = $this->annee->nom;
         $this->perception = $perception;
-        $this->frais = Frais::where(['annee_id' => $this->annee_id])->orderBy('nom')->get();
+        $this->frais = Frais::orderBy('nom')->get();
 
 
         $this->fee = $this->perception->frais;

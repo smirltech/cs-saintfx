@@ -12,6 +12,7 @@
         'PAYE',
         'RESTE',
         'CAISSIER',
+        'ACTION'
     ];
    $data =[];
    foreach ($perceptions as $key=>$perception){
@@ -26,7 +27,8 @@
              Helpers::currencyFormat($perception->frais_montant) .' '.$perception->frais->devise->value,
              Helpers::currencyFormat($perception->montant) .' '. $perception->devise->value,
             '<span class="badge badge-'.$resteColor.'">'.Helpers::currencyFormat($reste) .' '. $perception->devise->value.'</span>',
-            $perception->user?->name
+            $perception->user?->name,
+            '<a href="'.route('finance.perceptions.edit',$perception).'" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>'
             ];
             }
 
