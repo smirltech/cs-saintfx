@@ -62,7 +62,7 @@
                                             {{$classe->inscriptions->count()}}
                                         </td>
                                        <td>
-                                            {{$classe->presences()->count()}}
+                                            {{$classe->presences()->sum('total')}}
                                         </td>
                                         <td>
                                             {{$classe->enseignants->count()}}
