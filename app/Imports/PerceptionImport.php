@@ -18,8 +18,8 @@ use Rap2hpoutre\FastExcel\FastExcel;
 class PerceptionImport
 {
     public function __construct(
-        private readonly Frais   $frais,
-        private readonly Annee   $annee,
+        private readonly Frais  $frais,
+        private readonly Annee  $annee,
         private readonly Devise $devise,
     )
     {
@@ -27,8 +27,8 @@ class PerceptionImport
 
     // build
     public static function build(
-        Frais   $frais,
-        Annee   $annee,
+        Frais  $frais,
+        Annee  $annee,
         Devise $devise,
     ): self
     {
@@ -58,14 +58,21 @@ class PerceptionImport
                 $inscription = $eleve?->inscription;
 
                 if ($inscription) {
-                    if ($this->frais->type = FraisType::MINERVAL) {
+                    if ($this->frais->type == FraisType::MINERVAL) {
                         $this->createMinerval(
                             eleve: $eleve,
                             frais: $this->frais,
                             line: $line,
                         );
-                    }else{
-                        throw new Exception("Le type de frais n'est pas pris en charge, seul les minerval sont pris en charge");
+                    } else {
+                        // if check line has cdf or usd values then create perception
+                        if($line['cdf']> 0 || $line['usd'] > 0){
+                            $this->create(
+                                eleve: $eleve,
+                                frais: $this->frais,
+                                line: $line,
+                            );
+                        }
                     }
                 } else {
                     throw new Exception("L'élève {$nom} n'est pas inscrit dans une classe");
@@ -93,5 +100,25 @@ class PerceptionImport
                 ]);
             }
         }
+    }
+
+    public function create(
+        Eleve    $eleve,
+        Frais    $frais,
+        Optional $line,
+    ): void
+    {
+        $devise = $line['cdf'] > 0 ? Devise::CDF : Devise::USD;
+        $montant = (int)$line['cdf'] > 0 ? $line['cdf'] : $line['usd'];
+
+        $p = Perception::updateOrCreate([
+            'inscription_id' => $eleve->inscription->id,
+            'frais_id' => $frais->id,
+        ], [
+
+            'montant' => $montant,
+            'frais_montant' => $frais->montant,
+            'devise' => $devise,
+        ]);
     }
 }
