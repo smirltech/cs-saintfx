@@ -30,7 +30,7 @@ class PresenceClasseComponent extends Component
     public function mount(): void
     {
         $this->presence = new Presence();
-        $this->classes = Classe::orderBy('code')->get();
+        $this->classes = Classe::orderBy('section_id')->orderBy('niveau')->get();
         $this->presence->date = Carbon::now()->toDateString();
     }
 
