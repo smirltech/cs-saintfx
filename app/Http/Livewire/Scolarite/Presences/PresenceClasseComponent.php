@@ -14,6 +14,7 @@ use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use JetBrains\PhpStorm\NoReturn;
@@ -68,7 +69,7 @@ class PresenceClasseComponent extends Component
             $this->presence->save();
         }
 
-        $this->success('La présence a été enregistrée avec succès');
+        $this->flashSuccess('La présence a été enregistrée avec succès',URL::previous());
         $this->presence = new Presence();
     }
 
