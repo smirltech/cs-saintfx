@@ -44,7 +44,7 @@
                                     <th>CODE</th>
                                     <th>OPTION</th>
                                     <th>ELEVES</th>
-                                   {{-- <th>COURS</th>--}}
+                                    <th>PRESENCES</th>
                                     <th>ENSEIGNANTS</th>
                                     <th></th>
                                 </tr>
@@ -61,9 +61,9 @@
                                         <td>
                                             {{$classe->inscriptions->count()}}
                                         </td>
-                                       {{-- <td>
-                                            {{$classe->cours->count()}}
-                                        </td>--}}
+                                       <td>
+                                            {{$classe->presences()->count()}}
+                                        </td>
                                         <td>
                                             {{$classe->enseignants->count()}}
                                         </td>

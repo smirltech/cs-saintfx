@@ -98,7 +98,7 @@
             <livewire:dashboard.components.depenses-recentes-card/>
         </div>
         <div class="col-md-12">
-           {{-- <livewire:scolarite.presences.charts.presences-line/>--}}
+           <livewire:scolarite.presences.charts.presences-line/>
         </div>
     </div>
 </x-admin-layout>

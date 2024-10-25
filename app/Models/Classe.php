@@ -138,9 +138,9 @@ class Classe extends Model
         return $this->section->secondaire();
     }
 
-    public function presences(): HasManyThrough
+    public function presences(): HasMany
     {
-        return $this->hasManyThrough(Presence::class, Inscription::class)->with('inscription');
+        return $this->hasMany(Presence::class)->with('inscription')->ofToday();
     }
 
    /* public function nonInscriptions($date): Collection|array
