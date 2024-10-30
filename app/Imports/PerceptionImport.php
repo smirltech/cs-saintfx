@@ -54,9 +54,21 @@ class PerceptionImport
             if ($nom) {
                 $eleve = Eleve::where('nom', trim($nom))->first();
 
+
                 $inscription = $eleve?->inscription;
 
                 if ($inscription) {
+
+
+                    // skip if section is not the same as the selected section or option is not the same as the selected option, but not if both are null
+                    if ($this->frais->section && $inscription->section->code != $this->frais->section_id) {
+                        return;
+                    }
+                    if ($this->frais->option_id && $inscription->option->id != $this->frais->option_id) {
+                        return;
+                    }
+
+
                     if ($this->frais->type == FraisType::MINERVAL) {
                         $this->createMinerval(
                             eleve: $eleve,

@@ -39,7 +39,6 @@ class Inscription extends Model
     }
 
 
-
     // scope sexe
 
     public function getLabelAttribute(): string
@@ -62,6 +61,17 @@ class Inscription extends Model
     {
         return $this->belongsTo(Eleve::class);
     }
+
+    public function getSectionAttribute(): Section
+    {
+        return $this->classe->section;
+    }
+
+    public function getOptionAttribute(): Section
+    {
+        return $this->option->section;
+    }
+
 
     public function getNomCompletAttribute(): string|null
     {
