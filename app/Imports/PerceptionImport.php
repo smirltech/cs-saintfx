@@ -46,7 +46,6 @@ class PerceptionImport
      */
     public function import(string $file): void
     {
-
         (new FastExcel)->import($file, function ($line) {
             $line = optional((array_change_key_case($line)));
 
@@ -66,7 +65,7 @@ class PerceptionImport
                         );
                     } else {
                         // if check line has cdf or usd values then create perception
-                        if($line['cdf']> 0 || $line['usd'] > 0){
+                        if ($line['montant'] > 0) {
                             $this->create(
                                 eleve: $eleve,
                                 frais: $this->frais,
@@ -89,14 +88,17 @@ class PerceptionImport
     {
         foreach (MinervalMonth::cases() as $month) {
             if ($line[$month->value]) {
+                $devise = $line['montant'] >= 1000 ? Devise::CDF : Devise::USD;
+
                 $p = Perception::updateOrCreate([
                     'inscription_id' => $eleve->inscription->id,
                     'custom_property' => $month->value,
                 ], [
                     'frais_id' => $frais->id,
                     'montant' => $line[$month->value],
+                    'taux'=> $devise == Devise::CDF ? 2900 : null,
                     'frais_montant' => $frais->montant,
-                    'devise' => $this->devise,
+                    'devise' => $devise,
                 ]);
             }
         }
@@ -108,16 +110,15 @@ class PerceptionImport
         Optional $line,
     ): void
     {
-        $devise = $line['cdf'] > 0 ? Devise::CDF : Devise::USD;
-        $montant = (int)$line['cdf'] > 0 ? $line['cdf'] : $line['usd'];
+        $devise = $line['montant'] >= 1000 ? Devise::CDF : Devise::USD;
 
-        $p = Perception::updateOrCreate([
+        Perception::updateOrCreate([
             'inscription_id' => $eleve->inscription->id,
             'frais_id' => $frais->id,
         ], [
-
-            'montant' => $montant,
+            'montant' => $line['montant'],
             'frais_montant' => $frais->montant,
+            'taux' => $devise == Devise::CDF ? 2900 : null,
             'devise' => $devise,
         ]);
     }
