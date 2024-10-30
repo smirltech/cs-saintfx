@@ -62,7 +62,7 @@ class PerceptionImport
 
                     $create = true;
                     // skip if section is not the same as the selected section or option is not the same as the selected option, but not if both are null
-                    if ($this->frais->section && $inscription->section->code != $this->frais->section->id) {
+                    if ($this->frais->section && $inscription->section->code != $this->frais->section) {
                         $create = false;
                     }
                     if ($this->frais->option_id && $inscription->option->id != $this->frais->option_id) {
