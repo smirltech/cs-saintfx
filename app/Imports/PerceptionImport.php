@@ -60,29 +60,31 @@ class PerceptionImport
                 if ($inscription) {
 
 
+                    $create = true;
                     // skip if section is not the same as the selected section or option is not the same as the selected option, but not if both are null
-                    if ($this->frais->section && $inscription->section->code != $this->frais->section_id) {
-                        return;
+                    if ($this->frais->section && $inscription->section->code != $this->frais->section->id) {
+                        $create = false;
                     }
                     if ($this->frais->option_id && $inscription->option->id != $this->frais->option_id) {
-                        return;
+                        $create = false;
                     }
 
-
-                    if ($this->frais->type == FraisType::MINERVAL) {
-                        $this->createMinerval(
-                            eleve: $eleve,
-                            frais: $this->frais,
-                            line: $line,
-                        );
-                    } else {
-                        // if check line has cdf or usd values then create perception
-                        if ($line['montant'] > 0) {
-                            $this->create(
+                    if ($create) {
+                        if ($this->frais->type == FraisType::MINERVAL) {
+                            $this->createMinerval(
                                 eleve: $eleve,
                                 frais: $this->frais,
                                 line: $line,
                             );
+                        } else {
+                            // if check line has cdf or usd values then create perception
+                            if ($line['montant'] > 0) {
+                                $this->create(
+                                    eleve: $eleve,
+                                    frais: $this->frais,
+                                    line: $line,
+                                );
+                            }
                         }
                     }
                 } else {
@@ -100,7 +102,7 @@ class PerceptionImport
     {
         foreach (MinervalMonth::cases() as $month) {
             if ($line[$month->value]) {
-                $devise =$line[$month->value] >= 1000 ? Devise::CDF : Devise::USD;
+                $devise = $line[$month->value] >= 1000 ? Devise::CDF : Devise::USD;
 
                 $p = Perception::updateOrCreate([
                     'inscription_id' => $eleve->inscription->id,
@@ -108,7 +110,7 @@ class PerceptionImport
                 ], [
                     'frais_id' => $frais->id,
                     'montant' => $line[$month->value],
-                    'taux'=> $devise == Devise::CDF ? 2900 : null,
+                    'taux' => $devise == Devise::CDF ? 2900 : null,
                     'frais_montant' => $frais->montant,
                     'devise' => $devise,
                 ]);
