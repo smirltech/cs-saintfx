@@ -69,7 +69,7 @@ class Inscription extends Model
 
     public function getOptionAttribute(): Section
     {
-        return $this->option->section;
+        return $this->classe->option;
     }
 
 
