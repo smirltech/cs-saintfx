@@ -88,7 +88,7 @@ class PerceptionImport
     {
         foreach (MinervalMonth::cases() as $month) {
             if ($line[$month->value]) {
-                $devise = $line['montant'] >= 1000 ? Devise::CDF : Devise::USD;
+                $devise =$line[$month->value] >= 1000 ? Devise::CDF : Devise::USD;
 
                 $p = Perception::updateOrCreate([
                     'inscription_id' => $eleve->inscription->id,
