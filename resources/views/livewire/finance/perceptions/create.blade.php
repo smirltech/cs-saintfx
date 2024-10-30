@@ -7,7 +7,7 @@
             <x-form::select
                 label="Frais"
                 required wire:change="feeSelected" wire:model="perception.frais_id"
-                            class="form-control">
+                class="form-control">
                 @foreach ($frais as $f )
                     <option value="{{$f->id}}">{{ $f->label }}</option>
                 @endforeach
@@ -20,11 +20,18 @@
             </div>
         @endif
         <div class="col-md-12 mb-3">
-            <x-form::input label="Montant à Payer ({{$fee?->devise}})" disabled type="number" wire:model="perception.frais_montant"/>
+            <x-form::input label="Montant à Payer ({{$fee?->devise}})" disabled type="number"
+                           wire:model="perception.frais_montant"/>
         </div>
         <div class="col-md-12 mb-3">
-            <x-form::select change label="Payé en devise" type="number" :options="Devise::cases()" wire:model="perception.devise"/>
+            <x-form::select change label="Payé en devise" type="number" :options="Devise::cases()"
+                            wire:model="perception.devise"/>
         </div>
+        @if($perception->devise == Devise::CDF)
+            <div class="col-md-12 mb-3">
+                <x-form::input required label="Taux du $" wire:model="perception.taux"/>
+            </div>
+        @endif
         <div class="col-md-12 mb-3">
             <x-form::input label="Montant Payé" step=".01" required type="number" wire:model="perception.montant"/>
         </div>
