@@ -65,6 +65,11 @@ class PerceptionImport
                     if ($this->frais->section && $inscription->section->code != $this->frais->section) {
                         $create = false;
                     }
+
+                    if(!$inscription->option){
+                        throw new Exception("L'élève {$nom} n'a pas d'option");
+                    }
+
                     if ($this->frais->option_id && $inscription->option->id != $this->frais->option_id) {
                         $create = false;
                     }
