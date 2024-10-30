@@ -62,14 +62,14 @@ class Inscription extends Model
         return $this->belongsTo(Eleve::class);
     }
 
-    public function getSectionAttribute(): Section
+    public function getSectionAttribute(): ?Section
     {
-        return $this->classe->section;
+        return $this->classe?->section;
     }
 
-    public function getOptionAttribute(): Section
+    public function getOptionAttribute(): ?Option
     {
-        return $this->classe->option;
+        return $this->classe?->option;
     }
 
 
