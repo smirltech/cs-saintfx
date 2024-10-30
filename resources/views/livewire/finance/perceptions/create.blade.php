@@ -15,7 +15,7 @@
         </div>
         @if($fee?->type?->properties())
             <div class="col-md-12 mb-3">
-                <x-form::select :change='true' label="{{ __('Mois') }}" class="form-select"
+                <x-form::select required :change='true' label="{{ __('Mois') }}" class="form-select"
                                 :options="$fee?->type?->properties()" wire:model="perception.custom_property"/>
             </div>
         @endif
