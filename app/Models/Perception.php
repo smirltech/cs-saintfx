@@ -139,4 +139,16 @@ class Perception extends Model
     {
         return $this->inscription->classe->code;
     }
+
+    //scope of cdf
+    public function scopeCDF($query)
+    {
+        return $query->where('devise', Devise::CDF);
+    }
+
+    //scope of usd
+    public function scopeUSD($query)
+    {
+        return $query->where('devise', Devise::USD);
+    }
 }

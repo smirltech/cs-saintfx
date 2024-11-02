@@ -30,12 +30,12 @@ class FraisIndexComponent extends BaseComponent
     {
         $this->authorize('viewAny', Frais::class);
         $this->annee_id = Annee::id();
-        $this->frais = Frais::where(['annee_id' => $this->annee_id])->orderBy('nom')->get();
+        $this->frais = Frais::get();
     }
 
     public function reloadFrais(): void
     {
-        $this->frais = Frais::where(['annee_id' => $this->annee_id])->orderBy('nom')->get();
+        $this->frais = Frais::orderBy('nom')->get();
     }
 
     public function render(): View|\Illuminate\Foundation\Application|Factory|Application

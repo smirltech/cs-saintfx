@@ -4,6 +4,7 @@
         'NOM',
         'TYPE',
         'MONTANT',
+        'PERCEPTIONS',
         ['label'=>'', 'no-export'=>true, 'width'=>5]
 ];
    $data =[];
@@ -14,6 +15,7 @@
 
            $fee->type->label(),
               $fee->montant . ' ' . $fee->devise?->symbol(),
+                 $fee->perceptions()->cdf()->sum('montant') . ' CDF / ' . $fee->perceptions()->usd()->sum('montant') . ' USD - ' . $fee->perceptions()->count(),
 
              $fee,
 ];
@@ -63,7 +65,7 @@
                                     <button type="button"
                                             onclick="showModal('finance.frais.frais-create-component')"
                                             class="btn btn-primary  ml-2"><span
-                                                class="fa fa-plus"></span></button>
+                                            class="fa fa-plus"></span></button>
                                 @endcan
                             </div>
                         </div>
@@ -77,18 +79,19 @@
                                         <td>{!! $row[1] !!}</td>
                                         <td>{!! $row[2] !!}</td>
                                         <td>{!! $row[3] !!}</td>
+                                        <td>{!! $row[4] !!}</td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                @can('frais.update',$row[4])
+                                                @can('frais.update',$row[5])
                                                     <button
-                                                            onclick="showModal('finance.frais.frais-create-component','{{$row[4]->id}}')"
-                                                            type="button"
-                                                            title="Modifier" class="btn btn-info  ml-2 btn-sm">
+                                                        onclick="showModal('finance.frais.frais-create-component','{{$row[5]->id}}')"
+                                                        type="button"
+                                                        title="Modifier" class="btn btn-info  ml-2 btn-sm">
                                                         <span class="fa fa-pen"></span>
                                                     </button>
                                                 @endcan
-                                                @can('frais.delete',$row[4])
-                                                    <button onclick="showDeleteModal('Frais','{{$row[4]->id}}')"
+                                                @can('frais.delete',$row[5])
+                                                    <button onclick="showDeleteModal('Frais','{{$row[5]->id}}')"
                                                             type="button"
                                                             title="supprimer" class="btn btn-danger ml-2 btn-sm">
                                                         <span class="fa fa-trash"></span>

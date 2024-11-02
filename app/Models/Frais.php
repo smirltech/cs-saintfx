@@ -8,6 +8,7 @@ use App\Enums\FraisType;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Frais extends Model
@@ -92,7 +93,7 @@ class Frais extends Model
         return $this->perceptions()->sum('montant');
     }
 
-    public function perceptions()
+    public function perceptions(): HasMany
     {
         return $this->hasMany(Perception::class);
     }
