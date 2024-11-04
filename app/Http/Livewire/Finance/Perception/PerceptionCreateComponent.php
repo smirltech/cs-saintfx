@@ -38,6 +38,8 @@ class PerceptionCreateComponent extends BaseComponent
         'inscription_id' => 'nullable',
         'inscription.full_name' => 'nullable',
     ];
+
+    protected $listeners = ['refreshComponent' => '$refresh'];
     private $frais = [];
     private $inscriptions = [];
     public Perception $perception;
@@ -83,7 +85,8 @@ class PerceptionCreateComponent extends BaseComponent
         $this->perception->save();
 
         // $this->flashSuccess("Frais imputé avec succès !", route('finance.perceptions.print', $this->perception->id));
-        $this->flashSuccess("Frais imputé avec succès !", URL::previous());
+        $this->success("Frais imputé avec succès !");
+        $this->emit('refreshComponent');
 
     }
 
