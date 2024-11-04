@@ -118,8 +118,7 @@ class PerceptionEditComponent extends BaseComponent
                 'frais_id' => $this->perception->frais_id,
                 'inscription_id' => $this->perception->inscription_id,
                 'montant' => $this->perception->montant,
-                'due_date' => $this->perception->due_date,
-                'paid' => $this->perception->paid,
+               // 'due_date' => $this->perception->due_date,
                 // 'paid' => ($this->fee->type == FraisType::inscription and $this->paid == null) ? $this->montant : $this->paid,
                 'paid_by' => $this->perception->paid_by,
             ]
