@@ -4,22 +4,17 @@ namespace App\Http\Livewire\Finance\Perception;
 
 use App\Enums\FraisType;
 use App\Http\Livewire\BaseComponent;
-use App\Models\Annee;
 use App\Models\Frais;
 use App\Models\Inscription;
 use App\Models\Perception;
 use App\Traits\HasLivewireAlert;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
-use Carbon\Carbon;
-use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\RequiredIf;
-use URL;
 
 class PerceptionCreateComponent extends BaseComponent
 {
@@ -87,7 +82,8 @@ class PerceptionCreateComponent extends BaseComponent
         $this->perception->inscription_id = $this->inscription->id;
         $this->perception->save();
 
-        $this->flashSuccess("Frais imputé avec succès !", route('finance.perceptions.print', $this->perception->id));
+        // $this->flashSuccess("Frais imputé avec succès !", route('finance.perceptions.print', $this->perception->id));
+        $this->flashSuccess("Frais imputé avec succès !", URL::previous());
 
     }
 
