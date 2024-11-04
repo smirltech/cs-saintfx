@@ -87,6 +87,7 @@ class PerceptionCreateComponent extends BaseComponent
         // $this->flashSuccess("Frais imputé avec succès !", route('finance.perceptions.print', $this->perception->id));
         $this->success("Frais imputé avec succès !");
         $this->emit('refreshComponent');
+        $this->emit('hideModal');
 
     }
 
