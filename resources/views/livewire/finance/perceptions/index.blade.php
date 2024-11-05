@@ -19,6 +19,19 @@
       $reste =  ( (int)$perception->frais_montant-(int)($perception->montant));
       $resteColor = $reste>0?'danger':'success';
 
+        $btns = '';
+
+           $btns .= '<a href="'.route('finance.perceptions.print',$perception->id).'" class="btn btn-info btn-sm m-1"><i class="fas fa-print"></i></a>';
+
+        if(auth()->user()->can('perceptions.update')){
+            $btns .=                    '<button onclick="showModal(\'finance.perception.perception-create-component\',\''.$perception->inscription->id.'\',\''.$perception->id.'\')" class="btn btn-warning btn-sm m-1"><i class="fas fa-edit"></i></button>';
+}
+        if(auth()->user()->can('perceptions.delete')){
+
+            $btns .= '<button onclick="showDeleteModal(\'Perception\',\''.$perception->id.'\')" class="btn btn-danger btn-sm m-1"><i class="fas fa-trash"></i></button>';
+
+}
+
         $data[] =[
             $perception->created_at->format('Y-m-d H:i'),
             $perception->label,
@@ -28,8 +41,8 @@
              Helpers::currencyFormat($perception->montant) .' '. $perception->devise->value,
             '<span class="badge badge-'.$resteColor.'">'.Helpers::currencyFormat($reste) .' '. $perception->devise->value.'</span>',
             $perception->user?->name,
-            '<button onclick="showModal(\'finance.perception.perception-create-component\',\''.$perception->inscription->id.'\',\''.$perception->id.'\')" class="btn btn-warning btn-sm m-1"><i class="fas fa-edit"></i></button>'.
-            '<button onclick="showDeleteModal(\'Perception\',\''.$perception->id.'\')" class="btn btn-danger btn-sm m-1"><i class="fas fa-trash"></i></button>'
+
+            $btns,
           ];
        }
 

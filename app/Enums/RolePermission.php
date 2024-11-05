@@ -2,8 +2,11 @@
 
 namespace App\Enums;
 
+use EmreYarligan\EnumConcern\EnumConcern;
+
 enum RolePermission: string
 {
+    use EnumConcern;
     //------------------ Mouvements ---------------- //
     case mouvements_all = 'mouvements.*';
     case mouvements_view = 'mouvements.view.*';
@@ -97,10 +100,10 @@ enum RolePermission: string
     //------------------ ./Frais ---------------- //
     //------------------ Perceptions ---------------- //
     case perceptions_all = 'perceptions.*';
-    case perceptions_view = 'perceptions.view.*';
+    case perceptions_view = 'perceptions.view';
     case perceptions_create = 'perceptions.create';
-    case perceptions_update_all = 'perceptions.update.*';
-    case perceptions_delete = 'perceptions.delete.*';
+    case perceptions_update = 'perceptions.update';
+    case perceptions_delete = 'perceptions.delete';
     //------------------ ./Perceptions ---------------- //
     //------------------ Classes ---------------- //
     case classes_all = 'classes.*';
@@ -128,7 +131,7 @@ enum RolePermission: string
     case permissions_all = 'permissions.*';
     case permissions_view = 'permissions.view.*';
     case permissions_create = 'permissions.create';
-    case permissions_update_all = 'permissions.update.*';
+    case permissions_update = 'permissions.update';
     case permissions_delete = 'permissions.delete.*';
     //------------------ ./Permissions ---------------- //
     //------------------ Roles ---------------- //
@@ -248,7 +251,7 @@ enum RolePermission: string
             self::permissions_all => 'Gérer les permissions',
             self::permissions_create => 'Créer une permission',
             self::permissions_delete => 'Supprimer une permission',
-            self::permissions_update_all => 'Modifier une permission',
+            self::permissions_update => 'Modifier une permission',
             self::permissions_view => 'Voir une permission',
             // Années
             self::annees_all => 'Gérer les années',
@@ -326,7 +329,7 @@ enum RolePermission: string
             self::perceptions_all => 'Gérer les perceptions',
             self::perceptions_create => 'Créer une perception',
             self::perceptions_delete => 'Supprimer une perception',
-            self::perceptions_update_all => 'Modifier une perception',
+            self::perceptions_update => 'Modifier une perception',
             self::perceptions_view => 'Voir une perception',
             // Frais
             self::frais_all => 'Gérer les frais',

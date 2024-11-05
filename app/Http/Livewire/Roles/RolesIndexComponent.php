@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Roles;
 
+use App\Console\Commands\RefreshPermissions;
 use App\Enums\RolePermission;
 use App\Enums\UserRole;
 use App\Http\Livewire\BaseComponent;
@@ -41,16 +42,8 @@ class RolesIndexComponent extends BaseComponent
     public function refreshPermissions(): void
     {
 
-        foreach (RolePermission::cases() as $permission) {
-            Permission::firstOrCreate(
-                ['name' => $permission->value]
-            );
-        }
 
-        foreach (UserRole::cases() as $userRole) {
-            $role = Role::firstOrCreate(['name' => $userRole->value]);
+       RefreshPermissions::refreshPermissions();
 
-            $role->givePermissionTo($userRole->permissions());
-        }
     }
 }

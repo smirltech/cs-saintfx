@@ -11,14 +11,16 @@ class DashboardController
 {
     public function __invoke(Request $request)
     {
-        $user = Auth::user();
+        //$user = Auth::user();
 
-        return match ($user->role_name) {
-            UserRole::promoteur->value, UserRole::coordonnateur->value, UserRole::admin->value => $this->adminDashboard(),
-            UserRole::financier->value => $this->compableDashboard(),
-            UserRole::parent->value => $this->parentDashboard(),
-            default => $this->defaultDashboard()
-        };
+        return $this->adminDashboard();
+        /*
+                return match ($user->role_name) {
+                    UserRole::promoteur->value, UserRole::coordonnateur->value, UserRole::admin->value => $this->adminDashboard(),
+                    UserRole::financier->value => $this->compableDashboard(),
+                    UserRole::parent->value => $this->parentDashboard(),
+                    default => $this->defaultDashboard()
+                };*/
     }
 
     private function adminDashboard()

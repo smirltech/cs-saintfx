@@ -34,14 +34,14 @@ class PerceptionPolicy
 
     public function update(User $user, Perception $perception): Response|bool
     {
-        return $user->can('perceptions.update.' . $perception->id)
+        return $user->can('perceptions.update')
             ? Response::allow()
             : Response::deny('Vous n\'êtes pas autorisé à modifier cette perception.');
     }
 
     public function delete(User $user, Perception $perception): Response|bool
     {
-        return $user->can('perceptions.delete.' . $perception->id)
+        return $user->can('perceptions.delete')
             ? Response::allow()
             : Response::deny('Vous n\'êtes pas autorisé à supprimer cette perception.');
     }
