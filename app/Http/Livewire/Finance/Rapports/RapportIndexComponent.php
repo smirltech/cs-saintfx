@@ -51,7 +51,7 @@ class RapportIndexComponent extends Component
     public function render()
     {
         $this->loadData();
-        return view('livewire.finance.rapports.index', ['annee' => $this->annee])
+        return view('livewire.finance.rapports.index', ['annee' => $this->annee,'title' => $this->title])
             ->layout(AdminLayout::class, ['title' => $this->title]);
     }
 

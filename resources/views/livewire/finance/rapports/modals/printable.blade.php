@@ -9,11 +9,10 @@
     <div class="">
         <div class="card">
             <div style="display: flex; justify-content: space-between" class="card-header">
-                <div class="card-title">Rapport financier de la période</div>
+                <div class="card-title">Rapport financier de la période du {{Carbon::parse($date_from)->format('d/m/Y')}} au  {{Carbon::parse($date_to)->format('d/m/Y')}}</div>
                 <div class="card-tools d-flex">
-                    <div class="mr-2">Debut : {{Carbon::parse($date_from)->format('d-m-Y')}}</div>
-                    <div class="ml-2"> Fin : {{Carbon::parse($date_to)->format('d-m-Y')}}</div>
                     <div class="ml-2"> Compte : {{auth()->user()->name}}</div>
+                    <div class="ml-2"> Date : {{Carbon::now()->format('d-m-Y H:i')}}</div>
                 </div>
             </div>
             <div class="card-body m-b-5">
@@ -61,7 +60,7 @@
                                     @foreach(FraisType::cases() as $k=>$type)
                                         @php
                                             $perceptionQuery = Perception::whereHas('frais', function ($q) use ($type) {
-                                                $q->where('type', $type->value);
+                                                $q->where('type', $type);
                                             })
                                             ->whereDate('created_at', '>=', $date_from)
                                             ->whereDate('created_at', '<=', $date_to);
@@ -80,7 +79,7 @@
 
                                         @endphp
                                         <tr class="titres">
-                                            <td style="text-align: left">{{$type}}</td>
+                                            <td style="text-align: left">{{$type->label()}}</td>
                                             <td class="text-center">{{$perceptionCDFCount}}</td>
                                             <td class="text-center">{{number_format($perceptionCDF)}}</td>
                                             <td class="text-center">{{$perceptionUSDCount}}</td>
