@@ -36,8 +36,8 @@ Route::get('roles', Roles\RolesIndexComponent::class)->name('roles.index');
 Route::get('roles/create', Roles\RoleModal::class)->name('roles.create');
 Route::get('roles/{role}', Roles\RoleModal::class)->name('roles.show');
 
-Route::get("audits", [AuditController::class, 'index'])->name("audits.index")->can('audits.viewAny');
-Route::get("audits/{audit}", [AuditController::class, 'show'])->name("audits.show")->can('audits.view');
+Route::get("audits", [AuditController::class, 'index'])->name("audits.index");
+Route::get("audits/{audit}", [AuditController::class, 'show'])->name("audits.show");
 
 //Users
 

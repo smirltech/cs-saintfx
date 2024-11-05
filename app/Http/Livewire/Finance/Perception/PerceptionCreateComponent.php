@@ -15,10 +15,11 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Validation\Rule;
+use OwenIt\Auditing\Auditable;
 
-class PerceptionCreateComponent extends BaseComponent
+class PerceptionCreateComponent extends BaseComponent implements \OwenIt\Auditing\Contracts\Auditable
 {
-    use TopMenuPreview;
+    use TopMenuPreview,  Auditable;
     use HasLivewireAlert;
 
     public $searchCode;

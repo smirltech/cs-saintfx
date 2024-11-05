@@ -16,10 +16,11 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Str;
 use JetBrains\PhpStorm\Pure;
+use OwenIt\Auditing\Auditable;
 
-class Eleve extends Model
+class Eleve extends Model implements \OwenIt\Auditing\Contracts\Auditable
 {
-    use HasFactory, HasAvatar, HasUlids;
+    use HasFactory, Auditable, HasAvatar, HasUlids;
 
     public $guarded = [];
 
@@ -58,13 +59,12 @@ class Eleve extends Model
 
         $first_part = $start_year . Helpers::pad($section_id);
 
-        $count =self::withoutGlobalScopes()->where('matricule', 'like', $first_part . '%')->count() + 1;
+        $count = self::withoutGlobalScopes()->where('matricule', 'like', $first_part . '%')->count() + 1;
 
         $second_part = Str::padLeft($count, 4, '0');
 
         return self::checkMatricule("{$first_part}{$second_part}");
     }
-
 
 
     public static function checkMatricule(string $matricule): string

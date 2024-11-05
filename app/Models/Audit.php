@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use App\Enums\AuditEvent;
-use Date;
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Audit extends Model implements \OwenIt\Auditing\Contracts\Audit
 {
-    use \OwenIt\Auditing\Audit;
+    use \OwenIt\Auditing\Audit, HasUlids;
+
 
     protected $guarded = [];
 
@@ -19,9 +21,9 @@ class Audit extends Model implements \OwenIt\Auditing\Contracts\Audit
         'auditable_id' => 'integer',
     ];
 
-    // create a createdAt attribute use dif for human readable date
-    public function getDisplayDateAttribute()
+    // create a createdAt attribute use dif for human-readable date
+    public function getDisplayDateAttribute(): string
     {
-        return Date::parse($this->created_at)->diffForHumans();
+        return Carbon::parse($this->created_at)->diffForHumans();
     }
 }

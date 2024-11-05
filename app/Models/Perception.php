@@ -13,10 +13,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
 use LaracraftTech\LaravelDateScopes\DateScopes;
+use OwenIt\Auditing\Auditable;
 
-class Perception extends Model
+class Perception extends Model implements \OwenIt\Auditing\Contracts\Auditable
 {
-    use HasFactory, HasUlids, HasScopeAnnee, DateScopes;
+    use HasFactory, HasUlids, HasScopeAnnee, DateScopes, Auditable;
 
     public $guarded = [];
 
@@ -103,19 +104,18 @@ class Perception extends Model
 
         return self::checkReference("{$month}{$count}");
 
-}
-
-
-
-public static function checkReference(string $reference): string
-{
-    $count = self::withoutGlobalScopes()->where('reference', $reference)->count();
-
-    if ($count > 0) {
-        return self::checkReference(((int)$reference) + 1);
     }
-    return $reference;
-}
+
+
+    public static function checkReference(string $reference): string
+    {
+        $count = self::withoutGlobalScopes()->where('reference', $reference)->count();
+
+        if ($count > 0) {
+            return self::checkReference(((int)$reference) + 1);
+        }
+        return $reference;
+    }
 
     public function getEleveAttribute()
     {

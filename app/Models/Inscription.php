@@ -15,13 +15,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Collection;
+use OwenIt\Auditing\Auditable;
 use Str;
 
 //use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Inscription extends Model
+class Inscription extends Model implements \OwenIt\Auditing\Contracts\Auditable
 {
-    use HasFactory, HasUlids, HasScopeAnnee;
+    use HasFactory, HasUlids, Auditable, HasScopeAnnee;
 
     public $guarded = [];
 
