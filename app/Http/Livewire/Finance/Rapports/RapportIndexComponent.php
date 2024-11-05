@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Finance\Rapport;
+namespace App\Http\Livewire\Finance\Rapports;
 
 
 use App\Models\Annee;
@@ -22,8 +22,8 @@ class RapportIndexComponent extends Component
     use LivewireAlert;
     use WithPrintToPdf;
 
-    public $ddebut;
-    public $dfin;
+    public $date_from;
+    public $date_to;
 
     public $revenuAuxiliaire = 0;
     public $perception = 0;
@@ -33,8 +33,8 @@ class RapportIndexComponent extends Component
     public $annee_id;
     public $anneeNom;
     protected $rules = [
-        'ddebut' => 'nullable',
-        'dfin' => 'nullable',
+        'date_from' => 'nullable',
+        'date_to' => 'nullable',
     ];
     private $annee;
 
@@ -43,8 +43,8 @@ class RapportIndexComponent extends Component
         $this->annee = Annee::encours();
         $this->annee_id = $this->annee->id;
         $this->anneeNom = $this->annee->nom;
-        $this->ddebut = Carbon::now()->startOfMonth()->format('Y-m-d');
-        $this->dfin = Carbon::now()->format('Y-m-d');
+        $this->date_from = Carbon::now()->startOfMonth()->format('Y-m-d');
+        $this->date_to = Carbon::now()->format('Y-m-d');
 
     }
 
@@ -57,12 +57,12 @@ class RapportIndexComponent extends Component
 
     public function loadData()
     {
-        $this->revenuAuxiliaire = Revenu::sommeBetween(annee_id: $this->annee_id, ddebut: $this->ddebut, dfin: $this->dfin);
-        $this->perception = Perception::sommeBetween(annee_id: $this->annee_id, ddebut: $this->ddebut, dfin: $this->dfin);
-        $this->frais = Frais::sommeFraisByTypeBetween(annee_id: $this->annee_id, ddebut: $this->ddebut, dfin: $this->dfin);
+        $this->revenuAuxiliaire = Revenu::sommeBetween(annee_id: $this->annee_id, ddebut: $this->date_from, dfin: $this->date_to);
+        $this->perception = Perception::sommeBetween(annee_id: $this->annee_id, ddebut: $this->date_from, dfin: $this->date_to);
+        $this->frais = Frais::sommeFraisByTypeBetween(annee_id: $this->annee_id, ddebut: $this->date_from, dfin: $this->date_to);
 
-        $this->depenses = Depense::sommeBetween(annee_id: $this->annee_id, ddebut: $this->ddebut, dfin: $this->dfin);
-        $this->depensesTypes = Depense::sommeDepensesByTypeBetween(annee_id: $this->annee_id, ddebut: $this->ddebut, dfin: $this->dfin);
+        $this->depenses = Depense::sommeBetween(annee_id: $this->annee_id, ddebut: $this->date_from, dfin: $this->date_to);
+        $this->depensesTypes = Depense::sommeDepensesByTypeBetween(annee_id: $this->annee_id, ddebut: $this->date_from, dfin: $this->date_to);
     }
 
     public function updateReport()
