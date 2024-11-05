@@ -1,4 +1,4 @@
-@php use App\Enums\FraisType;use App\Models\Perception;use Illuminate\Support\Carbon; @endphp
+@php use App\Enums\FraisType;use App\Models\Annee;use App\Models\Perception;use Illuminate\Support\Carbon; @endphp
 <div>
     <div class="">
         <div style="text-align: center;" class=" justify-content-center">
@@ -13,6 +13,7 @@
                 <div class="card-tools d-flex">
                     <div class="mr-2">Debut : {{Carbon::parse($date_from)->format('d-m-Y')}}</div>
                     <div class="ml-2"> Fin : {{Carbon::parse($date_to)->format('d-m-Y')}}</div>
+                    <div class="ml-2"> Compte : {{auth()->user()->name}}</div>
                 </div>
             </div>
             <div class="card-body m-b-5">
@@ -33,14 +34,14 @@
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Perceptions
                                 </li>
-                                <table class="table table-bordered">
+                                <table class="table table-bordered table-striped">
                                     <thead class="text-center">
-                                    <tr>
+                                    <tr class="titres">
                                         <th rowspan="2">Type</th>
-                                        <th colspan="2">CDF</th>
-                                        <th colspan="2">USD</th>
+                                        <th colspan="2">Fc</th>
+                                        <th colspan="2">$</th>
                                     </tr>
-                                    <tr>
+                                    <tr class="titres">
                                         <th>Nbre</th>
                                         <th>Montant</th>
                                         <th>Nbre</th>
@@ -61,7 +62,8 @@
                                         @php
                                             $perceptionQuery = Perception::whereHas('frais', function ($q) use ($type) {
                                                 $q->where('type', $type->value);
-                                            })->whereDate('created_at', '>=', $date_from)
+                                            })
+                                            ->whereDate('created_at', '>=', $date_from)
                                             ->whereDate('created_at', '<=', $date_to);
 
                                             $perceptionCDFCount = $perceptionQuery->clone()->cdf()->count();
@@ -77,8 +79,8 @@
 
 
                                         @endphp
-                                        <tr>
-                                            <td>{{$type}}</td>
+                                        <tr class="titres">
+                                            <td style="text-align: left">{{$type}}</td>
                                             <td class="text-center">{{$perceptionCDFCount}}</td>
                                             <td class="text-center">{{number_format($perceptionCDF)}}</td>
                                             <td class="text-center">{{$perceptionUSDCount}}</td>
@@ -86,12 +88,12 @@
                                         </tr>
 
                                     @endforeach
-                                    <tr>
+                                    <tr class="titres">
                                         <th>Total</th>
                                         <th class="text-center">{{number_format($perceptionCDFCountTotal)}}</th>
-                                        <th class="text-center">{{number_format($perceptionCDFTotal)}}</th>
+                                        <th class="text-center">{{number_format($perceptionCDFTotal)}}Fc</th>
                                         <th class="text-center">{{number_format($perceptionUSDCountTotal)}}</th>
-                                        <th class="text-center">{{number_format($perceptionUSDTotal)}}</th>
+                                        <th class="text-center">{{number_format($perceptionUSDTotal)}}$</th>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -127,4 +129,33 @@
             </div>
         </div>
     </div>
+    <style>
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: 100%;
+            border: #454342;
+        }
+
+
+        .titres > th, .titres > td, .cotes > td {
+            border: 1px solid gray;
+            padding: 3px;
+        }
+
+        .titres > td, .titres > th {
+            text-align: center;
+            font-weight: 500;
+            padding: 5px;
+
+        }
+
+        .titres > th {
+            font-weight: bold;
+
+        }
+
+
+    </style>
+
 </div>

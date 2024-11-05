@@ -52,10 +52,16 @@ class RapportIndexComponent extends Component
     {
         $this->loadData();
         return view('livewire.finance.rapports.index', ['annee' => $this->annee])
-            ->layout(AdminLayout::class, ['title' => 'Liste de Revenus']);
+            ->layout(AdminLayout::class, ['title' => $this->title]);
     }
 
-    public function loadData()
+
+    public function  getTitleProperty(): string
+    {
+        return 'Rapport financier du ' . now()->parse($this->date_from)->format('d-m-Y') . ' au ' . now()->parse($this->date_to)->format('d-m-Y');
+
+    }
+    public function loadData(): void
     {
         $this->revenuAuxiliaire = Revenu::sommeBetween(annee_id: $this->annee_id, ddebut: $this->date_from, dfin: $this->date_to);
         $this->perception = Perception::sommeBetween(annee_id: $this->annee_id, ddebut: $this->date_from, dfin: $this->date_to);
@@ -74,7 +80,7 @@ class RapportIndexComponent extends Component
     {
         //$this->dispatchBrowserEvent('printIt', ['elementId' => "factPrint", 'type' => 'html', 'maxWidth' => '100%']);
 
-        return $this->printToPdf('livewire.finance.rapports.modals.printable', $this->all(), 'print_pdf.pdf');
+        return $this->printToPdf('livewire.finance.rapports.modals.printable', $this->all(), $this->title.'.pdf');
 
     }
 }
