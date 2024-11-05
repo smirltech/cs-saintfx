@@ -50,7 +50,7 @@ class PerceptionCreateComponent extends BaseComponent
 
         $this->perception = new Perception();
         $this->inscription = $inscription;
-        $this->frais = Frais::orderBy('nom')->get();
+        $this->frais = $this->buildFrais();
 
     }
 
@@ -106,6 +106,23 @@ class PerceptionCreateComponent extends BaseComponent
                 return $this->perception->frais->type == FraisType::MINERVAL;
             }),
         ];
+    }
+
+    private function buildFrais(): array
+    {
+        $frais = [];
+        foreach (Frais::orderBy('nom')->get() as $f) {
+            if ($f->section && $this->inscription->section?->code != $f->section) {
+                continue;
+            }
+
+            if ($f->option_id && $this->inscription->option?->id != $f->option_id) {
+                continue;
+            }
+
+            $frais[] = $f;
+        }
+        return $frais;
     }
 
 }
