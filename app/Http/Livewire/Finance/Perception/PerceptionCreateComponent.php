@@ -45,11 +45,11 @@ class PerceptionCreateComponent extends BaseComponent
     private $inscriptions = [];
     public Perception $perception;
 
-    public function mount(Inscription $inscription): void
+    public function mount(Inscription $inscription, string $perception_id = null): void
     {
         $this->authorize('create', Perception::class);
 
-        $this->perception = new Perception();
+        $this->perception = $perception_id ? Perception::find($perception_id) : new Perception();
         $this->inscription = $inscription;
         $this->frais = $this->buildFrais();
 
@@ -104,7 +104,7 @@ class PerceptionCreateComponent extends BaseComponent
             'perception.taux' => 'required_if:perception.devise,CDF',
             //if frais, frais type is minerval
             'perception.custom_property' => Rule::requiredIf(function () {
-                return $this->perception->frais->type == FraisType::MINERVAL;
+                return Frais::find($this->perception->frais_id)->type == FraisType::MINERVAL;
             }),
         ];
     }

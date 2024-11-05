@@ -6,6 +6,7 @@ use App\Enums\AuditEvent;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 
 class Audit extends Model implements \OwenIt\Auditing\Contracts\Audit
 {
@@ -25,5 +26,10 @@ class Audit extends Model implements \OwenIt\Auditing\Contracts\Audit
     public function getDisplayDateAttribute(): string
     {
         return Carbon::parse($this->created_at)->diffForHumans();
+    }
+
+    public function getDisplayAuditableAttribute(): string
+    {
+        return Str::limit($this->auditable, 100);
     }
 }

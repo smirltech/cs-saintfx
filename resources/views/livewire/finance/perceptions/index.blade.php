@@ -28,9 +28,10 @@
              Helpers::currencyFormat($perception->montant) .' '. $perception->devise->value,
             '<span class="badge badge-'.$resteColor.'">'.Helpers::currencyFormat($reste) .' '. $perception->devise->value.'</span>',
             $perception->user?->name,
-            '<a href="'.route('finance.perceptions.edit',$perception).'" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>'
-            ];
-            }
+            '<button onclick="showModal(\'finance.perception.perception-create-component\',\''.$perception->inscription->id.'\',\''.$perception->id.'\')" class="btn btn-warning btn-sm m-1"><i class="fas fa-edit"></i></button>'.
+            '<button onclick="showDeleteModal(\'Perception\',\''.$perception->id.'\')" class="btn btn-danger btn-sm m-1"><i class="fas fa-trash"></i></button>'
+          ];
+       }
 
     $config =[
   'data'=>$data,
@@ -45,7 +46,6 @@
         <div class="col-6">
             <h1 class="ms-3">Perceptions</h1>
         </div>
-
         <div class="col-6">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('finance') }}">Accueil</a></li>

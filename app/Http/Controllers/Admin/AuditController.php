@@ -34,7 +34,7 @@ class AuditController extends Controller
                 "{$audit->user->email}",
                 '<span class="badge bg-' . $audit->event->variant() . '">' . $audit->event->label() . '</span>',
 
-                "{$audit->auditable}",
+                "{$audit->display_auditable}",
 
 
                 $audit->display_date,

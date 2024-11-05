@@ -11,13 +11,14 @@ use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use LaracraftTech\LaravelDateScopes\DateScopes;
 use OwenIt\Auditing\Auditable;
 
 class Perception extends Model implements \OwenIt\Auditing\Contracts\Auditable
 {
-    use HasFactory, HasUlids, HasScopeAnnee, DateScopes, Auditable;
+    use HasFactory, HasUlids, SoftDeletes, HasScopeAnnee, DateScopes, Auditable;
 
     public $guarded = [];
 
