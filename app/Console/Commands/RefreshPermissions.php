@@ -14,7 +14,7 @@ class RefreshPermissions extends Command
 
     protected $description = 'Command description';
 
-    public static function refreshPermissions(bool $remove = false): void
+    public static function refreshPermissions(bool $remove = true): void
     {
         foreach (RolePermission::cases() as $permission) {
             Permission::firstOrCreate(
