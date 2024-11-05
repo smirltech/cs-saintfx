@@ -17,9 +17,9 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Validation\Rule;
 use OwenIt\Auditing\Auditable;
 
-class PerceptionCreateComponent extends BaseComponent implements \OwenIt\Auditing\Contracts\Auditable
+class PerceptionCreateComponent extends BaseComponent
 {
-    use TopMenuPreview,  Auditable;
+    use TopMenuPreview;
     use HasLivewireAlert;
 
     public $searchCode;
