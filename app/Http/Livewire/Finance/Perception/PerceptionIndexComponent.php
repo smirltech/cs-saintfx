@@ -63,11 +63,11 @@ class PerceptionIndexComponent extends BaseComponent
         $perceptionsUSD = $perceptionQuery->clone()->whereDevise('USD')->sum('montant');
         $perceptionsCDF = $perceptionQuery->clone()->whereDevise(Devise::CDF)->sum('montant');
 
-        $perceptionsTodayUSD = $perceptionQuery->clone()->whereDevise('USD')->sum('montant');
-        $perceptionsTodayCDF = $perceptionQuery->clone()->whereDevise('CDF')->sum('montant');
+        $perceptionsTodayUSD = $perceptionQuery->clone()->ofToday()->whereDevise('USD')->sum('montant');
+        $perceptionsTodayCDF = $perceptionQuery->clone()->ofToday()->whereDevise('CDF')->sum('montant');
 
-        $perceptionsMeTodayUSD = $perceptionQuery->clone()->whereDevise('USD')->whereUserId(Auth::id())->sum('montant');
-        $perceptionsMeTodayCDF = $perceptionQuery->clone()->whereDevise('CDF')->whereUserId(Auth::id())->sum('montant');
+        $perceptionsMeTodayUSD = $perceptionQuery->clone()->ofToday()->whereDevise('USD')->whereUserId(Auth::id())->sum('montant');
+        $perceptionsMeTodayCDF = $perceptionQuery->clone()->ofToday()->whereDevise('CDF')->whereUserId(Auth::id())->sum('montant');
 
 
         return [
