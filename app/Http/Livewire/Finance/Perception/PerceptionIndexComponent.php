@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Finance\Perception;
 
+use App\Enums\Devise;
 use App\Enums\UserRole;
 use App\Http\Livewire\BaseComponent;
 use App\Models\Annee;
@@ -58,14 +59,15 @@ class PerceptionIndexComponent extends BaseComponent
             $q->where('frais_id', $this->frais_id);
         });
 
-        $perceptionsUSD = $perceptionQuery->whereDevise('USD')->sum('montant');
-        $perceptionsCDF = $perceptionQuery->whereDevise('CDF')->sum('montant');
 
-        $perceptionsTodayUSD = $perceptionQuery->whereDevise('USD')->sum('montant');
-        $perceptionsTodayCDF = $perceptionQuery->whereDevise('CDF')->sum('montant');
+        $perceptionsUSD = $perceptionQuery->clone()->whereDevise('USD')->sum('montant');
+        $perceptionsCDF = $perceptionQuery->clone()->whereDevise(Devise::CDF)->sum('montant');
 
-        $perceptionsMeTodayUSD = $perceptionQuery->whereDevise('USD')->whereUserId(Auth::id())->sum('montant');
-        $perceptionsMeTodayCDF = $perceptionQuery->whereDevise('CDF')->whereUserId(Auth::id())->sum('montant');
+        $perceptionsTodayUSD = $perceptionQuery->clone()->whereDevise('USD')->sum('montant');
+        $perceptionsTodayCDF = $perceptionQuery->clone()->whereDevise('CDF')->sum('montant');
+
+        $perceptionsMeTodayUSD = $perceptionQuery->clone()->whereDevise('USD')->whereUserId(Auth::id())->sum('montant');
+        $perceptionsMeTodayCDF = $perceptionQuery->clone()->whereDevise('CDF')->whereUserId(Auth::id())->sum('montant');
 
 
         return [
