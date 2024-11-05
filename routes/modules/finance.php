@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Livewire\Finance;
+use App\Http\Livewire\Finance\Rapports\RapportsMinervalsComponent;
 use Illuminate\Support\Facades\Route;
 
 Route::get('finance', Finance\Dashboard\DashboardComponent::class)->name('finance')->middleware('auth');
@@ -8,7 +9,7 @@ Route::get('finance', Finance\Dashboard\DashboardComponent::class)->name('financ
 Route::prefix('finance')->middleware(['auth:web'])->as('finance.')->group(function () {
 
     // Rapport
-    Route::get('rapports', Finance\Rapport\RapportIndexComponent::class)->name('rapports');
+    Route::get('rapports', Finance\Rapports\RapportIndexComponent::class)->name('rapports');
 
     //Revenu
     Route::get('revenus', Finance\Revenu\RevenuIndexComponent::class)->name('revenus');
@@ -35,6 +36,9 @@ Route::prefix('finance')->middleware(['auth:web'])->as('finance.')->group(functi
     Route::get('perceptions', Finance\Perception\PerceptionIndexComponent::class)->name('perceptions');
     Route::get('caisse', Finance\Perception\CaisseComponent::class)->name('caisse');
 
+
+    Route::get('rapports', Finance\Rapports\RapportIndexComponent::class)->name('rapports.minervals');
+    //Route::get('rapports/minervals', RapportsMinervalsComponent::class)->name('rapports.minervals');
     //Perception
     //Route::get('eleves', Finance\Eleve\EleveIndexComponent::class)->name('eleves');
     // Route::get('eleves/{id}', Finance\Eleve\EleveShowComponent::class)->name('eleves.show');

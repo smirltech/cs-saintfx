@@ -361,11 +361,26 @@ return [
             'can' => 'perceptions.view.*',
         ],
         [
-            'text' => 'Perceptions',
-            'url' => 'finance/perceptions',
-            'icon' => 'fas fa-fw fa-arrow-trend-up',
-            'can' => 'perceptions.view.*',
+            'text' => 'Rapports',
+            'icon' => 'fas fa-fw fa-chart-column',
+            'can' => 'perceptions.view',
+            'submenu' => [
+                [
+                    'text' => 'Financier',
+                    'url' => 'finance/rapports',
+                ],
+               /* [
+                    'text' => 'Frais',
+                    'route' => 'admin.rapports.index',
+                ],*/
+            ],
         ],
+/*        [
+            'text' => 'Rapports',
+            'icon' => 'fas fa-fw fa-chart-column',
+            'url' => 'finance/rapports',
+            'can' => 'perceptions.view',
+        ],*/
         [
             'text' => 'Frais',
             'url' => 'finance/frais',
@@ -390,12 +405,7 @@ return [
             'can' => 'depense-types.view.*',
             'url' => 'finance/depense-types',
         ],
-        [
-            'text' => 'Rapport financier',
-            'icon' => 'fas fa-fw fa-chart-column',
-            'url' => 'finance/rapports',
-            'can' => 'rapports.view.*',
-        ],
+
 
         [
             'header' => 'LOGISTIQUE',

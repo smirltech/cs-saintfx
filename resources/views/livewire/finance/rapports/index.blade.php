@@ -1,6 +1,6 @@
-@php use Carbon\Carbon; @endphp
+@php use App\Enums\FraisType;use App\Models\Perception;use Carbon\Carbon; @endphp
 @section('title')
-    - rapports
+    CENK - Papports
 @endsection
 @section('content_header')
     <div class="row">
@@ -27,23 +27,23 @@
                         <div style="flex: 50%;" class="col-sm-6">
                             <div style="display: flex;" class="input-group">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text" id="ddebut">Debut : </span>
+                                    <span class="input-group-text" id="date_from">Debut : </span>
                                 </div>
-                                <input aria-label="ddebut" aria-describedby="ddebut" max="{{$dfin}}"
-                                       placeholder="date debut" type="date" wire:model="ddebut"
+                                <input aria-label="date_from" aria-describedby="date_from" max="{{$date_to}}"
+                                       placeholder="date debut" type="date" wire:model="date_from"
                                        class="form-control">
                             </div>
                         </div>
                         <div style="flex: 50%;" class="col-sm-6">
                             <div style="display: flex;" class="input-group">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text" id="dfin">Fin : </span>
+                                    <span class="input-group-text" id="date_to">Fin : </span>
                                 </div>
                                 <input max="{{Carbon::now()->endOfDay()->format('Y-m-d')}}"
-                                       min="{{$ddebut}}"
-                                       aria-label="dfin" aria-describedby="dfin"
+                                       min="{{$date_from}}"
+                                       aria-label="date_to" aria-describedby="date_to"
                                        placeholder="date fin"
-                                       type="date" wire:model="dfin"
+                                       type="date" wire:model="date_to"
                                        class="form-control">
                             </div>
                         </div>
