@@ -101,8 +101,21 @@ class Perception extends Model
         $count = Str::padLeft($count + 1, 3, '0');
         $month = Carbon::now()->format('ym');
 
-        return $month . $count;
+        return self::checkReference("{$month}{$count}");
+
+}
+
+
+
+public static function checkReference(string $reference): string
+{
+    $count = self::withoutGlobalScopes()->where('reference', $reference)->count();
+
+    if ($count > 0) {
+        return self::checkReference(((int)$reference) + 1);
     }
+    return $reference;
+}
 
     public function getEleveAttribute()
     {
