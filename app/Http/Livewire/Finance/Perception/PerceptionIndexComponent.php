@@ -123,7 +123,7 @@ class PerceptionIndexComponent extends BaseComponent
             $q->where('frais_id', $this->frais_id);
         });
 
-        return $this->perceptions = $perceptionsRequest->latest()->get();
+        return $this->perceptions = $perceptionsRequest->latest()->limit(1000)->get();
     }
 
     public function getSelectedPerception(Perception $perception): void
