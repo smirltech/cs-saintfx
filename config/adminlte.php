@@ -361,6 +361,12 @@ return [
             'can' => 'perceptions.view.*',
         ],
         [
+            'text' => 'Perceptions',
+            'url' => 'finance/perceptions',
+            'icon' => 'fas fa-fw fa-arrow-trend-up',
+            'can' => 'perceptions.view.*',
+        ],
+        [
             'text' => 'Rapports',
             'icon' => 'fas fa-fw fa-chart-column',
             'can' => 'perceptions.view',
