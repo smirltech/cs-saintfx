@@ -7,6 +7,7 @@
         <div class="col-6">
             <h1 class="ms-3">Rapports Financiers</h1>
         </div>
+
         <div class="col-6">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('finance') }}">Accueil</a></li>
@@ -17,16 +18,18 @@
 
 @stop
 <div class="container-fluid">
-    <div style="display: flex; width: 100%" class="card-header justify-content-end">
-        <div class="card-tools d-flex my-auto mb-3">
-            <div style="display: flex;" class="row mt-1 mb-1">
-                <div style="display: flex;" class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="date_from">Debut : </span>
+    <div style="display: flex; width: 100%" class="card-header justify-content-center mb-3">
+        <div class="card-tools">
+            <div style="display: flex;" class="row">
+                <div style="flex: 50%;" class="col-sm-6">
+                    <div style="display: flex;" class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="date_from">Debut : </span>
+                        </div>
+                        <input aria-label="date_from" aria-describedby="date_from" max="{{$date_to}}"
+                               placeholder="date debut" type="date" wire:model="date_from"
+                               class="form-control">
                     </div>
-                    <input aria-label="date_from" aria-describedby="date_from" max="{{$date_to}}"
-                           placeholder="date debut" type="date" wire:model="date_from"
-                           class="form-control">
                 </div>
                 <div style="flex: 50%;" class="col-sm-6">
                     <div style="display: flex;" class="input-group">
@@ -44,7 +47,7 @@
             </div>
         </div>
     </div>
-    <div class="card mb-5">
+    <div class="card">
         <div class="card-body">
             @include('livewire.finance.rapports.modals.printable')
         </div>
