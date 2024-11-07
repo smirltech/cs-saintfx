@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\Devise;
+use App\Enums\RevenuType;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,9 +13,15 @@ class Revenu extends Model
 {
     use HasFactory, HasUlids;
 
+
     public $guarded = [];
 
-    public static function dataOfLast($days = 7)
+    protected $casts = [
+        'type' => RevenuType::class,
+        'devise' => Devise::class
+    ];
+
+    public static function dataOfLast($days = 7): array
     {
         $data = [];
         for ($i = $days - 1; $i >= 0; $i--) {
