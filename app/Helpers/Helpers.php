@@ -3,7 +3,7 @@
 namespace App\Helpers;
 
 use App\Enums\InscriptionStatus;
-use Str;
+use Pharaonic\Laravel\Readable\Readable;
 
 
 class Helpers
@@ -84,6 +84,10 @@ class Helpers
 
     public static function currencyFormat($amount, $decimal = 0, $symbol = ''): string
     {
+
+        if ($amount >= 1000000) {
+            return Readable::getHumanNumber($amount) . ' ' . $symbol;
+        }
 
         return number_format($amount, $decimal) . ' ' . $symbol;
 

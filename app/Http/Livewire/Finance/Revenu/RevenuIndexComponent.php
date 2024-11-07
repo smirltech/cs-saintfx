@@ -50,7 +50,7 @@ class RevenuIndexComponent extends BaseComponent
     public function loadData(): void
     {
         // todo: we should consider annee_id when fetching data
-        $this->revenus = Revenu::where('annee_id', $this->annee_id)->orderBy('created_at', 'DESC')->get();
+        $this->revenus = Revenu::orderBy('created_at', 'DESC')->get();
     }
 
     public function addRevenu(): void
