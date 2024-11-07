@@ -51,8 +51,10 @@
         <div class="card-body">
             @include('livewire.finance.rapports.modals.printable')
         </div>
-        <div class="card-footer">
-            <button wire:click="printIt" class="btn btn-primary">Imprimer</button>
+        <div class="card-footer text-center">
+            <button wire:click="printIt" class="btn btn-primary text-center">
+                <i class="fa fa-file-pdf"></i>
+                Télécharger</button>
         </div>
     </div>
 </div>
