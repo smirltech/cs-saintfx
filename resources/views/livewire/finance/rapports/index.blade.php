@@ -7,7 +7,6 @@
         <div class="col-6">
             <h1 class="ms-3">Rapports Financiers</h1>
         </div>
-
         <div class="col-6">
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('finance') }}">Accueil</a></li>
@@ -17,48 +16,40 @@
     </div>
 
 @stop
-<div wire:ignore.self class="">
-
-    <div class="content mt-3">
-        <div class="container-fluid">
-            <div style="display: flex; width: 100%" class="card-header justify-content-end">
-                <div class="card-tools d-flex my-auto">
-                    <div style="display: flex;" class="row mt-1 mb-1">
-                        <div style="flex: 50%;" class="col-sm-6">
-                            <div style="display: flex;" class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="date_from">Debut : </span>
-                                </div>
-                                <input aria-label="date_from" aria-describedby="date_from" max="{{$date_to}}"
-                                       placeholder="date debut" type="date" wire:model="date_from"
-                                       class="form-control">
-                            </div>
-                        </div>
-                        <div style="flex: 50%;" class="col-sm-6">
-                            <div style="display: flex;" class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="date_to">Fin : </span>
-                                </div>
-                                <input max="{{Carbon::now()->endOfDay()->format('Y-m-d')}}"
-                                       min="{{$date_from}}"
-                                       aria-label="date_to" aria-describedby="date_to"
-                                       placeholder="date fin"
-                                       type="date" wire:model="date_to"
-                                       class="form-control">
-                            </div>
-                        </div>
+<div class="container-fluid">
+    <div style="display: flex; width: 100%" class="card-header justify-content-end">
+        <div class="card-tools d-flex my-auto mb-3">
+            <div style="display: flex;" class="row mt-1 mb-1">
+                <div style="display: flex;" class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="date_from">Debut : </span>
                     </div>
+                    <input aria-label="date_from" aria-describedby="date_from" max="{{$date_to}}"
+                           placeholder="date debut" type="date" wire:model="date_from"
+                           class="form-control">
                 </div>
-            </div>
-            <div class="card mb-5">
-                <div class="card-body">
-                    @include('livewire.finance.rapports.modals.printable')
-                </div>
-                <div class="card-footer">
-                    <button wire:click="printIt" class="btn btn-primary">Imprimer</button>
+                <div style="flex: 50%;" class="col-sm-6">
+                    <div style="display: flex;" class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="date_to">Fin : </span>
+                        </div>
+                        <input max="{{Carbon::now()->endOfDay()->format('Y-m-d')}}"
+                               min="{{$date_from}}"
+                               aria-label="date_to" aria-describedby="date_to"
+                               placeholder="date fin"
+                               type="date" wire:model="date_to"
+                               class="form-control">
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="card mb-5">
+        <div class="card-body">
+            @include('livewire.finance.rapports.modals.printable')
+        </div>
+        <div class="card-footer">
+            <button wire:click="printIt" class="btn btn-primary">Imprimer</button>
+        </div>
+    </div>
 </div>
-
