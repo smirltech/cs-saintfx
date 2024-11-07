@@ -33,7 +33,7 @@ class Helpers
         } else if ($reste == 0) {
             return 'success';
         } else {
-            return 'warning';
+            return 'primary';
         }
     }
 

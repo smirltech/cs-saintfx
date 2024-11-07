@@ -139,6 +139,21 @@ class Perception extends Model implements \OwenIt\Auditing\Contracts\Auditable
         return $this->inscription->perceptions()->where('frais_id', $this->frais_id)->where('annee_id', Annee::id())->sum('montant');
     }
 
+    public function getResteAttribute(): float
+    {
+        return $this->montantUSD() - $this->frais_montant;
+    }
+
+    public function montantUSD(): float
+    {
+        return $this->devise == Devise::USD ? $this->montant : $this->montant / $this->taux();
+    }
+
+    public function taux(): int
+    {
+        return $this->taux > 0 ? $this->taux : 1;
+    }
+
     public function getNomCompletAttribute(): string
     {
         return $this->getFullNameAttribute();

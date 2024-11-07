@@ -139,7 +139,7 @@
                                     </tr>
                                     </thead>
                                     @foreach($perceptions ?? [] as $percept)
-                                        @php($reste = $percept->frais_monant - $percept->balance)
+                                        @php($reste =$percept->reste)
                                         <tr>
                                             <td> {{$loop->iteration}}
                                             <td> {{$percept->frais->nom}} {{$percept->custom_property}}</td>
@@ -147,7 +147,7 @@
                                                 {{number_format($percept->frais_montant)}} {{ $percept->frais->devise }}
                                             </td>
                                             <td>
-                                                {{number_format($percept->montant)}} {{ $percept->frais->devise }}
+                                                {{number_format($percept->montant)}} {{ $percept->devise }}
                                             </td>
                                             <td>
                                                 <span class="badge badge-{{Helpers::balanceColor($reste)}}">

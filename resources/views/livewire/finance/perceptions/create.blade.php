@@ -21,13 +21,12 @@
             </div>
         @endif
         <div class="col-md-12 mb-3">
-            <x-form::input label="Montant à Payer ({{$fee?->devise}})" disabled type="number"
+            <x-form::input label="Montant à Payer - {{$fee?->devise}}" disabled type="number"
                            wire:model="perception.frais_montant"/>
         </div>
         <div class="col-md-12 mb-3">
             <x-form::select change label="Payé en devise" type="number" :options="Devise::cases()"
                             wire:model="perception.devise"/>
-        </div>
         @if($perception->devise == Devise::CDF)
             <div class="col-md-12 mb-3">
                 <x-form::input required label="Taux du $" wire:model="perception.taux"/>
@@ -36,9 +35,9 @@
         <div class="col-md-12 mb-3">
             <x-form::input label="Montant Payé" step=".01" required type="number" wire:model="perception.montant"/>
         </div>
-        <div class="col-md-12 mb-3">
+       {{-- <div class="col-md-12 mb-3">
             <x-form::input label="Payé Par" wire:model="perception.paid_by"/>
-        </div>
+        </div>--}}
     </div>
 </x-modals::form>
 

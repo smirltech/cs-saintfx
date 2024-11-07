@@ -16,8 +16,8 @@
     ];
    $data =[];
    foreach ($perceptions as $key=>$perception){
-      $reste =  ( (int)$perception->frais_montant-(int)($perception->montant));
-      $resteColor = $reste>0?'danger':'success';
+      $reste =  $perception->reste;
+      $resteColor = Helpers::balanceColor($reste);
 
         $btns = '';
 

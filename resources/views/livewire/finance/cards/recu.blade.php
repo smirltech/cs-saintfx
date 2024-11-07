@@ -57,8 +57,8 @@
         <strong>{{Helpers::currencyFormat($montant)}}</strong></div>--}}
     <div style="text-align:right" class="text-right">Cash :
         <strong>{{Helpers::currencyFormat($perception?->montant)}} {{ $perception->frais->devise }}</strong></div>
-    <div style="text-align:right" class="text-right">Solde :
-        <strong>{{Helpers::currencyFormat($perception?->frais_montant - (int)($perception?->montant))}}
+    <div style="text-align:right" class="text-right">Reste :
+        <strong>{{Helpers::currencyFormat($perception?->reste)}}
             {{ $perception->frais->devise }} </strong>
     </div>
     @if($perception?->paid_by != null)
