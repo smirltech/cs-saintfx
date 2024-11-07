@@ -53,7 +53,7 @@ class Revenu extends Model implements Auditable
 
     public static function total()
     {
-        return self::where('annee_id', Annee::id())->sum('montant');
+        return self::sum('montant');
     }
 
 

@@ -109,11 +109,8 @@
                                     </thead>
                                     <tbody>
                                     @php
-
-
                                         $perceptionCDFCountTotal = 0;
                                         $perceptionUSDCountTotal = 0;
-
                                         $perceptionCDFTotal = 0;
                                         $perceptionUSDTotal = 0;
                                     @endphp
