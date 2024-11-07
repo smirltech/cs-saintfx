@@ -10,10 +10,10 @@
    $data =[];
    foreach ($revenus as $revenu){
         $data[] =[
-            $revenu->created_at->format('d-m-Y'),
+            $revenu->created_at->format('Y-m-d H:i'),
             $revenu->nom,
             $revenu->type->label(),
-            Helpers::currencyFormat($revenu->montant, symbol: $revenu->devise->symbol()),
+            $revenu->montant(),
             $revenu->description,
             $revenu->id,
 ];
@@ -72,19 +72,16 @@
                     <td>
                         <div class="d-flex float-right">
                             @can('revenus.update',$row[5])
-                                <button wire:click="getSelectedRevenu('{{$row[5]}}')"
-                                        type="button"
-                                        title="Modifier" class="btn btn-info  ml-2"
-                                        data-toggle="modal"
-                                        data-target="#edit-revenu-modal">
+                                <button type="button"
+                                        onclick="showModal('finance.revenu.revenu-create-component','{{$row[5]}}')"
+                                        title="Modifier" class="btn btn-info m-1 btn-sm">
                                     <span class="fa fa-pen"></span>
                                 </button>
                             @endcan
                             @can('revenus.delete',$row[5])
-                                <button wire:click="getSelectedRevenu('{{$row[5]}}')" type="button"
-                                        title="supprimer" class="btn btn-danger  ml-2"
-                                        data-toggle="modal"
-                                        data-target="#delete-revenu-modal">
+                                <button type="button"
+                                        onclick="showDeleteModal('Revenu','{{$row[5]}}')"
+                                        title="supprimer" class="btn btn-danger m-1 btn-sm">
                                     <span class="fa fa-trash"></span>
                                 </button>
                             @endcan

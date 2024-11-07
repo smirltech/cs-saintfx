@@ -4,14 +4,17 @@ namespace App\Models;
 
 use App\Enums\Devise;
 use App\Enums\RevenuType;
+use App\Traits\HasMontant;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Revenu extends Model
+class Revenu extends Model implements Auditable
 {
-    use HasFactory, HasUlids;
+    use HasFactory, SoftDeletes, HasUlids, \OwenIt\Auditing\Auditable, HasMontant;
 
 
     public $guarded = [];
@@ -20,6 +23,14 @@ class Revenu extends Model
         'type' => RevenuType::class,
         'devise' => Devise::class
     ];
+
+    protected static function booted(): void
+    {
+        // set user on creating
+        static::creating(function (Revenu $model) {
+            $model->user_id = $model->user_id ?? auth()->id();
+        });
+    }
 
     public static function dataOfLast($days = 7): array
     {
@@ -37,11 +48,24 @@ class Revenu extends Model
         $debut = Carbon::parse($ddebut)->startOfDay();
         $fin = Carbon::parse($dfin)->endOfDay();
 
-        return self::where('annee_id', $annee_id)->whereBetween('created_at', [$debut, $fin])->sum('montant');
+        return self::whereBetween('created_at', [$debut, $fin])->sum('montant');
     }
 
     public static function total()
     {
         return self::where('annee_id', Annee::id())->sum('montant');
+    }
+
+
+    //scope of cdf
+    public function scopeCDF($query)
+    {
+        return $query->where('devise', Devise::CDF);
+    }
+
+    //scope of usd
+    public function scopeUSD($query)
+    {
+        return $query->where('devise', Devise::USD);
     }
 }

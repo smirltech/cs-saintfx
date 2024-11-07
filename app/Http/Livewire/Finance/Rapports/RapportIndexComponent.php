@@ -76,7 +76,7 @@ class RapportIndexComponent extends Component
 
     }
 
-    public function printIt()
+    public function printIt(): \Symfony\Component\HttpFoundation\StreamedResponse
     {
         //$this->dispatchBrowserEvent('printIt', ['elementId' => "factPrint", 'type' => 'html', 'maxWidth' => '100%']);
 
