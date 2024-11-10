@@ -2,12 +2,17 @@
 
 namespace App\Http\Livewire\Finance\Depenses;
 
+use App\Enums\Devise;
 use App\Http\Livewire\BaseComponent;
 use App\Models\Annee;
+use App\Models\Classe;
 use App\Models\Depense;
 use App\Models\DepenseType;
+use App\Models\Frais;
+use App\Models\Perception;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
@@ -38,12 +43,15 @@ class DepenseIndexComponent extends BaseComponent
 
     protected $listeners = ['onModalClosed'];
 
-    public function mount()
+    public function mount(): void
     {
         $this->authorize('viewAny', Depense::class);
         $this->annee_id = Annee::id();
         $this->types = DepenseType::orderBy('nom')->get();
         $this->type = $this->types[0] ?? new DepenseType();
+
+        $this->type_id = request()->get('type_id') ?: '';
+
     }
 
     public function render()
@@ -53,89 +61,80 @@ class DepenseIndexComponent extends BaseComponent
             ->layout(AdminLayout::class, ['title' => 'Liste de Dépenses']);
     }
 
+    public function getPerceptionsProperty(): Collection
+    {
+        $perceptionsRequest = Perception::when($this->classe_id, function ($q) {
+            $q->whereHas('inscription', function ($q) {
+                $q->where('classe_id', $this->classe_id);
+            });
+        })->when($this->frais_id, function ($q) {
+            $q->where('frais_id', $this->frais_id);
+        });
+
+        return $this->perceptions = $perceptionsRequest->latest()->limit(1000)->get();
+    }
+
+    public function getBoxesProperty(): array
+    {
+
+        $perceptionQuery = Depense::when($this->type_id, function ($q) {
+            $q->where('depense_type_id', $this->type_id);
+        });
+
+
+        $perceptionsUSD = $perceptionQuery->clone()->whereDevise('USD')->sum('montant');
+        $perceptionsCDF = $perceptionQuery->clone()->whereDevise(Devise::CDF)->sum('montant');
+
+        $depensesUSD = Depense::whereDevise('USD')->sum('montant');
+        $depensesCDF = Depense::whereDevise(Devise::CDF)->sum('montant');
+
+        $perceptionsTodayUSD = $perceptionQuery->clone()->ofToday()->whereDevise('USD')->sum('montant');
+        $perceptionsTodayCDF = $perceptionQuery->clone()->ofToday()->whereDevise('CDF')->sum('montant');
+
+        $perceptionsMeTodayUSD = $perceptionQuery->clone()->ofToday()->whereDevise('USD')->whereUserId(Auth::id())->sum('montant');
+        $perceptionsMeTodayCDF = $perceptionQuery->clone()->ofToday()->whereDevise('CDF')->whereUserId(Auth::id())->sum('montant');
+
+
+        return [
+            [
+                'title' => "{$perceptionsCDF}Fc / {$perceptionsUSD}$",
+                'text' => 'Perceptions',
+                'icon' => 'fas fa-coins',
+                'theme' => 'gradient-success',
+                'url' => \route('finance.perceptions')
+
+            ],
+            [
+                'title' => "{$perceptionsTodayCDF}Fc / {$perceptionsTodayUSD}$",
+                'text' => "Aujoud'hui",
+                'icon' => 'fas fa-coins',
+                'theme' => 'gradient-success',
+                'url' => \route('finance.perceptions')
+
+            ],
+            [
+                'title' => "{$depensesCDF}Fc / {$depensesUSD}$",
+                'text' => 'Depenses',
+                'icon' => 'fas fa-credit-card',
+                'theme' => 'gradient-danger',
+                'url' => '#'
+
+            ],
+            [
+                'title' => "{$perceptionsMeTodayCDF}Fc / {$perceptionsMeTodayUSD}$",
+                'text' => "Aujoud'hui",
+                'icon' => 'fas fa-user',
+                'theme' => 'gradient-success',
+                'url' => \route('finance.perceptions')
+
+            ],
+        ];
+    }
+
     public function loadData()
     {
         $this->types = DepenseType::orderBy('nom')->get();
-        $this->depenses = Depense::where('annee_id', $this->annee_id)->orderBy('created_at', 'DESC')->get();
-    }
-
-    public function addDepense()
-    {
-        // dd($this->nom);
-
-        $this->validate([
-            'type.id' => 'required',
-            'montant' => 'required',
-            'note' => 'nullable',
-            'reference' => 'nullable',
-            'annee_id' => 'required',
-        ]);
-
-        Depense::create([
-            'depense_type_id' => $this->type->id,
-            'montant' => $this->montant,
-            'note' => $this->note,
-            'reference' => $this->reference,
-            'user_id' => Auth::user()->id,
-            'annee_id' => $this->annee_id,
-        ]);
-
-        $this->alert('success', "Dépense ajoutée avec succès !");
-
-        // close the modal by specifying the id of the modal
-        $this->dispatchBrowserEvent('closeModal', ['modal' => 'add-depense-modal']);
-        $this->onModalClosed();
-    }
-
-
-    public function getSelectedDepense($depense_id)
-    {
-        //dd($depense_id);
-        $this->depense = Depense::find($depense_id);
-        $this->type = $this->depense->type;
-        $this->montant = $this->depense->montant;
-        $this->note = $this->depense->note;
-        $this->reference = $this->depense->reference;
-    }
-
-    public function updateDepense()
-    {
-        $this->validate([
-            'type.id' => 'required',
-            'montant' => 'required',
-            'note' => 'required',
-            'reference' => 'nullable',
-        ]);
-
-        $done = $this->depense->update([
-            'depense_type_id' => $this->type->id,
-            'montant' => $this->montant,
-            'note' => $this->note,
-            'reference' => $this->reference,
-            'user_id' => Auth::user()->id,
-        ]);
-        if ($done) {
-            $this->alert('success', "Depense modifiée avec succès !");
-
-            $this->dispatchBrowserEvent('closeModal', ['modal' => 'edit-depense-modal']);
-        } else {
-            $this->alert('warning', "Echec de modification de dépense !");
-        }
-        $this->onModalClosed();
-
-    }
-
-    public function deleteDepense()
-    {
-
-        if ($this->depense->delete()) {
-            $this->loadData();
-            $this->alert('success', "Dépense supprimée avec succès !");
-            $this->dispatchBrowserEvent('closeModal', ['modal' => 'delete-depense-modal']);
-        }
-
-        $this->onModalClosed();
-
+        $this->depenses = Depense::orderBy('created_at', 'DESC')->get();
     }
 
 }

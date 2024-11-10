@@ -7,22 +7,26 @@ use App\Enums\DepenseStatus;
 use App\Enums\Devise;
 use App\Enums\UserRole;
 use App\Notifications\DepenseCreated;
-use Auth;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Notification;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Str;
+use LaracraftTech\LaravelDateScopes\DateScopes;
+use OwenIt\Auditing\Contracts\Auditable;
 use SmirlTech\LaravelMedia\Traits\HasMedia;
 use Spatie\ModelStatus\Events\StatusUpdated;
 use Spatie\ModelStatus\Exceptions\InvalidStatus;
 use Spatie\ModelStatus\HasStatuses;
 
-class Depense extends Model
+class Depense extends Model implements Auditable
 {
-    use HasFactory, HasStatuses, HasUlids, HasMedia;
+    use HasFactory, HasStatuses, DateScopes, SoftDeletes, HasUlids, \OwenIt\Auditing\Auditable, HasMedia;
 
     public $guarded = [];
 
@@ -71,7 +75,7 @@ class Depense extends Model
 
     public static function total()
     {
-        return self::where('annee_id', Annee::id())->sum('montant');
+        return self::sum('montant');
     }
 
     public static function scopePaid($query)
@@ -85,11 +89,8 @@ class Depense extends Model
     {
 
         self::creating(function (Depense $depense) {
-            if (! $depense->annee_id) {
-                $depense->annee_id = Annee::id();
-            }
-
-            if (! $depense->user_id) {
+            $depense->reference = self::generateReference();
+            if (!$depense->user_id) {
                 $depense->user_id = Auth::id();
             }
         });
@@ -97,6 +98,27 @@ class Depense extends Model
         self::created(function (Depense $depense) {
             $depense->setStatus(DepenseStatus::pending->value, "{$depense->user->name} a créé une dépense pour {$depense->type->nom} de {$depense->montant} {$depense?->devise?->value}");
         });
+    }
+
+    public static function generateReference(): string
+    {
+        $count = self::whereMonth('created_at', Carbon::now()->month)->count();
+        $count = Str::padLeft($count + 1, 3, '0');
+        $month = Carbon::now()->format('ym');
+
+        return self::checkReference("{$month}{$count}");
+
+    }
+
+
+    public static function checkReference(string $reference): string
+    {
+        $count = self::withoutGlobalScopes()->where('reference', $reference)->count();
+
+        if ($count > 0) {
+            return self::checkReference(((int)$reference) + 1);
+        }
+        return $reference;
     }
 
     /**
@@ -127,7 +149,7 @@ class Depense extends Model
 
     public function getDisplayMontantAttribute(): string
     {
-        return number_format($this->montant, 0, ',', ' ').' '.$this->devise?->value;
+        return number_format($this->montant, 0, ',', ' ') . ' ' . $this->devise?->value;
     }
 
     /**
@@ -186,20 +208,20 @@ class Depense extends Model
     public function isApprovedByCoordonnateur(): bool
     {
         return match ($this->status()?->name) {
-            DepenseStatus::approved_coordonnateur->value => true,
-            default => false
-        } || $this->isApprovedByPromoteur();
+                DepenseStatus::approved_coordonnateur->value => true,
+                default => false
+            } || $this->isApprovedByPromoteur();
     }
 
     public function canBeApprovedByUser(): bool
     {
         return (match ($this->status) {
-            DepenseStatus::approved_coordonnateur->value, DepenseStatus::rejected_promoteur->value => true,
-            default => false
-        } && Auth::user()?->role?->name === UserRole::promoteur->value) || (match ($this->status) {
-            DepenseStatus::pending->value, DepenseStatus::rejected_coordonnateur->value => true,
-            default => false
-        } && Auth::user()?->role?->name === UserRole::coordonnateur->value);
+                    DepenseStatus::approved_coordonnateur->value, DepenseStatus::rejected_promoteur->value => true,
+                    default => false
+                } && Auth::user()?->role?->name === UserRole::promoteur->value) || (match ($this->status) {
+                    DepenseStatus::pending->value, DepenseStatus::rejected_coordonnateur->value => true,
+                    default => false
+                } && Auth::user()?->role?->name === UserRole::coordonnateur->value);
     }
 
     /**
