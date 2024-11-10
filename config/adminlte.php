@@ -375,6 +375,10 @@ return [
                     'text' => 'Financier',
                     'url' => 'finance/rapports',
                 ],
+                 [
+                    'text' => 'Insovables',
+                    'url' => 'finance/insolvables'
+                ],
                /* [
                     'text' => 'Frais',
                     'route' => 'admin.rapports.index',
