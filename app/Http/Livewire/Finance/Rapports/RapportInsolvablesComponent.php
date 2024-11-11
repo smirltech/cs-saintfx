@@ -4,10 +4,12 @@ namespace App\Http\Livewire\Finance\Rapports;
 
 
 use App\Models\Annee;
+use App\Models\Classe;
 use App\Models\Depense;
 use App\Models\Frais;
 use App\Models\Perception;
 use App\Models\Revenu;
+use App\Models\Section;
 use App\Traits\TopMenuPreview;
 
 use App\Traits\WithPrintToPdf;
@@ -38,29 +40,33 @@ class RapportInsolvablesComponent extends Component
     ];
     private $annee;
 
-    public function mount()
+    public function mount(): void
     {
         $this->annee = Annee::encours();
         $this->annee_id = $this->annee->id;
         $this->anneeNom = $this->annee->nom;
         $this->date_from = Carbon::now()->startOfMonth()->format('Y-m-d');
         $this->date_to = Carbon::now()->format('Y-m-d');
+        $this->classes = Classe::all();
+        $this->fraisOptions = Frais::all();
+        $this->sections = Section::all();
 
     }
 
     public function render()
     {
         $this->loadData();
-        return view('livewire.finance.rapports.insolvables', ['annee' => $this->annee,'title' => $this->title])
+        return view('livewire.finance.rapports.insolvables', ['annee' => $this->annee, 'title' => $this->title])
             ->layout(AdminLayout::class, ['title' => $this->title]);
     }
 
 
-    public function  getTitleProperty(): string
+    public function getTitleProperty(): string
     {
         return 'Rapport financier du ' . now()->parse($this->date_from)->format('d-m-Y') . ' au ' . now()->parse($this->date_to)->format('d-m-Y');
 
     }
+
     public function loadData(): void
     {
         $this->revenuAuxiliaire = Revenu::sommeBetween(annee_id: $this->annee_id, ddebut: $this->date_from, dfin: $this->date_to);
@@ -80,7 +86,7 @@ class RapportInsolvablesComponent extends Component
     {
         //$this->dispatchBrowserEvent('printIt', ['elementId' => "factPrint", 'type' => 'html', 'maxWidth' => '100%']);
 
-        return $this->printToPdf('livewire.finance.rapports.modals.insolvables-printable', $this->all(), $this->title.'.pdf');
+        return $this->printToPdf('livewire.finance.rapports.modals.insolvables-printable', $this->all(), $this->title . '.pdf');
 
     }
 }
