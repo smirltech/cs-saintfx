@@ -97,11 +97,11 @@ class RapportInsolvablesComponent extends Component
             return $query->whereHas('inscription', function ($query) {
                 $query->where('classe_id', $this->classe_id);
             });
-        })->when($this->frais_id, function ($query) {
-            return $query->where('frais_id', $this->frais_id);
-        })->when($this->month, function ($query) {
-            return $query->where('custom_property', 'like', '%' . $this->month . '%');
-        })->orderBy('inscription_id')->get();
+        })
+            ->where('frais_id', $this->frais_id)
+            ->when($this->month, function ($query) {
+                return $query->where('custom_property', 'like', '%' . $this->month . '%');
+            })->orderBy('inscription_id')->get();
 
 
     }
