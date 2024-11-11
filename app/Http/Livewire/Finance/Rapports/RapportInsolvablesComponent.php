@@ -119,20 +119,6 @@ class RapportInsolvablesComponent extends Component
         })->get();
     }
 
-    public function loadData(): void
-    {
-        $this->revenuAuxiliaire = Revenu::sommeBetween(annee_id: $this->annee_id, ddebut: $this->date_from, dfin: $this->date_to);
-        $this->perception = Perception::sommeBetween(annee_id: $this->annee_id, ddebut: $this->date_from, dfin: $this->date_to);
-        $this->frais = Frais::sommeFraisByTypeBetween(annee_id: $this->annee_id, ddebut: $this->date_from, dfin: $this->date_to);
-
-        $this->depenses = Depense::sommeBetween(annee_id: $this->annee_id, ddebut: $this->date_from, dfin: $this->date_to);
-        $this->depensesTypes = Depense::sommeDepensesByTypeBetween(annee_id: $this->annee_id, ddebut: $this->date_from, dfin: $this->date_to);
-    }
-
-    public function updateReport()
-    {
-
-    }
 
     public function printIt(): \Symfony\Component\HttpFoundation\StreamedResponse
     {
