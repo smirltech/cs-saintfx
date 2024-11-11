@@ -71,7 +71,7 @@ class Depense extends Model
 
     public static function total()
     {
-        return self::where('annee_id', Annee::id())->sum('montant');
+        return self::sum('montant');
     }
 
     public static function scopePaid($query)

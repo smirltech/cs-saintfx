@@ -74,7 +74,6 @@
                                     <tbody>
 
                                     @foreach($inscriptions as $i=>$inscrit)
-
                                         <tr>
                                             <td>{{$i+1}}</td>
                                             <td>{{$inscrit->matricule}}</td>
@@ -142,7 +141,7 @@
                                         @php($reste =$percept->reste)
                                         <tr>
                                             <td> {{$loop->iteration}}
-                                            <td> {{$percept->frais->nom}} {{$percept->custom_property}}</td>
+                                            <td> {{$percept->label}}</td>
                                             <td>
                                                 {{number_format($percept->frais_montant)}} {{ $percept->frais->devise }}
                                             </td>

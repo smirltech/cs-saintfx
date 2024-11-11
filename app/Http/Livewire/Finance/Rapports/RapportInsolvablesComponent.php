@@ -7,6 +7,7 @@ use App\Models\Annee;
 use App\Models\Classe;
 use App\Models\Depense;
 use App\Models\Frais;
+use App\Models\Inscription;
 use App\Models\Perception;
 use App\Models\Revenu;
 use App\Models\Section;
@@ -15,6 +16,7 @@ use App\Traits\TopMenuPreview;
 use App\Traits\WithPrintToPdf;
 use App\View\Components\AdminLayout;
 use Carbon\Carbon;
+use FontLib\TrueType\Collection;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
@@ -26,6 +28,10 @@ class RapportInsolvablesComponent extends Component
 
     public $date_from;
     public $date_to;
+    public ?string $section_id = null;
+    public ?string $classe_id = null;
+    public ?int $frais_id = null;
+    public ?int $month = null;
 
     public $revenuAuxiliaire = 0;
     public $perception = 0;
@@ -63,8 +69,51 @@ class RapportInsolvablesComponent extends Component
 
     public function getTitleProperty(): string
     {
-        return 'Rapport financier du ' . now()->parse($this->date_from)->format('d-m-Y') . ' au ' . now()->parse($this->date_to)->format('d-m-Y');
+        return 'Insolvabes en ordre ' . now()->parse($this->date_from)->format('d-m-Y') . ' au ' . now()->parse($this->date_to)->format('d-m-Y');
+    }
 
+
+    public function getInscriptionsProperty(): string
+    {
+        return Inscription::when($this->section_id, function ($query) {
+            return $query->where('section_id', $this->section_id);
+        })->when($this->classe_id, function ($query) {
+            return $query->where('classe_id', $this->classe_id);
+        })->get();
+
+    }
+
+    public function getPerceptionsProperty(): \Illuminate\Database\Eloquent\Collection
+    {
+        return Perception::with('inscription')->when($this->section_id, function ($query) {
+            return $query->whereHas('inscription', function ($query) {
+                $query->whereHas('classe', function ($query) {
+                    $query->where('section_id', $this->section_id);
+                });
+            });
+        })->when($this->classe_id, function ($query) {
+            return $query->whereHas('inscription', function ($query) {
+                $query->where('classe_id', $this->classe_id);
+            });
+        })->when($this->frais_id, function ($query) {
+            return $query->where('frais_id', $this->frais_id);
+        })->when($this->month, function ($query) {
+            return $query->where('custom_property', 'like', '%' . $this->month . '%');
+        })->orderBy('inscription_id')->get();
+
+
+    }
+
+
+    public function getInsolvablesProperty(): \Illuminate\Database\Eloquent\Collection
+    {
+        return Inscription::whereNotIn('id', $this->perceptions->pluck('inscription_id'))->when($this->section_id, function ($query) {
+            return $query->whereHas('classe', function ($query) {
+                $query->where('section_id', $this->section_id);
+            });
+        })->when($this->classe_id, function ($query) {
+            return $query->where('classe_id', $this->classe_id);
+        })->get();
     }
 
     public function loadData(): void
