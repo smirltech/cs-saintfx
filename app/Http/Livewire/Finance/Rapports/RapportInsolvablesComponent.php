@@ -35,7 +35,6 @@ class RapportInsolvablesComponent extends Component
 
     public $revenuAuxiliaire = 0;
     public $perception = 0;
-    public $frais = [];
     public $depenses = 0;
     public $depensesTypes = [];
     public $annee_id;
