@@ -26,6 +26,9 @@ class RapportInsolvablesComponent extends Component
     use LivewireAlert;
     use WithPrintToPdf;
 
+
+    public $frais = null;
+
     public $date_from;
     public $date_to;
     public ?string $section_id = null;
@@ -97,11 +100,11 @@ class RapportInsolvablesComponent extends Component
             return $query->whereHas('inscription', function ($query) {
                 $query->where('classe_id', $this->classe_id);
             });
-        })
-            ->where('frais_id', $this->frais_id)
-            ->when($this->month, function ($query) {
-                return $query->where('custom_property', 'like', '%' . $this->month . '%');
-            })->orderBy('inscription_id')->get();
+        })->when($this->frais_id, function ($query) {
+            return $query->where('frais_id', $this->frais_id);
+        })->when($this->month, function ($query) {
+            return $query->where('custom_property', 'like', '%' . $this->month . '%');
+        })->orderBy('inscription_id')->get();
 
 
     }

@@ -19,65 +19,64 @@
                     </div>
                 </div>
             </div>
-
-            <div class="card-body m-b-5">
-                <div class="row">
-                    <div class="col-md-6">
-                        <h4>En ordre</h4>
-                        <hr>
-                        <table class="table table-bordered table-striped">
-                            <thead class="text-center">
-                            <tr class="titres text-uppercase">
-                                <th rowspan="2">NO.</th>
-                                <th rowspan="2">ELEVE</th>
-                                <th rowspan="2">CLASSE</th>
-                                <th rowspan="2">FRAIS</th>
-                                <th colspan="2">MONTANT PAYÉ</th>
-                            </tr>
-                            <tr class="titres text-uppercase">
-                                <th>Fc</th>
-                                <th>$</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @php
-                                $totalCDF = 0;
-                                $totalUSD = 0;
-                            @endphp
-                            @foreach($this->perceptions??[] as $perception)
-
-                                <tr class="cotes">
-                                    <td>{{$loop->iteration}}</td>
-                                    <td>{{$perception->inscription->label}}</td>
-                                    <td>{{$perception->classe}}</td>
-                                    <td>{{$perception->label}}</td>
-                                    @if($perception->devise == Devise::CDF)
-                                        <td>{{number_format($perception->montant)}} Fc</td>
-                                        <td>-</td>
-                                        @php
-                                            $totalCDF += $perception->montant;
-                                        @endphp
-                                    @else
-                                        <td>-</td>
-                                        <td>{{number_format($perception->montant)}} $</td>
-                                        @php
-                                            $totalUSD += $perception->montant;
-                                        @endphp
-                                    @endif
+            @if($frais_id)
+                <div class="card-body m-b-5">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>En ordre</h4>
+                            <hr>
+                            <table class="table table-bordered table-striped">
+                                <thead class="text-center">
+                                <tr class="titres text-uppercase">
+                                    <th rowspan="2">NO.</th>
+                                    <th rowspan="2">ELEVE</th>
+                                    <th rowspan="2">CLASSE</th>
+                                    <th rowspan="2">FRAIS</th>
+                                    <th colspan="2">MONTANT PAYÉ</th>
                                 </tr>
-                            @endforeach
-                            <tr class="titres">
-                                <td colspan="4">Total</td>
-                                <td>{{number_format($totalCDF)}} Fc</td>
-                                <td>{{number_format($totalUSD)}} $</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-md-6">
-                        <h4>Insolvables</h4>
-                        <hr>
-                        @if($frais_id)
+                                <tr class="titres text-uppercase">
+                                    <th>Fc</th>
+                                    <th>$</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @php
+                                    $totalCDF = 0;
+                                    $totalUSD = 0;
+                                @endphp
+                                @foreach($this->perceptions??[] as $perception)
+
+                                    <tr class="cotes">
+                                        <td>{{$loop->iteration}}</td>
+                                        <td>{{$perception->inscription->label}}</td>
+                                        <td>{{$perception->classe}}</td>
+                                        <td>{{$perception->label}}</td>
+                                        @if($perception->devise == Devise::CDF)
+                                            <td>{{number_format($perception->montant)}} Fc</td>
+                                            <td>-</td>
+                                            @php
+                                                $totalCDF += $perception->montant;
+                                            @endphp
+                                        @else
+                                            <td>-</td>
+                                            <td>{{number_format($perception->montant)}} $</td>
+                                            @php
+                                                $totalUSD += $perception->montant;
+                                            @endphp
+                                        @endif
+                                    </tr>
+                                @endforeach
+                                <tr class="titres">
+                                    <td colspan="4">Total</td>
+                                    <td>{{number_format($totalCDF)}} Fc</td>
+                                    <td>{{number_format($totalUSD)}} $</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <h4>Insolvables</h4>
+                            <hr>
                             <table class="table table-bordered table-striped">
                                 <thead class="text-center">
                                 <tr class="titres text-uppercase">
@@ -119,14 +118,15 @@
                                 ont payé partiellement ou ceux qui ont payé en totalité sont sur le tableau des en
                                 ordre.
                             </div>
-                        @else
-                            <div class="alert alert-danger">
-                                Veuillez sélectionner un frais pour afficher la liste des insolvables.
-                            </div>
-                        @endif
+
+                        </div>
                     </div>
                 </div>
-            </div>
+            @else
+                <div class="alert alert-danger">
+                    Veuillez sélectionner un frais pour afficher la liste des insolvables.
+                </div>
+            @endif
         </div>
         <style>
 
