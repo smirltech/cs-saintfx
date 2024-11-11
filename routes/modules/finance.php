@@ -38,7 +38,7 @@ Route::prefix('finance')->middleware(['auth:web'])->as('finance.')->group(functi
 
 
     Route::get('rapports', Finance\Rapports\RapportIndexComponent::class)->name('rapports.minervals');
-    Route::get('insolvables', Finance\Rapports\RapportIndexComponent::class)->name('rapports.minervals');
+    Route::get('insolvables', Finance\Rapports\RapportInsolvablesComponent::class)->name('rapports.insolvables');
     //Route::get('rapports/minervals', RapportsMinervalsComponent::class)->name('rapports.minervals');
     //Perception
     //Route::get('eleves', Finance\Eleve\EleveIndexComponent::class)->name('eleves');

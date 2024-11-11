@@ -53,7 +53,7 @@ class Depense extends Model
         $debut = Carbon::parse($ddebut)->startOfDay();
         $fin = Carbon::parse($dfin)->endOfDay();
 
-        return self::where('annee_id', $annee_id)->whereBetween('created_at', [$debut, $fin])->sum('montant');
+        return self::whereBetween('created_at', [$debut, $fin])->sum('montant');
     }
 
     public static function sommeDepensesByTypeBetween(int $annee_id, $ddebut, $dfin): array
@@ -63,7 +63,7 @@ class Depense extends Model
         $data = [];
         $depTypes = DepenseType::all();
         foreach ($depTypes as $ty) {
-            $data[$ty->nom] = self::where('annee_id', $annee_id)->where('depense_type_id', $ty->id)->whereDate('created_at', '>=', $debut)->whereDate('created_at', '<=', $fin)->sum('montant');
+            $data[$ty->nom] = self::where('depense_type_id', $ty->id)->whereDate('created_at', '>=', $debut)->whereDate('created_at', '<=', $fin)->sum('montant');
         }
 
         return $data;
