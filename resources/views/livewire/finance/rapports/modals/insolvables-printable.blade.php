@@ -28,6 +28,7 @@
                         <table class="table table-bordered table-striped">
                             <thead class="text-center">
                             <tr class="titres text-uppercase">
+                                <th rowspan="2">NO.</th>
                                 <th rowspan="2">ELEVE</th>
                                 <th rowspan="2">CLASSE</th>
                                 <th rowspan="2">FRAIS</th>
@@ -46,6 +47,7 @@
                             @foreach($this->perceptions??[] as $perception)
 
                                 <tr class="cotes">
+                                    <td>{{$loop->iteration}}</td>
                                     <td>{{$perception->inscription->label}}</td>
                                     <td>{{$perception->classe}}</td>
                                     <td>{{$perception->label}}</td>
@@ -65,7 +67,7 @@
                                 </tr>
                             @endforeach
                             <tr class="titres">
-                                <td colspan="3">Total</td>
+                                <td colspan="4">Total</td>
                                 <td>{{number_format($totalCDF)}} Fc</td>
                                 <td>{{number_format($totalUSD)}} $</td>
                             </tr>
@@ -73,76 +75,88 @@
                         </table>
                     </div>
                     <div class="col-md-6">
-                        <h4>Sorties</h4>
+                        <h4>Insolvables</h4>
                         <hr>
-                        <table class="table table-bordered table-striped">
-                            <thead class="text-center">
-                            <tr class="titres text-uppercase">
-                                <th>ELEVE</th>
-                                <th>CLASSE</th>
-                                <th>FRAIS</th>
-                                <th>MONTANT</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @php
-                                $totalCDF = 0;
-                                $totalUSD = 0;
-                            @endphp
-                            @foreach($this->insolvables??[] as $insolvable)
-                                @php
-                                    $frais = Frais::find($frais_id);
-                                @endphp
-                                <tr class="cotes">
-                                    <td>{{$insolvable->label}}</td>
-                                    <td>{{$insolvable->classe->code}}</td>
-                                    <td>{{$frais?->nom}}</td>
-                                    <td class="text-center">{{number_format($frais->montant??0)}} {{$frais?->devise}}</td>
-                                    @php
-                                        $totalUSD += $frais?->montant;
-                                    @endphp
+                        @if($frais_id)
+                            <table class="table table-bordered table-striped">
+                                <thead class="text-center">
+                                <tr class="titres text-uppercase">
+                                    <th>NO.</th>
+                                    <th>ELEVE</th>
+                                    <th>CLASSE</th>
+                                    <th>FRAIS</th>
+                                    <th>MONTANT</th>
                                 </tr>
-                            @endforeach
-                            <tr class="titres">
-                                <td colspan="3">Total</td>
-                                <td>{{number_format($totalUSD)}} {{$frais?->devise}}</td>
-                            </tr>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                @php
+                                    $totalCDF = 0;
+                                    $totalUSD = 0;
+                                @endphp
+                                @foreach($this->insolvables??[] as $insolvable)
+                                    @php
+                                        $frais = Frais::find($frais_id);
+                                    @endphp
+                                    <tr class="cotes">
+                                        <td>{{$loop->iteration}}</td>
+                                        <td>{{$insolvable->label}}</td>
+                                        <td>{{$insolvable->classe->code}}</td>
+                                        <td>{{$frais?->nom}}</td>
+                                        <td class="text-center">{{number_format($frais->montant??0)}} {{$frais?->devise}}</td>
+                                        @php
+                                            $totalUSD += $frais?->montant;
+                                        @endphp
+                                    </tr>
+                                @endforeach
+                                <tr class="titres">
+                                    <td colspan="4">Total</td>
+                                    <td>{{number_format($totalUSD)}} {{$frais?->devise}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="alert alert-info">
+                                La liste des insolvables concerne les élèves qui n'ont pas payé le frais, ceux qui
+                                ont payé partiellement ou ceux qui ont payé en totalité sont sur le tableau des en
+                                ordre.
+                            </div>
+                        @else
+                            <div class="alert alert-danger">
+                                Veuillez sélectionner un frais pour afficher la liste des insolvables.
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
+        <style>
+
+            table {
+                font-family: " Trebuchet MS ", Arial, Helvetica, sans-serif;
+                border-collapse: collapse;
+                border-spacing: 0;
+                width: 100%;
+                border: #454342;
+            }
+
+
+            .titres > th, .titres > td, .cotes > td {
+                border: 1px solid gray;
+                padding: 3px;
+            }
+
+            .titres > td, .titres > th {
+                text-align: center;
+                font-weight: 500;
+                padding: 5px;
+
+            }
+
+            .titres > th {
+                font-weight: bold;
+
+            }
+
+
+        </style>
+
     </div>
-    <style>
-
-        table {
-            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-            border-collapse: collapse;
-            border-spacing: 0;
-            width: 100%;
-            border: #454342;
-        }
-
-
-        .titres > th, .titres > td, .cotes > td {
-            border: 1px solid gray;
-            padding: 3px;
-        }
-
-        .titres > td, .titres > th {
-            text-align: center;
-            font-weight: 500;
-            padding: 5px;
-
-        }
-
-        .titres > th {
-            font-weight: bold;
-
-        }
-
-
-    </style>
-
-</div>

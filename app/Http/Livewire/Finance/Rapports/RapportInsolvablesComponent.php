@@ -57,6 +57,10 @@ class RapportInsolvablesComponent extends Component
         $this->fraisOptions = Frais::all();
         $this->sections = Section::all();
 
+        if (!$this->section_id) {
+            $this->section_id = $this->sections->first()?->id;
+        }
+
     }
 
     public function render()
