@@ -64,7 +64,6 @@ class RapportInsolvablesComponent extends Component
 
     public function render()
     {
-        $this->loadData();
         return view('livewire.finance.rapports.insolvables', ['annee' => $this->annee, 'title' => $this->title])
             ->layout(AdminLayout::class, ['title' => $this->title]);
     }
