@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use App\Enums\InscriptionStatus;
+use Illuminate\Support\Str;
 use Pharaonic\Laravel\Readable\Readable;
 
 
