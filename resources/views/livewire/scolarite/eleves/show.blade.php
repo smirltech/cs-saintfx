@@ -234,15 +234,16 @@
                     <div class="card card-primary card-tabs">
                         <div class="card-header p-0 pt-1">
                             <ul class="nav nav-tabs">
-                                <li class="nav-item"><a class="nav-link active" href="#presences"
+                               {{-- <li class="nav-item"><a class="nav-link active" href="#presences"
                                                         data-toggle="tab">Présences</a>
+                                </li>--}}
+                                <li class="nav-item"><a class="nav-link active" href="#perceptions"
+                                                        data-toggle="tab">Frais</a>
                                 </li>
                                 <li class="nav-item"><a class="nav-link" href="#devoirs"
                                                         data-toggle="tab">Devoirs</a>
                                 </li>
-                                <li class="nav-item"><a class="nav-link" href="#perceptions"
-                                                        data-toggle="tab">Frais</a>
-                                </li>
+
                                 <li class="nav-item"><a class="nav-link" href="#cursus"
                                                         data-toggle="tab">Cursus Scolaire</a>
                                 </li>
@@ -250,9 +251,9 @@
                         </div><!-- /.card-header -->
                         <div class="card-body">
                             <div class="tab-content">
-                                <div class="active tab-pane" id="presences">
+                               {{-- <div class="active tab-pane" id="presences">
                                     <livewire:scolarite.eleve.presence-component :eleve="$eleve"/>
-                                </div>
+                                </div>--}}
                                 <div class=" tab-pane" id="devoirs">
                                     <div class="table-responsive">
                                         <table class="table">
@@ -302,7 +303,7 @@
                                         </table>
                                     </div>
                                 </div>
-                                <div class=" tab-pane" id="perceptions">
+                                <div class="active tab-pane" id="perceptions">
                                     <div class="table-responsive">
                                         <table class="table">
                                             <thead>

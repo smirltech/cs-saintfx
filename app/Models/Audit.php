@@ -28,8 +28,8 @@ class Audit extends Model implements \OwenIt\Auditing\Contracts\Audit
         return Carbon::parse($this->created_at)->diffForHumans();
     }
 
-    public function getDisplayAuditableAttribute(): string
+    public function getDisplayAuditableAttribute(): ?string
     {
-        return Str::limit($this->auditable, 100);
+        return Str::limit($this?->auditable, 100);
     }
 }
