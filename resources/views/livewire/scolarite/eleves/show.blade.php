@@ -39,7 +39,7 @@
                                 @endif
                             </p>
 
-
+                            <p class="text-muted text-center">{{$inscription->categorie?->label()??'N/A'}}</p>
                             <p class="text-muted text-center">ANNÉE SCOLAIRE : {{$annee_courante?->nom??''}}</p>
                         </div>
 
@@ -234,9 +234,9 @@
                     <div class="card card-primary card-tabs">
                         <div class="card-header p-0 pt-1">
                             <ul class="nav nav-tabs">
-                               {{-- <li class="nav-item"><a class="nav-link active" href="#presences"
-                                                        data-toggle="tab">Présences</a>
-                                </li>--}}
+                                {{-- <li class="nav-item"><a class="nav-link active" href="#presences"
+                                                         data-toggle="tab">Présences</a>
+                                 </li>--}}
                                 <li class="nav-item"><a class="nav-link active" href="#perceptions"
                                                         data-toggle="tab">Frais</a>
                                 </li>
@@ -251,9 +251,9 @@
                         </div><!-- /.card-header -->
                         <div class="card-body">
                             <div class="tab-content">
-                               {{-- <div class="active tab-pane" id="presences">
-                                    <livewire:scolarite.eleve.presence-component :eleve="$eleve"/>
-                                </div>--}}
+                                {{-- <div class="active tab-pane" id="presences">
+                                     <livewire:scolarite.eleve.presence-component :eleve="$eleve"/>
+                                 </div>--}}
                                 <div class=" tab-pane" id="devoirs">
                                     <div class="table-responsive">
                                         <table class="table">

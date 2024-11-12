@@ -1,5 +1,5 @@
 @php
-    use Carbon\Carbon;
+    use App\Enums\InscriptionCategorie;use Carbon\Carbon;
     use App\Enums\GraviteRetard;
     use App\Helpers\Helpers;
 @endphp
@@ -66,6 +66,7 @@
                                         <th style="width: 50px;">#</th>
                                         <th>MATRICULE</th>
                                         <th>NOM</th>
+                                        <th>CATEGORIE</th>
                                         <th>CLASSE</th>
                                         <th style="width: 50px;"></th>
 
@@ -78,6 +79,7 @@
                                             <td>{{$i+1}}</td>
                                             <td>{{$inscrit->matricule}}</td>
                                             <td>{{$inscrit->fullName}}</td>
+                                            <td>{{$inscrit->categorie?->label()}}</td>
                                             <td>{{$inscrit->classe->code}}</td>
                                             <td>
 
