@@ -146,12 +146,12 @@ class Perception extends Model implements \OwenIt\Auditing\Contracts\Auditable
 
     public function montantUSD(): float
     {
-        return $this->devise == Devise::USD ? $this->montant : $this->montant / $this->taux();
+        return $this->devise == Devise::CDF && $this->frais->devise == Devise::USD ? $this->montant / $this->taux() : $this->montant;
     }
 
     public function taux(): int
     {
-        return $this->taux > 0 ? $this->taux : 1;
+        return (int)$this->taux > 0 ? $this->taux : 2850;
     }
 
     public function getNomCompletAttribute(): string
