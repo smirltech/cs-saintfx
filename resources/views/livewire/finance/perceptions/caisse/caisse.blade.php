@@ -111,7 +111,7 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="card-title">
-                                <h4>Élève : {{$inscription?->fullName}} - {{$inscription->categorie?->label()??'N/A'}}</h4>
+                                <h4>Élève : {{$inscription?->fullName}} - {{$inscription?->categorie?->label()??'N/A'}}</h4>
                             </div>
                             <div class="card-tools d-flex my-auto">
                                 @if($inscription != null)
