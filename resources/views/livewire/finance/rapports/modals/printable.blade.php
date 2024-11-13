@@ -235,7 +235,7 @@
                         <h4>SOLDE</h4>
                         <hr>
                         <ol class="list-group">
-                            <li class="list-group
+                            <li class="list-group m-1
                             @if($soldeCDF < 0)
                                 list-group-item-danger
                             @else
@@ -244,7 +244,7 @@
                                 d-flex justify-content-between align-items-center">
                                 <strong>CDF {{number_format($soldeCDF)}} </strong>
                             </li>
-                            <li class="list-group
+                            <li class="list-group m-1
                             @if($soldeUSD < 0)
                                 list-group-item-danger
                             @else
