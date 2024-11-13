@@ -1,4 +1,4 @@
-@php use App\Enums\FraisType;use App\Enums\RevenuType;use App\Models\Annee;use App\Models\Perception;use App\Models\Revenu;use Illuminate\Support\Carbon; @endphp
+@php use App\Enums\FraisType;use App\Enums\RevenuType;use App\Models\Annee;use App\Models\Depense;use App\Models\DepenseType;use App\Models\Perception;use App\Models\Revenu;use Illuminate\Support\Carbon; @endphp
 <div>
     <div class="">
         <div style="text-align: center;" class=" justify-content-center">
@@ -159,27 +159,55 @@
                     <div class="col-md-6">
                         <h4>Sorties</h4>
                         <hr>
-                        <ul class="list-group">
-                            @if($depenses!= 0)
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Dépenses
-                                    <span style="float: right"
-                                          class="">{{number_format($depenses)}} Fc</span>
-                                </li>
-                                <ul class="list-group">
-                                    @foreach($depensesTypes as $k=>$depenseType)
-                                        @if($depenseType > 0)
-                                            <li class="pl-5 pr-5 list-group-item d-flex justify-content-between align-items-center font-italic">
-                                                {{$k}}
-                                                <span style="float: right;padding-right: 25px"
-                                                      class=""><i>{{number_format($depenseType)}} Fc</i></span>
-                                            </li>
-                                        @endif
+                        <table class="table table-bordered table-striped">
+                            <thead class="text-center text-uppercase">
+                            <tr class="titres">
+                                <th>Libellé</th>
+                                <th>Fc</th>
+                                <th>$</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @php
+                                $depensesCDFTotal = 0;
+                                $depensesUSDTotal = 0;
+                            @endphp
+                            @foreach(DepenseType::all() as $depenseType)
+                                @php
+                                    $depenseQuery = Depense::where('depense_type_id', $depenseType->id)
+                                        ->whereDate('date', '>=', $date_from)
+                                        ->whereDate('date', '<=', $date_to);
 
-                                    @endforeach
-                                </ul>
-                            @endif
-                        </ul>
+                                        $depensesUSD = $depenseQuery->clone()->usd()->sum('montant');
+                                        $depensesCDF = $depenseQuery->clone()->cdf()->sum('montant');
+
+                                        if(!$depensesUSD && !$depensesCDF){
+                                            continue;
+                                        }
+
+                                        $depensesCDFTotal += $depensesCDF;
+                                        $depensesUSDTotal += $depensesUSD;
+
+
+
+                                @endphp
+                                <tr class="titres">
+                                    <td style="text-align: left">{{$depenseType->nom}}</td>
+                                    <td class="text-center">
+                                        {{number_format($depensesCDF)}}
+                                    </td>
+                                    <td class="text-center">
+                                        {{number_format($depensesUSD)}}
+                                    </td>
+                                </tr>
+                            @endforeach
+                            <tr class="titres">
+                                <th>Total</th>
+                                <th class="text-center">{{number_format($depensesCDFTotal)}} Fc</th>
+                                <th class="text-center">{{number_format($depensesUSDTotal)}} $</th>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

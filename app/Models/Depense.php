@@ -243,6 +243,17 @@ class Depense extends Model implements Auditable
 
     }
 
+    public function scopeCDF($query)
+    {
+        return $query->where('devise', Devise::CDF);
+    }
+
+    //scope of usd
+    public function scopeUSD($query)
+    {
+        return $query->where('devise', Devise::USD);
+    }
+
     // get nom attribute
     public function getNomAttribute(): string
     {
