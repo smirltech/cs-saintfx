@@ -2,8 +2,9 @@
     use App\Helpers\Helpers;$heads =[
         ['label'=>'DATE', 'width'=>10],
         'TYPE',
+        'MOTIF',
         'MONTANT',
-        'PAR',
+        'BÉNÉFICIAIRE',
         'VALIDÉ PAR',
         'ETAT',
          ['label'=>'', 'no-export'=>true, 'width'=>5]
@@ -12,12 +13,14 @@
    foreach ($depenses as $depense){
         $data[] =[
             $depense->created_at->format('d-m-Y'),
+            $depense->motif,
             $depense->type->nom,
             Helpers::currencyFormat($depense->montant, symbol: $depense->devise->symbol()),
-            $depense->user->name,
+            $depense->beneficiaire,
             $depense?->status()?->user?->name,
             "<span class='badge badge-".($depense?->status()?->color)."'>".$depense?->status()?->label."</span>",
-            $depense];
+            $depense
+            ];
    }
 
     $config =[
@@ -133,8 +136,8 @@
                                     <tr>
                                         <td>{!! $row[0] !!}</td>
                                         <td>
-                                            @can('depense-types.view',$row[6]->depense_type)
-                                                <a href="{{route('finance.depense-types.show', [$row[6]->depense_type_id])}}">{{$row[1]}}</a>
+                                            @can('depense-types.view',$row[7]->depense_type)
+                                                <a href="{{route('finance.depense-types.show', [$row[7]->depense_type_id])}}">{{$row[1]}}</a>
                                             @else
                                                 {{$row[1]}}
                                             @endcan
@@ -144,22 +147,23 @@
                                         <td>{!! $row[3] !!}</td>
                                         <td>{!! $row[4] !!}</td>
                                         <td>{!! $row[5] !!}</td>
+                                        <td>{!! $row[6] !!}</td>
                                         <td>
                                             <div class="d-flex float-right">
-                                                @can('depenses.view',$row[6])
+                                                @can('depenses.view',$row[7])
                                                     <a class="btn btn-sm btn-primary m-1"
-                                                       href="{{ route('finance.depenses.show',$row[6]->id)}}">
+                                                       href="{{ route('finance.depenses.show',$row[7]->id)}}">
                                                         <span class="fa fa-eye"></span>
                                                     </a>
                                                 @endcan
-                                                @can('depenses.update',$row[6])
+                                                @can('depenses.update',$row[7])
                                                     <a class="btn btn-sm btn-warning m-1"
-                                                       href="{{ route('finance.depenses.edit',$row[6]->id)}}">
+                                                       href="{{ route('finance.depenses.edit',$row[7]->id)}}">
                                                         <span class="fa fa-pen"></span>
                                                     </a>
                                                 @endcan
-                                                @can('depenses.delete',$row[6])
-                                                    <button hidden wire:click="getSelectedDepense({{$row[6]}})"
+                                                @can('depenses.delete',$row[7])
+                                                    <button hidden wire:click="getSelectedDepense({{$row[7]}})"
                                                             type="button"
                                                             title="supprimer" class="btn btn-sm btn-danger m-1"
                                                             data-toggle="modal"
