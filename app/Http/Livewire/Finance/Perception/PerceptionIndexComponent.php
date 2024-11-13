@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Finance\Perception;
 
 use App\Enums\Devise;
 use App\Enums\UserRole;
+use App\Helpers\Helpers;
 use App\Http\Livewire\BaseComponent;
 use App\Models\Annee;
 use App\Models\Classe;
@@ -60,8 +61,8 @@ class PerceptionIndexComponent extends BaseComponent
         });
 
 
-        $perceptionsUSD = $perceptionQuery->clone()->whereDevise('USD')->sum('montant');
-        $perceptionsCDF = $perceptionQuery->clone()->whereDevise(Devise::CDF)->sum('montant');
+        $perceptionsUSD =  Helpers::currencyFormat($perceptionQuery->clone()->whereDevise('USD')->sum('montant'));
+        $perceptionsCDF =  Helpers::currencyFormat($perceptionQuery->clone()->whereDevise(Devise::CDF)->sum('montant'));
 
         $perceptionsTodayUSD = $perceptionQuery->clone()->ofToday()->whereDevise('USD')->sum('montant');
         $perceptionsTodayCDF = $perceptionQuery->clone()->ofToday()->whereDevise('CDF')->sum('montant');

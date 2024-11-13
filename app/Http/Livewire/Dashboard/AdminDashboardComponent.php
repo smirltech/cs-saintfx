@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Dashboard;
 
+use App\Enums\Devise;
 use App\Enums\UserRole;
 use App\Helpers\Helpers;
 use App\Models\Consommable;
@@ -30,8 +31,11 @@ class AdminDashboardComponent extends Component
 
     private function getBoxes(): array
     {
-        $perceptionsUSD =Perception::whereDevise('USD')->sum('montant');
-        $perceptionsCDF = Perception::whereDevise('CDF')->sum('montant');
+        $perceptionsUSD = Helpers::currencyFormat(Perception::whereDevise('USD')->sum('montant'));
+        $perceptionsCDF = Helpers::currencyFormat((Perception::whereDevise('CDF')->sum('montant')));
+
+        $depensesUSD = Helpers::currencyFormat((Depense::whereDevise('USD')->sum('montant')));
+        $depensesCDF = Helpers::currencyFormat(Depense::whereDevise(Devise::CDF)->sum('montant'));
 
 
         return [
@@ -77,7 +81,7 @@ class AdminDashboardComponent extends Component
 
             ],
             [
-                'title' => '$' . Depense::total(),
+                'title' => "{$depensesCDF}Fc / {$depensesUSD}$",
                 'text' => 'Depenses',
                 'icon' => 'fas fa-credit-card',
                 'theme' => 'gradient-danger',

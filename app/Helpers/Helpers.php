@@ -90,7 +90,7 @@ class Helpers
             return Readable::getHumanNumber($amount) . ' ' . $symbol;
         }
 
-        return number_format($amount, $decimal) . ' ' . $symbol;
+        return number_format($amount, $decimal,',',' ') . ' ' . $symbol;
 
     }
 

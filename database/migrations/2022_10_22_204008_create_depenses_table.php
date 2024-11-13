@@ -16,13 +16,16 @@ return new class extends Migration {
             $table->foreignIdFor(DepenseType::class)->constrained();
             $table->float('montant');
             $table->string('devise')->default(Devise::USD->value);
+            $table->string('motif')->nullable();
+            $table->string('beneficiaire')->nullable();
             $table->text('note')->nullable();
             $table->date('date')->nullable();
             $table->string('reference')->nullable();
             $table->json('reviewers')->nullable();
-            $table->foreignIdFor(Annee::class)->constrained();
             $table->foreignIdFor(User::class)->constrained();
+            $table->timestamp('validated_at')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 };

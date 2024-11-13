@@ -11,6 +11,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\URL;
 
 class DepenseCreateComponent extends BaseComponent
 {
@@ -51,17 +52,14 @@ class DepenseCreateComponent extends BaseComponent
 
         $this->depense->save();
 
-
-        // notify all admins amd promoteurs
         $this->depense->notifyAll(
             notification: new DepenseCreated($this->depense),
             roles: [UserRole::admin->value, UserRole::promoteur->value]
         );
-
         if ($id) {
             $this->success('Dépense modifiée avec succès');
         } else {
-            $this->flashSuccess('Dépense enregistrée avec succès', route('finance.depenses.edit', $this->depense->id));
+            $this->flashSuccess('Dépense enregistrée avec succès', URL::previous());
         }
 
 
@@ -73,7 +71,7 @@ class DepenseCreateComponent extends BaseComponent
             'depense_media' => 'required|file|max:1024',
         ]);
 
-        $this->depense->addMedia($this->depense_media,);
+        $this->depense->addMedia($this->depense_media);
 
         $this->flashSuccess('Pièce jointe ajoutée avec succès', route('finance.depenses.index'));
     }
@@ -84,6 +82,9 @@ class DepenseCreateComponent extends BaseComponent
         return [
             'depense.depense_type_id' => 'required',
             'depense.montant' => 'required',
+            'depense.motif' => 'required|string',
+            'depense.devise' => 'required|string',
+            'depense.beneficiaire' => 'nullable|string',
             'depense.reference' => 'nullable',
             'depense.date' => 'nullable|date',
             'depense.note' => 'nullable|string',

@@ -13,7 +13,7 @@
         $data[] =[
             $depense->created_at->format('d-m-Y'),
             $depense->type->nom,
-            Helpers::currencyFormat($depense->montant, symbol: 'Fc'),
+            Helpers::currencyFormat($depense->montant, symbol: $depense->devise->symbol()),
             $depense->user->name,
             $depense?->status()?->user?->name,
             "<span class='badge badge-".($depense?->status()?->color)."'>".$depense?->status()?->label."</span>",
@@ -47,11 +47,68 @@
     </div>
 
 @stop
-<div wire:ignore.self class="">
-    @include('livewire.finance.depenses.modals.crud')
+<div>
+
 
     <div class="content mt-3">
         <div class="container-fluid">
+            <form wire:submit.prevent="search" class="mt-1">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <x-form::select
+                                    placeholder="Type"
+                                    wire:model="type_id"
+                                    :options="$types"/>
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <x-form::input
+                                            type="date"
+                                            wire:model="date_from"/>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <x-form::input
+                                            type="date"
+                                            wire:model="date_to"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <x-form::button wire:click="search" href="#">
+                                    <span class="fas fa-search"></span>
+                                </x-form::button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+            <div class="row g-2">
+                @foreach ($this->boxes as $box)
+                    <div class="col-md-3" bis_skin_checked="1">
+                        <div class="info-box" bis_skin_checked="1">
+                                    <span class="info-box-icon  bg-{{ $box['theme'] }} elevation-1">
+                                        <i class="{{ $box['icon'] }}"></i></span>
+                            <div class="info-box-content" bis_skin_checked="1">
+                                <span class="info-box-text">{{ $box['text'] }}</span>
+                                <span class="info-box-number">
+                                            {{ $box['title'] }}
+                                        </span>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="card card-primary">
