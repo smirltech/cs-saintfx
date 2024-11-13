@@ -13,6 +13,7 @@ use App\Traits\TopMenuPreview;
 use App\Traits\WithPrintToPdf;
 use App\View\Components\AdminLayout;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
@@ -47,6 +48,7 @@ class RapportIndexComponent extends Component
         $this->date_to = Carbon::now()->format('Y-m-d');
 
     }
+
 
     public function render()
     {

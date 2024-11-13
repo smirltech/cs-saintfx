@@ -1,4 +1,26 @@
-@php use App\Enums\FraisType;use App\Enums\RevenuType;use App\Models\Annee;use App\Models\Depense;use App\Models\DepenseType;use App\Models\Perception;use App\Models\Revenu;use Illuminate\Support\Carbon; @endphp
+@php use App\Enums\FraisType;use App\Enums\RevenuType;use App\Models\Annee;use App\Models\Depense;use App\Models\DepenseType;use App\Models\Perception;use App\Models\Revenu;use Illuminate\Support\Carbon;use Illuminate\Support\Facades\DB; @endphp
+
+@php
+    $soldeCDF = DB::table('perceptions')
+            ->where('devise', 'CDF')
+            ->sum('montant') +
+            DB::table('revenus')
+            ->where('devise', 'CDF')
+            ->sum('montant') -
+            DB::table('depenses')
+            ->where('devise', 'CDF')
+            ->sum('montant');
+
+    $soldeUSD =  DB::table('perceptions')
+            ->where('devise', 'USD')
+            ->sum('montant') +
+            DB::table('revenus')
+            ->where('devise', 'USD')
+            ->sum('montant') -
+            DB::table('depenses')
+            ->where('devise', 'USD')
+            ->sum('montant');
+@endphp
 <div>
     <div class="">
         <div style="text-align: center;" class=" justify-content-center">
@@ -20,7 +42,7 @@
             <div class="card-body m-b-5">
                 <div class="row">
                     <div class="col-md-6">
-                        <h4>Entrées</h4>
+                        <h4>ENTREES</h4>
                         <hr>
                         <ol class="list-group">
                             @if($perception != 0)
@@ -157,7 +179,7 @@
                         </ol>
                     </div>
                     <div class="col-md-6">
-                        <h4>Sorties</h4>
+                        <h4>SORTIES</h4>
                         <hr>
                         <table class="table table-bordered table-striped">
                             <thead class="text-center text-uppercase">
@@ -208,6 +230,32 @@
                             </tr>
                             </tbody>
                         </table>
+                    </div>
+                    <div class="col-md-6">
+                        <h4>SOLDE</h4>
+                        <hr>
+                        <ol class="list-group">
+                            <li class="list-group
+                            @if($soldeCDF < 0)
+                                list-group-item-danger
+                            @else
+                                list-group-item-success
+                            @endif
+                                d-flex justify-content-between align-items-center">
+                                <strong>CDF {{number_format($soldeCDF)}} </strong>
+                            </li>
+                            <li class="list-group
+                            @if($soldeUSD < 0)
+                                list-group-item-danger
+                            @else
+                                list-group-item-success
+                            @endif
+                            d-flex justify-content-between align-items-center">
+                                <strong>USD {{number_format($soldeUSD)}}</strong>
+                            </li>
+
+
+                        </ol>
                     </div>
                 </div>
             </div>
