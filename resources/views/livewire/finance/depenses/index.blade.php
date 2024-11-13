@@ -131,15 +131,16 @@
                         @foreach($config['data'] as $row)
                             <tr>
                                 <td>{!! $row[0] !!}</td>
+                                <td>{!! $row[1] !!}</td>
                                 <td>
                                     @can('depense-types.view',$row[7]->depense_type)
-                                        <a href="{{route('finance.depense-types.show', [$row[7]->depense_type_id])}}">{{$row[1]}}</a>
+                                        <a href="{{route('finance.depense-types.show', [$row[7]->depense_type_id])}}">{{$row[2]}}</a>
                                     @else
-                                        {{$row[1]}}
+                                        {{$row[2]}}
                                     @endcan
                                 </td>
 
-                                <td>{!! $row[2] !!}</td>
+
                                 <td>{!! $row[3] !!}</td>
                                 <td>{!! $row[4] !!}</td>
                                 <td>{!! $row[5] !!}</td>
