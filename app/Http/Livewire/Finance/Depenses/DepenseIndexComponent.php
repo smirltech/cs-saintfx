@@ -10,6 +10,7 @@ use App\Models\Depense;
 use App\Models\DepenseType;
 use App\Models\Frais;
 use App\Models\Perception;
+use App\Models\Revenu;
 use App\Traits\TopMenuPreview;
 use App\View\Components\AdminLayout;
 use Illuminate\Database\Eloquent\Collection;
@@ -77,36 +78,26 @@ class DepenseIndexComponent extends BaseComponent
     public function getBoxesProperty(): array
     {
 
-        $perceptionQuery = Depense::when($this->type_id, function ($q) {
-            $q->where('depense_type_id', $this->type_id);
-        });
+        $depensesQuery = Depense::query();
 
 
-        $perceptionsUSD = $perceptionQuery->clone()->whereDevise('USD')->sum('montant');
-        $perceptionsCDF = $perceptionQuery->clone()->whereDevise(Devise::CDF)->sum('montant');
+        $perceptionsUSD = Perception::usd()->sum('montant');
+        $perceptionsCDF = Perception::cdf()->sum('montant');
 
-        $depensesUSD = Depense::whereDevise('USD')->sum('montant');
-        $depensesCDF = Depense::whereDevise(Devise::CDF)->sum('montant');
 
-        $perceptionsTodayUSD = $perceptionQuery->clone()->ofToday()->whereDevise('USD')->sum('montant');
-        $perceptionsTodayCDF = $perceptionQuery->clone()->ofToday()->whereDevise('CDF')->sum('montant');
+        $depensesUSD = $depensesQuery->clone()->usd()->sum('montant');
+        $depensesCDF = $depensesQuery->clone()->cdf()->sum('montant');
 
-        $perceptionsMeTodayUSD = $perceptionQuery->clone()->ofToday()->whereDevise('USD')->whereUserId(Auth::id())->sum('montant');
-        $perceptionsMeTodayCDF = $perceptionQuery->clone()->ofToday()->whereDevise('CDF')->whereUserId(Auth::id())->sum('montant');
+        $revenueUSD = Revenu::usd()->sum('montant');
+        $revenueCDF = Revenu::cdf()->sum('montant');
 
+        $soldeUSD = ($perceptionsUSD + $revenueUSD) - $depensesUSD;
+        $soldeCDF = ($perceptionsCDF + $revenueCDF) - $depensesCDF;
 
         return [
             [
                 'title' => "{$perceptionsCDF}Fc / {$perceptionsUSD}$",
                 'text' => 'Perceptions',
-                'icon' => 'fas fa-coins',
-                'theme' => 'gradient-success',
-                'url' => \route('finance.perceptions')
-
-            ],
-            [
-                'title' => "{$perceptionsTodayCDF}Fc / {$perceptionsTodayUSD}$",
-                'text' => "Aujoud'hui",
                 'icon' => 'fas fa-coins',
                 'theme' => 'gradient-success',
                 'url' => \route('finance.perceptions')
@@ -121,8 +112,8 @@ class DepenseIndexComponent extends BaseComponent
 
             ],
             [
-                'title' => "{$perceptionsMeTodayCDF}Fc / {$perceptionsMeTodayUSD}$",
-                'text' => "Aujoud'hui",
+                'title' => "{$soldeCDF}Fc / {$soldeUSD}$",
+                'text' => "Solde",
                 'icon' => 'fas fa-user',
                 'theme' => 'gradient-success',
                 'url' => \route('finance.perceptions')
