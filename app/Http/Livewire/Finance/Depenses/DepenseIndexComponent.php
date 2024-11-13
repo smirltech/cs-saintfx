@@ -91,8 +91,8 @@ class DepenseIndexComponent extends BaseComponent
         $revenueUSD = Revenu::usd()->sum('montant');
         $revenueCDF = Revenu::cdf()->sum('montant');
 
-        $soldeUSD = ($perceptionsUSD + $revenueUSD) - $depensesUSD;
-        $soldeCDF = ($perceptionsCDF + $revenueCDF) - $depensesCDF;
+        $soldeUSD = number_format(($perceptionsUSD + $revenueUSD) - $depensesUSD);
+        $soldeCDF = number_format(($perceptionsCDF + $revenueCDF) - $depensesCDF);
 
         return [
             [
