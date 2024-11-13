@@ -72,10 +72,10 @@ enum RolePermission: string
     //------------------ ./Auteurs ---------------- //
     //------------------ Depenses ---------------- //
     case depenses_all = 'depenses.*';
-    case depenses_view = 'depenses.view.*';
+    case depenses_view = 'depenses.view';
     case depenses_create = 'depenses.create';
-    case depenses_update_all = 'depenses.update.*';
-    case depenses_delete = 'depenses.delete.*';
+    case depenses_update_all = 'depenses.update';
+    case depenses_delete = 'depenses.delete';
     //------------------ ./Depenses ---------------- //
     //------------------ DepenseTypes ---------------- //
     case depense_types_all = 'depense-types.*';

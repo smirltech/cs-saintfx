@@ -41,7 +41,7 @@ class DepensePolicy
 
     public function delete(User $user, Depense $depense): Response|bool
     {
-        return $user->can('depenses.delete.' . $depense->id)
+        return $user->can('depenses.delete')
             ? Response::allow()
             : Response::deny('Vous n\'êtes pas autorisé à supprimer cette dépense.');
     }

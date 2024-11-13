@@ -158,8 +158,8 @@
                                                 <span class="fa fa-pen"></span>
                                             </a>
                                         @endcan
-                                        @can('depenses.delete',$row[7])
-                                            <button hidden wire:click="getSelectedDepense({{$row[7]}})"
+                                        @can('depenses.delete')
+                                            <button onclick="showDeleteModal('Depense','{{$row[7]->id}}')"
                                                     type="button"
                                                     title="supprimer" class="btn btn-sm btn-danger m-1"
                                                     data-toggle="modal"
