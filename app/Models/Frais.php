@@ -56,6 +56,17 @@ class Frais extends Model implements \OwenIt\Auditing\Contracts\Auditable
         })->where('annee_id', $annee_id)->sum('paid');
     }
 
+
+    public function paidCDF()
+    {
+        return $this->perceptions()->cdf()->sum('montant');
+    }
+
+    public function paidUSD()
+    {
+        return $this->perceptions()->usd()->sum('montant');
+    }
+
     public static function paidFraisTypeOf(int $annee_id, FraisType $type, int $days = 7)
     {
         $edate = Carbon::now();

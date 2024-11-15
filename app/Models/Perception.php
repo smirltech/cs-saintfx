@@ -133,6 +133,17 @@ class Perception extends Model implements \OwenIt\Auditing\Contracts\Auditable
         return $this->belongsTo(Frais::class);
     }
 
+    public function isCleared(): bool
+    {
+        if ($this->devise == $this->frais->devise) {
+            return $this->frais_montant <= $this->montant;
+        }
+        if ($this->devise == Devise::CDF && $this->frais->devise == Devise::USD) {
+            return $this->frais_montant <= $this->montantUSD();
+        }
+        return false;
+    }
+
     public function getBalanceAttribute(): float
     {
         // sum of all perceptions for the current year for the inscription and the fraistr

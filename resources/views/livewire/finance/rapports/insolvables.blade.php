@@ -55,7 +55,7 @@
             @include('livewire.finance.rapports.modals.insolvables-printable', ['title' => $title])
         </div>
         <div class="card-footer text-center">
-            <button onclick="printIt" class="btn btn-primary text-center">
+            <button onclick="printIt()" class="btn btn-primary text-center">
                 <i class="fa fa-print"></i>
                 Imprimer
             </button>
@@ -69,7 +69,7 @@
                 printable: 'insolvables-printable',
                 type: 'html',
                 targetStyles: ['*'],
-                maxWidth: 300,
+               // maxWidth: 300,
                 style: "text-align:center",
                 onPrintDialogClose: redirectBack
             });
