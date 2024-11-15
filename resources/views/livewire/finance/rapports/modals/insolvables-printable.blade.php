@@ -45,7 +45,6 @@
                                     $totalUSD = 0;
                                 @endphp
                                 @foreach($this->perceptions??[] as $perception)
-                                    @continue(!$perception->isCleared())
                                     <tr class="cotes">
                                         <td>{{$loop->iteration}}</td>
                                         <td>{{$perception->inscription->label}}</td>
@@ -80,16 +79,11 @@
                             <table class="table table-bordered table-striped">
                                 <thead class="text-center">
                                 <tr class="titres text-uppercase">
-                                    <th rowspan="2">NO.</th>
-                                    <th rowspan="2">ELEVE</th>
-                                    <th rowspan="2">CLASSE</th>
-                                    <th rowspan="2">FRAIS</th>
-                                    <th rowspan="2">MONTANT</th>
-                                    <th colspan="2">PAYE</th>
-                                </tr>
-                                <tr class="titres text-uppercase">
-                                    <th>Fc</th>
-                                    <th>$</th>
+                                    <th>NO.</th>
+                                    <th>ELEVE</th>
+                                    <th>CLASSE</th>
+                                    <th>FRAIS</th>
+                                    <th>MONTANT</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -109,20 +103,20 @@
                                         <td>{{$insolvable->classe->code}}</td>
                                         <td>{{$frais?->nom}}</td>
                                         <td class="text-center">{{number_format($frais->montant??0)}} {{$frais?->devise}}</td>
-                                        <td class="text-center">{{number_format($frais->paidCDF()) ?? 0}} Fc</td>
-                                        <td class="text-center">{{number_format($frais->paidUSD()) ?? 0}} $</td>
-                                        @php
+                                       {{-- <td class="text-center">{{number_format($frais->paidCDF()) ?? 0}} Fc</td>
+                                        <td class="text-center">{{number_format($frais->paidUSD()) ?? 0}} $</td>--}}
+                                       {{-- @php
                                             $totalUSD += $frais?->montant;
                                             $totalPaidUSD += $frais->paidUSD();
                                             $totalPaidCDF += $frais->paidCDF();
-                                        @endphp
+                                        @endphp--}}
                                     </tr>
                                 @endforeach
                                 <tr class="titres">
                                     <td colspan="4">Total</td>
                                     <td>{{number_format($totalUSD)}} {{$frais?->devise}}</td>
-                                    <td>{{number_format($totalPaidCDF)}} Fc</td>
-                                    <td>{{number_format($totalPaidUSD)}} $</td>
+                                   {{-- <td>{{number_format($totalPaidCDF)}} Fc</td>
+                                    <td>{{number_format($totalPaidUSD)}} $</td>--}}
                                 </tr>
                                 </tbody>
                             </table>
