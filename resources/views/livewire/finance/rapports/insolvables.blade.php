@@ -51,14 +51,39 @@
 
     </form>
     <div class="card">
-        <div class="card-body">
+        <div class="card-body" id="insolvables-printable">
             @include('livewire.finance.rapports.modals.insolvables-printable', ['title' => $title])
         </div>
         <div class="card-footer text-center">
-            <button wire:click="printIt" class="btn btn-primary text-center">
-                <i class="fa fa-file-pdf"></i>
-                Télécharger
+            <button onclick="printIt" class="btn btn-primary text-center">
+                <i class="fa fa-print"></i>
+                Imprimer
             </button>
         </div>
     </div>
+    <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+    <script>
+
+        function printIt() {
+            printJS({
+                printable: 'insolvables-printable',
+                type: 'html',
+                targetStyles: ['*'],
+                maxWidth: 300,
+                style: "text-align:center",
+                onPrintDialogClose: redirectBack
+            });
+        }
+
+
+        window.onafterprint = function () {
+            redirectBack();
+        }
+
+        function redirectBack() {
+            location.replace("{{URL::previous()}}");
+        }
+
+    </script>
 </div>
+

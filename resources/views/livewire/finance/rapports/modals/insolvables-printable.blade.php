@@ -22,7 +22,7 @@
             @if($frais_id)
                 <div class="card-body m-b-5">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <h4>En ordre</h4>
                             <hr>
                             <table class="table table-bordered table-striped">
@@ -74,7 +74,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <h4>Insolvables</h4>
                             <hr>
                             <table class="table table-bordered table-striped">
