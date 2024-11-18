@@ -21,7 +21,7 @@
 
     $config =[
   'data'=>$data,
-  'order'=>[[1, 'asc']],
+  'order'=>[[0, 'desc'],[2, 'asc']],
   'columns'=>[null, null, null, null, ['orderable'=>false]],
 ];
 @endphp

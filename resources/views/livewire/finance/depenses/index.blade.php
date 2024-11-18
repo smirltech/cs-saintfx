@@ -25,7 +25,7 @@
 
     $config =[
   'data'=>$data,
-  'order'=>[[0, 'DESC']],
+  'order'=>[[0, 'DESC'],[2, 'asc'],[1, 'asc']],
   'columns'=>[null, null, null,null,null, null, ['orderable'=>false]],
   'destroy'=>true,
 

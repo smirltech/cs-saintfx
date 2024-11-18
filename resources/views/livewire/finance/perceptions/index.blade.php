@@ -6,6 +6,7 @@
     $heads =[
         ['label'=>'DATE', 'width'=>10],
         'LIBELLE',
+          'TYPE',
         'ELEVE',
         'CLASSE',
         'DU',
@@ -35,6 +36,7 @@
         $data[] =[
             $perception->created_at->format('Y-m-d H:i'),
             $perception->label,
+            $perception->frais->type,
             $perception->inscription?->eleve->fullName,
             $perception->inscription?->classe->code,
              Helpers::currencyFormat($perception->frais_montant) .' '.$perception->frais->devise->value,
@@ -48,11 +50,11 @@
 
     $config =[
   'data'=>$data,
-  'order'=>[[0, 'desc'],[3, 'asc'],[2, 'asc']],
+  'order'=>[[0, 'desc'],[2, 'asc'],[3, 'asc']],
 ];
 @endphp
 @section('title')
-   CENK -  Perceptions {{date('d-m-Y')}}
+    CENK -  Perceptions {{date('d-m-Y')}}
 @endsection
 @section('content_header')
     <div class="row">
