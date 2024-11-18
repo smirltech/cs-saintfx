@@ -1,18 +1,18 @@
 @php
     use App\Helpers\Helpers;$heads =[
         ['label'=>'DATE', 'width'=>10],
-        'TYPE',
         'MOTIF',
+          'TYPE',
         'MONTANT',
         'BÉNÉFICIAIRE',
-        'VALIDÉ PAR',
+        'CONSIGNÉE PAR',
         'ETAT',
          ['label'=>'', 'no-export'=>true, 'width'=>5]
 ];
    $data =[];
    foreach ($depenses as $depense){
         $data[] =[
-            $depense->created_at->format('d-m-Y'),
+            $depense->date,
             $depense->motif,
             $depense->type->nom,
             Helpers::currencyFormat($depense->montant, symbol: $depense->devise->symbol()),
@@ -25,7 +25,7 @@
 
     $config =[
   'data'=>$data,
-  'order'=>[[1, 'asc']],
+  'order'=>[[0, 'DESC']],
   'columns'=>[null, null, null,null,null, null, ['orderable'=>false]],
   'destroy'=>true,
 
@@ -33,7 +33,7 @@
 @endphp
 
 @section('title')
-    - dépenses  {{date('d-m-Y')}}
+    CENK - Dépenses  {{date('d-m-Y H:i')}}
 @endsection
 @section('content_header')
     <div class="row">

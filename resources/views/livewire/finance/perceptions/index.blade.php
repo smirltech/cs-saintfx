@@ -52,7 +52,7 @@
 ];
 @endphp
 @section('title')
-    Perceptions  {{date('d-m-Y')}}
+   CENK -  Perceptions {{date('d-m-Y')}}
 @endsection
 @section('content_header')
     <div class="row">

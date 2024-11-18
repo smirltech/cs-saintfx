@@ -27,7 +27,7 @@
 @endphp
 
 @section('title')
-    - revenus auxiliaires
+    CENK - Revenus auxiliaires {{date('d-m-Y')}}
 @endsection
 @section('content_header')
     <div class="row">
