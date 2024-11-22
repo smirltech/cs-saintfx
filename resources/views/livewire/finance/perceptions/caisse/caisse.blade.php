@@ -111,7 +111,8 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="card-title">
-                                <h4>Élève : {{$inscription?->fullName}} - {{$inscription?->categorie?->label()??'N/A'}}</h4>
+                                <h4>Élève : {{$inscription?->fullName}}
+                                    - {{$inscription?->categorie?->label()??'N/A'}}</h4>
                             </div>
                             <div class="card-tools d-flex my-auto">
                                 @if($inscription != null)
@@ -161,8 +162,18 @@
                                             <td>
                                                 <x-form::button
                                                     link="{{route('finance.perceptions.print', ['perception' => $percept->id])}}"
-                                                    class="btn btn-info btn-sm">
+                                                    class="btn btn-info btn-sm m-1">
                                                     <i class="fas fa-print"></i>
+                                                </x-form::button>
+                                                <x-form::button
+                                                    onclick="showModal('finance.perception.perception-create-component','{{$perception->inscription->id}}','{{$perception->id}}')"
+                                                    class="btn btn-warning btn-sm m-1">
+                                                    <i class="fas fa-edit"></i>
+                                                </x-form::button>
+                                                <x-form::button
+                                                    onclick="showDeleteModal('Perception',{{$perception->id}})"
+                                                    class="btn btn-danger btn-sm m-1">
+                                                    <i class="fas fa-edit"></i>
                                                 </x-form::button>
                                             </td>
 
