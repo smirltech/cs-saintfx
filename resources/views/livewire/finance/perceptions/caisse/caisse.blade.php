@@ -173,7 +173,7 @@
                                                 <x-form::button
                                                     onclick="showDeleteModal('Perception',{{$percept->id}})"
                                                     class="btn btn-danger btn-sm m-1">
-                                                    <i class="fas fa-edit"></i>
+                                                    <i class="fas fa-trash"></i>
                                                 </x-form::button>
                                             </td>
 
