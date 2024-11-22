@@ -166,12 +166,12 @@
                                                     <i class="fas fa-print"></i>
                                                 </x-form::button>
                                                 <x-form::button
-                                                    onclick="showModal('finance.perception.perception-create-component','{{$perception->inscription->id}}','{{$perception->id}}')"
+                                                    onclick="showModal('finance.perception.perception-create-component','{{$percept->inscription->id}}','{{$percept->id}}')"
                                                     class="btn btn-warning btn-sm m-1">
                                                     <i class="fas fa-edit"></i>
                                                 </x-form::button>
                                                 <x-form::button
-                                                    onclick="showDeleteModal('Perception',{{$perception->id}})"
+                                                    onclick="showDeleteModal('Perception',{{$percept->id}})"
                                                     class="btn btn-danger btn-sm m-1">
                                                     <i class="fas fa-edit"></i>
                                                 </x-form::button>
