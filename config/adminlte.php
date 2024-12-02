@@ -318,7 +318,7 @@ return [
         ],
         [
             'text' => 'Présences',
-            'icon' => 'fas fa-fw fa-user-graduate',
+            'icon' => 'fas fa-fw fa-user-check',
           //  'can' => 'presences.view.*',
             'url' => 'scolarite/presences',
         ],
@@ -355,7 +355,7 @@ return [
             'can' => ['perceptions.view.*', 'perceptions.create', 'frais.view.*', 'depenses.view.*', 'depenses-types.view.*'],
         ],
         [
-            'text' => 'Perception',
+            'text' => 'Caisse',
             'icon' => 'fas fa-fw fa-cash-register',
             'url' => 'finance/caisse',
             'can' => 'perceptions.view.*',

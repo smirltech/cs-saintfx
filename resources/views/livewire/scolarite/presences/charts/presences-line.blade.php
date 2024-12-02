@@ -2,35 +2,53 @@
     use App\Enums\PresenceStatus;use App\Models\Presence;use Asantibanez\LivewireCharts\Models\ColumnChartModel;use Asantibanez\LivewireCharts\Models\LineChartModel;use Carbon\Carbon;use Carbon\CarbonInterval;
 
   $dates = new DatePeriod(
-        Carbon::now()->subDays(30),
+        Carbon::now()->startOfWeek(),
         CarbonInterval::day(),
         Carbon::tomorrow(),
      );
-    $lineChartModel =
+    $columnChartModel =
             (new ColumnChartModel())
             ->setTitle("Du ".$dates->start->format('d/m/Y')." au ".$dates->end->format('d/m/Y'))->multiColumn();
 
 
     $totalPresences = 0;
     foreach ($dates as $date) {
-        $filles = Presence::whereDate('date', $date->format('Y-m-d'))->sum('filles');
-    $garcons = Presence::whereDate('date', $date->format('Y-m-d'))->sum('garcons');
+
+        $mat = Presence::whereDate('date', $date->format('Y-m-d'))
+            ->whereHas('classe', function ($query) {
+                $query->where('section_id', 1);
+            })
+        ->sum('total');
+
+    $primaire = Presence::whereDate('date', $date->format('Y-m-d'))
+      ->whereHas('classe', function ($query) {
+                $query->where('section_id', 2);
+            })
+            ->sum('total');
+
+    $sec = Presence::whereDate('date', $date->format('Y-m-d'))
+      ->whereHas('classe', function ($query) {
+                $query->where('section_id', 3);
+            })
+    ->sum('total');
 
 
-     $lineChartModel->addSeriesColumn('Garçons', $date->format('d'), $garcons);
-    $lineChartModel->addSeriesColumn('Filles', $date->format('d'), $filles);
-     $lineChartModel->addSeriesColumn('Absents', $date->format('d'), Presence::whereDate('date', $date->format('Y-m-d'))->sum('absents'));
-      }
+     $columnChartModel->addSeriesColumn('MAT', $date->format('d'), $primaire);
+    $columnChartModel->addSeriesColumn('P', $date->format('d'), $mat);
+     $columnChartModel->addSeriesColumn('S', $date->format('d'), $sec);
+     $columnChartModel->withDataLabels();
+     $columnChartModel->withLegend();
+    }
 @endphp
 <div class="card">
 
     <div class="card-header">
-        Présences - {{$filles + $garcons}}
+        Présences - {{Presence::lastTotal()}} élèves
     </div>
 
     <div class="card-body" style="height: 20rem;">
         <livewire:livewire-column-chart
-            key="{{ $lineChartModel->reactiveKey() }}"
-            :column-chart-model="$lineChartModel"/>
+            key="{{ $columnChartModel->reactiveKey() }}"
+            :column-chart-model="$columnChartModel"/>
     </div>
 </div>
