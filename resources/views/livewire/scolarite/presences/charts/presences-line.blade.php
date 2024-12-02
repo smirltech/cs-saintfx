@@ -2,7 +2,7 @@
     use App\Enums\PresenceStatus;use App\Models\Presence;use Asantibanez\LivewireCharts\Models\ColumnChartModel;use Asantibanez\LivewireCharts\Models\LineChartModel;use Carbon\Carbon;use Carbon\CarbonInterval;
 
   $dates = new DatePeriod(
-        Carbon::now()->startOfWeek()->subDays(7),
+        Carbon::now()->startOfWeek()->subWeek(),
         CarbonInterval::day(),
         Carbon::tomorrow(),
      );
