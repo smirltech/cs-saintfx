@@ -15,29 +15,23 @@
     foreach ($dates as $date) {
 
         $mat = Presence::whereDate('date', $date->format('Y-m-d'))
-            ->whereHas('classe', function ($query) {
-                $query->where('section_id', 1);
-            })
-        ->sum('total');
+            ->maternelle()->sum('total');
+
 
     $primaire = Presence::whereDate('date', $date->format('Y-m-d'))
-      ->whereHas('classe', function ($query) {
-                $query->where('section_id', 2);
-            })
-            ->sum('total');
+      ->primaire()->sum('total');
 
     $sec = Presence::whereDate('date', $date->format('Y-m-d'))
-      ->whereHas('classe', function ($query) {
-                $query->where('section_id', 3);
-            })
-    ->sum('total');
+      ->secondaire()->sum('total');
 
 
-     $columnChartModel->addSeriesColumn('MAT', $date->format('d'), $primaire);
-    $columnChartModel->addSeriesColumn('P', $date->format('d'), $mat);
-     $columnChartModel->addSeriesColumn('S', $date->format('d'), $sec);
+     $columnChartModel->addSeriesColumn('Maternelle', $date->format('d'), $primaire);
+    $columnChartModel->addSeriesColumn('Primaire', $date->format('d'), $mat);
+     $columnChartModel->addSeriesColumn('Secondaire', $date->format('d'), $sec);
      $columnChartModel->withDataLabels();
      $columnChartModel->withLegend();
+     $columnChartModel->stacked();
+
     }
 @endphp
 <div class="card">

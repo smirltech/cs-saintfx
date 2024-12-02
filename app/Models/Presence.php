@@ -36,33 +36,38 @@ class Presence extends Model
 
     public static function lastTotal(): int
     {
-        // get the last total presence for last available date
-        $maxMat = Presence::whereHas('classe', function ($query) {
-            $query->where('section_id', 1);
-        })->max('date');
-
-        $mat = Presence::where('date', $maxMat)->whereHas('classe', function ($query) {
-            $query->where('section_id', 1);
-        })->sum('total');
-
-        $maxP = Presence::whereHas('classe', function ($query) {
-            $query->where('section_id', 2);
-        })->max('date');
-
-
-        $p = Presence::where('date',$maxP)->whereHas('classe', function ($query) {
-            $query->where('section_id', 2);
-        })->sum('total');
-
-        $maxP = Presence::whereHas('classe', function ($query) {
-            $query->where('section_id', 3);
-        })->max('date');
-
-        $sec = Presence::where('date', $maxP)->whereHas('classe', function ($query) {
-            $query->where('section_id', 3);
-        })->sum('total');
-
+        $mat = self::maternelle()->where('date', self::maternelle()->max('date'))->sum('total');
+        $p = self::primaire()->where('date', self::primaire()->max('date'))->sum('total');
+        $sec = self::secondaire()->where('date', self::secondaire()->max('date'))->sum('total');
         return $mat + $p + $sec;
     }
+
+    public function scopeMaternelle($query)
+    {
+        return $query->whereHas('classe', function ($q1) {
+            $q1->whereHas('section', function ($q2) {
+                $q2->where('code', \App\Enums\Section::MATERNELLE);
+            });
+        });
+    }
+
+    public function scopePrimaire($query)
+    {
+        return $query->whereHas('classe', function ($q1) {
+            $q1->whereHas('section', function ($q2) {
+                $q2->where('code', \App\Enums\Section::PRIMAIRE);
+            });
+        });
+    }
+
+    public function scopeSecondaire($query)
+    {
+        return $query->whereHas('classe', function ($q1) {
+            $q1->whereHas('section', function ($q2) {
+                $q2->where('code', \App\Enums\Section::SECONDAIRE);
+            });
+        });
+    }
+
 
 }
