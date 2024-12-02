@@ -73,9 +73,11 @@ class Depense extends Model implements Auditable
         return $data;
     }
 
-    public static function total()
+    public static function total($devise = null)
     {
-        return self::sum('montant');
+        return self::when($devise, function ($query) use ($devise) {
+            return $query->where('devise', $devise);
+        })->sum('montant');
     }
 
     public static function scopePaid($query)

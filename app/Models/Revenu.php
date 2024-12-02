@@ -51,11 +51,12 @@ class Revenu extends Model implements Auditable
         return self::whereBetween('created_at', [$debut, $fin])->sum('montant');
     }
 
-    public static function total()
+    public static function total($devise = null)
     {
-        return self::sum('montant');
+        return self::when($devise, function ($query) use ($devise) {
+            return $query->where('devise', $devise);
+        })->sum('montant');
     }
-
 
     //scope of cdf
     public function scopeCDF($query)
