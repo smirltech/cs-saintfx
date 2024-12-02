@@ -25,8 +25,8 @@
       ->secondaire()->sum('total');
 
 
-     $columnChartModel->addSeriesColumn('Maternelle', $date->format('d'), $primaire);
-    $columnChartModel->addSeriesColumn('Primaire', $date->format('d'), $mat);
+     $columnChartModel->addSeriesColumn('Maternelle', $date->format('d'), $mat);
+    $columnChartModel->addSeriesColumn('Primaire', $date->format('d'), $primaire);
      $columnChartModel->addSeriesColumn('Secondaire', $date->format('d'), $sec);
      $columnChartModel->withDataLabels();
      $columnChartModel->withLegend();
