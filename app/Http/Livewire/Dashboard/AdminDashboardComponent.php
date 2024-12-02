@@ -23,9 +23,10 @@ use Pharaonic\Laravel\Readable\Readable;
 
 class AdminDashboardComponent extends Component
 {
+
+    public $devise = null;
     public function mount(): void
     {
-
         $this->boxes = $this->getBoxes();
     }
 
@@ -38,10 +39,14 @@ class AdminDashboardComponent extends Component
         $depensesCDF = Helpers::currencyFormat(Depense::whereDevise(Devise::CDF)->sum('montant'));
 
 
+        $presences = Presence::lastTotal();
+        $inscriptions = Inscription::anneeScolaire()->count();
+
+
         return [
             [
-                'title' => Inscription::anneeScolaire()->count(),
-                'text' => 'Inscriptions',
+                'title' => "{$presences} / {$inscriptions}",
+                'text' => 'Elèves',
                 'icon' => 'fas fa-graduation-cap',
                 'theme' => 'gradient-primary',
                 'url' => '#'
@@ -68,15 +73,6 @@ class AdminDashboardComponent extends Component
                 'text' => 'Personnels',
                 'icon' => 'fas fa-user-tie',
                 'theme' => 'gradient-warning',
-                'url' => '#'
-
-            ]
-            ,
-            [
-                'title' => Presence::ofToday()->sum('total'),
-                'text' => 'Presences',
-                'icon' => 'fas fa-user-check',
-                'theme' => 'gradient-info',
                 'url' => '#'
 
             ],

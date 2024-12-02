@@ -32,9 +32,11 @@ class Perception extends Model implements \OwenIt\Auditing\Contracts\Auditable
     protected $with = ['frais'];
 
     // booted
-    public static function total()
+    public static function total($devise = null)
     {
-        return self::where('annee_id', Annee::id())->sum('montant');
+        return self::when($devise, function ($query) use ($devise) {
+            return $query->where('devise', $devise);
+        })->sum('montant');
     }
 
     protected static function booted(): void

@@ -1,5 +1,10 @@
 @php
-    use App\Models\Annee;use App\Models\Depense;use App\Models\Revenu;use Asantibanez\LivewireCharts\Models\ColumnChartModel;use Asantibanez\LivewireCharts\Models\PieChartModel;
+    use App\Models\Annee;
+    use App\Models\Depense;
+    use App\Models\Revenu;
+    use App\Enums\Devise;
+    use Asantibanez\LivewireCharts\Models\ColumnChartModel;
+    use Asantibanez\LivewireCharts\Models\PieChartModel;
 @endphp
 <x-admin-layout>
     <div class="pb-3"></div>
@@ -44,15 +49,15 @@
             </div>
         </div>
         <div class="col-md-8">
-           <livewire:dashboard.components.depenses-revenues-column-chart/>
+            <livewire:dashboard.components.depenses-revenues-column-chart/>
         </div>
 
         <div class="col-md-4">
             @php
                 $pieChartModel = (new PieChartModel());
                            $pieChartModel->setTitle(Annee::encours()->nom)
-                           ->addSlice('Revenues', Revenu::total(), '#00ff00')
-                           ->addSlice('Depenses', Depense::total(), '#ff0000');
+                           ->addSlice('Revenues', Revenu::total($devise), '#00ff00')
+                           ->addSlice('Depenses', Depense::total($devise), '#ff0000');
             @endphp
             <div class="card">
                 <div class="card-header">
@@ -62,8 +67,8 @@
                         </div>
                         <div class="col-md-6">
                             <x-form::select
-                                wire:model="annee_id"
-                                :options="Annee::all()"
+                                wire:model="devise"
+                                :options="Devise::cases()"
                             />
                         </div>
                     </div>
@@ -98,7 +103,7 @@
             <livewire:dashboard.components.depenses-recentes-card/>
         </div>
         <div class="col-md-12">
-           <livewire:scolarite.presences.charts.presences-line/>
+            <livewire:scolarite.presences.charts.presences-line/>
         </div>
     </div>
 </x-admin-layout>
