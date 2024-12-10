@@ -32,9 +32,9 @@ class PerceptionIndexComponent extends BaseComponent
 
     public $perception;
 
-    public string $classe_id = '';
-    public string $annee_id = '';
-    public string $frais_id = '';
+    public ?string $classe_id = null;
+    public ?string $annee_id = null;
+    public ?string $frais_id =null;
 
     public function mount(): void
     {
@@ -61,8 +61,8 @@ class PerceptionIndexComponent extends BaseComponent
         });
 
 
-        $perceptionsUSD =  Helpers::currencyFormat($perceptionQuery->clone()->whereDevise('USD')->sum('montant'));
-        $perceptionsCDF =  Helpers::currencyFormat($perceptionQuery->clone()->whereDevise(Devise::CDF)->sum('montant'));
+        $perceptionsUSD = Helpers::currencyFormat($perceptionQuery->clone()->whereDevise('USD')->sum('montant'));
+        $perceptionsCDF = Helpers::currencyFormat($perceptionQuery->clone()->whereDevise(Devise::CDF)->sum('montant'));
 
         $perceptionsTodayUSD = $perceptionQuery->clone()->ofToday()->whereDevise('USD')->sum('montant');
         $perceptionsTodayCDF = $perceptionQuery->clone()->ofToday()->whereDevise('CDF')->sum('montant');
@@ -124,7 +124,11 @@ class PerceptionIndexComponent extends BaseComponent
             $q->where('frais_id', $this->frais_id);
         });
 
-        return $this->perceptions = $perceptionsRequest->latest()->limit(1000)->get();
+        if ($this->frais_id or $this->classe_id) {
+            return $perceptionsRequest->latest()->get();
+        }
+
+        return $perceptionsRequest->latest()->limit(1000)->get();
     }
 
     public function getSelectedPerception(Perception $perception): void

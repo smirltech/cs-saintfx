@@ -71,65 +71,7 @@
 
 @stop
 <div>
-    <div class="card">
-        <div class="card-header">
-            <form wire:submit.prevent="search" class="mt-1">
-                <div class="row">
-                    <div class="col-md-9">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <x-form::select
-                                    placeholder="Classe"
-                                    wire:model="classe_id"
-                                    :options="$classes"/>
-                            </div>
-                            <div class="col-md-3">
-                                <x-form::select
-                                    placeholder="Frais"
-                                    wire:model="frais_id"
-                                    :options="$frais"/>
-                            </div>
 
-
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <x-form::input
-                                            type="date"
-                                            wire:model="date_from"/>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <x-form::input
-                                            type="date"
-                                            wire:model="date_to"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="row">
-                            <div class="col-md-6">
-                                @can("perceptions.create")
-                                    <x-form::button wire:click="search" href="#">
-                                        <span class="fas fa-search"></span>
-                                    </x-form::button>
-                            </div>
-                            {{-- <div class="col-md-6">
-                                 <button disabled
-                                         class="btn btn-outline-success m-1">
-                                     <span class="fas fa-file-pri"></span>
-                                 </button>
-                             </div>--}}
-
-                            @endcan
-                        </div>
-                    </div>
-                </div>
-
-            </form>
-        </div>
-    </div>
     <div class="row g-2">
         @foreach ($this->boxes as $box)
             <div class="col-md-3" bis_skin_checked="1">
@@ -145,6 +87,48 @@
                 </div>
             </div>
         @endforeach
+    </div>
+    <div class="card p-2">
+        <form wire:submit.prevent="search" class="mt-1">
+            <div class="row">
+                <div class="col-md-4">
+                    <x-form::select
+                        placeholder="Classe"
+                        wire:model="classe_id"
+                        :options="$classes"/>
+                </div>
+                <div class="col-md-4">
+                    <x-form::select
+                        placeholder="Frais"
+                        wire:model="frais_id"
+                        :options="$frais"/>
+                </div>
+                <div class="col-md-3">
+                    @can("perceptions.create")
+                        <x-form::button wire:click="search" href="#">
+                            <span class="fas fa-filter"/>
+                        </x-form::button>
+                    @endif
+                </div>
+
+                {{--
+                                            <div class="col-md-6">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <x-form::input
+                                                            type="date"
+                                                            wire:model="date_from"/>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <x-form::input
+                                                            type="date"
+                                                            wire:model="date_to"/>
+                                                    </div>
+                                                </div>
+                                            </div>--}}
+            </div>
+
+        </form>
     </div>
     <div class="row">
         <div class="col-md-12">
