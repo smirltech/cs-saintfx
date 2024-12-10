@@ -1,6 +1,7 @@
 @php
     use App\Models\Perception;use Carbon\Carbon;
     use App\Enums\GraviteRetard;
+    use App\Enums\FraisType;
     use App\Helpers\Helpers;
 
     $heads =[
@@ -91,19 +92,25 @@
     <div class="card p-2">
         <form wire:submit.prevent="search" class="mt-1">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <x-form::select
                         placeholder="Classe"
                         wire:model="classe_id"
                         :options="$classes"/>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
+                    <x-form::select
+                        placeholder="Type"
+                        wire:model="frais_type"
+                        :options="FraisType::cases()"/>
+                </div>
+                <div class="col-md-3">
                     <x-form::select
                         placeholder="Frais"
                         wire:model="frais_id"
                         :options="$frais"/>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 text-center">
                     @can("perceptions.create")
                         <x-form::button wire:click="search" href="#">
                             <span class="fas fa-filter"/>

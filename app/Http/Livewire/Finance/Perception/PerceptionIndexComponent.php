@@ -34,21 +34,42 @@ class PerceptionIndexComponent extends BaseComponent
 
     public ?string $classe_id = null;
     public ?string $annee_id = null;
-    public ?string $frais_id =null;
+    public ?string $frais_id = null;
+    public ?string $frais_type = null;
 
     public function mount(): void
     {
         $this->authorize('viewAny', Perception::class);
 
-        $this->classe_id = request()->get('classe_id') ?: '';
-        $this->frais_id = request()->get('frais_id') ?: '';
+        $this->classe_id = request()->get('classe_id') ?: null;
+        $this->frais_id = request()->get('frais_id') ?: null;
+        $this->frais_type = request()->get('frais_type') ?: null;
 
         $this->annee_id = Annee::id();
         $this->classes = Classe::all();
         $this->frais = Frais::all();
 
     }
+    public function getPerceptionsProperty(): Collection
+    {
+        $perceptionsRequest = Perception::when($this->classe_id, function ($q) {
+            $q->whereHas('inscription', function ($q) {
+                $q->where('classe_id', $this->classe_id);
+            });
+        })->when($this->frais_id, function ($q) {
+            $q->where('frais_id', $this->frais_id);
+        })->when($this->frais_type, function ($q) {
+            $q->whereHas('frais', function ($q2) {
+                $q2->whereType($this->frais_type);
+            });
+        });
 
+        if ($this->frais_id or $this->classe_id or $this->frais_type) {
+            return $perceptionsRequest->latest()->get();
+        }
+
+        return $perceptionsRequest->latest()->limit(1000)->get();
+    }
     public function getBoxesProperty(): array
     {
 
@@ -58,6 +79,10 @@ class PerceptionIndexComponent extends BaseComponent
             });
         })->when($this->frais_id, function ($q) {
             $q->where('frais_id', $this->frais_id);
+        })->when($this->frais_type, function ($q) {
+            $q->whereHas('frais', function ($q2) {
+                $q2->whereType($this->frais_type);
+            });
         });
 
 
@@ -114,22 +139,7 @@ class PerceptionIndexComponent extends BaseComponent
             ->layout(AdminLayout::class, ['title' => 'Liste de Perceptions']);
     }
 
-    public function getPerceptionsProperty(): Collection
-    {
-        $perceptionsRequest = Perception::when($this->classe_id, function ($q) {
-            $q->whereHas('inscription', function ($q) {
-                $q->where('classe_id', $this->classe_id);
-            });
-        })->when($this->frais_id, function ($q) {
-            $q->where('frais_id', $this->frais_id);
-        });
 
-        if ($this->frais_id or $this->classe_id) {
-            return $perceptionsRequest->latest()->get();
-        }
-
-        return $perceptionsRequest->latest()->limit(1000)->get();
-    }
 
     public function getSelectedPerception(Perception $perception): void
     {
@@ -154,6 +164,7 @@ class PerceptionIndexComponent extends BaseComponent
         return redirect()->route('finance.perceptions', [
             'classe_id' => $this->classe_id,
             'frais_id' => $this->frais_id,
+            'frais_type' => $this->frais_type,
         ]);
     }
 
