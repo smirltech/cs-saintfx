@@ -35,7 +35,7 @@ class EleveIndexComponent extends BaseComponent
       /*  if (Auth::user()->isParent())
             $this->eleves = Auth::user()->responsable?->eleves ?? [];
         else*/
-            $this->eleves = Eleve::orderBy('created_at','desc')->get();
+            $this->eleves = Eleve::orderBy('created_at','desc')->limit(50)->get();
        // $this->setFakeProfileImageUrl();
     }
 
