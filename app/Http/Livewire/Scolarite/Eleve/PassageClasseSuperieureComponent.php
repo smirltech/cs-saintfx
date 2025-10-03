@@ -73,6 +73,7 @@ class PassageClasseSuperieureComponent extends BaseComponent
     }
     public function render()
     {
+
         return view('livewire.scolarite.eleves.passage-classe-superieure-component', [
             'classes' => $this->classes,
             'eleve'   => $this->eleve,
