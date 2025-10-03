@@ -16,6 +16,7 @@ class PassageClasseSuperieureComponent extends BaseComponent
     public $eleve;
     public $nouvelleClasseId;
     public $annee;
+    public $eleve_id;
 
     public function mount($id = null): void
     {
@@ -24,16 +25,19 @@ class PassageClasseSuperieureComponent extends BaseComponent
         $this->classes = Classe::all();
     }
 
-    public function updatedSearch()
-    {
-        if ($this->search) {
-            $this->eleve = Eleve::where('nom', 'like', '%' . $this->search . '%')
-                ->orWhere('matricule', 'like', '%' . $this->search . '%')
-                ->first();
-        } else {
-            $this->eleve = null;
-        }
+    public function updatedEleveId(string $eleve_id){
+        $this->eleve = Eleve::find($eleve_id);
     }
+
+//    {
+//        if ($this->search) {
+//            $this->eleve = Eleve::where('nom', 'like', '%' . $this->search . '%')
+//                ->orWhere('matricule', 'like', '%' . $this->search . '%')
+//                ->first();
+//        } else {
+//            $this->eleve = null;
+//        }
+
 
 
     public function passerClasse()
@@ -56,7 +60,6 @@ class PassageClasseSuperieureComponent extends BaseComponent
             Inscription::updateOrCreate(
                 ['eleve_id' => $this->eleve->id, 'annee_id' => $annee->id],
                 [
-                    'id'        => (string) \Illuminate\Support\Str::ulid(),
                     'classe_id' => $this->nouvelleClasseId,
                     'status'    => 'approved',
                 ]

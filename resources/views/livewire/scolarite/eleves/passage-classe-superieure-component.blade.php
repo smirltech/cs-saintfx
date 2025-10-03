@@ -10,9 +10,6 @@
     @endif
 
 
-    <input type="search" class="w-full mb-3 p-2 border rounded"
-           placeholder="Rechercher par nom ou matricule"
-           wire:model="search">
 
 
     <form wire:submit.prevent="passerClasse" class="bg-white shadow rounded p-4">
@@ -21,6 +18,12 @@
 
             <div class="col-md-6 mb-3">
                 <div class="card border-light shadow-sm">
+
+                    <x-form::select
+                        wire:model="eleve_id"
+                        :options="$eleves"
+                        placeholder="Rechercher "/>
+
                     <div class="card-header bg-primary text-white font-weight-bold">
                         Informations de l'élève
                     </div>
