@@ -68,5 +68,9 @@ Route::prefix('scolarite')->middleware(['auth:web'])->as('scolarite.')->group(fu
     Route::redirect('inscriptions', 'eleves')->name('inscriptions');
     Route::get('responsables/{responsable}', Scolarite\Responsable\ResponsableShowComponent::class)->name('responsables.show');
     Route::get('responsables', Scolarite\Responsable\ResponsableIndexComponent::class)->name('responsables.index');
+
+
+
+
 });
 

@@ -317,6 +317,12 @@ return [
             'url' => 'scolarite/eleves',
         ],
         [
+            'text' => 'Reinscriptions',
+            'icon' => 'fa-solid fa-up-down',
+            'url' => '/scolarite/eleves/passer-classe-superieure',
+//            'can' => 'scolarite.view.*',
+        ],
+        [
             'text' => 'Présences',
             'icon' => 'fas fa-fw fa-user-check',
           //  'can' => 'presences.view.*',
@@ -349,6 +355,7 @@ return [
             'url' => 'scolarite/enseignants',
             'can' => 'enseignants.view.*',
         ],
+
 
         [
             'header' => 'FINANCE',

@@ -420,7 +420,15 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+
                                                     </div>
+                                                    <div class="text-end">
+                                                        <a href="{{ route('eleves.passer-classe-superieure', $eleve->id) }}"
+                                                           class="btn btn-primary mt-3 px-4">
+                                                            Nouvelle classe
+                                                        </a>
+                                                    </div>
+
                                                 @endforeach
 
                                                 <div>
