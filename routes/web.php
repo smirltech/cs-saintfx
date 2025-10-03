@@ -10,6 +10,7 @@ use App\Http\Livewire\Finance;
 use App\Http\Livewire\Notification\NoficationIndexComponent;
 use App\Http\Livewire\Profile\UserEditComponent;
 use App\Http\Livewire\Roles;
+use App\Http\Livewire\Scolarite\Eleve\PassageClasseSuperieureComponent;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -56,6 +57,12 @@ Route::middleware('auth:web')->group(function () {
     Route::get('notifications/get', [NotificationController::class, 'getNotificationsData'])->name('notifications.get');
     Route::get('notifications', NoficationIndexComponent::class)->name('notifications.index');
 });
+
+Route::get('/scolarite/eleves/passer-classe-superieure', PassageClasseSuperieureComponent::class)
+    ->name('eleves.passer-classe-superieure');
+
+Route::get('/scolarite/eleves/passer-classe-superieure/{id}', PassageClasseSuperieureComponent::class)
+    ->name('eleves.passer-classe-superieure');
 
 
 //Scolarite

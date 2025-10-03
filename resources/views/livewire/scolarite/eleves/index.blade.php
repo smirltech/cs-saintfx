@@ -8,7 +8,7 @@
             'SEXE',
             'AGE',
             'CLASSE',
-            'RESPONSABLE',
+//            'RESPONSABLE',
           /*  'STATUS',*/
             'DATE',
             ['Actions', 'no-export' => true, 'width' => 5],

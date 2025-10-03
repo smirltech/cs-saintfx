@@ -351,6 +351,13 @@ return [
         ],
 
         [
+            'text' => 'Reinscriptions',
+            'icon' => 'fa-solid fa-up-down',
+            'url' => '/scolarite/eleves/passer-classe-superieure',
+//            'can' => 'scolarite.view.*',
+        ],
+
+        [
             'header' => 'FINANCE',
             'can' => ['perceptions.view.*', 'perceptions.create', 'frais.view.*', 'depenses.view.*', 'depenses-types.view.*'],
         ],
