@@ -316,21 +316,21 @@ return [
             'can' => 'eleves.view.*',
             'url' => 'scolarite/eleves',
         ],
-        [
-            'text' => 'Reinscriptions',
-            'icon' => 'fa-solid fa-up-down',
-            'url' => '/scolarite/eleves/passer-classe-superieure',
-            'can' => 'scolarite.view.*',
-        ],
-
-
-
 //        [
 //            'text' => 'Reinscriptions',
 //            'icon' => 'fa-solid fa-up-down',
 //            'url' => '/scolarite/eleves/passer-classe-superieure',
-////            'can' => 'scolarite.view.*',
+//            'can' => 'scolarite.view.*',
 //        ],
+
+
+
+        [
+            'text' => 'Reinscriptions',
+            'icon' => 'fa-solid fa-up-down',
+            'url' => '/scolarite/eleves/passer-classe-superieure',
+//            'can' => 'scolarite.view.*',
+        ],
         [
             'text' => 'Présences',
             'icon' => 'fas fa-fw fa-user-check',
