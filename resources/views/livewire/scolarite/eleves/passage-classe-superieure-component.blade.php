@@ -66,13 +66,24 @@
                                 <option value="">-- Sélectionner --</option>
                                 @foreach($classes as $classe)
                                     <option value="{{ $classe->id }}"
-                                            @if(isset($eleve) && $classe->id == ($eleve->classe->id ?? null)) disabled @endif>
+                                            @if(isset($eleve))
+
+                                                @if($classe->id == ($eleve->classe->id ?? null))
+                                                    disabled
+                                            @elseif(($eleve->classe->niveau ?? 0) >= $eleve->classe->id )
+                                                disabled
+                                        @endif
+                                        @endif
+                                    >
                                         {{ $classe->code }}
                                         @if(isset($eleve) && $classe->id == ($eleve->classe->id ?? null))
                                             (Classe actuelle)
                                         @endif
                                     </option>
                                 @endforeach
+
+
+
                             </select>
                         </div>
                         <button type="submit" class="btn btn-success" {{ $eleve ? '' : 'disabled' }}>
@@ -87,3 +98,10 @@
     </form>
 
 </div>
+
+<script>
+    window.addEventListener('refresh-page', () => {
+        window.location.reload();
+    });
+</script>
+

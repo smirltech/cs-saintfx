@@ -17,6 +17,7 @@ class PassageClasseSuperieureComponent extends BaseComponent
     public $nouvelleClasseId;
     public $annee;
     public $eleve_id;
+    public $niveau;
 
     public function mount($id = null): void
     {
@@ -27,6 +28,7 @@ class PassageClasseSuperieureComponent extends BaseComponent
 
     public function updatedEleveId(string $eleve_id){
         $this->eleve = Eleve::find($eleve_id);
+
     }
 
 //    {
@@ -50,9 +52,10 @@ class PassageClasseSuperieureComponent extends BaseComponent
 
         $annee = Annee::where('encours', 1)->first();
         if (!$annee) {
-            session()->flash('error', "Aucune année scolaire active !");
+            session()->flash('error', "Aucune année scolaire active ");
             return;
         }
+
 
 
 
@@ -67,12 +70,16 @@ class PassageClasseSuperieureComponent extends BaseComponent
 
 
             session()->flash('success',  "L'élève {$this->eleve->nom} a été inscrit !");
-            $this->reset(['eleve', 'search', 'nouvelleClasseId']);
+
+            $this->dispatchBrowserEvent('refresh-page');
+
         } catch (\Illuminate\Database\QueryException $e) {
             session()->flash('error', "Erreur SQL : " . $e->getMessage());
         } catch (\Exception $e) {
             session()->flash('error', "Erreur : " . $e->getMessage());
         }
+
+
     }
     public function render()
     {
