@@ -1,4 +1,4 @@
-<x-modals::modal-form>
+<x-modals::form title="Create Tag">
     <div class="row">
         <div class="form-group col-md-12 col-sm-12">
             <x-form::input
@@ -13,5 +13,5 @@
             <button type="submit" class="btn btn-outline-primary mr-3">Soumettre</button>
         </div>
     </x-slot:footer>
-</x-modals::modal-form>
+</x-modals::form>
 
