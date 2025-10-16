@@ -18,6 +18,9 @@ class PassageClasseSuperieureComponent extends BaseComponent
     public $annee;
     public $eleve_id;
     public $niveau;
+    public $nouvelle_annee;
+    public $inscritCetteAnnee = false;
+    public $messageErreur = '';
 
     public function mount($id = null): void
     {
@@ -29,16 +32,28 @@ class PassageClasseSuperieureComponent extends BaseComponent
     public function updatedEleveId(string $eleve_id){
         $this->eleve = Eleve::find($eleve_id);
 
-    }
 
-//    {
-//        if ($this->search) {
-//            $this->eleve = Eleve::where('nom', 'like', '%' . $this->search . '%')
-//                ->orWhere('matricule', 'like', '%' . $this->search . '%')
-//                ->first();
-//        } else {
-//            $this->eleve = null;
-//        }
+        if($this->eleve){
+            $this->inscritCetteAnnee = Inscription::where('eleve_id', $this->eleve->id)
+                ->where('annee_id', Annee::encours()->id)
+                ->exists();
+
+            if($this->inscritCetteAnnee){
+                $this->messageErreur = "L'élève {$this->eleve->nom} est déjà inscrit pour l'année scolaire en cours (".Annee::encours()->nom.").";
+            } else {
+                $this->messageErreur = '';
+            }
+        }else{
+            $this->inscritCetteAnnee = false;
+            $this->messageErreur = '';
+        }
+
+
+
+
+
+
+    }
 
 
 
@@ -49,24 +64,17 @@ class PassageClasseSuperieureComponent extends BaseComponent
             return;
         }
 
-
-        $annee = Annee::where('encours', 1)->first();
-        if (!$annee) {
-            session()->flash('error', "Aucune année scolaire active ");
-            return;
-        }
-
-
-
+        $annee = Annee::encours();
 
         try {
-            Inscription::updateOrCreate(
-                ['eleve_id' => $this->eleve->id, 'annee_id' => $annee->id],
-                [
+            Inscription::where('eleve_id', $this->eleve->id)
+                ->create([
+                    'eleve_id' => $this->eleve->id,
                     'classe_id' => $this->nouvelleClasseId,
+                    'annee_id' => $annee->id,
                     'status'    => 'approved',
-                ]
-            );
+                ]);
+
 
 
             session()->flash('success',  "L'élève {$this->eleve->nom} a été inscrit !");
@@ -74,7 +82,12 @@ class PassageClasseSuperieureComponent extends BaseComponent
             $this->dispatchBrowserEvent('refresh-page');
 
         } catch (\Illuminate\Database\QueryException $e) {
+            if ($e->getCode() == 23000) {
+                session()->flash('error', "Cet élève est déjà inscrit dans cette classe pour l'année en cours !");
+                return;
+            }
             session()->flash('error', "Erreur SQL : " . $e->getMessage());
+
         } catch (\Exception $e) {
             session()->flash('error', "Erreur : " . $e->getMessage());
         }

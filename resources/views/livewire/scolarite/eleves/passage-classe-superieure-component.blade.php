@@ -24,6 +24,10 @@
                         :options="$eleves"
                         placeholder="Rechercher "/>
 
+                    @if($messageErreur)
+                        <div class="alert alert-danger mt-2">{{ $messageErreur }}</div>
+                    @endif
+
                     <div class="card-header bg-primary text-white font-weight-bold">
                         Informations de l'élève
                     </div>
@@ -49,6 +53,11 @@
                             <label class="form-label">Classe actuelle</label>
                             <input type="text" class="form-control" value="{{ $eleve->classe->nom ?? '' }}" readonly>
                         </div>
+                        <div class="mb-3">
+                            <label class="form-label">Année Scolaire</label>
+                            <input type="text" class="form-control" value="{{ $eleve->classe->annee_id ?? '' }}" readonly>
+
+                        </div>
 
                     </div>
                 </div>
@@ -61,34 +70,27 @@
                     </div>
                     <div class="card-body">
                         <div class="mb-3">
-                            <label class="form-label">Choisir la classe</label>
-                            <select class="form-control" wire:model="nouvelleClasseId" {{ $eleve ? '' : 'disabled' }}>
+                            <label class="form-label">Choisir la classe pour l'année scolaire {{ \App\Models\Annee::encours()->start_year .'-' . \App\Models\Annee::encours()->end_year }}</label>
+                            <select class="form-control" wire:model="nouvelleClasseId"
+                                {{ $eleve ? ($inscritCetteAnnee ? 'disabled' : '') : 'disabled' }}>
                                 <option value="">-- Sélectionner --</option>
                                 @foreach($classes as $classe)
                                     <option value="{{ $classe->id }}"
-                                            @if(isset($eleve))
-
-                                                @if($classe->id == ($eleve->classe->id ?? null))
-                                                    disabled
-                                            @elseif(($eleve->classe->niveau ?? 0) >= $eleve->classe->id )
-                                                disabled
-                                        @endif
-                                        @endif
+                                            @if(isset($eleve) && $classe->id == ($eleve->classe->id ?? null)) disabled @endif
                                     >
                                         {{ $classe->code }}
-                                        @if(isset($eleve) && $classe->id == ($eleve->classe->id ?? null))
-                                            (Classe actuelle)
-                                        @endif
+                                        @if(isset($eleve) && $classe->id == ($eleve->classe->id ?? null)) (Classe actuelle) @endif
                                     </option>
                                 @endforeach
-
-
-
                             </select>
+                            <br>
+
+                            <button type="submit" class="btn btn-success"
+                                {{ $eleve ? ($inscritCetteAnnee ? 'disabled' : '') : 'disabled' }}>
+                                Soumettre
+                            </button>
+
                         </div>
-                        <button type="submit" class="btn btn-success" {{ $eleve ? '' : 'disabled' }}>
-                            Soumettre
-                        </button>
                     </div>
                 </div>
             </div>

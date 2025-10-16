@@ -36,7 +36,12 @@
                         <div class="card-body m-b-40">
                             <div class="row mb-3">
                                 <div class="col-1">
-                                    <span class="input-group-text rounded">{{count($inscriptions)}}</span>
+                                    @php
+                                        $annee = \App\Models\Annee::encours();
+                                        $nbEleves = $inscriptions->where('annee_id', \App\Models\Annee::encours()->id);
+
+                                        @endphp
+                                    <span class="input-group-text rounded">{{count($nbEleves)}}</span>
                                 </div>
                                 <div class="col-5">
                                     <x-form::select
@@ -75,30 +80,33 @@
                                     <tbody>
 
                                     @foreach($inscriptions as $i=>$inscrit)
-                                        <tr>
-                                            <td>{{$i+1}}</td>
-                                            <td>{{$inscrit->matricule}}</td>
-                                            <td>{{$inscrit->fullName}}</td>
-                                            <td>{{$inscrit->categorie?->label()}}</td>
-                                            <td>{{$inscrit->classe->code}}</td>
-                                            <td>
+                                        @if($inscrit->annee->encours)
+                                            <tr>
+                                                <td>{{$i+1}}</td>
+                                                <td>{{$inscrit->matricule}}</td>
+                                                <td>{{$inscrit->fullName}}</td>
+                                                <td>{{$inscrit->categorie?->label()}}</td>
+                                                <td>{{$inscrit->classe->code}}</td>
+                                                <td>
 
-                                                <div class="d-flex float-right">
-                                                    <button
-                                                        onclick="showModal('finance.perception.perception-create-component','{{$inscrit->id}}')"
-                                                        title="Payer facture"
-                                                        class="btn btn-primary btn-sm m-1">
-                                                        <i class="fas fa-hand-holding-dollar"></i>
-                                                    </button>
-                                                    <button wire:click="getSelectedInscription('{{$inscrit->id}}')"
-                                                            title="Voir élève"
-                                                            class="btn btn-info btn-sm m-1">
-                                                        <i class="fas fa-eye"></i>
-                                                    </button>
-                                                </div>
-                                            </td>
+                                                    <div class="d-flex float-right">
+                                                        <button
+                                                            onclick="showModal('finance.perception.perception-create-component','{{$inscrit->id}}')"
+                                                            title="Payer facture"
+                                                            class="btn btn-primary btn-sm m-1">
+                                                            <i class="fas fa-hand-holding-dollar"></i>
+                                                        </button>
+                                                        <button wire:click="getSelectedInscription('{{$inscrit->id}}')"
+                                                                title="Voir élève"
+                                                                class="btn btn-info btn-sm m-1">
+                                                            <i class="fas fa-eye"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
 
-                                        </tr>
+                                            </tr>
+                                        @endif
+
                                     @endforeach
 
                                     </tbody>
