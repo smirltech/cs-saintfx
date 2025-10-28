@@ -29,7 +29,7 @@ class DepenseShowComponent extends BaseComponent
     {
         $this->depense = $depense;
         $this->depense_statuses = $depense->statuses;
-        $this->types = DepenseType::select('id', 'name')->get();
+        $this->types = DepenseType::all()->toArray();
     }
 
     // submit
