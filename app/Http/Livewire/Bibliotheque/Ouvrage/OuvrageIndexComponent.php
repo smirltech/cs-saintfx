@@ -61,13 +61,17 @@ class OuvrageIndexComponent extends BaseComponent
         }
 
         try {
-            $this->selectedOuvrage->delete();
+            // ✅ APPEL ICI
+            $this->selectedOuvrage->deleteWithDependencies();
+
             $this->alert('success', "Ouvrage supprimé avec succès !");
             $this->selectedOuvrage = null;
             $this->loadData();
             $this->onModalClosed('delete-ouvrage-modal');
-        } catch (Exception $e) {
-            $this->alert('warning', "Cet ouvrage n'a pas été supprimé, il est utilisé ailleurs !");
+
+        } catch (\Throwable $e) {
+//            $this->alert('warning', "Impossible de supprimer l’ouvrage.");
+            $this->alert('error', $e->getMessage());
         }
     }
     // Lectures

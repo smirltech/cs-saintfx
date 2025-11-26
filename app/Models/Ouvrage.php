@@ -146,4 +146,14 @@ class Ouvrage extends Model
 
         return null;
     }
+
+    public function deleteWithDependencies(): void
+    {
+        $this->ouvrageAuteurs()->delete();
+        $this->lectures()->delete();
+        $this->deleteAllMedia();
+        $this->tags()->detach();
+        $this->delete();
+    }
+
 }
