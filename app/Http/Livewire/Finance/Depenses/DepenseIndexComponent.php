@@ -125,7 +125,7 @@ class DepenseIndexComponent extends BaseComponent
     public function loadData()
     {
         $this->types = DepenseType::orderBy('nom')->get();
-        $this->depenses = Depense::orderBy('created_at', 'DESC')->take(100)->get();
+        $this->depenses = Depense::orderBy('created_at', 'DESC')->take(100 )->get();
     }
 
 }

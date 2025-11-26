@@ -109,6 +109,19 @@
                                                       </button>
                                                   @endcan--}}
 
+                                                        @can('ouvrages.delete', $ouvrage)
+                                                            <button wire:click="getSelectedOuvrage('{{ $ouvrage->id }}')"
+                                                                    type="button"
+                                                                    class="btn btn-outline-danger ml-2"
+                                                                    data-toggle="modal"
+                                                                    data-target="#delete-ouvrage-modal">
+                                                                <span class="fa fa-trash"></span>
+                                                            </button>
+                                                        @endcan
+
+
+
+
                                                 </div>
                                             </td>
                                         </tr>

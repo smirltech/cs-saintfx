@@ -22,6 +22,8 @@ class OuvrageIndexComponent extends BaseComponent
     use LivewireAlert;
 
     private $ouvrages = [];
+    public $selectedOuvrage;
+
 
     /**
      * @throws AuthorizationException
@@ -47,25 +49,27 @@ class OuvrageIndexComponent extends BaseComponent
 
     public function getSelectedOuvrage(Ouvrage $ouvrage): void
     {
-        $this->ouvrage = $ouvrage;
+        $this->selectedOuvrage = Ouvrage::find($ouvrage->id);
     }
+
 
     public function deleteOuvrage(): void
     {
-        try {
-            $this->ouvrage->delete();
-            $this->loadData();
-            $this->alert('success', "Ouvrage supprimé avec succès !");
-
-        } catch (Exception $e) {
-            $this->alert('warning', "Cet ouvrage n'a pas été supprimé, il y a des ouvrages attachés !");
+        if (!$this->selectedOuvrage) {
+            $this->alert('error', "Aucun ouvrage sélectionné !");
+            return;
         }
 
-        $this->onModalClosed('delete-ouvrage-modal');
-
+        try {
+            $this->selectedOuvrage->delete();
+            $this->alert('success', "Ouvrage supprimé avec succès !");
+            $this->selectedOuvrage = null;
+            $this->loadData();
+            $this->onModalClosed('delete-ouvrage-modal');
+        } catch (Exception $e) {
+            $this->alert('warning', "Cet ouvrage n'a pas été supprimé, il est utilisé ailleurs !");
+        }
     }
-
-
     // Lectures
 
     public function addLecture($ouvrage_id): void
@@ -83,5 +87,6 @@ class OuvrageIndexComponent extends BaseComponent
         }
 
     }
+
 
 }
