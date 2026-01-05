@@ -433,16 +433,16 @@ return [
         ],
 
 
-        [
-            'header' => 'LOGISTIQUE',
-            'can' => ['consommables.view.*', 'operations.view.*', 'units.view.*', 'materiels.view.*', 'materiel-categories.view.*', 'mouvements.view.*', 'cessions.view.*'],
-        ],
-        [
-            'text' => 'Consommables',
-            'icon' => 'fas fa-fw fa-screwdriver-wrench',
-            'url' => 'logistique/consommables',
-            'can' => 'consommables.view.*',
-        ],
+//        [
+//            'header' => 'LOGISTIQUE',
+//            'can' => ['consommables.view.*', 'operations.view.*', 'units.view.*', 'materiels.view.*', 'materiel-categories.view.*', 'mouvements.view.*', 'cessions.view.*'],
+//        ],
+//        [
+//            'text' => 'Consommables',
+//            'icon' => 'fas fa-fw fa-screwdriver-wrench',
+//            'url' => 'logistique/consommables',
+//            'can' => 'consommables.view.*',
+//        ],
         /* [
              'text' => 'Les opérations',
              'icon' => 'fas fa-fw fa-layer-group',
@@ -450,30 +450,30 @@ return [
              'url' => '#',
              'can' => 'operations.view.*',
          ],*/
-        [
-            'text' => 'Unités de mesure',
-            'icon' => 'fas fa-fw fa-ruler-combined',
-            'can' => 'units.view.*',
-            'url' => 'logistique/units',
-        ],
-        [
-            'text' => 'Materiels',
-            'icon' => 'fas fa-fw fa-wrench',
-            'url' => 'logistique/materiels',
-            'can' => 'materiels.view.*',
-        ],
-        [
-            'text' => 'Categories des materiels',
-            'icon' => 'fas fa-fw fa-layer-group',
-            'url' => 'logistique/categories',
-            'can' => 'materiel-categories.view.*',
-        ],
-        [
-            'text' => 'Mouvements des materiels',
-            'icon' => 'fas fa-fw fa-people-carry-box',
-            'url' => 'logistique/mouvements',
-            'can' => 'mouvements.view.*',
-        ],
+//        [
+//            'text' => 'Unités de mesure',
+//            'icon' => 'fas fa-fw fa-ruler-combined',
+//            'can' => 'units.view.*',
+//            'url' => 'logistique/units',
+//        ],
+//        [
+//            'text' => 'Materiels',
+//            'icon' => 'fas fa-fw fa-wrench',
+//            'url' => 'logistique/materiels',
+//            'can' => 'materiels.view.*',
+//        ],
+//        [
+//            'text' => 'Categories des materiels',
+//            'icon' => 'fas fa-fw fa-layer-group',
+//            'url' => 'logistique/categories',
+//            'can' => 'materiel-categories.view.*',
+//        ],
+//        [
+//            'text' => 'Mouvements des materiels',
+//            'icon' => 'fas fa-fw fa-people-carry-box',
+//            'url' => 'logistique/mouvements',
+//            'can' => 'mouvements.view.*',
+//        ],
         /*[
             'text' => 'Cessions des materiels',
             'icon' => 'fas fa-fw fa-hand-holding-hand',
@@ -482,34 +482,34 @@ return [
             'can' => 'cessions.view.*',
         ],*/
 
-        [
-            'header' => 'BIBLIOTHÈQUE',
-            'can' => ['ouvrages.view.*', 'auteurs.view.*', 'tags.view.*', 'rayons.view.*'],
-        ],
-        [
-            'text' => 'Ouvrages',
-            'url' => 'bibliotheque/ouvrages',
-            'icon' => 'fas fa-fw fa-book',
-            'can' => 'ouvrages.view.*',
-        ],
-        [
-            'text' => 'Rayons',
-            'url' => 'bibliotheque/rayons',
-            'icon' => 'fas fa-fw fa-layer-group',
-            'can' => 'rayons.view.*',
-        ],
-        [
-            'text' => 'Auteurs',
-            'url' => 'bibliotheque/auteurs',
-            'icon' => 'fas fa-fw fa-book-open-reader',
-            'can' => 'auteurs.view.*',
-        ],
-        [
-            'text' => 'Étiquettes',
-            'url' => 'bibliotheque/etiquettes',
-            'icon' => 'fas fa-fw fa-tags',
-            'can' => 'tags.view.*',
-        ],
+//        [
+//            'header' => 'BIBLIOTHÈQUE',
+//            'can' => ['ouvrages.view.*', 'auteurs.view.*', 'tags.view.*', 'rayons.view.*'],
+//        ],
+//        [
+//            'text' => 'Ouvrages',
+//            'url' => 'bibliotheque/ouvrages',
+//            'icon' => 'fas fa-fw fa-book',
+//            'can' => 'ouvrages.view.*',
+//        ],
+//        [
+//            'text' => 'Rayons',
+//            'url' => 'bibliotheque/rayons',
+//            'icon' => 'fas fa-fw fa-layer-group',
+//            'can' => 'rayons.view.*',
+//        ],
+//        [
+//            'text' => 'Auteurs',
+//            'url' => 'bibliotheque/auteurs',
+//            'icon' => 'fas fa-fw fa-book-open-reader',
+//            'can' => 'auteurs.view.*',
+//        ],
+//        [
+//            'text' => 'Étiquettes',
+//            'url' => 'bibliotheque/etiquettes',
+//            'icon' => 'fas fa-fw fa-tags',
+//            'can' => 'tags.view.*',
+//        ],
 
         [
             'header' => 'PROGRAMME',

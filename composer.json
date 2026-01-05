@@ -40,7 +40,7 @@
         "laravel/pint": "^1.6",
         "mockery/mockery": "^1.5.1",
         "nunomaduro/collision": "^7.0",
-        "opcodesio/log-viewer": "^2.0.0",
+        "opcodesio/log-viewer": "^3.0",
         "pestphp/pest-plugin-faker": "^2.0",
         "pestphp/pest-plugin-laravel": "^2.0",
         "pestphp/pest-plugin-livewire": "^2.0",
